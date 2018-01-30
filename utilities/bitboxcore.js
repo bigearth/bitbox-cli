@@ -64,7 +64,7 @@ class BITBOXCore {
     return `addwitnessaddress called with ${address}`;
   }
 
-  static backupwallet(destination: string): string {
+  static backupWallet(destination: string): string {
     // The backupwallet RPC safely copies wallet.dat to the specified file, which can be a directory or a path with filename.
 
     // Parameter #1—destination directory or filename
@@ -92,10 +92,23 @@ class BITBOXCore {
     return `clearbanned called`;
   }
 
-  static createmultisig(): string {
-    return `createmultisig called with`;
-  }
+  static createmultisig(required: number, address: Array<string>|string): string {
+    // The createmultisig RPC creates a P2SH multi-signature address.
 
+    // Parameter #1—the number of signatures required
+    // The minimum (m) number of signatures required to spend this m-of-n multisig script
+
+    // Parameter #2—the full public keys, or addresses for known public keys
+
+    // An array of strings with each string being a public key or address
+    // or
+    // A public key against which signatures will be checked. If wallet support is enabled, this may be a P2PKH address belonging to the wallet—the corresponding public key will be substituted.
+    // There must be at least as many keys as specified by the Required parameter, and there may be more keys
+
+    // Result—P2SH address and hex-encoded redeem script
+
+    return `createmultisig called with ${required} and ${address}`;
+  }
 
   static createrawtransaction(): string {
     return `createrawtransaction called with`;

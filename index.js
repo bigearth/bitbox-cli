@@ -46,8 +46,9 @@ program
 
     console.log(chalk.green(`Creating bitbox.js configuration file`));
 
-    touch('./bitbox.js');
-    fs.writeFileSync( 'bitbox.js', `module.exports = {
+    mkdirp(`./${title}`, (err) => {});
+    touch(`./${title}/bitbox.js`);
+    fs.writeFileSync( `./${title}/bitbox.js`, `module.exports = {
   networks: {
     development: {
       host: "localhost",
