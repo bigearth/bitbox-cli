@@ -9,7 +9,7 @@ let fs = require('fs');
 let touch = require("touch");
 let emoji = require('node-emoji');
 let repl = require("repl");
-let BITBOXCore = require('./utilities/bitboxcore.js');
+let BITBOXCore = require('./lib/bitboxcore.js');
 
 // let request = require('superagent');
 // let co = require('co');

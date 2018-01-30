@@ -1,423 +1,488 @@
+// @flow
 class BITBOXCore {
 
-  static abandonTransaction() {
-    console.log('abandontransaction called');
+  static abandonTransaction(txid: string): string {
+    // Marks an in-wallet transaction and all its in-wallet descendants as abandoned. This allows their inputs to be respent.
+
+    // Parameter #1—a transaction identifier (TXID)
+    // txid: The TXID of the transaction that you want to abandon. The TXID must be encoded as hex in RPC byte order
+
+    // Result—null on success
+    // JSON null when the transaction and all descendants were abandoned
+
+    return `abandontransaction called with ${txid}`;
   }
+
+  static addmultisigaddress(required: number, name: Array<string>|string, account: ?string): string{
+    // Adds a P2SH multisig address to the wallet.
+
+    // Parameter #1—the number of signatures required
+    // The minimum (m) number of signatures required to spend this m-of-n multisig script
 
-  static addmultisigaddress() {
-    console.log('addmultisigaddress called');
+    // Parameter #2—the full public keys, or addresses for known public keys
+    // An array of strings with each string being a public key or address
+    // or
+    // A public key against which signatures will be checked. Alternatively, this may be a P2PKH address belonging to the wallet—the corresponding public key will be substituted.
+    // There must be at least as many keys as specified by the Required parameter, and there may be more keys
+
+    // Parameter #3—the account name
+    // The account name in which the address should be stored. Default is the default account, “” (an empty string)
+
+    return `addmultisigaddress called with ${required}, ${name} and ${account}`;
   }
+
+  static addnode(node: string, command: string): string{
+    // Attempts to add or remove a node from the addnode list, or to try a connection to a node once.
+
+    // Parameter #1—hostname/IP address and port of node to add or remove
+    // The node to add as a string in the form of <IP address>:<port>. The IP address may be a hostname resolvable through DNS, an IPv4 address, an IPv4-as-IPv6 address, or an IPv6 address
+
+    // Parameter #2—whether to add or remove the node, or to try only once to connect
+
+    // What to do with the IP address above. Options are:
+    // • add to add a node to the addnode list. Up to 8 nodes can be added additional to the default 8 nodes. Not limited by -maxconnections
+    // • remove to remove a node from the list. If currently connected, this will disconnect immediately
+    // • onetry to immediately attempt connection to the node even if the outgoing connection slots are full; this will only attempt the connection once
 
-  static addnode() {
-    console.log('addnode called');
+    // Result—null plus error on failed remove
+    // Always JSON null whether the node was added, removed, tried-and-connected, or tried-and-not-connected.
+    // The JSON-RPC error field will be set only if you try removing a node that is not on the addnodes list
+
+    return `addnode called with ${node} and ${command}`;
   }
+
+  static addwitnessaddress(address: string): string {
+
+    // Adds a witness address for a script (with pubkey or redeem script known).
 
-  static addwitnessaddress() {
-    console.log('addwitnessaddress called');
+    // Parameter #1—the witness address
+    // A witness address that gets added to a script. Needs to be in the wallet and uncompressed
+
+    // Result—the witness script
+    // The value of the new address (P2SH of witness script)
+
+    return `addwitnessaddress called with ${address}`;
   }
-  static backupwallet() {
-    console.log('backupwallet called');
+
+  static backupwallet(destination: string): string {
+    // The backupwallet RPC safely copies wallet.dat to the specified file, which can be a directory or a path with filename.
+
+    // Parameter #1—destination directory or filename
+    // A filename or directory name. If a filename, it will be created or overwritten.
+    // If a directory name, the file wallet.dat will be created or overwritten within that directory
+
+    // Result—null or error
+    // Always null whether success or failure. The JSON-RPC error and message fields will be set if a failure occurred
+
+    return `backupwallet called with ${destination}`;
   }
 
-  static bumpfee() {
-    console.log('bumpfee called');
+  static bumpfee(): string {
+    return `bumpfee called with`;
   }
+
+  static clearbanned(): string {
+    //The clearbanned RPC clears list of banned nodes.
+
+    // Parameters: none
+
+    // Result—null on success
+    // JSON null when the list was cleared
 
-  static clearbanned() {
-    console.log('clearbanned called');
+    return `clearbanned called`;
   }
 
-  static createmultisig() {
-    console.log('createmultisig called');
+  static createmultisig(): string {
+    return `createmultisig called with`;
   }
 
 
-  static createrawtransaction() {
-    console.log('createrawtransaction called');
+  static createrawtransaction(): string {
+    return `createrawtransaction called with`;
   }
 
-  static decoderawtransaction() {
-    console.log('decoderawtransaction called');
+  static decoderawtransaction(): string {
+    return `decoderawtransaction called with`;
   }
 
-  static decodescript() {
-    console.log('decodescript called');
+  static decodescript(): string {
+    return `decodescript called with`;
   }
 
-  static disconnectnode() {
-    console.log('disconnectnode called');
+  static disconnectnode(): string {
+    return `disconnectnode called with`;
   }
 
-  static dumpprivkey() {
-    console.log('dumpprivkey called');
+  static dumpprivkey(): string {
+    return `dumpprivkey called with`;
   }
 
-  static dumpwallet() {
-    console.log('dumpwallet called');
+  static dumpwallet(): string {
+    return `dumpwallet called with`;
   }
 
-  static encryptwallet() {
-    console.log('encryptwallet called');
+  static encryptwallet(): string {
+    return `encryptwallet called with`;
   }
 
-  static estimatefee() {
-    console.log('estimatefee called');
+  static estimatefee(): string {
+    return `estimatefee called with`;
   }
 
-  static estimatepriority() {
-    console.log('estimatepriority called');
+  static estimatepriority(): string {
+    return `estimatepriority called with`;
   }
 
-  static fundrawtransaction() {
-    console.log('fundrawtransaction called');
+  static fundrawtransaction(): string {
+    return `fundrawtransaction called with`;
   }
 
-  static generate() {
-    console.log('generate called');
+  static generate(): string {
+    return `generate called with`;
   }
 
-  static generatetoaddress() {
-    console.log('generatetoaddress called');
+  static generatetoaddress(): string {
+    return `generatetoaddress called with`;
   }
 
-  static getaccountaddress() {
-    console.log('getaccountaddress called');
+  static getaccountaddress(): string {
+    return `getaccountaddress called with`;
   }
 
-  static getaccount() {
-    console.log('getaccount called');
+  static getaccount(): string {
+    return `getaccount called with`;
   }
 
-  static getaddednodeinfo() {
-    console.log('getaddednodeinfo called');
+  static getaddednodeinfo(): string {
+    return `getaddednodeinfo called with`;
   }
 
-  static getaddressesbyaccount() {
-    console.log('getaddressesbyaccount called');
+  static getaddressesbyaccount(): string {
+    return `getaddressesbyaccount called with`;
   }
 
-  static getbalance() {
-    console.log('getbalance called');
+  static getbalance(): string {
+    return `getbalance called with`;
   }
 
-  static getbestblockhash() {
-    console.log('getbestblockhash called');
+  static getbestblockhash(): string {
+    return `getbestblockhash called with`;
   }
 
-  static getblock() {
-    console.log('getblock called');
+  static getblock(): string {
+    return `getblock called with`;
   }
 
-  static getblockchaininfo() {
-    console.log('getblockchaininfo called');
+  static getblockchaininfo(): string {
+    return `getblockchaininfo called with`;
   }
 
-  static getblockcount() {
-    console.log('getblockcount called');
+  static getblockcount(): string {
+    return `getblockcount called with`;
   }
 
-  static getblockhash() {
-    console.log('getblockhash called');
+  static getblockhash(): string {
+    return `getblockhash called with`;
   }
 
-  static getblockheader() {
-    console.log('getblockheader called');
+  static getblockheader(): string {
+    return `getblockheader called with`;
   }
 
-  static getblocktemplate() {
-    console.log('getblocktemplate called');
+  static getblocktemplate(): string {
+    return `getblocktemplate called with`;
   }
 
-  static getchaintips() {
-    console.log('getchaintips called');
+  static getchaintips(): string {
+    return `getchaintips called with`;
   }
 
-  static getconnectioncount() {
-    console.log('getconnectioncount called');
+  static getconnectioncount(): string {
+    return `getconnectioncount called with`;
   }
 
-  static getdifficulty() {
-    console.log('getdifficulty called');
+  static getdifficulty(): string {
+    return `getdifficulty called with`;
   }
 
-  static getgenerate() {
-    console.log('getgenerate called');
+  static getgenerate(): string {
+    return `getgenerate called with`;
   }
 
-  static gethashespersec() {
-    console.log('gethashespersec called');
+  static gethashespersec(): string {
+    return `gethashespersec called with`;
   }
 
-  static getinfo() {
-    console.log('getinfo called');
+  static getinfo(): string {
+    return `getinfo called with`;
   }
 
-  static getmemoryinfo() {
-    console.log('getmemoryinfo called');
+  static getmemoryinfo(): string {
+    return `getmemoryinfo called with`;
   }
 
-  static getmempoolancestors() {
-    console.log('getmempoolancestors called');
+  static getmempoolancestors(): string {
+    return `getmempoolancestors called with`;
   }
 
-  static getmempooldescendants() {
-    console.log('getmempooldescendants called');
+  static getmempooldescendants(): string {
+    return `getmempooldescendants called with`;
   }
 
-  static getmempoolentry() {
-    console.log('getmempoolentry called');
+  static getmempoolentry(): string {
+    return `getmempoolentry called with`;
   }
 
-  static getmempoolinfo() {
-    console.log('getmempoolinfo called');
+  static getmempoolinfo(): string {
+    return `getmempoolinfo called with`;
   }
 
-  static getmininginfo() {
-    console.log('getmininginfo called');
+  static getmininginfo(): string {
+    return `getmininginfo called with`;
   }
 
-  static getnettotals() {
-    console.log('getnettotals called');
+  static getnettotals(): string {
+    return `getnettotals called with`;
   }
 
-  static getnetworkhashps() {
-    console.log('getnetworkhashps called');
+  static getnetworkhashps(): string {
+    return `getnetworkhashps called with`;
   }
 
-  static getnetworkinfo() {
-    console.log('getnetworkinfo called');
+  static getnetworkinfo(): string {
+    return `getnetworkinfo called with`;
   }
 
-  static getnewaddress() {
-    console.log('getnewaddress called');
+  static getnewaddress(): string {
+    return `getnewaddress called with`;
   }
 
-  static getpeerinfo() {
-    console.log('getpeerinfo called');
+  static getpeerinfo(): string {
+    return `getpeerinfo called with`;
   }
 
-  static getrawchangeaddress() {
-    console.log('getrawchangeaddress called');
+  static getrawchangeaddress(): string {
+    return `getrawchangeaddress called with`;
   }
 
-  static getrawmempool() {
-    console.log('getrawmempool called');
+  static getrawmempool(): string {
+    return `getrawmempool called with`;
   }
 
-  static getrawtransaction() {
-    console.log('getrawtransaction called');
+  static getrawtransaction(): string {
+    return `getrawtransaction called with`;
   }
 
-  static getreceivedbyaccount() {
-    console.log('getreceivedbyaccount called');
+  static getreceivedbyaccount(): string {
+    return `getreceivedbyaccount called with`;
   }
 
-  static getreceivedbyaddress() {
-    console.log('getreceivedbyaddress called');
+  static getreceivedbyaddress(): string {
+    return `getreceivedbyaddress called with`;
   }
 
-  static gettransaction() {
-    console.log('gettransaction called');
+  static gettransaction(): string {
+    return `gettransaction called with`;
   }
 
-  static gettxout() {
-    console.log('gettxout called');
+  static gettxout(): string {
+    return `gettxout called with`;
   }
 
-  static gettxoutproof() {
-    console.log('gettxoutproof called');
+  static gettxoutproof(): string {
+    return `gettxoutproof called with`;
   }
 
-  static gettxoutsetinfo() {
-    console.log('gettxoutsetinfo called');
+  static gettxoutsetinfo(): string {
+    return `gettxoutsetinfo called with`;
   }
 
-  static getunconfirmedbalance() {
-    console.log('getunconfirmedbalance called');
+  static getunconfirmedbalance(): string {
+    return `getunconfirmedbalance called with`;
   }
 
-  static getwalletinfo() {
-    console.log('getwalletinfo called');
+  static getwalletinfo(): string {
+    return `getwalletinfo called with`;
   }
 
-  static getwork() {
-    console.log('getwork called');
+  static getwork(): string {
+    return `getwork called with`;
   }
 
-  static help() {
-    console.log('help called');
+  static help(): string {
+    return `help called with`;
   }
 
-  static importaddress() {
-    console.log('importaddress called');
+  static importaddress(): string {
+    return `importaddress called with`;
   }
 
-  static importmulti() {
-    console.log('importmulti called');
+  static importmulti(): string {
+    return `importmulti called with`;
   }
 
-  static importprivkey() {
-    console.log('importprivkey called');
+  static importprivkey(): string {
+    return `importprivkey called with`;
   }
 
-  static importprunedfunds() {
-    console.log('importprunedfunds called');
+  static importprunedfunds(): string {
+    return `importprunedfunds called with`;
   }
 
-  static importwallet() {
-    console.log('importwallet called');
+  static importwallet(): string {
+    return `importwallet called with`;
   }
 
-  static keypoolrefill() {
-    console.log('keypoolrefill called');
+  static keypoolrefill(): string {
+    return `keypoolrefill called with`;
   }
 
-  static listaccounts() {
-    console.log('listaccounts called');
+  static listaccounts(): string {
+    return `listaccounts called with`;
   }
 
-  static listaddressgroupings() {
-    console.log('listaddressgroupings called');
+  static listaddressgroupings(): string {
+    return `listaddressgroupings called with`;
   }
 
-  static listbanned() {
-    console.log('listbanned called');
+  static listbanned(): string {
+    return `listbanned called with`;
   }
 
-  static listlockunspent() {
-    console.log('listlockunspent called');
+  static listlockunspent(): string {
+    return `listlockunspent called with`;
   }
 
-  static listreceivedbyaccount() {
-    console.log('listreceivedbyaccount called');
+  static listreceivedbyaccount(): string {
+    return `listreceivedbyaccount called with`;
   }
 
-  static listreceivedbyaddress() {
-    console.log('listreceivedbyaddress called');
+  static listreceivedbyaddress(): string {
+    return `listreceivedbyaddress called with`;
   }
 
-  static listsinceblock() {
-    console.log('listsinceblock called');
+  static listsinceblock(): string {
+    return `listsinceblock called with`;
   }
 
-  static listtransactions() {
-    console.log('listtransactions called');
+  static listtransactions(): string {
+    return `listtransactions called with`;
   }
 
-  static listunspent() {
-    console.log('listunspent called');
+  static listunspent(): string {
+    return `listunspent called with`;
   }
 
-  static lockunspent() {
-    console.log('lockunspent called');
+  static lockunspent(): string {
+    return `lockunspent called with`;
   }
 
-  static move() {
-    console.log('move called');
+  static move(): string {
+    return `move called with`;
   }
 
-  static pingRpc() {
-    console.log('ping-rpc called');
+  static pingRpc(): string {
+    return `ping-rpc called with`;
   }
 
-  static preciousblock() {
-    console.log('preciousblock called');
+  static preciousblock(): string {
+    return `preciousblock called with`;
   }
 
-  static prioritisetransaction() {
-    console.log('prioritisetransaction called');
+  static prioritisetransaction(): string {
+    return `prioritisetransaction called with`;
   }
 
-  static pruneblockchain() {
-    console.log('pruneblockchain called');
+  static pruneblockchain(): string {
+    return `pruneblockchain called with`;
   }
 
-  static removeprunedfunds() {
-    console.log('removeprunedfunds called');
+  static removeprunedfunds(): string {
+    return `removeprunedfunds called with`;
   }
 
-  static sendfrom() {
-    console.log('sendfrom called');
+  static sendfrom(): string {
+    return `sendfrom called with`;
   }
 
-  static sendmany() {
-    console.log('sendmany called');
+  static sendmany(): string {
+    return `sendmany called with`;
   }
 
-  static sendrawtransaction() {
-    console.log('sendrawtransaction called');
+  static sendrawtransaction(): string {
+    return `sendrawtransaction called with`;
   }
 
-  static sendtoaddress() {
-    console.log('sendtoaddress called');
+  static sendtoaddress(): string {
+    return `sendtoaddress called with`;
   }
 
-  static setaccount() {
-    console.log('setaccount called');
+  static setaccount(): string {
+    return `setaccount called with`;
   }
 
-  static setban() {
-    console.log('setban called');
+  static setban(): string {
+    return `setban called with`;
   }
 
-  static setgenerate() {
-    console.log('setgenerate called');
+  static setgenerate(): string {
+    return `setgenerate called with`;
   }
 
-  static setnetworkactive() {
-    console.log('setnetworkactive called');
+  static setnetworkactive(): string {
+    return `setnetworkactive called with`;
   }
 
-  static settxfee() {
-    console.log('settxfee called');
+  static settxfee(): string {
+    return `settxfee called with`;
   }
 
-  static signmessage() {
-    console.log('signmessage called');
+  static signmessage(): string {
+    return `signmessage called with`;
   }
 
-  static signmessagewithprivkey() {
-    console.log('signmessagewithprivkey called');
+  static signmessagewithprivkey(): string {
+    return `signmessagewithprivkey called with`;
   }
 
-  static signrawtransaction() {
-    console.log('signrawtransaction called');
+  static signrawtransaction(): string {
+    return `signrawtransaction called with`;
   }
 
-  static stop() {
-    console.log('stop called');
+  static stop(): string {
+    return `stop called with`;
   }
 
-  static submitblock() {
-    console.log('submitblock called');
+  static submitblock(): string {
+    return `submitblock called with`;
   }
 
-  static validateaddress() {
-    console.log('validateaddress called');
+  static validateaddress(): string {
+    return `validateaddress called with`;
   }
 
-  static verifychain() {
-    console.log('verifychain called');
+  static verifychain(): string {
+    return `verifychain called with`;
   }
 
-  static verifymessage() {
-    console.log('verifymessage called');
+  static verifymessage(): string {
+    return `verifymessage called with`;
   }
 
-  static verifytxoutproof() {
-    console.log('verifytxoutproof called');
+  static verifytxoutproof(): string {
+    return `verifytxoutproof called with`;
   }
 
-  static walletlock() {
-    console.log('walletlock called');
+  static walletlock(): string {
+    return `walletlock called with`;
   }
 
-  static walletpassphrase() {
-    console.log('walletpassphrase called');
+  static walletpassphrase(): string {
+    return `walletpassphrase called with`;
   }
 
-  static walletpassphrasechange() {
-    console.log('walletpassphrasechange called');
+  static walletpassphrasechange(): string {
+    return `walletpassphrasechange called with`;
   }
 }
 
