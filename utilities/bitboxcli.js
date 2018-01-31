@@ -1,5 +1,5 @@
 // @flow
-class BITBOXCore {
+class BITBOXCli {
 
   static abandonTransaction(txid: string): string {
     // Marks an in-wallet transaction and all its in-wallet descendants as abandoned. This allows their inputs to be respent.
@@ -499,4 +499,4 @@ class BITBOXCore {
   }
 }
 
-module.exports = BITBOXCore;
+module.exports = BITBOXCli;

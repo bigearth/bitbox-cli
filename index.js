@@ -9,7 +9,7 @@ let fs = require('fs');
 let touch = require("touch");
 let emoji = require('node-emoji');
 let repl = require("repl");
-let BITBOXCore = require('./lib/bitboxcore.js');
+let BITBOXCli = require('./lib/bitboxcli.js');
 
 // let request = require('superagent');
 // let co = require('co');
@@ -73,7 +73,7 @@ program
     var replServer = repl.start({
       prompt: `${emoji.get(':zap:')} ${" BITBOX"} ${emoji.get(':zap:')} `,
     });
-    replServer.context.BITBOXCore = BITBOXCore;
+    replServer.context.BITBOX = BITBOXCli;
   }
 );
   // .option('-t, --title <title>', 'Title of new project')

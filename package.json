@@ -9,7 +9,7 @@
     "flow": "flow"
   },
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "bin": {
     "bitbox": "./index.js"
   },
