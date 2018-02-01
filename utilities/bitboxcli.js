@@ -1,7 +1,9 @@
 // @flow
+import { BitboxHTTP } from './BitboxHTTP';
+
 class BITBOXCli {
 
-  static abandonTransaction(txid: string): string {
+  static abandonTransaction(txid: string): Promise<any> {
     // Marks an in-wallet transaction and all its in-wallet descendants as abandoned. This allows their inputs to be respent.
 
     // Parameter #1—a transaction identifier (TXID)
@@ -10,7 +12,15 @@ class BITBOXCli {
     // Result—null on success
     // JSON null when the transaction and all descendants were abandoned
 
-    return `abandontransaction called with ${txid}`;
+    let request = BitboxHTTP
+      .get(`abandontransaction`)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        // console.log('error', error);
+      });
+    return request;
   }
 
   static addmultisigaddress(required: number, name: Array<string>|string, account: ?string): string{
@@ -28,7 +38,16 @@ class BITBOXCli {
     // Parameter #3—the account name
     // The account name in which the address should be stored. Default is the default account, “” (an empty string)
 
-    return `addmultisigaddress called with ${required}, ${name} and ${account}`;
+    let request = BitboxHTTP
+      .get(`addmultisigaddress`)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        // console.log('error', error);
+      });
+    return request;
+
   }
 
   static addnode(node: string, command: string): string{
@@ -48,7 +67,15 @@ class BITBOXCli {
     // Always JSON null whether the node was added, removed, tried-and-connected, or tried-and-not-connected.
     // The JSON-RPC error field will be set only if you try removing a node that is not on the addnodes list
 
-    return `addnode called with ${node} and ${command}`;
+    let request = BitboxHTTP
+      .get(`addnode`)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        // console.log('error', error);
+      });
+    return request;
   }
 
   static addwitnessaddress(address: string): string {
@@ -61,7 +88,15 @@ class BITBOXCli {
     // Result—the witness script
     // The value of the new address (P2SH of witness script)
 
-    return `addwitnessaddress called with ${address}`;
+    let request = BitboxHTTP
+      .get(`addnode`)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        // console.log('error', error);
+      });
+    return request;
   }
 
   static backupWallet(destination: string): string {
@@ -74,11 +109,28 @@ class BITBOXCli {
     // Result—null or error
     // Always null whether success or failure. The JSON-RPC error and message fields will be set if a failure occurred
 
-    return `backupwallet called with ${destination}`;
+    let request = BitboxHTTP
+      .get(`backupWallet`)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        // console.log('error', error);
+      });
+    return request;
   }
 
   static bumpfee(): string {
-    return `bumpfee called with`;
+
+    let request = BitboxHTTP
+      .get(`bumpfee`)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        // console.log('error', error);
+      });
+    return request;
   }
 
   static clearbanned(): string {
@@ -89,7 +141,15 @@ class BITBOXCli {
     // Result—null on success
     // JSON null when the list was cleared
 
-    return `clearbanned called`;
+    let request = BitboxHTTP
+      .get(`clearbanned`)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        // console.log('error', error);
+      });
+    return request;
   }
 
   static createmultisig(required: number, address: Array<string>|string): string {
@@ -107,395 +167,1276 @@ class BITBOXCli {
 
     // Result—P2SH address and hex-encoded redeem script
 
-    return `createmultisig called with ${required} and ${address}`;
+    let request = BitboxHTTP
+      .get(`createmultisig`)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        // console.log('error', error);
+      });
+    return request;
   }
 
   static createrawtransaction(): string {
-    return `createrawtransaction called with`;
+
+    let request = BitboxHTTP
+      .get(`createrawtransaction`)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        // console.log('error', error);
+      });
+    return request;
   }
 
   static decoderawtransaction(): string {
-    return `decoderawtransaction called with`;
+
+    let request = BitboxHTTP
+      .get(`decoderawtransaction`)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        // console.log('error', error);
+      });
+    return request;
   }
 
   static decodescript(): string {
-    return `decodescript called with`;
+
+    let request = BitboxHTTP
+      .get(`decodescript`)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        // console.log('error', error);
+      });
+    return request;
   }
 
   static disconnectnode(): string {
-    return `disconnectnode called with`;
+
+    let request = BitboxHTTP
+      .get(`disconnectnode`)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        // console.log('error', error);
+      });
+    return request;
   }
 
   static dumpprivkey(): string {
-    return `dumpprivkey called with`;
+
+    let request = BitboxHTTP
+      .get(`dumpprivkey`)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        // console.log('error', error);
+      });
+    return request;
   }
 
   static dumpwallet(): string {
-    return `dumpwallet called with`;
+
+    let request = BitboxHTTP
+      .get(`dumpwallet`)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        // console.log('error', error);
+      });
+    return request;
   }
 
   static encryptwallet(): string {
-    return `encryptwallet called with`;
+
+    let request = BitboxHTTP
+      .get(`encryptwallet`)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        // console.log('error', error);
+      });
+    return request;
   }
 
   static estimatefee(): string {
-    return `estimatefee called with`;
+
+    let request = BitboxHTTP
+      .get(`estimatefee`)
+      .then((response) => {
+        console.log('called', response.data);
+      })
+      .catch(error => {
+        // console.log('error', error);
+      });
+    return request;
   }
 
   static estimatepriority(): string {
-    return `estimatepriority called with`;
+
+    let request = BitboxHTTP
+      .get(`estimatepriority`)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        // console.log('error', error);
+      });
+    return request;
   }
 
   static fundrawtransaction(): string {
-    return `fundrawtransaction called with`;
+
+    let request = BitboxHTTP
+      .get(`fundrawtransaction`)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        // console.log('error', error);
+      });
+    return request;
   }
 
   static generate(): string {
-    return `generate called with`;
+
+    let request = BitboxHTTP
+      .get(`generate`)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        // console.log('error', error);
+      });
+    return request;
   }
 
   static generatetoaddress(): string {
-    return `generatetoaddress called with`;
+
+    let request = BitboxHTTP
+      .get(`generatetoaddress`)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        // console.log('error', error);
+      });
+    return request;
   }
 
   static getaccountaddress(): string {
-    return `getaccountaddress called with`;
+
+    let request = BitboxHTTP
+      .get(`getaccountaddress`)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        // console.log('error', error);
+      });
+    return request;
   }
 
   static getaccount(): string {
-    return `getaccount called with`;
+
+    let request = BitboxHTTP
+      .get(`getaccount`)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        // console.log('error', error);
+      });
+    return request;
   }
 
   static getaddednodeinfo(): string {
-    return `getaddednodeinfo called with`;
+
+    let request = BitboxHTTP
+      .get(`getaddednodeinfo`)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        // console.log('error', error);
+      });
+    return request;
   }
 
   static getaddressesbyaccount(): string {
-    return `getaddressesbyaccount called with`;
+
+    let request = BitboxHTTP
+      .get(`getaddressesbyaccount`)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        // console.log('error', error);
+      });
+    return request;
   }
 
   static getbalance(): string {
-    return `getbalance called with`;
+
+    let request = BitboxHTTP
+      .get(`getbalance`)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        // console.log('error', error);
+      });
+    return request;
   }
 
   static getbestblockhash(): string {
-    return `getbestblockhash called with`;
+
+    let request = BitboxHTTP
+      .get(`getbestblockhash`)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        // console.log('error', error);
+      });
+    return request;
   }
 
   static getblock(): string {
-    return `getblock called with`;
+
+    let request = BitboxHTTP
+      .get(`getblock`)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        // console.log('error', error);
+      });
+    return request;
   }
 
   static getblockchaininfo(): string {
-    return `getblockchaininfo called with`;
+
+    let request = BitboxHTTP
+      .get(`getblockchaininfo`)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        // console.log('error', error);
+      });
+    return request;
   }
 
   static getblockcount(): string {
-    return `getblockcount called with`;
+
+    let request = BitboxHTTP
+      .get(`getblockcount`)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        // console.log('error', error);
+      });
+    return request;
   }
 
   static getblockhash(): string {
-    return `getblockhash called with`;
+
+    let request = BitboxHTTP
+      .get(`getblockhash`)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        // console.log('error', error);
+      });
+    return request;
   }
 
   static getblockheader(): string {
-    return `getblockheader called with`;
+
+    let request = BitboxHTTP
+      .get(`getblockheader`)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        // console.log('error', error);
+      });
+    return request;
   }
 
   static getblocktemplate(): string {
-    return `getblocktemplate called with`;
+
+    let request = BitboxHTTP
+      .get(`getblocktemplate`)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        // console.log('error', error);
+      });
+    return request;
   }
 
   static getchaintips(): string {
-    return `getchaintips called with`;
+
+    let request = BitboxHTTP
+      .get(`getchaintips`)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        // console.log('error', error);
+      });
+    return request;
   }
 
   static getconnectioncount(): string {
-    return `getconnectioncount called with`;
+
+    let request = BitboxHTTP
+      .get(`getconnectioncount`)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        // console.log('error', error);
+      });
+    return request;
   }
 
   static getdifficulty(): string {
-    return `getdifficulty called with`;
+
+    let request = BitboxHTTP
+      .get(`getdifficulty`)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        // console.log('error', error);
+      });
+    return request;
   }
 
   static getgenerate(): string {
-    return `getgenerate called with`;
+
+    let request = BitboxHTTP
+      .get(`getgenerate`)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        // console.log('error', error);
+      });
+    return request;
   }
 
   static gethashespersec(): string {
-    return `gethashespersec called with`;
+
+    let request = BitboxHTTP
+      .get(`gethashespersec`)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        // console.log('error', error);
+      });
+    return request;
   }
 
   static getinfo(): string {
-    return `getinfo called with`;
+
+    let request = BitboxHTTP
+      .get(`getinfo`)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        // console.log('error', error);
+      });
+    return request;
   }
 
   static getmemoryinfo(): string {
-    return `getmemoryinfo called with`;
+
+    let request = BitboxHTTP
+      .get(`getmemoryinfo`)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        // console.log('error', error);
+      });
+    return request;
   }
 
   static getmempoolancestors(): string {
-    return `getmempoolancestors called with`;
+
+    let request = BitboxHTTP
+      .get(`getmempoolancestors`)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        // console.log('error', error);
+      });
+    return request;
   }
 
   static getmempooldescendants(): string {
-    return `getmempooldescendants called with`;
+
+    let request = BitboxHTTP
+      .get(`getmempooldescendants`)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        // console.log('error', error);
+      });
+    return request;
   }
 
   static getmempoolentry(): string {
-    return `getmempoolentry called with`;
+
+    let request = BitboxHTTP
+      .get(`getmempoolentry`)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        // console.log('error', error);
+      });
+    return request;
   }
 
   static getmempoolinfo(): string {
-    return `getmempoolinfo called with`;
+
+    let request = BitboxHTTP
+      .get(`getmempoolinfo`)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        // console.log('error', error);
+      });
+    return request;
   }
 
   static getmininginfo(): string {
-    return `getmininginfo called with`;
+
+    let request = BitboxHTTP
+      .get(`getmininginfo`)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        // console.log('error', error);
+      });
+    return request;
   }
 
   static getnettotals(): string {
-    return `getnettotals called with`;
+
+    let request = BitboxHTTP
+      .get(`getnettotals`)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        // console.log('error', error);
+      });
+    return request;
   }
 
   static getnetworkhashps(): string {
-    return `getnetworkhashps called with`;
+
+    let request = BitboxHTTP
+      .get(`getnetworkhashps`)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        // console.log('error', error);
+      });
+    return request;
   }
 
   static getnetworkinfo(): string {
-    return `getnetworkinfo called with`;
+
+    let request = BitboxHTTP
+      .get(`getnetworkinfo`)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        // console.log('error', error);
+      });
+    return request;
   }
 
   static getnewaddress(): string {
-    return `getnewaddress called with`;
+
+    let request = BitboxHTTP
+      .get(`getnewaddress`)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        // console.log('error', error);
+      });
+    return request;
   }
 
   static getpeerinfo(): string {
-    return `getpeerinfo called with`;
+
+    let request = BitboxHTTP
+      .get(`getpeerinfo`)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        // console.log('error', error);
+      });
+    return request;
   }
 
   static getrawchangeaddress(): string {
-    return `getrawchangeaddress called with`;
+
+    let request = BitboxHTTP
+      .get(`getrawchangeaddress`)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        // console.log('error', error);
+      });
+    return request;
   }
 
   static getrawmempool(): string {
-    return `getrawmempool called with`;
+
+    let request = BitboxHTTP
+      .get(`getrawmempool`)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        // console.log('error', error);
+      });
+    return request;
   }
 
   static getrawtransaction(): string {
-    return `getrawtransaction called with`;
+
+    let request = BitboxHTTP
+      .get(`getrawtransaction`)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        // console.log('error', error);
+      });
+    return request;
   }
 
   static getreceivedbyaccount(): string {
-    return `getreceivedbyaccount called with`;
+
+    let request = BitboxHTTP
+      .get(`getreceivedbyaccount`)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        // console.log('error', error);
+      });
+    return request;
   }
 
   static getreceivedbyaddress(): string {
-    return `getreceivedbyaddress called with`;
+
+    let request = BitboxHTTP
+      .get(`getreceivedbyaddress`)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        // console.log('error', error);
+      });
+    return request;
   }
 
   static gettransaction(): string {
-    return `gettransaction called with`;
+
+    let request = BitboxHTTP
+      .get(`gettransaction`)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        // console.log('error', error);
+      });
+    return request;
   }
 
   static gettxout(): string {
-    return `gettxout called with`;
+
+    let request = BitboxHTTP
+      .get(`gettxout`)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        // console.log('error', error);
+      });
+    return request;
   }
 
   static gettxoutproof(): string {
-    return `gettxoutproof called with`;
+
+    let request = BitboxHTTP
+      .get(`gettxoutproof`)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        // console.log('error', error);
+      });
+    return request;
   }
 
   static gettxoutsetinfo(): string {
-    return `gettxoutsetinfo called with`;
+
+    let request = BitboxHTTP
+      .get(`gettxoutsetinfo`)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        // console.log('error', error);
+      });
+    return request;
   }
 
   static getunconfirmedbalance(): string {
-    return `getunconfirmedbalance called with`;
+
+    let request = BitboxHTTP
+      .get(`getunconfirmedbalance`)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        // console.log('error', error);
+      });
+    return request;
   }
 
   static getwalletinfo(): string {
-    return `getwalletinfo called with`;
+
+    let request = BitboxHTTP
+      .get(`getwalletinfo`)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        // console.log('error', error);
+      });
+    return request;
   }
 
   static getwork(): string {
-    return `getwork called with`;
+
+    let request = BitboxHTTP
+      .get(`getwork`)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        // console.log('error', error);
+      });
+    return request;
   }
 
   static help(): string {
-    return `help called with`;
+
+    let request = BitboxHTTP
+      .get(`help`)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        // console.log('error', error);
+      });
+    return request;
   }
 
   static importaddress(): string {
-    return `importaddress called with`;
+
+    let request = BitboxHTTP
+      .get(`importaddress`)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        // console.log('error', error);
+      });
+    return request;
   }
 
   static importmulti(): string {
-    return `importmulti called with`;
+
+    let request = BitboxHTTP
+      .get(`importmulti`)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        // console.log('error', error);
+      });
+    return request;
   }
 
   static importprivkey(): string {
-    return `importprivkey called with`;
+
+    let request = BitboxHTTP
+      .get(`importprivkey`)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        // console.log('error', error);
+      });
+    return request;
   }
 
   static importprunedfunds(): string {
-    return `importprunedfunds called with`;
+
+    let request = BitboxHTTP
+      .get(`importprunedfunds`)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        // console.log('error', error);
+      });
+    return request;
   }
 
   static importwallet(): string {
-    return `importwallet called with`;
+
+    let request = BitboxHTTP
+      .get(`importwallet`)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        // console.log('error', error);
+      });
+    return request;
   }
 
   static keypoolrefill(): string {
-    return `keypoolrefill called with`;
+
+    let request = BitboxHTTP
+      .get(`keypoolrefill`)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        // console.log('error', error);
+      });
+    return request;
   }
 
   static listaccounts(): string {
-    return `listaccounts called with`;
+
+    let request = BitboxHTTP
+      .get(`listaccounts`)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        // console.log('error', error);
+      });
+    return request;
   }
 
   static listaddressgroupings(): string {
-    return `listaddressgroupings called with`;
+
+    let request = BitboxHTTP
+      .get(`listaddressgroupings`)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        // console.log('error', error);
+      });
+    return request;
   }
 
   static listbanned(): string {
-    return `listbanned called with`;
+
+    let request = BitboxHTTP
+      .get(`listbanned`)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        // console.log('error', error);
+      });
+    return request;
   }
 
   static listlockunspent(): string {
-    return `listlockunspent called with`;
+
+    let request = BitboxHTTP
+      .get(`listlockunspent`)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        // console.log('error', error);
+      });
+    return request;
   }
 
   static listreceivedbyaccount(): string {
-    return `listreceivedbyaccount called with`;
+
+    let request = BitboxHTTP
+      .get(`listreceivedbyaccount`)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        // console.log('error', error);
+      });
+    return request;
   }
 
   static listreceivedbyaddress(): string {
-    return `listreceivedbyaddress called with`;
+
+    let request = BitboxHTTP
+      .get(`listreceivedbyaddress`)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        // console.log('error', error);
+      });
+    return request;
   }
 
   static listsinceblock(): string {
-    return `listsinceblock called with`;
+
+    let request = BitboxHTTP
+      .get(`listsinceblock`)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        // console.log('error', error);
+      });
+    return request;
   }
 
   static listtransactions(): string {
-    return `listtransactions called with`;
+
+    let request = BitboxHTTP
+      .get(`listtransactions`)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        // console.log('error', error);
+      });
+    return request;
   }
 
   static listunspent(): string {
-    return `listunspent called with`;
+
+    let request = BitboxHTTP
+      .get(`listunspent`)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        // console.log('error', error);
+      });
+    return request;
   }
 
   static lockunspent(): string {
-    return `lockunspent called with`;
+
+    let request = BitboxHTTP
+      .get(`lockunspent`)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        // console.log('error', error);
+      });
+    return request;
   }
 
   static move(): string {
-    return `move called with`;
+
+    let request = BitboxHTTP
+      .get(`move`)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        // console.log('error', error);
+      });
+    return request;
   }
 
   static pingRpc(): string {
-    return `ping-rpc called with`;
+
+    let request = BitboxHTTP
+      .get(`pingRpc`)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        // console.log('error', error);
+      });
+    return request;
   }
 
   static preciousblock(): string {
-    return `preciousblock called with`;
+
+    let request = BitboxHTTP
+      .get(`preciousblock`)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        // console.log('error', error);
+      });
+    return request;
   }
 
   static prioritisetransaction(): string {
-    return `prioritisetransaction called with`;
+
+    let request = BitboxHTTP
+      .get(`prioritisetransaction`)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        // console.log('error', error);
+      });
+    return request;
   }
 
   static pruneblockchain(): string {
-    return `pruneblockchain called with`;
+
+    let request = BitboxHTTP
+      .get(`pruneblockchain`)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        // console.log('error', error);
+      });
+    return request;
   }
 
   static removeprunedfunds(): string {
-    return `removeprunedfunds called with`;
+
+    let request = BitboxHTTP
+      .get(`removeprunedfunds`)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        // console.log('error', error);
+      });
+    return request;
   }
 
   static sendfrom(): string {
-    return `sendfrom called with`;
+
+    let request = BitboxHTTP
+      .get(`sendfrom`)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        // console.log('error', error);
+      });
+    return request;
   }
 
   static sendmany(): string {
-    return `sendmany called with`;
+
+    let request = BitboxHTTP
+      .get(`sendmany`)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        // console.log('error', error);
+      });
+    return request;
   }
 
   static sendrawtransaction(): string {
-    return `sendrawtransaction called with`;
+
+    let request = BitboxHTTP
+      .get(`sendrawtransaction`)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        // console.log('error', error);
+      });
+    return request;
   }
 
   static sendtoaddress(): string {
-    return `sendtoaddress called with`;
+
+    let request = BitboxHTTP
+      .get(`sendtoaddress`)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        // console.log('error', error);
+      });
+    return request;
   }
 
   static setaccount(): string {
-    return `setaccount called with`;
+
+    let request = BitboxHTTP
+      .get(`setaccount`)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        // console.log('error', error);
+      });
+    return request;
   }
 
   static setban(): string {
-    return `setban called with`;
+
+    let request = BitboxHTTP
+      .get(`setban`)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        // console.log('error', error);
+      });
+    return request;
   }
 
   static setgenerate(): string {
-    return `setgenerate called with`;
+
+    let request = BitboxHTTP
+      .get(`setgenerate`)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        // console.log('error', error);
+      });
+    return request;
   }
 
   static setnetworkactive(): string {
-    return `setnetworkactive called with`;
+
+    let request = BitboxHTTP
+      .get(`setnetworkactive`)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        // console.log('error', error);
+      });
+    return request;
   }
 
   static settxfee(): string {
-    return `settxfee called with`;
+
+    let request = BitboxHTTP
+      .get(`settxfee`)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        // console.log('error', error);
+      });
+    return request;
   }
 
   static signmessage(): string {
-    return `signmessage called with`;
+
+    let request = BitboxHTTP
+      .get(`signmessage`)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        // console.log('error', error);
+      });
+    return request;
   }
 
   static signmessagewithprivkey(): string {
-    return `signmessagewithprivkey called with`;
+
+    let request = BitboxHTTP
+      .get(`signmessagewithprivkey`)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        // console.log('error', error);
+      });
+    return request;
   }
 
   static signrawtransaction(): string {
-    return `signrawtransaction called with`;
+
+    let request = BitboxHTTP
+      .get(`signrawtransaction`)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        // console.log('error', error);
+      });
+    return request;
   }
 
   static stop(): string {
-    return `stop called with`;
+
+    let request = BitboxHTTP
+      .get(`stop`)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        // console.log('error', error);
+      });
+    return request;
   }
 
   static submitblock(): string {
-    return `submitblock called with`;
+
+    let request = BitboxHTTP
+      .get(`submitblock`)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        // console.log('error', error);
+      });
+    return request;
   }
 
   static validateaddress(): string {
-    return `validateaddress called with`;
+
+    let request = BitboxHTTP
+      .get(`validateaddress`)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        // console.log('error', error);
+      });
+    return request;
   }
 
   static verifychain(): string {
-    return `verifychain called with`;
+
+    let request = BitboxHTTP
+      .get(`verifychain`)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        // console.log('error', error);
+      });
+    return request;
   }
 
   static verifymessage(): string {
-    return `verifymessage called with`;
+
+    let request = BitboxHTTP
+      .get(`verifymessage`)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        // console.log('error', error);
+      });
+    return request;
   }
 
   static verifytxoutproof(): string {
-    return `verifytxoutproof called with`;
+
+    let request = BitboxHTTP
+      .get(`verifytxoutproof`)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        // console.log('error', error);
+      });
+    return request;
   }
 
   static walletlock(): string {
-    return `walletlock called with`;
+
+    let request = BitboxHTTP
+      .get(`walletlock`)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        // console.log('error', error);
+      });
+    return request;
   }
 
   static walletpassphrase(): string {
-    return `walletpassphrase called with`;
+
+    let request = BitboxHTTP
+      .get(`walletpassphrase`)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        // console.log('error', error);
+      });
+    return request;
   }
 
   static walletpassphrasechange(): string {
-    return `walletpassphrasechange called with`;
+
+    let request = BitboxHTTP
+      .get(`walletpassphrasechange`)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        // console.log('error', error);
+      });
+    return request;
   }
 }
 
