@@ -1,7 +1,8 @@
 {
   "name": "bitbox-cli",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "A development framework for Bitcoin Cash",
+  "author": "Gabriel Cardona",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
