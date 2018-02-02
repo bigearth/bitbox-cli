@@ -1,9 +1,14 @@
 // @flow
-import { BitboxHTTP } from './BitboxHTTP';
+import axios from 'axios';
 
 class BITBOXCli {
+  constructor(config) {
+    this.BitboxHTTP = axios.create({
+      baseURL: `${config.networks.development.protocol}://${config.networks.development.host}:${config.networks.development.port}/`
+    });
+  }
 
-  static abandonTransaction(txid: string): Promise<any> {
+  abandonTransaction(txid: string): Promise<any> {
     // Marks an in-wallet transaction and all its in-wallet descendants as abandoned. This allows their inputs to be respent.
 
     // Parameter #1—a transaction identifier (TXID)
@@ -12,7 +17,7 @@ class BITBOXCli {
     // Result—null on success
     // JSON null when the transaction and all descendants were abandoned
 
-    let request = BitboxHTTP
+    let request = this.BitboxHTTP
       .get(`abandontransaction`)
       .then((response) => {
         console.log(response.data);
@@ -23,7 +28,7 @@ class BITBOXCli {
     return request;
   }
 
-  static addmultisigaddress(required: number, name: Array<string>|string, account: ?string): string{
+  addmultisigaddress(required: number, name: Array<string>|string, account: ?string): string{
     // Adds a P2SH multisig address to the wallet.
 
     // Parameter #1—the number of signatures required
@@ -38,7 +43,7 @@ class BITBOXCli {
     // Parameter #3—the account name
     // The account name in which the address should be stored. Default is the default account, “” (an empty string)
 
-    let request = BitboxHTTP
+    let request = this.BitboxHTTP
       .get(`addmultisigaddress`)
       .then((response) => {
         console.log(response.data);
@@ -50,7 +55,7 @@ class BITBOXCli {
 
   }
 
-  static addnode(node: string, command: string): string{
+  addnode(node: string, command: string): string{
     // Attempts to add or remove a node from the addnode list, or to try a connection to a node once.
 
     // Parameter #1—hostname/IP address and port of node to add or remove
@@ -67,7 +72,7 @@ class BITBOXCli {
     // Always JSON null whether the node was added, removed, tried-and-connected, or tried-and-not-connected.
     // The JSON-RPC error field will be set only if you try removing a node that is not on the addnodes list
 
-    let request = BitboxHTTP
+    let request = this.BitboxHTTP
       .get(`addnode`)
       .then((response) => {
         console.log(response.data);
@@ -78,7 +83,7 @@ class BITBOXCli {
     return request;
   }
 
-  static addwitnessaddress(address: string): string {
+  addwitnessaddress(address: string): string {
 
     // Adds a witness address for a script (with pubkey or redeem script known).
 
@@ -88,7 +93,7 @@ class BITBOXCli {
     // Result—the witness script
     // The value of the new address (P2SH of witness script)
 
-    let request = BitboxHTTP
+    let request = this.BitboxHTTP
       .get(`addnode`)
       .then((response) => {
         console.log(response.data);
@@ -99,7 +104,7 @@ class BITBOXCli {
     return request;
   }
 
-  static backupWallet(destination: string): string {
+  backupWallet(destination: string): string {
     // The backupwallet RPC safely copies wallet.dat to the specified file, which can be a directory or a path with filename.
 
     // Parameter #1—destination directory or filename
@@ -109,7 +114,7 @@ class BITBOXCli {
     // Result—null or error
     // Always null whether success or failure. The JSON-RPC error and message fields will be set if a failure occurred
 
-    let request = BitboxHTTP
+    let request = this.BitboxHTTP
       .get(`backupWallet`)
       .then((response) => {
         console.log(response.data);
@@ -120,9 +125,9 @@ class BITBOXCli {
     return request;
   }
 
-  static bumpfee(): string {
+  bumpfee(): string {
 
-    let request = BitboxHTTP
+    let request = this.BitboxHTTP
       .get(`bumpfee`)
       .then((response) => {
         console.log(response.data);
@@ -133,7 +138,7 @@ class BITBOXCli {
     return request;
   }
 
-  static clearbanned(): string {
+  clearbanned(): string {
     //The clearbanned RPC clears list of banned nodes.
 
     // Parameters: none
@@ -141,7 +146,7 @@ class BITBOXCli {
     // Result—null on success
     // JSON null when the list was cleared
 
-    let request = BitboxHTTP
+    let request = this.BitboxHTTP
       .get(`clearbanned`)
       .then((response) => {
         console.log(response.data);
@@ -152,7 +157,7 @@ class BITBOXCli {
     return request;
   }
 
-  static createmultisig(required: number, address: Array<string>|string): string {
+  createmultisig(required: number, address: Array<string>|string): string {
     // The createmultisig RPC creates a P2SH multi-signature address.
 
     // Parameter #1—the number of signatures required
@@ -167,7 +172,7 @@ class BITBOXCli {
 
     // Result—P2SH address and hex-encoded redeem script
 
-    let request = BitboxHTTP
+    let request = this.BitboxHTTP
       .get(`createmultisig`)
       .then((response) => {
         console.log(response.data);
@@ -178,9 +183,9 @@ class BITBOXCli {
     return request;
   }
 
-  static createrawtransaction(): string {
+  createrawtransaction(): string {
 
-    let request = BitboxHTTP
+    let request = this.BitboxHTTP
       .get(`createrawtransaction`)
       .then((response) => {
         console.log(response.data);
@@ -191,9 +196,9 @@ class BITBOXCli {
     return request;
   }
 
-  static decoderawtransaction(): string {
+  decoderawtransaction(): string {
 
-    let request = BitboxHTTP
+    let request = this.BitboxHTTP
       .get(`decoderawtransaction`)
       .then((response) => {
         console.log(response.data);
@@ -204,9 +209,9 @@ class BITBOXCli {
     return request;
   }
 
-  static decodescript(): string {
+  decodescript(): string {
 
-    let request = BitboxHTTP
+    let request = this.BitboxHTTP
       .get(`decodescript`)
       .then((response) => {
         console.log(response.data);
@@ -217,9 +222,9 @@ class BITBOXCli {
     return request;
   }
 
-  static disconnectnode(): string {
+  disconnectnode(): string {
 
-    let request = BitboxHTTP
+    let request = this.BitboxHTTP
       .get(`disconnectnode`)
       .then((response) => {
         console.log(response.data);
@@ -230,9 +235,9 @@ class BITBOXCli {
     return request;
   }
 
-  static dumpprivkey(): string {
+  dumpprivkey(): string {
 
-    let request = BitboxHTTP
+    let request = this.BitboxHTTP
       .get(`dumpprivkey`)
       .then((response) => {
         console.log(response.data);
@@ -243,9 +248,9 @@ class BITBOXCli {
     return request;
   }
 
-  static dumpwallet(): string {
+  dumpwallet(): string {
 
-    let request = BitboxHTTP
+    let request = this.BitboxHTTP
       .get(`dumpwallet`)
       .then((response) => {
         console.log(response.data);
@@ -256,9 +261,9 @@ class BITBOXCli {
     return request;
   }
 
-  static encryptwallet(): string {
+  encryptwallet(): string {
 
-    let request = BitboxHTTP
+    let request = this.BitboxHTTP
       .get(`encryptwallet`)
       .then((response) => {
         console.log(response.data);
@@ -269,9 +274,9 @@ class BITBOXCli {
     return request;
   }
 
-  static estimatefee(): string {
+  estimatefee(): string {
 
-    let request = BitboxHTTP
+    let request = this.BitboxHTTP
       .get(`estimatefee`)
       .then((response) => {
         console.log('called', response.data);
@@ -282,9 +287,9 @@ class BITBOXCli {
     return request;
   }
 
-  static estimatepriority(): string {
+  estimatepriority(): string {
 
-    let request = BitboxHTTP
+    let request = this.BitboxHTTP
       .get(`estimatepriority`)
       .then((response) => {
         console.log(response.data);
@@ -295,9 +300,9 @@ class BITBOXCli {
     return request;
   }
 
-  static fundrawtransaction(): string {
+  fundrawtransaction(): string {
 
-    let request = BitboxHTTP
+    let request = this.BitboxHTTP
       .get(`fundrawtransaction`)
       .then((response) => {
         console.log(response.data);
@@ -308,9 +313,9 @@ class BITBOXCli {
     return request;
   }
 
-  static generate(): string {
+  generate(): string {
 
-    let request = BitboxHTTP
+    let request = this.BitboxHTTP
       .get(`generate`)
       .then((response) => {
         console.log(response.data);
@@ -321,9 +326,9 @@ class BITBOXCli {
     return request;
   }
 
-  static generatetoaddress(): string {
+  generatetoaddress(): string {
 
-    let request = BitboxHTTP
+    let request = this.BitboxHTTP
       .get(`generatetoaddress`)
       .then((response) => {
         console.log(response.data);
@@ -334,9 +339,9 @@ class BITBOXCli {
     return request;
   }
 
-  static getaccountaddress(): string {
+  getaccountaddress(): string {
 
-    let request = BitboxHTTP
+    let request = this.BitboxHTTP
       .get(`getaccountaddress`)
       .then((response) => {
         console.log(response.data);
@@ -347,9 +352,9 @@ class BITBOXCli {
     return request;
   }
 
-  static getaccount(): string {
+  getaccount(): string {
 
-    let request = BitboxHTTP
+    let request = this.BitboxHTTP
       .get(`getaccount`)
       .then((response) => {
         console.log(response.data);
@@ -360,9 +365,9 @@ class BITBOXCli {
     return request;
   }
 
-  static getaddednodeinfo(): string {
+  getaddednodeinfo(): string {
 
-    let request = BitboxHTTP
+    let request = this.BitboxHTTP
       .get(`getaddednodeinfo`)
       .then((response) => {
         console.log(response.data);
@@ -373,9 +378,9 @@ class BITBOXCli {
     return request;
   }
 
-  static getaddressesbyaccount(): string {
+  getaddressesbyaccount(): string {
 
-    let request = BitboxHTTP
+    let request = this.BitboxHTTP
       .get(`getaddressesbyaccount`)
       .then((response) => {
         console.log(response.data);
@@ -386,9 +391,9 @@ class BITBOXCli {
     return request;
   }
 
-  static getbalance(): string {
+  getbalance(): string {
 
-    let request = BitboxHTTP
+    let request = this.BitboxHTTP
       .get(`getbalance`)
       .then((response) => {
         console.log(response.data);
@@ -399,9 +404,9 @@ class BITBOXCli {
     return request;
   }
 
-  static getbestblockhash(): string {
+  getbestblockhash(): string {
 
-    let request = BitboxHTTP
+    let request = this.BitboxHTTP
       .get(`getbestblockhash`)
       .then((response) => {
         console.log(response.data);
@@ -412,9 +417,9 @@ class BITBOXCli {
     return request;
   }
 
-  static getblock(): string {
+  getblock(): string {
 
-    let request = BitboxHTTP
+    let request = this.BitboxHTTP
       .get(`getblock`)
       .then((response) => {
         console.log(response.data);
@@ -425,9 +430,9 @@ class BITBOXCli {
     return request;
   }
 
-  static getblockchaininfo(): string {
+  getblockchaininfo(): string {
 
-    let request = BitboxHTTP
+    let request = this.BitboxHTTP
       .get(`getblockchaininfo`)
       .then((response) => {
         console.log(response.data);
@@ -438,9 +443,9 @@ class BITBOXCli {
     return request;
   }
 
-  static getblockcount(): string {
+  getblockcount(): string {
 
-    let request = BitboxHTTP
+    let request = this.BitboxHTTP
       .get(`getblockcount`)
       .then((response) => {
         console.log(response.data);
@@ -451,9 +456,9 @@ class BITBOXCli {
     return request;
   }
 
-  static getblockhash(): string {
+  getblockhash(): string {
 
-    let request = BitboxHTTP
+    let request = this.BitboxHTTP
       .get(`getblockhash`)
       .then((response) => {
         console.log(response.data);
@@ -464,9 +469,9 @@ class BITBOXCli {
     return request;
   }
 
-  static getblockheader(): string {
+  getblockheader(): string {
 
-    let request = BitboxHTTP
+    let request = this.BitboxHTTP
       .get(`getblockheader`)
       .then((response) => {
         console.log(response.data);
@@ -477,9 +482,9 @@ class BITBOXCli {
     return request;
   }
 
-  static getblocktemplate(): string {
+  getblocktemplate(): string {
 
-    let request = BitboxHTTP
+    let request = this.BitboxHTTP
       .get(`getblocktemplate`)
       .then((response) => {
         console.log(response.data);
@@ -490,9 +495,9 @@ class BITBOXCli {
     return request;
   }
 
-  static getchaintips(): string {
+  getchaintips(): string {
 
-    let request = BitboxHTTP
+    let request = this.BitboxHTTP
       .get(`getchaintips`)
       .then((response) => {
         console.log(response.data);
@@ -503,9 +508,9 @@ class BITBOXCli {
     return request;
   }
 
-  static getconnectioncount(): string {
+  getconnectioncount(): string {
 
-    let request = BitboxHTTP
+    let request = this.BitboxHTTP
       .get(`getconnectioncount`)
       .then((response) => {
         console.log(response.data);
@@ -516,9 +521,9 @@ class BITBOXCli {
     return request;
   }
 
-  static getdifficulty(): string {
+  getdifficulty(): string {
 
-    let request = BitboxHTTP
+    let request = this.BitboxHTTP
       .get(`getdifficulty`)
       .then((response) => {
         console.log(response.data);
@@ -529,9 +534,9 @@ class BITBOXCli {
     return request;
   }
 
-  static getgenerate(): string {
+  getgenerate(): string {
 
-    let request = BitboxHTTP
+    let request = this.BitboxHTTP
       .get(`getgenerate`)
       .then((response) => {
         console.log(response.data);
@@ -542,9 +547,9 @@ class BITBOXCli {
     return request;
   }
 
-  static gethashespersec(): string {
+  gethashespersec(): string {
 
-    let request = BitboxHTTP
+    let request = this.BitboxHTTP
       .get(`gethashespersec`)
       .then((response) => {
         console.log(response.data);
@@ -555,9 +560,9 @@ class BITBOXCli {
     return request;
   }
 
-  static getinfo(): string {
+  getinfo(): string {
 
-    let request = BitboxHTTP
+    let request = this.BitboxHTTP
       .get(`getinfo`)
       .then((response) => {
         console.log(response.data);
@@ -568,9 +573,9 @@ class BITBOXCli {
     return request;
   }
 
-  static getmemoryinfo(): string {
+  getmemoryinfo(): string {
 
-    let request = BitboxHTTP
+    let request = this.BitboxHTTP
       .get(`getmemoryinfo`)
       .then((response) => {
         console.log(response.data);
@@ -581,9 +586,9 @@ class BITBOXCli {
     return request;
   }
 
-  static getmempoolancestors(): string {
+  getmempoolancestors(): string {
 
-    let request = BitboxHTTP
+    let request = this.BitboxHTTP
       .get(`getmempoolancestors`)
       .then((response) => {
         console.log(response.data);
@@ -594,9 +599,9 @@ class BITBOXCli {
     return request;
   }
 
-  static getmempooldescendants(): string {
+  getmempooldescendants(): string {
 
-    let request = BitboxHTTP
+    let request = this.BitboxHTTP
       .get(`getmempooldescendants`)
       .then((response) => {
         console.log(response.data);
@@ -607,9 +612,9 @@ class BITBOXCli {
     return request;
   }
 
-  static getmempoolentry(): string {
+  getmempoolentry(): string {
 
-    let request = BitboxHTTP
+    let request = this.BitboxHTTP
       .get(`getmempoolentry`)
       .then((response) => {
         console.log(response.data);
@@ -620,9 +625,9 @@ class BITBOXCli {
     return request;
   }
 
-  static getmempoolinfo(): string {
+  getmempoolinfo(): string {
 
-    let request = BitboxHTTP
+    let request = this.BitboxHTTP
       .get(`getmempoolinfo`)
       .then((response) => {
         console.log(response.data);
@@ -633,9 +638,9 @@ class BITBOXCli {
     return request;
   }
 
-  static getmininginfo(): string {
+  getmininginfo(): string {
 
-    let request = BitboxHTTP
+    let request = this.BitboxHTTP
       .get(`getmininginfo`)
       .then((response) => {
         console.log(response.data);
@@ -646,9 +651,9 @@ class BITBOXCli {
     return request;
   }
 
-  static getnettotals(): string {
+  getnettotals(): string {
 
-    let request = BitboxHTTP
+    let request = this.BitboxHTTP
       .get(`getnettotals`)
       .then((response) => {
         console.log(response.data);
@@ -659,9 +664,9 @@ class BITBOXCli {
     return request;
   }
 
-  static getnetworkhashps(): string {
+  getnetworkhashps(): string {
 
-    let request = BitboxHTTP
+    let request = this.BitboxHTTP
       .get(`getnetworkhashps`)
       .then((response) => {
         console.log(response.data);
@@ -672,9 +677,9 @@ class BITBOXCli {
     return request;
   }
 
-  static getnetworkinfo(): string {
+  getnetworkinfo(): string {
 
-    let request = BitboxHTTP
+    let request = this.BitboxHTTP
       .get(`getnetworkinfo`)
       .then((response) => {
         console.log(response.data);
@@ -685,9 +690,9 @@ class BITBOXCli {
     return request;
   }
 
-  static getnewaddress(): string {
+  getnewaddress(): string {
 
-    let request = BitboxHTTP
+    let request = this.BitboxHTTP
       .get(`getnewaddress`)
       .then((response) => {
         console.log(response.data);
@@ -698,9 +703,9 @@ class BITBOXCli {
     return request;
   }
 
-  static getpeerinfo(): string {
+  getpeerinfo(): string {
 
-    let request = BitboxHTTP
+    let request = this.BitboxHTTP
       .get(`getpeerinfo`)
       .then((response) => {
         console.log(response.data);
@@ -711,9 +716,9 @@ class BITBOXCli {
     return request;
   }
 
-  static getrawchangeaddress(): string {
+  getrawchangeaddress(): string {
 
-    let request = BitboxHTTP
+    let request = this.BitboxHTTP
       .get(`getrawchangeaddress`)
       .then((response) => {
         console.log(response.data);
@@ -724,9 +729,9 @@ class BITBOXCli {
     return request;
   }
 
-  static getrawmempool(): string {
+  getrawmempool(): string {
 
-    let request = BitboxHTTP
+    let request = this.BitboxHTTP
       .get(`getrawmempool`)
       .then((response) => {
         console.log(response.data);
@@ -737,9 +742,9 @@ class BITBOXCli {
     return request;
   }
 
-  static getrawtransaction(): string {
+  getrawtransaction(): string {
 
-    let request = BitboxHTTP
+    let request = this.BitboxHTTP
       .get(`getrawtransaction`)
       .then((response) => {
         console.log(response.data);
@@ -750,9 +755,9 @@ class BITBOXCli {
     return request;
   }
 
-  static getreceivedbyaccount(): string {
+  getreceivedbyaccount(): string {
 
-    let request = BitboxHTTP
+    let request = this.BitboxHTTP
       .get(`getreceivedbyaccount`)
       .then((response) => {
         console.log(response.data);
@@ -763,9 +768,9 @@ class BITBOXCli {
     return request;
   }
 
-  static getreceivedbyaddress(): string {
+  getreceivedbyaddress(): string {
 
-    let request = BitboxHTTP
+    let request = this.BitboxHTTP
       .get(`getreceivedbyaddress`)
       .then((response) => {
         console.log(response.data);
@@ -776,9 +781,9 @@ class BITBOXCli {
     return request;
   }
 
-  static gettransaction(): string {
+  gettransaction(): string {
 
-    let request = BitboxHTTP
+    let request = this.BitboxHTTP
       .get(`gettransaction`)
       .then((response) => {
         console.log(response.data);
@@ -789,9 +794,9 @@ class BITBOXCli {
     return request;
   }
 
-  static gettxout(): string {
+  gettxout(): string {
 
-    let request = BitboxHTTP
+    let request = this.BitboxHTTP
       .get(`gettxout`)
       .then((response) => {
         console.log(response.data);
@@ -802,9 +807,9 @@ class BITBOXCli {
     return request;
   }
 
-  static gettxoutproof(): string {
+  gettxoutproof(): string {
 
-    let request = BitboxHTTP
+    let request = this.BitboxHTTP
       .get(`gettxoutproof`)
       .then((response) => {
         console.log(response.data);
@@ -815,9 +820,9 @@ class BITBOXCli {
     return request;
   }
 
-  static gettxoutsetinfo(): string {
+  gettxoutsetinfo(): string {
 
-    let request = BitboxHTTP
+    let request = this.BitboxHTTP
       .get(`gettxoutsetinfo`)
       .then((response) => {
         console.log(response.data);
@@ -828,9 +833,9 @@ class BITBOXCli {
     return request;
   }
 
-  static getunconfirmedbalance(): string {
+  getunconfirmedbalance(): string {
 
-    let request = BitboxHTTP
+    let request = this.BitboxHTTP
       .get(`getunconfirmedbalance`)
       .then((response) => {
         console.log(response.data);
@@ -841,9 +846,9 @@ class BITBOXCli {
     return request;
   }
 
-  static getwalletinfo(): string {
+  getwalletinfo(): string {
 
-    let request = BitboxHTTP
+    let request = this.BitboxHTTP
       .get(`getwalletinfo`)
       .then((response) => {
         console.log(response.data);
@@ -854,9 +859,9 @@ class BITBOXCli {
     return request;
   }
 
-  static getwork(): string {
+  getwork(): string {
 
-    let request = BitboxHTTP
+    let request = this.BitboxHTTP
       .get(`getwork`)
       .then((response) => {
         console.log(response.data);
@@ -867,9 +872,9 @@ class BITBOXCli {
     return request;
   }
 
-  static help(): string {
+  help(): string {
 
-    let request = BitboxHTTP
+    let request = this.BitboxHTTP
       .get(`help`)
       .then((response) => {
         console.log(response.data);
@@ -880,9 +885,9 @@ class BITBOXCli {
     return request;
   }
 
-  static importaddress(): string {
+  importaddress(): string {
 
-    let request = BitboxHTTP
+    let request = this.BitboxHTTP
       .get(`importaddress`)
       .then((response) => {
         console.log(response.data);
@@ -893,9 +898,9 @@ class BITBOXCli {
     return request;
   }
 
-  static importmulti(): string {
+  importmulti(): string {
 
-    let request = BitboxHTTP
+    let request = this.BitboxHTTP
       .get(`importmulti`)
       .then((response) => {
         console.log(response.data);
@@ -906,9 +911,9 @@ class BITBOXCli {
     return request;
   }
 
-  static importprivkey(): string {
+  importprivkey(): string {
 
-    let request = BitboxHTTP
+    let request = this.BitboxHTTP
       .get(`importprivkey`)
       .then((response) => {
         console.log(response.data);
@@ -919,9 +924,9 @@ class BITBOXCli {
     return request;
   }
 
-  static importprunedfunds(): string {
+  importprunedfunds(): string {
 
-    let request = BitboxHTTP
+    let request = this.BitboxHTTP
       .get(`importprunedfunds`)
       .then((response) => {
         console.log(response.data);
@@ -932,9 +937,9 @@ class BITBOXCli {
     return request;
   }
 
-  static importwallet(): string {
+  importwallet(): string {
 
-    let request = BitboxHTTP
+    let request = this.BitboxHTTP
       .get(`importwallet`)
       .then((response) => {
         console.log(response.data);
@@ -945,9 +950,9 @@ class BITBOXCli {
     return request;
   }
 
-  static keypoolrefill(): string {
+  keypoolrefill(): string {
 
-    let request = BitboxHTTP
+    let request = this.BitboxHTTP
       .get(`keypoolrefill`)
       .then((response) => {
         console.log(response.data);
@@ -958,9 +963,9 @@ class BITBOXCli {
     return request;
   }
 
-  static listaccounts(): string {
+  listaccounts(): string {
 
-    let request = BitboxHTTP
+    let request = this.BitboxHTTP
       .get(`listaccounts`)
       .then((response) => {
         console.log(response.data);
@@ -971,9 +976,9 @@ class BITBOXCli {
     return request;
   }
 
-  static listaddressgroupings(): string {
+  listaddressgroupings(): string {
 
-    let request = BitboxHTTP
+    let request = this.BitboxHTTP
       .get(`listaddressgroupings`)
       .then((response) => {
         console.log(response.data);
@@ -984,9 +989,9 @@ class BITBOXCli {
     return request;
   }
 
-  static listbanned(): string {
+  listbanned(): string {
 
-    let request = BitboxHTTP
+    let request = this.BitboxHTTP
       .get(`listbanned`)
       .then((response) => {
         console.log(response.data);
@@ -997,9 +1002,9 @@ class BITBOXCli {
     return request;
   }
 
-  static listlockunspent(): string {
+  listlockunspent(): string {
 
-    let request = BitboxHTTP
+    let request = this.BitboxHTTP
       .get(`listlockunspent`)
       .then((response) => {
         console.log(response.data);
@@ -1010,9 +1015,9 @@ class BITBOXCli {
     return request;
   }
 
-  static listreceivedbyaccount(): string {
+  listreceivedbyaccount(): string {
 
-    let request = BitboxHTTP
+    let request = this.BitboxHTTP
       .get(`listreceivedbyaccount`)
       .then((response) => {
         console.log(response.data);
@@ -1023,9 +1028,9 @@ class BITBOXCli {
     return request;
   }
 
-  static listreceivedbyaddress(): string {
+  listreceivedbyaddress(): string {
 
-    let request = BitboxHTTP
+    let request = this.BitboxHTTP
       .get(`listreceivedbyaddress`)
       .then((response) => {
         console.log(response.data);
@@ -1036,9 +1041,9 @@ class BITBOXCli {
     return request;
   }
 
-  static listsinceblock(): string {
+  listsinceblock(): string {
 
-    let request = BitboxHTTP
+    let request = this.BitboxHTTP
       .get(`listsinceblock`)
       .then((response) => {
         console.log(response.data);
@@ -1049,9 +1054,9 @@ class BITBOXCli {
     return request;
   }
 
-  static listtransactions(): string {
+  listtransactions(): string {
 
-    let request = BitboxHTTP
+    let request = this.BitboxHTTP
       .get(`listtransactions`)
       .then((response) => {
         console.log(response.data);
@@ -1062,9 +1067,9 @@ class BITBOXCli {
     return request;
   }
 
-  static listunspent(): string {
+  listunspent(): string {
 
-    let request = BitboxHTTP
+    let request = this.BitboxHTTP
       .get(`listunspent`)
       .then((response) => {
         console.log(response.data);
@@ -1075,9 +1080,9 @@ class BITBOXCli {
     return request;
   }
 
-  static lockunspent(): string {
+  lockunspent(): string {
 
-    let request = BitboxHTTP
+    let request = this.BitboxHTTP
       .get(`lockunspent`)
       .then((response) => {
         console.log(response.data);
@@ -1088,9 +1093,9 @@ class BITBOXCli {
     return request;
   }
 
-  static move(): string {
+  move(): string {
 
-    let request = BitboxHTTP
+    let request = this.BitboxHTTP
       .get(`move`)
       .then((response) => {
         console.log(response.data);
@@ -1101,9 +1106,9 @@ class BITBOXCli {
     return request;
   }
 
-  static pingRpc(): string {
+  pingRpc(): string {
 
-    let request = BitboxHTTP
+    let request = this.BitboxHTTP
       .get(`pingRpc`)
       .then((response) => {
         console.log(response.data);
@@ -1114,9 +1119,9 @@ class BITBOXCli {
     return request;
   }
 
-  static preciousblock(): string {
+  preciousblock(): string {
 
-    let request = BitboxHTTP
+    let request = this.BitboxHTTP
       .get(`preciousblock`)
       .then((response) => {
         console.log(response.data);
@@ -1127,9 +1132,9 @@ class BITBOXCli {
     return request;
   }
 
-  static prioritisetransaction(): string {
+  prioritisetransaction(): string {
 
-    let request = BitboxHTTP
+    let request = this.BitboxHTTP
       .get(`prioritisetransaction`)
       .then((response) => {
         console.log(response.data);
@@ -1140,9 +1145,9 @@ class BITBOXCli {
     return request;
   }
 
-  static pruneblockchain(): string {
+  pruneblockchain(): string {
 
-    let request = BitboxHTTP
+    let request = this.BitboxHTTP
       .get(`pruneblockchain`)
       .then((response) => {
         console.log(response.data);
@@ -1153,9 +1158,9 @@ class BITBOXCli {
     return request;
   }
 
-  static removeprunedfunds(): string {
+  removeprunedfunds(): string {
 
-    let request = BitboxHTTP
+    let request = this.BitboxHTTP
       .get(`removeprunedfunds`)
       .then((response) => {
         console.log(response.data);
@@ -1166,9 +1171,9 @@ class BITBOXCli {
     return request;
   }
 
-  static sendfrom(): string {
+  sendfrom(): string {
 
-    let request = BitboxHTTP
+    let request = this.BitboxHTTP
       .get(`sendfrom`)
       .then((response) => {
         console.log(response.data);
@@ -1179,9 +1184,9 @@ class BITBOXCli {
     return request;
   }
 
-  static sendmany(): string {
+  sendmany(): string {
 
-    let request = BitboxHTTP
+    let request = this.BitboxHTTP
       .get(`sendmany`)
       .then((response) => {
         console.log(response.data);
@@ -1192,9 +1197,9 @@ class BITBOXCli {
     return request;
   }
 
-  static sendrawtransaction(): string {
+  sendrawtransaction(): string {
 
-    let request = BitboxHTTP
+    let request = this.BitboxHTTP
       .get(`sendrawtransaction`)
       .then((response) => {
         console.log(response.data);
@@ -1205,9 +1210,9 @@ class BITBOXCli {
     return request;
   }
 
-  static sendtoaddress(): string {
+  sendtoaddress(): string {
 
-    let request = BitboxHTTP
+    let request = this.BitboxHTTP
       .get(`sendtoaddress`)
       .then((response) => {
         console.log(response.data);
@@ -1218,9 +1223,9 @@ class BITBOXCli {
     return request;
   }
 
-  static setaccount(): string {
+  setaccount(): string {
 
-    let request = BitboxHTTP
+    let request = this.BitboxHTTP
       .get(`setaccount`)
       .then((response) => {
         console.log(response.data);
@@ -1231,9 +1236,9 @@ class BITBOXCli {
     return request;
   }
 
-  static setban(): string {
+  setban(): string {
 
-    let request = BitboxHTTP
+    let request = this.BitboxHTTP
       .get(`setban`)
       .then((response) => {
         console.log(response.data);
@@ -1244,9 +1249,9 @@ class BITBOXCli {
     return request;
   }
 
-  static setgenerate(): string {
+  setgenerate(): string {
 
-    let request = BitboxHTTP
+    let request = this.BitboxHTTP
       .get(`setgenerate`)
       .then((response) => {
         console.log(response.data);
@@ -1257,9 +1262,9 @@ class BITBOXCli {
     return request;
   }
 
-  static setnetworkactive(): string {
+  setnetworkactive(): string {
 
-    let request = BitboxHTTP
+    let request = this.BitboxHTTP
       .get(`setnetworkactive`)
       .then((response) => {
         console.log(response.data);
@@ -1270,9 +1275,9 @@ class BITBOXCli {
     return request;
   }
 
-  static settxfee(): string {
+  settxfee(): string {
 
-    let request = BitboxHTTP
+    let request = this.BitboxHTTP
       .get(`settxfee`)
       .then((response) => {
         console.log(response.data);
@@ -1283,9 +1288,9 @@ class BITBOXCli {
     return request;
   }
 
-  static signmessage(): string {
+  signmessage(): string {
 
-    let request = BitboxHTTP
+    let request = this.BitboxHTTP
       .get(`signmessage`)
       .then((response) => {
         console.log(response.data);
@@ -1296,9 +1301,9 @@ class BITBOXCli {
     return request;
   }
 
-  static signmessagewithprivkey(): string {
+  signmessagewithprivkey(): string {
 
-    let request = BitboxHTTP
+    let request = this.BitboxHTTP
       .get(`signmessagewithprivkey`)
       .then((response) => {
         console.log(response.data);
@@ -1309,9 +1314,9 @@ class BITBOXCli {
     return request;
   }
 
-  static signrawtransaction(): string {
+  signrawtransaction(): string {
 
-    let request = BitboxHTTP
+    let request = this.BitboxHTTP
       .get(`signrawtransaction`)
       .then((response) => {
         console.log(response.data);
@@ -1322,9 +1327,9 @@ class BITBOXCli {
     return request;
   }
 
-  static stop(): string {
+  stop(): string {
 
-    let request = BitboxHTTP
+    let request = this.BitboxHTTP
       .get(`stop`)
       .then((response) => {
         console.log(response.data);
@@ -1335,9 +1340,9 @@ class BITBOXCli {
     return request;
   }
 
-  static submitblock(): string {
+  submitblock(): string {
 
-    let request = BitboxHTTP
+    let request = this.BitboxHTTP
       .get(`submitblock`)
       .then((response) => {
         console.log(response.data);
@@ -1348,9 +1353,9 @@ class BITBOXCli {
     return request;
   }
 
-  static validateaddress(): string {
+  validateaddress(): string {
 
-    let request = BitboxHTTP
+    let request = this.BitboxHTTP
       .get(`validateaddress`)
       .then((response) => {
         console.log(response.data);
@@ -1361,9 +1366,9 @@ class BITBOXCli {
     return request;
   }
 
-  static verifychain(): string {
+  verifychain(): string {
 
-    let request = BitboxHTTP
+    let request = this.BitboxHTTP
       .get(`verifychain`)
       .then((response) => {
         console.log(response.data);
@@ -1374,9 +1379,9 @@ class BITBOXCli {
     return request;
   }
 
-  static verifymessage(): string {
+  verifymessage(): string {
 
-    let request = BitboxHTTP
+    let request = this.BitboxHTTP
       .get(`verifymessage`)
       .then((response) => {
         console.log(response.data);
@@ -1387,9 +1392,9 @@ class BITBOXCli {
     return request;
   }
 
-  static verifytxoutproof(): string {
+  verifytxoutproof(): string {
 
-    let request = BitboxHTTP
+    let request = this.BitboxHTTP
       .get(`verifytxoutproof`)
       .then((response) => {
         console.log(response.data);
@@ -1400,9 +1405,9 @@ class BITBOXCli {
     return request;
   }
 
-  static walletlock(): string {
+  walletlock(): string {
 
-    let request = BitboxHTTP
+    let request = this.BitboxHTTP
       .get(`walletlock`)
       .then((response) => {
         console.log(response.data);
@@ -1413,9 +1418,9 @@ class BITBOXCli {
     return request;
   }
 
-  static walletpassphrase(): string {
+  walletpassphrase(): string {
 
-    let request = BitboxHTTP
+    let request = this.BitboxHTTP
       .get(`walletpassphrase`)
       .then((response) => {
         console.log(response.data);
@@ -1426,9 +1431,9 @@ class BITBOXCli {
     return request;
   }
 
-  static walletpassphrasechange(): string {
+  walletpassphrasechange(): string {
 
-    let request = BitboxHTTP
+    let request = this.BitboxHTTP
       .get(`walletpassphrasechange`)
       .then((response) => {
         console.log(response.data);

@@ -6,9 +6,11 @@ let cpFile = require('cp-file');
 let figlet = require('figlet');
 let clear = require('clear');
 let fs = require('fs');
+let os = require('os');
 let touch = require("touch");
 let emoji = require('node-emoji');
 let repl = require("repl");
+let ini = require('ini');
 let BITBOXCli = require('./lib/bitboxcli.js');
 
 // let request = require('superagent');
@@ -21,9 +23,15 @@ program
   .version('0.0.1');
 
 program
-  .command('init')
-  .description('Initialize new and empty BITBOX project')
+  .command('new')
   .option('-t, --title <title>', 'Title of new project')
+  .option('-r, --protocol <protocol>', 'protocol of running BITBOX instance. Default: http')
+  .option('-o, --host <host>', 'host of running BITBOX instance. Default: localhost')
+  .option('-p, --port <port>', 'port of running BITBOX instance. Default: 8332')
+  .description(`The 'bitbox new' command creates a new BITBOX application w/ a
+  directory structure and bitbox.js configuration file.
+
+  Pass in command line arguments or optionally specify commonly used arguments in a .bitboxrc file in your home directory`)
   .action((options) => {
     clear();
     console.log(
@@ -31,33 +39,69 @@ program
         figlet.textSync('BITBOX', { horizontalLayout: 'full' })
       )
     );
-    let title = options.title;
-    if(!title) {
-      console.log(chalk.bold.red("You didn't provide a title! Using BITBOX instead. #SorryNotSorry"));
-      title = 'BITBOX';
-    }
+    fs.readFile(os.homedir() + '/.bitboxrc', 'utf8', (err, contents) => {
+      let config;
+      if(contents) {
+        config = ini.parse(contents);
+      }
 
-    console.log(chalk.green(`Creating ${title}/ directory`));
-    console.log(chalk.green(`Creating src/ directory: ./${title}/src`));
-    mkdirp(`./${title}/tests`, (err) => {});
+      let protocol;
+      let host;
+      let port;
+      if(options.protocol) {
+        protocol = options.protocol;
+      } else if(config.new && config.new.protocol) {
+        protocol = config.new.protocol;
+      } else {
+        protocol = 'http';
+      }
 
-    console.log(chalk.green(`Creating test/ directory: ./${title}/tests`));
-    mkdirp(`./${title}/src`, (err) => {});
+      if(options.host) {
+        host = options.host;
+      } else if(config.new && config.new.host) {
+        host = config.new.host;
+      } else {
+        host = 'localhost';
+      }
 
-    console.log(chalk.green(`Creating bitbox.js configuration file`));
+      if(options.port) {
+        port = options.port;
+      } else if(config.new && config.new.port) {
+        port = config.new.port;
+      } else {
+        port = 8332;
+      }
 
-    mkdirp(`./${title}`, (err) => {});
-    touch(`./${title}/bitbox.js`);
-    fs.writeFileSync( `./${title}/bitbox.js`, `module.exports = {
+      let title = options.title;
+      if(!title) {
+        console.log(chalk.bold.red("You didn't provide a title! Using BITBOX instead. #SorryNotSorry"));
+        title = 'BITBOX';
+      }
+
+      console.log(chalk.green(`Creating ${title}/ directory`));
+      console.log(chalk.green(`Creating src/ directory: ./${title}/src`));
+      mkdirp(`./${title}/tests`, (err) => {});
+
+      console.log(chalk.green(`Creating test/ directory: ./${title}/tests`));
+      mkdirp(`./${title}/src`, (err) => {});
+
+      console.log(chalk.green(`Creating bitbox.js configuration file`));
+
+      mkdirp(`./${title}`, (err) => {});
+      touch(`./${title}/bitbox.js`);
+      fs.writeFileSync( `./${title}/bitbox.js`, `exports.config = {
   networks: {
     development: {
-      host: "localhost",
-      port: 8332
+      protocol: "${protocol}",
+      host: "${host}",
+      port: ${port}
     }
   }
-};`);
+};
+`);
     console.log(chalk.blue('All done.'), emoji.get(':white_check_mark:'));
     console.log(chalk.blue('Go get em! Remember--with great power comes great responsibility.'), emoji.get(':rocket:'));
+    });
 
     // console.log(chalk.green(`Creatiing test/ directory: ./${title}/tests`));
     // cpFile('./src/bitbox.js', './bitbox.js').then(() => {
@@ -70,10 +114,11 @@ program
   .command('console')
   .description('Run a console with Bitcoin Cash RPC commands available')
   .action((options) => {
+    let config = require(process.cwd() + '/bitbox.js').config;
     var replServer = repl.start({
       prompt: `${emoji.get(':zap:')} ${" BITBOX"} ${emoji.get(':zap:')} `,
     });
-    replServer.context.BITBOX = BITBOXCli;
+    replServer.context.BITBOX = new BITBOXCli(config);
   }
 );
   // .option('-t, --title <title>', 'Title of new project')
@@ -87,7 +132,7 @@ program
 //   .action((command) => {
 //     // console.log(command);
 //     mkdirp('./bitbox/tests', (err) => {});
-//     mkdirp('./bitbox/src', (err) => {});
+//     mkdirpjk('./bitbox/src', (err) => {});
 //     // console.log(chalk.bold.cyan('projectname: ') + program.init);
 //     // console.log(chalk.bold.red('projectname: ') + program.init);
 //   })
