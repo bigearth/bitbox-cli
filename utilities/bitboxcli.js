@@ -235,10 +235,14 @@ class BITBOXCli {
     return request;
   }
 
-  dumpprivkey(): string {
+  dumpprivkey(publicAddress: string): string {
 
     let request = this.BitboxHTTP
-      .get(`dumpprivkey`)
+      .get(`dumpprivkey`, {
+          params: {
+            address: publicAddress
+          }
+        })
       .then((response) => {
         console.log(response.data);
       })
