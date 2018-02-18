@@ -20,7 +20,7 @@ let BITBOXCli = require('./lib/bitboxcli.js');
 // let ProgressBar = require('progress');
 
 program
-  .version('0.0.8');
+  .version('0.0.9');
 
 program
   .command('new')
