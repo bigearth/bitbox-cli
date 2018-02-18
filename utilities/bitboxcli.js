@@ -196,10 +196,13 @@ class BITBOXCli {
     return request;
   }
 
-  decoderawtransaction(): string {
-
+  decoderawtransaction(rawHex: string): string {
     let request = this.BitboxHTTP
-      .get(`decoderawtransaction`)
+      .get(`decoderawtransaction`, {
+        params: {
+          rawHex: rawHex
+        }
+      })
       .then((response) => {
         console.log(response.data);
       })
