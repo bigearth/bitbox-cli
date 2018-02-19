@@ -18,7 +18,11 @@ class BITBOXCli {
     // JSON null when the transaction and all descendants were abandoned
 
     let request = this.BitboxHTTP
-      .get(`abandontransaction`)
+      .get(`abandontransaction`, {
+        params: {
+          txid: txid
+        }
+      })
       .then((response) => {
         console.log(response.data);
       })
@@ -28,7 +32,7 @@ class BITBOXCli {
     return request;
   }
 
-  addmultisigaddress(required: number, name: Array<string>|string, account: ?string): string{
+  addmultisigaddress(required: number, keys: Array<string>|string, account: ?string): string{
     // Adds a P2SH multisig address to the wallet.
 
     // Parameter #1—the number of signatures required
@@ -44,7 +48,12 @@ class BITBOXCli {
     // The account name in which the address should be stored. Default is the default account, “” (an empty string)
 
     let request = this.BitboxHTTP
-      .get(`addmultisigaddress`)
+      .get(`addmultisigaddress`, {
+        params: {
+          required: required,
+          keys: keys
+        }
+      })
       .then((response) => {
         console.log(response.data);
       })
@@ -73,7 +82,12 @@ class BITBOXCli {
     // The JSON-RPC error field will be set only if you try removing a node that is not on the addnodes list
 
     let request = this.BitboxHTTP
-      .get(`addnode`)
+      .get(`addnode`, {
+        params: {
+          node: node,
+          command: command
+        }
+      })
       .then((response) => {
         console.log(response.data);
       })
@@ -94,7 +108,11 @@ class BITBOXCli {
     // The value of the new address (P2SH of witness script)
 
     let request = this.BitboxHTTP
-      .get(`addnode`)
+      .get(`addwitnessaddress`, {
+        params: {
+          address: address
+        }
+      })
       .then((response) => {
         console.log(response.data);
       })
@@ -104,7 +122,7 @@ class BITBOXCli {
     return request;
   }
 
-  backupWallet(destination: string): string {
+  backupwallet(destination: string): string {
     // The backupwallet RPC safely copies wallet.dat to the specified file, which can be a directory or a path with filename.
 
     // Parameter #1—destination directory or filename
@@ -115,9 +133,17 @@ class BITBOXCli {
     // Always null whether success or failure. The JSON-RPC error and message fields will be set if a failure occurred
 
     let request = this.BitboxHTTP
-      .get(`backupWallet`)
+      .get(`backupWallet`, {
+        params: {
+          destination: destination
+        }
+      })
       .then((response) => {
-        console.log(response.data);
+        let fs = require('fs');
+
+        fs.appendFile("wallet.txt", response.data, (err) => {
+          if (err) throw err;
+        });
       })
       .catch(error => {
         // console.log('error', error);
@@ -125,10 +151,15 @@ class BITBOXCli {
     return request;
   }
 
-  bumpfee(): string {
+  bumpfee(txid: string, options: any): string {
 
     let request = this.BitboxHTTP
-      .get(`bumpfee`)
+      .get(`bumpfee`, {
+        params: {
+          txid: txid,
+          options: options
+        }
+      })
       .then((response) => {
         console.log(response.data);
       })
@@ -173,7 +204,12 @@ class BITBOXCli {
     // Result—P2SH address and hex-encoded redeem script
 
     let request = this.BitboxHTTP
-      .get(`createmultisig`)
+      .get(`createmultisig`, {
+        params: {
+          required: required,
+          address: address
+        }
+      })
       .then((response) => {
         console.log(response.data);
       })
@@ -197,6 +233,11 @@ class BITBOXCli {
   }
 
   decoderawtransaction(rawHex: string): string {
+    // decodes a serialized transaction hex string into a JSON object describing the transaction.
+
+    // Parameter #1—serialized transaction in hex
+
+    // Result—the decoded transaction
     let request = this.BitboxHTTP
       .get(`decoderawtransaction`, {
         params: {
@@ -212,10 +253,19 @@ class BITBOXCli {
     return request;
   }
 
-  decodescript(): string {
+  decodescript(redeemScript: string): string {
+    // decodes a hex-encoded P2SH redeem script.
+
+    // Parameter #1—a hex-encoded redeem script
+
+    // Result—the decoded script
 
     let request = this.BitboxHTTP
-      .get(`decodescript`)
+      .get(`decodescript`, {
+        params: {
+          redeemScript: redeemScript
+        }
+      })
       .then((response) => {
         console.log(response.data);
       })
@@ -225,10 +275,19 @@ class BITBOXCli {
     return request;
   }
 
-  disconnectnode(): string {
+  disconnectnode(address: string): string {
+    // immediately disconnects from a specified node.
+
+    // Parameter #1—hostname/IP address and port of node to disconnect
+
+    // Result—null on success or error on failed disconnect
 
     let request = this.BitboxHTTP
-      .get(`disconnectnode`)
+      .get(`disconnectnode`, {
+        params: {
+          address: address
+        }
+      })
       .then((response) => {
         console.log(response.data);
       })
@@ -238,12 +297,17 @@ class BITBOXCli {
     return request;
   }
 
-  dumpprivkey(publicAddress: string): string {
+  dumpprivkey(address: string): string {
+    // returns the wallet-import-format (WIP) private key corresponding to an address. (But does not remove it from the wallet.)
+
+    // Parameter #1—the address corresponding to the private key to get
+
+    // Result—the private key
 
     let request = this.BitboxHTTP
       .get(`dumpprivkey`, {
           params: {
-            address: publicAddress
+            address: address
           }
         })
       .then((response) => {
@@ -256,11 +320,20 @@ class BITBOXCli {
   }
 
   dumpwallet(): string {
+    // creates or overwrites a file with all wallet keys in a human-readable format.
+
+    // Parameter #1—a filename
+
+    // Result—null or error
 
     let request = this.BitboxHTTP
       .get(`dumpwallet`)
       .then((response) => {
-        console.log(response.data);
+        let fs = require('fs');
+
+        fs.appendFile("wallet.txt", response.data, (err) => {
+          if (err) throw err;
+        });
       })
       .catch(error => {
         // console.log('error', error);
@@ -268,10 +341,20 @@ class BITBOXCli {
     return request;
   }
 
-  encryptwallet(): string {
+  encryptwallet(passphrase: string): string {
+    // encrypts the wallet with a passphrase. This is only to enable encryption for the first time. After encryption is enabled, you will need to enter the passphrase to use private keys.
+    // if using this RPC on the command line, remember that your shell probably saves your command lines (including the value of the passphrase parameter). In addition, there is no RPC to completely disable encryption. If you want to return to an unencrypted wallet, you must create a new wallet and restore your data from a backup made with the dumpwallet RPC.
+
+    // Parameter #1—a passphrase
+
+    // Result—a notice (with program shutdown)
 
     let request = this.BitboxHTTP
-      .get(`encryptwallet`)
+      .get(`encryptwallet`, {
+        params: {
+          passphrase: passphrase
+        }
+      })
       .then((response) => {
         console.log(response.data);
       })
@@ -281,10 +364,14 @@ class BITBOXCli {
     return request;
   }
 
-  estimatefee(): string {
+  estimatefee(blocks: number): string {
 
     let request = this.BitboxHTTP
-      .get(`estimatefee`)
+      .get(`estimatefee`, {
+        params: {
+          blocks: blocks
+        }
+      })
       .then((response) => {
         console.log('called', response.data);
       })
@@ -294,10 +381,14 @@ class BITBOXCli {
     return request;
   }
 
-  estimatepriority(): string {
+  estimatepriority(blocks: number): string {
 
     let request = this.BitboxHTTP
-      .get(`estimatepriority`)
+      .get(`estimatepriority`, {
+        params: {
+          blocks: blocks
+        }
+      })
       .then((response) => {
         console.log(response.data);
       })
@@ -307,10 +398,15 @@ class BITBOXCli {
     return request;
   }
 
-  fundrawtransaction(): string {
+  fundrawtransaction(hexstring: string, options: any): string {
 
     let request = this.BitboxHTTP
-      .get(`fundrawtransaction`)
+      .get(`fundrawtransaction`, {
+        params: {
+          hexstring: hexstring,
+          options, options
+        }
+      })
       .then((response) => {
         console.log(response.data);
       })
@@ -320,10 +416,15 @@ class BITBOXCli {
     return request;
   }
 
-  generate(): string {
+  generate(blocks: number, maxtries: number): string {
 
     let request = this.BitboxHTTP
-      .get(`generate`)
+      .get(`generate`, {
+        params: {
+          blocks: blocks,
+          maxtries, maxtries
+        }
+      })
       .then((response) => {
         console.log(response.data);
       })
@@ -333,10 +434,16 @@ class BITBOXCli {
     return request;
   }
 
-  generatetoaddress(): string {
+  generatetoaddress(blocks: number, address: string, maxtries: number): string {
 
     let request = this.BitboxHTTP
-      .get(`generatetoaddress`)
+      .get(`generatetoaddress`, {
+        params: {
+          blocks: blocks,
+          address: address,
+          maxtries, maxtries
+        }
+      })
       .then((response) => {
         console.log(response.data);
       })
@@ -346,10 +453,19 @@ class BITBOXCli {
     return request;
   }
 
-  getaccountaddress(): string {
+  getaccountaddress(account: string): string {
+    // eturns the current Bitcoin address for receiving payments to this account. If the account doesn’t exist, it creates both the account and a new address for receiving payment. Once a payment has been received to an address, future calls to this RPC for the same account will return a different address.
+
+    // Parameter #1—an account name
+
+    // Result—a bitcoin address
 
     let request = this.BitboxHTTP
-      .get(`getaccountaddress`)
+      .get(`getaccountaddress`, {
+        params: {
+          account, account
+        }
+      })
       .then((response) => {
         console.log(response.data);
       })
@@ -359,10 +475,19 @@ class BITBOXCli {
     return request;
   }
 
-  getaccount(): string {
+  getaccount(address: string): string {
+    // returns the name of the account associated with the given address.
+
+    // Parameter #1—a Bitcoin address
+
+    // Result—an account name
 
     let request = this.BitboxHTTP
-      .get(`getaccount`)
+      .get(`getaccount`, {
+        params: {
+          address, address
+        }
+      })
       .then((response) => {
         console.log(response.data);
       })
@@ -372,10 +497,22 @@ class BITBOXCli {
     return request;
   }
 
-  getaddednodeinfo(): string {
+  getaddednodeinfo(details: boolean, node: ?string): string {
+    // returns information about the given added node, or all added nodes (except onetry nodes). Only nodes which have been manually added using the addnode RPC will have their information displayed.
+
+    // Parameter #1—whether to display connection information
+
+    // Parameter #2—what node to display information about
+
+    // Result—a list of added nodes
 
     let request = this.BitboxHTTP
-      .get(`getaddednodeinfo`)
+      .get(`getaddednodeinfo`, {
+        params: {
+          details, details,
+          node: node
+        }
+      })
       .then((response) => {
         console.log(response.data);
       })
@@ -385,10 +522,19 @@ class BITBOXCli {
     return request;
   }
 
-  getaddressesbyaccount(): string {
+  getaddressesbyaccount(account: string): string {
+    // returns a list of every address assigned to a particular account.
+
+    // Parameter #1—the account name
+
+    // Result—a list of addresses
 
     let request = this.BitboxHTTP
-      .get(`getaddressesbyaccount`)
+      .get(`getaddressesbyaccount`, {
+        params: {
+          account, account
+        }
+      })
       .then((response) => {
         console.log(response.data);
       })
@@ -398,10 +544,23 @@ class BITBOXCli {
     return request;
   }
 
-  getbalance(): string {
+  getbalance(account: string): string {
+    // gets the balance in decimal bitcoins across all accounts or for a particular account.
+
+    // Parameter #1—an account name
+
+    // Parameter #2—the minimum number of confirmations
+
+    // Parameter #3—whether to include watch-only addresses
+
+    // Result—the balance in bitcoins
 
     let request = this.BitboxHTTP
-      .get(`getbalance`)
+      .get(`getbalance`, {
+        params: {
+          account, account
+        }
+      })
       .then((response) => {
         console.log(response.data);
       })
@@ -412,6 +571,11 @@ class BITBOXCli {
   }
 
   getbestblockhash(): string {
+    // returns the header hash of the most recent block on the best block chain.
+
+    // Parameters: none
+
+    // Result—hash of the tip from the best block chain
 
     let request = this.BitboxHTTP
       .get(`getbestblockhash`)
