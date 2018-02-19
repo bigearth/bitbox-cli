@@ -8,30 +8,6 @@ class BITBOXCli {
     });
   }
 
-  abandonTransaction(txid: string): Promise<any> {
-    // Marks an in-wallet transaction and all its in-wallet descendants as abandoned. This allows their inputs to be respent.
-
-    // Parameter #1—a transaction identifier (TXID)
-    // txid: The TXID of the transaction that you want to abandon. The TXID must be encoded as hex in RPC byte order
-
-    // Result—null on success
-    // JSON null when the transaction and all descendants were abandoned
-
-    let request = this.BitboxHTTP
-      .get(`abandontransaction`, {
-        params: {
-          txid: txid
-        }
-      })
-      .then((response) => {
-        console.log(response.data);
-      })
-      .catch(error => {
-        // console.log('error', error);
-      });
-    return request;
-  }
-
   addmultisigaddress(required: number, keys: Array<string>|string, account: ?string): string{
     // Adds a P2SH multisig address to the wallet.
 
@@ -97,31 +73,6 @@ class BITBOXCli {
     return request;
   }
 
-  addwitnessaddress(address: string): string {
-
-    // Adds a witness address for a script (with pubkey or redeem script known).
-
-    // Parameter #1—the witness address
-    // A witness address that gets added to a script. Needs to be in the wallet and uncompressed
-
-    // Result—the witness script
-    // The value of the new address (P2SH of witness script)
-
-    let request = this.BitboxHTTP
-      .get(`addwitnessaddress`, {
-        params: {
-          address: address
-        }
-      })
-      .then((response) => {
-        console.log(response.data);
-      })
-      .catch(error => {
-        // console.log('error', error);
-      });
-    return request;
-  }
-
   backupwallet(destination: string): string {
     // The backupwallet RPC safely copies wallet.dat to the specified file, which can be a directory or a path with filename.
 
@@ -144,24 +95,6 @@ class BITBOXCli {
         fs.appendFile("wallet.txt", response.data, (err) => {
           if (err) throw err;
         });
-      })
-      .catch(error => {
-        // console.log('error', error);
-      });
-    return request;
-  }
-
-  bumpfee(txid: string, options: any): string {
-
-    let request = this.BitboxHTTP
-      .get(`bumpfee`, {
-        params: {
-          txid: txid,
-          options: options
-        }
-      })
-      .then((response) => {
-        console.log(response.data);
       })
       .catch(error => {
         // console.log('error', error);
