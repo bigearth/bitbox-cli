@@ -1392,10 +1392,24 @@ class BITBOXCli {
     return request;
   }
 
-  signmessage(): string {
+  signmessage(address: string, message: string): string {
+
+    // Sign a message with the private key of an address
+
+    // Arguments:
+    // 1. "address"         (string, required) The bitcoin address to use for the private key.
+    // 2. "message"         (string, required) The message to create a signature of.
+
+    // Result:
+    // "signature"          (string) The signature of the message encoded in base 64
 
     let request = this.BitboxHTTP
-      .get(`signmessage`)
+      .get(`signmessage`, {
+        params: {
+          address, address,
+          message: message
+        }
+      })
       .then((response) => {
         console.log(response.data);
       })
@@ -1405,10 +1419,24 @@ class BITBOXCli {
     return request;
   }
 
-  signmessagewithprivkey(): string {
+  signmessagewithprivkey(privkey: string, message: string): string {
+
+    // Sign a message with the private key of an address
+
+    // Arguments:
+    // 1. "privkey"         (string, required) The private key to sign the message with.
+    // 2. "message"         (string, required) The message to create a signature of.
+
+    // Result:
+    // "signature"          (string) The signature of the message encoded in base 64
 
     let request = this.BitboxHTTP
-      .get(`signmessagewithprivkey`)
+      .get(`signmessagewithprivkey`, {
+        params: {
+          privkey, privkey,
+          message: message
+        }
+      })
       .then((response) => {
         console.log(response.data);
       })
@@ -1483,10 +1511,25 @@ class BITBOXCli {
     return request;
   }
 
-  verifymessage(): string {
+  verifymessage(address: string, signature: string, message: string): string {
+    // Verify a signed message
+
+    // Arguments:
+    // 1. "address"         (string, required) The bitcoin address to use for the signature.
+    // 2. "signature"       (string, required) The signature provided by the signer in base 64 encoding (see signmessage).
+    // 3. "message"         (string, required) The message that was signed.
+
+    // Result:
+    // true|false   (boolean) If the signature is verified or not.
 
     let request = this.BitboxHTTP
-      .get(`verifymessage`)
+      .get(`verifymessage`, {
+        params: {
+          address, address,
+          signature: signature,
+          message: message
+        }
+      })
       .then((response) => {
         console.log(response.data);
       })
