@@ -22,20 +22,18 @@ class BITBOXCli {
 
     // Parameter #3—the account name
     // The account name in which the address should be stored. Default is the default account, “” (an empty string)
-    return new Promise((resolve, reject) => {
-      this.BitboxHTTP
-      .get(`addmultisigaddress`, {
-        params: {
-          required: required,
-          keys: keys
-        }
-      })
-      .then((response) => {
-        resolve(response.data);
-      })
-      .catch((error) => {
-        reject(Error(error));
-      });
+    return this.BitboxHTTP
+    .get(`addmultisigaddress`, {
+      params: {
+        required: required,
+        keys: keys
+      }
+    })
+    .then((response) => {
+      return response;
+    })
+    .catch((error) => {
+      return Error(error);
     });
   }
 
@@ -56,20 +54,18 @@ class BITBOXCli {
     // Always JSON null whether the node was added, removed, tried-and-connected, or tried-and-not-connected.
     // The JSON-RPC error field will be set only if you try removing a node that is not on the addnodes list
 
-    return new Promise((resolve, reject) => {
-      this.BitboxHTTP
-      .get(`addnode`, {
-        params: {
-          node: node,
-          command: command
-        }
-      })
-      .then((response) => {
-        resolve(response.data);
-      })
-      .catch((error) => {
-        reject(Error(error));
-      });
+    return this.BitboxHTTP
+    .get(`addnode`, {
+      params: {
+        node: node,
+        command: command
+      }
+    })
+    .then((response) => {
+      return response;
+    })
+    .catch((error) => {
+      return Error(error);
     });
   }
 
@@ -83,8 +79,7 @@ class BITBOXCli {
     // Result—null or error
     // Always null whether success or failure. The JSON-RPC error and message fields will be set if a failure occurred
 
-    return new Promise((resolve, reject) => {
-      this.BitboxHTTP
+      return this.BitboxHTTP
       .get(`backupWallet`, {
         params: {
           destination: destination
@@ -95,16 +90,15 @@ class BITBOXCli {
 
         fs.appendFile("wallet.txt", response.data, (error) => {
           if (error) {
-            reject(Error(error));
+            return Error(error);
           } else {
-            resolve(response.data);
+            return response;
           }
         });
       })
       .catch((error) => {
-        reject(Error(error));
+        return Error(error);
       });
-    });
   }
 
   clearbanned(): string {
@@ -115,16 +109,15 @@ class BITBOXCli {
     // Result—null on success
     // JSON null when the list was cleared
 
-    return new Promise((resolve, reject) => {
-      this.BitboxHTTP
+
+      return this.BitboxHTTP
       .get(`clearbanned`)
       .then((response) => {
-        resolve(response.data);
+        return response;
       })
       .catch(error => {
-        reject(Error(error));
+        return Error(error);
       });
-    });
   }
 
   createmultisig(required: number, address: Array<string>|string): string {
@@ -142,35 +135,46 @@ class BITBOXCli {
 
     // Result—P2SH address and hex-encoded redeem script
 
-    return new Promise((resolve, reject) => {
-      this.BitboxHTTP
-      .get(`createmultisig`, {
-        params: {
-          required: required,
-          address: address
-        }
-      })
-      .then((response) => {
-        resolve(response.data);
-      })
-      .catch(error => {
-        reject(Error(error));
-      });
+    return this.BitboxHTTP
+    .get(`createmultisig`, {
+      params: {
+        required: required,
+        address: address
+      }
+    })
+    .then((response) => {
+      return response;
+    })
+    .catch(error => {
+      return Error(error);
     });
   }
 
-  createrawtransaction(): string {
+  createrawtransaction(inputs: Array<any>, outputs: any, locktime: ?number): string {
+    // creates an unsigned serialized transaction that spends a previous output to a new output with a P2PKH or P2SH address. The transaction is not stored in the wallet or transmitted to the network.
 
-    return new Promise((resolve, reject) => {
-      this.BitboxHTTP
-      .get(`createrawtransaction`)
+    // Parameter #1—Inputs
+
+    // Parameter #2—P2PKH or P2SH addresses and amounts
+
+    // Parameter #3—locktime
+
+    // Result—the unsigned raw transaction in hex
+
+      return this.BitboxHTTP
+      .get(`createrawtransaction`, {
+        params: {
+          inputs: inputs,
+          outputs: outputs,
+          locktime, locktime
+        }
+      })
       .then((response) => {
-        resolve(response.data);
+        return response;
       })
       .catch(error => {
-        reject(Error(error));
+        return Error(error);
       });
-    });
   }
 
   decoderawtransaction(rawHex: string): string {
@@ -179,20 +183,19 @@ class BITBOXCli {
     // Parameter #1—serialized transaction in hex
 
     // Result—the decoded transaction
-    return new Promise((resolve, reject) => {
-      this.BitboxHTTP
+
+      return this.BitboxHTTP
       .get(`decoderawtransaction`, {
         params: {
           rawHex: rawHex
         }
       })
       .then((response) => {
-        resolve(response.data);
+        return response;
       })
       .catch(error => {
-        reject(Error(error));
+        return Error(error);
       });
-    });
   }
 
   decodescript(redeemScript: string): string {
@@ -202,20 +205,19 @@ class BITBOXCli {
 
     // Result—the decoded script
 
-    return new Promise((resolve, reject) => {
-      this.BitboxHTTP
+
+      return this.BitboxHTTP
       .get(`decodescript`, {
         params: {
           redeemScript: redeemScript
         }
       })
       .then((response) => {
-        resolve(response.data);
+        return response;
       })
       .catch(error => {
-        reject(Error(error));
+        return Error(error);
       });
-    });
   }
 
   disconnectnode(address: string): string {
@@ -225,20 +227,19 @@ class BITBOXCli {
 
     // Result—null on success or error on failed disconnect
 
-    return new Promise((resolve, reject) => {
-      this.BitboxHTTP
+
+      return this.BitboxHTTP
       .get(`disconnectnode`, {
         params: {
           address: address
         }
       })
       .then((response) => {
-        resolve(response.data);
+        return response;
       })
       .catch(error => {
-        reject(Error(error));
+        return Error(error);
       });
-    });
   }
 
   dumpprivkey(address: string): string {
@@ -248,20 +249,19 @@ class BITBOXCli {
 
     // Result—the private key
 
-    return new Promise((resolve, reject) => {
-      this.BitboxHTTP
+
+      return this.BitboxHTTP
       .get(`dumpprivkey`, {
           params: {
             address: address
           }
         })
       .then((response) => {
-        resolve(response.data);
+        return response;
       })
       .catch(error => {
-        reject(Error(error));
+        return Error(error);
       });
-    });
   }
 
   dumpwallet(): string {
@@ -271,24 +271,23 @@ class BITBOXCli {
 
     // Result—null or error
 
-    return new Promise((resolve, reject) => {
-      this.BitboxHTTP
+
+      return this.BitboxHTTP
       .get(`dumpwallet`)
       .then((response) => {
         let fs = require('fs');
 
         fs.appendFile("wallet.txt", response.data, (error) => {
           if (error) {
-            reject(Error(error));
+            return Error(error);
           }  else {
-            resolve(response.data);
+            return response;
           }
         });
       })
       .catch(error => {
-        reject(Error(error));
+        return Error(error);
       });
-    });
   }
 
   encryptwallet(passphrase: string): string {
@@ -299,62 +298,59 @@ class BITBOXCli {
 
     // Result—a notice (with program shutdown)
 
-    return new Promise((resolve, reject) => {
-      this.BitboxHTTP
+
+      return this.BitboxHTTP
       .get(`encryptwallet`, {
         params: {
           passphrase: passphrase
         }
       })
       .then((response) => {
-        resolve(response.data);
+        return response;
       })
       .catch(error => {
-        reject(Error(error));
+        return Error(error);
       });
-    });
   }
 
   estimatefee(blocks: number): string {
 
-    return new Promise((resolve, reject) => {
-      this.BitboxHTTP
+
+      return this.BitboxHTTP
       .get(`estimatefee`, {
         params: {
           blocks: blocks
         }
       })
       .then((response) => {
-        resolve(response.data);
+        return response;
       })
       .catch(error => {
-        reject(Error(error));
+        return Error(error);
       });
-    });
   }
 
   estimatepriority(blocks: number): string {
 
-    return new Promise((resolve, reject) => {
-      this.BitboxHTTP
+
+      return this.BitboxHTTP
       .get(`estimatepriority`, {
         params: {
           blocks: blocks
         }
       })
       .then((response) => {
-        resolve(response.data);
+        return response;
       })
       .catch(error => {
-        reject(Error(error));
+        return Error(error);
       });
-    });
   }
 
   fundrawtransaction(hexstring: string, options: any): string {
 
-    return new Promise((resolve, reject) => {
-      this.BitboxHTTP
+
+      return this.BitboxHTTP
       .get(`fundrawtransaction`, {
         params: {
           hexstring: hexstring,
@@ -362,17 +358,16 @@ class BITBOXCli {
         }
       })
       .then((response) => {
-        resolve(response.data);
+        return response;
       })
       .catch(error => {
-        reject(Error(error));
+        return Error(error);
       });
-    });
   }
 
   generate(blocks: number, maxtries: number): string {
-    return new Promise((resolve, reject) => {
-      this.BitboxHTTP
+
+      return this.BitboxHTTP
       .get(`generate`, {
         params: {
           blocks: blocks,
@@ -380,17 +375,16 @@ class BITBOXCli {
         }
       })
       .then((response) => {
-        resolve(response.data);
+        return response;
       })
       .catch(error => {
-        reject(Error(error));
+        return Error(error);
       });
-    });
   }
 
   generatetoaddress(blocks: number, address: string, maxtries: number): string {
-    return new Promise((resolve, reject) => {
-      this.BitboxHTTP
+
+      return this.BitboxHTTP
       .get(`generatetoaddress`, {
         params: {
           blocks: blocks,
@@ -399,35 +393,33 @@ class BITBOXCli {
         }
       })
       .then((response) => {
-        resolve(response.data);
+        return response;
       })
       .catch(error => {
-        reject(Error(error));
+        return Error(error);
       });
-    });
   }
 
   getaccountaddress(account: string): string {
-    // eturns the current Bitcoin address for receiving payments to this account. If the account doesn’t exist, it creates both the account and a new address for receiving payment. Once a payment has been received to an address, future calls to this RPC for the same account will return a different address.
+    // returns the current Bitcoin address for receiving payments to this account. If the account doesn’t exist, it creates both the account and a new address for receiving payment. Once a payment has been received to an address, future calls to this RPC for the same account will return a different address.
 
     // Parameter #1—an account name
 
     // Result—a bitcoin address
 
-    return new Promise((resolve, reject) => {
-      this.BitboxHTTP
+
+      return this.BitboxHTTP
       .get(`getaccountaddress`, {
         params: {
           account, account
         }
       })
       .then((response) => {
-        resolve(response.data);
+        return response;
       })
       .catch(error => {
-        reject(Error(error));
+        return Error(error);
       });
-    });
   }
 
   getaccount(address: string): string {
@@ -437,20 +429,19 @@ class BITBOXCli {
 
     // Result—an account name
 
-    return new Promise((resolve, reject) => {
-      this.BitboxHTTP
+
+      return this.BitboxHTTP
       .get(`getaccount`, {
         params: {
           address, address
         }
       })
       .then((response) => {
-        resolve(response.data);
+        return response;
       })
       .catch(error => {
-        reject(Error(error));
+        return Error(error);
       });
-    });
   }
 
   getaddednodeinfo(details: boolean, node: ?string): string {
@@ -462,8 +453,8 @@ class BITBOXCli {
 
     // Result—a list of added nodes
 
-    return new Promise((resolve, reject) => {
-      this.BitboxHTTP
+
+      return this.BitboxHTTP
       .get(`getaddednodeinfo`, {
         params: {
           details, details,
@@ -471,12 +462,11 @@ class BITBOXCli {
         }
       })
       .then((response) => {
-        resolve(response.data);
+        return response;
       })
       .catch(error => {
-        reject(Error(error));
+        return Error(error);
       });
-    });
   }
 
   getaddressesbyaccount(account: string): string {
@@ -486,20 +476,19 @@ class BITBOXCli {
 
     // Result—a list of addresses
 
-    return new Promise((resolve, reject) => {
-      this.BitboxHTTP
+
+      return this.BitboxHTTP
       .get(`getaddressesbyaccount`, {
         params: {
           account, account
         }
       })
       .then((response) => {
-        resolve(response.data);
+        return response;
       })
       .catch(error => {
-        reject(Error(error));
+        return Error(error);
       });
-    });
   }
 
   getbalance(account: string): string {
@@ -513,20 +502,19 @@ class BITBOXCli {
 
     // Result—the balance in bitcoins
 
-    return new Promise((resolve, reject) => {
-      this.BitboxHTTP
+
+      return this.BitboxHTTP
       .get(`getbalance`, {
         params: {
           account, account
         }
       })
       .then((response) => {
-        resolve(response.data);
+        return response;
       })
       .catch(error => {
-        reject(Error(error));
+        return Error(error);
       });
-    });
   }
 
   getbestblockhash(): string {
@@ -536,953 +524,883 @@ class BITBOXCli {
 
     // Result—hash of the tip from the best block chain
 
-    return new Promise((resolve, reject) => {
-      this.BitboxHTTP
+
+      return this.BitboxHTTP
       .get(`getbestblockhash`)
       .then((response) => {
-        resolve(response.data);
+        return response;
       })
       .catch(error => {
-        reject(Error(error));
+        return Error(error);
       });
-    });
   }
 
   getblock(): string {
 
-    return new Promise((resolve, reject) => {
-      this.BitboxHTTP
+
+      return this.BitboxHTTP
       .get(`getblock`)
       .then((response) => {
-        resolve(response.data);
+        return response;
       })
       .catch(error => {
-        reject(Error(error));
+        return Error(error);
       });
-    });
   }
 
   getblockchaininfo(): string {
 
-    return new Promise((resolve, reject) => {
-      this.BitboxHTTP
+
+      return this.BitboxHTTP
       .get(`getblockchaininfo`)
       .then((response) => {
-        resolve(response.data);
+        return response;
       })
       .catch(error => {
-        reject(Error(error));
+        return Error(error);
       });
-    });
   }
 
   getblockcount(): string {
 
-    return new Promise((resolve, reject) => {
-      this.BitboxHTTP
+
+      return this.BitboxHTTP
       .get(`getblockcount`)
       .then((response) => {
-        resolve(response.data);
+        return response;
       })
       .catch(error => {
-        reject(Error(error));
+        return Error(error);
       });
-    });
   }
 
   getblockhash(): string {
 
-    return new Promise((resolve, reject) => {
-      this.BitboxHTTP
+
+      return this.BitboxHTTP
       .get(`getblockhash`)
       .then((response) => {
-        resolve(response.data);
+        return response;
       })
       .catch(error => {
-        reject(Error(error));
+        return Error(error);
       });
-    });
   }
 
   getblockheader(): string {
 
-    return new Promise((resolve, reject) => {
-      this.BitboxHTTP
+      return this.BitboxHTTP
       .get(`getblockheader`)
       .then((response) => {
-        resolve(response.data);
+        return response;
       })
       .catch(error => {
-        reject(Error(error));
+        return Error(error);
       });
-    });
   }
 
   getblocktemplate(): string {
 
-    return new Promise((resolve, reject) => {
-    });
-     this.BitboxHTTP
+     return this.BitboxHTTP
       .get(`getblocktemplate`)
       .then((response) => {
-        resolve(response.data);
+        return response;
       })
       .catch(error => {
-        reject(Error(error));
+        return Error(error);
       });
   }
 
   getchaintips(): string {
 
-    return new Promise((resolve, reject) => {
-      this.BitboxHTTP
+
+      return this.BitboxHTTP
       .get(`getchaintips`)
       .then((response) => {
-        resolve(response.data);
+        return response;
       })
       .catch(error => {
-        reject(Error(error));
+        return Error(error);
       });
-    });
   }
 
   getconnectioncount(): string {
 
-    return new Promise((resolve, reject) => {
-      this.BitboxHTTP
+
+      return this.BitboxHTTP
       .get(`getconnectioncount`)
       .then((response) => {
-        resolve(response.data);
+        return response;
       })
       .catch(error => {
-        reject(Error(error));
+        return Error(error);
       });
-    });
   }
 
   getdifficulty(): string {
 
-    return new Promise((resolve, reject) => {
-      this.BitboxHTTP
+
+      return this.BitboxHTTP
       .get(`getdifficulty`)
       .then((response) => {
-        resolve(response.data);
+        return response;
       })
       .catch(error => {
-        reject(Error(error));
+        return Error(error);
       });
-    });
   }
 
   getgenerate(): string {
 
-    return new Promise((resolve, reject) => {
-      this.BitboxHTTP
+
+      return this.BitboxHTTP
       .get(`getgenerate`)
       .then((response) => {
-        resolve(response.data);
+        return response;
       })
       .catch(error => {
-        reject(Error(error));
+        return Error(error);
       });
-    });
   }
 
   gethashespersec(): string {
 
-    return new Promise((resolve, reject) => {
-      this.BitboxHTTP
+
+      return this.BitboxHTTP
       .get(`gethashespersec`)
       .then((response) => {
-        resolve(response.data);
+        return response;
       })
       .catch(error => {
-        reject(Error(error));
+        return Error(error);
       });
-    });
   }
 
   getinfo(): string {
 
-    return new Promise((resolve, reject) => {
-      this.BitboxHTTP
+
+      return this.BitboxHTTP
       .get(`getinfo`)
       .then((response) => {
-        resolve(response.data);
+        return response;
       })
       .catch(error => {
-        reject(Error(error));
+        return Error(error);
       });
-    });
   }
 
   getmemoryinfo(): string {
 
-    return new Promise((resolve, reject) => {
-      this.BitboxHTTP
+
+      return this.BitboxHTTP
       .get(`getmemoryinfo`)
       .then((response) => {
-        resolve(response.data);
+        return response;
       })
       .catch(error => {
-        reject(Error(error));
+        return Error(error);
       });
-    });
   }
 
   getmempoolancestors(): string {
 
-    return new Promise((resolve, reject) => {
-     this.BitboxHTTP
+
+     return this.BitboxHTTP
       .get(`getmempoolancestors`)
       .then((response) => {
-        resolve(response.data);
+        return response;
       })
       .catch(error => {
-        reject(Error(error));
+        return Error(error);
       });
-    });
   }
 
   getmempooldescendants(): string {
 
-    return new Promise((resolve, reject) => {
-     this.BitboxHTTP
+
+     return this.BitboxHTTP
       .get(`getmempooldescendants`)
       .then((response) => {
-        resolve(response.data);
+        return response;
       })
       .catch(error => {
-        reject(Error(error));
+        return Error(error);
       });
-    });
   }
 
   getmempoolentry(): string {
 
-    return new Promise((resolve, reject) => {
-     this.BitboxHTTP
+
+     return this.BitboxHTTP
       .get(`getmempoolentry`)
       .then((response) => {
-        resolve(response.data);
+        return response;
       })
       .catch(error => {
-        reject(Error(error));
+        return Error(error);
       });
-    });
   }
 
   getmempoolinfo(): string {
 
-    return new Promise((resolve, reject) => {
-     this.BitboxHTTP
+
+     return this.BitboxHTTP
       .get(`getmempoolinfo`)
       .then((response) => {
-        resolve(response.data);
+        return response;
       })
       .catch(error => {
-        reject(Error(error));
+        return Error(error);
       });
-    });
   }
 
   getmininginfo(): string {
 
-    return new Promise((resolve, reject) => {
-     this.BitboxHTTP
+
+     return this.BitboxHTTP
       .get(`getmininginfo`)
       .then((response) => {
-        resolve(response.data);
+        return response;
       })
       .catch(error => {
-        reject(Error(error));
+        return Error(error);
       });
-    });
   }
 
   getnettotals(): string {
 
-    return new Promise((resolve, reject) => {
-     this.BitboxHTTP
+
+     return this.BitboxHTTP
       .get(`getnettotals`)
       .then((response) => {
-        resolve(response.data);
+        return response;
       })
       .catch(error => {
-        reject(Error(error));
+        return Error(error);
       });
-    });
   }
 
   getnetworkhashps(): string {
 
-    return new Promise((resolve, reject) => {
-     this.BitboxHTTP
+
+     return this.BitboxHTTP
       .get(`getnetworkhashps`)
       .then((response) => {
-        resolve(response.data);
+        return response;
       })
       .catch(error => {
-        reject(Error(error));
+        return Error(error);
       });
-    });
   }
 
   getnetworkinfo(): string {
 
-    return new Promise((resolve, reject) => {
-     this.BitboxHTTP
+
+     return this.BitboxHTTP
       .get(`getnetworkinfo`)
       .then((response) => {
-        resolve(response.data);
+        return response;
       })
       .catch(error => {
-        reject(Error(error));
+        return Error(error);
       });
-    });
   }
 
   getnewaddress(): string {
 
-    return new Promise((resolve, reject) => {
-     this.BitboxHTTP
+
+     return this.BitboxHTTP
       .get(`getnewaddress`)
       .then((response) => {
-        resolve(response.data);
+        return response;
       })
       .catch(error => {
-        reject(Error(error));
+        return Error(error);
       });
-    });
   }
 
   getpeerinfo(): string {
 
-    return new Promise((resolve, reject) => {
-     this.BitboxHTTP
+
+     return this.BitboxHTTP
       .get(`getpeerinfo`)
       .then((response) => {
-        resolve(response.data);
+        return response;
       })
       .catch(error => {
-        reject(Error(error));
+        return Error(error);
       });
-    });
   }
 
   getrawchangeaddress(): string {
 
-    return new Promise((resolve, reject) => {
-     this.BitboxHTTP
+
+     return this.BitboxHTTP
       .get(`getrawchangeaddress`)
       .then((response) => {
-        resolve(response.data);
+        return response;
       })
       .catch(error => {
-        reject(Error(error));
+        return Error(error);
       });
-    });
   }
 
   getrawmempool(): string {
 
-    return new Promise((resolve, reject) => {
-     this.BitboxHTTP
+
+     return this.BitboxHTTP
       .get(`getrawmempool`)
       .then((response) => {
-        resolve(response.data);
+        return response;
       })
       .catch(error => {
-        reject(Error(error));
+        return Error(error);
       });
-    });
   }
 
   getrawtransaction(): string {
 
-    return new Promise((resolve, reject) => {
-     this.BitboxHTTP
+
+     return this.BitboxHTTP
       .get(`getrawtransaction`)
       .then((response) => {
-        resolve(response.data);
+        return response;
       })
       .catch(error => {
-        reject(Error(error));
+        return Error(error);
       });
-    });
   }
 
   getreceivedbyaccount(): string {
 
-    return new Promise((resolve, reject) => {
-     this.BitboxHTTP
+
+     return this.BitboxHTTP
       .get(`getreceivedbyaccount`)
       .then((response) => {
-        resolve(response.data);
+        return response;
       })
       .catch(error => {
-        reject(Error(error));
+        return Error(error);
       });
-    });
   }
 
   getreceivedbyaddress(): string {
 
-    return new Promise((resolve, reject) => {
-     this.BitboxHTTP
+
+     return this.BitboxHTTP
       .get(`getreceivedbyaddress`)
       .then((response) => {
-        resolve(response.data);
+        return response;
       })
       .catch(error => {
-        reject(Error(error));
+        return Error(error);
       });
-    });
   }
 
   gettransaction(): string {
 
-    return new Promise((resolve, reject) => {
-     this.BitboxHTTP
+
+     return this.BitboxHTTP
       .get(`gettransaction`)
       .then((response) => {
-        resolve(response.data);
+        return response;
       })
       .catch(error => {
-        reject(Error(error));
+        return Error(error);
       });
-    });
   }
 
   gettxout(): string {
 
-    return new Promise((resolve, reject) => {
-     this.BitboxHTTP
+
+     return this.BitboxHTTP
       .get(`gettxout`)
       .then((response) => {
-        resolve(response.data);
+        return response;
       })
       .catch(error => {
-        reject(Error(error));
+        return Error(error);
       });
-    });
   }
 
   gettxoutproof(): string {
 
-    return new Promise((resolve, reject) => {
-     this.BitboxHTTP
+
+     return this.BitboxHTTP
       .get(`gettxoutproof`)
       .then((response) => {
-        resolve(response.data);
+        return response;
       })
       .catch(error => {
-        reject(Error(error));
+        return Error(error);
       });
-    });
   }
 
   gettxoutsetinfo(): string {
 
-    return new Promise((resolve, reject) => {
-     this.BitboxHTTP
+
+     return this.BitboxHTTP
       .get(`gettxoutsetinfo`)
       .then((response) => {
-        resolve(response.data);
+        return response;
       })
       .catch(error => {
-        reject(Error(error));
+        return Error(error);
       });
-    });
   }
 
   getunconfirmedbalance(): string {
 
-    return new Promise((resolve, reject) => {
-     this.BitboxHTTP
+
+     return this.BitboxHTTP
       .get(`getunconfirmedbalance`)
       .then((response) => {
-        resolve(response.data);
+        return response;
       })
       .catch(error => {
-        reject(Error(error));
+        return Error(error);
       });
-    });
   }
 
   getwalletinfo(): string {
 
-    return new Promise((resolve, reject) => {
-     this.BitboxHTTP
+
+     return this.BitboxHTTP
       .get(`getwalletinfo`)
       .then((response) => {
-        resolve(response.data);
+        return response;
       })
       .catch(error => {
-        reject(Error(error));
+        return Error(error);
       });
-    });
   }
 
   getwork(): string {
 
-    return new Promise((resolve, reject) => {
-     this.BitboxHTTP
+
+     return this.BitboxHTTP
       .get(`getwork`)
       .then((response) => {
-        resolve(response.data);
+        return response;
       })
       .catch(error => {
-        reject(Error(error));
+        return Error(error);
       });
-    });
   }
 
   help(): string {
 
-    return new Promise((resolve, reject) => {
-     this.BitboxHTTP
+
+     return this.BitboxHTTP
       .get(`help`)
       .then((response) => {
-        resolve(response.data);
+        return response;
       })
       .catch(error => {
-        reject(Error(error));
+        return Error(error);
       });
-    });
   }
 
   importaddress(): string {
 
-    return new Promise((resolve, reject) => {
-     this.BitboxHTTP
+
+     return this.BitboxHTTP
       .get(`importaddress`)
       .then((response) => {
-        resolve(response.data);
+        return response;
       })
       .catch(error => {
-        reject(Error(error));
+        return Error(error);
       });
-    });
   }
 
   importmulti(): string {
 
-    return new Promise((resolve, reject) => {
-     this.BitboxHTTP
+
+     return this.BitboxHTTP
       .get(`importmulti`)
       .then((response) => {
-        resolve(response.data);
+        return response;
       })
       .catch(error => {
-        reject(Error(error));
+        return Error(error);
       });
-    });
   }
 
   importprivkey(): string {
 
-    return new Promise((resolve, reject) => {
-     this.BitboxHTTP
+
+     return this.BitboxHTTP
       .get(`importprivkey`)
       .then((response) => {
-        resolve(response.data);
+        return response;
       })
       .catch(error => {
-        reject(Error(error));
+        return Error(error);
       });
-    });
   }
 
   importprunedfunds(): string {
 
-    return new Promise((resolve, reject) => {
-     this.BitboxHTTP
+
+     return this.BitboxHTTP
       .get(`importprunedfunds`)
       .then((response) => {
-        resolve(response.data);
+        return response;
       })
       .catch(error => {
-        reject(Error(error));
+        return Error(error);
       });
-    });
   }
 
   importwallet(): string {
 
-    return new Promise((resolve, reject) => {
-     this.BitboxHTTP
+
+     return this.BitboxHTTP
       .get(`importwallet`)
       .then((response) => {
-        resolve(response.data);
+        return response;
       })
       .catch(error => {
-        reject(Error(error));
+        return Error(error);
       });
-    });
   }
 
   keypoolrefill(): string {
 
-    return new Promise((resolve, reject) => {
-     this.BitboxHTTP
+
+     return this.BitboxHTTP
       .get(`keypoolrefill`)
       .then((response) => {
-        resolve(response.data);
+        return response;
       })
       .catch(error => {
-        reject(Error(error));
+        return Error(error);
       });
-    });
   }
 
   listaccounts(): string {
 
-    return new Promise((resolve, reject) => {
-     this.BitboxHTTP
+
+     return this.BitboxHTTP
       .get(`listaccounts`)
       .then((response) => {
-        resolve(response.data);
+        return response;
       })
       .catch(error => {
-        reject(Error(error));
+        return Error(error);
       });
-    });
   }
 
   listaddressgroupings(): string {
 
-    return new Promise((resolve, reject) => {
-     this.BitboxHTTP
+
+     return this.BitboxHTTP
       .get(`listaddressgroupings`)
       .then((response) => {
-        resolve(response.data);
+        return response;
       })
       .catch(error => {
-        reject(Error(error));
+        return Error(error);
       });
-    });
   }
 
   listbanned(): string {
 
-    return new Promise((resolve, reject) => {
-     this.BitboxHTTP
+
+     return this.BitboxHTTP
       .get(`listbanned`)
       .then((response) => {
-        resolve(response.data);
+        return response;
       })
       .catch(error => {
-        reject(Error(error));
+        return Error(error);
       });
-    });
   }
 
   listlockunspent(): string {
 
-    return new Promise((resolve, reject) => {
-     this.BitboxHTTP
+
+     return this.BitboxHTTP
       .get(`listlockunspent`)
       .then((response) => {
-        resolve(response.data);
+        return response;
       })
       .catch(error => {
-        reject(Error(error));
+        return Error(error);
       });
-    });
   }
 
   listreceivedbyaccount(): string {
 
-    return new Promise((resolve, reject) => {
-     this.BitboxHTTP
+
+     return this.BitboxHTTP
       .get(`listreceivedbyaccount`)
       .then((response) => {
-        resolve(response.data);
+        return response;
       })
       .catch(error => {
-        reject(Error(error));
+        return Error(error);
       });
-    });
   }
 
   listreceivedbyaddress(): string {
 
-    return new Promise((resolve, reject) => {
-     this.BitboxHTTP
+
+     return this.BitboxHTTP
       .get(`listreceivedbyaddress`)
       .then((response) => {
-        resolve(response.data);
+        return response;
       })
       .catch(error => {
-        reject(Error(error));
+        return Error(error);
       });
-    });
   }
 
   listsinceblock(): string {
 
-    return new Promise((resolve, reject) => {
-     this.BitboxHTTP
+
+     return this.BitboxHTTP
       .get(`listsinceblock`)
       .then((response) => {
-        resolve(response.data);
+        return response;
       })
       .catch(error => {
-        reject(Error(error));
+        return Error(error);
       });
-    });
   }
 
   listtransactions(): string {
 
-    return new Promise((resolve, reject) => {
-     this.BitboxHTTP
+
+     return this.BitboxHTTP
       .get(`listtransactions`)
       .then((response) => {
-        resolve(response.data);
+        return response;
       })
       .catch(error => {
-        reject(Error(error));
+        return Error(error);
       });
-    });
   }
 
   listunspent(): string {
 
-    return new Promise((resolve, reject) => {
-     this.BitboxHTTP
+
+     return this.BitboxHTTP
       .get(`listunspent`)
       .then((response) => {
-        resolve(response.data);
+        return response;
       })
       .catch(error => {
-        reject(Error(error));
+        return Error(error);
       });
-    });
   }
 
   lockunspent(): string {
 
-    return new Promise((resolve, reject) => {
-     this.BitboxHTTP
+
+     return this.BitboxHTTP
       .get(`lockunspent`)
       .then((response) => {
-        resolve(response.data);
+        return response;
       })
       .catch(error => {
-        reject(Error(error));
+        return Error(error);
       });
-    });
   }
 
   move(): string {
 
-    return new Promise((resolve, reject) => {
-     this.BitboxHTTP
+
+     return this.BitboxHTTP
       .get(`move`)
       .then((response) => {
-        resolve(response.data);
+        return response;
       })
       .catch(error => {
-        reject(Error(error));
+        return Error(error);
       });
-    });
   }
 
   pingRpc(): string {
 
-    return new Promise((resolve, reject) => {
-     this.BitboxHTTP
+
+     return this.BitboxHTTP
       .get(`pingRpc`)
       .then((response) => {
-        resolve(response.data);
+        return response;
       })
       .catch(error => {
-        reject(Error(error));
+        return Error(error);
       });
-    });
   }
 
   preciousblock(): string {
 
-    return new Promise((resolve, reject) => {
-     this.BitboxHTTP
+
+     return this.BitboxHTTP
       .get(`preciousblock`)
       .then((response) => {
-        resolve(response.data);
+        return response;
       })
       .catch(error => {
-        reject(Error(error));
+        return Error(error);
       });
-    });
   }
 
   prioritisetransaction(): string {
 
-    return new Promise((resolve, reject) => {
-     this.BitboxHTTP
+
+     return this.BitboxHTTP
       .get(`prioritisetransaction`)
       .then((response) => {
-        resolve(response.data);
+        return response;
       })
       .catch(error => {
-        reject(Error(error));
+        return Error(error);
       });
-    });
   }
 
   pruneblockchain(): string {
 
-    return new Promise((resolve, reject) => {
-     this.BitboxHTTP
+
+     return this.BitboxHTTP
       .get(`pruneblockchain`)
       .then((response) => {
-        resolve(response.data);
+        return response;
       })
       .catch(error => {
-        reject(Error(error));
+        return Error(error);
       });
-    });
   }
 
   removeprunedfunds(): string {
 
-    return new Promise((resolve, reject) => {
-     this.BitboxHTTP
+
+     return this.BitboxHTTP
       .get(`removeprunedfunds`)
       .then((response) => {
-        resolve(response.data);
+        return response;
       })
       .catch(error => {
-        reject(Error(error));
+        return Error(error);
       });
-    });
   }
 
   sendfrom(): string {
 
-    return new Promise((resolve, reject) => {
-     this.BitboxHTTP
+
+     return this.BitboxHTTP
       .get(`sendfrom`)
       .then((response) => {
-        resolve(response.data);
+        return response;
       })
       .catch(error => {
-        reject(Error(error));
+        return Error(error);
       });
-    });
   }
 
   sendmany(): string {
 
-    return new Promise((resolve, reject) => {
-     this.BitboxHTTP
+
+     return this.BitboxHTTP
       .get(`sendmany`)
       .then((response) => {
-        resolve(response.data);
+        return response;
       })
       .catch(error => {
-        reject(Error(error));
+        return Error(error);
       });
-    });
   }
 
   sendrawtransaction(): string {
-    return new Promise((resolve, reject) => {
-     this.BitboxHTTP
+
+     return this.BitboxHTTP
       .get(`sendrawtransaction`)
       .then((response) => {
-        resolve(response.data);
+        return response;
       })
       .catch(error => {
-        reject(Error(error));
+        return Error(error);
       });
-    });
   }
 
   sendtoaddress(): string {
 
-    return new Promise((resolve, reject) => {
-     this.BitboxHTTP
+
+     return this.BitboxHTTP
       .get(`sendtoaddress`)
       .then((response) => {
-        resolve(response.data);
+        return response;
       })
       .catch(error => {
-        reject(Error(error));
+        return Error(error);
       });
-    });
   }
 
   setaccount(): string {
 
-    return new Promise((resolve, reject) => {
-     this.BitboxHTTP
+
+     return this.BitboxHTTP
       .get(`setaccount`)
       .then((response) => {
-        resolve(response.data);
+        return response;
       })
       .catch(error => {
-        reject(Error(error));
+        return Error(error);
       });
-    });
   }
 
   setban(): string {
 
-    return new Promise((resolve, reject) => {
-     this.BitboxHTTP
+
+     return this.BitboxHTTP
       .get(`setban`)
       .then((response) => {
-        resolve(response.data);
+        return response;
       })
       .catch(error => {
-        reject(Error(error));
+        return Error(error);
       });
-    });
   }
 
   setgenerate(): string {
 
-    return new Promise((resolve, reject) => {
-     this.BitboxHTTP
+
+     return this.BitboxHTTP
       .get(`setgenerate`)
       .then((response) => {
-        resolve(response.data);
+        return response;
       })
       .catch(error => {
-        reject(Error(error));
+        return Error(error);
       });
-    });
   }
 
   setnetworkactive(): string {
 
-    return new Promise((resolve, reject) => {
-     this.BitboxHTTP
+
+     return this.BitboxHTTP
       .get(`setnetworkactive`)
       .then((response) => {
-        resolve(response.data);
+        return response;
       })
       .catch(error => {
-        reject(Error(error));
+        return Error(error);
       });
-    });
   }
 
   settxfee(): string {
 
-    return new Promise((resolve, reject) => {
-     this.BitboxHTTP
+
+     return this.BitboxHTTP
       .get(`settxfee`)
       .then((response) => {
-        resolve(response.data);
+        return response;
       })
       .catch(error => {
-        reject(Error(error));
+        return Error(error);
       });
-    });
   }
 
   signmessage(address: string, message: string): string {
@@ -1496,8 +1414,8 @@ class BITBOXCli {
     // Result:
     // "signature"          (string) The signature of the message encoded in base 64
 
-    return new Promise((resolve, reject) => {
-     this.BitboxHTTP
+
+     return this.BitboxHTTP
       .get(`signmessage`, {
         params: {
           address, address,
@@ -1505,12 +1423,11 @@ class BITBOXCli {
         }
       })
       .then((response) => {
-        resolve(response.data);
+        return response;
       })
       .catch(error => {
-        reject(Error(error));
+        return Error(error);
       });
-    });
   }
 
   signmessagewithprivkey(privkey: string, message: string): string {
@@ -1524,8 +1441,8 @@ class BITBOXCli {
     // Result:
     // "signature"          (string) The signature of the message encoded in base 64
 
-    return new Promise((resolve, reject) => {
-     this.BitboxHTTP
+
+     return this.BitboxHTTP
       .get(`signmessagewithprivkey`, {
         params: {
           privkey, privkey,
@@ -1533,82 +1450,76 @@ class BITBOXCli {
         }
       })
       .then((response) => {
-        resolve(response.data);
+        return response;
       })
       .catch(error => {
-        reject(Error(error));
+        return Error(error);
       });
-    });
   }
 
   signrawtransaction(): string {
 
-    return new Promise((resolve, reject) => {
-     this.BitboxHTTP
+
+     return this.BitboxHTTP
       .get(`signrawtransaction`)
       .then((response) => {
-        resolve(response.data);
+        return response;
       })
       .catch(error => {
-        reject(Error(error));
+        return Error(error);
       });
-    });
   }
 
   stop(): string {
 
-    return new Promise((resolve, reject) => {
-     this.BitboxHTTP
+
+     return this.BitboxHTTP
       .get(`stop`)
       .then((response) => {
-        resolve(response.data);
+        return response;
       })
       .catch(error => {
-        reject(Error(error));
+        return Error(error);
       });
-    });
   }
 
   submitblock(): string {
 
-    return new Promise((resolve, reject) => {
-     this.BitboxHTTP
+
+     return this.BitboxHTTP
       .get(`submitblock`)
       .then((response) => {
-        resolve(response.data);
+        return response;
       })
       .catch(error => {
-        reject(Error(error));
+        return Error(error);
       });
-    });
   }
 
   validateaddress(): string {
 
-    return new Promise((resolve, reject) => {
-     this.BitboxHTTP
+
+     return this.BitboxHTTP
       .get(`validateaddress`)
       .then((response) => {
-        resolve(response.data);
+        return response;
       })
       .catch(error => {
-        reject(Error(error));
+        return Error(error);
       });
-    });
   }
 
   verifychain(): string {
 
-    return new Promise((resolve, reject) => {
-     this.BitboxHTTP
+
+     return this.BitboxHTTP
       .get(`verifychain`)
       .then((response) => {
-        resolve(response.data);
+        return response;
       })
       .catch(error => {
-        reject(Error(error));
+        return Error(error);
       });
-    });
   }
 
   verifymessage(address: string, signature: string, message: string): string {
@@ -1622,8 +1533,8 @@ class BITBOXCli {
     // Result:
     // true|false   (boolean) If the signature is verified or not.
 
-    return new Promise((resolve, reject) => {
-     this.BitboxHTTP
+
+     return this.BitboxHTTP
       .get(`verifymessage`, {
         params: {
           address, address,
@@ -1632,67 +1543,62 @@ class BITBOXCli {
         }
       })
       .then((response) => {
-        resolve(response.data);
+        return response;
       })
       .catch(error => {
-        reject(Error(error));
+        return Error(error);
       });
-    });
   }
 
   verifytxoutproof(): string {
 
-    return new Promise((resolve, reject) => {
-     this.BitboxHTTP
+
+     return this.BitboxHTTP
       .get(`verifytxoutproof`)
       .then((response) => {
-        resolve(response.data);
+        return response;
       })
       .catch(error => {
-        reject(Error(error));
+        return Error(error);
       });
-    });
   }
 
   walletlock(): string {
 
-    return new Promise((resolve, reject) => {
-     this.BitboxHTTP
+
+     return this.BitboxHTTP
       .get(`walletlock`)
       .then((response) => {
-        resolve(response.data);
+        return response;
       })
       .catch(error => {
-        reject(Error(error));
+        return Error(error);
       });
-    });
   }
 
   walletpassphrase(): string {
 
-    return new Promise((resolve, reject) => {
-     this.BitboxHTTP
+
+     return this.BitboxHTTP
       .get(`walletpassphrase`)
       .then((response) => {
-        resolve(response.data);
+        return response;
       })
       .catch(error => {
-        reject(Error(error));
+        return Error(error);
       });
-    });
   }
 
   walletpassphrasechange(): string {
 
-    return new Promise((resolve, reject) => {
-      this.BitboxHTTP
+
+      return this.BitboxHTTP
       .get(`walletpassphrasechange`)
       .then((response) => {
       })
       .catch(error => {
-        reject(Error(error));
+        return Error(error);
       });
-    });
   }
 }
 
