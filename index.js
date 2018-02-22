@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+require("babel-register");
 let program = require('commander');
 let chalk = require('chalk');
 let mkdirp = require('mkdirp');
@@ -11,7 +12,8 @@ let touch = require("touch");
 let emoji = require('node-emoji');
 let repl = require("repl");
 let ini = require('ini');
-let BITBOXCli = require('./lib/bitboxcli.js');
+let bb = require('./bb');
+let BITBOXCli = bb.BITBOXCli;
 
 // let request = require('superagent');
 // let co = require('co');
