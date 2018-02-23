@@ -12,8 +12,7 @@ let touch = require("touch");
 let emoji = require('node-emoji');
 let repl = require("repl");
 let ini = require('ini');
-let bb = require('./bb');
-let BITBOXCli = bb.BITBOXCli;
+let BITBOXCli = require('./lib/BITBOXCli');
 
 // let request = require('superagent');
 // let co = require('co');
@@ -22,7 +21,7 @@ let BITBOXCli = bb.BITBOXCli;
 // let ProgressBar = require('progress');
 
 program
-  .version('0.0.17');
+  .version('0.0.18');
 
 program
   .command('new')
