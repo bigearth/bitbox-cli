@@ -22,7 +22,7 @@ let BITBOXCli = bb.BITBOXCli;
 // let ProgressBar = require('progress');
 
 program
-  .version('0.0.16');
+  .version('0.0.17');
 
 program
   .command('new')
