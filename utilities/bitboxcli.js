@@ -5,7 +5,7 @@ class BITBOXCli {
   constructor(config) {
     this.config = config;
     this.BitboxHTTP = axios.create({
-      baseURL: `${config.networks.development.protocol}://${config.networks.development.host}:${config.networks.development.port}/`
+      baseURL: `${config.protocol}://${config.host}:${config.port}/`
     });
   }
 
@@ -26,8 +26,8 @@ class BITBOXCli {
     return this.BitboxHTTP({
       method: 'post',
       auth: {
-        username: this.config.networks.development.username,
-        password: this.config.networks.development.password
+        username: this.config.username,
+        password: this.config.password
       },
       data: {
         jsonrpc: "1.0",
@@ -67,8 +67,8 @@ class BITBOXCli {
     return this.BitboxHTTP({
       method: 'post',
       auth: {
-        username: this.config.networks.development.username,
-        password: this.config.networks.development.password
+        username: this.config.username,
+        password: this.config.password
       },
       data: {
         jsonrpc: "1.0",
@@ -101,8 +101,8 @@ class BITBOXCli {
       // return this.BitboxHTTP({
       //   method: 'post',
       //   auth: {
-      //     username: this.config.networks.development.username,
-      //     password: this.config.networks.development.password
+      //     username: this.config.username,
+      //     password: this.config.password
       //   },
       //   data: {
       //     jsonrpc: "1.0",
@@ -148,8 +148,8 @@ class BITBOXCli {
     return this.BitboxHTTP({
       method: 'post',
       auth: {
-        username: this.config.networks.development.username,
-        password: this.config.networks.development.password
+        username: this.config.username,
+        password: this.config.password
       },
       data: {
         jsonrpc: "1.0",
@@ -184,8 +184,8 @@ class BITBOXCli {
     return this.BitboxHTTP({
       method: 'post',
       auth: {
-        username: this.config.networks.development.username,
-        password: this.config.networks.development.password
+        username: this.config.username,
+        password: this.config.password
       },
       data: {
         jsonrpc: "1.0",
@@ -218,8 +218,8 @@ class BITBOXCli {
     return this.BitboxHTTP({
       method: 'post',
       auth: {
-        username: this.config.networks.development.username,
-        password: this.config.networks.development.password
+        username: this.config.username,
+        password: this.config.password
       },
       data: {
         jsonrpc: "1.0",
@@ -250,8 +250,8 @@ class BITBOXCli {
     return this.BitboxHTTP({
       method: 'post',
       auth: {
-        username: this.config.networks.development.username,
-        password: this.config.networks.development.password
+        username: this.config.username,
+        password: this.config.password
       },
       data: {
         jsonrpc: "1.0",
@@ -280,8 +280,8 @@ class BITBOXCli {
     return this.BitboxHTTP({
       method: 'post',
       auth: {
-        username: this.config.networks.development.username,
-        password: this.config.networks.development.password
+        username: this.config.username,
+        password: this.config.password
       },
       data: {
         jsonrpc: "1.0",
@@ -309,8 +309,8 @@ class BITBOXCli {
     return this.BitboxHTTP({
       method: 'post',
       auth: {
-        username: this.config.networks.development.username,
-        password: this.config.networks.development.password
+        username: this.config.username,
+        password: this.config.password
       },
       data: {
         jsonrpc: "1.0",
@@ -339,8 +339,8 @@ class BITBOXCli {
     return this.BitboxHTTP({
       method: 'post',
       auth: {
-        username: this.config.networks.development.username,
-        password: this.config.networks.development.password
+        username: this.config.username,
+        password: this.config.password
       },
       data: {
         jsonrpc: "1.0",
@@ -369,8 +369,8 @@ class BITBOXCli {
     return this.BitboxHTTP({
       method: 'post',
       auth: {
-        username: this.config.networks.development.username,
-        password: this.config.networks.development.password
+        username: this.config.username,
+        password: this.config.password
       },
       data: {
         jsonrpc: "1.0",
@@ -408,8 +408,8 @@ class BITBOXCli {
     return this.BitboxHTTP({
       method: 'post',
       auth: {
-        username: this.config.networks.development.username,
-        password: this.config.networks.development.password
+        username: this.config.username,
+        password: this.config.password
       },
       data: {
         jsonrpc: "1.0",
@@ -440,8 +440,8 @@ class BITBOXCli {
     return this.BitboxHTTP({
       method: 'post',
       auth: {
-        username: this.config.networks.development.username,
-        password: this.config.networks.development.password
+        username: this.config.username,
+        password: this.config.password
       },
       data: {
         jsonrpc: "1.0",
@@ -474,8 +474,8 @@ class BITBOXCli {
     return this.BitboxHTTP({
       method: 'post',
       auth: {
-        username: this.config.networks.development.username,
-        password: this.config.networks.development.password
+        username: this.config.username,
+        password: this.config.password
       },
       data: {
         jsonrpc: "1.0",
@@ -535,8 +535,8 @@ class BITBOXCli {
     return this.BitboxHTTP({
       method: 'post',
       auth: {
-        username: this.config.networks.development.username,
-        password: this.config.networks.development.password
+        username: this.config.username,
+        password: this.config.password
       },
       data: {
         jsonrpc: "1.0",
@@ -566,8 +566,8 @@ class BITBOXCli {
     return this.BitboxHTTP({
       method: 'post',
       auth: {
-        username: this.config.networks.development.username,
-        password: this.config.networks.development.password
+        username: this.config.username,
+        password: this.config.password
       },
       data: {
         jsonrpc: "1.0",
@@ -599,8 +599,8 @@ class BITBOXCli {
     return this.BitboxHTTP({
       method: 'post',
       auth: {
-        username: this.config.networks.development.username,
-        password: this.config.networks.development.password
+        username: this.config.username,
+        password: this.config.password
       },
       data: {
         jsonrpc: "1.0",
@@ -632,8 +632,8 @@ class BITBOXCli {
     return this.BitboxHTTP({
       method: 'post',
       auth: {
-        username: this.config.networks.development.username,
-        password: this.config.networks.development.password
+        username: this.config.username,
+        password: this.config.password
       },
       data: {
         jsonrpc: "1.0",
@@ -662,8 +662,8 @@ class BITBOXCli {
     return this.BitboxHTTP({
       method: 'post',
       auth: {
-        username: this.config.networks.development.username,
-        password: this.config.networks.development.password
+        username: this.config.username,
+        password: this.config.password
       },
       data: {
         jsonrpc: "1.0",
@@ -694,8 +694,8 @@ class BITBOXCli {
     return this.BitboxHTTP({
       method: 'post',
       auth: {
-        username: this.config.networks.development.username,
-        password: this.config.networks.development.password
+        username: this.config.username,
+        password: this.config.password
       },
       data: {
         jsonrpc: "1.0",
@@ -725,8 +725,8 @@ class BITBOXCli {
     return this.BitboxHTTP({
       method: 'post',
       auth: {
-        username: this.config.networks.development.username,
-        password: this.config.networks.development.password
+        username: this.config.username,
+        password: this.config.password
       },
       data: {
         jsonrpc: "1.0",
@@ -759,8 +759,8 @@ class BITBOXCli {
     return this.BitboxHTTP({
       method: 'post',
       auth: {
-        username: this.config.networks.development.username,
-        password: this.config.networks.development.password
+        username: this.config.username,
+        password: this.config.password
       },
       data: {
         jsonrpc: "1.0",
@@ -789,8 +789,8 @@ class BITBOXCli {
     return this.BitboxHTTP({
       method: 'post',
       auth: {
-        username: this.config.networks.development.username,
-        password: this.config.networks.development.password
+        username: this.config.username,
+        password: this.config.password
       },
       data: {
         jsonrpc: "1.0",
@@ -845,8 +845,8 @@ class BITBOXCli {
     return this.BitboxHTTP({
       method: 'post',
       auth: {
-        username: this.config.networks.development.username,
-        password: this.config.networks.development.password
+        username: this.config.username,
+        password: this.config.password
       },
       data: {
         jsonrpc: "1.0",
@@ -869,8 +869,8 @@ class BITBOXCli {
     return this.BitboxHTTP({
       method: 'post',
       auth: {
-        username: this.config.networks.development.username,
-        password: this.config.networks.development.password
+        username: this.config.username,
+        password: this.config.password
       },
       data: {
         jsonrpc: "1.0",
@@ -897,8 +897,8 @@ class BITBOXCli {
     return this.BitboxHTTP({
       method: 'post',
       auth: {
-        username: this.config.networks.development.username,
-        password: this.config.networks.development.password
+        username: this.config.username,
+        password: this.config.password
       },
       data: {
         jsonrpc: "1.0",
@@ -927,8 +927,8 @@ class BITBOXCli {
     return this.BitboxHTTP({
       method: 'post',
       auth: {
-        username: this.config.networks.development.username,
-        password: this.config.networks.development.password
+        username: this.config.username,
+        password: this.config.password
       },
       data: {
         jsonrpc: "1.0",
@@ -980,8 +980,8 @@ class BITBOXCli {
     return this.BitboxHTTP({
       method: 'post',
       auth: {
-        username: this.config.networks.development.username,
-        password: this.config.networks.development.password
+        username: this.config.username,
+        password: this.config.password
       },
       data: {
         jsonrpc: "1.0",
@@ -1026,8 +1026,8 @@ class BITBOXCli {
     return this.BitboxHTTP({
       method: 'post',
       auth: {
-        username: this.config.networks.development.username,
-        password: this.config.networks.development.password
+        username: this.config.username,
+        password: this.config.password
       },
       data: {
         jsonrpc: "1.0",
@@ -1075,8 +1075,8 @@ class BITBOXCli {
     return this.BitboxHTTP({
       method: 'post',
       auth: {
-        username: this.config.networks.development.username,
-        password: this.config.networks.development.password
+        username: this.config.username,
+        password: this.config.password
       },
       data: {
         jsonrpc: "1.0",
@@ -1104,8 +1104,8 @@ class BITBOXCli {
     return this.BitboxHTTP({
       method: 'post',
       auth: {
-        username: this.config.networks.development.username,
-        password: this.config.networks.development.password
+        username: this.config.username,
+        password: this.config.password
       },
       data: {
         jsonrpc: "1.0",
@@ -1133,8 +1133,8 @@ class BITBOXCli {
     return this.BitboxHTTP({
       method: 'post',
       auth: {
-        username: this.config.networks.development.username,
-        password: this.config.networks.development.password
+        username: this.config.username,
+        password: this.config.password
       },
       data: {
         jsonrpc: "1.0",
@@ -1179,8 +1179,8 @@ class BITBOXCli {
     return this.BitboxHTTP({
       method: 'post',
       auth: {
-        username: this.config.networks.development.username,
-        password: this.config.networks.development.password
+        username: this.config.username,
+        password: this.config.password
       },
       data: {
         jsonrpc: "1.0",
@@ -1217,8 +1217,8 @@ class BITBOXCli {
     return this.BitboxHTTP({
       method: 'post',
       auth: {
-        username: this.config.networks.development.username,
-        password: this.config.networks.development.password
+        username: this.config.username,
+        password: this.config.password
       },
       data: {
         jsonrpc: "1.0",
@@ -1273,8 +1273,8 @@ class BITBOXCli {
     return this.BitboxHTTP({
       method: 'post',
       auth: {
-        username: this.config.networks.development.username,
-        password: this.config.networks.development.password
+        username: this.config.username,
+        password: this.config.password
       },
       data: {
         jsonrpc: "1.0",
@@ -1331,8 +1331,8 @@ class BITBOXCli {
     return this.BitboxHTTP({
       method: 'post',
       auth: {
-        username: this.config.networks.development.username,
-        password: this.config.networks.development.password
+        username: this.config.username,
+        password: this.config.password
       },
       data: {
         jsonrpc: "1.0",
@@ -1382,8 +1382,8 @@ class BITBOXCli {
     return this.BitboxHTTP({
       method: 'post',
       auth: {
-        username: this.config.networks.development.username,
-        password: this.config.networks.development.password
+        username: this.config.username,
+        password: this.config.password
       },
       data: {
         jsonrpc: "1.0",
@@ -1417,8 +1417,8 @@ class BITBOXCli {
     return this.BitboxHTTP({
       method: 'post',
       auth: {
-        username: this.config.networks.development.username,
-        password: this.config.networks.development.password
+        username: this.config.username,
+        password: this.config.password
       },
       data: {
         jsonrpc: "1.0",
@@ -1453,8 +1453,8 @@ class BITBOXCli {
     return this.BitboxHTTP({
       method: 'post',
       auth: {
-        username: this.config.networks.development.username,
-        password: this.config.networks.development.password
+        username: this.config.username,
+        password: this.config.password
       },
       data: {
         jsonrpc: "1.0",
@@ -1493,8 +1493,8 @@ class BITBOXCli {
     return this.BitboxHTTP({
       method: 'post',
       auth: {
-        username: this.config.networks.development.username,
-        password: this.config.networks.development.password
+        username: this.config.username,
+        password: this.config.password
       },
       data: {
         jsonrpc: "1.0",
@@ -1526,8 +1526,8 @@ class BITBOXCli {
     return this.BitboxHTTP({
       method: 'post',
       auth: {
-        username: this.config.networks.development.username,
-        password: this.config.networks.development.password
+        username: this.config.username,
+        password: this.config.password
       },
       data: {
         jsonrpc: "1.0",
@@ -1586,8 +1586,8 @@ class BITBOXCli {
     return this.BitboxHTTP({
       method: 'post',
       auth: {
-        username: this.config.networks.development.username,
-        password: this.config.networks.development.password
+        username: this.config.username,
+        password: this.config.password
       },
       data: {
         jsonrpc: "1.0",
@@ -1600,6 +1600,7 @@ class BITBOXCli {
       return response.data.result;
     })
     .catch(error => {
+      console.log(error);
       return Error(error.response.data.error.message);
     });
   }
@@ -1618,8 +1619,8 @@ class BITBOXCli {
     return this.BitboxHTTP({
       method: 'post',
       auth: {
-        username: this.config.networks.development.username,
-        password: this.config.networks.development.password
+        username: this.config.username,
+        password: this.config.password
       },
       data: {
         jsonrpc: "1.0",
@@ -1686,8 +1687,8 @@ class BITBOXCli {
     return this.BitboxHTTP({
       method: 'post',
       auth: {
-        username: this.config.networks.development.username,
-        password: this.config.networks.development.password
+        username: this.config.username,
+        password: this.config.password
       },
       data: {
         jsonrpc: "1.0",
@@ -1714,8 +1715,8 @@ class BITBOXCli {
     return this.BitboxHTTP({
       method: 'post',
       auth: {
-        username: this.config.networks.development.username,
-        password: this.config.networks.development.password
+        username: this.config.username,
+        password: this.config.password
       },
       data: {
         jsonrpc: "1.0",
@@ -1769,8 +1770,8 @@ class BITBOXCli {
     return this.BitboxHTTP({
       method: 'post',
       auth: {
-        username: this.config.networks.development.username,
-        password: this.config.networks.development.password
+        username: this.config.username,
+        password: this.config.password
       },
       data: {
         jsonrpc: "1.0",
@@ -1808,8 +1809,8 @@ class BITBOXCli {
     return this.BitboxHTTP({
       method: 'post',
       auth: {
-        username: this.config.networks.development.username,
-        password: this.config.networks.development.password
+        username: this.config.username,
+        password: this.config.password
       },
       data: {
         jsonrpc: "1.0",
@@ -1839,8 +1840,8 @@ class BITBOXCli {
     return this.BitboxHTTP({
       method: 'post',
       auth: {
-        username: this.config.networks.development.username,
-        password: this.config.networks.development.password
+        username: this.config.username,
+        password: this.config.password
       },
       data: {
         jsonrpc: "1.0",
@@ -1874,8 +1875,8 @@ class BITBOXCli {
     return this.BitboxHTTP({
       method: 'post',
       auth: {
-        username: this.config.networks.development.username,
-        password: this.config.networks.development.password
+        username: this.config.username,
+        password: this.config.password
       },
       data: {
         jsonrpc: "1.0",
@@ -1937,8 +1938,8 @@ class BITBOXCli {
     return this.BitboxHTTP({
       method: 'post',
       auth: {
-        username: this.config.networks.development.username,
-        password: this.config.networks.development.password
+        username: this.config.username,
+        password: this.config.password
       },
       data: {
         jsonrpc: "1.0",
@@ -1988,8 +1989,8 @@ class BITBOXCli {
     return this.BitboxHTTP({
       method: 'post',
       auth: {
-        username: this.config.networks.development.username,
-        password: this.config.networks.development.password
+        username: this.config.username,
+        password: this.config.password
       },
       data: {
         jsonrpc: "1.0",
@@ -2032,8 +2033,8 @@ class BITBOXCli {
     return this.BitboxHTTP({
       method: 'post',
       auth: {
-        username: this.config.networks.development.username,
-        password: this.config.networks.development.password
+        username: this.config.username,
+        password: this.config.password
       },
       data: {
         jsonrpc: "1.0",
@@ -2074,8 +2075,8 @@ class BITBOXCli {
     return this.BitboxHTTP({
       method: 'post',
       auth: {
-        username: this.config.networks.development.username,
-        password: this.config.networks.development.password
+        username: this.config.username,
+        password: this.config.password
       },
       data: {
         jsonrpc: "1.0",
@@ -2098,8 +2099,8 @@ class BITBOXCli {
     return this.BitboxHTTP({
       method: 'post',
       auth: {
-        username: this.config.networks.development.username,
-        password: this.config.networks.development.password
+        username: this.config.username,
+        password: this.config.password
       },
       data: {
         jsonrpc: "1.0",
@@ -2136,8 +2137,8 @@ class BITBOXCli {
     return this.BitboxHTTP({
       method: 'post',
       auth: {
-        username: this.config.networks.development.username,
-        password: this.config.networks.development.password
+        username: this.config.username,
+        password: this.config.password
       },
       data: {
         jsonrpc: "1.0",
@@ -2165,8 +2166,8 @@ class BITBOXCli {
     return this.BitboxHTTP({
       method: 'post',
       auth: {
-        username: this.config.networks.development.username,
-        password: this.config.networks.development.password
+        username: this.config.username,
+        password: this.config.password
       },
       data: {
         jsonrpc: "1.0",
@@ -2202,8 +2203,8 @@ class BITBOXCli {
     return this.BitboxHTTP({
       method: 'post',
       auth: {
-        username: this.config.networks.development.username,
-        password: this.config.networks.development.password
+        username: this.config.username,
+        password: this.config.password
       },
       data: {
         jsonrpc: "1.0",
@@ -2257,8 +2258,8 @@ class BITBOXCli {
     return this.BitboxHTTP({
       method: 'post',
       auth: {
-        username: this.config.networks.development.username,
-        password: this.config.networks.development.password
+        username: this.config.username,
+        password: this.config.password
       },
       data: {
         jsonrpc: "1.0",
@@ -2291,8 +2292,8 @@ class BITBOXCli {
     return this.BitboxHTTP({
       method: 'post',
       auth: {
-        username: this.config.networks.development.username,
-        password: this.config.networks.development.password
+        username: this.config.username,
+        password: this.config.password
       },
       data: {
         jsonrpc: "1.0",
@@ -2323,8 +2324,8 @@ class BITBOXCli {
     return this.BitboxHTTP({
       method: 'post',
       auth: {
-        username: this.config.networks.development.username,
-        password: this.config.networks.development.password
+        username: this.config.username,
+        password: this.config.password
       },
       data: {
         jsonrpc: "1.0",
@@ -2352,8 +2353,8 @@ class BITBOXCli {
     return this.BitboxHTTP({
       method: 'post',
       auth: {
-        username: this.config.networks.development.username,
-        password: this.config.networks.development.password
+        username: this.config.username,
+        password: this.config.password
       },
       data: {
         jsonrpc: "1.0",
@@ -2382,8 +2383,8 @@ class BITBOXCli {
     return this.BitboxHTTP({
       method: 'post',
       auth: {
-        username: this.config.networks.development.username,
-        password: this.config.networks.development.password
+        username: this.config.username,
+        password: this.config.password
       },
       data: {
         jsonrpc: "1.0",
@@ -2418,8 +2419,8 @@ class BITBOXCli {
     return this.BitboxHTTP({
       method: 'post',
       auth: {
-        username: this.config.networks.development.username,
-        password: this.config.networks.development.password
+        username: this.config.username,
+        password: this.config.password
       },
       data: {
         jsonrpc: "1.0",
@@ -2460,8 +2461,8 @@ class BITBOXCli {
     return this.BitboxHTTP({
       method: 'post',
       auth: {
-        username: this.config.networks.development.username,
-        password: this.config.networks.development.password
+        username: this.config.username,
+        password: this.config.password
       },
       data: {
         jsonrpc: "1.0",
@@ -2483,8 +2484,8 @@ class BITBOXCli {
     return this.BitboxHTTP({
       method: 'post',
       auth: {
-        username: this.config.networks.development.username,
-        password: this.config.networks.development.password
+        username: this.config.username,
+        password: this.config.password
       },
       data: {
         jsonrpc: "1.0",
@@ -2516,8 +2517,8 @@ class BITBOXCli {
     return this.BitboxHTTP({
       method: 'post',
       auth: {
-        username: this.config.networks.development.username,
-        password: this.config.networks.development.password
+        username: this.config.username,
+        password: this.config.password
       },
       data: {
         jsonrpc: "1.0",
@@ -2557,8 +2558,8 @@ class BITBOXCli {
     return this.BitboxHTTP({
       method: 'post',
       auth: {
-        username: this.config.networks.development.username,
-        password: this.config.networks.development.password
+        username: this.config.username,
+        password: this.config.password
       },
       data: {
         jsonrpc: "1.0",
@@ -2607,8 +2608,8 @@ class BITBOXCli {
     return this.BitboxHTTP({
       method: 'post',
       auth: {
-        username: this.config.networks.development.username,
-        password: this.config.networks.development.password
+        username: this.config.username,
+        password: this.config.password
       },
       data: {
         jsonrpc: "1.0",
@@ -2667,8 +2668,8 @@ class BITBOXCli {
     return this.BitboxHTTP({
       method: 'post',
       auth: {
-        username: this.config.networks.development.username,
-        password: this.config.networks.development.password
+        username: this.config.username,
+        password: this.config.password
       },
       data: {
         jsonrpc: "1.0",
@@ -2701,8 +2702,8 @@ class BITBOXCli {
     return this.BitboxHTTP({
       method: 'post',
       auth: {
-        username: this.config.networks.development.username,
-        password: this.config.networks.development.password
+        username: this.config.username,
+        password: this.config.password
       },
       data: {
         jsonrpc: "1.0",
@@ -2762,8 +2763,8 @@ class BITBOXCli {
     return this.BitboxHTTP({
       method: 'post',
       auth: {
-        username: this.config.networks.development.username,
-        password: this.config.networks.development.password
+        username: this.config.username,
+        password: this.config.password
       },
       data: {
         jsonrpc: "1.0",
@@ -2810,8 +2811,8 @@ class BITBOXCli {
     return this.BitboxHTTP({
       method: 'post',
       auth: {
-        username: this.config.networks.development.username,
-        password: this.config.networks.development.password
+        username: this.config.username,
+        password: this.config.password
       },
       data: {
         jsonrpc: "1.0",
@@ -2847,8 +2848,8 @@ class BITBOXCli {
     return this.BitboxHTTP({
       method: 'post',
       auth: {
-        username: this.config.networks.development.username,
-        password: this.config.networks.development.password
+        username: this.config.username,
+        password: this.config.password
       },
       data: {
         jsonrpc: "1.0",
@@ -2879,8 +2880,8 @@ class BITBOXCli {
     return this.BitboxHTTP({
       method: 'post',
       auth: {
-        username: this.config.networks.development.username,
-        password: this.config.networks.development.password
+        username: this.config.username,
+        password: this.config.password
       },
       data: {
         jsonrpc: "1.0",
@@ -2910,8 +2911,8 @@ class BITBOXCli {
     return this.BitboxHTTP({
       method: 'post',
       auth: {
-        username: this.config.networks.development.username,
-        password: this.config.networks.development.password
+        username: this.config.username,
+        password: this.config.password
       },
       data: {
         jsonrpc: "1.0",
@@ -2948,8 +2949,8 @@ class BITBOXCli {
     return this.BitboxHTTP({
       method: 'post',
       auth: {
-        username: this.config.networks.development.username,
-        password: this.config.networks.development.password
+        username: this.config.username,
+        password: this.config.password
       },
       data: {
         jsonrpc: "1.0",
@@ -2981,8 +2982,8 @@ class BITBOXCli {
     return this.BitboxHTTP({
       method: 'post',
       auth: {
-        username: this.config.networks.development.username,
-        password: this.config.networks.development.password
+        username: this.config.username,
+        password: this.config.password
       },
       data: {
         jsonrpc: "1.0",
@@ -3010,8 +3011,8 @@ class BITBOXCli {
     return this.BitboxHTTP({
       method: 'post',
       auth: {
-        username: this.config.networks.development.username,
-        password: this.config.networks.development.password
+        username: this.config.username,
+        password: this.config.password
       },
       data: {
         jsonrpc: "1.0",
@@ -3053,8 +3054,8 @@ class BITBOXCli {
     return this.BitboxHTTP({
       method: 'post',
       auth: {
-        username: this.config.networks.development.username,
-        password: this.config.networks.development.password
+        username: this.config.username,
+        password: this.config.password
       },
       data: {
         jsonrpc: "1.0",
@@ -3106,8 +3107,8 @@ class BITBOXCli {
     return this.BitboxHTTP({
       method: 'post',
       auth: {
-        username: this.config.networks.development.username,
-        password: this.config.networks.development.password
+        username: this.config.username,
+        password: this.config.password
       },
       data: {
         jsonrpc: "1.0",
@@ -3146,8 +3147,8 @@ class BITBOXCli {
     return this.BitboxHTTP({
       method: 'post',
       auth: {
-        username: this.config.networks.development.username,
-        password: this.config.networks.development.password
+        username: this.config.username,
+        password: this.config.password
       },
       data: {
         jsonrpc: "1.0",
@@ -3187,8 +3188,8 @@ class BITBOXCli {
     return this.BitboxHTTP({
       method: 'post',
       auth: {
-        username: this.config.networks.development.username,
-        password: this.config.networks.development.password
+        username: this.config.username,
+        password: this.config.password
       },
       data: {
         jsonrpc: "1.0",
@@ -3221,8 +3222,8 @@ class BITBOXCli {
     return this.BitboxHTTP({
       method: 'post',
       auth: {
-        username: this.config.networks.development.username,
-        password: this.config.networks.development.password
+        username: this.config.username,
+        password: this.config.password
       },
       data: {
         jsonrpc: "1.0",
@@ -3254,8 +3255,8 @@ class BITBOXCli {
     return this.BitboxHTTP({
       method: 'post',
       auth: {
-        username: this.config.networks.development.username,
-        password: this.config.networks.development.password
+        username: this.config.username,
+        password: this.config.password
       },
       data: {
         jsonrpc: "1.0",
@@ -3286,8 +3287,8 @@ class BITBOXCli {
     return this.BitboxHTTP({
       method: 'post',
       auth: {
-        username: this.config.networks.development.username,
-        password: this.config.networks.development.password
+        username: this.config.username,
+        password: this.config.password
       },
       data: {
         jsonrpc: "1.0",
@@ -3312,8 +3313,8 @@ class BITBOXCli {
     return this.BitboxHTTP({
       method: 'post',
       auth: {
-        username: this.config.networks.development.username,
-        password: this.config.networks.development.password
+        username: this.config.username,
+        password: this.config.password
       },
       data: {
         jsonrpc: "1.0",
@@ -3344,8 +3345,8 @@ class BITBOXCli {
     return this.BitboxHTTP({
       method: 'post',
       auth: {
-        username: this.config.networks.development.username,
-        password: this.config.networks.development.password
+        username: this.config.username,
+        password: this.config.password
       },
       data: {
         jsonrpc: "1.0",
@@ -3380,8 +3381,8 @@ class BITBOXCli {
     return this.BitboxHTTP({
       method: 'post',
       auth: {
-        username: this.config.networks.development.username,
-        password: this.config.networks.development.password
+        username: this.config.username,
+        password: this.config.password
       },
       data: {
         jsonrpc: "1.0",
@@ -3447,8 +3448,8 @@ class BITBOXCli {
     return this.BitboxHTTP({
       method: 'post',
       auth: {
-        username: this.config.networks.development.username,
-        password: this.config.networks.development.password
+        username: this.config.username,
+        password: this.config.password
       },
       data: {
         jsonrpc: "1.0",
@@ -3475,8 +3476,8 @@ class BITBOXCli {
     return this.BitboxHTTP({
       method: 'post',
       auth: {
-        username: this.config.networks.development.username,
-        password: this.config.networks.development.password
+        username: this.config.username,
+        password: this.config.password
       },
       data: {
         jsonrpc: "1.0",
@@ -3512,8 +3513,8 @@ class BITBOXCli {
     return this.BitboxHTTP({
       method: 'post',
       auth: {
-        username: this.config.networks.development.username,
-        password: this.config.networks.development.password
+        username: this.config.username,
+        password: this.config.password
       },
       data: {
         jsonrpc: "1.0",
@@ -3558,8 +3559,8 @@ class BITBOXCli {
     return this.BitboxHTTP({
       method: 'post',
       auth: {
-        username: this.config.networks.development.username,
-        password: this.config.networks.development.password
+        username: this.config.username,
+        password: this.config.password
       },
       data: {
         jsonrpc: "1.0",
@@ -3591,8 +3592,8 @@ class BITBOXCli {
     return this.BitboxHTTP({
       method: 'post',
       auth: {
-        username: this.config.networks.development.username,
-        password: this.config.networks.development.password
+        username: this.config.username,
+        password: this.config.password
       },
       data: {
         jsonrpc: "1.0",
@@ -3626,8 +3627,8 @@ class BITBOXCli {
     return this.BitboxHTTP({
       method: 'post',
       auth: {
-        username: this.config.networks.development.username,
-        password: this.config.networks.development.password
+        username: this.config.username,
+        password: this.config.password
       },
       data: {
         jsonrpc: "1.0",
@@ -3661,8 +3662,8 @@ class BITBOXCli {
     return this.BitboxHTTP({
       method: 'post',
       auth: {
-        username: this.config.networks.development.username,
-        password: this.config.networks.development.password
+        username: this.config.username,
+        password: this.config.password
       },
       data: {
         jsonrpc: "1.0",
@@ -3691,8 +3692,8 @@ class BITBOXCli {
     return this.BitboxHTTP({
       method: 'post',
       auth: {
-        username: this.config.networks.development.username,
-        password: this.config.networks.development.password
+        username: this.config.username,
+        password: this.config.password
       },
       data: {
         jsonrpc: "1.0",
@@ -3722,8 +3723,8 @@ class BITBOXCli {
     return this.BitboxHTTP({
       method: 'post',
       auth: {
-        username: this.config.networks.development.username,
-        password: this.config.networks.development.password
+        username: this.config.username,
+        password: this.config.password
       },
       data: {
         jsonrpc: "1.0",
@@ -3754,8 +3755,8 @@ class BITBOXCli {
     return this.BitboxHTTP({
       method: 'post',
       auth: {
-        username: this.config.networks.development.username,
-        password: this.config.networks.development.password
+        username: this.config.username,
+        password: this.config.password
       },
       data: {
         jsonrpc: "1.0",

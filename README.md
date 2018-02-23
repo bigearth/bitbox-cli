@@ -40,9 +40,12 @@ Pass in command line arguments or optionally specify commonly used arguments in 
 Options:
 
   -t, --title <title>        Title of new project
+  -e, --environment <environment> environment of running BITBOX instance. Ex: production, staging. Default: development
   -r, --protocol <protocol>  protocol of running BITBOX instance. Default: http
   -o, --host <host>          host of running BITBOX instance. Default: localhost
   -p, --port <port>          port of running BITBOX instance. Default: 8332
+  -u, --username <username>  Bitcoin Cash JSON RPC username
+  -a, --password <passwore>  Bitcoin Cash JSON RPC password
   -h, --help                 output usage information
 ```
 
@@ -58,6 +61,7 @@ Run a console with Bitcoin Cash RPC commands available
 
 Options:
 
+  -e, --environment <environment> environment of running BITBOX instance. Ex: production, staging. Default: development
   -h, --help  output usage information
 ```
 
@@ -72,4 +76,6 @@ You can store common settings in a `~/.bashrc` in the `ini` format:
 protocol = http
 host = localhost
 port = 8332
+username: h4x04
+password: l337
 ```
