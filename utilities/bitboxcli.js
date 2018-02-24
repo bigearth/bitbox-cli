@@ -9,7 +9,7 @@ class BITBOXCli {
     });
   }
 
-  addmultisigaddress(Arguments: number, keys: Array<string>|string, account: ?string): string{
+  addmultisigaddress(nrequired: number, keys: Array<string>, account: ?string): string{
     // Add a nrequired-to-sign multisignature address to the wallet.
     // Each key is a Bitcoin address or hex-encoded public key.
     // If 'account' is specified (DEPRECATED), assign address to that account.
@@ -31,6 +31,20 @@ class BITBOXCli {
     // Add a multisig address from 2 addresses
     // > bitcoin-cli addmultisigaddress 2 "[\"16sSauSf5pF2UkUwvKGq4qjNRzBZYqgEL5\",\"171sgjn4YtPu27adkKGrdDwzRTxnRkBfKV\"]"
 
+    let params;
+    if(!account) {
+      params = [
+        nrequired,
+        keys
+      ];
+    } else {
+      params = [
+        nrequired,
+        keys,
+        account
+      ];
+    }
+
     return this.BitboxHTTP({
       method: 'post',
       auth: {
@@ -41,11 +55,7 @@ class BITBOXCli {
         jsonrpc: "1.0",
         id:"addmultisigaddress",
         method: "addmultisigaddress",
-        params: [
-          Arguments,
-          keys,
-          account
-        ]
+        params: params
       }
     })
     .then((response) => {
@@ -1137,7 +1147,6 @@ class BITBOXCli {
   }
 
   getinfo(): string {
-
     // DEPRECATED. Returns an object containing various state info.
     //
     // Result:
@@ -1584,7 +1593,6 @@ class BITBOXCli {
       return response.data.result;
     })
     .catch(error => {
-      console.log(error);
       return Error(error.response.data.error.message);
     });
   }
