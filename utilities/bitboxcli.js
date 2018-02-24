@@ -9,20 +9,28 @@ class BITBOXCli {
     });
   }
 
-  addmultisigaddress(required: number, keys: Array<string>|string, account: ?string): string{
-    // Adds a P2SH multisig address to the wallet.
+  addmultisigaddress(Arguments: number, keys: Array<string>|string, account: ?string): string{
+    // Add a nrequired-to-sign multisignature address to the wallet.
+    // Each key is a Bitcoin address or hex-encoded public key.
+    // If 'account' is specified (DEPRECATED), assign address to that account.
+    //
+    // Arguments:
+    // 1. nrequired        (numeric, required) The number of required signatures out of the n keys or addresses.
+    // 2. "keys"         (string, required) A json array of bitcoin addresses or hex-encoded public keys
+    //      [
+    //        "address"  (string) bitcoin address or hex-encoded public key
+    //        ...,
+    //      ]
+    // 3. "account"      (string, optional) DEPRECATED. An account to assign the addresses to.
+    //
+    // Result:
+    // "address"         (string) A bitcoin address associated with the keys.
+    //
+    // Examples:
+    //
+    // Add a multisig address from 2 addresses
+    // > bitcoin-cli addmultisigaddress 2 "[\"16sSauSf5pF2UkUwvKGq4qjNRzBZYqgEL5\",\"171sgjn4YtPu27adkKGrdDwzRTxnRkBfKV\"]"
 
-    // Parameter #1—the number of signatures required
-    // The minimum (m) number of signatures required to spend this m-of-n multisig script
-
-    // Parameter #2—the full public keys, or addresses for known public keys
-    // An array of strings with each string being a public key or address
-    // or
-    // A public key against which signatures will be checked. Alternatively, this may be a P2PKH address belonging to the wallet—the corresponding public key will be substituted.
-    // There must be at least as many keys as specified by the Required parameter, and there may be more keys
-
-    // Parameter #3—the account name
-    // The account name in which the address should be stored. Default is the default account, “” (an empty string)
     return this.BitboxHTTP({
       method: 'post',
       auth: {
@@ -34,8 +42,9 @@ class BITBOXCli {
         id:"addmultisigaddress",
         method: "addmultisigaddress",
         params: [
-          required,
-          keys
+          Arguments,
+          keys,
+          account
         ]
       }
     })
@@ -48,22 +57,13 @@ class BITBOXCli {
   }
 
   addnode(node: string, command: string): string{
-    // Attempts to add or remove a node from the addnode list, or to try a connection to a node once.
-
-    // Parameter #1—hostname/IP address and port of node to add or remove
-    // The node to add as a string in the form of <IP address>:<port>. The IP address may be a hostname resolvable through DNS, an IPv4 address, an IPv4-as-IPv6 address, or an IPv6 address
-
-    // Parameter #2—whether to add or remove the node, or to try only once to connect
-
-    // What to do with the IP address above. Options are:
-    // • add to add a node to the addnode list. Up to 8 nodes can be added additional to the default 8 nodes. Not limited by -maxconnections
-    // • remove to remove a node from the list. If currently connected, this will disconnect immediately
-    // • onetry to immediately attempt connection to the node even if the outgoing connection slots are full; this will only attempt the connection once
-
-    // Result—null plus error on failed remove
-    // Always JSON null whether the node was added, removed, tried-and-connected, or tried-and-not-connected.
-    // The JSON-RPC error field will be set only if you try removing a node that is not on the addnodes list
-
+    // Attempts add or remove a node from the addnode list.
+    // Or try a connection to a node once.
+    //
+    // Arguments:
+    // 1. "node"     (string, required) The node (see getpeerinfo for nodes)
+    // 2. "command"  (string, required) 'add' to add a node to the list, 'remove' to remove a node from the list, 'onetry' to try a connection to the node once
+    //
     return this.BitboxHTTP({
       method: 'post',
       auth: {
@@ -89,33 +89,12 @@ class BITBOXCli {
   }
 
   backupwallet(destination: string): string {
-    // The backupwallet RPC safely copies wallet.dat to the specified file, which can be a directory or a path with filename.
+    // Safely copies current wallet file to destination, which can be a directory or a path with filename.
+    //
+    // Arguments:
+    // 1. "destination"   (string) The destination directory or file
 
-    // Parameter #1—destination directory or filename
-    // A filename or directory name. If a filename, it will be created or overwritten.
-    // If a directory name, the file wallet.dat will be created or overwritten within that directory
-
-    // Result—null or error
-    // Always null whether success or failure. The JSON-RPC error and message fields will be set if a failure occurred
-
-      // return this.BitboxHTTP({
-      //   method: 'post',
-      //   auth: {
-      //     username: this.config.username,
-      //     password: this.config.password
-      //   },
-      //   data: {
-      //     jsonrpc: "1.0",
-      //     id:"addnode",
-      //     method: "addnode",
-      //     params: []
-      //   },
-      //   params: {
-      //     node: node,
-      //     command: command
-      //   }
-      // })
-      return this.BitboxHTTP
+    return this.BitboxHTTP
       .get(`backupWallet`, {
         params: {
           destination: destination
@@ -300,7 +279,7 @@ class BITBOXCli {
     });
   }
 
-  disconnectnode(address: string): string {
+  disconnectnode(address: string, nodeid: string): string {
     // immediately disconnects from a specified node.
 
     // Parameter #1—hostname/IP address and port of node to disconnect
@@ -317,7 +296,8 @@ class BITBOXCli {
         id:"disconnectnode",
         method: "disconnectnode",
         params: [
-          address
+          address,
+          nodeid
         ]
       }
     })
@@ -808,7 +788,7 @@ class BITBOXCli {
     });
   }
 
-  getblock(): string {
+  getblock(blockhash: string, verbose: ?boolean): string {
     // If verbose is false, returns a string that is serialized, hex-encoded data for block 'hash'.
     // If verbose is true, returns an Object with information about block <hash>.
     //
@@ -853,6 +833,8 @@ class BITBOXCli {
         id:"getblock",
         method: "getblock",
         params: [
+          blockhash,
+          verbose
         ]
       }
     })
@@ -947,7 +929,7 @@ class BITBOXCli {
     });
   }
 
-  getblockheader(): string {
+  getblockheader(hash: string, verbose: ?boolean): string {
 
     // If verbose is false, returns a string that is serialized, hex-encoded data for blockheader 'hash'.
     // If verbose is true, returns an Object with information about blockheader <hash>.
@@ -988,6 +970,8 @@ class BITBOXCli {
         id:"getblockheader",
         method: "getblockheader",
         params: [
+          hash,
+          verbose
         ]
       }
     })
@@ -999,7 +983,7 @@ class BITBOXCli {
     });
   }
 
-  getblocktemplate(template_request: any): string {
+  getblocktemplate(template_request: ?any): string {
 
     // If the request parameters include a 'mode' key, that is used to explicitly select between the default 'template' request or a 'proposal'.
     // It returns data needed to construct a block to work on.
@@ -1605,7 +1589,7 @@ class BITBOXCli {
     });
   }
 
-  getnewaddress(account: string): string {
+  getnewaddress(account: ?string): string {
     // Returns a new Bitcoin address for receiving payments.
     // If 'account' is specified (DEPRECATED), it is added to the address book
     // so payments received with the address will be credited to 'account'.
@@ -1733,7 +1717,7 @@ class BITBOXCli {
     });
   }
 
-  getrawmempool(): string {
+  getrawmempool(verbose: ?boolean): string {
     // Returns all transaction ids in memory pool as a json array of string transaction ids.
     //
     // Arguments:
@@ -1777,7 +1761,9 @@ class BITBOXCli {
         jsonrpc: "1.0",
         id:"getrawmempool",
         method: "getrawmempool",
-        params: []
+        params: [
+          boolean
+        ]
       }
     })
     .then((response) => {
@@ -1816,7 +1802,10 @@ class BITBOXCli {
         jsonrpc: "1.0",
         id:"getrawtransaction",
         method: "getrawtransaction",
-        params: []
+        params: [
+          txid,
+          verbose
+        ]
       }
     })
     .then((response) => {
@@ -2373,7 +2362,7 @@ class BITBOXCli {
     });
   }
 
-  keypoolrefill(newsize: number): string {
+  keypoolrefill(newsize: ?number): string {
 
   // Fills the keypool.
   //
@@ -3389,7 +3378,7 @@ class BITBOXCli {
         id:"signmessagewithprivkey",
         method: "signmessagewithprivkey",
         params: [
-          address,
+          privkey,
           message
         ]
       }
