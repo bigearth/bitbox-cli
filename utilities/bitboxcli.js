@@ -25,11 +25,6 @@ class BITBOXCli {
     //
     // Result:
     // "address"         (string) A bitcoin address associated with the keys.
-    //
-    // Examples:
-    //
-    // Add a multisig address from 2 addresses
-    // > bitcoin-cli addmultisigaddress 2 "[\"16sSauSf5pF2UkUwvKGq4qjNRzBZYqgEL5\",\"171sgjn4YtPu27adkKGrdDwzRTxnRkBfKV\"]"
 
     let params;
     if(!account) {
@@ -104,26 +99,35 @@ class BITBOXCli {
     // Arguments:
     // 1. "destination"   (string) The destination directory or file
 
-    return this.BitboxHTTP
-      .get(`backupWallet`, {
-        params: {
-          destination: destination
-        }
-      })
-      .then((response) => {
-        let fs = require('fs');
+    return this.BitboxHTTP({
+      method: 'post',
+      auth: {
+        username: this.config.username,
+        password: this.config.password
+      },
+      data: {
+        jsonrpc: "1.0",
+        id:"backupWallet",
+        method: "backupWallet",
+        params: [
+          destination
+        ]
+      }
+    })
+    .then((response) => {
+      let fs = require('fs');
 
-        fs.appendFile("wallet.txt", response.data, (error) => {
-          if (error) {
-            return Error(error.response.data.error.message);
-          } else {
-            return response.data.result;
-          }
-        });
-      })
-      .catch((error) => {
-      return Error(error.response.data.error.message);
+      fs.appendFile(destination, response.data, (error) => {
+        if (error) {
+          return Error(error.response.data.error.message);
+        } else {
+          return response.data.result;
+        }
       });
+    })
+    .catch((error) => {
+      return Error(error.response.data.error.message);
+    });
   }
 
   clearbanned(): string {
@@ -204,6 +208,19 @@ class BITBOXCli {
     // Parameter #3—locktime
 
     // Result—the unsigned raw transaction in hex
+    let params;
+    if(!locktime) {
+      params = [
+        inputs,
+        outputs
+      ];
+    } else {
+      params = [
+        inputs,
+        outputs,
+        locktime
+      ];
+    }
     return this.BitboxHTTP({
       method: 'post',
       auth: {
@@ -214,11 +231,7 @@ class BITBOXCli {
         jsonrpc: "1.0",
         id:"createrawtransaction",
         method: "createrawtransaction",
-        params: [
-          inputs,
-          outputs,
-          locktime
-        ]
+        params: params
       }
     })
     .then((response) => {
@@ -484,7 +497,7 @@ class BITBOXCli {
     });
   }
 
-  fundrawtransaction(hexstring: string, options: any): string {
+  fundrawtransaction(hexstring: string, options: ?any): string {
     // Add inputs to a transaction until it has enough in value to meet its out value.
     // This will not modify existing inputs, and will add at most one change output to the outputs.
     // No existing outputs will be modified unless "subtractFeeFromOutputs" is specified.
@@ -522,6 +535,17 @@ class BITBOXCli {
     //   "changepos": n          (numeric) The position of the added change output, or -1
     // }
 
+    let params;
+    if(!options) {
+      params = [
+        hexstring
+      ];
+    } else {
+      params = [
+        hexstring,
+        options
+      ];
+    }
     return this.BitboxHTTP({
       method: 'post',
       auth: {
@@ -532,10 +556,7 @@ class BITBOXCli {
         jsonrpc: "1.0",
         id:"fundrawtransaction",
         method: "fundrawtransaction",
-        params: [
-          hexstring,
-          options
-        ]
+        params: params
       }
     })
     .then((response) => {
@@ -546,13 +567,24 @@ class BITBOXCli {
     });
   }
 
-  generate(blocks: number, maxtries: number): string {
+  generate(blocks: number, maxtries: ?number): string {
     // Mine up to nblocks blocks immediately (before the RPC call returns)
     //
     // Arguments:
     // 1. nblocks      (numeric, required) How many blocks are generated immediately.
     // 2. maxtries     (numeric, optional) How many iterations to try (default = 1000000).
 
+    let params;
+    if(!maxtries) {
+      params = [
+        blocks
+      ];
+    } else {
+      params = [
+        blocks,
+        maxtries
+      ];
+    }
     return this.BitboxHTTP({
       method: 'post',
       auth: {
@@ -563,10 +595,7 @@ class BITBOXCli {
         jsonrpc: "1.0",
         id:"generate",
         method: "generate",
-        params: [
-          blocks,
-          maxtries
-        ]
+        params: params
       }
     })
     .then((response) => {
@@ -577,7 +606,7 @@ class BITBOXCli {
     });
   }
 
-  generatetoaddress(blocks: number, address: string, maxtries: number): string {
+  generatetoaddress(blocks: number, address: string, maxtries: ?number): string {
 
   // Mine blocks immediately to a specified address (before the RPC call returns)
   //
@@ -585,6 +614,20 @@ class BITBOXCli {
   // 1. nblocks      (numeric, required) How many blocks are generated immediately.
   // 2. address      (string, required) The address to send the newly generated bitcoin to.
   // 3. maxtries     (numeric, optional) How many iterations to try (default = 1000000).
+
+    let params;
+    if(!maxtries) {
+      params = [
+        blocks,
+        address
+      ];
+    } else {
+      params = [
+        blocks,
+        address,
+        maxtries
+      ];
+    }
 
     return this.BitboxHTTP({
       method: 'post',
@@ -596,11 +639,7 @@ class BITBOXCli {
         jsonrpc: "1.0",
         id:"generatetoaddress",
         method: "generatetoaddress",
-        params: [
-          blocks,
-          address,
-          maxtries
-        ]
+        params: params
       }
     })
     .then((response) => {
@@ -672,7 +711,7 @@ class BITBOXCli {
     });
   }
 
-  getaddednodeinfo(details: boolean, node: ?string): string {
+    getaddednodeinfo(details: boolean, node: ?string): string {
     // returns information about the given added node, or all added nodes (except onetry nodes). Only nodes which have been manually added using the addnode RPC will have their information displayed.
 
     // Parameter #1—whether to display connection information
@@ -680,6 +719,17 @@ class BITBOXCli {
     // Parameter #2—what node to display information about
 
     // Result—a list of added nodes
+    let params;
+    if(!node) {
+      params = [
+        details
+      ];
+    } else {
+      params = [
+        details,
+        node
+      ];
+    }
 
     return this.BitboxHTTP({
       method: 'post',
@@ -691,10 +741,7 @@ class BITBOXCli {
         jsonrpc: "1.0",
         id:"getaddednodeinfo",
         method: "getaddednodeinfo",
-        params: [
-          details,
-          node
-        ]
+        params: params
       }
     })
     .then((response) => {
@@ -831,6 +878,17 @@ class BITBOXCli {
     //
     // Result (for verbose=false):
     // "data"             (string) A string that is serialized, hex-encoded data for block 'hash'.
+    let params;
+    if(!verbose) {
+      params = [
+        blockhash
+      ];
+    } else {
+      params = [
+        blockhash,
+        verbose
+      ];
+    }
 
     return this.BitboxHTTP({
       method: 'post',
@@ -842,10 +900,7 @@ class BITBOXCli {
         jsonrpc: "1.0",
         id:"getblock",
         method: "getblock",
-        params: [
-          blockhash,
-          verbose
-        ]
+        params: params
       }
     })
     .then((response) => {
@@ -968,6 +1023,17 @@ class BITBOXCli {
     //
     // Result (for verbose=false):
     // "data"             (string) A string that is serialized, hex-encoded data for block 'hash'.
+    let params;
+    if(!verbose) {
+      params = [
+        hash
+      ];
+    } else {
+      params = [
+        hash,
+        verbose
+      ];
+    }
 
     return this.BitboxHTTP({
       method: 'post',
@@ -979,10 +1045,7 @@ class BITBOXCli {
         jsonrpc: "1.0",
         id:"getblockheader",
         method: "getblockheader",
-        params: [
-          hash,
-          verbose
-        ]
+        params: params
       }
     })
     .then((response) => {
@@ -1017,6 +1080,16 @@ class BITBOXCli {
     //        ]
     //      }
 
+    let params;
+    if(!template_request) {
+      params = [];
+    } else {
+      params = [
+        template_request
+      ];
+    }
+
+
     return this.BitboxHTTP({
       method: 'post',
       auth: {
@@ -1027,9 +1100,7 @@ class BITBOXCli {
         jsonrpc: "1.0",
         id:"getblocktemplate",
         method: "getblocktemplate",
-        params: [
-          template_request
-        ]
+        params: params
       }
     })
     .then((response) => {
@@ -1228,7 +1299,7 @@ class BITBOXCli {
     });
   }
 
-  getmempoolancestors(txid, verbose): string {
+  getmempoolancestors(txid: string, verbose: ?boolean): string {
     // If txid is in the mempool, returns all in-mempool ancestors.
     //
     // Arguments:
@@ -1263,6 +1334,18 @@ class BITBOXCli {
     //   }, ...
     // }
 
+    let params;
+    if(!verbose) {
+      params = [
+        txid
+      ]
+    } else {
+      params = [
+        txid,
+        verbose
+      ]
+    }
+
     return this.BitboxHTTP({
       method: 'post',
       auth: {
@@ -1273,10 +1356,7 @@ class BITBOXCli {
         jsonrpc: "1.0",
         id:"getmempoolancestors",
         method: "getmempoolancestors",
-        params: [
-          txid,
-          verbose
-        ]
+        params: params
       }
     })
     .then((response) => {
@@ -1287,7 +1367,7 @@ class BITBOXCli {
     });
   }
 
-  getmempooldescendants(txid, verbose): string {
+  getmempooldescendants(txid: string, verbose: ?boolean): string {
     // If txid is in the mempool, returns all in-mempool descendants.
     //
     // Arguments:
@@ -1321,6 +1401,18 @@ class BITBOXCli {
     //        ... ]
     //   }, ...
     // }
+
+    let params;
+    if(!verbose) {
+      params = [
+        txid
+      ]
+    } else {
+      params = [
+        txid,
+        verbose
+      ]
+    }
     return this.BitboxHTTP({
       method: 'post',
       auth: {
@@ -1331,10 +1423,7 @@ class BITBOXCli {
         jsonrpc: "1.0",
         id:"getmempooldescendants",
         method: "getmempooldescendants",
-        params: [
-          txid,
-          verbose
-        ]
+        params: params
       }
     })
     .then((response) => {
@@ -1516,6 +1605,14 @@ class BITBOXCli {
     // Result:
     // x             (numeric) Hashes per second estimated
 
+    let params = [];
+    if(nblocks) {
+      params.push(nblocks);
+    }
+
+    if(height) {
+      params.push(height);
+    }
     return this.BitboxHTTP({
       method: 'post',
       auth: {
@@ -1526,10 +1623,7 @@ class BITBOXCli {
         jsonrpc: "1.0",
         id:"getnetworkhashps",
         method: "getnetworkhashps",
-        params: [
-          nblocks,
-          height
-        ]
+        params: params
       }
     })
     .then((response) => {
@@ -1608,6 +1702,11 @@ class BITBOXCli {
     // Result:
     // "address"    (string) The new bitcoin address
 
+    let params = [];
+    if(account) {
+      params.push(account);
+    }
+
     return this.BitboxHTTP({
       method: 'post',
       auth: {
@@ -1618,9 +1717,7 @@ class BITBOXCli {
         jsonrpc: "1.0",
         id:"getnewaddress",
         method: "getnewaddress",
-        params: [
-          account
-        ]
+        params: params
       }
     })
     .then((response) => {
@@ -1758,6 +1855,10 @@ class BITBOXCli {
     //        ... ]
     //   }, ...
     // }
+    let params = [];
+    if(verbose) {
+      params.push(verbose);
+    }
 
     return this.BitboxHTTP({
       method: 'post',
@@ -1769,9 +1870,7 @@ class BITBOXCli {
         jsonrpc: "1.0",
         id:"getrawmempool",
         method: "getrawmempool",
-        params: [
-          boolean
-        ]
+        params: params
       }
     })
     .then((response) => {
@@ -1799,7 +1898,17 @@ class BITBOXCli {
     // Result (if verbose is not set or set to false):
     // "data"      (string) The serialized, hex-encoded data for 'txid'
 
-
+    let params;
+    if(!verbose) {
+      params = [
+        txid
+      ];
+    } else {
+      params = [
+        txid,
+        verbose
+      ];
+    }
     return this.BitboxHTTP({
       method: 'post',
       auth: {
@@ -1810,10 +1919,7 @@ class BITBOXCli {
         jsonrpc: "1.0",
         id:"getrawtransaction",
         method: "getrawtransaction",
-        params: [
-          txid,
-          verbose
-        ]
+        params: params
       }
     })
     .then((response) => {
@@ -1834,6 +1940,17 @@ class BITBOXCli {
     // Result:
     // amount              (numeric) The total amount in BCH received for this account.
 
+    let params;
+    if(!minconf) {
+      params = [
+        accounts
+      ];
+    } else {
+      params = [
+        accounts,
+        minconf
+      ];
+    }
     return this.BitboxHTTP({
       method: 'post',
       auth: {
@@ -1844,10 +1961,7 @@ class BITBOXCli {
         jsonrpc: "1.0",
         id:"getreceivedbyaccount",
         method: "getreceivedbyaccount",
-        params: [
-          accounts,
-          minconf
-        ]
+        params: params
       }
     })
     .then((response) => {
@@ -1869,6 +1983,17 @@ class BITBOXCli {
     // amount   (numeric) The total amount in BCH received at this address.
     //
 
+    let params;
+    if(!minconf) {
+      params = [
+        address
+      ];
+    } else {
+      params = [
+        address,
+        minconf
+      ];
+    }
     return this.BitboxHTTP({
       method: 'post',
       auth: {
@@ -1879,10 +2004,7 @@ class BITBOXCli {
         jsonrpc: "1.0",
         id:"getreceivedbyaddress",
         method: "getreceivedbyaddress",
-        params: [
-          address,
-          minconf
-        ]
+        params: params
       }
     })
     .then((response) => {
@@ -1932,6 +2054,17 @@ class BITBOXCli {
     //   "hex" : "data"         (string) Raw data for transaction
     // }
     //
+    let params;
+    if(!include_watchonly) {
+      params = [
+        txid
+      ];
+    } else {
+      params = [
+        txid,
+        include_watchonly
+      ];
+    }
     return this.BitboxHTTP({
       method: 'post',
       auth: {
@@ -1942,10 +2075,7 @@ class BITBOXCli {
         jsonrpc: "1.0",
         id:"gettransaction",
         method: "gettransaction",
-        params: [
-          txid,
-          include_watchonly
-        ]
+        params: params
       }
     })
     .then((response) => {
@@ -1982,6 +2112,19 @@ class BITBOXCli {
     //   "coinbase" : true|false   (boolean) Coinbase or not
     // }
     //
+    let params;
+    if(!include_mempool) {
+      params = [
+        txid,
+        n
+      ];
+    } else {
+      params = [
+        txid,
+        n,
+        include_mempool
+      ];
+    }
 
     return this.BitboxHTTP({
       method: 'post',
@@ -1993,11 +2136,7 @@ class BITBOXCli {
         jsonrpc: "1.0",
         id:"gettxout",
         method: "gettxout",
-        params: [
-          txid,
-          n,
-          include_mempool
-        ]
+        params: params
       }
     })
     .then((response) => {
@@ -2026,6 +2165,17 @@ class BITBOXCli {
     //
     // Result:
     // "data"           (string) A string that is a serialized, hex-encoded data for the proof.
+    let params;
+    if(!blockhash) {
+      params = [
+        txids
+      ];
+    } else {
+      params = [
+        txids,
+        blockhash
+      ];
+    }
 
     return this.BitboxHTTP({
       method: 'post',
@@ -2037,10 +2187,7 @@ class BITBOXCli {
         jsonrpc: "1.0",
         id:"gettxoutproof",
         method: "gettxoutproof",
-        params: [
-          txids,
-          blockhash
-        ]
+        params: params
       }
     })
     .then((response) => {
@@ -2067,7 +2214,6 @@ class BITBOXCli {
     //   "total_amount": x.xxx          (numeric) The total amount
     // }
     //
-
 
     return this.BitboxHTTP({
       method: 'post',
@@ -2152,7 +2298,7 @@ class BITBOXCli {
     });
   }
 
-  help(command: string): string {
+  help(command: ?string): string {
     // List all commands, or get help for a specified command.
     //
     // Arguments:
@@ -2160,6 +2306,10 @@ class BITBOXCli {
     //
     // Result:
     // "text"     (string) The help text
+    let params = [];
+    if(command) {
+      params.push(command);
+    }
     return this.BitboxHTTP({
       method: 'post',
       auth: {
@@ -2170,8 +2320,7 @@ class BITBOXCli {
         jsonrpc: "1.0",
         id:"help",
         method: "help",
-        params: [
-        ]
+        params: params
       }
     })
     .then((response) => {
@@ -2196,6 +2345,20 @@ class BITBOXCli {
     //
     // Note: If you import a non-standard raw script in hex form, outputs sending to it will be treated
     // as change, and not show up in many RPCs.
+    // let params;
+    // if(!blockhash) {
+    //   params = [
+    //     txids,
+    //     n
+    //   ];
+    // } else {
+    //   params = [
+    //     txids,
+    //     blockhash
+    //   ];
+    // }
+    // TODO refactor this to conditionally add params
+
 
     return this.BitboxHTTP({
       method: 'post',
@@ -2251,6 +2414,17 @@ class BITBOXCli {
     //      "rescan": <false>,         (boolean, optional, default: true) Stating if should rescan the blockchain after all imports
     //   }
     //
+    let params;
+    if(!options) {
+      params = [
+        requests
+      ];
+    } else {
+      params = [
+        requests,
+        options
+      ];
+    }
 
     return this.BitboxHTTP({
       method: 'post',
@@ -2262,10 +2436,7 @@ class BITBOXCli {
         jsonrpc: "1.0",
         id:"importmulti",
         method: "importmulti",
-        params: [
-          requests,
-          options
-        ]
+        params: params
       }
     })
     .then((response) => {
@@ -2285,6 +2456,7 @@ class BITBOXCli {
     // 3. rescan               (boolean, optional, default=true) Rescan the wallet for transactions
     //
     // Note: This call can take minutes to complete if rescan is true.
+    // TODO refactor
 
     return this.BitboxHTTP({
       method: 'post',
@@ -2376,6 +2548,10 @@ class BITBOXCli {
   //
   // Arguments
   // 1. newsize     (numeric, optional, default=100) The new keypool size
+    let params = [];
+    if(newsize) {
+      params.push(newsize);
+    }
 
     return this.BitboxHTTP({
       method: 'post',
@@ -2387,9 +2563,7 @@ class BITBOXCli {
         jsonrpc: "1.0",
         id:"keypoolrefill",
         method: "keypoolrefill",
-        params: [
-          newsize
-        ]
+        params: params
       }
     })
     .then((response) => {
@@ -2532,7 +2706,7 @@ class BITBOXCli {
     });
   }
 
-  listreceivedbyaccount(minconf: number, include_empty: ?boolean, include_watchonly: ?boolean): string {
+  listreceivedbyaccount(minconf: ?number, include_empty: ?boolean, include_watchonly: ?boolean): string {
     // DEPRECATED. List balances by account.
     //
     // Arguments:
@@ -2577,7 +2751,7 @@ class BITBOXCli {
     });
   }
 
-  listreceivedbyaddress(minconf: number, include_empty: ?boolean, include_watchonly: ?boolean): string {
+  listreceivedbyaddress(minconf: ?number, include_empty: ?boolean, include_watchonly: ?boolean): string {
     // List balances by receiving address.
     //
     // Arguments:
@@ -2687,7 +2861,7 @@ class BITBOXCli {
     });
   }
 
-  listtransactions(account: ?string, count: number, skip: ?number, include_watchonly: ?boolean): string {
+  listtransactions(account: ?string, count: ?number, skip: ?number, include_watchonly: ?boolean): string {
     // Returns up to 'count' most recent transactions skipping the first 'from' transactions for account 'account'.
     //
     // Arguments:
@@ -2782,7 +2956,7 @@ class BITBOXCli {
     });
   }
 
-  lockunspent(unlock: boolean, transactions: Array<string>): string {
+  lockunspent(unlock: boolean, transactions: ?Array<string>): string {
     // Updates list of temporarily unspendable outputs.
     // Temporarily lock (unlock=false) or unlock (unlock=true) specified transaction outputs.
     // If no transaction outputs are specified when unlocking then all current locked transaction outputs are unlocked.
@@ -2805,6 +2979,17 @@ class BITBOXCli {
     // Result:
     // true|false    (boolean) Whether the command was successful or not
 
+    let params;
+    if(!transactions) {
+      params = [
+        unlock
+      ];
+    } else {
+      params = [
+        unlock,
+        transactions
+      ];
+    }
     return this.BitboxHTTP({
       method: 'post',
       auth: {
@@ -2815,10 +3000,7 @@ class BITBOXCli {
         jsonrpc: "1.0",
         id:"lockunspent",
         method: "lockunspent",
-        params: [
-          unlock,
-          transactions
-        ]
+        params: params
       }
     })
     .then((response) => {
@@ -3141,6 +3323,18 @@ class BITBOXCli {
     // "hex"             (string) The transaction hash in hex
     //
 
+    let params;
+    if(!allowhighfees) {
+      params = [
+        hexstring
+      ];
+    } else {
+      params = [
+        hexstring,
+        allowhighfees
+      ];
+    }
+
     return this.BitboxHTTP({
       method: 'post',
       auth: {
@@ -3151,10 +3345,7 @@ class BITBOXCli {
         jsonrpc: "1.0",
         id:"sendrawtransaction",
         method: "sendrawtransaction",
-        params: [
-          hexstring,
-          allowhighfees
-        ]
+        params: params
       }
     })
     .then((response) => {
@@ -3399,7 +3590,7 @@ class BITBOXCli {
     });
   }
 
-  signrawtransaction(hexstring, prevtxs: Array<string>, privkeys: Array<string>, sighashtype: string): string {
+  signrawtransaction(hexstring, prevtxs: ?Array<string>, privkeys: ?Array<string>, sighashtype: ?string): string {
 
   // Sign inputs for raw transaction (serialized, hex-encoded).
   // The second optional argument (may be null) is an array of previous transaction outputs that
@@ -3507,6 +3698,17 @@ class BITBOXCli {
     //     }
     //
 
+    let params;
+    if(!parameters) {
+      params = [
+        hexdata
+      ];
+    } else {
+      params = [
+        hexdata,
+        parameters
+      ];
+    }
     return this.BitboxHTTP({
       method: 'post',
       auth: {
@@ -3517,10 +3719,7 @@ class BITBOXCli {
         jsonrpc: "1.0",
         id:"submitblock",
         method: "submitblock",
-        params: [
-          hexdata,
-          parameters
-        ]
+        params: params
       }
     })
     .then((response) => {
