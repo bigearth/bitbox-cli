@@ -51,7 +51,7 @@ Options:
 
 ### `console`
 
-custom REPL w/ the entire BCH RPC on a BitcoinCash object. [Full list](https://www.bitbox.earth/bitboxcli) of available methods.
+custom REPL w/ the entire BCH RPC on a `BITBOX` object. [Full list](https://www.bitbox.earth/bitboxcli) of available methods.
 
 ```
 Usage: console [options]
