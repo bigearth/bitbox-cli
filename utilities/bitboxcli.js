@@ -1,4 +1,4 @@
-// @flow
+  // @flow
 import axios from 'axios';
 
 class BITBOXCli {
@@ -278,6 +278,7 @@ class BITBOXCli {
     // Parameter #1—a hex-encoded redeem script
 
     // Result—the decoded script
+    // console.log('decode script called *****', redeemScript)
 
     return this.BitboxHTTP({
       method: 'post',
@@ -302,12 +303,27 @@ class BITBOXCli {
     });
   }
 
-  disconnectnode(address: string, nodeid: string): string {
-    // immediately disconnects from a specified node.
-
-    // Parameter #1—hostname/IP address and port of node to disconnect
-
-    // Result—null on success or error on failed disconnect
+  disconnectnode(configuration: any): string {
+    // Immediately disconnects from the specified peer node.
+    //
+    // Strictly one out of 'address' and 'nodeid' can be provided to identify the node.
+    //
+    // To disconnect by nodeid, either set 'address' to the empty string, or call using the named 'nodeid' argument only.
+    //
+    // Arguments:
+    // 1. "address"     (string, optional) The IP address/port of the node
+    // 2. "nodeid"      (number, optional) The node ID (see getpeerinfo for node IDs)
+    let params;
+    if(configuration && configuration.address && configuration.address !== "") {
+      params = [
+        configuration.address
+      ];
+    } else if(configuration && configuration.nodeid) {
+      params = [
+        "",
+        configuration.nodeid
+      ];
+    }
     return this.BitboxHTTP({
       method: 'post',
       auth: {
@@ -318,10 +334,7 @@ class BITBOXCli {
         jsonrpc: "1.0",
         id:"disconnectnode",
         method: "disconnectnode",
-        params: [
-          address,
-          nodeid
-        ]
+        params: params
       }
     })
     .then((response) => {
@@ -431,7 +444,7 @@ class BITBOXCli {
     });
   }
 
-  estimatefee(blocks: number): string {
+  estimatefee(nblocks: number): string {
     // Estimates the approximate fee per kilobyte needed for a transaction to begin confirmation within nblocks blocks.
 
     // Arguments:
@@ -451,7 +464,7 @@ class BITBOXCli {
         id:"estimatefee",
         method: "estimatefee",
         params: [
-          blocks
+          nblocks
         ]
       }
     })
@@ -463,16 +476,25 @@ class BITBOXCli {
     });
   }
 
-  estimatepriority(blocks: number): string {
-    // Estimates the approximate priority a zero-fee transaction needs to begin confirmation within nblocks blocks.
-
+  estimatesmartfee(nblocks: number): string {
+    // WARNING: This interface is unstable and may disappear or change!
+    //
+    // Estimates the approximate fee per kilobyte needed for a transaction to begin
+    // confirmation within nblocks blocks if possible and return the number of blocks
+    // for which the estimate is valid.
+    //
     // Arguments:
-    // 1. nblocks     (numeric, required)
-
+    // 1. nblocks     (numeric)
+    //
     // Result:
-    // n              (numeric) estimated priority
-
-    // A negative value is returned if not enough transa
+    // {
+    //   "feerate" : x.x,     (numeric) estimate fee-per-kilobyte (in BCH)
+    //   "blocks" : n         (numeric) block number where estimate was found
+    // }
+    //
+    // A negative value is returned if not enough transactions and blocks
+    // have been observed to make an estimate for any number of blocks.
+    // However it will not return a value below the mempool reject fee.
 
     return this.BitboxHTTP({
       method: 'post',
@@ -482,10 +504,84 @@ class BITBOXCli {
       },
       data: {
         jsonrpc: "1.0",
-        id:"estimatepriority",
-        method: "estimatefee",
+        id:"estimatesmartfee",
+        method: "estimatesmartfee",
         params: [
-          blocks
+          nblocks
+        ]
+      }
+    })
+    .then((response) => {
+      return response.data.result;
+    })
+    .catch(error => {
+      return Error(error.response.data.error.message);
+    });
+  }
+
+  estimatepriority(nblocks: number): string {
+    // DEPRECATED. Estimates the approximate priority a zero-fee transaction needs to begin
+    // confirmation within nblocks blocks.
+    //
+    // Arguments:
+    // 1. nblocks     (numeric, required)
+    //
+    // Result:
+    // n              (numeric) estimated priority
+    return this.BitboxHTTP({
+      method: 'post',
+      auth: {
+        username: this.config.username,
+        password: this.config.password
+      },
+      data: {
+        jsonrpc: "1.0",
+        id:"estimatepriority",
+        method: "estimatepriority",
+        params: [
+          nblocks
+        ]
+      }
+    })
+    .then((response) => {
+      return response.data.result;
+    })
+    .catch(error => {
+      return Error(error.response.data.error.message);
+    });
+  }
+
+  estimatesmartpriority(nblocks: number): any {
+    // DEPRECATED. WARNING: This interface is unstable and may disappear or change!
+    //
+    // Estimates the approximate priority a zero-fee transaction needs to begin
+    // confirmation within nblocks blocks if possible and return the number of blocks
+    // for which the estimate is valid.
+    //
+    // Arguments:
+    // 1. nblocks     (numeric, required)
+    //
+    // Result:
+    // {
+    //   "priority" : x.x,    (numeric) estimated priority
+    //   "blocks" : n         (numeric) block number where estimate was found
+    // }
+    //
+    // A negative value is returned if not enough transactions and blocks
+    // have been observed to make an estimate for any number of blocks.
+    // However if the mempool reject fee is set it will return 1e9 * MAX_MONEY.
+    return this.BitboxHTTP({
+      method: 'post',
+      auth: {
+        username: this.config.username,
+        password: this.config.password
+      },
+      data: {
+        jsonrpc: "1.0",
+        id:"estimatesmartpriority",
+        method: "estimatesmartpriority",
+        params: [
+          nblocks
         ]
       }
     })
@@ -608,13 +704,16 @@ class BITBOXCli {
 
   generatetoaddress(blocks: number, address: string, maxtries: ?number): string {
 
-  // Mine blocks immediately to a specified address (before the RPC call returns)
-  //
-  // Arguments:
-  // 1. nblocks      (numeric, required) How many blocks are generated immediately.
-  // 2. address      (string, required) The address to send the newly generated bitcoin to.
-  // 3. maxtries     (numeric, optional) How many iterations to try (default = 1000000).
-
+    // Mine blocks immediately to a specified address (before the RPC call returns)
+    //
+    // Arguments:
+    // 1. nblocks      (numeric, required) How many blocks are generated immediately.
+    // 2. address      (string, required) The address to send the newly generated bitcoin to.
+    // 3. maxtries     (numeric, optional) How many iterations to try (default = 1000000).
+    //
+    // Result:
+    // [ blockhashes ]     (array) hashes of blocks generated
+    //
     let params;
     if(!maxtries) {
       params = [
@@ -651,7 +750,7 @@ class BITBOXCli {
   }
 
   getaccountaddress(account: string): string {
-    // Returns the current Bitcoin address for receiving payments to this account.
+    // DEPRECATED. Returns the current Bitcoin address for receiving payments to this account.
     //
     // Arguments:
     // 1. "account"       (string, required) The account name for the address. It can also be set to the empty string "" to represent the default account. The account does not need to exist, it will be created and a new address created  if there is no account by the given name.
