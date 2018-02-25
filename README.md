@@ -2,6 +2,12 @@
 
 ## Command line tool for https://www.bitbox.earth
 
+More documentation available at:
+
+* [General docs](https://www.bitbox.earth/docs)
+* [BITBOX API](https://www.bitbox.earth/bitboxcli)
+* [BITBLOG](https://bigearth.github.io/bitblog/)
+
 ### Usage
 
 ```
