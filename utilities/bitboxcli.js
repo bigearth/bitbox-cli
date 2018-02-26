@@ -306,11 +306,13 @@ class BITBOXCli {
   disconnectnode(configuration: any): string {
     // Immediately disconnects from the specified peer node.
     //
-    // Strictly one out of 'address' and 'nodeid' can be provided to identify the node.
+    // Strictly one out of 'configuration.address' and 'configuration.nodeid' can be provided to identify the node.
     //
     // To disconnect by nodeid, either set 'address' to the empty string, or call using the named 'nodeid' argument only.
     //
     // Arguments:
+    // 1. "configuration" (object, optional)
+    // Properties
     // 1. "address"     (string, optional) The IP address/port of the node
     // 2. "nodeid"      (number, optional) The node ID (see getpeerinfo for node IDs)
     let params;
@@ -781,12 +783,19 @@ class BITBOXCli {
   }
 
   getaccount(address: string): string {
-    // returns the name of the account associated with the given address.
-
-    // Parameter #1—a Bitcoin address
-
-    // Result—an account name
-
+    // DEPRECATED. Returns the account associated with the given address.
+    //
+    // Arguments:
+    // 1. "address"         (string, required) The bitcoin address for account lookup.
+    //
+    // Result:
+    // "accountname"        (string) the account address
+    let params = [];
+    if(address) {
+      params.push(address);
+    } else {
+      params.push("");
+    }
     return this.BitboxHTTP({
       method: 'post',
       auth: {
@@ -797,9 +806,7 @@ class BITBOXCli {
         jsonrpc: "1.0",
         id:"getaccount",
         method: "getaccount",
-        params: [
-          address
-        ]
+        params: params
       }
     })
     .then((response) => {
@@ -810,22 +817,32 @@ class BITBOXCli {
     });
   }
 
-    getaddednodeinfo(details: boolean, node: ?string): string {
-    // returns information about the given added node, or all added nodes (except onetry nodes). Only nodes which have been manually added using the addnode RPC will have their information displayed.
-
-    // Parameter #1—whether to display connection information
-
-    // Parameter #2—what node to display information about
-
-    // Result—a list of added nodes
+  getaddednodeinfo(node: ?string): string {
+    // Returns information about the given added node, or all added nodes
+    // (note that onetry addnodes are not listed here)
+    //
+    // Arguments:
+    // 1. "node"   (string, optional) If provided, return information about this specific node, otherwise all nodes are returned.
+    //
+    // Result:
+    // [
+    //   {
+    //     "addednode" : "192.168.0.201",   (string) The node ip address or name (as provided to addnode)
+    //     "connected" : true|false,          (boolean) If connected
+    //     "addresses" : [                    (list of objects) Only when connected = true
+    //        {
+    //          "address" : "192.168.0.201:8333",  (string) The bitcoin server IP and port we're connected to
+    //          "connected" : "outbound"           (string) connection, inbound or outbound
+    //        }
+    //      ]
+    //   }
+    //   ,...
+    // ]
     let params;
     if(!node) {
-      params = [
-        details
-      ];
+      params = [];
     } else {
       params = [
-        details,
         node
       ];
     }
@@ -852,11 +869,27 @@ class BITBOXCli {
   }
 
   getaddressesbyaccount(account: string): string {
-    // returns a list of every address assigned to a particular account.
+  // DEPRECATED. Returns the list of addresses for the given account.
+  //
+  // Arguments:
+  // 1. "account"        (string, required) The account name.
+  //
+  // Result:
+  // [                     (json array of string)
+  //   "address"         (string) a bitcoin address associated with the given account
+  //   ,...
+  // ]
 
-    // Parameter #1—the account name
-
-    // Result—a list of addresses
+    let params;
+    if(!account) {
+      params = [
+        ""
+      ];
+    } else {
+      params = [
+        account
+      ];
+    }
 
     return this.BitboxHTTP({
       method: 'post',
@@ -868,9 +901,7 @@ class BITBOXCli {
         jsonrpc: "1.0",
         id:"getaddressesbyaccount",
         method: "getaddressesbyaccount",
-        params: [
-          account
-        ]
+        params: params
       }
     })
     .then((response) => {
@@ -881,16 +912,46 @@ class BITBOXCli {
     });
   }
 
-  getbalance(account: string): string {
-    // gets the balance in decimal bitcoins across all accounts or for a particular account.
+  getbalance(account: ?string, minconf: ?number, include_watchonly: ?boolean): string {
+    // If account is not specified, returns the server's total available balance.
+    // If account is specified (DEPRECATED), returns the balance in the account.
+    // Note that the account "" is not the same as leaving the parameter out.
+    // The server total may be different to the balance in the default "" account.
+    //
+    // Arguments:
+    // 1. "account"         (string, optional) DEPRECATED. The account string may be given as a
+    //                      specific account name to find the balance associated with wallet keys in
+    //                      a named account, or as the empty string ("") to find the balance
+    //                      associated with wallet keys not in any named account, or as "*" to find
+    //                      the balance associated with all wallet keys regardless of account.
+    //                      When this option is specified, it calculates the balance in a different
+    //                      way than when it is not specified, and which can count spends twice when
+    //                      there are conflicting pending transactions temporarily resulting in low
+    //                      or even negative balances.
+    //                      In general, account balance calculation is not considered reliable and
+    //                      has resulted in confusing outcomes, so it is recommended to avoid passing
+    //                      this argument.
+    // 2. minconf           (numeric, optional, default=1) Only include transactions confirmed at least this many times.
+    // 3. include_watchonly (bool, optional, default=false) Also include balance in watch-only addresses (see 'importaddress')
+    //
+    // Result:
+    // amount              (numeric) The total amount in BCH received for this account.
+    let params = [];
+    if(account) {
+      params.push(account);
+    } else {
+      params.push("*");
+    }
 
-    // Parameter #1—an account name
+    if(minconf) {
+      params.push(minconf);
+    } else {
+      params.push(0);
+    }
 
-    // Parameter #2—the minimum number of confirmations
-
-    // Parameter #3—whether to include watch-only addresses
-
-    // Result—the balance in bitcoins
+    if(include_watchonly) {
+      params.push(include_watchonly);
+    }
 
     return this.BitboxHTTP({
       method: 'post',
@@ -902,9 +963,7 @@ class BITBOXCli {
         jsonrpc: "1.0",
         id:"getbalance",
         method: "getbalance",
-        params: [
-          account
-        ]
+        params: params
       }
     })
     .then((response) => {
@@ -916,11 +975,10 @@ class BITBOXCli {
   }
 
   getbestblockhash(): string {
-    // returns the header hash of the most recent block on the best block chain.
-
-    // Parameters: none
-
-    // Result—hash of the tip from the best block chain
+    // Returns the hash of the best (tip) block in the longest blockchain.
+    //
+    // Result:
+    // "hex"      (string) the block hash hex encoded
 
     return this.BitboxHTTP({
       method: 'post',
@@ -932,8 +990,7 @@ class BITBOXCli {
         jsonrpc: "1.0",
         id:"getbestblockhash",
         method: "getbestblockhash",
-        params: [
-        ]
+        params: []
       }
     })
     .then((response) => {
@@ -1022,8 +1079,7 @@ class BITBOXCli {
         jsonrpc: "1.0",
         id:"getblockchaininfo",
         method: "getblockchaininfo",
-        params: [
-        ]
+        params: []
       }
     })
     .then((response) => {
@@ -1050,8 +1106,7 @@ class BITBOXCli {
         jsonrpc: "1.0",
         id:"getblockcount",
         method: "getblockcount",
-        params: [
-        ]
+        params: []
       }
     })
     .then((response) => {
@@ -1070,6 +1125,13 @@ class BITBOXCli {
     //
     // Result:
     // "hash"         (string) The block hash
+    let params = [];
+    if(height) {
+      params.push(height);
+    } else {
+      params.push(0)
+    }
+
     return this.BitboxHTTP({
       method: 'post',
       auth: {
@@ -1080,9 +1142,7 @@ class BITBOXCli {
         jsonrpc: "1.0",
         id:"getblockhash",
         method: "getblockhash",
-        params: [
-          height
-        ]
+        params: params
       }
     })
     .then((response) => {
@@ -1246,8 +1306,7 @@ class BITBOXCli {
         jsonrpc: "1.0",
         id:"getchaintips",
         method: "getchaintips",
-        params: [
-        ]
+        params: []
       }
     })
     .then((response) => {
@@ -1275,8 +1334,7 @@ class BITBOXCli {
         jsonrpc: "1.0",
         id:"getconnectioncount",
         method: "getconnectioncount",
-        params: [
-        ]
+        params: []
       }
     })
     .then((response) => {
@@ -1304,8 +1362,7 @@ class BITBOXCli {
         jsonrpc: "1.0",
         id:"getdifficulty",
         method: "getdifficulty",
-        params: [
-        ]
+        params: []
       }
     })
     .then((response) => {
@@ -1559,7 +1616,6 @@ class BITBOXCli {
     //        ... ]
     // }
 
-
     return this.BitboxHTTP({
       method: 'post',
       auth: {
@@ -1707,6 +1763,8 @@ class BITBOXCli {
     let params = [];
     if(nblocks) {
       params.push(nblocks);
+    } else {
+      params.push(0);
     }
 
     if(height) {
