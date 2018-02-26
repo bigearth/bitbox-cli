@@ -2087,7 +2087,7 @@ class BITBOXCli {
     });
   }
 
-  getreceivedbyaccount(accounts: string, minconf: ?number): string {
+  getreceivedbyaccount(account: string, minconf: ?number): string {
     // DEPRECATED. Returns the total amount received by addresses with <account> in transactions with at least [minconf] confirmations.
     //
     // Arguments:
@@ -2097,14 +2097,18 @@ class BITBOXCli {
     // Result:
     // amount              (numeric) The total amount in BCH received for this account.
 
+    if(!account) {
+      account = "";
+    }
+
     let params;
     if(!minconf) {
       params = [
-        accounts
+        account
       ];
     } else {
       params = [
-        accounts,
+        account,
         minconf
       ];
     }
@@ -2502,20 +2506,32 @@ class BITBOXCli {
     //
     // Note: If you import a non-standard raw script in hex form, outputs sending to it will be treated
     // as change, and not show up in many RPCs.
-    // let params;
-    // if(!blockhash) {
-    //   params = [
-    //     txids,
-    //     n
-    //   ];
-    // } else {
-    //   params = [
-    //     txids,
-    //     blockhash
-    //   ];
-    // }
-    // TODO refactor this to conditionally add params
 
+    if(!script) {
+      script = "";
+    }
+
+    let params = [
+      script
+    ];
+
+    if(label) {
+      params.push(label);
+    } else {
+      params.push("");
+    }
+
+    if(rescan) {
+      params.push(rescan);
+    } else {
+      params.push(true);
+    }
+
+    if(p2sh) {
+      params.push(p2sh);
+    } else {
+      params.push(false);
+    }
 
     return this.BitboxHTTP({
       method: 'post',
@@ -2527,12 +2543,7 @@ class BITBOXCli {
         jsonrpc: "1.0",
         id:"importaddress",
         method: "importaddress",
-        params: [
-          script,
-          label,
-          rescan,
-          p2sh
-        ]
+        params: params
       }
     })
     .then((response) => {
@@ -2571,6 +2582,10 @@ class BITBOXCli {
     //      "rescan": <false>,         (boolean, optional, default: true) Stating if should rescan the blockchain after all imports
     //   }
     //
+    if(!requests) {
+      requests = [{}];
+    }
+
     let params;
     if(!options) {
       params = [
@@ -2613,7 +2628,20 @@ class BITBOXCli {
     // 3. rescan               (boolean, optional, default=true) Rescan the wallet for transactions
     //
     // Note: This call can take minutes to complete if rescan is true.
-    // TODO refactor
+
+    let params = [];
+
+    if(bitcoinprivkey) {
+      params.push(bitcoinprivkey);
+    }
+
+    if(label) {
+      params.push(label);
+    }
+
+    if(rescan) {
+      params.push(rescan);
+    }
 
     return this.BitboxHTTP({
       method: 'post',
@@ -2625,11 +2653,7 @@ class BITBOXCli {
         jsonrpc: "1.0",
         id:"importprivkey",
         method: "importprivkey",
-        params: [
-          bitcoinprivkey,
-          label,
-          rescan
-        ]
+        params: params
       }
     })
     .then((response) => {
@@ -2742,7 +2766,18 @@ class BITBOXCli {
     // {                      (json object where keys are account names, and values are numeric balances
     //   "account": x.xxx,  (numeric) The property name is the account name, and the value is the total balance for the account.
     //   ...
-    // }
+
+    if(minconf) {
+      params.push(minconf);
+    } else {
+      params.push(1);
+    }
+
+    if(include_watchonly) {
+      params.push(include_watchonly);
+    } else {
+      params.push(false);
+    }
 
     return this.BitboxHTTP({
       method: 'post',
@@ -2754,10 +2789,7 @@ class BITBOXCli {
         jsonrpc: "1.0",
         id:"listaccounts",
         method: "listaccounts",
-        params: [
-          minconf,
-          include_watchonly
-        ]
+        params: params
       }
     })
     .then((response) => {
@@ -2883,6 +2915,25 @@ class BITBOXCli {
     //   ,...
     // ]
 
+    let params = [];
+    if(minconf) {
+      params.push(minconf);
+    } else {
+      params.push(1);
+    }
+
+    if(include_empty) {
+      params.push(include_empty);
+    } else {
+      params.push(false);
+    }
+
+    if(include_watchonly) {
+      params.push(include_watchonly);
+    } else {
+      params.push(false);
+    }
+
     return this.BitboxHTTP({
       method: 'post',
       auth: {
@@ -2893,11 +2944,7 @@ class BITBOXCli {
         jsonrpc: "1.0",
         id:"listreceivedbyaccount",
         method: "listreceivedbyaccount",
-        params: [
-          minconf,
-          include_empty,
-          include_watchonly
-        ]
+        params: params
       }
     })
     .then((response) => {
@@ -2933,6 +2980,25 @@ class BITBOXCli {
     //   ,...
     // ]
 
+    let params = [];
+    if(minconf) {
+      params.push(minconf);
+    } else {
+      params.push(1);
+    }
+
+    if(include_empty) {
+      params.push(include_empty);
+    } else {
+      params.push(false);
+    }
+
+    if(include_watchonly) {
+      params.push(include_watchonly);
+    } else {
+      params.push(false);
+    }
+
     return this.BitboxHTTP({
       method: 'post',
       auth: {
@@ -2943,11 +3009,7 @@ class BITBOXCli {
         jsonrpc: "1.0",
         id:"listreceivedbyaddress",
         method: "listreceivedbyaddress",
-        params: [
-          minconf,
-          include_empty,
-          include_watchonly
-        ]
+        params: params
       }
     })
     .then((response) => {
@@ -2992,6 +3054,18 @@ class BITBOXCli {
     // }
     //
 
+    let params = [];
+    if(blockhash) {
+      params.push(blockhash);
+    }
+
+    if(target_confirmations) {
+      params.push(target_confirmations);
+    }
+
+    if(include_watchonly) {
+      params.push(include_watchonly);
+    }
 
     return this.BitboxHTTP({
       method: 'post',
@@ -3003,11 +3077,7 @@ class BITBOXCli {
         jsonrpc: "1.0",
         id:"listsinceblock",
         method: "listsinceblock",
-        params: [
-          blockhash,
-          target_confirmations,
-          include_watchonly
-        ]
+        params: params
       }
     })
     .then((response) => {
@@ -3027,6 +3097,31 @@ class BITBOXCli {
     // 3. skip           (numeric, optional, default=0) The number of transactions to skip
     // 4. include_watchonly (bool, optional, default=false) Include transactions to watch-only addresses (see 'importaddress')
 
+    let params = [];
+    if(account) {
+      params.push(account);
+    } else {
+      params.push('*');
+    }
+
+    if(count) {
+      params.push(count);
+    } else {
+      params.push(10);
+    }
+
+    if(skip) {
+      params.push(skip);
+    } else {
+      params.push(0);
+    }
+
+    if(include_watchonly) {
+      params.push(include_watchonly);
+    } else {
+      params.push(false);
+    }
+
     return this.BitboxHTTP({
       method: 'post',
       auth: {
@@ -3037,12 +3132,7 @@ class BITBOXCli {
         jsonrpc: "1.0",
         id:"listtransactions",
         method: "listtransactions",
-        params: [
-          account,
-          count,
-          skip,
-          include_watchonly
-        ]
+        params: params
       }
     })
     .then((response) => {
@@ -3053,7 +3143,7 @@ class BITBOXCli {
     });
   }
 
-  listunspent(minconf: ?number, maxconf: ?number, addresses: Array<string>): string {
+  listunspent(minconf: ?number, maxconf: ?number, addresses: Array<string>, include_unsafe: ?boolean): string {
     // Returns array of unspent transaction outputs with between minconf and maxconf (inclusive) confirmations.
     // Optionally filter to only include txouts paid to specified addresses.
     //
@@ -3087,6 +3177,28 @@ class BITBOXCli {
     //   ,...
     // ]
 
+    let params = [];
+    if(minconf) {
+      params.push(minconf);
+    } else {
+      params.push(1);
+    }
+
+    if(maxconf) {
+      params.push(maxconf);
+    } else {
+      params.push(9999999);
+    }
+
+    if(addresses) {
+      params.push(addresses);
+    }
+
+    if(include_unsafe) {
+      params.push(include_unsafe);
+    } else {
+      params.push(true);
+    }
 
     return this.BitboxHTTP({
       method: 'post',
@@ -3098,11 +3210,7 @@ class BITBOXCli {
         jsonrpc: "1.0",
         id:"listunspent",
         method: "listunspent",
-        params: [
-          minconf,
-          maxconf,
-          addresses
-        ]
+        params: params
       }
     })
     .then((response) => {
@@ -3136,17 +3244,17 @@ class BITBOXCli {
     // Result:
     // true|false    (boolean) Whether the command was successful or not
 
-    let params;
-    if(!transactions) {
-      params = [
-        unlock
-      ];
+    let params = [];
+    if(unlock) {
+      params.push(unlock);
     } else {
-      params = [
-        unlock,
-        transactions
-      ];
+      params.push(false);
     }
+
+    if(transactions) {
+      params.push(transactions);
+    }
+
     return this.BitboxHTTP({
       method: 'post',
       auth: {
@@ -3168,7 +3276,7 @@ class BITBOXCli {
     });
   }
 
-  move(fromaccount: string, toaccount: string, account: ?number, dummy: ?number, comment: ?string): string {
+  move(fromaccount: string, toaccount: string, amount: ?number, dummy: ?number, comment: ?string): string {
     // DEPRECATED. Move a specified amount from one account in your wallet to another.
     //
     // Arguments:
@@ -3181,6 +3289,27 @@ class BITBOXCli {
     // Result:
     // true|false           (boolean) true if successful.
 
+    let params = [];
+    if(fromaccount) {
+      params.push(fromaccount);
+    }
+
+    if(toaccount) {
+      params.push(toaccount);
+    }
+
+    if(amount) {
+      params.push(amount);
+    }
+
+    if(dummy) {
+      params.push(dummy);
+    }
+
+    if(comment) {
+      params.push(comment);
+    }
+
     return this.BitboxHTTP({
       method: 'post',
       auth: {
@@ -3191,13 +3320,7 @@ class BITBOXCli {
         jsonrpc: "1.0",
         id:"move",
         method: "move",
-        params: [
-          fromaccount,
-          toaccount,
-          account,
-          dummy,
-          comment
-        ]
+        params: params
       }
     })
     .then((response) => {
@@ -3221,8 +3344,8 @@ class BITBOXCli {
       },
       data: {
         jsonrpc: "1.0",
-        id:"pingRpc",
-        method: "pingRpc",
+        id:"ping",
+        method: "ping",
         params: []
       }
     })
@@ -3244,6 +3367,10 @@ class BITBOXCli {
     // Arguments:
     // 1. "blockhash"   (string, required) the hash of the block to mark as precious
 
+    let params = [];
+    if(blockhash) {
+      params.push(blockhash);
+    }
     return this.BitboxHTTP({
       method: 'post',
       auth: {
@@ -3254,9 +3381,7 @@ class BITBOXCli {
         jsonrpc: "1.0",
         id:"preciousblock",
         method: "preciousblock",
-        params: [
-          blockhash
-        ]
+        params: params
       }
     })
     .then((response) => {
@@ -3282,6 +3407,19 @@ class BITBOXCli {
     // Result:
     // true              (boolean) Returns true
 
+    let params = [];
+    if(txid) {
+      params.push(txid);
+    }
+
+    if(priority_delta) {
+      params.push(priority_delta);
+    }
+
+    if(fee_delta) {
+      params.push(fee_delta);
+    }
+
     return this.BitboxHTTP({
       method: 'post',
       auth: {
@@ -3292,11 +3430,7 @@ class BITBOXCli {
         jsonrpc: "1.0",
         id:"prioritisetransaction",
         method: "prioritisetransaction",
-        params: [
-          txid,
-          priority_delta,
-          fee_delta
-        ]
+        params: params
       }
     })
     .then((response) => {
@@ -3314,6 +3448,10 @@ class BITBOXCli {
     //
     // Result:
     // n    (numeric) Height of the last block pruned.
+    let params = [];
+    if(height) {
+      params.push(height);
+    }
 
     return this.BitboxHTTP({
       method: 'post',
@@ -3325,9 +3463,7 @@ class BITBOXCli {
         jsonrpc: "1.0",
         id:"pruneblockchain",
         method: "pruneblockchain",
-        params: [
-          height
-        ]
+        params: params
       }
     })
     .then((response) => {
@@ -3367,7 +3503,7 @@ class BITBOXCli {
     });
   }
 
-  sendfrom(fromaccount: string,toaddress: string, amount: number|string, minconf: ?number, comment: ?string, comment_to: ?string ): string {
+  sendfrom(fromaccount: string, toaddress: string, amount: number|string, minconf: ?number, comment: ?string, comment_to: ?string ): string {
     // DEPRECATED (use sendtoaddress). Sent an amount from an account to a bitcoin address.
     //
     // Arguments:
@@ -3386,6 +3522,30 @@ class BITBOXCli {
     //
     // Result:
     // "txid"                 (string) The transaction id.
+    let params = [];
+    if(fromaccount) {
+      params.push(fromaccount);
+    }
+
+    if(toaddress) {
+      params.push(toaddress);
+    }
+
+    if(amount) {
+      params.push(amount);
+    }
+
+    if(minconf) {
+      params.push(minconf);
+    }
+
+    if(comment) {
+      params.push(comment);
+    }
+
+    if(comment_to) {
+      params.push(comment_to);
+    }
 
     return this.BitboxHTTP({
       method: 'post',
@@ -3397,14 +3557,7 @@ class BITBOXCli {
         jsonrpc: "1.0",
         id:"sendfrom",
         method: "sendfrom",
-        params: [
-          fromaccount,
-          toaddress,
-          amount,
-          minconf,
-          comment,
-          comment_to
-        ]
+        params: params
       }
     })
     .then((response) => {
@@ -3415,7 +3568,7 @@ class BITBOXCli {
     });
   }
 
-  sendmany(fromaccount: string, ammounts: any, minconf: ?number, comment: ?string, subtractfeefrom: ?Array<any>): string {
+  sendmany(fromaccount: string, amounts: any, minconf: ?number, comment: ?string, subtractfeefrom: ?Array<any>): string {
     // Send multiple times. Amounts are double-precision floating point numbers.
     //
     // Arguments:
@@ -3439,6 +3592,26 @@ class BITBOXCli {
     // Result:
     // "txid"                   (string) The transaction id for the send. Only 1 transaction is created regardless of
     //                                     the number of addresses.
+    let params = [];
+    if(fromaccount || fromaccount === "") {
+      params.push(fromaccount);
+    }
+
+    if(amounts) {
+      params.push(amounts);
+    }
+
+    if(minconf) {
+      params.push(minconf);
+    }
+
+    if(comment) {
+      params.push(comment);
+    }
+
+    if(subtractfeefrom) {
+      params.push(subtractfeefrom);
+    }
 
     return this.BitboxHTTP({
       method: 'post',
@@ -3450,13 +3623,7 @@ class BITBOXCli {
         jsonrpc: "1.0",
         id:"sendmany",
         method: "sendmany",
-        params: [
-          fromaccount,
-          amounts,
-          minconf,
-          comment,
-          subtractfeefrom
-        ]
+        params: params
       }
     })
     .then((response) => {
@@ -3480,16 +3647,13 @@ class BITBOXCli {
     // "hex"             (string) The transaction hash in hex
     //
 
-    let params;
-    if(!allowhighfees) {
-      params = [
-        hexstring
-      ];
-    } else {
-      params = [
-        hexstring,
-        allowhighfees
-      ];
+    let params = [];
+    if(hexstring) {
+      params.push(hexstring);
+    }
+
+    if(allowhighfees) {
+      params.push(allowhighfees);
     }
 
     return this.BitboxHTTP({
@@ -3529,6 +3693,26 @@ class BITBOXCli {
     //
     // Result:
     // "txid"                  (string) The transaction id.
+    let params = [];
+    if(address) {
+      params.push(address);
+    }
+
+    if(amount) {
+      params.push(amount);
+    }
+
+    if(comment) {
+      params.push(comment);
+    }
+
+    if(comment_to) {
+      params.push(comment_to);
+    }
+
+    if(subtractfeefromamount) {
+      params.push(subtractfeefromamount);
+    }
 
     return this.BitboxHTTP({
       method: 'post',
@@ -3540,13 +3724,7 @@ class BITBOXCli {
         jsonrpc: "1.0",
         id:"sendtoaddress",
         method: "sendtoaddress",
-        params: [
-          address,
-          amount,
-          comment,
-          comment_to,
-          subtractfeefromamount
-        ]
+        params: params
       }
     })
     .then((response) => {
@@ -3563,6 +3741,14 @@ class BITBOXCli {
     // Arguments:
     // 1. "address"         (string, required) The bitcoin address to be associated with an account.
     // 2. "account"         (string, required) The account to assign the address to.
+    let params = [];
+    if(address) {
+      params.push(address);
+    }
+
+    if(account) {
+      params.push(account);
+    }
 
     return this.BitboxHTTP({
       method: 'post',
@@ -3574,10 +3760,7 @@ class BITBOXCli {
         jsonrpc: "1.0",
         id:"setaccount",
         method: "setaccount",
-        params: [
-          address,
-          account
-        ]
+        params: params
       }
     })
     .then((response) => {
@@ -3596,6 +3779,22 @@ class BITBOXCli {
     // 2. "command"      (string, required) 'add' to add a IP/Subnet to the list, 'remove' to remove a IP/Subnet from the list
     // 3. "bantime"      (numeric, optional) time in seconds how long (or until when if [absolute] is set) the ip is banned (0 or empty means using the default time of 24h which can also be overwritten by the -bantime startup argument)
     // 4. "absolute"     (boolean, optional) If set, the bantime must be a absolute timestamp in seconds since epoch (Jan 1 1970 GMT)
+    let params = [];
+    if(subnet) {
+      params.push(subnet);
+    }
+
+    if(command) {
+      params.push(command);
+    }
+
+    if(bantime) {
+      params.push(bantime);
+    }
+
+    if(absolute) {
+      params.push(absolute);
+    }
 
     return this.BitboxHTTP({
       method: 'post',
@@ -3607,12 +3806,7 @@ class BITBOXCli {
         jsonrpc: "1.0",
         id:"setban",
         method: "setban",
-        params: [
-          subnet,
-          command,
-          bantime,
-          absolute
-        ]
+        params: params
       }
     })
     .then((response) => {
@@ -3652,8 +3846,14 @@ class BITBOXCli {
     });
   }
 
-  settxfee(): string {
-
+  settxfee(amount: string): string {
+    // Set the transaction fee per kB. Overwrites the paytxfee parameter.
+    //
+    // Arguments:
+    // 1. amount         (numeric or string, required) The transaction fee in BCH/kB
+    //
+    // Result
+    // true|false        (boolean) Returns true if successful
 
     return this.BitboxHTTP({
       method: 'post',
@@ -3665,7 +3865,9 @@ class BITBOXCli {
         jsonrpc: "1.0",
         id:"settxfee",
         method: "settxfee",
-        params: []
+        params: [
+          amount
+        ]
       }
     })
     .then((response) => {
@@ -3687,6 +3889,15 @@ class BITBOXCli {
     // Result:
     // "signature"          (string) The signature of the message encoded in base 64
 
+    let params = [];
+    if(address) {
+      params.push(address);
+    }
+
+    if(message) {
+      params.push(message);
+    }
+
     return this.BitboxHTTP({
       method: 'post',
       auth: {
@@ -3697,10 +3908,7 @@ class BITBOXCli {
         jsonrpc: "1.0",
         id:"signmessage",
         method: "signmessage",
-        params: [
-          address,
-          message
-        ]
+        params: params
       }
     })
     .then((response) => {
@@ -3722,6 +3930,14 @@ class BITBOXCli {
     // Result:
     // "signature"          (string) The signature of the message encoded in base 64
 
+    let params = [];
+    if(privkey) {
+      params.push(privkey);
+    }
+
+    if(message) {
+      params.push(message);
+    }
 
     return this.BitboxHTTP({
       method: 'post',
@@ -3733,10 +3949,7 @@ class BITBOXCli {
         jsonrpc: "1.0",
         id:"signmessagewithprivkey",
         method: "signmessagewithprivkey",
-        params: [
-          privkey,
-          message
-        ]
+        params: params
       }
     })
     .then((response) => {
@@ -3747,8 +3960,7 @@ class BITBOXCli {
     });
   }
 
-  signrawtransaction(hexstring, prevtxs: ?Array<string>, privkeys: ?Array<string>, sighashtype: ?string): string {
-
+  signrawtransaction(hexstring: string, prevtxs: ?Array<string>, privkeys: ?Array<string>, sighashtype: ?string): string {
   // Sign inputs for raw transaction (serialized, hex-encoded).
   // The second optional argument (may be null) is an array of previous transaction outputs that
   // this transaction depends on but may not yet be in the block chain.
@@ -3787,8 +3999,23 @@ class BITBOXCli {
   //        "ALL|FORKID|ANYONECANPAY"
   //        "NONE|FORKID|ANYONECANPAY"
   //        "SINGLE|FORKID|ANYONECANPAY"
-  //
 
+    let params = [];
+    if(hexstring) {
+      params.push(hexstring);
+    }
+
+    if(prevtxs) {
+      params.push(prevtxs);
+    }
+
+    if(privkeys) {
+      params.push(privkeys);
+    }
+
+    if(sighashtype) {
+      params.push(sighashtype);
+    }
 
     return this.BitboxHTTP({
       method: 'post',
@@ -3800,12 +4027,7 @@ class BITBOXCli {
         jsonrpc: "1.0",
         id:"signrawtransaction",
         method: "signrawtransaction",
-        params: [
-          hexstring,
-          prevtxs,
-          privkeys,
-          sighashtype
-        ]
+        params: params
       }
     })
     .then((response) => {
@@ -3828,10 +4050,7 @@ class BITBOXCli {
         jsonrpc: "1.0",
         id:"stop",
         method: "stop",
-        params: [
-          address,
-          message
-        ]
+        params: []
       }
     })
     .then((response) => {
@@ -3854,18 +4073,15 @@ class BITBOXCli {
     //       "workid" : "id"    (string, optional) if the server provided a workid, it MUST be included with submissions
     //     }
     //
-
-    let params;
-    if(!parameters) {
-      params = [
-        hexdata
-      ];
-    } else {
-      params = [
-        hexdata,
-        parameters
-      ];
+    let params = [];
+    if(hexdata) {
+      params.push(hexdata);
     }
+
+    if(parameters) {
+      params.push(parameters);
+    }
+
     return this.BitboxHTTP({
       method: 'post',
       auth: {
@@ -3908,6 +4124,10 @@ class BITBOXCli {
     //   "hdkeypath" : "keypath"       (string, optional) The HD keypath if the key is HD and available
     //   "hdmasterkeyid" : "<hash160>" (string, optional) The Hash160 of the HD master pubkey
     // }
+    let params = [];
+    if(address) {
+      params.push(address);
+    }
 
     return this.BitboxHTTP({
       method: 'post',
@@ -3919,9 +4139,7 @@ class BITBOXCli {
         jsonrpc: "1.0",
         id:"validateaddress",
         method: "validateaddress",
-        params: [
-          address
-        ]
+        params: params
       }
     })
     .then((response) => {
@@ -3941,6 +4159,14 @@ class BITBOXCli {
     //
     // Result:
     // true|false       (boolean) Verified or not
+    let params = [];
+    if(checklevel) {
+      params.push(checklevel);
+    }
+
+    if(nblocks) {
+      params.push(nblocks);
+    }
 
     return this.BitboxHTTP({
       method: 'post',
@@ -3952,10 +4178,7 @@ class BITBOXCli {
         jsonrpc: "1.0",
         id:"verifychain",
         method: "verifychain",
-        params: [
-          checklevel,
-          nblocks
-        ]
+        params: params
       }
     })
     .then((response) => {
@@ -3977,6 +4200,18 @@ class BITBOXCli {
     // Result:
     // true|false   (boolean) If the signature is verified or not.
 
+    let params = [];
+    if(address) {
+      params.push(address);
+    }
+
+    if(signature) {
+      params.push(signature);
+    }
+
+    if(message) {
+      params.push(message);
+    }
     return this.BitboxHTTP({
       method: 'post',
       auth: {
@@ -3987,11 +4222,7 @@ class BITBOXCli {
         jsonrpc: "1.0",
         id:"verifymessage",
         method: "verifymessage",
-        params: [
-          address,
-          signature,
-          message
-        ]
+        params: params
       }
     })
     .then((response) => {
@@ -4052,8 +4283,7 @@ class BITBOXCli {
         jsonrpc: "1.0",
         id:"walletlock",
         method: "walletlock",
-        params: [
-        ]
+        params: []
       }
     })
     .then((response) => {
@@ -4072,6 +4302,14 @@ class BITBOXCli {
     // Parameter #2—the number of seconds to leave the wallet unlocked
 
     // Result—null on success
+    let params = [];
+    if(passphrase) {
+      params.push(passphrase);
+    }
+
+    if(seconds) {
+      params.push(seconds);
+    }
 
     return this.BitboxHTTP({
       method: 'post',
@@ -4083,10 +4321,7 @@ class BITBOXCli {
         jsonrpc: "1.0",
         id:"walletpassphrase",
         method: "walletpassphrase",
-        params: [
-          passphrase,
-          seconds
-        ]
+        params: params
       }
     })
     .then((response) => {
@@ -4104,6 +4339,14 @@ class BITBOXCli {
     // Parameter #2—the new passphrase
 
     // Result—null on success
+    let params = [];
+    if(passphrase) {
+      params.push(passphrase);
+    }
+
+    if(newPassphrase) {
+      params.push(newPassphrase);
+    }
 
     return this.BitboxHTTP({
       method: 'post',
@@ -4115,10 +4358,7 @@ class BITBOXCli {
         jsonrpc: "1.0",
         id:"walletpassphrasechange",
         method: "walletpassphrasechange",
-        params: [
-          passphrase,
-          newPassphrase
-        ]
+        params: params
       }
     })
     .then((response) => {
