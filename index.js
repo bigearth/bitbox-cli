@@ -55,10 +55,10 @@ program
 
       let environment;
       // set environment
-      if(options.environment) {
+      if(options && options.environment) {
         // first check incoming flags
         environment = options.environment;
-      } else if(config.new && config.new.environment) {
+      } else if(config && config.new && config.new.environment) {
         // next check ~/.bitboxrc
         environment = config.new.environment;
       } else {
@@ -68,10 +68,10 @@ program
 
       let protocol;
       // set protocol
-      if(options.protocol) {
+      if(options && options.protocol) {
         // first check incoming flags
         protocol = options.protocol;
-      } else if(config.new && config.new.protocol) {
+      } else if(config && config.new && config.new.protocol) {
         // next check ~/.bitboxrc
         protocol = config.new.protocol;
       } else {
@@ -80,10 +80,10 @@ program
       }
 
       let host;
-      if(options.host) {
+      if(options && options.host) {
         // first check incoming flags
         host = options.host;
-      } else if(config.new && config.new.host) {
+      } else if(config && config.new && config.new.host) {
         // next check ~/.bitboxrc
         host = config.new.host;
       } else {
@@ -92,10 +92,10 @@ program
       }
 
       let port;
-      if(options.port) {
+      if(options && options.port) {
         // first check incoming flags
         port = options.port;
-      } else if(config.new && config.new.port) {
+      } else if(config && config.new && config.new.port) {
         // next check ~/.bitboxrc
         port = config.new.port;
       } else {
@@ -104,10 +104,10 @@ program
       }
 
       let username;
-      if(options.username) {
+      if(options && options.username) {
         // first check incoming flags
         username = options.username;
-      } else if(config.new && config.new.username) {
+      } else if(config && config.new && config.new.username) {
         // next check ~/.bitboxrc
         username = config.new.username;
       } else {
@@ -116,10 +116,10 @@ program
       }
 
       let password;
-      if(options.password) {
+      if(options && options.password) {
         // first check incoming flags
         password = options.password;
-      } else if(config.new && config.new.password) {
+      } else if(config && config.new && config.new.password) {
         // next check ~/.bitboxrc
         password = config.new.password;
       } else {
@@ -187,10 +187,10 @@ program
 
       let environment;
       // set environment
-      if(options.environment) {
+      if(options && options.environment) {
         // first check incoming flags
         environment = options.environment;
-      } else if(conf.new && conf.new.environment) {
+      } else if(conf && conf.new && conf.new.environment) {
         // next check ~/.bitboxrc
         environment = conf.new.environment;
       } else {
