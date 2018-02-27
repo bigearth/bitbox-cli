@@ -28,6 +28,7 @@ Commands:
     Pass in command line arguments or optionally specify commonly used arguments in a .bitboxrc file in your home directory
 
   console        Run a console with Bitcoin Cash RPC commands available
+  scaffold [options]  Scaffold out basic apps in major frameworks w/ BITBOX bindings
 ```
 
 ### `new`
@@ -55,6 +56,21 @@ Options:
   -h, --help                 output usage information
 ```
 
+#### `.bitboxrc`
+
+You can store common settings in a `~/.bashrc` in the `ini` format:
+
+```
+; bitbox config comment
+
+[new]
+protocol = http
+host = localhost
+port = 8332
+username: h4x04
+password: l337
+```
+
 ### `console`
 
 custom REPL w/ the entire BCH RPC on a `BITBOX` object. [Full list](https://www.bitbox.earth/bitboxcli) of available methods.
@@ -71,17 +87,18 @@ Options:
   -h, --help  output usage information
 ```
 
-### `.bitboxrc`
+### `scaffold`
 
-You can store common settings in a `~/.bashrc` in the `ini` format:
+custom REPL w/ the entire BCH RPC on a `BITBOX` object. [Full list](https://www.bitbox.earth/bitboxcli) of available methods.
 
 ```
-; bitbox config comment
+Usage: scaffold [options]
 
-[new]
-protocol = http
-host = localhost
-port = 8332
-username: h4x04
-password: l337
-```
+Scaffold out basic apps in major frameworks w/ BITBOX bindings
+
+
+Options:
+
+  -f, --framework <framework>  The framework to use. Options include React
+  -h, --help                   output usage information
+  ```
