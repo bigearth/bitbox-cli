@@ -400,15 +400,16 @@ class BITBOXCli {
       }
     })
     .then((response) => {
-      let fs = require('fs');
-
-      fs.appendFile("wallet.txt", response.data, (error) => {
-        if (error) {
-          return Error(error.response.data.error.message);
-        }  else {
-          return response.data.result;
-        }
-      });
+      return response.data.result;
+      // let fs = require('fs');
+      //
+      // fs.appendFile("wallet.txt", response.data, (error) => {
+      //   if (error) {
+      //     return Error(error.response.data.error.message);
+      //   }  else {
+      //     return response.data.result;
+      //   }
+      // });
     })
     .catch(error => {
       return Error(error.response.data.error.message);

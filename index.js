@@ -13,6 +13,7 @@ let emoji = require('node-emoji');
 let repl = require("repl");
 let ini = require('ini');
 let BITBOXCli = require('./lib/BITBOXCli').default;
+let clone = require('git-clone');
 
 // let request = require('superagent');
 // let co = require('co');
@@ -161,11 +162,6 @@ program
     console.log(chalk.blue('All done.'), emoji.get(':white_check_mark:'));
     console.log(chalk.blue('Go get em! Remember--with great power comes great responsibility.'), emoji.get(':rocket:'));
     });
-
-    // console.log(chalk.green(`Creatiing test/ directory: ./${title}/tests`));
-    // cpFile('./src/bitbox.js', './bitbox.js').then(() => {
-    //     console.log('File copied');
-    // });
   }
 );
 
@@ -202,24 +198,29 @@ program
     });
   }
 );
-  // .option('-t, --title <title>', 'Title of new project')
 
-// program
-//   // .arguments('<command>')
-//   // .command('init')
-//   .command('tbox')
-//   .option('-f, --fu <fu>', 'Initialize new and empty BITBOX project')
-//   // .version('0.0.1', '-v, --version')
-//   .action((command) => {
-//     // console.log(command);
-//     mkdirp('./bitbox/tests', (err) => {});
-//     mkdirpjk('./bitbox/src', (err) => {});
-//     // console.log(chalk.bold.cyan('projectname: ') + program.init);
-//     // console.log(chalk.bold.red('projectname: ') + program.init);
-//   })
+program
+  .command('scaffold')
+  .option('-f, --framework <framework>', 'The framework to use. Options include React')
+  .description('Scaffold out basic apps in major frameworks w/ BITBOX bindings')
+  .action((options) => {
+    let repo = 'https://github.com/bigearth/bitbox-scaffold-react.git';
+    let targetPath = './';
+    let conf = {};
+    let framework;
+    if(options && options.framework) {
+      framework = options.framework;
+    } else {
+      framework = 'React';
+    }
+
+    console.log(chalk.blue(`Scaffolding ${framework} app in current directory`));
+    clone(repo, targetPath, [conf], () => {
+      console.log(chalk.green('All done.'), emoji.get(':white_check_mark:'));
+      console.log(chalk.blue('Now confirm you have your locally running BITBOX and run `npm install && npm start`'), emoji.get(':rocket:'));
+    })
+  }
+);
 
 program
   .parse(process.argv);
-
-// console.error(errorMessage);
-// process.exit(1);
