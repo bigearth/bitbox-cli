@@ -89,7 +89,7 @@ Options:
 
 ### `scaffold`
 
-custom REPL w/ the entire BCH RPC on a `BITBOX` object. [Full list](https://www.bitbox.earth/bitboxcli) of available methods.
+Quickly scaffold basic applications in major frameworks so you can focus on your app.
 
 ```
 Usage: scaffold [options]
