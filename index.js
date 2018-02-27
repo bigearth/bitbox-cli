@@ -201,17 +201,23 @@ program
 
 program
   .command('scaffold')
-  .option('-f, --framework <framework>', 'The framework to use. Options include React')
+  .option('-f, --framework <framework>', 'The framework to use. Options include "react" and "node". Default: "reac"')
   .description('Scaffold out basic apps in major frameworks w/ BITBOX bindings')
   .action((options) => {
-    let repo = 'https://github.com/bigearth/bitbox-scaffold-react.git';
-    let targetPath = './';
-    let conf = {};
     let framework;
     if(options && options.framework) {
-      framework = options.framework;
+      framework = options.framework.toLowerCase();
     } else {
-      framework = 'React';
+      framework = 'react';
+    }
+
+    let repo;
+    let targetPath = './';
+    let conf = {};
+    if(framework === 'node') {
+      repo = 'https://github.com/bigearth/bitbox-scaffold-node.git';
+    } else {
+      repo = 'https://github.com/bigearth/bitbox-scaffold-react.git';
     }
 
     console.log(chalk.blue(`Scaffolding ${framework} app in current directory`));
