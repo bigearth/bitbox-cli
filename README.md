@@ -58,7 +58,7 @@ Options:
 
 #### `.bitboxrc`
 
-You can store common settings in a `~/.bashrc` in the `ini` format:
+You can store common settings in a `~/.bitboxrc` in the `ini` format:
 
 ```
 ; bitbox config comment
