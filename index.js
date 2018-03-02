@@ -22,7 +22,7 @@ let clone = require('git-clone');
 // let ProgressBar = require('progress');
 
 program
-  .version('0.1.12');
+  .version('0.1.13');
 
 program
   .command('new')
@@ -201,7 +201,8 @@ program
 
 program
   .command('scaffold')
-  .option('-f, --framework <framework>', 'The framework to use. Options include "react" and "node". Default: "reac"')
+  .option('-f, --framework <framework>', 'The framework to use. Options include "react", "angular" and "node". Default: "react"')
+  .option('-r, --repo <repo>', 'The github repository to use. Ex: https://github.com/bigearth/bitbox-scaffold-react.git')
   .description('Scaffold out basic apps in major frameworks w/ BITBOX bindings')
   .action((options) => {
     let framework;
@@ -216,8 +217,15 @@ program
     let conf = {};
     if(framework === 'node') {
       repo = 'https://github.com/bigearth/bitbox-scaffold-node.git';
+    } else if(framework === 'angular' || 'ng' || 'angular2') {
+      repo = 'https://github.com/bigearth/bitbox-scaffold-angular.git';
     } else {
       repo = 'https://github.com/bigearth/bitbox-scaffold-react.git';
+    }
+
+    if(options && options.repo) {
+      framework = 'custom repo';
+      repo = options.repo.toLowerCase();
     }
 
     console.log(chalk.blue(`Scaffolding ${framework} app in current directory`));
