@@ -22,7 +22,7 @@ let clone = require('git-clone');
 // let ProgressBar = require('progress');
 
 program
-  .version('0.1.13');
+  .version('0.1.14');
 
 program
   .command('new')
@@ -217,7 +217,7 @@ program
     let conf = {};
     if(framework === 'node') {
       repo = 'https://github.com/bigearth/bitbox-scaffold-node.git';
-    } else if(framework === 'angular' || 'ng' || 'angular2') {
+    } else if(framework === 'angular') {
       repo = 'https://github.com/bigearth/bitbox-scaffold-angular.git';
     } else {
       repo = 'https://github.com/bigearth/bitbox-scaffold-react.git';
