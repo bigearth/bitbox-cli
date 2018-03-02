@@ -99,6 +99,7 @@ Scaffold out basic apps in major frameworks w/ BITBOX bindings
 
 Options:
 
-  -f, --framework <framework>  The framework to use. Options include React
+  -f, --framework <framework>  The framework to use. Options include "react", "angular" and "node". Default: "react"
+  -r, --repo <repo>            The github repository to use. Ex: https://github.com/bigearth/bitbox-scaffold-react.git
   -h, --help                   output usage information
-  ```
+```
