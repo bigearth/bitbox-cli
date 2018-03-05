@@ -1,5 +1,5 @@
 import crypto from 'crypto';
-import bitcore from 'bitcore-lib';
+// import bitcore from 'bitcore-lib';
 
 class Crypto {
   // Utility class to wrap NodeJS's crypto module
@@ -20,17 +20,17 @@ class Crypto {
     return crypto.randomBytes(size).toString('hex');
   }
 
-  static xpub(xpub, HDPath) {
-    var HdPublicKey = new bitcore.HDPublicKey.fromString(xpub);
-    var derivedPublicKey = HdPublicKey.derive(HDPath).publicKey;
-    // for (let j = 0; j < 1; j++) {
-      // console.log('asdasfd', j)
-      // var derivedPublicKey = HdPublicKey.derive("m/0/"+j).publicKey;
-      // var addy = derivedPublicKey.toAddress();
-      // console.log('addy', BitcoinCash.toCashAddress(addy.toString()));
-    // }
-    return derivedPublicKey.toAddress().toString();
-  }
+  // static xpub(xpub, HDPath) {
+  //   var HdPublicKey = new bitcore.HDPublicKey.fromString(xpub);
+  //   var derivedPublicKey = HdPublicKey.derive(HDPath).publicKey;
+  //   // for (let j = 0; j < 1; j++) {
+  //     // console.log('asdasfd', j)
+  //     // var derivedPublicKey = HdPublicKey.derive("m/0/"+j).publicKey;
+  //     // var addy = derivedPublicKey.toAddress();
+  //     // console.log('addy', BitcoinCash.toCashAddress(addy.toString()));
+  //   // }
+  //   return derivedPublicKey.toAddress().toString();
+  // }
 
 }
 
