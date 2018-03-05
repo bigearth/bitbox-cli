@@ -167,7 +167,7 @@ BITBOX.getinfo()
 
 `bitbox-cli` leverages several really great libraries. Please show these people support.
 
-* https://nodejs.org/api/crypto.htm
+* https://nodejs.org/api/crypto.html
 * https://github.com/bitcoinjs/bitcoinjs-lib
 * https://github.com/bitcoinjs/bip39
 * https://github.com/bitcoincashjs/bchaddrjs
