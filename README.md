@@ -122,7 +122,7 @@ BITBOX.BitcoinCash.isMainnetAddress('bitcoincash:qqfx3wcg8ts09mt5l3zey06wenapyfq
 // true
 BITBOX.BitcoinCash.isTestnetAddress('bitcoincash:qqfx3wcg8ts09mt5l3zey06wenapyfqq2qrcyj5x0s')
 //false
-BITBOX.BitcoinCash.isTestnetAddress('bitcoincash:qqfx3wcg8ts09mt5l3zey06wenapyfqq2qrcyj5x0s')
+BITBOX.BitcoinCash.isP2PKHAddress('bitcoincash:qqfx3wcg8ts09mt5l3zey06wenapyfqq2qrcyj5x0s')
 // true
 BITBOX.BitcoinCash.isP2SHAddress('bitcoincash:qqfx3wcg8ts09mt5l3zey06wenapyfqq2qrcyj5x0s')
 // false
@@ -150,6 +150,7 @@ BITBOX.Crypto.randomBytes(32)
 
 `bitbox-cli` leverages several really great libraries. Please show these people support.
 
+* https://nodejs.org/api/crypto.htm
 * https://github.com/bitcoinjs/bitcoinjs-lib
 * https://github.com/bitcoinjs/bip39
 * https://github.com/bitcoincashjs/bchaddrjs
