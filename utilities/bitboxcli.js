@@ -1,13 +1,32 @@
   // @flow
 import axios from 'axios';
+import BitcoinCash from './BitcoinCash';
+import Crypto from './Crypto';
 
 class BITBOXCli {
   constructor(config) {
+    if(!config) {
+      config = {
+        username: '',
+        password: '',
+        protocol: '',
+        host: '',
+        port: ''
+      };
+    }
+
     this.config = config;
     this.BitboxHTTP = axios.create({
       baseURL: `${config.protocol}://${config.host}:${config.port}/`
     });
+    this.BitcoinCash = BitcoinCash;
+    this.Crypto = Crypto;
   }
+  //
+  // xpub(xpub, HDPath) {
+  //   return Crypto.xpub(xpub, HDPath);
+  // }
+
 
   addmultisigaddress(nrequired: number, keys: Array<string>, account: ?string): string{
     // Add a nrequired-to-sign multisignature address to the wallet.
