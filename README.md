@@ -117,8 +117,14 @@ BITBOX.BitcoinCash.toSatoshi(9)
 // 900000000
 BITBOX.BitcoinCash.toBitcoinCash(900000000)
 // 9
+BITBOX.BitcoinCash.toLegacyAddress('bitcoincash:qzm47qz5ue99y9yl4aca7jnz7dwgdenl85jkfx3znl')
+// 1HiaTupadqQN66Tvgt7QSE5Wg13BUy25eN
+BITBOX.BitcoinCash.toCashAddress('1HiaTupadqQN66Tvgt7QSE5Wg13BUy25eN')
+// bitcoincash:qzm47qz5ue99y9yl4aca7jnz7dwgdenl85jkfx3znl
 BITBOX.BitcoinCash.isLegacyAddress('bitcoincash:qqfx3wcg8ts09mt5l3zey06wenapyfqq2qrcyj5x0s')
 // false
+BITBOX.BitcoinCash.isCashAddress('bitcoincash:qqfx3wcg8ts09mt5l3zey06wenapyfqq2qrcyj5x0s')
+// true
 BITBOX.BitcoinCash.isMainnetAddress('bitcoincash:qqfx3wcg8ts09mt5l3zey06wenapyfqq2qrcyj5x0s')
 // true
 BITBOX.BitcoinCash.isTestnetAddress('bitcoincash:qqfx3wcg8ts09mt5l3zey06wenapyfqq2qrcyj5x0s')
