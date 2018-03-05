@@ -1,12 +1,12 @@
 // import Address from '../models/Address';
 // import Crypto from './Crypto';
 
-// import Bitcoin from 'bitcoinjs-lib';
+import Bitcoin from 'bitcoinjs-lib';
 // import BIP39 from 'bip39';
 import bchaddr from 'bchaddrjs';
 import sb from 'satoshi-bitcoin';
-// import bitcoinMessage from 'bitcoinjs-message';
-// var bitcore = require('bitcore-lib');
+import bitcoinMessage from 'bitcoinjs-message';
+// let bitcore = require('bitcore-lib');
 
 
 class BitcoinCash {
@@ -71,6 +71,19 @@ class BitcoinCash {
   static detectAddressType(address) {
     return bchaddr.detectAddressType(address);
   }
+
+  // sign message
+  static signMessageWithPrivKey(privateKeyWIF, message) {
+    let keyPair = Bitcoin.ECPair.fromWIF(privateKeyWIF)
+    let privateKey = keyPair.d.toBuffer(32)
+    return bitcoinMessage.sign(message, privateKey, keyPair.compressed).toString('base64');
+  }
+
+  // verify message
+  static verifyMessage(address, signature, message) {
+    return bitcoinMessage.verify(message, BitcoinCash.toLegacyAddress(address), signature);
+  }
+
   //
   // static entropyToMnemonic(bytes = 16) {
   //   // Generate cryptographically strong pseudo-random data.
@@ -202,15 +215,6 @@ class BitcoinCash {
   //   let signature1 = signature.toString('base64')
   //   return signature1;
   // }
-  //
-  // static sign(message, privateKey, keyPair) {
-  //   return bitcoinMessage.sign(message, privateKey, keyPair.compressed);
-  // }
-  //
-  // static verifyMessage(message, address, signature) {
-  //   return bitcoinMessage.verify(message, address, signature);
-  // }
-  //
   // static returnPrivateKeyWIF(pubAddress, addresses) {
   //   let privateKeyWIF;
   //   let errorMsg = '';
