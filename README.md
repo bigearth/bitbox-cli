@@ -109,6 +109,7 @@ Options:
 ## From within your app
 
 ```js
+// to use without calling your local BITBOX instance or a remote $BCH node
 let BITBOXCli = require('bitbox-cli/lib/bitboxcli').default;
 let BITBOX = new BITBOXCli();
 
@@ -142,6 +143,22 @@ BITBOX.Crypto.createRIPEMD160Hash(data)
 // ca700bba3bd37304b9bd923652245f598ece8afe
 BITBOX.Crypto.randomBytes(32)
 // 6e1453357f6f99d19d2a6554f35eab65b6c27f6572e31d7f2faa696cac57759b
+
+// To connect to your local bitbox or a remote $BCH node
+let BITBOX = new BITBOXCli({
+  protocol: 'http',
+  host: '127.0.0.1',
+  port: 8332,
+  username: '',
+  password: ''
+});
+
+BITBOX.getinfo()
+.then((result) => {
+  console.log(result)
+}, (err) => { console.log(err);
+});
+
 ```
 
 [Full list](https://www.bitbox.earth/bitboxcli) of available methods.
