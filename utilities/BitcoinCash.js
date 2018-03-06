@@ -10,7 +10,6 @@ import bitcoinMessage from 'bitcoinjs-message';
 
 
 class BitcoinCash {
-
   static entropyToMnemonic(bytes = 16) {
     // Generate cryptographically strong pseudo-random data.
     // The bytes argument is a number indicating the number of bytes to generate.
@@ -34,6 +33,89 @@ class BitcoinCash {
 
   static mnemonicToSeed(mnemonic, password = '') {
     return BIP39.mnemonicToSeed(mnemonic, password);
+  }
+
+  static fromWIF(privateKeyWIF, network = 'bitcoin') {
+    return Bitcoin.ECPair.fromWIF(privateKeyWIF, Bitcoin.networks[network]);
+  }
+
+  static ECPair() {
+    return Bitcoin.ECPair;
+  }
+
+  static address() {
+    return Bitcoin.address;
+  }
+
+  static script() {
+    return Bitcoin.script;
+  }
+
+  static transaction() {
+    return Bitcoin.Transaction;
+  }
+
+  static transactionBuilder(network = 'bitcoin') {
+    return new Bitcoin.TransactionBuilder(Bitcoin.networks[network]);
+  }
+
+  static fromTransaction() {
+    return Bitcoin.TransactionBuilder;
+  }
+
+  static createHDWallet(config) {
+    // nore info: https://github.com/bitcoinbook/bitcoinbook/blob/develop/ch05.asciidoc
+
+    let mnemonic = config.mnemonic;
+    if(config.autogenerateHDMnemonic) {
+      // create a random mnemonic w/ user provided entropy size
+      mnemonic = BitcoinCash.entropyToMnemonic(config.entropy);
+    }
+
+    // create 512 bit HMAC-SHA512 root seed
+    let rootSeed = BitcoinCash.mnemonicToSeed(mnemonic, config.password);
+
+    // create master private key
+    let masterPrivateKey = BitcoinCash.fromSeedBuffer(rootSeed, config.network);
+
+    let HDPath = `m/${config.HDPath.purpose}/${config.HDPath.coinCode}`
+
+    let accounts = [];
+
+    for (let i = 0; i < config.totalAccounts; i++) {
+      // create accounts
+      // follow BIP 44 account discovery algo https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki#account-discovery
+      let account = masterPrivateKey.derivePath(`${HDPath.replace(/\/$/, "")}/${i}'`);
+      // console.log('account', account);
+      let xpriv = account.toBase58();
+      let xpub = account.neutered().toBase58();
+      let address = masterPrivateKey.derivePath(`${HDPath.replace(/\/$/, "")}/${i}'/${config.HDPath.change}/${config.HDPath.address_index}`);
+      // let xPubNode = Bitcoin.HDNode.fromBase58(xpub);
+
+      // for (let j = 0; j < 1; j++) {
+      //   // console.log('asdasfd', j)
+      //   var derivedPublicKey = HdPublicKey.derive("m/0/"+j).publicKey;
+      //   var addy = derivedPublicKey.toAddress();
+      //   console.log('addy', BitcoinCash.toCashAddress(addy.toString()));
+      // }
+      // console.log('xPubNode', xPubNode);
+      // console.log('yay', xPubNode.derive(xPubNode.chainCode));
+      // console.log('---------')
+      accounts.push({
+        title: '',
+        privateKeyWIF: address.keyPair.toWIF(),
+        xpriv: xpriv,
+        xpub: xpub,
+        index: i
+      });
+      // addresses.push(new Address(BitcoinCash.toCashAddress(account.derive(i).getAddress()), account.derive(i).keyPair.toWIF()));
+    };
+
+    return [rootSeed, masterPrivateKey, mnemonic, config.HDPath, accounts];
+  }
+
+  static fromSeedBuffer(rootSeed, network = 'bitcoin') {
+    return Bitcoin.HDNode.fromSeedBuffer(rootSeed, Bitcoin.networks[network]);
   }
 
   // Translate coins to satoshi value
