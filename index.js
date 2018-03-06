@@ -22,7 +22,7 @@ let clone = require('git-clone');
 // let ProgressBar = require('progress');
 
 program
-  .version('0.2.7');
+  .version('0.2.8');
 
 program
   .command('new')
@@ -233,6 +233,86 @@ program
       console.log(chalk.green('All done.'), emoji.get(':white_check_mark:'));
       console.log(chalk.blue('Now confirm you have your locally running BITBOX and run `npm install && npm start`'), emoji.get(':rocket:'));
     })
+  }
+);
+
+program
+  .command('paper')
+  .option('-e, --encoding <encoding>', 'The encoding to use. Options include "cashaddr" and "legacy". Default: "cashaddr"')
+  .option('-n, --network <network>', 'The network to use. Options include "mainnet" and "testnet". Default: "mainnet"')
+  .description('Create a paper wallet for easy and safe back up')
+  .action((options) => {
+    if(!options.encoding || (options.encoding !== 'cashaddr' && options.encoding !== 'legacy')) {
+      options.encoding = 'cashaddr';
+    }
+
+    if(!options.network || (options.network !== 'mainnet' && options.network !== 'testnet')) {
+      options.network = 'mainnet';
+    }
+
+    let nw;
+    if(options.network === 'mainnet') {
+      nw = 'bitcoin';
+    } else {
+      nw = 'testnet';
+    }
+
+    console.log(chalk.blue(`Creating ${options.encoding} Paper wallet on ${options.network}`));
+    let bitbox = new BITBOXCli();
+
+
+    let hdwallet = bitbox.BitcoinCash.createHDWallet({
+      autogenerateHDMnemonic: true,
+      autogenerateHDPath: true,
+      displayCashaddr: true,
+      displayTestnet: false,
+      usePassword: false,
+      entropy: 32,
+      network: nw,
+      mnemonic: '',
+      totalAccounts: 10,
+      HDPath: {
+        masterKey: "m",
+        purpose: "44'",
+        coinCode: "145'",
+        account: "0'",
+        change: "0",
+        address_index: "0"
+      },
+      password: ''
+    })
+    let mnemonic = hdwallet[2];
+    let privateKeyWIF = hdwallet[4][0].privateKeyWIF;
+    let address = bitbox.BitcoinCash.fromWIF(privateKeyWIF, options.network).getAddress();
+    if(options.encoding === 'cashaddr') {
+      address = bitbox.BitcoinCash.toCashAddress(address);
+    }
+    touch(`./paper-wallet.html`);
+    let QRCode = require('qrcode')
+
+    QRCode.toDataURL(privateKeyWIF, (err, privateKeyWIFQR) => {
+      QRCode.toDataURL(address, (err, addressQR) => {
+        fs.writeFileSync( `./paper-wallet.html`, `
+          <div>
+            <h2>Private Key WIF</h2>
+            <p>${privateKeyWIF}</p>
+            <p><img src='${privateKeyWIFQR}' /></p>
+          </div>
+          <div>
+            <h2>Public address</h2>
+            <p>${address}</p>
+            <p><img src='${addressQR}' /></p>
+          </div>
+          <div>
+            <p>Mnemonic: ${mnemonic}</p>
+            <p>HD Path: m/44'/145'/0'/0/0</p>
+            <p>Network:  ${options.network}</p>
+            <p>Encoding:  ${options.encoding}</p>
+          </div>
+        `);
+      })
+    })
+
   }
 );
 
