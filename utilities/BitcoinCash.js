@@ -1,8 +1,8 @@
 // import Address from '../models/Address';
-// import Crypto from './Crypto';
+import Crypto from './Crypto';
 
 import Bitcoin from 'bitcoinjs-lib';
-// import BIP39 from 'bip39';
+import BIP39 from 'bip39';
 import bchaddr from 'bchaddrjs';
 import sb from 'satoshi-bitcoin';
 import bitcoinMessage from 'bitcoinjs-message';
@@ -10,6 +10,31 @@ import bitcoinMessage from 'bitcoinjs-message';
 
 
 class BitcoinCash {
+
+  static entropyToMnemonic(bytes = 16) {
+    // Generate cryptographically strong pseudo-random data.
+    // The bytes argument is a number indicating the number of bytes to generate.
+    // Uses the NodeJS crypto lib. More info: https://nodejs.org/api/crypto.html#crypto_crypto_randombytes_size_callback
+    let randomBytes = Crypto.randomBytes(bytes);
+
+    // Create BIP 39 compliant mnemonic w/ entropy
+    // Entropy (bits/bytes)	Checksum (bits)	Entropy + checksum (bits)	Mnemonic length (words)
+    // 128/16               4               132                       12
+    //
+    // 160/20               5               165                       15
+    //
+    // 192/24               6               198                       18
+    //
+    // 224/28               7               231                       21
+    //
+    // 256/32               8               264                       24
+
+    return BIP39.entropyToMnemonic(randomBytes);
+  }
+
+  static mnemonicToSeed(mnemonic, password = '') {
+    return BIP39.mnemonicToSeed(mnemonic, password);
+  }
 
   // Translate coins to satoshi value
   static toSatoshi(coins) {
