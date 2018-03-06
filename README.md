@@ -341,6 +341,20 @@ for(let i = 0; i <= 4; i++) {
 // bitcoincash:qppgmuuwy07g0x39sx2z0x2u8e34tvfdxvy0c2jvx7
 // bitcoincash:qryj8x4s7vfsc864jm0xaak9qfe8qgk245y9ska57l
 
+// Generate an array keypairs from a mnemonic
+BITBOX.BitcoinCash.keypairsFromMnemonic("toward tribe logic visa relief domain fun toy apart popular tooth power", 15)
+// [ { privateKeyWIF: 'Ky54Y7sxkGovqTi5ogipFUToqsz4NCepLn3bitzHyiF3JaYULMbP',
+//     address: 'bitcoincash:qzq53zlu48a00h0a8ay8gq3wnkvfxc50cv6fj5qm9d' },
+//   { privateKeyWIF: 'KzkgRUDjAofdLvwHFGEyhtiULPYpKDozgfkz5yWR1S39isWHWPrz',
+//     address: 'bitcoincash:qrpuxwzerdfm5plxzxekya3js9wn2f4wa5lcgnat7c' },
+//   { privateKeyWIF: 'Kyb6tWZUfppAyQMRX9b1yAKahFDn8Xr2dY26tk7nM9s5cLvvFuqS',
+//     address: 'bitcoincash:qpq7zz6ax7lun9ks92g5qwye206xkenc655y4x7rfn' },
+//   { privateKeyWIF: 'KzoVcYVG1dqVPa8AASR9tjXQHqs8KDx9Ex3WrwaEYPPxJ76gTZC2',
+//     address: 'bitcoincash:qp22q7vt79qp724zvk0qkj59ec4h9ghx9yscnl3mpw' },
+//   { privateKeyWIF: 'KwEYU8cuczmym3KXUcVqmQS2R4zcKgzQ8ba2R54LHuSsY2wKXXkF',
+//     address: 'bitcoincash:qzul5ttllyky9tcdmc458tw0fymtc2mkvc75542prl' } ]
+
+
 let data = 'EARTH';
 BITBOX.Crypto.createHash(data, 'sha256')
 // bcfee25a8baf6808fce5ff4e63cf21c8d114853ca7eacdcc3c210d73c58dab66
