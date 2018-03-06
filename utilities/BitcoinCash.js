@@ -119,6 +119,27 @@ class BitcoinCash {
     return BitcoinCash.toCashAddress(address.getAddress());
   }
 
+  static keypairsFromMnemonic(mnemonic, numberOfKeypairs = 1) {
+    let rootSeed = BitcoinCash.mnemonicToSeed(mnemonic, '');
+    let masterPrivateKey = BitcoinCash.fromSeedBuffer(rootSeed);
+    let HDPath = `m/44'/145'/0'/0/`
+
+    let accounts = [];
+
+    for (let i = 0; i < numberOfKeypairs; i++) {
+      let keyPair = masterPrivateKey.derivePath(`${HDPath}${i}`);
+      let address = BitcoinCash.fromWIF(keyPair.keyPair.toWIF()).getAddress();
+
+      accounts.push(
+        {
+          privateKeyWIF: keyPair.keyPair.toWIF(),
+          address: BitcoinCash.toCashAddress(address)
+        }
+      )
+    };
+    return accounts;
+  }
+
   // Translate coins to satoshi value
   static toSatoshi(coins) {
     return sb.toSatoshi(coins);
