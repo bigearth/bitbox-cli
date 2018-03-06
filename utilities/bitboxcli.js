@@ -2,6 +2,7 @@
 import axios from 'axios';
 import BitcoinCash from './BitcoinCash';
 import Crypto from './Crypto';
+import Util from './Util';
 
 class BITBOXCli {
   constructor(config) {
@@ -21,6 +22,7 @@ class BITBOXCli {
     });
     this.BitcoinCash = BitcoinCash;
     this.Crypto = Crypto;
+    this.Util = new Util(config, this.BitboxHTTP);
   }
   //
   // xpub(xpub, HDPath) {
@@ -168,45 +170,6 @@ class BITBOXCli {
         id:"clearbanned",
         method: "clearbanned",
         params: []
-      }
-    })
-    .then((response) => {
-      return response.data.result;
-    })
-    .catch(error => {
-      return Error(error.response.data.error.message);
-    });
-  }
-
-  createmultisig(required: number, address: Array<string>|string): string {
-    // The createmultisig RPC creates a P2SH multi-signature address.
-
-    // Parameter #1—the number of signatures required
-    // The minimum (m) number of signatures required to spend this m-of-n multisig script
-
-    // Parameter #2—the full public keys, or addresses for known public keys
-
-    // An array of strings with each string being a public key or address
-    // or
-    // A public key against which signatures will be checked. If wallet support is enabled, this may be a P2PKH address belonging to the wallet—the corresponding public key will be substituted.
-    // There must be at least as many keys as specified by the Required parameter, and there may be more keys
-
-    // Result—P2SH address and hex-encoded redeem script
-
-    return this.BitboxHTTP({
-      method: 'post',
-      auth: {
-        username: this.config.username,
-        password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"createmultisig",
-        method: "createmultisig",
-        params: [
-          required,
-          address
-        ]
       }
     })
     .then((response) => {
@@ -466,38 +429,6 @@ class BITBOXCli {
     });
   }
 
-  estimatefee(nblocks: number): string {
-    // Estimates the approximate fee per kilobyte needed for a transaction to begin confirmation within nblocks blocks.
-
-    // Arguments:
-    // 1. nblocks     (numeric, required)
-
-    // Result:
-    // n              (numeric) estimated fee-per-kilobyte
-
-    return this.BitboxHTTP({
-      method: 'post',
-      auth: {
-        username: this.config.username,
-        password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"estimatefee",
-        method: "estimatefee",
-        params: [
-          nblocks
-        ]
-      }
-    })
-    .then((response) => {
-      return response.data.result;
-    })
-    .catch(error => {
-      return Error(error.response.data.error.message);
-    });
-  }
-
   estimatesmartfee(nblocks: number): string {
     // WARNING: This interface is unstable and may disappear or change!
     //
@@ -528,38 +459,6 @@ class BITBOXCli {
         jsonrpc: "1.0",
         id:"estimatesmartfee",
         method: "estimatesmartfee",
-        params: [
-          nblocks
-        ]
-      }
-    })
-    .then((response) => {
-      return response.data.result;
-    })
-    .catch(error => {
-      return Error(error.response.data.error.message);
-    });
-  }
-
-  estimatepriority(nblocks: number): string {
-    // DEPRECATED. Estimates the approximate priority a zero-fee transaction needs to begin
-    // confirmation within nblocks blocks.
-    //
-    // Arguments:
-    // 1. nblocks     (numeric, required)
-    //
-    // Result:
-    // n              (numeric) estimated priority
-    return this.BitboxHTTP({
-      method: 'post',
-      auth: {
-        username: this.config.username,
-        password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"estimatepriority",
-        method: "estimatepriority",
         params: [
           nblocks
         ]
@@ -3939,47 +3838,6 @@ class BITBOXCli {
     });
   }
 
-  signmessagewithprivkey(privkey: string, message: string): string {
-
-    // Sign a message with the private key of an address
-
-    // Arguments:
-    // 1. "privkey"         (string, required) The private key to sign the message with.
-    // 2. "message"         (string, required) The message to create a signature of.
-
-    // Result:
-    // "signature"          (string) The signature of the message encoded in base 64
-
-    let params = [];
-    if(privkey) {
-      params.push(privkey);
-    }
-
-    if(message) {
-      params.push(message);
-    }
-
-    return this.BitboxHTTP({
-      method: 'post',
-      auth: {
-        username: this.config.username,
-        password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"signmessagewithprivkey",
-        method: "signmessagewithprivkey",
-        params: params
-      }
-    })
-    .then((response) => {
-      return response.data.result;
-    })
-    .catch(error => {
-      return Error(error.response.data.error.message);
-    });
-  }
-
   signrawtransaction(hexstring: string, prevtxs: ?Array<string>, privkeys: ?Array<string>, sighashtype: ?string): string {
   // Sign inputs for raw transaction (serialized, hex-encoded).
   // The second optional argument (may be null) is an array of previous transaction outputs that
@@ -4123,53 +3981,6 @@ class BITBOXCli {
     });
   }
 
-  validateaddress(address: string): string {
-    // Return information about the given bitcoin address.
-    //
-    // Arguments:
-    // 1. "address"     (string, required) The bitcoin address to validate
-    //
-    // Result:
-    // {
-    //   "isvalid" : true|false,       (boolean) If the address is valid or not. If not, this is the only property returned.
-    //   "address" : "address", (string) The bitcoin address validated
-    //   "scriptPubKey" : "hex",       (string) The hex encoded scriptPubKey generated by the address
-    //   "ismine" : true|false,        (boolean) If the address is yours or not
-    //   "iswatchonly" : true|false,   (boolean) If the address is watchonly
-    //   "isscript" : true|false,      (boolean) If the key is a script
-    //   "pubkey" : "publickeyhex",    (string) The hex value of the raw public key
-    //   "iscompressed" : true|false,  (boolean) If the address is compressed
-    //   "account" : "account"         (string) DEPRECATED. The account associated with the address, "" is the default account
-    //   "timestamp" : timestamp,        (number, optional) The creation time of the key if available in seconds since epoch (Jan 1 1970 GMT)
-    //   "hdkeypath" : "keypath"       (string, optional) The HD keypath if the key is HD and available
-    //   "hdmasterkeyid" : "<hash160>" (string, optional) The Hash160 of the HD master pubkey
-    // }
-    let params = [];
-    if(address) {
-      params.push(address);
-    }
-
-    return this.BitboxHTTP({
-      method: 'post',
-      auth: {
-        username: this.config.username,
-        password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"validateaddress",
-        method: "validateaddress",
-        params: params
-      }
-    })
-    .then((response) => {
-      return response.data.result;
-    })
-    .catch(error => {
-      return Error(error.response.data.error.message);
-    });
-  }
-
   verifychain(checklevel: ?number, nblocks: ?number): string {
     // Verifies blockchain database.
     //
@@ -4198,50 +4009,6 @@ class BITBOXCli {
         jsonrpc: "1.0",
         id:"verifychain",
         method: "verifychain",
-        params: params
-      }
-    })
-    .then((response) => {
-      return response.data.result;
-    })
-    .catch(error => {
-      return Error(error.response.data.error.message);
-    });
-  }
-
-  verifymessage(address: string, signature: string, message: string): string {
-    // Verify a signed message
-
-    // Arguments:
-    // 1. "address"         (string, required) The bitcoin address to use for the signature.
-    // 2. "signature"       (string, required) The signature provided by the signer in base 64 encoding (see signmessage).
-    // 3. "message"         (string, required) The message that was signed.
-
-    // Result:
-    // true|false   (boolean) If the signature is verified or not.
-
-    let params = [];
-    if(address) {
-      params.push(address);
-    }
-
-    if(signature) {
-      params.push(signature);
-    }
-
-    if(message) {
-      params.push(message);
-    }
-    return this.BitboxHTTP({
-      method: 'post',
-      auth: {
-        username: this.config.username,
-        password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"verifymessage",
-        method: "verifymessage",
         params: params
       }
     })
