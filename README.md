@@ -331,6 +331,16 @@ BITBOX.BitcoinCash.createHDWallet({
 //       xpub: 'xpub6CV75EPa1jFXgwfoRkh2Q2kmjMjTdqJFh8P4Q4yerkmcd2bHCsLKuJ96VTGWipc58bKkK5aYNiEwVs5gMbFbncmXg18j5cAjZBpJkjsTSTS',
 //       index: 9 } ] ]
 
+// Generate first 5 public change addresses for given xpub
+for(let i = 0; i <= 4; i++) {
+  BITBOX.BitcoinCash.fromXPub("xpub6DTNmB7gWa8RtQAfmy8wSDikM5mky4fhsnqQd9AqoCaLcekqNgRZW5JCSXwXkLDkABHTD1qx7kqrbGzT6xBGfAvCJSj2rwvKWP8eZBR2EVA", i)
+}
+// bitcoincash:qptnmya5wkly7xf97wm5ak23yqdsz3l2cyj7k9vyyh
+// bitcoincash:qrr2suh9yjsrkl2qp3p967uhfg6u0r6xxsn9h5vuvr
+// bitcoincash:qpkfg4kck99wksyss6nvaqtafeahfnyrpsj0ed372t
+// bitcoincash:qppgmuuwy07g0x39sx2z0x2u8e34tvfdxvy0c2jvx7
+// bitcoincash:qryj8x4s7vfsc864jm0xaak9qfe8qgk245y9ska57l
+
 let data = 'EARTH';
 BITBOX.Crypto.createHash(data, 'sha256')
 // bcfee25a8baf6808fce5ff4e63cf21c8d114853ca7eacdcc3c210d73c58dab66

@@ -86,21 +86,10 @@ class BitcoinCash {
       // create accounts
       // follow BIP 44 account discovery algo https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki#account-discovery
       let account = masterPrivateKey.derivePath(`${HDPath.replace(/\/$/, "")}/${i}'`);
-      // console.log('account', account);
       let xpriv = account.toBase58();
       let xpub = account.neutered().toBase58();
       let address = masterPrivateKey.derivePath(`${HDPath.replace(/\/$/, "")}/${i}'/${config.HDPath.change}/${config.HDPath.address_index}`);
-      // let xPubNode = Bitcoin.HDNode.fromBase58(xpub);
 
-      // for (let j = 0; j < 1; j++) {
-      //   // console.log('asdasfd', j)
-      //   var derivedPublicKey = HdPublicKey.derive("m/0/"+j).publicKey;
-      //   var addy = derivedPublicKey.toAddress();
-      //   console.log('addy', BitcoinCash.toCashAddress(addy.toString()));
-      // }
-      // console.log('xPubNode', xPubNode);
-      // console.log('yay', xPubNode.derive(xPubNode.chainCode));
-      // console.log('---------')
       accounts.push({
         title: '',
         privateKeyWIF: address.keyPair.toWIF(),
@@ -116,6 +105,18 @@ class BitcoinCash {
 
   static fromSeedBuffer(rootSeed, network = 'bitcoin') {
     return Bitcoin.HDNode.fromSeedBuffer(rootSeed, Bitcoin.networks[network]);
+  }
+
+  static fromXPub(xpub, index = 0) {
+    let network;
+    if(xpub[0] === 'x') {
+      network = 'bitcoin'
+    } else {
+      network = 'testnet'
+    }
+    let HDNode = Bitcoin.HDNode.fromBase58(xpub, Bitcoin.networks[network]);
+    let address = HDNode.derivePath(`0/${index}`);
+    return BitcoinCash.toCashAddress(address.getAddress());
   }
 
   // Translate coins to satoshi value

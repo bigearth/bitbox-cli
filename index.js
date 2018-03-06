@@ -22,7 +22,7 @@ let clone = require('git-clone');
 // let ProgressBar = require('progress');
 
 program
-  .version('0.2.8');
+  .version('0.2.9');
 
 program
   .command('new')
@@ -257,7 +257,7 @@ program
       nw = 'testnet';
     }
 
-    console.log(chalk.blue(`Creating ${options.encoding} Paper wallet on ${options.network}`));
+    console.log(chalk.blue(`Creating ${options.encoding} paper wallet on ${options.network}`));
     let bitbox = new BITBOXCli();
 
 
