@@ -164,8 +164,8 @@ BITBOX.BitcoinCash.entropyToMnemonic(16)
 BITBOX.BitcoinCash.mnemonicToSeed('enable stem left method one submit coach bid inspire cluster armed bracket')
 // <Buffer 0a fa b7 46 8f 0c df 79 0f 0e 44 37 45 0c 33 c3 c8 27 17 42 75 d6 13 02 c3 55 de ef 2e 69 57 e4 f5 dd 55 b6 a8 73 78 6d b8 09 36 75 af 4f 6b 2c 52 63 ... >
 
-// Create Master Private Key
-BITBOX.BitcoinCash.fromSeedBuffer(rootSeed, config.network);
+// Create Master Private Key w/ rootSeed returned from BITBOX.BitcoinCash.mnemonicToSeed
+BITBOX.BitcoinCash.fromSeedBuffer(rootSeed);
 // HDNode {
 //   keyPair:
 //    ECPair {
