@@ -5,7 +5,7 @@ class Util {
     this.BitboxHTTP = BitboxHTTP;
   }
 
-  createMultisig(required: number, address: Array<string>|string): string {
+  createMultisig(required, address) {
     // The createmultisig RPC creates a P2SH multi-signature address.
 
     // Parameter #1—the number of signatures required
@@ -45,7 +45,7 @@ class Util {
   }
 
 
-  estimateFee(nblocks: number): string {
+  estimateFee(nblocks) {
     // Estimates the approximate fee per kilobyte needed for a transaction to begin confirmation within nblocks blocks.
 
     // Arguments:
@@ -77,7 +77,7 @@ class Util {
     });
   }
 
-  estimatePriority(nblocks: number): string {
+  estimatePriority(nblocks) {
     // DEPRECATED. Estimates the approximate priority a zero-fee transaction needs to begin
     // confirmation within nblocks blocks.
     //
@@ -109,7 +109,7 @@ class Util {
     });
   }
 
-  signMessageWithPrivKey(privkey: string, message: string): string {
+  signMessageWithPrivKey(privkey, message) {
     // Sign a message with the private key of an address
 
     // Arguments:
@@ -149,7 +149,7 @@ class Util {
     });
   }
 
-  validateAddress(address: string): string {
+  validateAddress(address) {
     // Return information about the given bitcoin address.
     //
     // Arguments:
@@ -196,7 +196,7 @@ class Util {
     });
   }
 
-  verifyMessage(address: string, signature: string, message: string): string {
+  verifyMessage(address, signature, message) {
     // Verify a signed message
 
     // Arguments:

@@ -1,4 +1,3 @@
-  // @flow
 import axios from 'axios';
 import BitcoinCash from './BitcoinCash';
 import Crypto from './Crypto';
@@ -24,13 +23,9 @@ class BITBOXCli {
     this.Crypto = Crypto;
     this.Util = new Util(config, this.BitboxHTTP);
   }
-  //
-  // xpub(xpub, HDPath) {
-  //   return Crypto.xpub(xpub, HDPath);
-  // }
 
 
-  addmultisigaddress(nrequired: number, keys: Array<string>, account: ?string): string{
+  addmultisigaddress(nrequired, keys, account){
     // Add a nrequired-to-sign multisignature address to the wallet.
     // Each key is a Bitcoin address or hex-encoded public key.
     // If 'account' is specified (DEPRECATED), assign address to that account.
@@ -82,7 +77,7 @@ class BITBOXCli {
     });
   }
 
-  addnode(node: string, command: string): string{
+  addnode(node, command){
     // Attempts add or remove a node from the addnode list.
     // Or try a connection to a node once.
     //
@@ -114,7 +109,7 @@ class BITBOXCli {
     });
   }
 
-  backupwallet(destination: string): string {
+  backupwallet(destination) {
     // Safely copies current wallet file to destination, which can be a directory or a path with filename.
     //
     // Arguments:
@@ -151,7 +146,7 @@ class BITBOXCli {
     });
   }
 
-  clearbanned(): string {
+  clearbanned() {
     //The clearbanned RPC clears list of banned nodes.
 
     // Parameters: none
@@ -180,7 +175,7 @@ class BITBOXCli {
     });
   }
 
-  createrawtransaction(inputs: Array<any>, outputs: any, locktime: ?number): string {
+  createrawtransaction(inputs, outputs, locktime) {
     // creates an unsigned serialized transaction that spends a previous output to a new output with a P2PKH or P2SH address. The transaction is not stored in the wallet or transmitted to the network.
 
     // Parameter #1—Inputs
@@ -224,7 +219,7 @@ class BITBOXCli {
     });
   }
 
-  decoderawtransaction(rawHex: string): string {
+  decoderawtransaction(rawHex) {
     // decodes a serialized transaction hex string into a JSON object describing the transaction.
 
     // Parameter #1—serialized transaction in hex
@@ -254,7 +249,7 @@ class BITBOXCli {
     });
   }
 
-  decodescript(redeemScript: string): string {
+  decodescript(redeemScript) {
     // decodes a hex-encoded P2SH redeem script.
 
     // Parameter #1—a hex-encoded redeem script
@@ -285,7 +280,7 @@ class BITBOXCli {
     });
   }
 
-  disconnectnode(configuration: any): string {
+  disconnectnode(configuration) {
     // Immediately disconnects from the specified peer node.
     //
     // Strictly one out of 'configuration.address' and 'configuration.nodeid' can be provided to identify the node.
@@ -329,7 +324,7 @@ class BITBOXCli {
     });
   }
 
-  dumpprivkey(address: string): string {
+  dumpprivkey(address) {
     // returns the wallet-import-format (WIP) private key corresponding to an address. (But does not remove it from the wallet.)
 
     // Parameter #1—the address corresponding to the private key to get
@@ -359,7 +354,7 @@ class BITBOXCli {
     });
   }
 
-  dumpwallet(filename: string): string {
+  dumpwallet(filename) {
     // creates or overwrites a file with all wallet keys in a human-readable format.
 
     // Parameter #1—a filename
@@ -398,7 +393,7 @@ class BITBOXCli {
     });
   }
 
-  encryptwallet(passphrase: string): string {
+  encryptwallet(passphrase) {
     // encrypts the wallet with a passphrase. This is only to enable encryption for the first time. After encryption is enabled, you will need to enter the passphrase to use private keys.
     // if using this RPC on the command line, remember that your shell probably saves your command lines (including the value of the passphrase parameter). In addition, there is no RPC to completely disable encryption. If you want to return to an unencrypted wallet, you must create a new wallet and restore your data from a backup made with the dumpwallet RPC.
 
@@ -429,7 +424,7 @@ class BITBOXCli {
     });
   }
 
-  estimatesmartfee(nblocks: number): string {
+  estimatesmartfee(nblocks) {
     // WARNING: This interface is unstable and may disappear or change!
     //
     // Estimates the approximate fee per kilobyte needed for a transaction to begin
@@ -472,7 +467,7 @@ class BITBOXCli {
     });
   }
 
-  estimatesmartpriority(nblocks: number): any {
+  estimatesmartpriority(nblocks) {
     // DEPRECATED. WARNING: This interface is unstable and may disappear or change!
     //
     // Estimates the approximate priority a zero-fee transaction needs to begin
@@ -514,7 +509,7 @@ class BITBOXCli {
     });
   }
 
-  fundrawtransaction(hexstring: string, options: ?any): string {
+  fundrawtransaction(hexstring, options) {
     // Add inputs to a transaction until it has enough in value to meet its out value.
     // This will not modify existing inputs, and will add at most one change output to the outputs.
     // No existing outputs will be modified unless "subtractFeeFromOutputs" is specified.
@@ -584,7 +579,7 @@ class BITBOXCli {
     });
   }
 
-  generate(blocks: number, maxtries: ?number): string {
+  generate(blocks, maxtries) {
     // Mine up to nblocks blocks immediately (before the RPC call returns)
     //
     // Arguments:
@@ -623,7 +618,7 @@ class BITBOXCli {
     });
   }
 
-  generatetoaddress(blocks: number, address: string, maxtries: ?number): string {
+  generatetoaddress(blocks, address, maxtries) {
 
     // Mine blocks immediately to a specified address (before the RPC call returns)
     //
@@ -670,7 +665,7 @@ class BITBOXCli {
     });
   }
 
-  getaccountaddress(account: string): string {
+  getaccountaddress(account) {
     // DEPRECATED. Returns the current Bitcoin address for receiving payments to this account.
     //
     // Arguments:
@@ -701,7 +696,7 @@ class BITBOXCli {
     });
   }
 
-  getaccount(address: string): string {
+  getaccount(address) {
     // DEPRECATED. Returns the account associated with the given address.
     //
     // Arguments:
@@ -736,7 +731,7 @@ class BITBOXCli {
     });
   }
 
-  getaddednodeinfo(node: ?string): string {
+  getaddednodeinfo(node) {
     // Returns information about the given added node, or all added nodes
     // (note that onetry addnodes are not listed here)
     //
@@ -787,7 +782,7 @@ class BITBOXCli {
     });
   }
 
-  getaddressesbyaccount(account: string): string {
+  getaddressesbyaccount(account) {
   // DEPRECATED. Returns the list of addresses for the given account.
   //
   // Arguments:
@@ -831,7 +826,7 @@ class BITBOXCli {
     });
   }
 
-  getbalance(account: ?string, minconf: ?number, include_watchonly: ?boolean): string {
+  getbalance(account, minconf, include_watchonly) {
     // If account is not specified, returns the server's total available balance.
     // If account is specified (DEPRECATED), returns the balance in the account.
     // Note that the account "" is not the same as leaving the parameter out.
@@ -893,7 +888,7 @@ class BITBOXCli {
     });
   }
 
-  getbestblockhash(): string {
+  getbestblockhash() {
     // Returns the hash of the best (tip) block in the longest blockchain.
     //
     // Result:
@@ -920,7 +915,7 @@ class BITBOXCli {
     });
   }
 
-  getblock(blockhash: string, verbose: ?boolean): string {
+  getblock(blockhash, verbose) {
     // If verbose is false, returns a string that is serialized, hex-encoded data for block 'hash'.
     // If verbose is true, returns an Object with information about block <hash>.
     //
@@ -986,7 +981,7 @@ class BITBOXCli {
     });
   }
 
-  getblockchaininfo(): string {
+  getblockchaininfo() {
     // Returns an object containing various state info regarding blockchain processing.
     return this.BitboxHTTP({
       method: 'post',
@@ -1009,7 +1004,7 @@ class BITBOXCli {
     });
   }
 
-  getblockcount(): string {
+  getblockcount() {
     // Returns the number of blocks in the longest blockchain.
     //
     // Result:
@@ -1036,7 +1031,7 @@ class BITBOXCli {
     });
   }
 
-  getblockhash(height: number): string {
+  getblockhash(height) {
     // Returns hash of block in best-block-chain at height provided.
     //
     // Arguments:
@@ -1072,7 +1067,7 @@ class BITBOXCli {
     });
   }
 
-  getblockheader(hash: string, verbose: ?boolean): string {
+  getblockheader(hash, verbose) {
 
     // If verbose is false, returns a string that is serialized, hex-encoded data for blockheader 'hash'.
     // If verbose is true, returns an Object with information about blockheader <hash>.
@@ -1134,7 +1129,7 @@ class BITBOXCli {
     });
   }
 
-  getblocktemplate(template_request: ?any): string {
+  getblocktemplate(template_request) {
 
     // If the request parameters include a 'mode' key, that is used to explicitly select between the default 'template' request or a 'proposal'.
     // It returns data needed to construct a block to work on.
@@ -1189,7 +1184,7 @@ class BITBOXCli {
     });
   }
 
-  getchaintips(): string {
+  getchaintips() {
 
     // Return information about all known tips in the block tree, including the main chain as well as orphaned branches.
     //
@@ -1236,7 +1231,7 @@ class BITBOXCli {
     });
   }
 
-  getconnectioncount(): string {
+  getconnectioncount() {
 
     // Returns the number of connections to other nodes.
     //
@@ -1264,7 +1259,7 @@ class BITBOXCli {
     });
   }
 
-  getdifficulty(): string {
+  getdifficulty() {
 
     // Returns the proof-of-work difficulty as a multiple of the minimum difficulty.
     //
@@ -1292,7 +1287,7 @@ class BITBOXCli {
     });
   }
 
-  getinfo(): string {
+  getinfo() {
     // DEPRECATED. Returns an object containing various state info.
     //
     // Result:
@@ -1331,12 +1326,12 @@ class BITBOXCli {
     .then((response) => {
       return response.data.result;
     })
-    .catch(error => {
+    .catch((error) => {
       return Error(error.response.data.error.message);
     });
   }
 
-  getmemoryinfo(): string {
+  getmemoryinfo() {
 
     // Returns an object containing information about memory usage.
     //
@@ -1374,7 +1369,7 @@ class BITBOXCli {
     });
   }
 
-  getmempoolancestors(txid: string, verbose: ?boolean): string {
+  getmempoolancestors(txid, verbose) {
     // If txid is in the mempool, returns all in-mempool ancestors.
     //
     // Arguments:
@@ -1442,7 +1437,7 @@ class BITBOXCli {
     });
   }
 
-  getmempooldescendants(txid: string, verbose: ?boolean): string {
+  getmempooldescendants(txid, verbose) {
     // If txid is in the mempool, returns all in-mempool descendants.
     //
     // Arguments:
@@ -1509,7 +1504,7 @@ class BITBOXCli {
     });
   }
 
-  getmempoolentry(txid: string): string {
+  getmempoolentry(txid) {
     // Returns mempool data for given transaction
     //
     // Arguments:
@@ -1558,7 +1553,7 @@ class BITBOXCli {
     });
   }
 
-  getmempoolinfo(): string {
+  getmempoolinfo() {
     // Returns details on the active state of the TX memory pool.
     //
     // Result:
@@ -1591,7 +1586,7 @@ class BITBOXCli {
     });
   }
 
-  getmininginfo(): string {
+  getmininginfo() {
     // Returns a json object containing mining-related information.
     // Result:
     // {
@@ -1627,7 +1622,7 @@ class BITBOXCli {
     });
   }
 
-  getnettotals(): string {
+  getnettotals() {
     // Returns information about network traffic, including bytes in, bytes out, and current time.
     //
     // Result:
@@ -1667,7 +1662,7 @@ class BITBOXCli {
     });
   }
 
-  getnetworkhashps(nblocks: ?number, height: ?number): string {
+  getnetworkhashps(nblocks, height) {
     // Returns the estimated network hashes per second based on the last n blocks.
     // Pass in [blocks] to override # of blocks, -1 specifies since last difficulty change.
     // Pass in [height] to estimate the network speed at the time when a certain block was found.
@@ -1710,7 +1705,7 @@ class BITBOXCli {
     });
   }
 
-  getnetworkinfo(): string {
+  getnetworkinfo() {
     // Returns an object containing various state info regarding P2P networking.
     //
     // Result:
@@ -1767,7 +1762,7 @@ class BITBOXCli {
     });
   }
 
-  getnewaddress(account: ?string): string {
+  getnewaddress(account) {
     // Returns a new Bitcoin address for receiving payments.
     // If 'account' is specified (DEPRECATED), it is added to the address book
     // so payments received with the address will be credited to 'account'.
@@ -1804,7 +1799,7 @@ class BITBOXCli {
     });
   }
 
-  getpeerinfo(): string {
+  getpeerinfo() {
     // Returns data about each connected network node as a json array of objects.
     //
     // Result:
@@ -1870,7 +1865,7 @@ class BITBOXCli {
     });
   }
 
-  getrawchangeaddress(): string {
+  getrawchangeaddress() {
     // Returns a new Bitcoin address, for receiving change.
     // This is for use with raw transactions, NOT normal use.
     //
@@ -1898,7 +1893,7 @@ class BITBOXCli {
     });
   }
 
-  getrawmempool(verbose: ?boolean): string {
+  getrawmempool(verbose) {
     // Returns all transaction ids in memory pool as a json array of string transaction ids.
     //
     // Arguments:
@@ -1957,7 +1952,7 @@ class BITBOXCli {
     });
   }
 
-  getrawtransaction(txid: string, verbose: ?boolean): string {
+  getrawtransaction(txid, verbose) {
     // NOTE: By default this function only works for mempool transactions. If the -txindex option is
     // enabled, it also works for blockchain transactions.
     // DEPRECATED: for now, it also works for transactions with unspent outputs.
@@ -2006,7 +2001,7 @@ class BITBOXCli {
     });
   }
 
-  getreceivedbyaccount(account: string, minconf: ?number): string {
+  getreceivedbyaccount(account, minconf) {
     // DEPRECATED. Returns the total amount received by addresses with <account> in transactions with at least [minconf] confirmations.
     //
     // Arguments:
@@ -2052,7 +2047,7 @@ class BITBOXCli {
     });
   }
 
-  getreceivedbyaddress(address: string, minconf: ?number): string {
+  getreceivedbyaddress(address, minconf) {
     // Returns the total amount received by the given address in transactions with at least minconf confirmations.
     //
     // Arguments:
@@ -2095,7 +2090,7 @@ class BITBOXCli {
     });
   }
 
-  gettransaction(txid: string, include_watchonly: ?boolean): string {
+  gettransaction(txid, include_watchonly) {
     // Get detailed information about in-wallet transaction <txid>
     //
     // Arguments:
@@ -2166,7 +2161,7 @@ class BITBOXCli {
     });
   }
 
-  gettxout(txid: string, n: number, include_mempool: ?boolean): string {
+  gettxout(txid, n, include_mempool) {
     // Returns details about an unspent transaction output.
     //
     // Arguments:
@@ -2227,7 +2222,7 @@ class BITBOXCli {
     });
   }
 
-  gettxoutproof(txids: Array<string>, blockhash: ?string): string {
+  gettxoutproof(txids, blockhash) {
     // Returns a hex-encoded proof that "txid" was included in a block.
     //
     // NOTE: By default this function only works sometimes. This is when there is an
@@ -2278,7 +2273,7 @@ class BITBOXCli {
     });
   }
 
-  gettxoutsetinfo(): string {
+  gettxoutsetinfo() {
     // Returns statistics about the unspent transaction output set.
     // Note this call may take some time.
     //
@@ -2316,7 +2311,7 @@ class BITBOXCli {
     });
   }
 
-  getunconfirmedbalance(): string {
+  getunconfirmedbalance() {
     // Returns the server's total unconfirmed balance
 
     return this.BitboxHTTP({
@@ -2340,7 +2335,7 @@ class BITBOXCli {
     });
   }
 
-  getwalletinfo(): string {
+  getwalletinfo() {
     // Returns an object containing various wallet state info.
     //
     // Result:
@@ -2378,7 +2373,7 @@ class BITBOXCli {
     });
   }
 
-  help(command: ?string): string {
+  help(command) {
     // List all commands, or get help for a specified command.
     //
     // Arguments:
@@ -2411,7 +2406,7 @@ class BITBOXCli {
     });
   }
 
-  importaddress(script: string, label: ?string, rescan: ?boolean, p2sh: ?boolean): string {
+  importaddress(script, label, rescan, p2sh) {
     // Adds a script (in hex) or address that can be watched as if it were in your wallet but cannot be used to spend.
     //
     // Arguments:
@@ -2473,7 +2468,7 @@ class BITBOXCli {
     });
   }
 
-  importmulti(requests: Array<any>, options: ?any): string {
+  importmulti(requests, options) {
     // Import addresses/scripts (with private or public keys, redeem script (P2SH)), rescanning all addresses in one-shot-only (rescan can be disabled via options).
     //
     // Arguments:
@@ -2538,7 +2533,7 @@ class BITBOXCli {
     });
   }
 
-  importprivkey(bitcoinprivkey: string, label: ?string, rescan: ?boolean): string {
+  importprivkey(bitcoinprivkey, label, rescan) {
     // Adds a private key (as returned by dumpprivkey) to your wallet.
     //
     // Arguments:
@@ -2583,7 +2578,7 @@ class BITBOXCli {
     });
   }
 
-  importprunedfunds(rawtransaction: string, txoutproof: string): string {
+  importprunedfunds(rawtransaction, txoutproof) {
     // Imports funds without rescan. Corresponding address or script must previously be included in wallet. Aimed towards pruned wallets. The end-user is responsible to import additional transactions that subsequently spend the imported outputs or rescan after the point in the blockchain the transaction is included.
     //
     // Arguments:
@@ -2614,7 +2609,7 @@ class BITBOXCli {
     });
   }
 
-  importwallet(filename: string): string {
+  importwallet(filename) {
     // Imports keys from a wallet dump file (see dumpwallet).
     //
     // Arguments:
@@ -2642,7 +2637,7 @@ class BITBOXCli {
     });
   }
 
-  keypoolrefill(newsize: ?number): string {
+  keypoolrefill(newsize) {
 
   // Fills the keypool.
   //
@@ -2674,7 +2669,7 @@ class BITBOXCli {
     });
   }
 
-  listaccounts(minconf: ?number, include_watchonly: ?boolean): string {
+  listaccounts(minconf, include_watchonly) {
     // DEPRECATED. Returns Object that has account names as keys, account balances as values.
     //
     // Arguments:
@@ -2719,7 +2714,7 @@ class BITBOXCli {
     });
   }
 
-  listaddressgroupings(): string {
+  listaddressgroupings() {
     // Lists groups of addresses which have had their common ownership
     // made public by common use as inputs or as the resulting change
     // in past transactions
@@ -2758,7 +2753,7 @@ class BITBOXCli {
     });
   }
 
-  listbanned(): string {
+  listbanned() {
     // List all banned IPs/Subnets.
     return this.BitboxHTTP({
       method: 'post',
@@ -2781,7 +2776,7 @@ class BITBOXCli {
     });
   }
 
-  listlockunspent(): string {
+  listlockunspent() {
     // Returns list of temporarily unspendable outputs.
     // See the lockunspent call to lock and unlock transactions for spending.
     //
@@ -2814,7 +2809,7 @@ class BITBOXCli {
     });
   }
 
-  listreceivedbyaccount(minconf: ?number, include_empty: ?boolean, include_watchonly: ?boolean): string {
+  listreceivedbyaccount(minconf, include_empty, include_watchonly) {
     // DEPRECATED. List balances by account.
     //
     // Arguments:
@@ -2874,7 +2869,7 @@ class BITBOXCli {
     });
   }
 
-  listreceivedbyaddress(minconf: ?number, include_empty: ?boolean, include_watchonly: ?boolean): string {
+  listreceivedbyaddress(minconf, include_empty, include_watchonly) {
     // List balances by receiving address.
     //
     // Arguments:
@@ -2939,7 +2934,7 @@ class BITBOXCli {
     });
   }
 
-  listsinceblock(blockhash: ?string, target_confirmations: ?number, include_watchonly: ?boolean): string {
+  listsinceblock(blockhash, target_confirmations, include_watchonly) {
     // Get all transactions in blocks since block [blockhash], or all transactions if omitted
     //
     // Arguments:
@@ -3007,7 +3002,7 @@ class BITBOXCli {
     });
   }
 
-  listtransactions(account: ?string, count: ?number, skip: ?number, include_watchonly: ?boolean): string {
+  listtransactions(account, count, skip, include_watchonly) {
     // Returns up to 'count' most recent transactions skipping the first 'from' transactions for account 'account'.
     //
     // Arguments:
@@ -3062,7 +3057,7 @@ class BITBOXCli {
     });
   }
 
-  listunspent(minconf: ?number, maxconf: ?number, addresses: Array<string>, include_unsafe: ?boolean): string {
+  listunspent(minconf, maxconf, addresses, include_unsafe) {
     // Returns array of unspent transaction outputs with between minconf and maxconf (inclusive) confirmations.
     // Optionally filter to only include txouts paid to specified addresses.
     //
@@ -3140,7 +3135,7 @@ class BITBOXCli {
     });
   }
 
-  lockunspent(unlock: boolean, transactions: ?Array<string>): string {
+  lockunspent(unlock, transactions) {
     // Updates list of temporarily unspendable outputs.
     // Temporarily lock (unlock=false) or unlock (unlock=true) specified transaction outputs.
     // If no transaction outputs are specified when unlocking then all current locked transaction outputs are unlocked.
@@ -3195,7 +3190,7 @@ class BITBOXCli {
     });
   }
 
-  move(fromaccount: string, toaccount: string, amount: ?number, dummy: ?number, comment: ?string): string {
+  move(fromaccount, toaccount, amount, dummy, comment) {
     // DEPRECATED. Move a specified amount from one account in your wallet to another.
     //
     // Arguments:
@@ -3250,7 +3245,7 @@ class BITBOXCli {
     });
   }
 
-  ping(): string {
+  ping() {
     // Requests that a ping be sent to all other nodes, to measure ping time.
     // Results provided in getpeerinfo, pingtime and pingwait fields are decimal seconds.
     // Ping command is handled in queue with all other commands, so it measures processing backlog, not just network ping.
@@ -3276,7 +3271,7 @@ class BITBOXCli {
     });
   }
 
-  preciousblock(blockhash: string): string {
+  preciousblock(blockhash) {
     // Treats a block as if it were received before others with the same work.
     //
     // A later preciousblock call can override the effect of an earlier one.
@@ -3311,7 +3306,7 @@ class BITBOXCli {
     });
   }
 
-  prioritisetransaction(txid: string, priority_delta: number, fee_delta: number): string {
+  prioritisetransaction(txid, priority_delta, fee_delta) {
     // Accepts the transaction into mined blocks at a higher (or lower) priority
     //
     // Arguments:
@@ -3360,7 +3355,7 @@ class BITBOXCli {
     });
   }
 
-  pruneblockchain(height: number): string {
+  pruneblockchain(height) {
     // Arguments:
     // 1. "height"       (numeric, required) The block height to prune up to. May be set to a discrete height, or a unix timestamp
     //                   to prune blocks whose block time is at least 2 hours older than the provided timestamp.
@@ -3393,7 +3388,7 @@ class BITBOXCli {
     });
   }
 
-  removeprunedfunds(txid: string): string {
+  removeprunedfunds(txid) {
     // Deletes the specified transaction from the wallet. Meant for use with pruned wallets and as a companion to importprunedfunds. This will effect wallet balances.
     //
     // Arguments:
@@ -3422,7 +3417,7 @@ class BITBOXCli {
     });
   }
 
-  sendfrom(fromaccount: string, toaddress: string, amount: number|string, minconf: ?number, comment: ?string, comment_to: ?string ): string {
+  sendfrom(fromaccount, toaddress, amount, minconf, comment, comment_to ) {
     // DEPRECATED (use sendtoaddress). Sent an amount from an account to a bitcoin address.
     //
     // Arguments:
@@ -3487,7 +3482,7 @@ class BITBOXCli {
     });
   }
 
-  sendmany(fromaccount: string, amounts: any, minconf: ?number, comment: ?string, subtractfeefrom: ?Array<any>): string {
+  sendmany(fromaccount, amounts, minconf, comment, subtractfeefrom) {
     // Send multiple times. Amounts are double-precision floating point numbers.
     //
     // Arguments:
@@ -3553,7 +3548,7 @@ class BITBOXCli {
     });
   }
 
-  sendrawtransaction(hexstring: string, allowhighfees: ?boolean): string {
+  sendrawtransaction(hexstring, allowhighfees) {
     // Submits raw transaction (serialized, hex-encoded) to local node and network.
     //
     // Also see createrawtransaction and signrawtransaction calls.
@@ -3596,7 +3591,7 @@ class BITBOXCli {
     });
   }
 
-  sendtoaddress(address: string, amount: number|string, comment: ?string, comment_to: ?string, subtractfeefromamount: ?boolean): string {
+  sendtoaddress(address, amount, comment, comment_to, subtractfeefromamount) {
     // Send an amount to a given address.
     //
     // Arguments:
@@ -3654,7 +3649,7 @@ class BITBOXCli {
     });
   }
 
-  setaccount(address: string, account: string): string {
+  setaccount(address, account) {
     // DEPRECATED. Sets the account associated with the given address.
     //
     // Arguments:
@@ -3690,7 +3685,7 @@ class BITBOXCli {
     });
   }
 
-  setban(subnet: string, command: string, bantime: ?number, absolute: ?boolean): string {
+  setban(subnet, command, bantime, absolute) {
     // Attempts add or remove a IP/Subnet from the banned list.
     //
     // Arguments:
@@ -3736,7 +3731,7 @@ class BITBOXCli {
     });
   }
 
-  setnetworkactive(state: boolean): string {
+  setnetworkactive(state) {
     // Disable/enable all p2p network activity.
     //
     // Arguments:
@@ -3765,7 +3760,7 @@ class BITBOXCli {
     });
   }
 
-  settxfee(amount: string): string {
+  settxfee(amount) {
     // Set the transaction fee per kB. Overwrites the paytxfee parameter.
     //
     // Arguments:
@@ -3797,7 +3792,7 @@ class BITBOXCli {
     });
   }
 
-  signmessage(address: string, message: string): string {
+  signmessage(address, message) {
 
     // Sign a message with the private key of an address
 
@@ -3838,7 +3833,7 @@ class BITBOXCli {
     });
   }
 
-  signrawtransaction(hexstring: string, prevtxs: ?Array<string>, privkeys: ?Array<string>, sighashtype: ?string): string {
+  signrawtransaction(hexstring, prevtxs, privkeys, sighashtype) {
   // Sign inputs for raw transaction (serialized, hex-encoded).
   // The second optional argument (may be null) is an array of previous transaction outputs that
   // this transaction depends on but may not yet be in the block chain.
@@ -3916,7 +3911,7 @@ class BITBOXCli {
     });
   }
 
-  stop(): string {
+  stop() {
     // Stop Bitcoin Cash server.
     return this.BitboxHTTP({
       method: 'post',
@@ -3939,7 +3934,7 @@ class BITBOXCli {
     });
   }
 
-  submitblock(hexdata: string, parameters: ?any): string {
+  submitblock(hexdata, parameters) {
     // Attempts to submit new block to network.
     // The 'jsonparametersobject' parameter is currently ignored.
     // See https://en.bitcoin.it/wiki/BIP_0022 for full specification.
@@ -3981,7 +3976,7 @@ class BITBOXCli {
     });
   }
 
-  verifychain(checklevel: ?number, nblocks: ?number): string {
+  verifychain(checklevel, nblocks) {
     // Verifies blockchain database.
     //
     // Arguments:
@@ -4020,7 +4015,7 @@ class BITBOXCli {
     });
   }
 
-  verifytxoutproof(proof: string): string {
+  verifytxoutproof(proof) {
     // Verifies that a proof points to a transaction in a block, returning the transaction it commits to
     // and throwing an RPC error if the block is not in our best chain
     //
@@ -4053,7 +4048,7 @@ class BITBOXCli {
     });
   }
 
-  walletlock(): string {
+  walletlock() {
     // removes the wallet encryption key from memory, locking the wallet. After calling this method, you will need to call walletpassphrase again before being able to call any methods which require the wallet to be unlocked.
     //
     // Parameters: none
@@ -4081,7 +4076,7 @@ class BITBOXCli {
     });
   }
 
-  walletpassphrase(passphrase: string, seconds: number): string {
+  walletpassphrase(passphrase, seconds) {
     // stores the wallet decryption key in memory for the indicated number of seconds. Issuing the walletpassphrase command while the wallet is already unlocked will set a new unlock time that overrides the old one.
 
     //Parameter #1—the passphrase
@@ -4119,7 +4114,7 @@ class BITBOXCli {
     });
   }
 
-  walletpassphrasechange(passphrase: string, newPassphrase: string): string {
+  walletpassphrasechange(passphrase, newPassphrase) {
     //  changes the wallet passphrase from ‘old passphrase’ to ‘new passphrase’.
     // Parameter #1—the current passphrase
 
