@@ -1,4 +1,3 @@
-// @flow
 class Util {
   constructor(config, BitboxHTTP) {
     this.config = config;
