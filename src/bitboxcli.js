@@ -4,6 +4,9 @@ import Crypto from './Crypto';
 import Util from './Util';
 import Blockchain from './Blockchain';
 import Control from './Control';
+import Generating from './Generating';
+import Mining from './Mining';
+import Network from './Network';
 
 class BITBOXCli {
   constructor(config) {
@@ -26,6 +29,9 @@ class BITBOXCli {
     this.Util = new Util(config, this.BitboxHTTP);
     this.Blockchain = new Blockchain(config, this.BitboxHTTP);
     this.Control = new Control(config, this.BitboxHTTP);
+    this.Generating = new Generating(config, this.BitboxHTTP);
+    this.Mining = new Mining(config, this.BitboxHTTP);
+    this.Network = new Network(config, this.BitboxHTTP);
   }
 
 
@@ -81,38 +87,6 @@ class BITBOXCli {
     });
   }
 
-  addnode(node, command){
-    // Attempts add or remove a node from the addnode list.
-    // Or try a connection to a node once.
-    //
-    // Arguments:
-    // 1. "node"     (string, required) The node (see getpeerinfo for nodes)
-    // 2. "command"  (string, required) 'add' to add a node to the list, 'remove' to remove a node from the list, 'onetry' to try a connection to the node once
-    //
-    return this.BitboxHTTP({
-      method: 'post',
-      auth: {
-        username: this.config.username,
-        password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"addnode",
-        method: "addnode",
-        params: [
-          node,
-          command
-        ]
-      }
-    })
-    .then((response) => {
-      return response.data.result;
-    })
-    .catch((error) => {
-      return Error(error.response.data.error.message);
-    });
-  }
-
   backupwallet(destination) {
     // Safely copies current wallet file to destination, which can be a directory or a path with filename.
     //
@@ -146,35 +120,6 @@ class BITBOXCli {
       });
     })
     .catch((error) => {
-      return Error(error.response.data.error.message);
-    });
-  }
-
-  clearbanned() {
-    //The clearbanned RPC clears list of banned nodes.
-
-    // Parameters: none
-
-    // Result—null on success
-    // JSON null when the list was cleared
-
-    return this.BitboxHTTP({
-      method: 'post',
-      auth: {
-        username: this.config.username,
-        password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"clearbanned",
-        method: "clearbanned",
-        params: []
-      }
-    })
-    .then((response) => {
-      return response.data.result;
-    })
-    .catch(error => {
       return Error(error.response.data.error.message);
     });
   }
@@ -274,50 +219,6 @@ class BITBOXCli {
         params: [
           redeemScript
         ]
-      }
-    })
-    .then((response) => {
-      return response.data.result;
-    })
-    .catch(error => {
-      return Error(error.response.data.error.message);
-    });
-  }
-
-  disconnectnode(configuration) {
-    // Immediately disconnects from the specified peer node.
-    //
-    // Strictly one out of 'configuration.address' and 'configuration.nodeid' can be provided to identify the node.
-    //
-    // To disconnect by nodeid, either set 'address' to the empty string, or call using the named 'nodeid' argument only.
-    //
-    // Arguments:
-    // 1. "configuration" (object, optional)
-    // Properties
-    // 1. "address"     (string, optional) The IP address/port of the node
-    // 2. "nodeid"      (number, optional) The node ID (see getpeerinfo for node IDs)
-    let params;
-    if(configuration && configuration.address && configuration.address !== "") {
-      params = [
-        configuration.address
-      ];
-    } else if(configuration && configuration.nodeid) {
-      params = [
-        "",
-        configuration.nodeid
-      ];
-    }
-    return this.BitboxHTTP({
-      method: 'post',
-      auth: {
-        username: this.config.username,
-        password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"disconnectnode",
-        method: "disconnectnode",
-        params: params
       }
     })
     .then((response) => {
@@ -583,45 +484,6 @@ class BITBOXCli {
     });
   }
 
-  generate(blocks, maxtries) {
-    // Mine up to nblocks blocks immediately (before the RPC call returns)
-    //
-    // Arguments:
-    // 1. nblocks      (numeric, required) How many blocks are generated immediately.
-    // 2. maxtries     (numeric, optional) How many iterations to try (default = 1000000).
-
-    let params;
-    if(!maxtries) {
-      params = [
-        blocks
-      ];
-    } else {
-      params = [
-        blocks,
-        maxtries
-      ];
-    }
-    return this.BitboxHTTP({
-      method: 'post',
-      auth: {
-        username: this.config.username,
-        password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"generate",
-        method: "generate",
-        params: params
-      }
-    })
-    .then((response) => {
-      return response.data.result;
-    })
-    .catch(error => {
-      return Error(error.response.data.error.message);
-    });
-  }
-
   generatetoaddress(blocks, address, maxtries) {
 
     // Mine blocks immediately to a specified address (before the RPC call returns)
@@ -724,57 +586,6 @@ class BITBOXCli {
         jsonrpc: "1.0",
         id:"getaccount",
         method: "getaccount",
-        params: params
-      }
-    })
-    .then((response) => {
-      return response.data.result;
-    })
-    .catch(error => {
-      return Error(error.response.data.error.message);
-    });
-  }
-
-  getaddednodeinfo(node) {
-    // Returns information about the given added node, or all added nodes
-    // (note that onetry addnodes are not listed here)
-    //
-    // Arguments:
-    // 1. "node"   (string, optional) If provided, return information about this specific node, otherwise all nodes are returned.
-    //
-    // Result:
-    // [
-    //   {
-    //     "addednode" : "192.168.0.201",   (string) The node ip address or name (as provided to addnode)
-    //     "connected" : true|false,          (boolean) If connected
-    //     "addresses" : [                    (list of objects) Only when connected = true
-    //        {
-    //          "address" : "192.168.0.201:8333",  (string) The bitcoin server IP and port we're connected to
-    //          "connected" : "outbound"           (string) connection, inbound or outbound
-    //        }
-    //      ]
-    //   }
-    //   ,...
-    // ]
-    let params;
-    if(!node) {
-      params = [];
-    } else {
-      params = [
-        node
-      ];
-    }
-
-    return this.BitboxHTTP({
-      method: 'post',
-      auth: {
-        username: this.config.username,
-        password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"getaddednodeinfo",
-        method: "getaddednodeinfo",
         params: params
       }
     })
@@ -892,265 +703,6 @@ class BITBOXCli {
     });
   }
 
-  getblocktemplate(template_request) {
-
-    // If the request parameters include a 'mode' key, that is used to explicitly select between the default 'template' request or a 'proposal'.
-    // It returns data needed to construct a block to work on.
-    // For full specification, see BIPs 22, 23, 9, and 145:
-    //     https://github.com/bitcoin/bips/blob/master/bip-0022.mediawiki
-    //     https://github.com/bitcoin/bips/blob/master/bip-0023.mediawiki
-    //     https://github.com/bitcoin/bips/blob/master/bip-0009.mediawiki#getblocktemplate_changes
-    //     https://github.com/bitcoin/bips/blob/master/bip-0145.mediawiki
-    //
-    // Arguments:
-    // 1. template_request         (json object, optional) A json object in the following spec
-    //      {
-    //        "mode":"template"    (string, optional) This must be set to "template", "proposal" (see BIP 23), or omitted
-    //        "capabilities":[     (array, optional) A list of strings
-    //            "support"          (string) client side supported feature, 'longpoll', 'coinbasetxn', 'coinbasevalue', 'proposal', 'serverlist', 'workid'
-    //            ,...
-    //        ],
-    //        "rules":[            (array, optional) A list of strings
-    //            "support"          (string) client side supported softfork deployment
-    //            ,...
-    //        ]
-    //      }
-
-    let params;
-    if(!template_request) {
-      params = [];
-    } else {
-      params = [
-        template_request
-      ];
-    }
-
-
-    return this.BitboxHTTP({
-      method: 'post',
-      auth: {
-        username: this.config.username,
-        password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"getblocktemplate",
-        method: "getblocktemplate",
-        params: params
-      }
-    })
-    .then((response) => {
-      return response.data.result;
-    })
-    .catch(error => {
-      return Error(error.response.data.error.message);
-    });
-  }
-
-  getconnectioncount() {
-
-    // Returns the number of connections to other nodes.
-    //
-    // Result:
-    // n          (numeric) The connection count
-
-    return this.BitboxHTTP({
-      method: 'post',
-      auth: {
-        username: this.config.username,
-        password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"getconnectioncount",
-        method: "getconnectioncount",
-        params: []
-      }
-    })
-    .then((response) => {
-      return response.data.result;
-    })
-    .catch(error => {
-      return Error(error.response.data.error.message);
-    });
-  }
-
-  getmininginfo() {
-    // Returns a json object containing mining-related information.
-    // Result:
-    // {
-    //   "blocks": nnn,             (numeric) The current block
-    //   "currentblocksize": nnn,   (numeric) The last block size
-    //   "currentblocktx": nnn,     (numeric) The last block transaction
-    //   "difficulty": xxx.xxxxx    (numeric) The current difficulty
-    //   "errors": "..."            (string) Current errors
-    //   "networkhashps": nnn,      (numeric) The network hashes per second
-    //   "pooledtx": n              (numeric) The size of the mempool
-    //   "chain": "xxxx",           (string) current network name as defined in BIP70 (main, test, regtest)
-    // }
-
-
-    return this.BitboxHTTP({
-      method: 'post',
-      auth: {
-        username: this.config.username,
-        password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"getmininginfo",
-        method: "getmininginfo",
-        params: []
-      }
-    })
-    .then((response) => {
-      return response.data.result;
-    })
-    .catch(error => {
-      return Error(error.response.data.error.message);
-    });
-  }
-
-  getnettotals() {
-    // Returns information about network traffic, including bytes in, bytes out, and current time.
-    //
-    // Result:
-    // {
-    //   "totalbytesrecv": n,   (numeric) Total bytes received
-    //   "totalbytessent": n,   (numeric) Total bytes sent
-    //   "timemillis": t,       (numeric) Current UNIX time in milliseconds
-    //   "uploadtarget":
-    //   {
-    //     "timeframe": n,                         (numeric) Length of the measuring timeframe in seconds
-    //     "target": n,                            (numeric) Target in bytes
-    //     "target_reached": true|false,           (boolean) True if target is reached
-    //     "serve_historical_blocks": true|false,  (boolean) True if serving historical blocks
-    //     "bytes_left_in_cycle": t,               (numeric) Bytes left in current time cycle
-    //     "time_left_in_cycle": t                 (numeric) Seconds left in current time cycle
-    //   }
-    // }
-
-    return this.BitboxHTTP({
-      method: 'post',
-      auth: {
-        username: this.config.username,
-        password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"getnettotals",
-        method: "getnettotals",
-        params: []
-      }
-    })
-    .then((response) => {
-      return response.data.result;
-    })
-    .catch(error => {
-      return Error(error.response.data.error.message);
-    });
-  }
-
-  getnetworkhashps(nblocks, height) {
-    // Returns the estimated network hashes per second based on the last n blocks.
-    // Pass in [blocks] to override # of blocks, -1 specifies since last difficulty change.
-    // Pass in [height] to estimate the network speed at the time when a certain block was found.
-    //
-    // Arguments:
-    // 1. nblocks     (numeric, optional, default=120) The number of blocks, or -1 for blocks since last difficulty change.
-    // 2. height      (numeric, optional, default=-1) To estimate at the time of the given height.
-    //
-    // Result:
-    // x             (numeric) Hashes per second estimated
-
-    let params = [];
-    if(nblocks) {
-      params.push(nblocks);
-    } else {
-      params.push(0);
-    }
-
-    if(height) {
-      params.push(height);
-    }
-    return this.BitboxHTTP({
-      method: 'post',
-      auth: {
-        username: this.config.username,
-        password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"getnetworkhashps",
-        method: "getnetworkhashps",
-        params: params
-      }
-    })
-    .then((response) => {
-      return response.data.result;
-    })
-    .catch(error => {
-      return Error(error.response.data.error.message);
-    });
-  }
-
-  getnetworkinfo() {
-    // Returns an object containing various state info regarding P2P networking.
-    //
-    // Result:
-    // {
-    //   "version": xxxxx,                      (numeric) the server version
-    //   "subversion": "/Satoshi:x.x.x/",     (string) the server subversion string
-    //   "protocolversion": xxxxx,              (numeric) the protocol version
-    //   "localservices": "xxxxxxxxxxxxxxxx", (string) the services we offer to the network
-    //   "localrelay": true|false,              (bool) true if transaction relay is requested from peers
-    //   "timeoffset": xxxxx,                   (numeric) the time offset
-    //   "connections": xxxxx,                  (numeric) the number of connections
-    //   "networkactive": true|false,           (bool) whether p2p networking is enabled
-    //   "networks": [                          (array) information per network
-    //   {
-    //     "name": "xxx",                     (string) network (ipv4, ipv6 or onion)
-    //     "limited": true|false,               (boolean) is the network limited using -onlynet?
-    //     "reachable": true|false,             (boolean) is the network reachable?
-    //     "proxy": "host:port"               (string) the proxy that is used for this network, or empty if none
-    //     "proxy_randomize_credentials": true|false,  (string) Whether randomized credentials are used
-    //   }
-    //   ,...
-    //   ],
-    //   "relayfee": x.xxxxxxxx,                (numeric) minimum relay fee for non-free transactions in BCH/kB
-    //   "incrementalfee": x.xxxxxxxx,          (numeric) minimum fee increment for mempool limiting or BIP 125 replacement in BCH/kB
-    //   "localaddresses": [                    (array) list of local addresses
-    //   {
-    //     "address": "xxxx",                 (string) network address
-    //     "port": xxx,                         (numeric) network port
-    //     "score": xxx                         (numeric) relative score
-    //   }
-    //   ,...
-    //   ]
-    //   "warnings": "..."                    (string) any network warnings
-    // }
-
-    return this.BitboxHTTP({
-      method: 'post',
-      auth: {
-        username: this.config.username,
-        password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"getnetworkinfo",
-        method: "getnetworkinfo",
-        params: []
-      }
-    })
-    .then((response) => {
-      return response.data.result;
-    })
-    .catch(error => {
-      return Error(error.response.data.error.message);
-    });
-  }
-
   getnewaddress(account) {
     // Returns a new Bitcoin address for receiving payments.
     // If 'account' is specified (DEPRECATED), it is added to the address book
@@ -1178,72 +730,6 @@ class BITBOXCli {
         id:"getnewaddress",
         method: "getnewaddress",
         params: params
-      }
-    })
-    .then((response) => {
-      return response.data.result;
-    })
-    .catch(error => {
-      return Error(error.response.data.error.message);
-    });
-  }
-
-  getpeerinfo() {
-    // Returns data about each connected network node as a json array of objects.
-    //
-    // Result:
-    // [
-    //   {
-    //     "id": n,                   (numeric) Peer index
-    //     "addr":"host:port",      (string) The ip address and port of the peer
-    //     "addrlocal":"ip:port",   (string) local address
-    //     "services":"xxxxxxxxxxxxxxxx",   (string) The services offered
-    //     "relaytxes":true|false,    (boolean) Whether peer has asked us to relay transactions to it
-    //     "lastsend": ttt,           (numeric) The time in seconds since epoch (Jan 1 1970 GMT) of the last send
-    //     "lastrecv": ttt,           (numeric) The time in seconds since epoch (Jan 1 1970 GMT) of the last receive
-    //     "bytessent": n,            (numeric) The total bytes sent
-    //     "bytesrecv": n,            (numeric) The total bytes received
-    //     "conntime": ttt,           (numeric) The connection time in seconds since epoch (Jan 1 1970 GMT)
-    //     "timeoffset": ttt,         (numeric) The time offset in seconds
-    //     "pingtime": n,             (numeric) ping time (if available)
-    //     "minping": n,              (numeric) minimum observed ping time (if any at all)
-    //     "pingwait": n,             (numeric) ping wait (if non-zero)
-    //     "version": v,              (numeric) The peer version, such as 7001
-    //     "subver": "/Satoshi:0.8.5/",  (string) The string version
-    //     "inbound": true|false,     (boolean) Inbound (true) or Outbound (false)
-    //     "addnode": true|false,     (boolean) Whether connection was due to addnode and is using an addnode slot
-    //     "startingheight": n,       (numeric) The starting height (block) of the peer
-    //     "banscore": n,             (numeric) The ban score
-    //     "synced_headers": n,       (numeric) The last header we have in common with this peer
-    //     "synced_blocks": n,        (numeric) The last block we have in common with this peer
-    //     "inflight": [
-    //        n,                        (numeric) The heights of blocks we're currently asking from this peer
-    //        ...
-    //     ],
-    //     "whitelisted": true|false, (boolean) Whether the peer is whitelisted
-    //     "bytessent_per_msg": {
-    //        "addr": n,              (numeric) The total bytes sent aggregated by message type
-    //        ...
-    //     },
-    //     "bytesrecv_per_msg": {
-    //        "addr": n,              (numeric) The total bytes received aggregated by message type
-    //        ...
-    //     }
-    //   }
-    //   ,...
-    // ]
-
-    return this.BitboxHTTP({
-      method: 'post',
-      auth: {
-        username: this.config.username,
-        password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"getpeerinfo",
-        method: "getpeerinfo",
-        params: []
       }
     })
     .then((response) => {
@@ -1900,29 +1386,6 @@ class BITBOXCli {
     });
   }
 
-  listbanned() {
-    // List all banned IPs/Subnets.
-    return this.BitboxHTTP({
-      method: 'post',
-      auth: {
-        username: this.config.username,
-        password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"listbanned",
-        method: "listbanned",
-        params: []
-      }
-    })
-    .then((response) => {
-      return response.data.result;
-    })
-    .catch(error => {
-      return Error(error.response.data.error.message);
-    });
-  }
-
   listlockunspent() {
     // Returns list of temporarily unspendable outputs.
     // See the lockunspent call to lock and unlock transactions for spending.
@@ -2392,81 +1855,6 @@ class BITBOXCli {
     });
   }
 
-  ping() {
-    // Requests that a ping be sent to all other nodes, to measure ping time.
-    // Results provided in getpeerinfo, pingtime and pingwait fields are decimal seconds.
-    // Ping command is handled in queue with all other commands, so it measures processing backlog, not just network ping.
-
-    return this.BitboxHTTP({
-      method: 'post',
-      auth: {
-        username: this.config.username,
-        password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"ping",
-        method: "ping",
-        params: []
-      }
-    })
-    .then((response) => {
-      return response.data.result;
-    })
-    .catch(error => {
-      return Error(error.response.data.error.message);
-    });
-  }
-
-  prioritisetransaction(txid, priority_delta, fee_delta) {
-    // Accepts the transaction into mined blocks at a higher (or lower) priority
-    //
-    // Arguments:
-    // 1. "txid"       (string, required) The transaction id.
-    // 2. priority_delta (numeric, required) The priority to add or subtract.
-    //                   The transaction selection algorithm considers the tx as it would have a higher priority.
-    //                   (priority of a transaction is calculated: coinage * value_in_satoshis / txsize)
-    // 3. fee_delta      (numeric, required) The fee value (in satoshis) to add (or subtract, if negative).
-    //                   The fee is not actually paid, only the algorithm for selecting transactions into a block
-    //                   considers the transaction as it would have paid a higher (or lower) fee.
-    //
-    // Result:
-    // true              (boolean) Returns true
-
-    let params = [];
-    if(txid) {
-      params.push(txid);
-    }
-
-    if(priority_delta) {
-      params.push(priority_delta);
-    }
-
-    if(fee_delta) {
-      params.push(fee_delta);
-    }
-
-    return this.BitboxHTTP({
-      method: 'post',
-      auth: {
-        username: this.config.username,
-        password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"prioritisetransaction",
-        method: "prioritisetransaction",
-        params: params
-      }
-    })
-    .then((response) => {
-      return response.data.result;
-    })
-    .catch(error => {
-      return Error(error.response.data.error.message);
-    });
-  }
-
   removeprunedfunds(txid) {
     // Deletes the specified transaction from the wallet. Meant for use with pruned wallets and as a companion to importprunedfunds. This will effect wallet balances.
     //
@@ -2764,81 +2152,6 @@ class BITBOXCli {
     });
   }
 
-  setban(subnet, command, bantime, absolute) {
-    // Attempts add or remove a IP/Subnet from the banned list.
-    //
-    // Arguments:
-    // 1. "subnet"       (string, required) The IP/Subnet (see getpeerinfo for nodes ip) with a optional netmask (default is /32 = single ip)
-    // 2. "command"      (string, required) 'add' to add a IP/Subnet to the list, 'remove' to remove a IP/Subnet from the list
-    // 3. "bantime"      (numeric, optional) time in seconds how long (or until when if [absolute] is set) the ip is banned (0 or empty means using the default time of 24h which can also be overwritten by the -bantime startup argument)
-    // 4. "absolute"     (boolean, optional) If set, the bantime must be a absolute timestamp in seconds since epoch (Jan 1 1970 GMT)
-    let params = [];
-    if(subnet) {
-      params.push(subnet);
-    }
-
-    if(command) {
-      params.push(command);
-    }
-
-    if(bantime) {
-      params.push(bantime);
-    }
-
-    if(absolute) {
-      params.push(absolute);
-    }
-
-    return this.BitboxHTTP({
-      method: 'post',
-      auth: {
-        username: this.config.username,
-        password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"setban",
-        method: "setban",
-        params: params
-      }
-    })
-    .then((response) => {
-      return response.data.result;
-    })
-    .catch(error => {
-      return Error(error.response.data.error.message);
-    });
-  }
-
-  setnetworkactive(state) {
-    // Disable/enable all p2p network activity.
-    //
-    // Arguments:
-    // 1. "state"        (boolean, required) true to enable networking, false to disable
-
-    return this.BitboxHTTP({
-      method: 'post',
-      auth: {
-        username: this.config.username,
-        password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"setnetworkactive",
-        method: "setnetworkactive",
-        params: [
-          state
-        ]
-      }
-    })
-    .then((response) => {
-      return response.data.result;
-    })
-    .catch(error => {
-      return Error(error.response.data.error.message);
-    });
-  }
-
   settxfee(amount) {
     // Set the transaction fee per kB. Overwrites the paytxfee parameter.
     //
@@ -2979,48 +2292,6 @@ class BITBOXCli {
         jsonrpc: "1.0",
         id:"signrawtransaction",
         method: "signrawtransaction",
-        params: params
-      }
-    })
-    .then((response) => {
-      return response.data.result;
-    })
-    .catch(error => {
-      return Error(error.response.data.error.message);
-    });
-  }
-
-  submitblock(hexdata, parameters) {
-    // Attempts to submit new block to network.
-    // The 'jsonparametersobject' parameter is currently ignored.
-    // See https://en.bitcoin.it/wiki/BIP_0022 for full specification.
-    //
-    // Arguments
-    // 1. "hexdata"        (string, required) the hex-encoded block data to submit
-    // 2. "parameters"     (string, optional) object of optional parameters
-    //     {
-    //       "workid" : "id"    (string, optional) if the server provided a workid, it MUST be included with submissions
-    //     }
-    //
-    let params = [];
-    if(hexdata) {
-      params.push(hexdata);
-    }
-
-    if(parameters) {
-      params.push(parameters);
-    }
-
-    return this.BitboxHTTP({
-      method: 'post',
-      auth: {
-        username: this.config.username,
-        password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"submitblock",
-        method: "submitblock",
         params: params
       }
     })
