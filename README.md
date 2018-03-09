@@ -6,7 +6,7 @@
 
 More documentation available at:
 
-* [General docs](https://www.bitbox.earth/docs)
+* [General docs](https://www.bitbox.earth/docs/gettingstarted)
 * [BITBOX API](https://www.bitbox.earth/bitboxcli)
 * [BITBLOG](https://bigearth.github.io/bitblog/)
 

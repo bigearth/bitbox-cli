@@ -4,7 +4,7 @@ class Blockchain {
     this.BitboxHTTP = BitboxHTTP;
   }
 
-  getBestblockHash() {
+  getBestBlockHash() {
     // Returns the hash of the best (tip) block in the longest blockchain.
     //
     // Result:
