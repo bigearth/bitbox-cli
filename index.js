@@ -22,7 +22,7 @@ let clone = require('git-clone');
 // let ProgressBar = require('progress');
 
 program
-  .version('0.3.2');
+  .version('0.3.3');
 
 program
   .command('new')
@@ -239,53 +239,20 @@ program
 program
   .command('paper')
   .option('-e, --encoding <encoding>', 'The encoding to use. Options include "cashaddr" and "legacy". Default: "cashaddr"')
-  .option('-n, --network <network>', 'The network to use. Options include "mainnet" and "testnet". Default: "mainnet"')
   .description('Create a paper wallet for easy and safe back up')
   .action((options) => {
     if(!options.encoding || (options.encoding !== 'cashaddr' && options.encoding !== 'legacy')) {
       options.encoding = 'cashaddr';
     }
 
-    if(!options.network || (options.network !== 'mainnet' && options.network !== 'testnet')) {
-      options.network = 'mainnet';
-    }
-
-    let nw;
-    if(options.network === 'mainnet') {
-      nw = 'bitcoin';
-    } else {
-      nw = 'testnet';
-    }
-
-    console.log(chalk.blue(`Creating ${options.encoding} paper wallet on ${options.network}`));
+    console.log(chalk.blue(`Creating ${options.encoding} paper wallet`));
     let bitbox = new BITBOXCli();
-
-
-    let hdwallet = bitbox.BitcoinCash.createHDWallet({
-      autogenerateHDMnemonic: true,
-      autogenerateHDPath: true,
-      displayCashaddr: true,
-      displayTestnet: false,
-      usePassword: false,
-      entropy: 32,
-      network: nw,
-      mnemonic: '',
-      totalAccounts: 10,
-      HDPath: {
-        masterKey: "m",
-        purpose: "44'",
-        coinCode: "145'",
-        account: "0'",
-        change: "0",
-        address_index: "0"
-      },
-      password: ''
-    })
-    let mnemonic = hdwallet[2];
-    let privateKeyWIF = hdwallet[4][0].privateKeyWIF;
-    let address = bitbox.BitcoinCash.fromWIF(privateKeyWIF, options.network).getAddress();
-    if(options.encoding === 'cashaddr') {
-      address = bitbox.BitcoinCash.toCashAddress(address);
+    let mnemonic = bitbox.BitcoinCash.entropyToMnemonic(32);
+    let keypair = bitbox.BitcoinCash.keypairsFromMnemonic(mnemonic, 1)[0];
+    let privateKeyWIF = keypair.privateKeyWIF;
+    let address = keypair.address;
+    if(options.encoding === 'legacy') {
+      address = bitbox.BitcoinCash.toLegacyAddress(address);
     }
     touch(`./paper-wallet.html`);
     let QRCode = require('qrcode')
@@ -306,7 +273,6 @@ program
           <div>
             <p>Mnemonic: ${mnemonic}</p>
             <p>HD Path: m/44'/145'/0'/0/0</p>
-            <p>Network:  ${options.network}</p>
             <p>Encoding:  ${options.encoding}</p>
           </div>
         `);
