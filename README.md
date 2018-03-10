@@ -120,7 +120,6 @@ Create a paper wallet for easy and safe back up
 Options:
 
   -e, --encoding <encoding>  The encoding to use. Options include "cashaddr" and "legacy". Default: "cashaddr"
-  -n, --network <network>    The network to use. Options include "mainnet" and "testnet". Default: "mainnet"
   -h, --help                 output usage information
 ```
 
