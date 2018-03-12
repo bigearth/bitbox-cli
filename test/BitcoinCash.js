@@ -506,36 +506,43 @@ describe('#detectAddressType', () => {
   });
 });
 
-describe('generate specific length mnemonic', () => {
+describe('#entropyToMnemonic', () => {
   it('should generate a 12 word mnemonic', () => {
-    let mnemonic = BITBOX.BitcoinCash.entropyToMnemonic(16);
+    let rand = BITBOX.Crypto.randomBytes(16);
+    let mnemonic = BITBOX.BitcoinCash.entropyToMnemonic(rand);
     assert.lengthOf(mnemonic.split(' '), 12);
   });
 
   it('should generate a 15 word mnemonic', () => {
-    let mnemonic = BITBOX.BitcoinCash.entropyToMnemonic(20);
+    let rand = BITBOX.Crypto.randomBytes(20);
+    let mnemonic = BITBOX.BitcoinCash.entropyToMnemonic(rand);
     assert.lengthOf(mnemonic.split(' '), 15);
   });
 
   it('should generate an 18 word mnemonic', () => {
-    let mnemonic = BITBOX.BitcoinCash.entropyToMnemonic(24);
+    let rand = BITBOX.Crypto.randomBytes(24);
+    let mnemonic = BITBOX.BitcoinCash.entropyToMnemonic(rand);
     assert.lengthOf(mnemonic.split(' '), 18);
   });
 
   it('should generate an 21 word mnemonic', () => {
-    let mnemonic = BITBOX.BitcoinCash.entropyToMnemonic(28);
+    let rand = BITBOX.Crypto.randomBytes(28);
+    let mnemonic = BITBOX.BitcoinCash.entropyToMnemonic(rand);
     assert.lengthOf(mnemonic.split(' '), 21);
   });
 
   it('should generate an 24 word mnemonic', () => {
-    let mnemonic = BITBOX.BitcoinCash.entropyToMnemonic(32);
+    let rand = BITBOX.Crypto.randomBytes(32);
+    let mnemonic = BITBOX.BitcoinCash.entropyToMnemonic(rand);
     assert.lengthOf(mnemonic.split(' '), 24);
   });
 });
 
-describe('create 512 bit HMAC-SHA512 root seed', () => {
-  let rootSeed = BITBOX.BitcoinCash.mnemonicToSeed(BITBOX.BitcoinCash.entropyToMnemonic(32), 'password');
-  it('should create 64 byte root seed', () => {
+describe('#mnemonicToSeed', () => {
+  let rand = BITBOX.Crypto.randomBytes(32);
+  let mnemonic = BITBOX.BitcoinCash.entropyToMnemonic(rand);
+  let rootSeed = BITBOX.BitcoinCash.mnemonicToSeed(mnemonic, 'password');
+  it('should create 512 bit / 64 byte HMAC-SHA512 root seed', () => {
     assert.equal(rootSeed.byteLength, 64);
   });
 
@@ -544,39 +551,47 @@ describe('create 512 bit HMAC-SHA512 root seed', () => {
   });
 });
 
-describe('create master private key', () => {
+describe('#fromSeedBuffer', () => {
   it('should create 32 byte chain code', () => {
-    let rootSeed = BITBOX.BitcoinCash.mnemonicToSeed(BITBOX.BitcoinCash.entropyToMnemonic(32), 'password');
+    let rand = BITBOX.Crypto.randomBytes(32);
+    let mnemonic = BITBOX.BitcoinCash.entropyToMnemonic(rand);
+    let rootSeed = BITBOX.BitcoinCash.mnemonicToSeed(mnemonic, 'password');
     let masterkey = BITBOX.BitcoinCash.fromSeedBuffer(rootSeed);
     assert.equal(masterkey.chainCode.byteLength, 32);
   });
 });
 
 describe('sign and verify messages', () => {
-  it('should sign a message and produce an 88 character signature in base64 encoding', () => {
-
-    let privateKeyWIF = '5KYZdUEo39z3FPrtuX2QbbwGnNP5zTd7yyr2SC1j299sBCnWjss'
-    let message = 'This is an example of a signed message.'
-
-    let signature = BITBOX.BitcoinCash.signMessageWithPrivKey(privateKeyWIF, message)
-    assert.equal(signature.length, 88);
+  describe('#signMessageWithPrivKey', () => {
+    fixtures.signatures.sign.forEach((sign) => {
+      it(`should sign a message w/ ${sign.privateKeyWIF}`, () => {
+        let privateKeyWIF = sign.privateKeyWIF;
+        let message = sign.message;
+        let signature = BITBOX.BitcoinCash.signMessageWithPrivKey(privateKeyWIF, message)
+        assert.equal(signature, sign.signature);
+      });
+    });
   });
 
-  it('should verify a valid signed message', () => {
+  describe('#verifyMessage', () => {
+    fixtures.signatures.verify.forEach((sign) => {
+      it(`should verify a valid signed message from cashaddr address ${sign.address}`, () => {
+        assert.equal(BITBOX.BitcoinCash.verifyMessage(sign.address, sign.signature, sign.message), true);
+      });
+    });
 
-    let address = '1HZwkjkeaoZfTSaJxDw6aKkxp45agDiEzN'
-    let signature = 'HJLQlDWLyb1Ef8bQKEISzFbDAKctIlaqOpGbrk3YVtRsjmC61lpE5ErkPRUFtDKtx98vHFGUWlFhsh3DiW6N0rE'
-    let message = 'This is an example of a signed message.'
+    fixtures.signatures.verify.forEach((sign) => {
+      let legacyAddress = BITBOX.BitcoinCash.toLegacyAddress(sign.address);
+      it(`should verify a valid signed message from legacy address ${legacyAddress}`, () => {
+        assert.equal(BITBOX.BitcoinCash.verifyMessage(legacyAddress, sign.signature, sign.message), true);
+      });
+    });
 
-    assert.equal(BITBOX.BitcoinCash.verifyMessage(address, signature, message), true);
-  });
-
-  it('should not verify a invalid signed message', () => {
-
-    let address = '1HZwkjkeaoZfTSaJxDw6aKkxp45agDiEzN'
-    let signature = 'HJLQlDWLyb1Ef8bQKEISzFbDAKctIlaqOpGbrk3YVtRsjmC61lpE5ErkPRUFtDKtx98vHFGUWlFhsh3DiW6N0rE'
-    let message = 'This is an example of an invalid message.'
-
-    assert.equal(BITBOX.BitcoinCash.verifyMessage(address, signature, message), false);
+    fixtures.signatures.verify.forEach((sign) => {
+      let legacyAddress = BITBOX.BitcoinCash.toLegacyAddress(sign.address);
+      it(`should not verify an invalid signed message from cashaddr address ${sign.address}`, () => {
+        assert.equal(BITBOX.BitcoinCash.verifyMessage(sign.address, sign.signature, 'nope'), false);
+      });
+    });
   });
 });

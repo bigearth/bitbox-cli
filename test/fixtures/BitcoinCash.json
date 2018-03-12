@@ -132,5 +132,61 @@
     "bchtest:qpklfd26u70ta4j7p4twxv2k5apx95p0qqgm8cf2sd",
     "bchtest:qpuxsqzgq3j0a58tnmwpgcrwwyrkenalevaeknklfg",
     "bchtest:qpgrlg0yqmdf4y8q980e57tx6v7vrvds2ug89n8w8q"
-  ]
+  ],
+  "signatures": {
+    "sign": [
+      {
+       "privateKeyWIF": "Ky54Y7sxkGovqTi5ogipFUToqsz4NCepLn3bitzHyiF3JaYULMbP",
+       "message": "#BCHForEveryone",
+       "signature": "IMx84IyWWbygyT5MnN1RWykh9B4lHMxght69emBCqmGfSGaYozaXeVZNzmKVGMxjSqqGZZ0aGPf08GtahLAjWXk="
+      },
+      {
+        "privateKeyWIF": "KzkgRUDjAofdLvwHFGEyhtiULPYpKDozgfkz5yWR1S39isWHWPrz",
+        "message": "BCHForEveryone",
+        "signature": "H8X9FFIbyD4zAC/Hr57m5qTA2IDgbYTbdBpm/FEIhJVYMsG5xiuZxPrt2OA0zS7Uon1fwGLvLr0rdi+aD+JSl4w="
+      },
+      {
+        "privateKeyWIF": "Kyb6tWZUfppAyQMRX9b1yAKahFDn8Xr2dY26tk7nM9s5cLvvFuqS",
+        "message": "BCHForEveryone",
+        "signature": "IFRV4fhdbJdKIABCkKQWezJTjUqw1aEZZc0k+pX5mQseG5e7UyGKG6r6REU1hSwahA0NHfOeNP2dZGzo9uYv+VU="
+      },
+      {
+        "privateKeyWIF": "KzoVcYVG1dqVPa8AASR9tjXQHqs8KDx9Ex3WrwaEYPPxJ76gTZC2",
+        "message": "BCHForEveryone",
+        "signature": "IAaBJA09iOlyfQkCsWSlFC82YdE3leIKOCLfiJA0FTaDM30xvQrVb38L5sF6eD2zUUPpc0wMbxeqC7Rj8lRroHk="
+      },
+      {
+        "privateKeyWIF": "KwEYU8cuczmym3KXUcVqmQS2R4zcKgzQ8ba2R54LHuSsY2wKXXkF",
+        "message": "BCHForEveryone",
+        "signature": "H+enm4Bb938z433Q7TBeFIMGNXrV8B1ui4SuLgkKqdYRDQgdaT1OHt5sk54CrjTQHGYOhpQW7DrRJLsIJffjJqs="
+      }
+    ],
+    "verify": [
+      {
+       "address": "bitcoincash:qzq53zlu48a00h0a8ay8gq3wnkvfxc50cv6fj5qm9d",
+       "message": "#BCHForEveryone",
+       "signature": "IMx84IyWWbygyT5MnN1RWykh9B4lHMxght69emBCqmGfSGaYozaXeVZNzmKVGMxjSqqGZZ0aGPf08GtahLAjWXk="
+      },
+      {
+        "address": "bitcoincash:qrpuxwzerdfm5plxzxekya3js9wn2f4wa5lcgnat7c",
+        "message": "BCHForEveryone",
+        "signature": "H8X9FFIbyD4zAC/Hr57m5qTA2IDgbYTbdBpm/FEIhJVYMsG5xiuZxPrt2OA0zS7Uon1fwGLvLr0rdi+aD+JSl4w="
+      },
+      {
+        "address": "bitcoincash:qpq7zz6ax7lun9ks92g5qwye206xkenc655y4x7rfn",
+        "message": "BCHForEveryone",
+        "signature": "IFRV4fhdbJdKIABCkKQWezJTjUqw1aEZZc0k+pX5mQseG5e7UyGKG6r6REU1hSwahA0NHfOeNP2dZGzo9uYv+VU="
+      },
+      {
+        "address": "bitcoincash:qp22q7vt79qp724zvk0qkj59ec4h9ghx9yscnl3mpw",
+        "message": "BCHForEveryone",
+        "signature": "IAaBJA09iOlyfQkCsWSlFC82YdE3leIKOCLfiJA0FTaDM30xvQrVb38L5sF6eD2zUUPpc0wMbxeqC7Rj8lRroHk="
+      },
+      {
+        "address": "bitcoincash:qzul5ttllyky9tcdmc458tw0fymtc2mkvc75542prl",
+        "message": "BCHForEveryone",
+        "signature": "H+enm4Bb938z433Q7TBeFIMGNXrV8B1ui4SuLgkKqdYRDQgdaT1OHt5sk54CrjTQHGYOhpQW7DrRJLsIJffjJqs="
+      }
+    ]
+  }
 }
