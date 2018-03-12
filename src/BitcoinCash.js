@@ -14,8 +14,12 @@ class BitcoinCash {
     // Generate cryptographically strong pseudo-random data.
     // The bytes argument is a number indicating the number of bytes to generate.
     // Uses the NodeJS crypto lib. More info: https://nodejs.org/api/crypto.html#crypto_crypto_randombytes_size_callback
-    let randomBytes = Crypto.randomBytes(bytes);
-
+    let randomBytes;
+    if(typeof bytes === 'number') {
+      randomBytes = Crypto.randomBytes(bytes);
+    } else if(typeof bytes === 'string') {
+      randomBytes = bytes;
+    }
     // Create BIP 39 compliant mnemonic w/ entropy
     // Entropy (bits/bytes)	Checksum (bits)	Entropy + checksum (bits)	Mnemonic length (words)
     // 128/16               4               132                       12
