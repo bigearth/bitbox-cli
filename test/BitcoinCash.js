@@ -125,43 +125,49 @@ describe('address type detection', () => {
 
 describe('return address format', () => {
   it('should return base58Check address', () => {
-    let base58Check = fixtures.base58check;
-    let isBase58Check = BITBOX.BitcoinCash.detectAddressFormat(base58Check);
-    assert.equal(isBase58Check, 'legacy');
+    LEGACY_ADDRESSES.forEach((address) => {
+      let isBase58Check = BITBOX.BitcoinCash.detectAddressFormat(address);
+      assert.equal(isBase58Check, 'legacy');
+    })
   });
 
   it('should return cashaddr address', () => {
-    let cashaddr = fixtures.cashaddr;
-    let isCashaddr = BITBOX.BitcoinCash.detectAddressFormat(cashaddr);
-    assert.equal(isCashaddr, 'cashaddr');
+    CASHADDR_ADDRESSES.forEach((address) => {
+      let isCashaddr = BITBOX.BitcoinCash.detectAddressFormat(address);
+      assert.equal(isCashaddr, 'cashaddr');
+    })
   });
 });
 
 describe('return address network', () => {
   it('should return mainnet', () => {
-    let mainnet = fixtures.base58check;
-    let isMainnet = BITBOX.BitcoinCash.detectAddressNetwork(mainnet);
-    assert.equal(isMainnet, 'mainnet');
+    MAINNET_ADDRESSES.forEach((address) => {
+      let isMainnet = BITBOX.BitcoinCash.detectAddressNetwork(address);
+      assert.equal(isMainnet, 'mainnet');
+    })
   });
 
   it('should return testnet', () => {
-    let testnet = fixtures.testnet;
-    let isTestnet = BITBOX.BitcoinCash.detectAddressNetwork(testnet);
-    assert.equal(isTestnet, 'testnet');
+    TESTNET_ADDRESSES.forEach((address) => {
+      let isTestnet = BITBOX.BitcoinCash.detectAddressNetwork(address);
+      assert.equal(isTestnet, 'testnet');
+    })
   });
 });
 
 describe('return address type', () => {
   it('should return P2PKH', () => {
-    let P2PKH = fixtures.base58check;
-    let isP2PKH = BITBOX.BitcoinCash.detectAddressType(P2PKH);
-    assert.equal(isP2PKH, 'p2pkh');
+    P2PKH_ADDRESSES.forEach((address) => {
+      let isP2PKH = BITBOX.BitcoinCash.detectAddressType(address);
+      assert.equal(isP2PKH, 'p2pkh');
+    })
   });
 
   it('should return P2SH', () => {
-    let P2SH = fixtures.P2SH;
-    let isP2SH = BITBOX.BitcoinCash.detectAddressType(P2SH);
-    assert.equal(isP2SH, 'p2sh');
+    P2SH_ADDRESSES.forEach((address) => {
+      let isP2SH = BITBOX.BitcoinCash.detectAddressType(address);
+      assert.equal(isP2SH, 'p2sh');
+    })
   });
 });
 
