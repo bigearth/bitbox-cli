@@ -10,6 +10,10 @@ import bitcoinMessage from 'bitcoinjs-message';
 
 
 class BitcoinCash {
+  static generateMnemonic(bits = 128) {
+    return BIP39.generateMnemonic(bits);
+  }
+
   static entropyToMnemonic(bytes = 16) {
     // Generate cryptographically strong pseudo-random data.
     // The bytes argument is a number indicating the number of bytes to generate.
@@ -33,6 +37,18 @@ class BitcoinCash {
     // 256/32               8               264                       24
 
     return BIP39.entropyToMnemonic(randomBytes);
+  }
+
+  static mnemonicToEntropy(mnemonic) {
+    return BIP39.mnemonicToEntropy(mnemonic);
+  }
+
+  static validateMnemonic(mnemonic) {
+    return BIP39.validateMnemonic(mnemonic);
+  }
+
+  static mnemonicToSeedHex(mnemonic, password = '') {
+    return BIP39.mnemonicToSeedHex(mnemonic, password);
   }
 
   static mnemonicToSeed(mnemonic, password = '') {

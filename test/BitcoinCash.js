@@ -506,6 +506,33 @@ describe('#detectAddressType', () => {
   });
 });
 
+describe('#generateMnemonic', () => {
+  it('should generate a 12 word mnemonic', () => {
+    let mnemonic = BITBOX.BitcoinCash.generateMnemonic(128);
+    assert.lengthOf(mnemonic.split(' '), 12);
+  });
+
+  it('should generate a 15 word mnemonic', () => {
+    let mnemonic = BITBOX.BitcoinCash.generateMnemonic(160);
+    assert.lengthOf(mnemonic.split(' '), 15);
+  });
+
+  it('should generate a 18 word mnemonic', () => {
+    let mnemonic = BITBOX.BitcoinCash.generateMnemonic(192);
+    assert.lengthOf(mnemonic.split(' '), 18);
+  });
+
+  it('should generate an 21 word mnemonic', () => {
+    let mnemonic = BITBOX.BitcoinCash.generateMnemonic(224);
+    assert.lengthOf(mnemonic.split(' '), 21);
+  });
+
+  it('should generate an 24 word mnemonic', () => {
+    let mnemonic = BITBOX.BitcoinCash.generateMnemonic(256);
+    assert.lengthOf(mnemonic.split(' '), 24);
+  });
+});
+
 describe('#entropyToMnemonic', () => {
   it('should generate a 12 word mnemonic', () => {
     let rand = BITBOX.Crypto.randomBytes(16);
@@ -538,15 +565,155 @@ describe('#entropyToMnemonic', () => {
   });
 });
 
+describe('#mnemonicToEntropy', () => {
+  it('should turn a 12 word mnemonic to entropy', () => {
+    let mnemonic = BITBOX.BitcoinCash.generateMnemonic(128);
+    let entropy = BITBOX.BitcoinCash.mnemonicToEntropy(mnemonic);
+    assert.lengthOf(entropy, 32);
+  });
+
+  it('should turn a 15 word mnemonic to entropy', () => {
+    let mnemonic = BITBOX.BitcoinCash.generateMnemonic(160);
+    let entropy = BITBOX.BitcoinCash.mnemonicToEntropy(mnemonic);
+    assert.lengthOf(entropy, 40);
+  });
+
+  it('should turn a 18 word mnemonic to entropy', () => {
+    let mnemonic = BITBOX.BitcoinCash.generateMnemonic(192);
+    let entropy = BITBOX.BitcoinCash.mnemonicToEntropy(mnemonic);
+    assert.lengthOf(entropy, 48);
+  });
+
+  it('should turn a 21 word mnemonic to entropy', () => {
+    let mnemonic = BITBOX.BitcoinCash.generateMnemonic(224);
+    let entropy = BITBOX.BitcoinCash.mnemonicToEntropy(mnemonic);
+    assert.lengthOf(entropy, 56);
+  });
+
+  it('should turn a 24 word mnemonic to entropy', () => {
+    let mnemonic = BITBOX.BitcoinCash.generateMnemonic(256);
+    let entropy = BITBOX.BitcoinCash.mnemonicToEntropy(mnemonic);
+    assert.lengthOf(entropy, 64);
+  });
+});
+
+describe('#validateMnemonic', () => {
+  it('validate a 128 bit mnemonic', () => {
+    let mnemonic = BITBOX.BitcoinCash.generateMnemonic(128);
+    assert.equal(BITBOX.BitcoinCash.validateMnemonic(mnemonic), true);
+  });
+
+  it('validate a 160 bit mnemonic', () => {
+    let mnemonic = BITBOX.BitcoinCash.generateMnemonic(160);
+    assert.equal(BITBOX.BitcoinCash.validateMnemonic(mnemonic), true);
+  });
+
+  it('validate a 192 bit mnemonic', () => {
+    let mnemonic = BITBOX.BitcoinCash.generateMnemonic(192);
+    assert.equal(BITBOX.BitcoinCash.validateMnemonic(mnemonic), true);
+  });
+
+  it('validate a 224 bit mnemonic', () => {
+    let mnemonic = BITBOX.BitcoinCash.generateMnemonic(224);
+    assert.equal(BITBOX.BitcoinCash.validateMnemonic(mnemonic), true);
+  });
+
+  it('validate a 256 bit mnemonic', () => {
+    let mnemonic = BITBOX.BitcoinCash.generateMnemonic(256);
+    assert.equal(BITBOX.BitcoinCash.validateMnemonic(mnemonic), true);
+  });
+});
+
+describe('#mnemonicToSeedHex', () => {
+  it('should create 128 character hex encoded root seed from 128 bit mnemonic ', () => {
+    let mnemonic = BITBOX.BitcoinCash.generateMnemonic(128);
+    let seedHex = BITBOX.BitcoinCash.mnemonicToSeedHex(mnemonic, '');
+    assert.lengthOf(seedHex, 128);
+  });
+
+  it('should create 128 character hex encoded root seed from 160 bit mnemonic ', () => {
+    let mnemonic = BITBOX.BitcoinCash.generateMnemonic(160);
+    let seedHex = BITBOX.BitcoinCash.mnemonicToSeedHex(mnemonic, '');
+    assert.lengthOf(seedHex, 128);
+  });
+
+  it('should create 128 character hex encoded root seed from 192 bit mnemonic ', () => {
+    let mnemonic = BITBOX.BitcoinCash.generateMnemonic(192);
+    let seedHex = BITBOX.BitcoinCash.mnemonicToSeedHex(mnemonic, '');
+    assert.lengthOf(seedHex, 128);
+  });
+
+  it('should create 128 character hex encoded root seed from 224 bit mnemonic ', () => {
+    let mnemonic = BITBOX.BitcoinCash.generateMnemonic(224);
+    let seedHex = BITBOX.BitcoinCash.mnemonicToSeedHex(mnemonic, '');
+    assert.lengthOf(seedHex, 128);
+  });
+
+  it('should create 128 character hex encoded root seed from 256 bit mnemonic ', () => {
+    let mnemonic = BITBOX.BitcoinCash.generateMnemonic(256);
+    let seedHex = BITBOX.BitcoinCash.mnemonicToSeedHex(mnemonic, '');
+    assert.lengthOf(seedHex, 128);
+  });
+});
+
 describe('#mnemonicToSeed', () => {
-  let rand = BITBOX.Crypto.randomBytes(32);
-  let mnemonic = BITBOX.BitcoinCash.entropyToMnemonic(rand);
-  let rootSeed = BITBOX.BitcoinCash.mnemonicToSeed(mnemonic, 'password');
-  it('should create 512 bit / 64 byte HMAC-SHA512 root seed', () => {
+  it('should create 512 bit / 64 byte HMAC-SHA512 root seed from a 128 bit mnemonic', () => {
+    let mnemonic = BITBOX.BitcoinCash.generateMnemonic(128);
+    let rootSeed = BITBOX.BitcoinCash.mnemonicToSeed(mnemonic, '');
     assert.equal(rootSeed.byteLength, 64);
   });
 
-  it('should create root seed hex encoded', () => {
+  it('should create 512 bit / 64 byte HMAC-SHA512 root seed from a 160 bit mnemonic', () => {
+    let mnemonic = BITBOX.BitcoinCash.generateMnemonic(160);
+    let rootSeed = BITBOX.BitcoinCash.mnemonicToSeed(mnemonic, '');
+    assert.equal(rootSeed.byteLength, 64);
+  });
+
+  it('should create 512 bit / 64 byte HMAC-SHA512 root seed from a 192 bit mnemonic', () => {
+    let mnemonic = BITBOX.BitcoinCash.generateMnemonic(192);
+    let rootSeed = BITBOX.BitcoinCash.mnemonicToSeed(mnemonic, '');
+    assert.equal(rootSeed.byteLength, 64);
+  });
+
+  it('should create 512 bit / 64 byte HMAC-SHA512 root seed from a 224 bit mnemonic', () => {
+    let mnemonic = BITBOX.BitcoinCash.generateMnemonic(224);
+    let rootSeed = BITBOX.BitcoinCash.mnemonicToSeed(mnemonic, '');
+    assert.equal(rootSeed.byteLength, 64);
+  });
+
+  it('should create 512 bit / 64 byte HMAC-SHA512 root seed from a 256 bit mnemonic', () => {
+    let mnemonic = BITBOX.BitcoinCash.generateMnemonic(256);
+    let rootSeed = BITBOX.BitcoinCash.mnemonicToSeed(mnemonic, '');
+    assert.equal(rootSeed.byteLength, 64);
+  });
+
+  it('should create a 128 character root seed hex encoded from a 128 bit mnemonic', () => {
+    let mnemonic = BITBOX.BitcoinCash.generateMnemonic(128);
+    let rootSeed = BITBOX.BitcoinCash.mnemonicToSeed(mnemonic, '');
+    assert.lengthOf(rootSeed.toString('hex'), 128);
+  });
+
+  it('should create a 128 character root seed hex encoded from a 160 bit mnemonic', () => {
+    let mnemonic = BITBOX.BitcoinCash.generateMnemonic(160);
+    let rootSeed = BITBOX.BitcoinCash.mnemonicToSeed(mnemonic, '');
+    assert.lengthOf(rootSeed.toString('hex'), 128);
+  });
+
+  it('should create a 128 character root seed hex encoded from a 192 bit mnemonic', () => {
+    let mnemonic = BITBOX.BitcoinCash.generateMnemonic(192);
+    let rootSeed = BITBOX.BitcoinCash.mnemonicToSeed(mnemonic, '');
+    assert.lengthOf(rootSeed.toString('hex'), 128);
+  });
+
+  it('should create a 128 character root seed hex encoded from a 224 bit mnemonic', () => {
+    let mnemonic = BITBOX.BitcoinCash.generateMnemonic(224);
+    let rootSeed = BITBOX.BitcoinCash.mnemonicToSeed(mnemonic, '');
+    assert.lengthOf(rootSeed.toString('hex'), 128);
+  });
+
+  it('should create a 128 character root seed hex encoded from a 256 bit mnemonic', () => {
+    let mnemonic = BITBOX.BitcoinCash.generateMnemonic(256);
+    let rootSeed = BITBOX.BitcoinCash.mnemonicToSeed(mnemonic, '');
     assert.lengthOf(rootSeed.toString('hex'), 128);
   });
 });
