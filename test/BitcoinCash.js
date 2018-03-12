@@ -53,17 +53,47 @@ let P2SH_ADDRESSES = flatten([
   fixtures.cashaddrMainnetP2SH
 ])
 
+
+
 describe('price conversion', () => {
-  it('should convert Bitcoin Cash to Satoshis', () => {
-    let bitcoinCash = 12.5;
-    let satoshis = BITBOX.BitcoinCash.toSatoshi(bitcoinCash);
-    assert.equal(satoshis, 1250000000);
+  describe('#toBitcoinCash', () => {
+    it('should convert Satoshis to Bitcoin Cash', () => {
+      assert.equal(BITBOX.BitcoinCash.toBitcoinCash(100000000), 1);
+      assert.equal(BITBOX.BitcoinCash.toBitcoinCash(123456789012345), 1234567.89012345);
+    });
+
+    it('converts simple string amounts', () => {
+      assert.equal(BITBOX.BitcoinCash.toBitcoinCash('100000000'), 1);
+      assert.equal(BITBOX.BitcoinCash.toBitcoinCash('123456789012345'), 1234567.89012345);
+    });
+
+    it('converts to Bitcoin, not to Satoshi', () => {
+      assert.notEqual(BITBOX.BitcoinCash.toBitcoinCash(98765), 9876500000000);
+    });
+
+    it('converts and handles corner case rounding', () => {
+      assert.equal(BITBOX.BitcoinCash.toBitcoinCash(46), .00000046);
+    });
   });
 
-  it('should convert Satoshis to Bitcoin Cash', () => {
-    let satoshis = 1250000000;
-    let bitcoinCash = BITBOX.BitcoinCash.toBitcoinCash(satoshis);
-    assert.equal(bitcoinCash, 12.5);
+  describe('#toSatoshi', () => {
+    it('converts simple integer amounts', () => {
+      assert.equal(BITBOX.BitcoinCash.toSatoshi(0.00000001), 1);
+      assert.equal(BITBOX.BitcoinCash.toSatoshi(98765), 9876500000000);
+    });
+
+    it('converts simple string amounts', () => {
+      assert.equal(BITBOX.BitcoinCash.toSatoshi('0.00000001'), 1);
+      assert.equal(BITBOX.BitcoinCash.toSatoshi('98765'), 9876500000000);
+    });
+
+    it('converts to Satoshi, not to Bitcoin', () => {
+      assert.notEqual(BITBOX.BitcoinCash.toSatoshi(123456789012345), 1234567.89012345);
+    });
+
+    it('converts and handles corner case rounding', () => {
+      assert.equal(BITBOX.BitcoinCash.toSatoshi(4.6), 460000000);
+    });
   });
 });
 
@@ -184,17 +214,6 @@ describe('address format detection', () => {
         }, BITBOX.BitcoinCash.InvalidAddressError)
       })
     });
-  });
-
-  describe('errors', () => {
-    it('should fail when called with an invalid address', () => {
-      assert.throws(() => {
-        BITBOX.BitcoinCash.detectAddressFormat()
-      }, BITBOX.BitcoinCash.InvalidAddressError)
-      assert.throws(() => {
-        BITBOX.BitcoinCash.detectAddressFormat('1nv4lid4ddr3ss')
-      }, BITBOX.BitcoinCash.InvalidAddressError)
-    })
   });
 });
 
