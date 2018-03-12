@@ -163,18 +163,21 @@ describe('address conversion', () => {
 describe('address format detection', () => {
 
   describe('legacy base58Check', () => {
-    it('should detect legacy base58Check address', () => {
+    describe('is legacy', () => {
       LEGACY_ADDRESSES.forEach((address) => {
-        let isBase58Check = BITBOX.BitcoinCash.isLegacyAddress(address);
-        assert.equal(isBase58Check, true);
-      })
+        it(`should detect ${address} is a legacy base58Check address`, () => {
+          let isBase58Check = BITBOX.BitcoinCash.isLegacyAddress(address);
+          assert.equal(isBase58Check, true);
+        });
+      });
     });
-
-    it('should return false for cashaddr', () => {
+    describe('is not legacy', () => {
       CASHADDR_ADDRESSES.forEach((address) => {
-        let isBase58Check = BITBOX.BitcoinCash.isLegacyAddress(address);
-        assert.equal(isBase58Check, false);
-      })
+        it(`should detect ${address} is not a legacy address`, () => {
+          let isBase58Check = BITBOX.BitcoinCash.isLegacyAddress(address);
+          assert.equal(isBase58Check, false);
+        });
+      });
     });
 
     describe('errors', () => {
@@ -190,18 +193,22 @@ describe('address format detection', () => {
   });
 
   describe('cashaddr', () => {
-    it('should detect cashaddr address', () => {
+    describe('is cashaddr', () => {
       CASHADDR_ADDRESSES.forEach((address) => {
-        let isCashaddr = BITBOX.BitcoinCash.isCashAddress(address);
-        assert.equal(isCashaddr, true);
-      })
+        it(`should detect ${address} is a cashaddr address`, () => {
+          let isCashaddr = BITBOX.BitcoinCash.isCashAddress(address);
+          assert.equal(isCashaddr, true);
+        });
+      });
     });
 
-    it('should return false for legacy', () => {
+    describe('is not cashaddr', () => {
       LEGACY_ADDRESSES.forEach((address) => {
-        let isCashaddr = BITBOX.BitcoinCash.isCashAddress(address);
-        assert.equal(isCashaddr, false);
-      })
+        it(`should detect ${address} is not a cashaddr address`, () => {
+          let isCashaddr = BITBOX.BitcoinCash.isCashAddress(address);
+          assert.equal(isCashaddr, false);
+        });
+      });
     });
 
     describe('errors', () => {
@@ -220,18 +227,22 @@ describe('address format detection', () => {
 describe('network detection', () => {
 
   describe('mainnet', () => {
-    it('should detect mainnet address', () => {
+    describe('is mainnet', () => {
       MAINNET_ADDRESSES.forEach((address) => {
-        let isMainnet = BITBOX.BitcoinCash.isMainnetAddress(address);
-        assert.equal(isMainnet, true);
-      })
+        it(`should detect ${address} is a mainnet address`, () => {
+          let isMainnet = BITBOX.BitcoinCash.isMainnetAddress(address);
+          assert.equal(isMainnet, true);
+        });
+      });
     });
 
-    it('should return false for testnet', () => {
+    describe('is not mainnet', () => {
       TESTNET_ADDRESSES.forEach((address) => {
-        let isMainnet = BITBOX.BitcoinCash.isMainnetAddress(address);
-        assert.equal(isMainnet, false);
-      })
+        it(`should detect ${address} is not a mainnet address`, () => {
+          let isMainnet = BITBOX.BitcoinCash.isMainnetAddress(address);
+          assert.equal(isMainnet, false);
+        });
+      });
     });
 
     describe('errors', () => {
@@ -247,19 +258,24 @@ describe('network detection', () => {
   });
 
   describe('testnet', () => {
-    it('should detect testnet address', () => {
+    describe('is testnet', () => {
       TESTNET_ADDRESSES.forEach((address) => {
-        let isTestnet = BITBOX.BitcoinCash.isTestnetAddress(address);
-        assert.equal(isTestnet, true);
-      })
+        it(`should detect ${address} is not a testnet address`, () => {
+          let isTestnet = BITBOX.BitcoinCash.isTestnetAddress(address);
+          assert.equal(isTestnet, true);
+        });
+      });
     });
 
-    it('should return false for mainnet', () => {
+    describe('is not testnet', () => {
       MAINNET_ADDRESSES.forEach((address) => {
-        let isTestnet = BITBOX.BitcoinCash.isTestnetAddress(address);
-        assert.equal(isTestnet, false);
-      })
+        it(`should detect ${address} is not a testnet address`, () => {
+          let isTestnet = BITBOX.BitcoinCash.isTestnetAddress(address);
+          assert.equal(isTestnet, false);
+        });
+      });
     });
+
 
     describe('errors', () => {
       it('should fail when called with an invalid address', () => {
