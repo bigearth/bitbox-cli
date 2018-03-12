@@ -276,7 +276,6 @@ describe('network detection', () => {
       });
     });
 
-
     describe('errors', () => {
       it('should fail when called with an invalid address', () => {
         assert.throws(() => {
@@ -292,18 +291,22 @@ describe('network detection', () => {
 
 describe('address type detection', () => {
   describe('P2PKH', () => {
-    it('should detect P2PKH address', () => {
+    describe('is P2PKH', () => {
       P2PKH_ADDRESSES.forEach((address) => {
-        let isP2PKH = BITBOX.BitcoinCash.isP2PKHAddress(address);
-        assert.equal(isP2PKH, true);
-      })
+        it(`should detect ${address} is a P2PKH address`, () => {
+          let isP2PKH = BITBOX.BitcoinCash.isP2PKHAddress(address);
+          assert.equal(isP2PKH, true);
+        });
+      });
     });
 
-    it('should return false for P2SH', () => {
+    describe('is not P2PKH', () => {
       P2SH_ADDRESSES.forEach((address) => {
-        let isP2PKH = BITBOX.BitcoinCash.isP2PKHAddress(address);
-        assert.equal(isP2PKH, false);
-      })
+        it(`should detect ${address} is not a P2PKH address`, () => {
+          let isP2PKH = BITBOX.BitcoinCash.isP2PKHAddress(address);
+          assert.equal(isP2PKH, false);
+        });
+      });
     });
 
     describe('errors', () => {
@@ -319,18 +322,22 @@ describe('address type detection', () => {
   });
 
   describe('P2SH', () => {
-    it('should detect P2SH address', () => {
+    describe('is P2SH', () => {
       P2SH_ADDRESSES.forEach((address) => {
-        let isP2SH = BITBOX.BitcoinCash.isP2SHAddress(address);
-        assert.equal(isP2SH, true);
-      })
+        it(`should detect ${address} is a P2SH address`, () => {
+          let isP2SH = BITBOX.BitcoinCash.isP2SHAddress(address);
+          assert.equal(isP2SH, true);
+        });
+      });
     });
 
-    it('should return false for P2PKH', () => {
+    describe('is not P2SH', () => {
       P2PKH_ADDRESSES.forEach((address) => {
-        let isP2SH = BITBOX.BitcoinCash.isP2SHAddress(address);
-        assert.equal(isP2SH, false);
-      })
+        it(`should detect ${address} is not a P2SH address`, () => {
+          let isP2SH = BITBOX.BitcoinCash.isP2SHAddress(address);
+          assert.equal(isP2SH, false);
+        });
+      });
     });
 
     describe('errors', () => {
@@ -410,18 +417,18 @@ describe('cashaddr prefix detection', () => {
 })
 
 describe('return address format', () => {
-  it('should return base58Check address', () => {
-    LEGACY_ADDRESSES.forEach((address) => {
+  LEGACY_ADDRESSES.forEach((address) => {
+    it(`should detect ${address} is a legacy base58Check address`, () => {
       let isBase58Check = BITBOX.BitcoinCash.detectAddressFormat(address);
       assert.equal(isBase58Check, 'legacy');
-    })
+    });
   });
 
-  it('should return cashaddr address', () => {
-    CASHADDR_ADDRESSES.forEach((address) => {
+  CASHADDR_ADDRESSES.forEach((address) => {
+    it(`should detect ${address} is a legacy cashaddr address`, () => {
       let isCashaddr = BITBOX.BitcoinCash.detectAddressFormat(address);
       assert.equal(isCashaddr, 'cashaddr');
-    })
+    });
   });
 
   describe('errors', () => {
@@ -437,18 +444,18 @@ describe('return address format', () => {
 });
 
 describe('return address network', () => {
-  it('should return mainnet', () => {
-    MAINNET_ADDRESSES.forEach((address) => {
+  MAINNET_ADDRESSES.forEach((address) => {
+    it(`should detect ${address} is a mainnet address`, () => {
       let isMainnet = BITBOX.BitcoinCash.detectAddressNetwork(address);
       assert.equal(isMainnet, 'mainnet');
     })
   });
 
-  it('should return testnet', () => {
-    TESTNET_ADDRESSES.forEach((address) => {
+  TESTNET_ADDRESSES.forEach((address) => {
+    it(`should detect ${address} is a testnet address`, () => {
       let isTestnet = BITBOX.BitcoinCash.detectAddressNetwork(address);
       assert.equal(isTestnet, 'testnet');
-    })
+    });
   });
 
   describe('errors', () => {
@@ -459,20 +466,20 @@ describe('return address network', () => {
       assert.throws(() => {
         BITBOX.BitcoinCash.detectAddressNetwork('some invalid address')
       }, BITBOX.BitcoinCash.InvalidAddressError)
-    })
+    });
   });
 });
 
 describe('return address type', () => {
-  it('should return P2PKH', () => {
-    P2PKH_ADDRESSES.forEach((address) => {
+  P2PKH_ADDRESSES.forEach((address) => {
+    it(`should detect ${address} is a P2PKH address`, () => {
       let isP2PKH = BITBOX.BitcoinCash.detectAddressType(address);
       assert.equal(isP2PKH, 'p2pkh');
     })
   });
 
-  it('should return P2SH', () => {
-    P2SH_ADDRESSES.forEach((address) => {
+  P2SH_ADDRESSES.forEach((address) => {
+    it(`should detect ${address} is a P2SH address`, () => {
       let isP2SH = BITBOX.BitcoinCash.detectAddressType(address);
       assert.equal(isP2SH, 'p2sh');
     })
