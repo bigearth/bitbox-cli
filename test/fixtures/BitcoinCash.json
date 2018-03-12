@@ -1,4 +1,36 @@
 {
+  "conversion": {
+    "toBCH": {
+      "satoshis": [
+        [100000000, 1],
+        [123456789012345, 1234567.89012345],
+        [314159265359, 3141.59265359],
+        [9876765, 0.09876765],
+        [507, 0.00000507]
+      ],
+      "strings": [
+        ["100000000", 1],
+        ["123456789012345", "1234567.89012345"],
+        ["314159265359", "3141.59265359"],
+        ["9876765", "0.09876765"],
+        ["507", "0.00000507"]
+      ],
+      "not": [
+        [100000000, 10000000000000000],
+        [12345, 1234500000000],
+        [314159, 31415900000000],
+        [9876765, 987676500000000],
+        [507, 50700000000]
+      ],
+      "rounding": [
+        [1, 0.00000001],
+        [42, 0.00000042],
+        [507, 0.00000507],
+        [1234, 0.00001234],
+        [65432, 0.00065432]
+      ]
+    }
+  },
   "legacyMainnetP2PKH": [
     "18xHZ8g2feo4ceejGpvzHkvXT79fi2ZdTG",
     "1K7Qb1dWkiYwPrZhLws3uUKhxKEU7dRnbQ",
@@ -70,9 +102,5 @@
     "bchtest:qpklfd26u70ta4j7p4twxv2k5apx95p0qqgm8cf2sd",
     "bchtest:qpuxsqzgq3j0a58tnmwpgcrwwyrkenalevaeknklfg",
     "bchtest:qpgrlg0yqmdf4y8q980e57tx6v7vrvds2ug89n8w8q"
-  ],
-  "base58check": "14pjfbNNaXnuLztCmTCZqJsFJoZ6qmtU8f",
-  "cashaddr": "bitcoincash:qq57lzhk6qtdny7lwq3amk5npqssmxztrcq0m4arnd",
-  "testnet": "mj1jnRqWdqWdWn5Qqh5vdZqVKU1WmuzaGJ",
-  "P2SH": "H92i9XpREZiBscxGu6Vx3M8jNGBKqscBBB"
+  ]
 }

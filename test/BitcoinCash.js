@@ -53,26 +53,30 @@ let P2SH_ADDRESSES = flatten([
   fixtures.cashaddrMainnetP2SH
 ])
 
-
-
 describe('price conversion', () => {
   describe('#toBitcoinCash', () => {
-    it('should convert Satoshis to Bitcoin Cash', () => {
-      assert.equal(BITBOX.BitcoinCash.toBitcoinCash(100000000), 1);
-      assert.equal(BITBOX.BitcoinCash.toBitcoinCash(123456789012345), 1234567.89012345);
+    fixtures.conversion.toBCH.satoshis.forEach((satoshi) => {
+      it(`should convert ${satoshi[0]} Satoshis to ${satoshi[1]} $BCH`, () => {
+        assert.equal(BITBOX.BitcoinCash.toBitcoinCash(satoshi[0]), satoshi[1]);
+      });
     });
 
-    it('converts simple string amounts', () => {
-      assert.equal(BITBOX.BitcoinCash.toBitcoinCash('100000000'), 1);
-      assert.equal(BITBOX.BitcoinCash.toBitcoinCash('123456789012345'), 1234567.89012345);
+    fixtures.conversion.toBCH.strings.forEach((satoshi) => {
+      it(`should convert ${satoshi[0]} Satoshis as a string to ${satoshi[1]} $BCH`, () => {
+        assert.equal(BITBOX.BitcoinCash.toBitcoinCash(satoshi[0]), satoshi[1]);
+      });
     });
 
-    it('converts to Bitcoin, not to Satoshi', () => {
-      assert.notEqual(BITBOX.BitcoinCash.toBitcoinCash(98765), 9876500000000);
+    fixtures.conversion.toBCH.not.forEach((bch) => {
+      it(`converts ${bch[0]} to Bitcoin Cash, not to ${bch[1]} Satoshi`, () => {
+        assert.notEqual(BITBOX.BitcoinCash.toBitcoinCash(bch[0]), bch[1]);
+      });
     });
 
-    it('converts and handles corner case rounding', () => {
-      assert.equal(BITBOX.BitcoinCash.toBitcoinCash(46), .00000046);
+    fixtures.conversion.toBCH.rounding.forEach((satoshi) => {
+      it(`rounding ${satoshi[0]} to ${satoshi[1]} Satoshi`, () => {
+        assert.equal(BITBOX.BitcoinCash.toBitcoinCash(satoshi[0]), satoshi[1]);
+      });
     });
   });
 
