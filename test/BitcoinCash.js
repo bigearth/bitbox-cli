@@ -12,6 +12,7 @@ function flatten (arrays) {
 // 1. generate testnet p2sh
 // 2. generate cashaddr mainnet p2sh
 // 3. generate cashaddr testnet p2sh
+// 4. test error cases
 let LEGACY_ADDRESSES = flatten([
   fixtures.legacyMainnetP2PKH,
   fixtures.legacyMainnetP2SH,
@@ -34,6 +35,11 @@ let CASHADDR_ADDRESSES = flatten([
   fixtures.cashaddrMainnetP2SH,
   fixtures.cashaddrTestnetP2PKH
 ]);
+
+let CASHADDR_ADDRESSES_NO_PREFIX = CASHADDR_ADDRESSES.map((address) => {
+  let parts = address.split(':');
+  return parts[1];
+})
 
 let P2PKH_ADDRESSES = flatten([
   fixtures.legacyMainnetP2PKH,
@@ -62,66 +68,207 @@ describe('price conversion', () => {
 });
 
 describe('address conversion', () => {
-  it('should convert base58Check address to cashaddr', () => {
-    let base58Check = fixtures.base58check;
-    let cashaddr = BITBOX.BitcoinCash.toCashAddress(base58Check);
-    assert.equal(cashaddr, fixtures.cashaddr);
+  it('should translate legacy address format to itself correctly', () => {
+    assert.deepEqual(
+      LEGACY_ADDRESSES.map(BITBOX.BitcoinCash.toLegacyAddress),
+      LEGACY_ADDRESSES
+    );
+  })
+
+  it('should convert legacy base58Check address to cashaddr', () => {
+    assert.deepEqual(
+      LEGACY_ADDRESSES.map(BITBOX.BitcoinCash.toCashAddress),
+      CASHADDR_ADDRESSES
+    );
   });
 
-  it('should convert cashaddr address to base58Check', () => {
-    let cashaddr = fixtures.cashaddr;
-    let base58Check = BITBOX.BitcoinCash.toLegacyAddress(cashaddr);
-    assert.equal(base58Check, fixtures.base58check);
+  it('should convert cashaddr address to legacy base58Check', () => {
+    assert.deepEqual(
+      CASHADDR_ADDRESSES.map(BITBOX.BitcoinCash.toLegacyAddress),
+      LEGACY_ADDRESSES
+    );
   });
+
+  it('should translate cashaddr address format to itself correctly', () => {
+    assert.deepEqual(
+      CASHADDR_ADDRESSES.map(BITBOX.BitcoinCash.toCashAddress),
+      CASHADDR_ADDRESSES
+    );
+  })
+
+  it('should translate no-prefix cashaddr address format to itself correctly', () => {
+    assert.deepEqual(
+      CASHADDR_ADDRESSES_NO_PREFIX.map(BITBOX.BitcoinCash.toCashAddress),
+      CASHADDR_ADDRESSES
+    )
+  })
 });
 
 describe('address format detection', () => {
-  it('should detect legacy base58Check address', () => {
-    LEGACY_ADDRESSES.forEach((address) => {
-      let isBase58Check = BITBOX.BitcoinCash.isLegacyAddress(address);
-      assert.equal(isBase58Check, true);
-    })
+  describe('legacy base58Check', () => {
+    it('should detect legacy base58Check address', () => {
+      LEGACY_ADDRESSES.forEach((address) => {
+        let isBase58Check = BITBOX.BitcoinCash.isLegacyAddress(address);
+        assert.equal(isBase58Check, true);
+      })
+    });
+
+    it('should return false for cashaddr', () => {
+      CASHADDR_ADDRESSES.forEach((address) => {
+        let isBase58Check = BITBOX.BitcoinCash.isLegacyAddress(address);
+        assert.equal(isBase58Check, false);
+      })
+    });
   });
 
-  it('should detect cashaddr address', () => {
-    CASHADDR_ADDRESSES.forEach((address) => {
-      let isCashaddr = BITBOX.BitcoinCash.isCashAddress(address);
-      assert.equal(isCashaddr, true);
-    })
+  describe('cashaddr', () => {
+    it('should detect cashaddr address', () => {
+      CASHADDR_ADDRESSES.forEach((address) => {
+        let isCashaddr = BITBOX.BitcoinCash.isCashAddress(address);
+        assert.equal(isCashaddr, true);
+      })
+    });
+
+    it('should return false for legacy', () => {
+      LEGACY_ADDRESSES.forEach((address) => {
+        let isCashaddr = BITBOX.BitcoinCash.isCashAddress(address);
+        assert.equal(isCashaddr, false);
+      })
+    });
   });
 });
 
 describe('network detection', () => {
-  it('should detect mainnet address', () => {
-    MAINNET_ADDRESSES.forEach((address) => {
-      let isMainnet = BITBOX.BitcoinCash.isMainnetAddress(address);
-      assert.equal(isMainnet, true);
-    })
+
+  describe('mainnet', () => {
+    it('should detect mainnet address', () => {
+      MAINNET_ADDRESSES.forEach((address) => {
+        let isMainnet = BITBOX.BitcoinCash.isMainnetAddress(address);
+        assert.equal(isMainnet, true);
+      })
+    });
+
+    it('should return false for testnet', () => {
+      TESTNET_ADDRESSES.forEach((address) => {
+        let isMainnet = BITBOX.BitcoinCash.isMainnetAddress(address);
+        assert.equal(isMainnet, false);
+      })
+    });
   });
 
-  it('should detect testnet address', () => {
-    TESTNET_ADDRESSES.forEach((address) => {
-      let isTestnet = BITBOX.BitcoinCash.isTestnetAddress(address);
-      assert.equal(isTestnet, true);
-    })
+  describe('testnet', () => {
+    it('should detect testnet address', () => {
+      TESTNET_ADDRESSES.forEach((address) => {
+        let isTestnet = BITBOX.BitcoinCash.isTestnetAddress(address);
+        assert.equal(isTestnet, true);
+      })
+    });
+
+    it('should return false for mainnet', () => {
+      MAINNET_ADDRESSES.forEach((address) => {
+        let isTestnet = BITBOX.BitcoinCash.isTestnetAddress(address);
+        assert.equal(isTestnet, false);
+      })
+    });
   });
 });
 
 describe('address type detection', () => {
-  it('should detect P2PKH address', () => {
-    P2PKH_ADDRESSES.forEach((address) => {
-      let isP2PKH = BITBOX.BitcoinCash.isP2PKHAddress(address);
-      assert.equal(isP2PKH, true);
-    })
+  describe('P2PKH', () => {
+    it('should detect P2PKH address', () => {
+      P2PKH_ADDRESSES.forEach((address) => {
+        let isP2PKH = BITBOX.BitcoinCash.isP2PKHAddress(address);
+        assert.equal(isP2PKH, true);
+      })
+    });
+
+    it('should return false for P2SH', () => {
+      P2SH_ADDRESSES.forEach((address) => {
+        let isP2PKH = BITBOX.BitcoinCash.isP2PKHAddress(address);
+        assert.equal(isP2PKH, false);
+      })
+    });
   });
 
-  it('should detect P2SH address', () => {
-    P2SH_ADDRESSES.forEach((address) => {
-      let isP2SH = BITBOX.BitcoinCash.isP2SHAddress(address);
-      assert.equal(isP2SH, true);
-    })
+  describe('P2SH', () => {
+    it('should detect P2SH address', () => {
+      P2SH_ADDRESSES.forEach((address) => {
+        let isP2SH = BITBOX.BitcoinCash.isP2SHAddress(address);
+        assert.equal(isP2SH, true);
+      })
+    });
+
+    it('should return false for P2PKH', () => {
+      P2PKH_ADDRESSES.forEach((address) => {
+        let isP2SH = BITBOX.BitcoinCash.isP2SHAddress(address);
+        assert.equal(isP2SH, false);
+      })
+    });
   });
 });
+
+describe('cashaddr prefix detection', () => {
+  it('should return the same result for detectAddressFormat', () => {
+    assert.deepEqual(
+      CASHADDR_ADDRESSES_NO_PREFIX.map(BITBOX.BitcoinCash.detectAddressFormat),
+      CASHADDR_ADDRESSES.map(BITBOX.BitcoinCash.detectAddressFormat)
+    )
+  })
+  it('should return the same result for detectAddressNetwork', () => {
+    assert.deepEqual(
+      CASHADDR_ADDRESSES_NO_PREFIX.map(BITBOX.BitcoinCash.detectAddressNetwork),
+      CASHADDR_ADDRESSES.map(BITBOX.BitcoinCash.detectAddressNetwork)
+    )
+  })
+  it('should return the same result for detectAddressType', () => {
+    assert.deepEqual(
+      CASHADDR_ADDRESSES_NO_PREFIX.map(BITBOX.BitcoinCash.detectAddressType),
+      CASHADDR_ADDRESSES.map(BITBOX.BitcoinCash.detectAddressType)
+    )
+  })
+  it('should return the same result for toLegacyAddress', () => {
+    assert.deepEqual(
+      CASHADDR_ADDRESSES_NO_PREFIX.map(BITBOX.BitcoinCash.toLegacyAddress),
+      CASHADDR_ADDRESSES.map(BITBOX.BitcoinCash.toLegacyAddress)
+    )
+  })
+  it('should return the same result for isLegacyAddress', () => {
+    assert.deepEqual(
+      CASHADDR_ADDRESSES_NO_PREFIX.map(BITBOX.BitcoinCash.isLegacyAddress),
+      CASHADDR_ADDRESSES.map(BITBOX.BitcoinCash.isLegacyAddress)
+    )
+  })
+  it('should return the same result for isCashAddress', () => {
+    assert.deepEqual(
+      CASHADDR_ADDRESSES_NO_PREFIX.map(BITBOX.BitcoinCash.isCashAddress),
+      CASHADDR_ADDRESSES.map(BITBOX.BitcoinCash.isCashAddress)
+    )
+  })
+  it('should return the same result for isMainnetAddress', () => {
+    assert.deepEqual(
+      CASHADDR_ADDRESSES_NO_PREFIX.map(BITBOX.BitcoinCash.isMainnetAddress),
+      CASHADDR_ADDRESSES.map(BITBOX.BitcoinCash.isMainnetAddress)
+    )
+  })
+  it('should return the same result for isTestnetAddress', () => {
+    assert.deepEqual(
+      CASHADDR_ADDRESSES_NO_PREFIX.map(BITBOX.BitcoinCash.isTestnetAddress),
+      CASHADDR_ADDRESSES.map(BITBOX.BitcoinCash.isTestnetAddress)
+    )
+  })
+  it('should return the same result for isP2PKHAddress', () => {
+    assert.deepEqual(
+      CASHADDR_ADDRESSES_NO_PREFIX.map(BITBOX.BitcoinCash.isP2PKHAddress),
+      CASHADDR_ADDRESSES.map(BITBOX.BitcoinCash.isP2PKHAddress)
+    )
+  })
+  it('should return the same result for isP2SHAddress', () => {
+    assert.deepEqual(
+      CASHADDR_ADDRESSES_NO_PREFIX.map(BITBOX.BitcoinCash.isP2SHAddress),
+      CASHADDR_ADDRESSES.map(BITBOX.BitcoinCash.isP2SHAddress)
+    )
+  })
+})
 
 describe('return address format', () => {
   it('should return base58Check address', () => {
