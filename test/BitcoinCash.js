@@ -107,7 +107,7 @@ describe('price conversion', () => {
 });
 
 describe('address conversion', () => {
-  describe('to legacy', () => {
+  describe('#toLegacyAddress', () => {
     it('should translate legacy address format to itself correctly', () => {
       assert.deepEqual(
         LEGACY_ADDRESSES.map(BITBOX.BitcoinCash.toLegacyAddress),
@@ -134,7 +134,7 @@ describe('address conversion', () => {
     });
   });
 
-  describe('to cashaddr', () => {
+  describe('#toCashAddress', () => {
     it('should convert legacy base58Check address to cashaddr', () => {
       assert.deepEqual(
         LEGACY_ADDRESSES.map(BITBOX.BitcoinCash.toCashAddress),
@@ -171,7 +171,7 @@ describe('address conversion', () => {
 
 describe('address format detection', () => {
 
-  describe('legacy base58Check', () => {
+  describe('#isLegacyAddress', () => {
     describe('is legacy', () => {
       LEGACY_ADDRESSES.forEach((address) => {
         it(`should detect ${address} is a legacy base58Check address`, () => {
@@ -201,7 +201,7 @@ describe('address format detection', () => {
     });
   });
 
-  describe('cashaddr', () => {
+  describe('#isCashAddress', () => {
     describe('is cashaddr', () => {
       CASHADDR_ADDRESSES.forEach((address) => {
         it(`should detect ${address} is a cashaddr address`, () => {
@@ -235,7 +235,7 @@ describe('address format detection', () => {
 
 describe('network detection', () => {
 
-  describe('mainnet', () => {
+  describe('#isMainnetAddress', () => {
     describe('is mainnet', () => {
       MAINNET_ADDRESSES.forEach((address) => {
         it(`should detect ${address} is a mainnet address`, () => {
@@ -266,7 +266,7 @@ describe('network detection', () => {
     });
   });
 
-  describe('testnet', () => {
+  describe('#isTestnetAddress', () => {
     describe('is testnet', () => {
       TESTNET_ADDRESSES.forEach((address) => {
         it(`should detect ${address} is not a testnet address`, () => {
@@ -299,7 +299,7 @@ describe('network detection', () => {
 });
 
 describe('address type detection', () => {
-  describe('P2PKH', () => {
+  describe('#isP2PKHAddress', () => {
     describe('is P2PKH', () => {
       P2PKH_ADDRESSES.forEach((address) => {
         it(`should detect ${address} is a P2PKH address`, () => {
@@ -330,7 +330,7 @@ describe('address type detection', () => {
     });
   });
 
-  describe('P2SH', () => {
+  describe('#isP2SHAddress', () => {
     describe('is P2SH', () => {
       P2SH_ADDRESSES.forEach((address) => {
         it(`should detect ${address} is a P2SH address`, () => {
@@ -425,7 +425,7 @@ describe('cashaddr prefix detection', () => {
   })
 })
 
-describe('return address format', () => {
+describe('#detectAddressFormat', () => {
   LEGACY_ADDRESSES.forEach((address) => {
     it(`should detect ${address} is a legacy base58Check address`, () => {
       let isBase58Check = BITBOX.BitcoinCash.detectAddressFormat(address);
@@ -452,7 +452,7 @@ describe('return address format', () => {
   });
 });
 
-describe('return address network', () => {
+describe('#detectAddressNetwork', () => {
   MAINNET_ADDRESSES.forEach((address) => {
     it(`should detect ${address} is a mainnet address`, () => {
       let isMainnet = BITBOX.BitcoinCash.detectAddressNetwork(address);
@@ -479,7 +479,7 @@ describe('return address network', () => {
   });
 });
 
-describe('return address type', () => {
+describe('#detectAddressType', () => {
   P2PKH_ADDRESSES.forEach((address) => {
     it(`should detect ${address} is a P2PKH address`, () => {
       let isP2PKH = BITBOX.BitcoinCash.detectAddressType(address);
