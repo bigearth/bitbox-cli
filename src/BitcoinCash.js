@@ -239,7 +239,8 @@ class BitcoinCash {
 
   // sign message
   static signMessageWithPrivKey(privateKeyWIF, message) {
-    let keyPair = Bitcoin.ECPair.fromWIF(privateKeyWIF)
+    let network = privateKeyWIF.charAt(0) === 'c' ? 'testnet' : 'bitcoin';
+    let keyPair = Bitcoin.ECPair.fromWIF(privateKeyWIF, Bitcoin.networks[network])
     let privateKey = keyPair.d.toBuffer(32)
     return bitcoinMessage.sign(message, privateKey, keyPair.compressed).toString('base64');
   }
