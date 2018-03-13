@@ -54,6 +54,13 @@ class BitcoinCash {
     return BIP39.mnemonicToSeed(mnemonic, password);
   }
 
+  static translateMnemonic(mnemonic, from = 'english', to = 'english') {
+    let fromWordlist = BitcoinCash.mnemonicWordLists()[from.toLowerCase()];
+    let toWordlist = BitcoinCash.mnemonicWordLists()[to.toLowerCase()];
+    let entropy = BitcoinCash.mnemonicToEntropy(mnemonic, fromWordlist);
+    return BitcoinCash.entropyToMnemonic(entropy, toWordlist);
+  }
+
   static mnemonicWordLists() {
     return BIP39.wordlists;
   }

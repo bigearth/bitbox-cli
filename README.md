@@ -203,6 +203,18 @@ BITBOX.BitcoinCash.mnemonicToEntropy('boil lonely casino manage habit where tota
 BITBOX.BitcoinCash.validateMnemonic('boil lonely casino manage habit where total glory muffin name limit mansion')
 // true
 
+// translate mnemonics between langugaes
+// create korean mnemonic
+let koreanMnemonic = BITBOX.BitcoinCash.generateMnemonic(256, BITBOX.BitcoinCash.mnemonicWordLists().korean);
+// 상대 조직 피곤 기간 장면 저런 서쪽 신고 연예인 고춧가루 활짝 세종대왕 거울 대충 벨트 제일 저곳 남녀 수술 수학 학원 금년 유학 인공
+// translate it to spanish
+let spanishMnemonic = BITBOX.BitcoinCash.translateMnemonic(koreanMnemonic, 'korean', 'spanish')
+// gato razón torero bobina pintor poema grieta leer mirar aparato vivaz hembra alambre cielo esencia rabia poder buscar incapaz instante trofeo bicho oído pájaro
+// translate back to korean
+let koreanMnemonic2 = BITBOX.BitcoinCash.translateMnemonic(spanishMnemonic, 'spanish', 'korean')
+// 상대 조직 피곤 기간 장면 저런 서쪽 신고 연예인 고춧가루 활짝 세종대왕 거울 대충 벨트 제일 저곳 남녀 수술 수학 학원 금년 유학 인공
+
+
 BITBOX.BitcoinCash.mnemonicToSeedHex('boil lonely casino manage habit where total glory muffin name limit mansion', '');
 // e906236ab5ebec8fbff9948807a6f5d2aa6f35e8bcbcda99e22f9048323cdc0755b781782ee1cce40007bcf900593ed2667e6e9800d734fa46a8f7f51ec74818
 

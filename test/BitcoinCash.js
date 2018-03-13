@@ -773,6 +773,68 @@ describe('#mnemonicWordLists', () => {
   });
 });
 
+describe('#translateMnemonic', () => {
+  it('should translate mnemonic from english to chinese_simplified', () => {
+    let englishMnemonic = BITBOX.BitcoinCash.generateMnemonic(256);
+    let chineseMnemonic = BITBOX.BitcoinCash.translateMnemonic(englishMnemonic, 'english', 'chinese_simplified')
+    let englishMnemonic2 = BITBOX.BitcoinCash.translateMnemonic(chineseMnemonic, 'chinese_simplified', 'english')
+    assert.equal(englishMnemonic, englishMnemonic2);
+  });
+
+  it('should translate mnemonic from english to chinese_traditional', () => {
+    let englishMnemonic = BITBOX.BitcoinCash.generateMnemonic(256);
+    let chineseMnemonic = BITBOX.BitcoinCash.translateMnemonic(englishMnemonic, 'english', 'chinese_traditional')
+    let englishMnemonic2 = BITBOX.BitcoinCash.translateMnemonic(chineseMnemonic, 'chinese_traditional', 'english')
+    assert.equal(englishMnemonic, englishMnemonic2);
+  });
+
+  it('should translate mnemonic from english to french', () => {
+    let englishMnemonic = BITBOX.BitcoinCash.generateMnemonic(256);
+    let frenchMnemonic = BITBOX.BitcoinCash.translateMnemonic(englishMnemonic, 'english', 'french')
+    let englishMnemonic2 = BITBOX.BitcoinCash.translateMnemonic(frenchMnemonic, 'french', 'english')
+    assert.equal(englishMnemonic, englishMnemonic2);
+  });
+
+  it('should translate mnemonic from english to italian', () => {
+    let englishMnemonic = BITBOX.BitcoinCash.generateMnemonic(256);
+    let italianMnemonic = BITBOX.BitcoinCash.translateMnemonic(englishMnemonic, 'english', 'italian')
+    let englishMnemonic2 = BITBOX.BitcoinCash.translateMnemonic(italianMnemonic, 'italian', 'english')
+    assert.equal(englishMnemonic, englishMnemonic2);
+  });
+
+  it('should translate mnemonic from english to japanese', () => {
+    let englishMnemonic = BITBOX.BitcoinCash.generateMnemonic(256);
+    let japaneseMnemonic = BITBOX.BitcoinCash.translateMnemonic(englishMnemonic, 'english', 'japanese')
+    let englishMnemonic2 = BITBOX.BitcoinCash.translateMnemonic(japaneseMnemonic, 'japanese', 'english')
+    assert.equal(englishMnemonic, englishMnemonic2);
+  });
+
+  it('should translate mnemonic from english to korean', () => {
+    let englishMnemonic = BITBOX.BitcoinCash.generateMnemonic(256);
+    let koreanMnemonic = BITBOX.BitcoinCash.translateMnemonic(englishMnemonic, 'english', 'korean')
+    let englishMnemonic2 = BITBOX.BitcoinCash.translateMnemonic(koreanMnemonic, 'korean', 'english')
+    assert.equal(englishMnemonic, englishMnemonic2);
+  });
+
+  it('should translate mnemonic from english to spanish', () => {
+    let englishMnemonic = BITBOX.BitcoinCash.generateMnemonic(256);
+    let spanishMnemonic = BITBOX.BitcoinCash.translateMnemonic(englishMnemonic, 'english', 'spanish')
+    let englishMnemonic2 = BITBOX.BitcoinCash.translateMnemonic(spanishMnemonic, 'spanish', 'english')
+    assert.equal(englishMnemonic, englishMnemonic2);
+  });
+
+  it('should translate mnemonic from korean to spanish', () => {
+    let koreanWordlist = BITBOX.BitcoinCash.mnemonicWordLists().korean;
+    let koreanMnemonic = BITBOX.BitcoinCash.generateMnemonic(256, koreanWordlist);
+    console.log(koreanMnemonic)
+    let spanishMnemonic = BITBOX.BitcoinCash.translateMnemonic(koreanMnemonic, 'korean', 'spanish')
+    console.log(spanishMnemonic)
+    let koreanMnemonic2 = BITBOX.BitcoinCash.translateMnemonic(spanishMnemonic, 'spanish', 'korean')
+    console.log(koreanMnemonic2)
+    assert.equal(koreanMnemonic, koreanMnemonic2);
+  });
+});
+
 describe('#fromSeedBuffer', () => {
   it('should create 32 byte chain code', () => {
     let rand = BITBOX.Crypto.randomBytes(32);
