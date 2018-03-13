@@ -531,6 +531,11 @@ describe('#generateMnemonic', () => {
     let mnemonic = BITBOX.BitcoinCash.generateMnemonic(256);
     assert.lengthOf(mnemonic.split(' '), 24);
   });
+
+  it('should generate an 24 word italian mnemonic', () => {
+    let mnemonic = BITBOX.BitcoinCash.generateMnemonic(256, BITBOX.BitcoinCash.mnemonicWordLists().italian);
+    assert.lengthOf(mnemonic.split(' '), 24);
+  });
 });
 
 describe('#entropyToMnemonic', () => {
@@ -561,6 +566,11 @@ describe('#entropyToMnemonic', () => {
   it('should generate an 24 word mnemonic', () => {
     let rand = BITBOX.Crypto.randomBytes(32);
     let mnemonic = BITBOX.BitcoinCash.entropyToMnemonic(rand);
+    assert.lengthOf(mnemonic.split(' '), 24);
+  });
+
+  it('should generate an 24 french word mnemonic', () => {
+    let mnemonic = BITBOX.BitcoinCash.generateMnemonic(256, BITBOX.BitcoinCash.mnemonicWordLists().french);
     assert.lengthOf(mnemonic.split(' '), 24);
   });
 });
@@ -595,6 +605,12 @@ describe('#mnemonicToEntropy', () => {
     let entropy = BITBOX.BitcoinCash.mnemonicToEntropy(mnemonic);
     assert.lengthOf(entropy, 64);
   });
+
+  it('should turn a 24 word spanish mnemonic to entropy', () => {
+    let mnemonic = BITBOX.BitcoinCash.generateMnemonic(256, BITBOX.BitcoinCash.mnemonicWordLists().spanish);
+    let entropy = BITBOX.BitcoinCash.mnemonicToEntropy(mnemonic, BITBOX.BitcoinCash.mnemonicWordLists().spanish);
+    assert.lengthOf(entropy, 64);
+  });
 });
 
 describe('#validateMnemonic', () => {
@@ -621,6 +637,11 @@ describe('#validateMnemonic', () => {
   it('validate a 256 bit mnemonic', () => {
     let mnemonic = BITBOX.BitcoinCash.generateMnemonic(256);
     assert.equal(BITBOX.BitcoinCash.validateMnemonic(mnemonic), true);
+  });
+
+  it('validate a 256 bit chinese simplified mnemonic', () => {
+    let mnemonic = BITBOX.BitcoinCash.generateMnemonic(256, BITBOX.BitcoinCash.mnemonicWordLists().chinese_simplified);
+    assert.equal(BITBOX.BitcoinCash.validateMnemonic(mnemonic, BITBOX.BitcoinCash.mnemonicWordLists().chinese_simplified), true);
   });
 });
 
@@ -715,6 +736,40 @@ describe('#mnemonicToSeed', () => {
     let mnemonic = BITBOX.BitcoinCash.generateMnemonic(256);
     let rootSeed = BITBOX.BitcoinCash.mnemonicToSeed(mnemonic, '');
     assert.lengthOf(rootSeed.toString('hex'), 128);
+  });
+});
+
+describe('#mnemonicWordLists', () => {
+  it('return a list of 2048 english words', () => {
+    assert.lengthOf(BITBOX.BitcoinCash.mnemonicWordLists().EN, 2048);
+  });
+
+  it('return a list of 2048 japanese words', () => {
+    assert.lengthOf(BITBOX.BitcoinCash.mnemonicWordLists().JA, 2048);
+  });
+
+  it('return a list of 2048 chinese simplified words', () => {
+    assert.lengthOf(BITBOX.BitcoinCash.mnemonicWordLists().chinese_simplified, 2048);
+  });
+
+  it('return a list of 2048 chinese traditional words', () => {
+    assert.lengthOf(BITBOX.BitcoinCash.mnemonicWordLists().chinese_traditional, 2048);
+  });
+
+  it('return a list of 2048 french words', () => {
+    assert.lengthOf(BITBOX.BitcoinCash.mnemonicWordLists().french, 2048);
+  });
+
+  it('return a list of 2048 italian words', () => {
+    assert.lengthOf(BITBOX.BitcoinCash.mnemonicWordLists().italian, 2048);
+  });
+
+  it('return a list of 2048 korean words', () => {
+    assert.lengthOf(BITBOX.BitcoinCash.mnemonicWordLists().korean, 2048);
+  });
+
+  it('return a list of 2048 spanish words', () => {
+    assert.lengthOf(BITBOX.BitcoinCash.mnemonicWordLists().spanish, 2048);
   });
 });
 

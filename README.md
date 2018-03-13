@@ -175,6 +175,21 @@ BITBOX.BitcoinCash.signMessageWithPrivKey('KxtpRDUJDiutLaTV8Vuavhb6h7zq9YV9ZKA3d
 BITBOX.BitcoinCash.verifyMessage('bitcoincash:qp2zvw3zpk5xx43w4tve7mtekd9kaxwj4uenq9eupv', 'IIYVhlo2Z6TWFjYX1+YM+7vQKz0m+zYdSe4eYpFLuAQDEZXqll7lZC8Au22VI2LLP5x+IerZckVk3QQPsA3e8/8=', 'EARTH')
 // true
 
+// Generate mnemonics in 10 different languages. Defaults to English
+BITBOX.BitcoinCash.mnemonicWordLists();
+// {
+//   EN: [],
+//   JA: [],
+//   chinese_simplified: [],
+//   chinese_traditional: [],
+//   english: [],
+//   french: [],
+//   italian: [],
+//   japanese: [],
+//   korean: [],
+//   spanish: []
+// }
+
 BITBOX.BitcoinCash.generateMnemonic(128);
 // boil lonely casino manage habit where total glory muffin name limit mansion
 

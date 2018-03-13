@@ -6,15 +6,14 @@ import BIP39 from 'bip39';
 import bchaddr from 'bchaddrjs';
 import sb from 'satoshi-bitcoin';
 import bitcoinMessage from 'bitcoinjs-message';
-// let bitcore = require('bitcore-lib');
-
+import randomBytes from 'randombytes';
 
 class BitcoinCash {
-  static generateMnemonic(bits = 128) {
-    return BIP39.generateMnemonic(bits);
+  static generateMnemonic(bits = 128, wordlist) {
+    return BIP39.generateMnemonic(bits, randomBytes, wordlist);
   }
 
-  static entropyToMnemonic(bytes = 16) {
+  static entropyToMnemonic(bytes = 16, wordlist) {
     // Generate cryptographically strong pseudo-random data.
     // The bytes argument is a number indicating the number of bytes to generate.
     // Uses the NodeJS crypto lib. More info: https://nodejs.org/api/crypto.html#crypto_crypto_randombytes_size_callback
@@ -36,15 +35,15 @@ class BitcoinCash {
     //
     // 256/32               8               264                       24
 
-    return BIP39.entropyToMnemonic(randomBytes);
+    return BIP39.entropyToMnemonic(randomBytes, wordlist);
   }
 
-  static mnemonicToEntropy(mnemonic) {
-    return BIP39.mnemonicToEntropy(mnemonic);
+  static mnemonicToEntropy(mnemonic, wordlist) {
+    return BIP39.mnemonicToEntropy(mnemonic, wordlist);
   }
 
-  static validateMnemonic(mnemonic) {
-    return BIP39.validateMnemonic(mnemonic);
+  static validateMnemonic(mnemonic, wordlist) {
+    return BIP39.validateMnemonic(mnemonic, wordlist);
   }
 
   static mnemonicToSeedHex(mnemonic, password = '') {
@@ -53,6 +52,10 @@ class BitcoinCash {
 
   static mnemonicToSeed(mnemonic, password = '') {
     return BIP39.mnemonicToSeed(mnemonic, password);
+  }
+
+  static mnemonicWordLists() {
+    return BIP39.wordlists;
   }
 
   static fromWIF(privateKeyWIF, network = 'bitcoin') {
