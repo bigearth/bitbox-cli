@@ -826,11 +826,8 @@ describe('#translateMnemonic', () => {
   it('should translate mnemonic from korean to spanish', () => {
     let koreanWordlist = BITBOX.BitcoinCash.mnemonicWordLists().korean;
     let koreanMnemonic = BITBOX.BitcoinCash.generateMnemonic(256, koreanWordlist);
-    console.log(koreanMnemonic)
     let spanishMnemonic = BITBOX.BitcoinCash.translateMnemonic(koreanMnemonic, 'korean', 'spanish')
-    console.log(spanishMnemonic)
     let koreanMnemonic2 = BITBOX.BitcoinCash.translateMnemonic(spanishMnemonic, 'spanish', 'korean')
-    console.log(koreanMnemonic2)
     assert.equal(koreanMnemonic, koreanMnemonic2);
   });
 });

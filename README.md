@@ -176,11 +176,9 @@ BITBOX.BitcoinCash.signMessageWithPrivKey('KxtpRDUJDiutLaTV8Vuavhb6h7zq9YV9ZKA3d
 BITBOX.BitcoinCash.verifyMessage('bitcoincash:qp2zvw3zpk5xx43w4tve7mtekd9kaxwj4uenq9eupv', 'IIYVhlo2Z6TWFjYX1+YM+7vQKz0m+zYdSe4eYpFLuAQDEZXqll7lZC8Au22VI2LLP5x+IerZckVk3QQPsA3e8/8=', 'EARTH')
 // true
 
-// Generate mnemonics in 10 different languages. Defaults to English
+// Generate mnemonics in 8 different languages. Defaults to English
 BITBOX.BitcoinCash.mnemonicWordLists();
 // {
-//   EN: [],
-//   JA: [],
 //   chinese_simplified: [],
 //   chinese_traditional: [],
 //   english: [],
@@ -298,7 +296,8 @@ BITBOX.BitcoinCash.createHDWallet({
     change: "0",
     address_index: "0"
   },
-  password: ''
+  password: '',
+  language: 'spanish'
 })
 // [ <Buffer 56 83 45 7c 58 10 af 8a 28 ce e0 c4 15 05 b4 0a 87 51 4b f6 da 2c bd d2 a8 f9 93 34 cb 05 10 60 6a 9a 27 44 05 d9 36 41 2b c2 81 0f 48 43 d8 b5 5b 57 ... >,
 //   HDNode {
@@ -312,7 +311,7 @@ BITBOX.BitcoinCash.createHDWallet({
 //     depth: 0,
 //     index: 0,
 //     parentFingerprint: 0 },
-//   'spin find accuse essay valley wedding heavy occur second weekend cruel library',
+//   'mimo razón guardia yate pregunta aclarar rubí oír regla novela ateo carpeta',
 //   { masterKey: 'm',
 //     purpose: '44\'',
 //     coinCode: '145\'',

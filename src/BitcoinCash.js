@@ -95,11 +95,17 @@ class BitcoinCash {
 
   static createHDWallet(config) {
     // nore info: https://github.com/bitcoinbook/bitcoinbook/blob/develop/ch05.asciidoc
+    let language = config.language;
+
+    if(!language || (language !== 'chinese_simplified' && language !== 'chinese_traditional' && language !== 'english' && language !== 'french' && language !== 'italian' && language !== 'japanese' && language !== 'korean' && language !== 'spanish')) {
+      config.language = 'english';
+    }
 
     let mnemonic = config.mnemonic;
     if(config.autogenerateHDMnemonic) {
       // create a random mnemonic w/ user provided entropy size
-      mnemonic = BitcoinCash.entropyToMnemonic(config.entropy);
+      let randomBytes = Crypto.randomBytes(config.entropy);
+      mnemonic = BitcoinCash.entropyToMnemonic(randomBytes, BitcoinCash.mnemonicWordLists()[config.language]);
     }
 
     // create 512 bit HMAC-SHA512 root seed
