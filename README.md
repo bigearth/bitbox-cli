@@ -114,12 +114,13 @@ This generates a `paper-wallet.html` file which can be printed for offline stora
 ```
 Usage: paper [options]
 
-Create a paper wallet for easy and safe back up
+Create a paper wallet for easy and safe back up in cashaddr/legacy encoding and optionally have the mnemonic be in any of 8 languages
 
 
 Options:
 
   -e, --encoding <encoding>  The encoding to use. Options include "cashaddr" and "legacy". Default: "cashaddr"
+  -l, --language <language>  language of mnemonic. Options: chinese_simplified, chinese_traditional, english, french, italian, japanese, korean, spanish. Default: english
   -h, --help                 output usage information
 ```
 

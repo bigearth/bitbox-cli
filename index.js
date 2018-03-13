@@ -22,7 +22,7 @@ let clone = require('git-clone');
 // let ProgressBar = require('progress');
 
 program
-  .version('0.3.14');
+  .version('0.3.15');
 
 program
   .command('new')
@@ -239,15 +239,20 @@ program
 program
   .command('paper')
   .option('-e, --encoding <encoding>', 'The encoding to use. Options include "cashaddr" and "legacy". Default: "cashaddr"')
+  .option('-l, --language <language>', 'language of mnemonic. Options: chinese_simplified, chinese_traditional, english, french, italian, japanese, korean, spanish. Default: english')
   .description('Create a paper wallet for easy and safe back up')
   .action((options) => {
     if(!options.encoding || (options.encoding !== 'cashaddr' && options.encoding !== 'legacy')) {
       options.encoding = 'cashaddr';
     }
 
-    console.log(chalk.blue(`Creating ${options.encoding} paper wallet`));
+    if(!options.language || (options.language !== 'chinese_simplified' && options.language !== 'chinese_traditional' && options.language !== 'english' && options.language !== 'french' && options.language !== 'italian' && options.language !== 'japanese' && options.language !== 'korean' && options.language !== 'spanish')) {
+      options.language = 'english';
+    }
+
+    console.log(chalk.blue(`Creating ${options.language} ${options.encoding} paper wallet`));
     let bitbox = new BITBOXCli();
-    let mnemonic = bitbox.BitcoinCash.entropyToMnemonic(32);
+    let mnemonic = bitbox.BitcoinCash.generateMnemonic(256, bitbox.BitcoinCash.mnemonicWordLists()[options.language]);
     let keypair = bitbox.BitcoinCash.keypairsFromMnemonic(mnemonic, 1)[0];
     let privateKeyWIF = keypair.privateKeyWIF;
     let address = keypair.address;
@@ -274,6 +279,7 @@ program
             <p>Mnemonic: ${mnemonic}</p>
             <p>HD Path: m/44'/145'/0'/0/0</p>
             <p>Encoding:  ${options.encoding}</p>
+            <p>Language:  ${options.language}</p>
           </div>
         `);
       })
