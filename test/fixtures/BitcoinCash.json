@@ -136,56 +136,126 @@
   "signatures": {
     "sign": [
       {
+       "network": "mainnet",
        "privateKeyWIF": "Ky54Y7sxkGovqTi5ogipFUToqsz4NCepLn3bitzHyiF3JaYULMbP",
        "message": "#BCHForEveryone",
        "signature": "IMx84IyWWbygyT5MnN1RWykh9B4lHMxght69emBCqmGfSGaYozaXeVZNzmKVGMxjSqqGZZ0aGPf08GtahLAjWXk="
       },
       {
+       "network": "mainnet",
         "privateKeyWIF": "KzkgRUDjAofdLvwHFGEyhtiULPYpKDozgfkz5yWR1S39isWHWPrz",
         "message": "BCHForEveryone",
         "signature": "H8X9FFIbyD4zAC/Hr57m5qTA2IDgbYTbdBpm/FEIhJVYMsG5xiuZxPrt2OA0zS7Uon1fwGLvLr0rdi+aD+JSl4w="
       },
       {
+       "network": "mainnet",
         "privateKeyWIF": "Kyb6tWZUfppAyQMRX9b1yAKahFDn8Xr2dY26tk7nM9s5cLvvFuqS",
         "message": "BCHForEveryone",
         "signature": "IFRV4fhdbJdKIABCkKQWezJTjUqw1aEZZc0k+pX5mQseG5e7UyGKG6r6REU1hSwahA0NHfOeNP2dZGzo9uYv+VU="
       },
       {
+       "network": "mainnet",
         "privateKeyWIF": "KzoVcYVG1dqVPa8AASR9tjXQHqs8KDx9Ex3WrwaEYPPxJ76gTZC2",
         "message": "BCHForEveryone",
         "signature": "IAaBJA09iOlyfQkCsWSlFC82YdE3leIKOCLfiJA0FTaDM30xvQrVb38L5sF6eD2zUUPpc0wMbxeqC7Rj8lRroHk="
       },
       {
+       "network": "mainnet",
         "privateKeyWIF": "KwEYU8cuczmym3KXUcVqmQS2R4zcKgzQ8ba2R54LHuSsY2wKXXkF",
         "message": "BCHForEveryone",
         "signature": "H+enm4Bb938z433Q7TBeFIMGNXrV8B1ui4SuLgkKqdYRDQgdaT1OHt5sk54CrjTQHGYOhpQW7DrRJLsIJffjJqs="
+      },
+      {
+       "network": "testnet",
+        "privateKeyWIF": "cN4Uy1GrEG2nLEiwB4pcGe7DuVDhX3aRoc6EMbLTYUGiunEgY5aZ",
+        "message": "#BCHForEveryone",
+        "signature": "H58Em7Eehv1pEIBHf3qmQTrGHbk7RaShpUIWZcYyjq4FHiKaVrzk4ZB2pThQe/+JmzM9tG/om9R90/LyN2YCVV8="
+      },
+      {
+       "network": "testnet",
+        "privateKeyWIF": "cVsp354pynjPN7Z6aeiHHkwEiwb6YpxymmEAYGGKxDumHxF6JHuQ",
+        "message": "#BCHForEveryone",
+        "signature": "IIFdTtIjnRzxQ07Yx8PKRjCNvDKjgiyujDzWUkFiSMV7Z8EM84DYIvFYslL00N4QDec6YFoSSmHAYi9IbJ8MRoQ="
+      },
+      {
+       "network": "testnet",
+        "privateKeyWIF": "cSbWcRrNdTwSafDci88gVMPrrHpTV7ew3aqnTEDrKd8EsU6cg3zL",
+        "message": "#BCHForEveryone",
+        "signature": "INB4Mv4YGwFZZl72ZW4Z+iNWcWgfl4mVhkrA9do+47MZJ+x5NcOylfzK++8BkzaQA08DeTsGw3zpOzbwJ/B+uZE="
+      },
+      {
+       "network": "testnet",
+        "privateKeyWIF": "cTUU8gWrGvxArHUzRjibHfCDGpbhfUsYQxbnS5hurtQPUDfFuouo",
+        "message": "#BCHForEveryone",
+        "signature": "IIoQBpSKymzH2Tg75bPXcZSxPyHPJU3Q/AcxwURmKWrDdWhSsKlv0dVXL0js28JD505Js8r/mkbe6MPV5PdVbCk="
+      },
+      {
+       "network": "testnet",
+        "privateKeyWIF": "cS8T5umEVPMFpjvMViqPqnTBN5Zqs1HNCxKpVPoNbFCGaUxRzMz4",
+        "message": "#BCHForEveryone",
+        "signature": "H1gOF88XX/tfH7pa50CfRXoD6h8pzi+Ceg3SG9E4UsJnat90Nw4nxbLJBTMDNTHbTfCD1Upe1IlbYLZEaVsIXrY="
       }
     ],
     "verify": [
       {
+       "network": "mainnet",
        "address": "bitcoincash:qzq53zlu48a00h0a8ay8gq3wnkvfxc50cv6fj5qm9d",
        "message": "#BCHForEveryone",
        "signature": "IMx84IyWWbygyT5MnN1RWykh9B4lHMxght69emBCqmGfSGaYozaXeVZNzmKVGMxjSqqGZZ0aGPf08GtahLAjWXk="
       },
       {
+       "network": "mainnet",
         "address": "bitcoincash:qrpuxwzerdfm5plxzxekya3js9wn2f4wa5lcgnat7c",
         "message": "BCHForEveryone",
         "signature": "H8X9FFIbyD4zAC/Hr57m5qTA2IDgbYTbdBpm/FEIhJVYMsG5xiuZxPrt2OA0zS7Uon1fwGLvLr0rdi+aD+JSl4w="
       },
       {
+       "network": "mainnet",
         "address": "bitcoincash:qpq7zz6ax7lun9ks92g5qwye206xkenc655y4x7rfn",
         "message": "BCHForEveryone",
         "signature": "IFRV4fhdbJdKIABCkKQWezJTjUqw1aEZZc0k+pX5mQseG5e7UyGKG6r6REU1hSwahA0NHfOeNP2dZGzo9uYv+VU="
       },
       {
+       "network": "mainnet",
         "address": "bitcoincash:qp22q7vt79qp724zvk0qkj59ec4h9ghx9yscnl3mpw",
         "message": "BCHForEveryone",
         "signature": "IAaBJA09iOlyfQkCsWSlFC82YdE3leIKOCLfiJA0FTaDM30xvQrVb38L5sF6eD2zUUPpc0wMbxeqC7Rj8lRroHk="
       },
       {
+       "network": "mainnet",
         "address": "bitcoincash:qzul5ttllyky9tcdmc458tw0fymtc2mkvc75542prl",
         "message": "BCHForEveryone",
         "signature": "H+enm4Bb938z433Q7TBeFIMGNXrV8B1ui4SuLgkKqdYRDQgdaT1OHt5sk54CrjTQHGYOhpQW7DrRJLsIJffjJqs="
+      },
+      {
+       "network": "testnet",
+        "address": "bchtest:qrhxjj4zxr342rpetm5hgmlxgrkkf9yhxspquuzpvf",
+        "message": "#BCHForEveryone",
+        "signature": "H58Em7Eehv1pEIBHf3qmQTrGHbk7RaShpUIWZcYyjq4FHiKaVrzk4ZB2pThQe/+JmzM9tG/om9R90/LyN2YCVV8="
+      },
+      {
+       "network": "testnet",
+        "address": "bchtest:qr8qhm92wf070lsd9xegmhnx8lt74tx0svc9yg3g0m",
+        "message": "#BCHForEveryone",
+        "signature": "IIFdTtIjnRzxQ07Yx8PKRjCNvDKjgiyujDzWUkFiSMV7Z8EM84DYIvFYslL00N4QDec6YFoSSmHAYi9IbJ8MRoQ="
+      },
+      {
+       "network": "testnet",
+        "address": "bchtest:qpgke00rhhl2w4a9jxzrdalaw0vz383j7uah86pv7f",
+        "message": "#BCHForEveryone",
+        "signature": "INB4Mv4YGwFZZl72ZW4Z+iNWcWgfl4mVhkrA9do+47MZJ+x5NcOylfzK++8BkzaQA08DeTsGw3zpOzbwJ/B+uZE="
+      },
+      {
+       "network": "testnet",
+        "address": "bchtest:qpnvzdzxshnvz8k28jrql4qr8qg6mc6mzc498c68c0",
+        "message": "#BCHForEveryone",
+        "signature": "IIoQBpSKymzH2Tg75bPXcZSxPyHPJU3Q/AcxwURmKWrDdWhSsKlv0dVXL0js28JD505Js8r/mkbe6MPV5PdVbCk="
+      },
+      {
+       "network": "testnet",
+        "address": "bchtest:qqs5j90clt5v2rw824xnlta4q2exv76uvsfrrmar7z",
+        "message": "#BCHForEveryone",
+        "signature": "H1gOF88XX/tfH7pa50CfRXoD6h8pzi+Ceg3SG9E4UsJnat90Nw4nxbLJBTMDNTHbTfCD1Upe1IlbYLZEaVsIXrY="
       }
     ]
   }

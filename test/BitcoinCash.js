@@ -845,7 +845,7 @@ describe('#fromSeedBuffer', () => {
 describe('sign and verify messages', () => {
   describe('#signMessageWithPrivKey', () => {
     fixtures.signatures.sign.forEach((sign) => {
-      it(`should sign a message w/ ${sign.privateKeyWIF}`, () => {
+      it(`should sign a message w/ ${sign.privateKeyWIF} on ${sign.network}`, () => {
         let privateKeyWIF = sign.privateKeyWIF;
         let message = sign.message;
         let signature = BITBOX.BitcoinCash.signMessageWithPrivKey(privateKeyWIF, message)
@@ -854,23 +854,24 @@ describe('sign and verify messages', () => {
     });
   });
 
+
   describe('#verifyMessage', () => {
     fixtures.signatures.verify.forEach((sign) => {
-      it(`should verify a valid signed message from cashaddr address ${sign.address}`, () => {
+      it(`should verify a valid signed message from cashaddr address ${sign.address} on ${sign.network}`, () => {
         assert.equal(BITBOX.BitcoinCash.verifyMessage(sign.address, sign.signature, sign.message), true);
       });
     });
 
     fixtures.signatures.verify.forEach((sign) => {
       let legacyAddress = BITBOX.BitcoinCash.toLegacyAddress(sign.address);
-      it(`should verify a valid signed message from legacy address ${legacyAddress}`, () => {
+      it(`should verify a valid signed message from legacy address ${legacyAddress} on ${sign.network}`, () => {
         assert.equal(BITBOX.BitcoinCash.verifyMessage(legacyAddress, sign.signature, sign.message), true);
       });
     });
 
     fixtures.signatures.verify.forEach((sign) => {
       let legacyAddress = BITBOX.BitcoinCash.toLegacyAddress(sign.address);
-      it(`should not verify an invalid signed message from cashaddr address ${sign.address}`, () => {
+      it(`should not verify an invalid signed message from cashaddr address ${sign.address} on ${sign.network}`, () => {
         assert.equal(BITBOX.BitcoinCash.verifyMessage(sign.address, sign.signature, 'nope'), false);
       });
     });
