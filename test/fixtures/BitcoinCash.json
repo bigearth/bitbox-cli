@@ -133,6 +133,77 @@
     "bchtest:qpuxsqzgq3j0a58tnmwpgcrwwyrkenalevaeknklfg",
     "bchtest:qpgrlg0yqmdf4y8q980e57tx6v7vrvds2ug89n8w8q"
   ],
+  "mainnetXPub": [
+    {
+      "xpub": "xpub6CVcpZVmPNjuniVYu1mLnLjDBfxWpx7LS25uxwRm5BLbXMCJmRaQgAxuqZDoYDeidJUh5QUatLJPWpeCkEK648hExyKFezqxJz4CMfEoYAc",
+      "addresses": [
+        "bitcoincash:qp3c2e0ehq5lqgnf2v8kqk0qemkatnknmga3mwqkms",
+        "bitcoincash:qznkqj05zsx8uszyjfdyvfn55ecwltfsrq93jhwchv",
+        "bitcoincash:qpkvr2gs84g6nltzcs9d9ef7qerh7qqenca2zddlpz",
+        "bitcoincash:qpuchd6als5yc3fs55aktwylr20u0antyu5f99jt8k",
+        "bitcoincash:qq670p9knuarh75ae7er4c246w909nd0z5gx6h60vv"
+      ]
+    },
+    {
+      "xpub": "xpub6CVcpZVmPNjuqYFnvSYoD9hE89PKmsWewFWGKeaCcVNSfDTgQgMuhm8Q2zreBsNQVMSJrBmQ3C95fi3SiRXYRQckQJMZuPXTJm9TcQejW13",
+      "addresses": [
+        "bitcoincash:qqhkcs5fnchh99p68mcszcz68cecef5jfyeugnyysl",
+        "bitcoincash:qqxj4w8lgctdhpvl9um9w7tvgmc9se3ttcfkdfcv5e",
+        "bitcoincash:qp30m7fu27vljfqvqq26kwn8f4zp4g7wngqdzn40xh",
+        "bitcoincash:qrvtu7nw8x5343c9jgc5a58zw5vw3susful9x9yhrv",
+        "bitcoincash:qrjcyuxunxzt2w35ney2hzrvgynrcqg5qqj9366m6a"
+      ]
+    },
+    {
+      "xpub": "xpub6CVcpZVmPNjuu1zjt9joxDzDrP9UNs6GVS5K1jSopnq76RBZswLsxy75qvJTVcSS6V9Y4Df6L7GDsbns99WrLrfmBNwocEdQm5CXFGExAgq",
+      "addresses": [
+        "bitcoincash:qp3d5t96fdvjkurpt2h0t8nw5u4hr294q5q4dw6g9r",
+        "bitcoincash:qpusevag7l73543hs2lw69aqx4kzlsxamyg785mnsa",
+        "bitcoincash:qp48wzx62956wqux569mhm7dzyykya35aghd0y6qxf",
+        "bitcoincash:qqxd6u4lap7s9zcm8jdkd44uakyghcw8hqawurftc6",
+        "bitcoincash:qrn4gf9ufqp3ze4refp6yqh60s47crcwksqp20txs7"
+      ]
+    }
+  ],
+  "testnetXPub": [
+    {
+      "xpub": "tpubDCrnMSKwDMAbxg82yqDt97peMvftCXk3EfBb9WgZh27mPbHGkysU3TW7qX5AwydmnVQfaGeNhUR6okQ3dS5AJTP9gEP7jk2Wcj6Xntc6gNh",
+      "addresses": [
+        "bchtest:qrth8470sc9scek9u0jj2d0349t62gxzdstw2jukl8",
+        "bchtest:qpm56zc5re0nhms96r7p985aajthp0vxvg6e4ux3kc",
+        "bchtest:qqtu3tf6yyd73ejhk3a2ylqynpl3mzzhwuzt299jfd",
+        "bchtest:qzd7dvlnfukggjqsf5ju0qqwwltakfumjsck33js6m",
+        "bchtest:qq322ataqeas4n0pdn4gz2sdereh5ae43ylk4qdvus"
+      ]
+    },
+    {
+      "xpub": "tpubDCrnMSKwDMAbzuN7eQDcFh9c6BsUvHHiL7j1AE9f9mE2ertgK6DwAZ6xmqtM3G5ifPkVynnjhMMMS87R1x4DTPrCbp4VjBttqMc4KmQEMRv",
+      "addresses": [
+        "bchtest:qq2lnfskh8herq7hhj067uzfmhg2cf6arvc8eld50k",
+        "bchtest:qrjqt3vw8us9nc4d3h8j5fn6cxa0h5485ydd5zhq8y",
+        "bchtest:qze485w97jjhpucgk9dmh7h4fx56z8tmvgv4c3esmm",
+        "bchtest:qp6dvdwfu02z6d8cp6uqkpnjde66m89t9cexm00fmd",
+        "bchtest:qz266xueu99z6mh8af66gwnsv48jxva6aslmju2wat"
+      ]
+    },
+    {
+      "xpub": "tpubDCrnMSKwDMAc4zKRDfxDqmzzxwLd85MFYF3cHzmdGDchnS7Sz2UiHD6HqaJR5Lefq6BhApPvGsdp3smjE1KRNkWHZ4wWogt7UYrgVznGfs1",
+      "addresses": [
+        "bchtest:qqzkac72c0dygl92ru74zmwkkhdq7sc845n43ulmlw",
+        "bchtest:qzsm0ymr035a5eg0r8k4hxvyaxqyd0e8msd7f79v2z",
+        "bchtest:qqg6yea05gkqyxwdce6k5sjun8k9drgzn54d63cq5n",
+        "bchtest:qrfumvznl5ck903vq3sp3gfsrjt22tqa85lxzjv4p9",
+        "bchtest:qrd88na4869phkr0h44kzfakwc52w2jwmqjl6vlynn"
+      ]
+    }
+  ],
+  "mainnetXPriv": [
+    {
+      "xpriv": "",
+      "addresses": [],
+      "privateKeys": []
+    }
+  ],
   "signatures": {
     "sign": [
       {

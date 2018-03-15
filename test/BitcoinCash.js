@@ -52,6 +52,11 @@ let P2SH_ADDRESSES = flatten([
   fixtures.cashaddrMainnetP2SH
 ])
 
+let XPUBS = flatten([
+  fixtures.mainnetXPub,
+  fixtures.testnetXPub
+])
+
 describe('price conversion', () => {
   describe('#toBitcoinCash', () => {
     fixtures.conversion.toBCH.satoshis.forEach((satoshi) => {
@@ -845,7 +850,7 @@ describe('#fromSeedBuffer', () => {
 describe('sign and verify messages', () => {
   describe('#signMessageWithPrivKey', () => {
     fixtures.signatures.sign.forEach((sign) => {
-      it(`should sign a message w/ ${sign.privateKeyWIF} on ${sign.network}`, () => {
+      it(`should sign a message w/ ${sign.network} ${sign.privateKeyWIF}`, () => {
         let privateKeyWIF = sign.privateKeyWIF;
         let message = sign.message;
         let signature = BITBOX.BitcoinCash.signMessageWithPrivKey(privateKeyWIF, message)
@@ -857,23 +862,44 @@ describe('sign and verify messages', () => {
 
   describe('#verifyMessage', () => {
     fixtures.signatures.verify.forEach((sign) => {
-      it(`should verify a valid signed message from cashaddr address ${sign.address} on ${sign.network}`, () => {
+      it(`should verify a valid signed message from ${sign.network} cashaddr address ${sign.address}`, () => {
         assert.equal(BITBOX.BitcoinCash.verifyMessage(sign.address, sign.signature, sign.message), true);
       });
     });
 
     fixtures.signatures.verify.forEach((sign) => {
       let legacyAddress = BITBOX.BitcoinCash.toLegacyAddress(sign.address);
-      it(`should verify a valid signed message from legacy address ${legacyAddress} on ${sign.network}`, () => {
+      it(`should verify a valid signed message from ${sign.network} legacy address ${legacyAddress}`, () => {
         assert.equal(BITBOX.BitcoinCash.verifyMessage(legacyAddress, sign.signature, sign.message), true);
       });
     });
 
     fixtures.signatures.verify.forEach((sign) => {
       let legacyAddress = BITBOX.BitcoinCash.toLegacyAddress(sign.address);
-      it(`should not verify an invalid signed message from cashaddr address ${sign.address} on ${sign.network}`, () => {
+      it(`should not verify an invalid signed message from ${sign.network} cashaddr address ${sign.address}`, () => {
         assert.equal(BITBOX.BitcoinCash.verifyMessage(sign.address, sign.signature, 'nope'), false);
       });
     });
   });
+
 });
+describe('#fromXPub', () => {
+  XPUBS.forEach((xpub, i) => {
+    xpub.addresses.forEach((address, j) => {
+      it(`generate public external change address ${j} for ${xpub.xpub}`, () => {
+        assert.equal(BITBOX.BitcoinCash.fromXPub(xpub.xpub, j), address);
+      });
+    });
+  });
+});
+// 1. Update to detect xpub and xpriv network format type
+// 2. create BITBOX fromBase58 method
+//   * confirm xpub cannot generate WIF
+//   * confirm xpriv can generate WIF
+// 3. create fromXPriv method w/ tests and docs
+    // 1. mainnet
+    //   * confirm xpriv generates address
+    //   * confirm xpriv generates WIF
+    // 2. testnet
+    //   * confirm xpriv generates address
+    //   * confirm xpriv generates WIF
