@@ -241,7 +241,13 @@ class BitcoinCash {
 
   // Detect address network.
   static detectAddressNetwork(address) {
-    return bchaddr.detectAddressNetwork(address);
+    if(address[0] === 'x') {
+      return 'mainnet'
+    } else if(address[0] === 't') {
+      return 'testnet'
+    } else {
+      return bchaddr.detectAddressNetwork(address);
+    }
   }
 
   // Detect address type.
