@@ -18,13 +18,23 @@ let LEGACY_ADDRESSES = flatten([
   fixtures.legacyTestnetP2PKH
 ]);
 
+let mainnet_xpubs = [];
+fixtures.mainnetXPub.forEach((f, i) => {
+  mainnet_xpubs.push(f.xpub);
+})
 let MAINNET_ADDRESSES = flatten([
+  mainnet_xpubs,
   fixtures.legacyMainnetP2PKH,
   fixtures.legacyMainnetP2SH,
   fixtures.cashaddrMainnetP2PKH
 ]);
 
+let testnet_xpubs = [];
+fixtures.testnetXPub.forEach((f, i) => {
+  testnet_xpubs.push(f.xpub);
+})
 let TESTNET_ADDRESSES = flatten([
+  testnet_xpubs,
   fixtures.legacyTestnetP2PKH,
   fixtures.cashaddrTestnetP2PKH
 ]);

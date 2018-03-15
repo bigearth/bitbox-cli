@@ -206,7 +206,14 @@ class BitcoinCash {
 
   // Test for address network.
   static isMainnetAddress(address) {
-    return bchaddr.isMainnetAddress(address);
+    if(address[0] === 'x') {
+      return true
+    } else if(address[0] === 't') {
+      return  false
+    } else {
+      return bchaddr.isMainnetAddress(address);
+    }
+
   }
 
   static isTestnetAddress(address) {
