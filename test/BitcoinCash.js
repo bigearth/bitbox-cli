@@ -12,6 +12,16 @@ function flatten (arrays) {
 // 1. generate testnet p2sh
 // 2. generate cashaddr mainnet p2sh
 // 3. generate cashaddr testnet p2sh
+// 4. create BITBOX fromBase58 method
+//   * confirm xpub cannot generate WIF
+//   * confirm xpriv can generate WIF
+// 5. create fromXPriv method w/ tests and docs
+    // 1. mainnet
+    //   * confirm xpriv generates address
+    //   * confirm xpriv generates WIF
+    // 2. testnet
+    //   * confirm xpriv generates address
+    //   * confirm xpriv generates WIF
 let LEGACY_ADDRESSES = flatten([
   fixtures.legacyMainnetP2PKH,
   fixtures.legacyMainnetP2SH,
@@ -902,14 +912,3 @@ describe('#fromXPub', () => {
     });
   });
 });
-// 1. Update to detect xpub and xpriv network format type
-// 2. create BITBOX fromBase58 method
-//   * confirm xpub cannot generate WIF
-//   * confirm xpriv can generate WIF
-// 3. create fromXPriv method w/ tests and docs
-    // 1. mainnet
-    //   * confirm xpriv generates address
-    //   * confirm xpriv generates WIF
-    // 2. testnet
-    //   * confirm xpriv generates address
-    //   * confirm xpriv generates WIF
