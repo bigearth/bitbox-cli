@@ -284,7 +284,7 @@ describe('network detection', () => {
   describe('#isTestnetAddress', () => {
     describe('is testnet', () => {
       TESTNET_ADDRESSES.forEach((address) => {
-        it(`should detect ${address} is not a testnet address`, () => {
+        it(`should detect ${address} is a testnet address`, () => {
           let isTestnet = BITBOX.BitcoinCash.isTestnetAddress(address);
           assert.equal(isTestnet, true);
         });

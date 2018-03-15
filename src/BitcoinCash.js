@@ -209,15 +209,20 @@ class BitcoinCash {
     if(address[0] === 'x') {
       return true
     } else if(address[0] === 't') {
-      return  false
+      return false
     } else {
       return bchaddr.isMainnetAddress(address);
     }
-
   }
 
   static isTestnetAddress(address) {
-    return bchaddr.isTestnetAddress(address);
+    if(address[0] === 'x') {
+      return false
+    } else if(address[0] === 't') {
+      return true
+    } else {
+      return bchaddr.isTestnetAddress(address);
+    }
   }
 
   // Test for address type.
