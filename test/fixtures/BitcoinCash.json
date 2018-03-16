@@ -1,4 +1,26 @@
 {
+  "entropyToMnemonic": [
+    {
+      "mnemonic": "rare dinosaur army fat spend average design order ritual town brave spike",
+      "entropy": "b207cc3029bd141f8ef4e1ba9cc86d68"
+    },
+      {
+      "mnemonic": "rabbit track ahead moral either upper tiger paper echo snow multiply trial kind two cram",
+      "entropy": "b03cd014c7d471de387cff45f9b245f417a9d74c"
+    },
+    {
+      "mnemonic": "shadow steak gospel heart life wedding loud jar marriage during lecture stove exclude price worry story art relief",
+      "entropy": "c4daa193352815f1e10bba884885fc6b54ef54ff76b40cd6"
+    },
+    {
+      "mnemonic": "supply salute they blood coyote century envelope circle baby armed comfort sport jazz clarify museum portion wolf hour donkey frog juice",
+      "entropy": "d9d7db820bf31a4ad2f149110178b8e9577653e46d42fccdc904ae97"
+    },
+    {
+      "mnemonic": "mixed winner decide drift danger together twice planet impose asthma catch require select mask awkward spy relief front work solar pitch economy render cake",
+      "entropy": "8e3f7ce3216377c77ad52f71e1c0905b8c3510c4369ab54babf6673a588c6d81"
+    }
+  ],
   "conversion": {
     "toBCH": {
       "satoshis": [

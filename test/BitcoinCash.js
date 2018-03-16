@@ -564,39 +564,47 @@ describe('#generateMnemonic', () => {
 });
 
 describe('#entropyToMnemonic', () => {
-  it('should generate a 12 word mnemonic', () => {
+  it('should generate a 12 word mnemonic from 16 bytes of entropy', () => {
     let rand = BITBOX.Crypto.randomBytes(16);
     let mnemonic = BITBOX.BitcoinCash.entropyToMnemonic(rand);
     assert.lengthOf(mnemonic.split(' '), 12);
   });
 
-  it('should generate a 15 word mnemonic', () => {
+  it('should generate a 15 word mnemonic from 20 bytes of entropy', () => {
     let rand = BITBOX.Crypto.randomBytes(20);
     let mnemonic = BITBOX.BitcoinCash.entropyToMnemonic(rand);
     assert.lengthOf(mnemonic.split(' '), 15);
   });
 
-  it('should generate an 18 word mnemonic', () => {
+  it('should generate an 18 word mnemonic from 24 bytes of entropy', () => {
     let rand = BITBOX.Crypto.randomBytes(24);
     let mnemonic = BITBOX.BitcoinCash.entropyToMnemonic(rand);
     assert.lengthOf(mnemonic.split(' '), 18);
   });
 
-  it('should generate an 21 word mnemonic', () => {
+  it('should generate an 21 word mnemonic from 28 bytes of entropy', () => {
     let rand = BITBOX.Crypto.randomBytes(28);
     let mnemonic = BITBOX.BitcoinCash.entropyToMnemonic(rand);
     assert.lengthOf(mnemonic.split(' '), 21);
   });
 
-  it('should generate an 24 word mnemonic', () => {
+  it('should generate an 24 word mnemonic from 32 bytes of entropy', () => {
     let rand = BITBOX.Crypto.randomBytes(32);
     let mnemonic = BITBOX.BitcoinCash.entropyToMnemonic(rand);
     assert.lengthOf(mnemonic.split(' '), 24);
   });
 
-  it('should generate an 24 french word mnemonic', () => {
-    let mnemonic = BITBOX.BitcoinCash.generateMnemonic(256, BITBOX.BitcoinCash.mnemonicWordLists().french);
+  it('should generate an 24 french word mnemonic 32 bytes of entropy', () => {
+    let rand = BITBOX.Crypto.randomBytes(32);
+    let mnemonic = BITBOX.BitcoinCash.entropyToMnemonic(rand, BITBOX.BitcoinCash.mnemonicWordLists().french);
     assert.lengthOf(mnemonic.split(' '), 24);
+  });
+
+  fixtures.entropyToMnemonic.forEach((entropy) => {
+    let mnemonic = BITBOX.BitcoinCash.entropyToMnemonic(entropy.entropy);
+    it(`should convert ${entropy.entropy} to ${entropy.mnemonic}`, () => {
+      assert.equal(mnemonic, entropy.mnemonic);
+    });
   });
 });
 
@@ -636,9 +644,28 @@ describe('#mnemonicToEntropy', () => {
     let entropy = BITBOX.BitcoinCash.mnemonicToEntropy(mnemonic, BITBOX.BitcoinCash.mnemonicWordLists().spanish);
     assert.lengthOf(entropy, 64);
   });
+
+  fixtures.entropyToMnemonic.forEach((entropy) => {
+    let rand = BITBOX.BitcoinCash.mnemonicToEntropy(entropy.mnemonic);
+    it(`should convert ${entropy.mnemonic} to ${entropy.entropy}`, () => {
+      assert.equal(rand, entropy.entropy);
+    });
+  });
 });
 
 describe('#validateMnemonic', () => {
+  it('fails for a mnemonic that is too short', () => {
+    assert.equal(BITBOX.BitcoinCash.validateMnemonic('mixed winner'), false);
+  });
+
+  it('fails for a mnemonic that is too long', () => {
+    assert.equal(BITBOX.BitcoinCash.validateMnemonic('mixed winner decide drift danger together twice planet impose asthma catch require select mask awkward spy relief front work solar pitch economy render cake mixed winner decide drift danger together twice planet impose asthma catch require select mask awkward spy relief front work solar pitch economy render cake mixed winner decide drift danger together twice planet impose asthma catch require select mask awkward spy relief front work solar pitch economy render cake mixed winner decide drift danger together twice planet impose asthma catch require select mask awkward spy relief front work solar pitch economy render cakemixed winner decide drift danger together twice planet impose asthma catch require select mask awkward spy relief front work solar pitch economy render cake mixed winner decide drift danger together twice planet impose asthma catch require select mask awkward spy relief front work solar pitch economy render cake mixed winner decide drift danger together twice planet impose asthma catch require select mask awkward spy relief front work solar pitch economy render cake mixed winner decide drift danger together twice planet impose asthma catch require select mask awkward spy relief front work solar pitch economy render cake'), false);
+  });
+
+  it('fails if mnemonic words are not in the word list', () => {
+    assert.equal(BITBOX.BitcoinCash.validateMnemonic('failsauce one two three four five six seven eight nine ten eleven'), false);
+  });
+
   it('validate a 128 bit mnemonic', () => {
     let mnemonic = BITBOX.BitcoinCash.generateMnemonic(128);
     assert.equal(BITBOX.BitcoinCash.validateMnemonic(mnemonic), true);
@@ -766,11 +793,11 @@ describe('#mnemonicToSeed', () => {
 
 describe('#mnemonicWordLists', () => {
   it('return a list of 2048 english words', () => {
-    assert.lengthOf(BITBOX.BitcoinCash.mnemonicWordLists().EN, 2048);
+    assert.lengthOf(BITBOX.BitcoinCash.mnemonicWordLists().english, 2048);
   });
 
   it('return a list of 2048 japanese words', () => {
-    assert.lengthOf(BITBOX.BitcoinCash.mnemonicWordLists().JA, 2048);
+    assert.lengthOf(BITBOX.BitcoinCash.mnemonicWordLists().japanese, 2048);
   });
 
   it('return a list of 2048 chinese simplified words', () => {
