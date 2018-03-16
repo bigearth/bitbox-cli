@@ -171,9 +171,7 @@ program
   .description('Run a console with Bitcoin Cash RPC commands available')
   .action((options) => {
     let config = require(process.cwd() + '/bitbox.js').config;
-    var replServer = repl.start({
-      prompt: `${emoji.get(':zap:')} ${" BITBOX"} ${emoji.get(':zap:')} `,
-    });
+    var replServer = repl.start('> ');
     fs.readFile(os.homedir() + '/.bitboxrc', 'utf8', (err, contents) => {
       let conf;
       if(contents) {
