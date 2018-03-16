@@ -392,6 +392,24 @@ BITBOX.BitcoinCash.keypairsFromMnemonic("toward tribe logic visa relief domain f
 //   { privateKeyWIF: 'KwEYU8cuczmym3KXUcVqmQS2R4zcKgzQ8ba2R54LHuSsY2wKXXkF',
 //     address: 'bitcoincash:qzul5ttllyky9tcdmc458tw0fymtc2mkvc75542prl' } ]
 
+// base58check encode a hex encoded string
+let hex = '0079bd35d306f648350818470c9f18903df6e06902a026f2a7';
+let bytes = Buffer.from(hex, 'hex');
+BITBOX.BitcoinCash.encodeBase58Check(bytes);
+// 1C6hRmfzvWst5WA7bFRCVAqHt5gE2g7Qar
+
+// decode a base58Check encoded string
+let base58check = '1C6hRmfzvWst5WA7bFRCVAqHt5gE2g7Qar';
+BITBOX.BitcoinCash.decodeBase58Check(base58check);
+// 0079bd35d306f648350818470c9f18903df6e06902a026f2a7
+
+// encode bip21 uri
+BITBOX.BitcoinCash.encodeBIP21(address, options);
+// bitcoincash:qrdsfshx7yzfjl9sfj2khuja5crcu4vaxqrt2qkz5s?amount=1&label=%23BCHForEveryone
+
+// decode bip21 uri
+BITBOX.BitcoinCash.decodeBIP21(bip21);
+// { address: 'qrdsfshx7yzfjl9sfj2khuja5crcu4vaxqrt2qkz5s', options: { amount: 1, label: '#BCHForEveryone' } }
 
 let data = 'EARTH';
 BITBOX.Crypto.createHash(data, 'sha256')
