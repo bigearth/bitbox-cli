@@ -20,6 +20,7 @@
     "babel-preset-flow": "^6.23.0",
     "babel-register": "^6.26.0",
     "bchaddrjs": "^0.2.1",
+    "bip21": "git+https://github.com/bigearth/bip21.git",
     "bip39": "^2.5.0",
     "bitcoinjs-lib": "^3.3.2",
     "bitcoinjs-message": "^2.0.0",

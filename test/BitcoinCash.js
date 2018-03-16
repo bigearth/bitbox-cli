@@ -22,6 +22,7 @@ function flatten (arrays) {
     // 2. testnet
     //   * confirm xpriv generates address
     //   * confirm xpriv generates WIF
+// 6. More error test cases. 
 let LEGACY_ADDRESSES = flatten([
   fixtures.legacyMainnetP2PKH,
   fixtures.legacyMainnetP2SH,
@@ -954,6 +955,28 @@ describe('encode and decode to base58Check', () => {
     fixtures.encodeBase58Check.forEach((base58Check, i) => {
       it(`decode ${base58Check.base58Check} as ${base58Check.hex}`, () => {
         assert.equal(BITBOX.BitcoinCash.decodeBase58Check(base58Check.base58Check), base58Check.hex);
+      });
+    });
+  });
+});
+
+describe('encode and decode BIP21 urls', () => {
+  describe('#encodeBIP21', () => {
+    fixtures.bip21.valid.forEach((bip21, i) => {
+      it(`encode ${bip21.address} as url`, () => {
+        let url = BITBOX.BitcoinCash.encodeBIP21(bip21.address, bip21.options)
+        assert.equal(url, bip21.url);
+      });
+    });
+  });
+
+  describe('#decodeBIP21', () => {
+    fixtures.bip21.valid.forEach((bip21, i) => {
+      it(`decodes ${bip21.url}`, () => {
+        let decoded = BITBOX.BitcoinCash.decodeBIP21(bip21.url);
+        assert.equal(decoded.options.amount, bip21.options.amount);
+        assert.equal(decoded.options.label, bip21.options.label);
+        assert.equal(BITBOX.BitcoinCash.toCashAddress(decoded.address), BITBOX.BitcoinCash.toCashAddress(bip21.address));
       });
     });
   });

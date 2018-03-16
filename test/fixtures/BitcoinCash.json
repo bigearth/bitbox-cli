@@ -373,5 +373,63 @@
       "base58Check": "1Ly4gqPddveYHMNkfjoXHanVszXpD3duKg",
       "hex": "00db04c2e6f104997cb04c956bf25da6078e559d303127f08b"
     }
-  ]
+  ],
+  "bip21": {
+    "invalid": [
+      {
+        "address": "bitcoincash:qpk6wsngptx0y2pd7hadar5m0gq629l80y2tcp5ktd",
+        "url": "satoshi:qpk6wsngptx0y2pd7hadar5m0gq629l80y2tcp5ktd"
+      }
+    ],
+    "valid": [
+      {
+        "address": "1C6hRmfzvWst5WA7bFRCVAqHt5gE2g7Qar",
+        "options": {
+          "amount": 12.5,
+          "label": "coinbase donation",
+          "message": "and ya don't stop"
+        },
+        "url": "bitcoincash:qpum6dwnqmmysdggrprse8ccjq7ldcrfqgmmtgcmny?amount=12.5&label=coinbase%20donation&message=and%20ya%20don%27t%20stop"
+      },
+      {
+        "address": "1Azo2JBz2JswboeY9xSMcp14BAfhjnD9SK",
+        "options": {
+          "label": "Foobar"
+        },
+        "url": "bitcoincash:qpk6wsngptx0y2pd7hadar5m0gq629l80y2tcp5ktd?label=Foobar"
+      },
+      {
+        "address": "bitcoincash:qrdsfshx7yzfjl9sfj2khuja5crcu4vaxqrt2qkz5s",
+        "options": {
+          "amount": 1,
+          "label": "test"
+        },
+        "url": "bitcoincash:qrdsfshx7yzfjl9sfj2khuja5crcu4vaxqrt2qkz5s?amount=1&label=test"
+      },
+      {
+        "address": "bitcoincash:qzc5fxdm6lnwzgeju4jaemngtxkkkgt78ucn6vkjz5",
+        "options": {
+          "amount": 3,
+          "label": "hhhhhhh"
+        },
+        "url": "bitcoincash:qzc5fxdm6lnwzgeju4jaemngtxkkkgt78ucn6vkjz5?amount=3&label=hhhhhhh"
+      },
+      {
+        "address": "qzw6tfrh8p0jh834uf9rhg77pjg5rgnt3qw0e54u03",
+        "options": {
+          "amount": 23,
+          "label": "no prefix"
+        },
+        "url": "bitcoincash:qzw6tfrh8p0jh834uf9rhg77pjg5rgnt3qw0e54u03?amount=23&label=no%20prefix"
+      },
+      {
+        "address": "qphgz6ut3uu9xu8sly2zj7n5jkg5eyes5vjv3juf0x",
+        "options": {
+          "amount": 20.3,
+          "label": "Foobar"
+        },
+        "url": "bitcoincash:qphgz6ut3uu9xu8sly2zj7n5jkg5eyes5vjv3juf0x?amount=20.3&label=Foobar"
+      }
+    ]
+  }
 }

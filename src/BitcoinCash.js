@@ -8,6 +8,7 @@ import sb from 'satoshi-bitcoin';
 import bitcoinMessage from 'bitcoinjs-message';
 import randomBytes from 'randombytes';
 import bs58 from 'bs58';
+import bip21 from 'bip21';
 
 class BitcoinCash {
   static generateMnemonic(bits = 128, wordlist) {
@@ -279,6 +280,16 @@ class BitcoinCash {
   // decode base58Check
   static decodeBase58Check(address) {
     return bs58.decode(address).toString('hex');
+  }
+
+  // encode bip21 url
+  static encodeBIP21(address, options) {
+    return bip21.encode(BitcoinCash.toCashAddress(address), options);
+  }
+
+  // decode bip21 url
+  static decodeBIP21(url) {
+    return bip21.decode(url);
   }
 }
 
