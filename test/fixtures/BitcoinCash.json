@@ -17,8 +17,8 @@
       "entropy": "d9d7db820bf31a4ad2f149110178b8e9577653e46d42fccdc904ae97"
     },
     {
-      "mnemonic": "mixed winner decide drift danger together twice planet impose asthma catch require select mask awkward spy relief front work solar pitch economy render cake",
-      "entropy": "8e3f7ce3216377c77ad52f71e1c0905b8c3510c4369ab54babf6673a588c6d81"
+      "mnemonic": "tunnel ugly degree bid merry world pupil tornado ski rent casino rent security length wet twice luxury rookie invite destroy busy leopard escape shoe",
+      "entropy": "ea9d80e70b08bbfb6b7f2bca56c88ddb2c2d003e675a855779d81e11f3009346"
     }
   ],
   "conversion": {
@@ -351,5 +351,27 @@
         "signature": "H1gOF88XX/tfH7pa50CfRXoD6h8pzi+Ceg3SG9E4UsJnat90Nw4nxbLJBTMDNTHbTfCD1Upe1IlbYLZEaVsIXrY="
       }
     ]
-  }
+  },
+  "encodeBase58Check": [
+    {
+      "base58Check": "1C6hRmfzvWst5WA7bFRCVAqHt5gE2g7Qar",
+      "hex": "0079bd35d306f648350818470c9f18903df6e06902a026f2a7"
+    },
+    {
+      "base58Check": "1Azo2JBz2JswboeY9xSMcp14BAfhjnD9SK",
+      "hex": "006da742680accf2282df5fade8e9b7a01a517e779289b52cc"
+    },
+    {
+      "base58Check": "1K6ncAmMEyQrKUYosZRD9swyZNXECu2aKs",
+      "hex": "00c68a6a07ccdaf1669cfd8d244d80ff36b713551c6208f672"
+    },
+    {
+      "base58Check": "1L2FG9hH3bwchhxHaCs5cg1QNbhmbaeAs6",
+      "hex": "00d0a6b5e3dd43d0fb895b3b3df565bb8266c5ab00a25dbeb5"
+    },
+    {
+      "base58Check": "1Ly4gqPddveYHMNkfjoXHanVszXpD3duKg",
+      "hex": "00db04c2e6f104997cb04c956bf25da6078e559d303127f08b"
+    }
+  ]
 }

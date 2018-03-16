@@ -7,6 +7,7 @@ import bchaddr from 'bchaddrjs';
 import sb from 'satoshi-bitcoin';
 import bitcoinMessage from 'bitcoinjs-message';
 import randomBytes from 'randombytes';
+import bs58 from 'bs58';
 
 class BitcoinCash {
   static generateMnemonic(bits = 128, wordlist) {
@@ -126,6 +127,7 @@ class BitcoinCash {
       let xpub = account.neutered().toBase58();
       let address = masterPrivateKey.derivePath(`${HDPath.replace(/\/$/, "")}/${i}'/${config.HDPath.change}/${config.HDPath.address_index}`);
 
+      // TODO: Is this the right privkey?
       accounts.push({
         title: '',
         privateKeyWIF: address.keyPair.toWIF(),
@@ -164,6 +166,7 @@ class BitcoinCash {
 
     for (let i = 0; i < numberOfKeypairs; i++) {
       let keyPair = masterPrivateKey.derivePath(`${HDPath}${i}`);
+      // TODO: confirm HD paths are correct here.
       let address = BitcoinCash.fromWIF(keyPair.keyPair.toWIF()).getAddress();
 
       accounts.push(
@@ -266,6 +269,16 @@ class BitcoinCash {
   // verify message
   static verifyMessage(address, signature, message) {
     return bitcoinMessage.verify(message, BitcoinCash.toLegacyAddress(address), signature);
+  }
+
+  // encode base58Check
+  static encodeBase58Check(bytes) {
+    return bs58.encode(bytes);
+  }
+
+  // decode base58Check
+  static decodeBase58Check(address) {
+    return bs58.decode(address).toString('hex');
   }
 }
 

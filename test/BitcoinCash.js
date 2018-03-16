@@ -928,13 +928,32 @@ describe('sign and verify messages', () => {
       });
     });
   });
-
 });
+
 describe('#fromXPub', () => {
   XPUBS.forEach((xpub, i) => {
     xpub.addresses.forEach((address, j) => {
       it(`generate public external change address ${j} for ${xpub.xpub}`, () => {
         assert.equal(BITBOX.BitcoinCash.fromXPub(xpub.xpub, j), address);
+      });
+    });
+  });
+});
+
+describe('encode and decode to base58Check', () => {
+  describe('#encodeBase58Check', () => {
+    fixtures.encodeBase58Check.forEach((base58Check, i) => {
+      it(`encode ${base58Check.hex} as base58Check ${base58Check.base58Check}`, () => {
+        const bytes = Buffer.from(base58Check.hex, 'hex')
+        assert.equal(BITBOX.BitcoinCash.encodeBase58Check(bytes), base58Check.base58Check);
+      });
+    });
+  });
+
+  describe('#decodeBase58Check', () => {
+    fixtures.encodeBase58Check.forEach((base58Check, i) => {
+      it(`decode ${base58Check.base58Check} as ${base58Check.hex}`, () => {
+        assert.equal(BITBOX.BitcoinCash.decodeBase58Check(base58Check.base58Check), base58Check.hex);
       });
     });
   });
