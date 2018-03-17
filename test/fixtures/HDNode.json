@@ -151,6 +151,33 @@
       "xpriv": "xprv9vfnnaLoK1g1nvkFe98EFhyaLkJxPvXNMRRYD3yc4eucDBr3EY3X1GcwMbfUHssRHAYnvHonMbQP5Dm9s56N4Moj32fwCSC6kGU6SbHTm3D"
     }
   ],
+  "deriveBIP44": [
+    {
+      "mnemonic": "rare dinosaur army fat spend average design order ritual town brave spike",
+      "xpub": "xpub6CUjAgu7fDFsW63QGEe8T6XMfjh8PA2dHP7GQBwpRQSniWEY5VmA1CjQJ93s3BqT9VkML8qytP6rgJSf5jvP3bqzN7CTiwTxPo2ZpEuhQ6N",
+      "xpriv": "xprv9yVNmBNDpqhaHbxwAD785xad7hrdyhJmvABfboYCs4uoqhuPXxSuTQQvSrRUXpN8it1sZvhKpxQ7pbHJb5aQ8Vghc51SCpWijdHZmWGMKp1"
+    },
+      {
+      "mnemonic": "rabbit track ahead moral either upper tiger paper echo snow multiply trial kind two cram",
+      "xpub": "xpub6CTS16pXaVuu7Uj6D7AcMhomMJ45DqaKCdUY8TYmkAuwDCaarsBhLRzHrVcLooPgTPnRF1mQSbUmfPWg3bVu2tWHuB7zzNbsDGbUHWZ6FCZ",
+      "xpriv": "xprv9yU5bbHdk8Mbtzed75dbzZs2oGDapNrTqQYwL59ABqNxLQFSKKsSndfp1DkQNF1JiCDZfN3JLGdUtn5tBZ9V9i3uhjX1ymBVdsCt3kqAtXb"
+    },
+    {
+      "mnemonic": "shadow steak gospel heart life wedding loud jar marriage during lecture stove exclude price worry story art relief",
+      "xpub": "xpub6CjWtuhSaU64a1vhqxT81EbcTw5GksMTgtNwU1uXGayxyP2DW12V6MvTfrvWXrCDp55z6d87iSwGfxENcgDuu3QpuzFzWXtfbcoBLzDySQo",
+      "xpriv": "xprv9ykAVQAYk6XmMXrEjvv7e6esuuEnMQdcKfTLfdVuiFSz6ah4xTiEYZbypbXxvNzY5ZN3wkrBWnSAGAvsiZVDXuyB6qyxprJfDb6yxYj1ZhP"
+    },
+    {
+      "mnemonic": "supply salute they blood coyote century envelope circle baby armed comfort sport jazz clarify museum portion wolf hour donkey frog juice",
+      "xpub": "xpub6CFoRnxxMJa9gbVBNMh3VS9Zb6mkaHiWzFGEm3gkzmQ7H8b45nGj2fffGRR5Requ4wAwhEQjkArSaqv7HHvLK3y9wJcJRY6x1PuVWcKvXpn",
+      "xpriv": "xprv9yGT2HS4Ww1rU7QiGLA38JCq34wGApzfd2LdxfH9SRs8QLFuYExUUsMBR8UShsuRfYr3X57gmbtdz9BsC4gxEkESSdBxdmiuLULfVq4A8Vw"
+    },
+    {
+      "mnemonic": "tunnel ugly degree bid merry world pupil tornado ski rent casino rent security length wet twice luxury rookie invite destroy busy leopard escape shoe",
+      "xpub": "xpub6CmhKTZY8gxFWcZRLyUUncSuXmWiifSSEdXxY7GbSA5oigKpxEjTCosSVaFFMMnq3ymUuLNaoe8b4SQUYmXPqYX8CUwMh1N9Sge7RBuvEsB",
+      "xpriv": "xprv9ynLux2eJKPxJ8UxEwwURUWAyjgEKCiasQcMjiryspYpqszgQhRCf1YxeHWjM9v9rpLZW1DUEQRFNH9XmXTXL3zmxEvFV6JUe2N2yYVdpJK"
+    }
+  ],
   "fromSeedBuffer": [
     "rare dinosaur army fat spend average design order ritual town brave spike",
     "rabbit track ahead moral either upper tiger paper echo snow multiply trial kind two cram",

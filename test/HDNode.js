@@ -46,12 +46,24 @@ describe('#deriveHardened', () => {
       assert.equal(BITBOX.BitcoinCash.HDNode.toXPriv(childHDNode), derive.xpriv);
     });
   });
+
+  describe('derive BIP44 $BCH account', () => {
+    fixtures.deriveBIP44.forEach((derive) => {
+      it(`should derive BIP44 $BCH account`, () => {
+        let rootSeedHex = BITBOX.BitcoinCash.mnemonicToSeedHex(derive.mnemonic);
+        let hdNode = BITBOX.BitcoinCash.HDNode.fromSeedHex(rootSeedHex);
+        let childHDNode = hdNode.deriveHardened(44).deriveHardened(145).deriveHardened(0);
+        assert.equal(BITBOX.BitcoinCash.HDNode.toXPub(childHDNode), derive.xpub);
+        assert.equal(BITBOX.BitcoinCash.HDNode.toXPriv(childHDNode), derive.xpriv);
+      });
+    });
+  });
 });
 
 describe('#derivePath', () => {
   describe('derive non hardened Path', () => {
     fixtures.derivePath.forEach((derive) => {
-      it(`should derive child HDNode from path`, () => {
+      it(`should derive non hardened child HDNode from path`, () => {
         let rootSeedHex = BITBOX.BitcoinCash.mnemonicToSeedHex(derive.mnemonic);
         let hdNode = BITBOX.BitcoinCash.HDNode.fromSeedHex(rootSeedHex);
         let childHDNode = hdNode.derivePath("0");
@@ -67,6 +79,18 @@ describe('#derivePath', () => {
         let rootSeedHex = BITBOX.BitcoinCash.mnemonicToSeedHex(derive.mnemonic);
         let hdNode = BITBOX.BitcoinCash.HDNode.fromSeedHex(rootSeedHex);
         let childHDNode = hdNode.derivePath("0'");
+        assert.equal(BITBOX.BitcoinCash.HDNode.toXPub(childHDNode), derive.xpub);
+        assert.equal(BITBOX.BitcoinCash.HDNode.toXPriv(childHDNode), derive.xpriv);
+      });
+    });
+  });
+
+  describe('derive BIP44 $BCH account', () => {
+    fixtures.deriveBIP44.forEach((derive) => {
+      it(`should derive BIP44 $BCH account`, () => {
+        let rootSeedHex = BITBOX.BitcoinCash.mnemonicToSeedHex(derive.mnemonic);
+        let hdNode = BITBOX.BitcoinCash.HDNode.fromSeedHex(rootSeedHex);
+        let childHDNode = hdNode.derivePath("44'/145'/0'");
         assert.equal(BITBOX.BitcoinCash.HDNode.toXPub(childHDNode), derive.xpub);
         assert.equal(BITBOX.BitcoinCash.HDNode.toXPriv(childHDNode), derive.xpriv);
       });
