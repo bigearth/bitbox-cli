@@ -23,7 +23,6 @@ function flatten (arrays) {
     //   * confirm xpriv generates address
     //   * confirm xpriv generates WIF
 // 6. More error test cases.
-// 7. tests for keypairsFromMnemonic
 let LEGACY_ADDRESSES = flatten([
   fixtures.legacyMainnetP2PKH,
   fixtures.legacyMainnetP2SH,
@@ -186,10 +185,10 @@ describe('address conversion', () => {
     describe('errors', () => {
       it('should fail when called with an invalid address', () => {
         assert.throws(() => {
-          BITBOX.BitcoinCash.toCashAddress()
+          BitcoinCash.toCashAddress()
         }, BITBOX.BitcoinCash.InvalidAddressError)
         assert.throws(() => {
-          BITBOX.BitcoinCash.toCashAddress('some invalid address')
+          BitcoinCash.toCashAddress('some invalid address')
         }, BITBOX.BitcoinCash.InvalidAddressError)
       })
     });
@@ -969,6 +968,17 @@ describe('encode and decode BIP21 urls', () => {
         assert.equal(decoded.options.amount, bip21.options.amount);
         assert.equal(decoded.options.label, bip21.options.label);
         assert.equal(BITBOX.BitcoinCash.toCashAddress(decoded.address), BITBOX.BitcoinCash.toCashAddress(bip21.address));
+      });
+    });
+  });
+});
+
+describe('#keypairsFromMnemonic', () => {
+  fixtures.keypairsFromMnemonic.forEach((fixture, i) => {
+    let keypairs = BITBOX.BitcoinCash.keypairsFromMnemonic(fixture.mnemonic, 5);
+    keypairs.forEach((keypair, j) => {
+      it(`Generate keypair from mnemonic`, () => {
+        assert.equal(keypair.privateKeyWIF, fixtures.keypairsFromMnemonic[i].output[j].privateKeyWIF);
       });
     });
   });

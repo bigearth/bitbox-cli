@@ -98,6 +98,30 @@ describe('#derivePath', () => {
   });
 });
 
+describe('#getLegacyAddress', () => {
+  fixtures.getLegacyAddress.forEach((address) => {
+    it(`should get address ${address.address} from HDNode`, () => {
+      let rootSeedHex = BITBOX.BitcoinCash.mnemonicToSeedHex(address.mnemonic);
+      let hdNode = BITBOX.BitcoinCash.HDNode.fromSeedHex(rootSeedHex);
+      let childHDNode = hdNode.derivePath("0");
+      let addy = BITBOX.BitcoinCash.HDNode.getLegacyAddress(childHDNode);
+      assert.equal(addy, address.address);
+    });
+  });
+});
+
+describe('#getCashAddress', () => {
+  fixtures.getCashAddress.forEach((address) => {
+    it(`should get address ${address.address} from HDNode`, () => {
+      let rootSeedHex = BITBOX.BitcoinCash.mnemonicToSeedHex(address.mnemonic);
+      let hdNode = BITBOX.BitcoinCash.HDNode.fromSeedHex(rootSeedHex);
+      let childHDNode = hdNode.derivePath("0");
+      let addy = BITBOX.BitcoinCash.HDNode.getCashAddress(childHDNode);
+      assert.equal(addy, address.address);
+    });
+  });
+});
+
 describe('#toXPub', () => {
   fixtures.toXPub.forEach((mnemonic) => {
     it(`should create xpub ${mnemonic.xpub} from an HDNode`, () => {

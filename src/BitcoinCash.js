@@ -116,10 +116,10 @@ class BitcoinCash {
     }
 
     // create 512 bit HMAC-SHA512 root seed
-    let rootSeed = BitcoinCash.mnemonicToSeedBuffer(mnemonic, config.password);
+    let rootSeedBuffer = this.mnemonicToSeedBuffer(mnemonic, config.password);
 
     // create master private key
-    let masterPrivateKey = BitcoinCash.hdNodeFromSeedBuffer(rootSeed, config.network);
+    let masterHDNode = this.HDNode.fromSeedBuffer(rootSeedBuffer, config.network);
 
     let HDPath = `m/${config.HDPath.purpose}/${config.HDPath.coinCode}`
 
@@ -128,10 +128,10 @@ class BitcoinCash {
     for (let i = 0; i < config.totalAccounts; i++) {
       // create accounts
       // follow BIP 44 account discovery algo https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki#account-discovery
-      let account = masterPrivateKey.derivePath(`${HDPath.replace(/\/$/, "")}/${i}'`);
-      let xpriv = account.toBase58();
-      let xpub = account.neutered().toBase58();
-      let address = masterPrivateKey.derivePath(`${HDPath.replace(/\/$/, "")}/${i}'/${config.HDPath.change}/${config.HDPath.address_index}`);
+      let account = masterHDNode.derivePath(`${HDPath.replace(/\/$/, "")}/${i}'`);
+      let xpriv = this.HDNode.toXPriv(account);
+      let xpub = this.HDNode.toXPub(account);
+      let address = masterHDNode.derivePath(`${HDPath.replace(/\/$/, "")}/${i}'/${config.HDPath.change}/${config.HDPath.address_index}`);
 
       // TODO: Is this the right privkey?
       accounts.push({
@@ -144,7 +144,7 @@ class BitcoinCash {
       // addresses.push(new Address(this.mnemonicWordLists(account.derive(i).getAddress()), account.derive(i).keyPair.toWIF()));
     };
 
-    return [rootSeed, masterPrivateKey, mnemonic, config.HDPath, accounts];
+    return [rootSeed, masterHDNode, mnemonic, config.HDPath, accounts];
   }
 
   fromXPub(xpub, index = 0) {
@@ -160,21 +160,18 @@ class BitcoinCash {
   }
 
   keypairsFromMnemonic(mnemonic, numberOfKeypairs = 1) {
-    let rootSeed = BitcoinCash.mnemonicToSeedBuffer(mnemonic, '');
-    let masterPrivateKey = BitcoinCash.hdNodeFromSeedBuffer(rootSeed);
-    let HDPath = `m/44'/145'/0'/0/`
+    let rootSeedBuffer = this.mnemonicToSeedBuffer(mnemonic, '');
+    let hdNode = this.HDNode.fromSeedBuffer(rootSeedBuffer);
+    let HDPath = `44'/145'/0'/0/`
 
     let accounts = [];
 
     for (let i = 0; i < numberOfKeypairs; i++) {
-      let keyPair = masterPrivateKey.derivePath(`${HDPath}${i}`);
-      // TODO: confirm HD paths are correct here.
-      let address = BitcoinCash.fromWIF(keyPair.keyPair.toWIF()).getAddress();
-
+      let childHDNode = hdNode.derivePath(`${HDPath}${i}`);
       accounts.push(
         {
-          privateKeyWIF: keyPair.keyPair.toWIF(),
-          address: this.mnemonicWordLists(address)
+          privateKeyWIF: childHDNode.keyPair.toWIF(),
+          address: this.HDNode.getCashAddress(childHDNode)
         }
       )
     };

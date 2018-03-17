@@ -431,5 +431,132 @@
         "url": "bitcoincash:qphgz6ut3uu9xu8sly2zj7n5jkg5eyes5vjv3juf0x?amount=20.3&label=Foobar"
       }
     ]
-  }
+  },
+  "keypairsFromMnemonic": [
+    {
+      "mnemonic": "curve quiz lesson bone wave endless rigid symbol plug shift access dragon",
+      "output": [
+        {
+          "privateKeyWIF": "L5NHWZusDiBVi5eMc6mBGufDMewTqnN9fzi6zyCQSVp39iKPqH7v",
+          "address": "bitcoincash:qr3r0yazu6s4ed0ckgpv96zcwx3wt9jy6vv56ywm2w"
+        },
+        {
+          "privateKeyWIF": "L3nGc7sEDQ6CQV7LPzyLwec8uWwQFWhXKcYdPC6dmx8xZuq4mmDM",
+          "address": "bitcoincash:qqzc32v777yz4qprp0tk443j5j35q5q0xgzuvprgv0"
+        },
+        {
+          "privateKeyWIF": "KxD3i4YUdzEdDggNbNjRbYqta85KPGko9mRxcZH1Dh7MYQ5PFjcq",
+          "address": "bitcoincash:qre988ur4gp5k2ph3lmxltqtg4q2zgw6eye0l6k6eg"
+        },
+        {
+          "privateKeyWIF": "L1emnG2hYd3VKGVRHpZS3qHXQHMBgvDy4he4UtFu747wVyT5sQGT",
+          "address": "bitcoincash:qzrjsum46ecex9qs28eyhw27ltydu37wzcq3v80ld8"
+        },
+        {
+          "privateKeyWIF": "L28uLVU1Kt8fPJtbK7HUB436atC4dSN1WQPJLde1w6dtyhNmLMyt",
+          "address": "bitcoincash:qqqnmqmpy9vz899ctv4chtx5n857pv9l4ykuea44xz"
+        }
+      ]
+    },
+    {
+      "mnemonic": "weapon undo scatter empty ride cement team protect ugly sudden mom zebra nurse label leopard",
+      "output": [
+        {
+          "privateKeyWIF": "KxGbR7jBWA7jm7GVz9SQvUghX4cYyf1WoP7oGjVXgzbeCDBFy5Qi",
+          "address": "bitcoincash:qr3r0yazu6s4ed0ckgpv96zcwx3wt9jy6vv56ywm2w"
+        },
+        {
+          "privateKeyWIF": "L2Er6iZ87yeQVDREKQWw8xr7Uj2ZTmdF4fzfG2MYP3TYHHgXBphK",
+          "address": "bitcoincash:qqzc32v777yz4qprp0tk443j5j35q5q0xgzuvprgv0"
+        },
+        {
+          "privateKeyWIF": "KwQW5F2oFfeqaB9H8AEWX6e8SFyw7qdNcVc3i9RBY6o1oDWYLuM3",
+          "address": "bitcoincash:qre988ur4gp5k2ph3lmxltqtg4q2zgw6eye0l6k6eg"
+        },
+        {
+          "privateKeyWIF": "L1wrABy4xHXNct68ZkBsNUfRN3MHvSW4KJPPDbusUCTjPq3zm3AB",
+          "address": "bitcoincash:qzrjsum46ecex9qs28eyhw27ltydu37wzcq3v80ld8"
+        },
+        {
+          "privateKeyWIF": "L5fQnDhGNYH6qFjh4pgtxYtZ6SSa6PNvqsvXL3Xxc3UTckwo35WU",
+          "address": "bitcoincash:qqqnmqmpy9vz899ctv4chtx5n857pv9l4ykuea44xz"
+        }
+      ]
+    },
+    {
+      "mnemonic": "energy special regular coin crop auto acquire clinic high liberty educate pride wage grace spoil ugly cable trust",
+      "output": [
+        {
+          "privateKeyWIF": "Kwv3n87vwRrMbxa4vTWKY9gaAZtthe3NR1iebRTraaVSAwY5ty8Q",
+          "address": "bitcoincash:qr3r0yazu6s4ed0ckgpv96zcwx3wt9jy6vv56ywm2w"
+        },
+        {
+          "privateKeyWIF": "KzucDPxzkExCHTzzJBXo17V7LwRtKj6movuYWmbGW2HjVsFTSBdk",
+          "address": "bitcoincash:qqzc32v777yz4qprp0tk443j5j35q5q0xgzuvprgv0"
+        },
+        {
+          "privateKeyWIF": "Kye3NjRtM2NYtS4kfQgSNK2RvtzUM9mXzy6szZTVii33ETd5jNrU",
+          "address": "bitcoincash:qre988ur4gp5k2ph3lmxltqtg4q2zgw6eye0l6k6eg"
+        },
+        {
+          "privateKeyWIF": "KzZWMxZGgu8cZF2aEaP1sYnh3E4vtCHEKVzY2fWaHG44MFosYmq1",
+          "address": "bitcoincash:qzrjsum46ecex9qs28eyhw27ltydu37wzcq3v80ld8"
+        },
+        {
+          "privateKeyWIF": "L4iVLdaMkKvwtZKeD1ishayo2XHGWLm37imjpQFyV4XSkv1XTkGk",
+          "address": "bitcoincash:qqqnmqmpy9vz899ctv4chtx5n857pv9l4ykuea44xz"
+        }
+      ]
+    },
+    {
+      "mnemonic": "dwarf all expect planet margin glare tribe hard hybrid cable fish key ordinary equip foil trash surprise carry account shove later",
+      "output": [
+        {
+          "privateKeyWIF": "KwZ38dBpAk1BY53mmo6tSkt5we3FEAw8nvPE5m3L8iGJvfgCtM1r",
+          "address": "bitcoincash:qr3r0yazu6s4ed0ckgpv96zcwx3wt9jy6vv56ywm2w"
+        },
+        {
+          "privateKeyWIF": "L1VCKD5oq7s5iaWC2ZY79KuRxDJrQ6tjRiB3VaScYsxYD8TxsSan",
+          "address": "bitcoincash:qqzc32v777yz4qprp0tk443j5j35q5q0xgzuvprgv0"
+        },
+        {
+          "privateKeyWIF": "KxojM7WKQqxS1FNKGVWowDPtzMXaXQ7UUsdwhxJFUwE7HxSofqUK",
+          "address": "bitcoincash:qre988ur4gp5k2ph3lmxltqtg4q2zgw6eye0l6k6eg"
+        },
+        {
+          "privateKeyWIF": "KyWdb9m9TJpxqGHkZjHLipQiLUVmhvZT8p49N761RUc2Nq23FBxd",
+          "address": "bitcoincash:qzrjsum46ecex9qs28eyhw27ltydu37wzcq3v80ld8"
+        },
+        {
+          "privateKeyWIF": "L33wzMLV6m6DLHPnzuf27ZSjLv8HGG3DCjMdxDDTieDt7P1ih1ic",
+          "address": "bitcoincash:qqqnmqmpy9vz899ctv4chtx5n857pv9l4ykuea44xz"
+        }
+      ]
+    },
+    {
+      "mnemonic": "sibling parent owner rack velvet head boy bicycle exchange gossip despair supply brain office blanket topic slot baby hire rebuild apology radar strike age",
+      "output": [
+        {
+          "privateKeyWIF": "KyapaU8zwrHxLoqVfwRrF9e5a35DoXhV6C7zTkVnneuLQhMHBd7G",
+          "address": "bitcoincash:qr3r0yazu6s4ed0ckgpv96zcwx3wt9jy6vv56ywm2w"
+        },
+        {
+          "privateKeyWIF": "L2WCL7KEJT415BPYBhW3vUp89x1AwFrLfMyjMrbC444N1tFKBhXY",
+          "address": "bitcoincash:qqzc32v777yz4qprp0tk443j5j35q5q0xgzuvprgv0"
+        },
+        {
+          "privateKeyWIF": "L3Dz8kbwNf6EShtjnpZ65k8RuyD2reMcbZAnFY4GvQjy7CtvtmZX",
+          "address": "bitcoincash:qre988ur4gp5k2ph3lmxltqtg4q2zgw6eye0l6k6eg"
+        },
+        {
+          "privateKeyWIF": "L3Dy5sJB31JBnRtFZq6QJaKEaijo3wCnvJpjRvr8hYov7LUu8E13",
+          "address": "bitcoincash:qzrjsum46ecex9qs28eyhw27ltydu37wzcq3v80ld8"
+        },
+        {
+          "privateKeyWIF": "L4DTuvT3XWFW7vs6gvS88v4vYBMuJK3GjzMBTjD8XkpfJwoeqewD",
+          "address": "bitcoincash:qqqnmqmpy9vz899ctv4chtx5n857pv9l4ykuea44xz"
+        }
+      ]
+    }
+  ]
 }

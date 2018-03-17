@@ -178,6 +178,50 @@
       "xpriv": "xprv9ynLux2eJKPxJ8UxEwwURUWAyjgEKCiasQcMjiryspYpqszgQhRCf1YxeHWjM9v9rpLZW1DUEQRFNH9XmXTXL3zmxEvFV6JUe2N2yYVdpJK"
     }
   ],
+  "getLegacyAddress": [
+    {
+      "mnemonic": "rare dinosaur army fat spend average design order ritual town brave spike",
+      "address": "1HFrMyKqduYaStXuwwKJo4U6LYd8ygFfJP"
+    },
+      {
+      "mnemonic": "rabbit track ahead moral either upper tiger paper echo snow multiply trial kind two cram",
+      "address": "16PcBknwp8vdT8RH3iV9rFW8Us8JKws2jp"
+    },
+    {
+      "mnemonic": "shadow steak gospel heart life wedding loud jar marriage during lecture stove exclude price worry story art relief",
+      "address": "18gWYq4bf8hiS5hPDurPrxEs3wikdzskXH"
+    },
+    {
+      "mnemonic": "supply salute they blood coyote century envelope circle baby armed comfort sport jazz clarify museum portion wolf hour donkey frog juice",
+      "address": "14HyYKA6dgn1DVTLnvEFfh1jNFBATyragw"
+    },
+    {
+      "mnemonic": "tunnel ugly degree bid merry world pupil tornado ski rent casino rent security length wet twice luxury rookie invite destroy busy leopard escape shoe",
+      "address": "1AFWhEY61yrTgsW1bbAfNM6LnrTZ77oMc6"
+    }
+  ],
+  "getCashAddress": [
+    {
+      "mnemonic": "rare dinosaur army fat spend average design order ritual town brave spike",
+      "address": "bitcoincash:qze9zznaqzdne2awnlnygt0p74dkc3e4svm9ty58nx"
+    },
+      {
+      "mnemonic": "rabbit track ahead moral either upper tiger paper echo snow multiply trial kind two cram",
+      "address": "bitcoincash:qqa37fkpl3g90ydgas3t3ev0xes24du2aqfdxaz85s"
+    },
+    {
+      "mnemonic": "shadow steak gospel heart life wedding loud jar marriage during lecture stove exclude price worry story art relief",
+      "address": "bitcoincash:qp2yr38pjeqdtsqw9pfwjs6ng3ya4lqlpu46wkzsh5"
+    },
+    {
+      "mnemonic": "supply salute they blood coyote century envelope circle baby armed comfort sport jazz clarify museum portion wolf hour donkey frog juice",
+      "address": "bitcoincash:qqjpuwkhepkgxylfg8tq59sqm8zwf32dxqdchcnge7"
+    },
+    {
+      "mnemonic": "tunnel ugly degree bid merry world pupil tornado ski rent casino rent security length wet twice luxury rookie invite destroy busy leopard escape shoe",
+      "address": "bitcoincash:qpjh00scq3ratsytmttle5cml6yyk9stvc5lfd6pck"
+    }
+  ],
   "fromSeedBuffer": [
     "rare dinosaur army fat spend average design order ritual town brave spike",
     "rabbit track ahead moral either upper tiger paper echo snow multiply trial kind two cram",
