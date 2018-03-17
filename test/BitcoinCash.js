@@ -888,15 +888,6 @@ describe('#translateMnemonic', () => {
   });
 });
 
-describe('#hdNodeFromSeedBuffer', () => {
-  it('should create 32 byte chain code', () => {
-    let mnemonic = BITBOX.BitcoinCash.generateMnemonic(256);
-    let rootSeed = BITBOX.BitcoinCash.mnemonicToSeedBuffer(mnemonic, 'password');
-    let masterkey = BITBOX.BitcoinCash.hdNodeFromSeedBuffer(rootSeed);
-    assert.equal(masterkey.chainCode.byteLength, 32);
-  });
-});
-
 describe('sign and verify messages', () => {
   describe('#signMessageWithPrivKey', () => {
     fixtures.signatures.sign.forEach((sign) => {
@@ -908,7 +899,6 @@ describe('sign and verify messages', () => {
       });
     });
   });
-
 
   describe('#verifyMessage', () => {
     fixtures.signatures.verify.forEach((sign) => {

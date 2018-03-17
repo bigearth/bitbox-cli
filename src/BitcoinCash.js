@@ -148,7 +148,6 @@ class BitcoinCash {
   }
 
   fromXPub(xpub, index = 0) {
-    console.log(xpub, index)
     let network;
     if(xpub[0] === 'x') {
       network = 'bitcoin'
