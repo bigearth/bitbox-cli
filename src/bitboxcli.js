@@ -26,7 +26,7 @@ class BITBOXCli {
     this.BitboxHTTP = axios.create({
       baseURL: `${config.protocol}://${config.host}:${config.port}/`
     });
-    this.BitcoinCash = BitcoinCash;
+    this.BitcoinCash = new BitcoinCash();
     this.Crypto = Crypto;
     this.Util = new Util(config, this.BitboxHTTP);
     this.Blockchain = new Blockchain(config, this.BitboxHTTP);

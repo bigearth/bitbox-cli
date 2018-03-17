@@ -22,7 +22,8 @@ function flatten (arrays) {
     // 2. testnet
     //   * confirm xpriv generates address
     //   * confirm xpriv generates WIF
-// 6. More error test cases. 
+// 6. More error test cases.
+// 7. tests for keypairsFromMnemonic
 let LEGACY_ADDRESSES = flatten([
   fixtures.legacyMainnetP2PKH,
   fixtures.legacyMainnetP2SH,
@@ -730,65 +731,67 @@ describe('#mnemonicToSeedHex', () => {
   });
 });
 
-describe('#mnemonicToSeed', () => {
+describe('#mnemonicToSeedBuffer', () => {
   it('should create 512 bit / 64 byte HMAC-SHA512 root seed from a 128 bit mnemonic', () => {
     let mnemonic = BITBOX.BitcoinCash.generateMnemonic(128);
-    let rootSeed = BITBOX.BitcoinCash.mnemonicToSeed(mnemonic, '');
-    assert.equal(rootSeed.byteLength, 64);
+    let rootSeedBuffer = BITBOX.BitcoinCash.mnemonicToSeedBuffer(mnemonic, '');
+    assert.equal(rootSeedBuffer.byteLength, 64);
   });
 
   it('should create 512 bit / 64 byte HMAC-SHA512 root seed from a 160 bit mnemonic', () => {
     let mnemonic = BITBOX.BitcoinCash.generateMnemonic(160);
-    let rootSeed = BITBOX.BitcoinCash.mnemonicToSeed(mnemonic, '');
-    assert.equal(rootSeed.byteLength, 64);
+    let rootSeedBuffer = BITBOX.BitcoinCash.mnemonicToSeedBuffer(mnemonic, '');
+    assert.equal(rootSeedBuffer.byteLength, 64);
   });
 
   it('should create 512 bit / 64 byte HMAC-SHA512 root seed from a 192 bit mnemonic', () => {
     let mnemonic = BITBOX.BitcoinCash.generateMnemonic(192);
-    let rootSeed = BITBOX.BitcoinCash.mnemonicToSeed(mnemonic, '');
-    assert.equal(rootSeed.byteLength, 64);
+    let rootSeedBuffer = BITBOX.BitcoinCash.mnemonicToSeedBuffer(mnemonic, '');
+    assert.equal(rootSeedBuffer.byteLength, 64);
   });
 
   it('should create 512 bit / 64 byte HMAC-SHA512 root seed from a 224 bit mnemonic', () => {
     let mnemonic = BITBOX.BitcoinCash.generateMnemonic(224);
-    let rootSeed = BITBOX.BitcoinCash.mnemonicToSeed(mnemonic, '');
-    assert.equal(rootSeed.byteLength, 64);
+    let rootSeedBuffer = BITBOX.BitcoinCash.mnemonicToSeedBuffer(mnemonic, '');
+    assert.equal(rootSeedBuffer.byteLength, 64);
   });
 
   it('should create 512 bit / 64 byte HMAC-SHA512 root seed from a 256 bit mnemonic', () => {
     let mnemonic = BITBOX.BitcoinCash.generateMnemonic(256);
-    let rootSeed = BITBOX.BitcoinCash.mnemonicToSeed(mnemonic, '');
-    assert.equal(rootSeed.byteLength, 64);
+    let rootSeedBuffer = BITBOX.BitcoinCash.mnemonicToSeedBuffer(mnemonic, '');
+    assert.equal(rootSeedBuffer.byteLength, 64);
   });
+});
 
-  it('should create a 128 character root seed hex encoded from a 128 bit mnemonic', () => {
+describe('#mnemonicToSeedHex', () => {
+  it('should create a 128 character hex encoded root seed from a 128 bit mnemonic', () => {
     let mnemonic = BITBOX.BitcoinCash.generateMnemonic(128);
-    let rootSeed = BITBOX.BitcoinCash.mnemonicToSeed(mnemonic, '');
-    assert.lengthOf(rootSeed.toString('hex'), 128);
+    let rootSeedHex = BITBOX.BitcoinCash.mnemonicToSeedHex(mnemonic, '');
+    assert.lengthOf(rootSeedHex.toString('hex'), 128);
   });
 
-  it('should create a 128 character root seed hex encoded from a 160 bit mnemonic', () => {
+  it('should create a 128 character hex encoded root seed from a 160 bit mnemonic', () => {
     let mnemonic = BITBOX.BitcoinCash.generateMnemonic(160);
-    let rootSeed = BITBOX.BitcoinCash.mnemonicToSeed(mnemonic, '');
-    assert.lengthOf(rootSeed.toString('hex'), 128);
+    let rootSeedHex = BITBOX.BitcoinCash.mnemonicToSeedHex(mnemonic, '');
+    assert.lengthOf(rootSeedHex.toString('hex'), 128);
   });
 
-  it('should create a 128 character root seed hex encoded from a 192 bit mnemonic', () => {
+  it('should create a 128 character hex encoded root seed from a 192 bit mnemonic', () => {
     let mnemonic = BITBOX.BitcoinCash.generateMnemonic(192);
-    let rootSeed = BITBOX.BitcoinCash.mnemonicToSeed(mnemonic, '');
-    assert.lengthOf(rootSeed.toString('hex'), 128);
+    let rootSeedHex = BITBOX.BitcoinCash.mnemonicToSeedHex(mnemonic, '');
+    assert.lengthOf(rootSeedHex.toString('hex'), 128);
   });
 
-  it('should create a 128 character root seed hex encoded from a 224 bit mnemonic', () => {
+  it('should create a 128 character hex encoded root seed from a 224 bit mnemonic', () => {
     let mnemonic = BITBOX.BitcoinCash.generateMnemonic(224);
-    let rootSeed = BITBOX.BitcoinCash.mnemonicToSeed(mnemonic, '');
-    assert.lengthOf(rootSeed.toString('hex'), 128);
+    let rootSeedHex = BITBOX.BitcoinCash.mnemonicToSeedHex(mnemonic, '');
+    assert.lengthOf(rootSeedHex.toString('hex'), 128);
   });
 
-  it('should create a 128 character root seed hex encoded from a 256 bit mnemonic', () => {
+  it('should create a 128 character hex encoded root seed from a 256 bit mnemonic', () => {
     let mnemonic = BITBOX.BitcoinCash.generateMnemonic(256);
-    let rootSeed = BITBOX.BitcoinCash.mnemonicToSeed(mnemonic, '');
-    assert.lengthOf(rootSeed.toString('hex'), 128);
+    let rootSeedHex = BITBOX.BitcoinCash.mnemonicToSeedHex(mnemonic, '');
+    assert.lengthOf(rootSeedHex.toString('hex'), 128);
   });
 });
 
@@ -885,12 +888,11 @@ describe('#translateMnemonic', () => {
   });
 });
 
-describe('#fromSeedBuffer', () => {
+describe('#hdNodeFromSeedBuffer', () => {
   it('should create 32 byte chain code', () => {
-    let rand = BITBOX.Crypto.randomBytes(32);
-    let mnemonic = BITBOX.BitcoinCash.entropyToMnemonic(rand);
-    let rootSeed = BITBOX.BitcoinCash.mnemonicToSeed(mnemonic, 'password');
-    let masterkey = BITBOX.BitcoinCash.fromSeedBuffer(rootSeed);
+    let mnemonic = BITBOX.BitcoinCash.generateMnemonic(256);
+    let rootSeed = BITBOX.BitcoinCash.mnemonicToSeedBuffer(mnemonic, 'password');
+    let masterkey = BITBOX.BitcoinCash.hdNodeFromSeedBuffer(rootSeed);
     assert.equal(masterkey.chainCode.byteLength, 32);
   });
 });
