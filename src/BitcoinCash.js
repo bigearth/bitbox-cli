@@ -1,9 +1,9 @@
 // import Address from '../models/Address';
 import Crypto from './Crypto';
 import HDNode from './HDNode';
+import Mnemonic from './Mnemonic';
 
 import Bitcoin from 'bitcoinjs-lib';
-import BIP39 from 'bip39';
 import bchaddr from 'bchaddrjs';
 import sb from 'satoshi-bitcoin';
 import bitcoinMessage from 'bitcoinjs-message';
@@ -14,62 +14,7 @@ import bip21 from 'bip21';
 class BitcoinCash {
   constructor() {
     this.HDNode = HDNode;
-  }
-
-  generateMnemonic(bits = 128, wordlist) {
-    return BIP39.generateMnemonic(bits, randomBytes, wordlist);
-  }
-
-  entropyToMnemonic(bytes = 16, wordlist) {
-    // Generate cryptographically strong pseudo-random data.
-    // The bytes argument is a number indicating the number of bytes to generate.
-    // Uses the NodeJS crypto lib. More info: https://nodejs.org/api/crypto.html#crypto_crypto_randombytes_size_callback
-    let randomBytes;
-    if(typeof bytes === 'number') {
-      randomBytes = Crypto.randomBytes(bytes);
-    } else if(typeof bytes === 'string') {
-      randomBytes = bytes;
-    }
-    // Create BIP 39 compliant mnemonic w/ entropy
-    // Entropy (bits/bytes)	Checksum (bits)	Entropy + checksum (bits)	Mnemonic length (words)
-    // 128/16               4               132                       12
-    //
-    // 160/20               5               165                       15
-    //
-    // 192/24               6               198                       18
-    //
-    // 224/28               7               231                       21
-    //
-    // 256/32               8               264                       24
-
-    return BIP39.entropyToMnemonic(randomBytes, wordlist);
-  }
-
-  mnemonicToEntropy(mnemonic, wordlist) {
-    return BIP39.mnemonicToEntropy(mnemonic, wordlist);
-  }
-
-  validateMnemonic(mnemonic, wordlist) {
-    return BIP39.validateMnemonic(mnemonic, wordlist);
-  }
-
-  mnemonicToSeedHex(mnemonic, password = '') {
-    return BIP39.mnemonicToSeedHex(mnemonic, password);
-  }
-
-  mnemonicToSeedBuffer(mnemonic, password = '') {
-    return BIP39.mnemonicToSeed(mnemonic, password);
-  }
-
-  translateMnemonic(mnemonic, from = 'english', to = 'english') {
-    let fromWordlist = this.mnemonicWordLists()[from.toLowerCase()];
-    let toWordlist = this.mnemonicWordLists()[to.toLowerCase()];
-    let entropy = this.mnemonicToEntropy(mnemonic, fromWordlist);
-    return this.entropyToMnemonic(entropy, toWordlist);
-  }
-
-  mnemonicWordLists() {
-    return BIP39.wordlists;
+    this.Mnemonic = new Mnemonic();
   }
 
   fromWIF(privateKeyWIF, network = 'bitcoin') {
@@ -144,7 +89,7 @@ class BitcoinCash {
       // addresses.push(new Address(this.mnemonicWordLists(account.derive(i).getAddress()), account.derive(i).keyPair.toWIF()));
     };
 
-    return [rootSeed, masterHDNode, mnemonic, config.HDPath, accounts];
+    return [rootSeedBuffer, masterHDNode, mnemonic, config.HDPath, accounts];
   }
 
   fromXPub(xpub, index = 0) {
@@ -157,25 +102,6 @@ class BitcoinCash {
     let HDNode = Bitcoin.HDNode.fromBase58(xpub, Bitcoin.networks[network]);
     let address = HDNode.derivePath(`0/${index}`);
     return this.toCashAddress(address.getAddress());
-  }
-
-  keypairsFromMnemonic(mnemonic, numberOfKeypairs = 1) {
-    let rootSeedBuffer = this.mnemonicToSeedBuffer(mnemonic, '');
-    let hdNode = this.HDNode.fromSeedBuffer(rootSeedBuffer);
-    let HDPath = `44'/145'/0'/0/`
-
-    let accounts = [];
-
-    for (let i = 0; i < numberOfKeypairs; i++) {
-      let childHDNode = hdNode.derivePath(`${HDPath}${i}`);
-      accounts.push(
-        {
-          privateKeyWIF: childHDNode.keyPair.toWIF(),
-          address: this.HDNode.getCashAddress(childHDNode)
-        }
-      )
-    };
-    return accounts;
   }
 
   // Translate coins to satoshi value
