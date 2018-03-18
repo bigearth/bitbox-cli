@@ -1,4 +1,4 @@
-let fixtures = require('./fixtures/BitcoinCash.json')
+let fixtures = require('./fixtures/Mnemonic.json')
 let chai = require('chai');
 let assert = chai.assert;
 let BITBOXCli = require('./../lib/bitboxcli').default;

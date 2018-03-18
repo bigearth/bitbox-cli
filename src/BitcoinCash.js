@@ -88,7 +88,6 @@ class BitcoinCash {
         xpub: xpub,
         index: i
       });
-      // addresses.push(new Address(this.mnemonicWordLists(account.derive(i).getAddress()), account.derive(i).keyPair.toWIF()));
     };
 
     return [rootSeedBuffer, masterHDNode, mnemonic, config.HDPath, accounts];
