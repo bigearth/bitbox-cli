@@ -47,51 +47,6 @@ class BitcoinCash {
     return Bitcoin.TransactionBuilder;
   }
 
-  createHDWallet(config) {
-    let language = config.language;
-
-    if(!language || (language !== 'chinese_simplified' && language !== 'chinese_traditional' && language !== 'english' && language !== 'french' && language !== 'italian' && language !== 'japanese' && language !== 'korean' && language !== 'spanish')) {
-      config.language = 'english';
-    }
-
-    let mnemonic = config.mnemonic;
-    if(config.autogenerateHDMnemonic) {
-      // create a random mnemonic w/ user provided entropy size
-      let randomBytes = Crypto.randomBytes(config.entropy);
-      mnemonic = this.entropyToMnemonic(randomBytes, this.mnemonicWordLists()[config.language]);
-    }
-
-    // create 512 bit HMAC-SHA512 root seed
-    let rootSeedBuffer = this.mnemonicToSeedBuffer(mnemonic, config.password);
-
-    // create master private key
-    let masterHDNode = this.HDNode.fromSeedBuffer(rootSeedBuffer, config.network);
-
-    let HDPath = `m/${config.HDPath.purpose}/${config.HDPath.coinCode}`
-
-    let accounts = [];
-
-    for (let i = 0; i < config.totalAccounts; i++) {
-      // create accounts
-      // follow BIP 44 account discovery algo https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki#account-discovery
-      let account = masterHDNode.derivePath(`${HDPath.replace(/\/$/, "")}/${i}'`);
-      let xpriv = this.HDNode.toXPriv(account);
-      let xpub = this.HDNode.toXPub(account);
-      let address = masterHDNode.derivePath(`${HDPath.replace(/\/$/, "")}/${i}'/${config.HDPath.change}/${config.HDPath.address_index}`);
-
-      // TODO: Is this the right privkey?
-      accounts.push({
-        title: '',
-        privateKeyWIF: address.keyPair.toWIF(),
-        xpriv: xpriv,
-        xpub: xpub,
-        index: i
-      });
-    };
-
-    return [rootSeedBuffer, masterHDNode, mnemonic, config.HDPath, accounts];
-  }
-
   fromXPub(xpub, index = 0) {
     let network;
     if(xpub[0] === 'x') {
@@ -128,8 +83,8 @@ class BitcoinCash {
   }
 
   // encode base58Check
-  encodeBase58Check(bytes) {
-    return bs58.encode(bytes);
+  encodeBase58Check(hex) {
+    return bs58.encode(Buffer.from(hex, 'hex'));
   }
 
   // decode base58Check
