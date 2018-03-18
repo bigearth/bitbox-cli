@@ -2,6 +2,7 @@
 import Crypto from './Crypto';
 import HDNode from './HDNode';
 import Mnemonic from './Mnemonic';
+import Address from './Address';
 
 import Bitcoin from 'bitcoinjs-lib';
 import bchaddr from 'bchaddrjs';
@@ -15,6 +16,7 @@ class BitcoinCash {
   constructor() {
     this.HDNode = HDNode;
     this.Mnemonic = new Mnemonic();
+    this.Address = new Address();
   }
 
   fromWIF(privateKeyWIF, network = 'bitcoin') {
@@ -101,7 +103,7 @@ class BitcoinCash {
     }
     let HDNode = Bitcoin.HDNode.fromBase58(xpub, Bitcoin.networks[network]);
     let address = HDNode.derivePath(`0/${index}`);
-    return this.toCashAddress(address.getAddress());
+    return this.Address.toCashAddress(address.getAddress());
   }
 
   // Translate coins to satoshi value
@@ -114,75 +116,6 @@ class BitcoinCash {
     return sb.toBitcoin(satoshis);
   }
 
-  // Translate address from any address format into a specific format.
-  toLegacyAddress(address) {
-    return bchaddr.toLegacyAddress(address);
-  }
-
-  toCashAddress(address) {
-    return bchaddr.toCashAddress(address);
-  }
-
-  // Test for address format.
-  isLegacyAddress(address) {
-    return bchaddr.isLegacyAddress(address);
-  }
-
-  isCashAddress(address) {
-    return bchaddr.isCashAddress(address);
-  }
-
-  // Test for address network.
-  isMainnetAddress(address) {
-    if(address[0] === 'x') {
-      return true
-    } else if(address[0] === 't') {
-      return false
-    } else {
-      return bchaddr.isMainnetAddress(address);
-    }
-  }
-
-  isTestnetAddress(address) {
-    if(address[0] === 'x') {
-      return false
-    } else if(address[0] === 't') {
-      return true
-    } else {
-      return bchaddr.isTestnetAddress(address);
-    }
-  }
-
-  // Test for address type.
-  isP2PKHAddress(address) {
-    return bchaddr.isP2PKHAddress(address);
-  }
-
-  isP2SHAddress(address) {
-    return bchaddr.isP2SHAddress(address);
-  }
-
-  // Detect address format.
-  detectAddressFormat(address) {
-    return bchaddr.detectAddressFormat(address);
-  }
-
-  // Detect address network.
-  detectAddressNetwork(address) {
-    if(address[0] === 'x') {
-      return 'mainnet'
-    } else if(address[0] === 't') {
-      return 'testnet'
-    } else {
-      return bchaddr.detectAddressNetwork(address);
-    }
-  }
-
-  // Detect address type.
-  detectAddressType(address) {
-    return bchaddr.detectAddressType(address);
-  }
-
   // sign message
   signMessageWithPrivKey(privateKeyWIF, message) {
     let network = privateKeyWIF.charAt(0) === 'c' ? 'testnet' : 'bitcoin';
@@ -193,7 +126,7 @@ class BitcoinCash {
 
   // verify message
   verifyMessage(address, signature, message) {
-    return bitcoinMessage.verify(message, this.toLegacyAddress(address), signature);
+    return bitcoinMessage.verify(message, this.Address.toLegacyAddress(address), signature);
   }
 
   // encode base58Check
@@ -208,7 +141,7 @@ class BitcoinCash {
 
   // encode bip21 url
   encodeBIP21(address, options) {
-    return bip21.encode(this.toCashAddress(address), options);
+    return bip21.encode(this.Address.toCashAddress(address), options);
   }
 
   // decode bip21 url

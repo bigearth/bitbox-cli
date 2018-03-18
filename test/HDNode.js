@@ -143,16 +143,3 @@ describe('#toXPriv', () => {
     });
   });
 });
-// 1. create mnemonic
-//   * let mnemonic = BITBOX.BitcoinCash.generateMnemonic(128)
-//   * let mnemonic = BITBOX.BitcoinCash.entropyToMnemonic(BITBOX.Crypto.randomBytes(32))
-// 2. create rootSeed
-//   * let rootSeedBuffer = BITBOX.BitcoinCash.Mnemonic.mnemonicToSeedBuffer(mnemonic);
-//   * let rootSeedHex = BITBOX.BitcoinCash.Mnemonic.translateMnemonic(mnemonic);
-// 3. Create HDNode
-//   * let hdNode = BITBOX.BitcoinCash.HDNode.fromSeedBuffer(rootSeedBuffer);
-//   * let hdNode = BITBOX.BitcoinCash.HDNode.fromSeedHex(rootSeedHex);
-// 4. See xpriv and xpub of hdNode
-//   * let xpriv = BITBOX.BitcoinCash.HDNode.toXPriv(hdNode);
-//   * let xpub = BITBOX.BitcoinCash.HDNode.toXPub(hdNode);
-// 5. Derive Children HDNodes

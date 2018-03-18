@@ -137,37 +137,37 @@ BITBOX.BitcoinCash.toSatoshi(9)
 BITBOX.BitcoinCash.toBitcoinCash(900000000)
 // 9
 
-BITBOX.BitcoinCash.toLegacyAddress('bitcoincash:qzm47qz5ue99y9yl4aca7jnz7dwgdenl85jkfx3znl')
+BITBOX.BitcoinCash.Address.toLegacyAddress('bitcoincash:qzm47qz5ue99y9yl4aca7jnz7dwgdenl85jkfx3znl')
 // 1HiaTupadqQN66Tvgt7QSE5Wg13BUy25eN
 
-BITBOX.BitcoinCash.toCashAddress('1HiaTupadqQN66Tvgt7QSE5Wg13BUy25eN')
+BITBOX.BitcoinCash.Address.toCashAddress('1HiaTupadqQN66Tvgt7QSE5Wg13BUy25eN')
 // bitcoincash:qzm47qz5ue99y9yl4aca7jnz7dwgdenl85jkfx3znl
 
-BITBOX.BitcoinCash.isLegacyAddress('bitcoincash:qqfx3wcg8ts09mt5l3zey06wenapyfqq2qrcyj5x0s')
+BITBOX.BitcoinCash.Address.isLegacyAddress('bitcoincash:qqfx3wcg8ts09mt5l3zey06wenapyfqq2qrcyj5x0s')
 // false
 
-BITBOX.BitcoinCash.isCashAddress('bitcoincash:qqfx3wcg8ts09mt5l3zey06wenapyfqq2qrcyj5x0s')
+BITBOX.BitcoinCash.Address.isCashAddress('bitcoincash:qqfx3wcg8ts09mt5l3zey06wenapyfqq2qrcyj5x0s')
 // true
 
-BITBOX.BitcoinCash.isMainnetAddress('bitcoincash:qqfx3wcg8ts09mt5l3zey06wenapyfqq2qrcyj5x0s')
+BITBOX.BitcoinCash.Address.isMainnetAddress('bitcoincash:qqfx3wcg8ts09mt5l3zey06wenapyfqq2qrcyj5x0s')
 // true
 
-BITBOX.BitcoinCash.isTestnetAddress('bitcoincash:qqfx3wcg8ts09mt5l3zey06wenapyfqq2qrcyj5x0s')
+BITBOX.BitcoinCash.Address.isTestnetAddress('bitcoincash:qqfx3wcg8ts09mt5l3zey06wenapyfqq2qrcyj5x0s')
 //false
 
-BITBOX.BitcoinCash.isP2PKHAddress('bitcoincash:qqfx3wcg8ts09mt5l3zey06wenapyfqq2qrcyj5x0s')
+BITBOX.BitcoinCash.Address.isP2PKHAddress('bitcoincash:qqfx3wcg8ts09mt5l3zey06wenapyfqq2qrcyj5x0s')
 // true
 
-BITBOX.BitcoinCash.isP2SHAddress('bitcoincash:qqfx3wcg8ts09mt5l3zey06wenapyfqq2qrcyj5x0s')
+BITBOX.BitcoinCash.Address.isP2SHAddress('bitcoincash:qqfx3wcg8ts09mt5l3zey06wenapyfqq2qrcyj5x0s')
 // false
 
-BITBOX.BitcoinCash.detectAddressFormat('bitcoincash:qqfx3wcg8ts09mt5l3zey06wenapyfqq2qrcyj5x0s')
+BITBOX.BitcoinCash.Address.detectAddressFormat('bitcoincash:qqfx3wcg8ts09mt5l3zey06wenapyfqq2qrcyj5x0s')
 // cashaddr
 
-BITBOX.BitcoinCash.detectAddressNetwork('bitcoincash:qqfx3wcg8ts09mt5l3zey06wenapyfqq2qrcyj5x0s')
+BITBOX.BitcoinCash.Address.detectAddressNetwork('bitcoincash:qqfx3wcg8ts09mt5l3zey06wenapyfqq2qrcyj5x0s')
 // mainnet
 
-BITBOX.BitcoinCash.detectAddressType('bitcoincash:qqfx3wcg8ts09mt5l3zey06wenapyfqq2qrcyj5x0s');
+BITBOX.BitcoinCash.Address.detectAddressType('bitcoincash:qqfx3wcg8ts09mt5l3zey06wenapyfqq2qrcyj5x0s');
 // p2pkh
 
 BITBOX.BitcoinCash.signMessageWithPrivKey('KxtpRDUJDiutLaTV8Vuavhb6h7zq9YV9ZKA3dU79PCgYmNVmkkvS', "EARTH");
@@ -189,10 +189,10 @@ BITBOX.BitcoinCash.mnemonicWordLists();
 //   spanish: []
 // }
 
-BITBOX.BitcoinCash.generateMnemonic(128);
+BITBOX.BitcoinCash.Mnemonic.generateMnemonic(128);
 // boil lonely casino manage habit where total glory muffin name limit mansion
 
-BITBOX.BitcoinCash.entropyToMnemonic('f379da02cc426e6e26430d25e6cc372dfd0a1a2e4a33ac4dc6ae6d56017f642d')
+BITBOX.BitcoinCash.Mnemonic.entropyToMnemonic('f379da02cc426e6e26430d25e6cc372dfd0a1a2e4a33ac4dc6ae6d56017f642d')
 // vibrant solution level obtain cheap damage october giant chalk cushion assist fossil spawn artist rice edit proof hotel process survey gas sausage mouse property
 
 BITBOX.BitcoinCash.mnemonicToEntropy('boil lonely casino manage habit where total glory muffin name limit mansion');
@@ -203,7 +203,7 @@ BITBOX.BitcoinCash.validateMnemonic('boil lonely casino manage habit where total
 
 // translate mnemonics between langugaes
 // create korean mnemonic
-let koreanMnemonic = BITBOX.BitcoinCash.generateMnemonic(256, BITBOX.BitcoinCash.mnemonicWordLists().korean);
+let koreanMnemonic = BITBOX.BitcoinCash.Mnemonic.generateMnemonic(256, BITBOX.BitcoinCash.mnemonicWordLists().korean);
 // 상대 조직 피곤 기간 장면 저런 서쪽 신고 연예인 고춧가루 활짝 세종대왕 거울 대충 벨트 제일 저곳 남녀 수술 수학 학원 금년 유학 인공
 // translate it to spanish
 let spanishMnemonic = BITBOX.BitcoinCash.translateMnemonic(koreanMnemonic, 'korean', 'spanish')
@@ -220,7 +220,7 @@ BITBOX.BitcoinCash.mnemonicToSeed('enable stem left method one submit coach bid 
 // <Buffer 0a fa b7 46 8f 0c df 79 0f 0e 44 37 45 0c 33 c3 c8 27 17 42 75 d6 13 02 c3 55 de ef 2e 69 57 e4 f5 dd 55 b6 a8 73 78 6d b8 09 36 75 af 4f 6b 2c 52 63 ... >
 
 // Create Master Private Key w/ rootSeed returned from BITBOX.BitcoinCash.mnemonicToSeed
-BITBOX.BitcoinCash.fromSeedBuffer(rootSeed);
+BITBOX.BitcoinCash.hdNodeFromSeedBuffer(rootSeed);
 // HDNode {
 //   keyPair:
 //    ECPair {
@@ -449,3 +449,19 @@ BITBOX.getinfo()
 * https://github.com/bitcoinjs/bip39
 * https://github.com/bitcoincashjs/bchaddrjs
 * https://github.com/dawsbot/satoshi-bitcoin
+
+1. create mnemonic
+  * let mnemonic = BITBOX.BitcoinCash.Mnemonic.generateMnemonic(128)
+  * let mnemonic = BITBOX.BitcoinCash.Mnemonic.entropyToMnemonic(BITBOX.Crypto.randomBytes(32))
+2. create rootSeed
+  * let rootSeedBuffer = BITBOX.BitcoinCash.Mnemonic.mnemonicToSeedBuffer(mnemonic);
+  * let rootSeedHex = BITBOX.BitcoinCash.mnemonicToSeedHex(mnemonic);
+3. Create HDNode
+  * let hdNode = BITBOX.BitcoinCash.HDNode.fromSeedBuffer(rootSeedBuffer);
+  * let hdNode = BITBOX.BitcoinCash.HDNode.fromSeedHex(rootSeedHex);
+4. See xpriv, xpub and address of hdNode
+  * let xpriv = BITBOX.BitcoinCash.HDNode.toXPriv(hdNode);
+  * let xpub = BITBOX.BitcoinCash.HDNode.toXPub(hdNode);
+  * let address = BITBOX.BitcoinCash.HDNode.getCashAddress(hdNode);
+5. Derive Children HDNodes
+  * let account0 = hdNode.fromPath('m/0');
