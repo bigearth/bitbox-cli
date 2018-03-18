@@ -1,0 +1,46 @@
+{
+  "createSHA256Hash": [
+    {
+      "hash": "c3ab8ff13720e8ad9047dd39466b3c8974e592c2fa383d4a3960714caef0c4f2",
+      "label": "foobar"
+    },
+    {
+      "hash": "bcfee25a8baf6808fce5ff4e63cf21c8d114853ca7eacdcc3c210d73c58dab66",
+      "label": "EARTH"
+    },
+    {
+      "hash": "3e3d496369a5e2314db74094a1cf0cae8e8cf3fefe1807e251df07c8822a9188",
+      "label": "Carlos Gabriel Cardona"
+    },
+    {
+      "hash": "c88c5ae954dd4c3f46d125862fab06d0060ca4cccd523ba1c7d2df72e539868b",
+      "label": "Be excellent to each other"
+    },
+    {
+      "hash": "c4740470504dc2b14b957b03e760ff24fcf058d626d6cec92da58f7a51e8d766",
+      "label": "Party on Wayne!"
+    }
+  ],
+  "createRIPEMD160Hash": [
+    {
+      "hash": "a06e327ea7388c18e4740e350ed4e60f2e04fc41",
+      "label": "foobar"
+    },
+    {
+      "hash": "ca700bba3bd37304b9bd923652245f598ece8afe",
+      "label": "EARTH"
+    },
+    {
+      "hash": "971de56ec9f68050532ace44ea5a1b6bffd758a3",
+      "label": "Carlos Gabriel Cardona"
+    },
+    {
+      "hash": "1c9b1d50930927998af46f152681c4a9ed5bc9e4",
+      "label": "Be excellent to each other"
+    },
+    {
+      "hash": "15c64b85e3df6055ed84e63dc5ed443b634a8cd1",
+      "label": "Party on Wayne!"
+    }
+  ]
+}

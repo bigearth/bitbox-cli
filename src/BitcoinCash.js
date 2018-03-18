@@ -48,7 +48,6 @@ class BitcoinCash {
   }
 
   createHDWallet(config) {
-    // nore info: https://github.com/bitcoinbook/bitcoinbook/blob/develop/ch05.asciidoc
     let language = config.language;
 
     if(!language || (language !== 'chinese_simplified' && language !== 'chinese_traditional' && language !== 'english' && language !== 'french' && language !== 'italian' && language !== 'japanese' && language !== 'korean' && language !== 'spanish')) {
