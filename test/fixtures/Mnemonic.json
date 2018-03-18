@@ -147,5 +147,32 @@
         }
       ]
     }
+  ],
+  "findNearestWord": [
+    {
+      "word": "ab",
+      "foundWord": "abandon",
+      "language": "english"
+    },
+    {
+      "word": "octu",
+      "foundWord": "octupler",
+      "language": "french"
+    },
+    {
+      "word": "reda",
+      "foundWord": "area",
+      "language": "english"
+    },
+    {
+      "word": "foobaro",
+      "foundWord": "forro",
+      "language": "spanish"
+    },
+    {
+      "word": "nv",
+      "foundWord": "neve",
+      "language": "italian"
+    }
   ]
 }

@@ -132,45 +132,45 @@ describe('#mnemonicToEntropy', () => {
 
 describe('#validateMnemonic', () => {
   it('fails for a mnemonic that is too short', () => {
-    assert.equal(BITBOX.BitcoinCash.Mnemonic.validateMnemonic('mixed winner'), false);
+    assert.equal(BITBOX.BitcoinCash.Mnemonic.validateMnemonic('mixed winner', BITBOX.BitcoinCash.Mnemonic.mnemonicWordLists().english), 'Invalid mnemonic');
   });
 
-  it('fails for a mnemonic that is too long', () => {
-    assert.equal(BITBOX.BitcoinCash.Mnemonic.validateMnemonic('mixed winner decide drift danger together twice planet impose asthma catch require select mask awkward spy relief front work solar pitch economy render cake mixed winner decide drift danger together twice planet impose asthma catch require select mask awkward spy relief front work solar pitch economy render cake mixed winner decide drift danger together twice planet impose asthma catch require select mask awkward spy relief front work solar pitch economy render cake mixed winner decide drift danger together twice planet impose asthma catch require select mask awkward spy relief front work solar pitch economy render cakemixed winner decide drift danger together twice planet impose asthma catch require select mask awkward spy relief front work solar pitch economy render cake mixed winner decide drift danger together twice planet impose asthma catch require select mask awkward spy relief front work solar pitch economy render cake mixed winner decide drift danger together twice planet impose asthma catch require select mask awkward spy relief front work solar pitch economy render cake mixed winner decide drift danger together twice planet impose asthma catch require select mask awkward spy relief front work solar pitch economy render cake'), false);
+    it('fails for a mnemonic that is too long', () => {
+    assert.equal(BITBOX.BitcoinCash.Mnemonic.validateMnemonic('mixed winner decide drift danger together twice planet impose asthma catch require select mask awkward spy relief front work solar pitch economy render cake mixed winner decide drift danger together twice planet impose asthma catch require select mask awkward spy relief front work solar pitch economy render cake mixed winner decide drift danger together twice planet impose asthma catch require select mask awkward spy relief front work solar pitch economy render cake mixed winner decide drift danger together twice planet impose asthma catch require select mask awkward spy relief front work solar pitch economy render cake mixed winner decide drift danger together twice planet impose asthma catch require select mask awkward spy relief front work solar pitch economy render cake mixed winner decide drift danger together twice planet impose asthma catch require select mask awkward spy relief front work solar pitch economy render cake mixed winner decide drift danger together twice planet impose asthma catch require select mask awkward spy relief front work solar pitch economy render cake mixed winner decide drift danger together twice planet impose asthma catch require select mask awkward spy relief front work solar pitch economy render cake', BITBOX.BitcoinCash.Mnemonic.mnemonicWordLists().english), 'Invalid mnemonic');
   });
 
   it('fails if mnemonic words are not in the word list', () => {
-    assert.equal(BITBOX.BitcoinCash.Mnemonic.validateMnemonic('failsauce one two three four five six seven eight nine ten eleven'), false);
+    assert.equal(BITBOX.BitcoinCash.Mnemonic.validateMnemonic('failsauce one two three four five six seven eight nine ten eleven', BITBOX.BitcoinCash.Mnemonic.mnemonicWordLists().english), 'failsauce is not in wordlist, did you mean balance?');
   });
 
   it('validate a 128 bit mnemonic', () => {
     let mnemonic = BITBOX.BitcoinCash.Mnemonic.generateMnemonic(128);
-    assert.equal(BITBOX.BitcoinCash.Mnemonic.validateMnemonic(mnemonic), true);
+    assert.equal(BITBOX.BitcoinCash.Mnemonic.validateMnemonic(mnemonic, BITBOX.BitcoinCash.Mnemonic.mnemonicWordLists().english), 'Valid mnemonic');
   });
 
   it('validate a 160 bit mnemonic', () => {
     let mnemonic = BITBOX.BitcoinCash.Mnemonic.generateMnemonic(160);
-    assert.equal(BITBOX.BitcoinCash.Mnemonic.validateMnemonic(mnemonic), true);
+    assert.equal(BITBOX.BitcoinCash.Mnemonic.validateMnemonic(mnemonic, BITBOX.BitcoinCash.Mnemonic.mnemonicWordLists().english), 'Valid mnemonic');
   });
 
   it('validate a 192 bit mnemonic', () => {
     let mnemonic = BITBOX.BitcoinCash.Mnemonic.generateMnemonic(192);
-    assert.equal(BITBOX.BitcoinCash.Mnemonic.validateMnemonic(mnemonic), true);
+    assert.equal(BITBOX.BitcoinCash.Mnemonic.validateMnemonic(mnemonic, BITBOX.BitcoinCash.Mnemonic.mnemonicWordLists().english), 'Valid mnemonic');
   });
 
   it('validate a 224 bit mnemonic', () => {
     let mnemonic = BITBOX.BitcoinCash.Mnemonic.generateMnemonic(224);
-    assert.equal(BITBOX.BitcoinCash.Mnemonic.validateMnemonic(mnemonic), true);
+    assert.equal(BITBOX.BitcoinCash.Mnemonic.validateMnemonic(mnemonic, BITBOX.BitcoinCash.Mnemonic.mnemonicWordLists().english), 'Valid mnemonic');
   });
 
   it('validate a 256 bit mnemonic', () => {
     let mnemonic = BITBOX.BitcoinCash.Mnemonic.generateMnemonic(256);
-    assert.equal(BITBOX.BitcoinCash.Mnemonic.validateMnemonic(mnemonic), true);
+    assert.equal(BITBOX.BitcoinCash.Mnemonic.validateMnemonic(mnemonic, BITBOX.BitcoinCash.Mnemonic.mnemonicWordLists().english), 'Valid mnemonic');
   });
 
   it('validate a 256 bit chinese simplified mnemonic', () => {
     let mnemonic = BITBOX.BitcoinCash.Mnemonic.generateMnemonic(256, BITBOX.BitcoinCash.Mnemonic.mnemonicWordLists().chinese_simplified);
-    assert.equal(BITBOX.BitcoinCash.Mnemonic.validateMnemonic(mnemonic, BITBOX.BitcoinCash.Mnemonic.mnemonicWordLists().chinese_simplified), true);
+    assert.equal(BITBOX.BitcoinCash.Mnemonic.validateMnemonic(mnemonic, BITBOX.BitcoinCash.Mnemonic.mnemonicWordLists().chinese_simplified), 'Valid mnemonic');
   });
 });
 
@@ -370,6 +370,15 @@ describe('#keypairsFromMnemonic', () => {
       it(`Generate keypair from mnemonic`, () => {
         assert.equal(keypair.privateKeyWIF, fixtures.keypairsFromMnemonic[i].output[j].privateKeyWIF);
       });
+    });
+  });
+});
+
+describe('#findNearestWord', () => {
+  fixtures.findNearestWord.forEach((fixture, i) => {
+    let word = BITBOX.BitcoinCash.Mnemonic.findNearestWord(fixture.word, BITBOX.BitcoinCash.Mnemonic.mnemonicWordLists()[fixture.language]);
+    it(`find word ${fixture.foundWord} near ${fixture.word} in ${fixture.language}`, () => {
+      assert.equal(word, fixture.foundWord);
     });
   });
 });
