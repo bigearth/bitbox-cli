@@ -321,5 +321,57 @@
       "cashaddress": "bitcoincash:qzqslmsyprdfzwu3hk4sa237c7lpm44kesvkl2vtnq",
       "xpub": "xpub6CrzBLa9hcBiRXneS2U42GEgNSqx126TLfbZiufAeuKkb9jQwCw3D1Dhec4bNzwm9JkunejrxWcviV5NmoQTkb5eMGqJrVby2L7p6Mtee75"
     }
+  ],
+  "accounts": [
+    {
+      "mnemonic": "rare dinosaur army fat spend average design order ritual town brave spike",
+      "externals": [
+        "bitcoincash:qr2xjcqfmpl8thetzssxm32s2fnpvsfplvm37gh72u",
+        "bitcoincash:qzxuj7cxg4t8vwd2q9ktl354zxga3csgqg7rmxtuv2",
+        "bitcoincash:qp9uznqurj0kpu2zd25cg2nth3tht9cj5u9v7wwnyc",
+        "bitcoincash:qq6g7j7m6sr22rpun5m4jz9v57698nfevc640rhqjm",
+        "bitcoincash:qzxwx6z6hkr9eu3sekn5cvl7d0p26t42ns6kxn4004"
+      ]
+    },
+    {
+      "mnemonic": "rabbit track ahead moral either upper tiger paper echo snow multiply trial kind two cram",
+      "externals": [
+        "bitcoincash:qr92mpxs2p4swnn5segxnvx654gj9k5f3udnpmdp6e",
+        "bitcoincash:qqfgdzjzyhzvlfkv6g06pshq8ddm6mdc9q8l4n5d87",
+        "bitcoincash:qpnk7c29fst9c339cv2cd2d5qh5t6y6ypu7ma9nysd",
+        "bitcoincash:qz49d0m0sdvucs9z7gg0p34jzc8qk9qlpc4ggzkc0v",
+        "bitcoincash:qqap24wa7uu9nskcxfsc2t4mtx6sf5sh6ye43grqne"
+      ]
+    },
+    {
+      "mnemonic": "shadow steak gospel heart life wedding loud jar marriage during lecture stove exclude price worry story art relief",
+      "externals": [
+        "bitcoincash:qqf38us2wju8n4kakdd9pkm20h4pd7tt3u4tm6wval",
+        "bitcoincash:qp57af8qltwk90kkj8gm60k0m6dkgcuzc57kraaswg",
+        "bitcoincash:qzxfrmcjkr4l2zdy05ghxcqh2z2jr62n8qpdskq6u9",
+        "bitcoincash:qpj5yyzafyek7hw0pawmys0xqkm4pgf2h5u3v0ndpw",
+        "bitcoincash:qr84wwrp5yvre58qq6mk323y0pmmzmdgxs9vukesmj"
+      ]
+    },
+    {
+      "mnemonic": "supply salute they blood coyote century envelope circle baby armed comfort sport jazz clarify museum portion wolf hour donkey frog juice",
+      "externals": [
+        "bitcoincash:qzzd8g4l4rum2txra2jkw5mqe29e8ac6vsjrkruedp",
+        "bitcoincash:qq0su63j07y7vcts6etld9q3c57jhav4pc867t4927",
+        "bitcoincash:qrfxkf0dgqrzwl0dkkt5tde77l758lzepyelpt5qkr",
+        "bitcoincash:qq2hwe79eugk3fpx7n6f5nfqkeh4eygq7v9ay8dxrf",
+        "bitcoincash:qprcxg6tkm0hq3773a2v66ue379fdh49mcdgg7fscr"
+      ]
+    },
+    {
+      "mnemonic": "tunnel ugly degree bid merry world pupil tornado ski rent casino rent security length wet twice luxury rookie invite destroy busy leopard escape shoe",
+      "externals": [
+        "bitcoincash:qqqqwccu8c2j2twsh3qp6wdyfnzdvxa2qqqdqst9eq",
+        "bitcoincash:qr53v0r6djuu0jnpkphtl53kgptvv6x67yt7djky59",
+        "bitcoincash:qzm4awn03edhskc6rtzytud35x84njlkls63ur3ffa",
+        "bitcoincash:qqsyhnfcxv4g4e8sn3xlkx99urrzfqlw7u8y5eukdz",
+        "bitcoincash:qqrlf0qszjwrrsh0d8cz3anvusu6q37xvynms533gt"
+      ]
+    }
   ]
 }

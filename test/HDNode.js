@@ -203,4 +203,32 @@ describe('#fromXPub', () => {
   });
 });
 
-// TODO #fromXPub
+describe('#foobar', () => {
+  fixtures.accounts.forEach((fixture) => {
+    let seedHex = BITBOX.BitcoinCash.Mnemonic.mnemonicToSeedHex(fixture.mnemonic)
+    let hdNode = BITBOX.BitcoinCash.HDNode.fromSeedHex(seedHex)
+    let a = hdNode.derivePath("0'")
+    let external = a.derivePath("0")
+    let account = BITBOX.BitcoinCash.HDNode.createAccount([external]);
+
+    it(`should create Account`, () => {
+      assert.notEqual(account, null);
+    });
+
+    describe('#getChainAddress', () => {
+      let external1 = BITBOX.BitcoinCash.Address.toCashAddress(account.getChainAddress(0));
+      it(`should create external change address ${external1}`, () => {
+        assert.equal(external1, fixture.externals[0] );
+      });
+    });
+
+    describe('#nextChainAddress', () => {
+      for(let i = 0; i < 4; i++) {
+        let ex = BITBOX.BitcoinCash.Address.toCashAddress(account.nextChainAddress(0));
+        it(`should create external change address ${ex}`, () => {
+          assert.equal(ex, fixture.externals[i + 1]);
+        });
+      }
+    });
+  });
+});

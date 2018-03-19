@@ -1,5 +1,6 @@
 import Bitcoin from 'bitcoinjs-lib';
 import bchaddr from 'bchaddrjs';
+let bip32utils = require('bip32-utils')
 
 class HDNode extends Bitcoin.HDNode {
   static fromSeedBuffer(rootSeedBuffer, network = 'bitcoin') {
@@ -48,6 +49,13 @@ class HDNode extends Bitcoin.HDNode {
       network = 'testnet';
     }
     return Bitcoin.HDNode.fromBase58(xpub, Bitcoin.networks[network]);
+  }
+
+  static createAccount(hdNodes) {
+    let arr = hdNodes.map((item, index) => {
+      return new bip32utils.Chain(item.neutered())
+    });
+    return new bip32utils.Account(arr);
   }
 }
 
