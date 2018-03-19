@@ -1,4 +1,5 @@
 import bchaddr from 'bchaddrjs';
+import Bitcoin from 'bitcoinjs-lib';
 
 class Address {
 
@@ -69,6 +70,10 @@ class Address {
   // Detect address type.
   detectAddressType(address) {
     return bchaddr.detectAddressType(address);
+  }
+
+  fromWIF(privateKeyWIF, network = 'bitcoin') {
+    return Bitcoin.ECPair.fromWIF(privateKeyWIF, Bitcoin.networks[network]);
   }
 }
 

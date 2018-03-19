@@ -19,10 +19,6 @@ class BitcoinCash {
     this.Address = new Address();
   }
 
-  fromWIF(privateKeyWIF, network = 'bitcoin') {
-    return Bitcoin.ECPair.fromWIF(privateKeyWIF, Bitcoin.networks[network]);
-  }
-
   ECPair() {
     return Bitcoin.ECPair;
   }
