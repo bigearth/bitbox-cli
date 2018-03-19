@@ -44,13 +44,7 @@ class BitcoinCash {
   }
 
   fromXPub(xpub, index = 0) {
-    let network;
-    if(xpub[0] === 'x') {
-      network = 'bitcoin'
-    } else {
-      network = 'testnet'
-    }
-    let HDNode = Bitcoin.HDNode.fromBase58(xpub, Bitcoin.networks[network]);
+    let HDNode = Bitcoin.HDNode.fromBase58(xpub, Bitcoin.networks[this.Address.detectAddressNetwork(xpub)]);
     let address = HDNode.derivePath(`0/${index}`);
     return this.Address.toCashAddress(address.getAddress());
   }

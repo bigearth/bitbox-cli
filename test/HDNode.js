@@ -122,6 +122,15 @@ describe('#getCashAddress', () => {
   });
 });
 
+describe('#getPrivateKeyWIF', () => {
+  fixtures.getPrivateKeyWIF.forEach((fixture) => {
+    it(`should get privateKeyWIF ${fixture.privateKeyWIF} from HDNode`, () => {
+      let hdNode = BITBOX.BitcoinCash.HDNode.fromXPriv(fixture.xpriv);
+      assert.equal(BITBOX.BitcoinCash.HDNode.getPrivateKeyWIF(hdNode), fixture.privateKeyWIF);
+    });
+  });
+});
+
 describe('#toXPub', () => {
   fixtures.toXPub.forEach((mnemonic) => {
     it(`should create xpub ${mnemonic.xpub} from an HDNode`, () => {
@@ -143,3 +152,55 @@ describe('#toXPriv', () => {
     });
   });
 });
+
+describe('#fromXPriv', () => {
+  fixtures.fromXPriv.forEach((fixture) => {
+    let hdNode = BITBOX.BitcoinCash.HDNode.fromXPriv(fixture.xpriv);
+    it(`should create HDNode from xpriv ${fixture.xpriv}`, () => {
+      assert.notEqual(hdNode, null);
+    });
+
+    it(`should export xpriv ${fixture.xpriv}`, () => {
+      assert.equal(BITBOX.BitcoinCash.HDNode.toXPriv(hdNode), fixture.xpriv);
+    });
+
+    it(`should export xpub ${fixture.xpub}`, () => {
+      assert.equal(BITBOX.BitcoinCash.HDNode.toXPub(hdNode), fixture.xpub);
+    });
+
+    it(`should export legacy address ${fixture.legacy}`, () => {
+      assert.equal(BITBOX.BitcoinCash.HDNode.getLegacyAddress(hdNode), fixture.legacy);
+    });
+
+    it(`should export cashaddress ${fixture.cashaddress}`, () => {
+      assert.equal(BITBOX.BitcoinCash.HDNode.getCashAddress(hdNode), fixture.cashaddress);
+    });
+
+    it(`should export privateKeyWIF ${fixture.privateKeyWIF}`, () => {
+      assert.equal(BITBOX.BitcoinCash.HDNode.getPrivateKeyWIF(hdNode), fixture.privateKeyWIF);
+    });
+  });
+});
+
+describe('#fromXPub', () => {
+  fixtures.fromXPub.forEach((fixture) => {
+    let hdNode = BITBOX.BitcoinCash.HDNode.fromXPub(fixture.xpub);
+    it(`should create HDNode from xpub ${fixture.xpub}`, () => {
+      assert.notEqual(hdNode, null);
+    });
+
+    it(`should export xpub ${fixture.xpub}`, () => {
+      assert.equal(BITBOX.BitcoinCash.HDNode.toXPub(hdNode), fixture.xpub);
+    });
+
+    it(`should export legacy address ${fixture.legacy}`, () => {
+      assert.equal(BITBOX.BitcoinCash.HDNode.getLegacyAddress(hdNode), fixture.legacy);
+    });
+
+    it(`should export cashaddress ${fixture.cashaddress}`, () => {
+      assert.equal(BITBOX.BitcoinCash.HDNode.getCashAddress(hdNode), fixture.cashaddress);
+    });
+  });
+});
+
+// TODO #fromXPub

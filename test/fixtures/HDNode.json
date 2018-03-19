@@ -222,6 +222,28 @@
       "address": "bitcoincash:qpjh00scq3ratsytmttle5cml6yyk9stvc5lfd6pck"
     }
   ],
+  "getPrivateKeyWIF": [
+    {
+      "privateKeyWIF": "L3nMAFHGojwdTajZAjEfSsqyP8TmQgqpxmhKNdwpLiNw4EBuhUcg",
+      "xpriv": "xprv9ysdmq3FsEdR2byz2KdNuGNd1dY181zpe5jBpydatj49DaxVnrTGNkM4S28WgBzNSFQA5SSnT34XcqcoS6opVGebrhXAef3rGpXPPb7yHPi"
+    },
+      {
+      "privateKeyWIF": "KxWMGJMHMhB4f8aTwpmqags7gNvcrc7gs76SJHaXbAc4Me2DKP3L",
+      "xpriv": "xprv9ysdmq3FsEdQyzSTsENJdmQPvXWDArRWG118RzwPTGoYmwUDGoeHoBjr1hxgGrLP9XpEXg9roQhSBFrwjb934bnu8yQzdHi6MmcPUXniGrP"
+    },
+    {
+      "privateKeyWIF": "KzYUskkRuJrhDYLgP1JAywmUx3MPh2UZNQa299iZgGS9cNKytzy4",
+      "xpriv": "xprv9ysdmq3FsEdR71JPPhVFP2DwwQCUksByZA7kg6y5qTjDvkX8GQH1WwJDc2epCeCL416qnVHJYNQvaFjkrM1CkGwaHy1w9oVAUAe4V6cYiyq"
+    },
+    {
+      "privateKeyWIF": "L54oL29DdWDiPtHDW1kr3fzTWdm2f34V1tWhrFxnJoVafadwx6aS",
+      "xpriv": "xprv9ysdmq3FsEdR8Zka7LWxKXaW2bsS3fjmusdBq5GnnDVMSAZ2LqhsoydPr6gD4CS9Ww8vWfnKtGe1rTqbw5NBvuqJwhebogWGbmkGhV9xa69"
+    },
+    {
+      "privateKeyWIF": "L5UtYZibxTiHYefBQNvTRHYp75V3EeoqzRdv8KwqzYBtvzewaUME",
+      "xpriv": "xprv9ysdmq3FsEdRD3iBKzw3f8HwpR1TbZNbySfxvXFZ6ZnmiMQGPfcnfCuDoLcnGT27p8DTvsqVubj8tv6yQp5siqUoPmT4WRLpjZXauriLnZB"
+    }
+  ],
   "fromSeedBuffer": [
     "rare dinosaur army fat spend average design order ritual town brave spike",
     "rabbit track ahead moral either upper tiger paper echo snow multiply trial kind two cram",
@@ -235,5 +257,69 @@
     "shadow steak gospel heart life wedding loud jar marriage during lecture stove exclude price worry story art relief",
     "supply salute they blood coyote century envelope circle baby armed comfort sport jazz clarify museum portion wolf hour donkey frog juice",
     "tunnel ugly degree bid merry world pupil tornado ski rent casino rent security length wet twice luxury rookie invite destroy busy leopard escape shoe"
+  ],
+  "fromXPriv": [
+    {
+      "xpriv": "xprv9ysdmq3FsEdR2byz2KdNuGNd1dY181zpe5jBpydatj49DaxVnrTGNkM4S28WgBzNSFQA5SSnT34XcqcoS6opVGebrhXAef3rGpXPPb7yHPi",
+      "legacy": "1CtdPZHebT5QTdknNvEBjGSgACHbriUmLV",
+      "cashaddress": "bitcoincash:qzpxe7f7zc3rwckjmtled2wfssvv5gkvw52e35pc9q",
+      "xpub": "xpub6CrzBLa9hcBiF64T8MAPGQKMZfNVXUig1JendN3CT4b86PHeLPmWvYfYHK2NNYrEBj1GwfWqWF1xYjn6aD1Y7RYDNajKSKbSi1CW2hzeDA5",
+      "privateKeyWIF": "L3nMAFHGojwdTajZAjEfSsqyP8TmQgqpxmhKNdwpLiNw4EBuhUcg"
+    },
+    {
+      "xpriv": "xprv9ysdmq3FsEdQyzSTsENJdmQPvXWDArRWG118RzwPTGoYmwUDGoeHoBjr1hxgGrLP9XpEXg9roQhSBFrwjb934bnu8yQzdHi6MmcPUXniGrP",
+      "legacy": "1J1nGBW8rWeV1VEETii5nKhKHT7qshuQYw",
+      "cashaddress": "bitcoincash:qzafl67pkxgmmzfp5jj4937jv6rlfs7zxy6gurw0xh",
+      "xpub": "xpub6CrzBLa9hcBiCUWvyFuJzuM8UZLhaK9MdDvjEPM11cLXejoMpLxYLz4KrxjRV9cd44EacgeaWU4E3GT6HfkDwjEup3Hw9inf9opWxxCZUa6",
+      "privateKeyWIF": "KxWMGJMHMhB4f8aTwpmqags7gNvcrc7gs76SJHaXbAc4Me2DKP3L"
+    },
+    {
+      "xpriv": "xprv9ysdmq3FsEdR71JPPhVFP2DwwQCUksByZA7kg6y5qTjDvkX8GQH1WwJDc2epCeCL416qnVHJYNQvaFjkrM1CkGwaHy1w9oVAUAe4V6cYiyq",
+      "legacy": "1CrwnAN3p4Y5h7511F49VgwUvbEq314BM9",
+      "cashaddress": "bitcoincash:qzppkls7al33d0w2dd07776d0fu2jwvtxsnw8nyum4",
+      "xpub": "xpub6CrzBLa9hcBiKVNrVj2FkAAgVS2yAKupvP3MUVNhPoGCoYrGowbG4jchTLccFRbah2Kw7VNbP11G6mXYAkur47EZJcsXkvwTqCekjrpBYaS",
+      "privateKeyWIF": "KzYUskkRuJrhDYLgP1JAywmUx3MPh2UZNQa299iZgGS9cNKytzy4"
+    },
+    {
+      "xpriv": "xprv9ysdmq3FsEdR8Zka7LWxKXaW2bsS3fjmusdBq5GnnDVMSAZ2LqhsoydPr6gD4CS9Ww8vWfnKtGe1rTqbw5NBvuqJwhebogWGbmkGhV9xa69",
+      "legacy": "1HbccrsbZjyPewX6vaHBFyuhE2NtP3BJYp",
+      "cashaddress": "bitcoincash:qzmqmc6vq4hrdwtjrluwk9uvyj6nt4h4aqe24qxnqr",
+      "xpub": "xpub6CrzBLa9hcBiM3q3DN3xgfXEadhvT8TdH6YndTgQLZ2LJxtAtP28MmwshM34EtFhPDLorNocunk1E2KBvBbsGVJ5NorsvxW1yDWxsuLZF8Y",
+      "privateKeyWIF": "L54oL29DdWDiPtHDW1kr3fzTWdm2f34V1tWhrFxnJoVafadwx6aS"
+    },
+    {
+      "xpriv": "xprv9ysdmq3FsEdRD3iBKzw3f8HwpR1TbZNbySfxvXFZ6ZnmiMQGPfcnfCuDoLcnGT27p8DTvsqVubj8tv6yQp5siqUoPmT4WRLpjZXauriLnZB",
+      "legacy": "1CmRFZjxL6auhVooc9sd3d8oKwL8mKwfFQ",
+      "cashaddress": "bitcoincash:qzqslmsyprdfzwu3hk4sa237c7lpm44kesvkl2vtnq",
+      "xpub": "xpub6CrzBLa9hcBiRXneS2U42GEgNSqx126TLfbZiufAeuKkb9jQwCw3D1Dhec4bNzwm9JkunejrxWcviV5NmoQTkb5eMGqJrVby2L7p6Mtee75",
+      "privateKeyWIF": "L5UtYZibxTiHYefBQNvTRHYp75V3EeoqzRdv8KwqzYBtvzewaUME"
+    }
+  ],
+  "fromXPub": [
+    {
+      "legacy": "1CtdPZHebT5QTdknNvEBjGSgACHbriUmLV",
+      "cashaddress": "bitcoincash:qzpxe7f7zc3rwckjmtled2wfssvv5gkvw52e35pc9q",
+      "xpub": "xpub6CrzBLa9hcBiF64T8MAPGQKMZfNVXUig1JendN3CT4b86PHeLPmWvYfYHK2NNYrEBj1GwfWqWF1xYjn6aD1Y7RYDNajKSKbSi1CW2hzeDA5"
+    },
+    {
+      "legacy": "1J1nGBW8rWeV1VEETii5nKhKHT7qshuQYw",
+      "cashaddress": "bitcoincash:qzafl67pkxgmmzfp5jj4937jv6rlfs7zxy6gurw0xh",
+      "xpub": "xpub6CrzBLa9hcBiCUWvyFuJzuM8UZLhaK9MdDvjEPM11cLXejoMpLxYLz4KrxjRV9cd44EacgeaWU4E3GT6HfkDwjEup3Hw9inf9opWxxCZUa6"
+    },
+    {
+      "legacy": "1CrwnAN3p4Y5h7511F49VgwUvbEq314BM9",
+      "cashaddress": "bitcoincash:qzppkls7al33d0w2dd07776d0fu2jwvtxsnw8nyum4",
+      "xpub": "xpub6CrzBLa9hcBiKVNrVj2FkAAgVS2yAKupvP3MUVNhPoGCoYrGowbG4jchTLccFRbah2Kw7VNbP11G6mXYAkur47EZJcsXkvwTqCekjrpBYaS"
+    },
+    {
+      "legacy": "1HbccrsbZjyPewX6vaHBFyuhE2NtP3BJYp",
+      "cashaddress": "bitcoincash:qzmqmc6vq4hrdwtjrluwk9uvyj6nt4h4aqe24qxnqr",
+      "xpub": "xpub6CrzBLa9hcBiM3q3DN3xgfXEadhvT8TdH6YndTgQLZ2LJxtAtP28MmwshM34EtFhPDLorNocunk1E2KBvBbsGVJ5NorsvxW1yDWxsuLZF8Y"
+    },
+    {
+      "legacy": "1CmRFZjxL6auhVooc9sd3d8oKwL8mKwfFQ",
+      "cashaddress": "bitcoincash:qzqslmsyprdfzwu3hk4sa237c7lpm44kesvkl2vtnq",
+      "xpub": "xpub6CrzBLa9hcBiRXneS2U42GEgNSqx126TLfbZiufAeuKkb9jQwCw3D1Dhec4bNzwm9JkunejrxWcviV5NmoQTkb5eMGqJrVby2L7p6Mtee75"
+    }
   ]
 }

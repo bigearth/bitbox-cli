@@ -1,5 +1,4 @@
 import Bitcoin from 'bitcoinjs-lib';
-import BitcoinCash from './BitcoinCash';
 import bchaddr from 'bchaddrjs';
 
 class HDNode extends Bitcoin.HDNode {
@@ -19,12 +18,36 @@ class HDNode extends Bitcoin.HDNode {
     return bchaddr.toCashAddress(hdNode.getAddress());
   }
 
+  static getPrivateKeyWIF(hdNode) {
+    return hdNode.keyPair.toWIF();
+  }
+
   static toXPub(hdNode) {
     return hdNode.neutered().toBase58();
   }
 
   static toXPriv(hdNode) {
     return hdNode.toBase58();
+  }
+
+  static fromXPriv(xpriv) {
+    let network;
+    if(xpriv[0] === 'x') {
+      network = 'mainnet';
+    } else if(xpriv[0] === 't') {
+      network = 'testnet';
+    }
+    return Bitcoin.HDNode.fromBase58(xpriv, Bitcoin.networks[network]);
+  }
+
+  static fromXPub(xpub) {
+    let network;
+    if(xpub[0] === 'x') {
+      network = 'mainnet';
+    } else if(xpub[0] === 't') {
+      network = 'testnet';
+    }
+    return Bitcoin.HDNode.fromBase58(xpub, Bitcoin.networks[network]);
   }
 }
 
