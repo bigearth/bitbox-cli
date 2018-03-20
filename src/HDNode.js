@@ -2,56 +2,66 @@ import Bitcoin from 'bitcoinjs-lib';
 import bchaddr from 'bchaddrjs';
 let bip32utils = require('bip32-utils')
 
-class HDNode extends Bitcoin.HDNode {
-  static fromSeedBuffer(rootSeedBuffer, network = 'bitcoin') {
-    return super.fromSeedBuffer(rootSeedBuffer, Bitcoin.networks[network]);
+class HDNode {
+  fromSeedBuffer(rootSeedBuffer, network = 'bitcoin') {
+    return Bitcoin.HDNode.fromSeedBuffer(rootSeedBuffer, Bitcoin.networks[network]);
   }
 
-  static fromSeedHex(rootSeedHex, network = 'bitcoin') {
-    return super.fromSeedBuffer(Buffer.from(rootSeedHex, 'hex'), Bitcoin.networks[network]);
+  fromSeedHex(rootSeedHex, network = 'bitcoin') {
+    return Bitcoin.HDNode.fromSeedBuffer(Buffer.from(rootSeedHex, 'hex'), Bitcoin.networks[network]);
   }
 
-  static getLegacyAddress(hdNode) {
+  getLegacyAddress(hdNode) {
     return hdNode.getAddress();
   }
 
-  static getCashAddress(hdNode) {
+  getCashAddress(hdNode) {
     return bchaddr.toCashAddress(hdNode.getAddress());
   }
 
-  static getPrivateKeyWIF(hdNode) {
+  getPrivateKeyWIF(hdNode) {
     return hdNode.keyPair.toWIF();
   }
 
-  static toXPub(hdNode) {
+  toXPub(hdNode) {
     return hdNode.neutered().toBase58();
   }
 
-  static toXPriv(hdNode) {
+  toXPriv(hdNode) {
     return hdNode.toBase58();
   }
 
-  static fromXPriv(xpriv) {
+  fromXPriv(xpriv) {
     let network;
     if(xpriv[0] === 'x') {
-      network = 'mainnet';
+      network = 'bitcoin';
     } else if(xpriv[0] === 't') {
       network = 'testnet';
     }
     return Bitcoin.HDNode.fromBase58(xpriv, Bitcoin.networks[network]);
   }
 
-  static fromXPub(xpub) {
+  fromXPub(xpub) {
     let network;
     if(xpub[0] === 'x') {
-      network = 'mainnet';
+      network = 'bitcoin';
     } else if(xpub[0] === 't') {
       network = 'testnet';
     }
     return Bitcoin.HDNode.fromBase58(xpub, Bitcoin.networks[network]);
   }
 
-  static createAccount(hdNodes) {
+  fromWIF(privateKeyWIF) {
+    let network;
+    if(privateKeyWIF[0] === 'L' || privateKeyWIF[0] === 'K') {
+      network = 'bitcoin';
+    } else if(privateKeyWIF[0] === 'c') {
+      network = 'testnet';
+    }
+    return Bitcoin.ECPair.fromWIF(privateKeyWIF, Bitcoin.networks[network]);
+  }
+
+  createAccount(hdNodes) {
     let arr = hdNodes.map((item, index) => {
       return new bip32utils.Chain(item.neutered())
     });

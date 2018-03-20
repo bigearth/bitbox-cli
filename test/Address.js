@@ -466,17 +466,17 @@ describe('#detectAddressType', () => {
 describe('#fromWIF', () => {
   fixtures.fromWIF.forEach((fixture) => {
     it(`should import ${fixture.privateKeyWIF} WIF`, () => {
-      let ecpair = BITBOX.Address.fromWIF(fixture.privateKeyWIF);
+      let ecpair = BITBOX.HDNode.fromWIF(fixture.privateKeyWIF);
       assert.notEqual(ecpair, null);
     })
 
     it(`should get ${fixture.legacy} legacy address`, () => {
-      let legacy = BITBOX.Address.fromWIF(fixture.privateKeyWIF);
+      let legacy = BITBOX.HDNode.fromWIF(fixture.privateKeyWIF);
       assert.equal(BITBOX.HDNode.getLegacyAddress(legacy), fixture.legacy);
     })
 
     it(`should get ${fixture.cashAddr} cash address`, () => {
-      let cashAddr = BITBOX.Address.fromWIF(fixture.privateKeyWIF);
+      let cashAddr = BITBOX.HDNode.fromWIF(fixture.privateKeyWIF);
       assert.equal(BITBOX.HDNode.getCashAddress(cashAddr), fixture.cashAddr);
     })
   });

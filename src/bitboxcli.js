@@ -33,7 +33,7 @@ class BITBOXCli {
     this.Crypto = Crypto;
     this.Mnemonic = new Mnemonic();
     this.Address = new Address();
-    this.HDNode = HDNode;
+    this.HDNode = new HDNode();
     this.Util = new Util(config, this.BitboxHTTP);
     this.Blockchain = new Blockchain(config, this.BitboxHTTP);
     this.Control = new Control(config, this.BitboxHTTP);

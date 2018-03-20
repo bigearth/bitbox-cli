@@ -72,10 +72,6 @@ class Address {
     return bchaddr.detectAddressType(address);
   }
 
-  fromWIF(privateKeyWIF, network = 'bitcoin') {
-    return Bitcoin.ECPair.fromWIF(privateKeyWIF, Bitcoin.networks[network]);
-  }
-
   fromXPub(xpub, path = "0/0") {
     let HDNode = Bitcoin.HDNode.fromBase58(xpub, Bitcoin.networks[this.detectAddressNetwork(xpub)]);
     let address = HDNode.derivePath(path);
