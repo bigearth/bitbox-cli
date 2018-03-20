@@ -222,7 +222,7 @@
       "address": "bitcoincash:qpjh00scq3ratsytmttle5cml6yyk9stvc5lfd6pck"
     }
   ],
-  "toPrivateKeyWIF": [
+  "toWIF": [
     {
       "privateKeyWIF": "L3nMAFHGojwdTajZAjEfSsqyP8TmQgqpxmhKNdwpLiNw4EBuhUcg",
       "xpriv": "xprv9ysdmq3FsEdR2byz2KdNuGNd1dY181zpe5jBpydatj49DaxVnrTGNkM4S28WgBzNSFQA5SSnT34XcqcoS6opVGebrhXAef3rGpXPPb7yHPi"

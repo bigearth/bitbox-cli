@@ -19,7 +19,7 @@ class HDNode {
     return bchaddr.toCashAddress(hdNode.getAddress());
   }
 
-  toPrivateKeyWIF(hdNode) {
+  toWIF(hdNode) {
     return hdNode.keyPair.toWIF();
   }
 
