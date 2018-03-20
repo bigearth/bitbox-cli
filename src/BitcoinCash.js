@@ -1,18 +1,12 @@
-import Crypto from './Crypto';
-import HDNode from './HDNode';
-import Address from './Address';
 import Bitcoin from 'bitcoinjs-lib';
 import bchaddr from 'bchaddrjs';
 import sb from 'satoshi-bitcoin';
 import bitcoinMessage from 'bitcoinjs-message';
-import randomBytes from 'randombytes';
 import bs58 from 'bs58';
 import bip21 from 'bip21';
 
 class BitcoinCash {
   constructor() {
-    this.HDNode = HDNode;
-    this.Address = new Address();
   }
 
   ECPair() {
@@ -59,7 +53,7 @@ class BitcoinCash {
 
   // verify message
   verifyMessage(address, signature, message) {
-    return bitcoinMessage.verify(message, this.Address.toLegacyAddress(address), signature);
+    return bitcoinMessage.verify(message, bchaddr.toLegacyAddress(address), signature);
   }
 
   // encode base58Check
@@ -74,7 +68,7 @@ class BitcoinCash {
 
   // encode bip21 url
   encodeBIP21(address, options) {
-    return bip21.encode(this.Address.toCashAddress(address), options);
+    return bip21.encode(bchaddr.toCashAddress(address), options);
   }
 
   // decode bip21 url

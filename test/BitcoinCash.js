@@ -94,14 +94,14 @@ describe('sign and verify messages', () => {
     });
 
     fixtures.signatures.verify.forEach((sign) => {
-      let legacyAddress = BITBOX.BitcoinCash.Address.toLegacyAddress(sign.address);
+      let legacyAddress = BITBOX.Address.toLegacyAddress(sign.address);
       it(`should verify a valid signed message from ${sign.network} legacy address ${legacyAddress}`, () => {
         assert.equal(BITBOX.BitcoinCash.verifyMessage(legacyAddress, sign.signature, sign.message), true);
       });
     });
 
     fixtures.signatures.verify.forEach((sign) => {
-      let legacyAddress = BITBOX.BitcoinCash.Address.toLegacyAddress(sign.address);
+      let legacyAddress = BITBOX.Address.toLegacyAddress(sign.address);
       it(`should not verify an invalid signed message from ${sign.network} cashaddr address ${sign.address}`, () => {
         assert.equal(BITBOX.BitcoinCash.verifyMessage(sign.address, sign.signature, 'nope'), false);
       });
@@ -143,7 +143,7 @@ describe('encode and decode BIP21 urls', () => {
         let decoded = BITBOX.BitcoinCash.decodeBIP21(bip21.url);
         assert.equal(decoded.options.amount, bip21.options.amount);
         assert.equal(decoded.options.label, bip21.options.label);
-        assert.equal(BITBOX.BitcoinCash.Address.toCashAddress(decoded.address), BITBOX.BitcoinCash.Address.toCashAddress(bip21.address));
+        assert.equal(BITBOX.Address.toCashAddress(decoded.address), BITBOX.Address.toCashAddress(bip21.address));
       });
     });
   });
