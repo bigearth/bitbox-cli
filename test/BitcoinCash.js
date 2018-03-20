@@ -1,5 +1,4 @@
 let fixtures = require('./fixtures/BitcoinCash.json')
-let addressFixtures = require('./fixtures/Address.json')
 let chai = require('chai');
 let assert = chai.assert;
 let BITBOXCli = require('./../lib/bitboxcli').default;
@@ -20,15 +19,6 @@ let BITBOX = new BITBOXCli();
     //   * confirm xpriv generates address
     //   * confirm xpriv generates WIF
 // 6. More error test cases.
-
-function flatten (arrays) {
-  return [].concat.apply([], arrays)
-}
-
-let XPUBS = flatten([
-  addressFixtures.mainnetXPub,
-  addressFixtures.testnetXPub
-])
 
 describe('price conversion', () => {
   describe('#toBitcoinCash', () => {
@@ -114,16 +104,6 @@ describe('sign and verify messages', () => {
       let legacyAddress = BITBOX.BitcoinCash.Address.toLegacyAddress(sign.address);
       it(`should not verify an invalid signed message from ${sign.network} cashaddr address ${sign.address}`, () => {
         assert.equal(BITBOX.BitcoinCash.verifyMessage(sign.address, sign.signature, 'nope'), false);
-      });
-    });
-  });
-});
-
-describe('#fromXPub', () => {
-  XPUBS.forEach((xpub, i) => {
-    xpub.addresses.forEach((address, j) => {
-      it(`generate public external change address ${j} for ${xpub.xpub}`, () => {
-        assert.equal(BITBOX.BitcoinCash.fromXPub(xpub.xpub, j), address);
       });
     });
   });

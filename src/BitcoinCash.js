@@ -43,12 +43,6 @@ class BitcoinCash {
     return Bitcoin.TransactionBuilder;
   }
 
-  fromXPub(xpub, index = 0) {
-    let HDNode = Bitcoin.HDNode.fromBase58(xpub, Bitcoin.networks[this.Address.detectAddressNetwork(xpub)]);
-    let address = HDNode.derivePath(`0/${index}`);
-    return this.Address.toCashAddress(address.getAddress());
-  }
-
   // Translate coins to satoshi value
   toSatoshi(coins) {
     return sb.toSatoshi(coins);

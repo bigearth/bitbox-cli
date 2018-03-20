@@ -8,6 +8,11 @@ function flatten (arrays) {
   return [].concat.apply([], arrays)
 }
 
+let XPUBS = flatten([
+  fixtures.mainnetXPub,
+  fixtures.testnetXPub
+])
+
 let LEGACY_ADDRESSES = flatten([
   fixtures.legacyMainnetP2PKH,
   fixtures.legacyMainnetP2SH,
@@ -493,4 +498,14 @@ describe('#fromWIF', () => {
   //     }, BITBOX.BitcoinCash.InvalidAddressError)
   //   })
   // });
+});
+
+describe('#fromXPub', () => {
+  XPUBS.forEach((xpub, i) => {
+    xpub.addresses.forEach((address, j) => {
+      it(`generate public external change address ${j} for ${xpub.xpub}`, () => {
+        assert.equal(BITBOX.BitcoinCash.Address.fromXPub(xpub.xpub, `0/${j}`), address);
+      });
+    });
+  });
 });

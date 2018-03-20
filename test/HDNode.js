@@ -203,7 +203,7 @@ describe('#fromXPub', () => {
   });
 });
 
-describe('#foobar', () => {
+describe('create accounts and addresses', () => {
   fixtures.accounts.forEach((fixture) => {
     let seedHex = BITBOX.BitcoinCash.Mnemonic.mnemonicToSeedHex(fixture.mnemonic)
     let hdNode = BITBOX.BitcoinCash.HDNode.fromSeedHex(seedHex)
@@ -211,7 +211,7 @@ describe('#foobar', () => {
     let external = a.derivePath("0")
     let account = BITBOX.BitcoinCash.HDNode.createAccount([external]);
 
-    it(`should create Account`, () => {
+    it(`#createAccount`, () => {
       assert.notEqual(account, null);
     });
 
