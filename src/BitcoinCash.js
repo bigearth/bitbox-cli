@@ -1,9 +1,6 @@
-// import Address from '../models/Address';
 import Crypto from './Crypto';
 import HDNode from './HDNode';
-import Mnemonic from './Mnemonic';
 import Address from './Address';
-
 import Bitcoin from 'bitcoinjs-lib';
 import bchaddr from 'bchaddrjs';
 import sb from 'satoshi-bitcoin';
@@ -15,7 +12,6 @@ import bip21 from 'bip21';
 class BitcoinCash {
   constructor() {
     this.HDNode = HDNode;
-    this.Mnemonic = new Mnemonic();
     this.Address = new Address();
   }
 

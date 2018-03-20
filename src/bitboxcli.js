@@ -9,6 +9,7 @@ import Mining from './Mining';
 import Network from './Network';
 import RawTransactions from './RawTransactions';
 import Wallet from './Wallet';
+import Mnemonic from './Mnemonic';
 
 class BITBOXCli {
   constructor(config) {
@@ -28,6 +29,7 @@ class BITBOXCli {
     });
     this.BitcoinCash = new BitcoinCash();
     this.Crypto = Crypto;
+    this.Mnemonic = new Mnemonic();
     this.Util = new Util(config, this.BitboxHTTP);
     this.Blockchain = new Blockchain(config, this.BitboxHTTP);
     this.Control = new Control(config, this.BitboxHTTP);
