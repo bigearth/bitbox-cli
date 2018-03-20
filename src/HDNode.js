@@ -11,15 +11,15 @@ class HDNode {
     return Bitcoin.HDNode.fromSeedBuffer(Buffer.from(rootSeedHex, 'hex'), Bitcoin.networks[network]);
   }
 
-  getLegacyAddress(hdNode) {
+  toLegacyAddress(hdNode) {
     return hdNode.getAddress();
   }
 
-  getCashAddress(hdNode) {
+  toCashAddress(hdNode) {
     return bchaddr.toCashAddress(hdNode.getAddress());
   }
 
-  getPrivateKeyWIF(hdNode) {
+  toPrivateKeyWIF(hdNode) {
     return hdNode.keyPair.toWIF();
   }
 

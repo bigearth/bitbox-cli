@@ -98,35 +98,35 @@ describe('#derivePath', () => {
   });
 });
 
-describe('#getLegacyAddress', () => {
-  fixtures.getLegacyAddress.forEach((address) => {
+describe('#toLegacyAddress', () => {
+  fixtures.toLegacyAddress.forEach((address) => {
     it(`should get address ${address.address} from HDNode`, () => {
       let rootSeedHex = BITBOX.Mnemonic.mnemonicToSeedHex(address.mnemonic);
       let hdNode = BITBOX.HDNode.fromSeedHex(rootSeedHex);
       let childHDNode = hdNode.derivePath("0");
-      let addy = BITBOX.HDNode.getLegacyAddress(childHDNode);
+      let addy = BITBOX.HDNode.toLegacyAddress(childHDNode);
       assert.equal(addy, address.address);
     });
   });
 });
 
-describe('#getCashAddress', () => {
-  fixtures.getCashAddress.forEach((address) => {
+describe('#toCashAddress', () => {
+  fixtures.toCashAddress.forEach((address) => {
     it(`should get address ${address.address} from HDNode`, () => {
       let rootSeedHex = BITBOX.Mnemonic.mnemonicToSeedHex(address.mnemonic);
       let hdNode = BITBOX.HDNode.fromSeedHex(rootSeedHex);
       let childHDNode = hdNode.derivePath("0");
-      let addy = BITBOX.HDNode.getCashAddress(childHDNode);
+      let addy = BITBOX.HDNode.toCashAddress(childHDNode);
       assert.equal(addy, address.address);
     });
   });
 });
 
-describe('#getPrivateKeyWIF', () => {
-  fixtures.getPrivateKeyWIF.forEach((fixture) => {
+describe('#toPrivateKeyWIF', () => {
+  fixtures.toPrivateKeyWIF.forEach((fixture) => {
     it(`should get privateKeyWIF ${fixture.privateKeyWIF} from HDNode`, () => {
       let hdNode = BITBOX.HDNode.fromXPriv(fixture.xpriv);
-      assert.equal(BITBOX.HDNode.getPrivateKeyWIF(hdNode), fixture.privateKeyWIF);
+      assert.equal(BITBOX.HDNode.toPrivateKeyWIF(hdNode), fixture.privateKeyWIF);
     });
   });
 });
@@ -169,15 +169,15 @@ describe('#fromXPriv', () => {
     });
 
     it(`should export legacy address ${fixture.legacy}`, () => {
-      assert.equal(BITBOX.HDNode.getLegacyAddress(hdNode), fixture.legacy);
+      assert.equal(BITBOX.HDNode.toLegacyAddress(hdNode), fixture.legacy);
     });
 
     it(`should export cashaddress ${fixture.cashaddress}`, () => {
-      assert.equal(BITBOX.HDNode.getCashAddress(hdNode), fixture.cashaddress);
+      assert.equal(BITBOX.HDNode.toCashAddress(hdNode), fixture.cashaddress);
     });
 
     it(`should export privateKeyWIF ${fixture.privateKeyWIF}`, () => {
-      assert.equal(BITBOX.HDNode.getPrivateKeyWIF(hdNode), fixture.privateKeyWIF);
+      assert.equal(BITBOX.HDNode.toPrivateKeyWIF(hdNode), fixture.privateKeyWIF);
     });
   });
 });
@@ -194,11 +194,11 @@ describe('#fromXPub', () => {
     });
 
     it(`should export legacy address ${fixture.legacy}`, () => {
-      assert.equal(BITBOX.HDNode.getLegacyAddress(hdNode), fixture.legacy);
+      assert.equal(BITBOX.HDNode.toLegacyAddress(hdNode), fixture.legacy);
     });
 
     it(`should export cashaddress ${fixture.cashaddress}`, () => {
-      assert.equal(BITBOX.HDNode.getCashAddress(hdNode), fixture.cashaddress);
+      assert.equal(BITBOX.HDNode.toCashAddress(hdNode), fixture.cashaddress);
     });
   });
 });
@@ -231,4 +231,41 @@ describe('create accounts and addresses', () => {
       }
     });
   });
+});
+
+describe('#fromWIF', () => {
+  fixtures.fromWIF.forEach((fixture) => {
+    it(`should import ${fixture.privateKeyWIF} WIF`, () => {
+      let ecpair = BITBOX.HDNode.fromWIF(fixture.privateKeyWIF);
+      assert.notEqual(ecpair, null);
+    })
+
+    it(`should get ${fixture.legacy} legacy address`, () => {
+      let legacy = BITBOX.HDNode.fromWIF(fixture.privateKeyWIF);
+      assert.equal(BITBOX.HDNode.toLegacyAddress(legacy), fixture.legacy);
+    })
+
+    it(`should get ${fixture.cashAddr} cash address`, () => {
+      let cashAddr = BITBOX.HDNode.fromWIF(fixture.privateKeyWIF);
+      assert.equal(BITBOX.HDNode.toCashAddress(cashAddr), fixture.cashAddr);
+    })
+  });
+  //
+  // P2SH_ADDRESSES.forEach((address) => {
+  //   it(`should detect ${address} is a P2SH address`, () => {
+  //     let isP2SH = BITBOX.Address.detectAddressType(address);
+  //     assert.equal(isP2SH, 'p2sh');
+  //   })
+  // });
+  //
+  // describe('errors', () => {
+  //   it('should fail when called with an invalid address', () => {
+  //     assert.throws(() => {
+  //       BITBOX.Address.detectAddressType()
+  //     }, BITBOX.BitcoinCash.InvalidAddressError)
+  //     assert.throws(() => {
+  //       BITBOX.Address.detectAddressType('some invalid address')
+  //     }, BITBOX.BitcoinCash.InvalidAddressError)
+  //   })
+  // });
 });

@@ -463,43 +463,6 @@ describe('#detectAddressType', () => {
   });
 });
 
-describe('#fromWIF', () => {
-  fixtures.fromWIF.forEach((fixture) => {
-    it(`should import ${fixture.privateKeyWIF} WIF`, () => {
-      let ecpair = BITBOX.HDNode.fromWIF(fixture.privateKeyWIF);
-      assert.notEqual(ecpair, null);
-    })
-
-    it(`should get ${fixture.legacy} legacy address`, () => {
-      let legacy = BITBOX.HDNode.fromWIF(fixture.privateKeyWIF);
-      assert.equal(BITBOX.HDNode.getLegacyAddress(legacy), fixture.legacy);
-    })
-
-    it(`should get ${fixture.cashAddr} cash address`, () => {
-      let cashAddr = BITBOX.HDNode.fromWIF(fixture.privateKeyWIF);
-      assert.equal(BITBOX.HDNode.getCashAddress(cashAddr), fixture.cashAddr);
-    })
-  });
-  //
-  // P2SH_ADDRESSES.forEach((address) => {
-  //   it(`should detect ${address} is a P2SH address`, () => {
-  //     let isP2SH = BITBOX.Address.detectAddressType(address);
-  //     assert.equal(isP2SH, 'p2sh');
-  //   })
-  // });
-  //
-  // describe('errors', () => {
-  //   it('should fail when called with an invalid address', () => {
-  //     assert.throws(() => {
-  //       BITBOX.Address.detectAddressType()
-  //     }, BITBOX.BitcoinCash.InvalidAddressError)
-  //     assert.throws(() => {
-  //       BITBOX.Address.detectAddressType('some invalid address')
-  //     }, BITBOX.BitcoinCash.InvalidAddressError)
-  //   })
-  // });
-});
-
 describe('#fromXPub', () => {
   XPUBS.forEach((xpub, i) => {
     xpub.addresses.forEach((address, j) => {
