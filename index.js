@@ -250,12 +250,12 @@ program
 
     console.log(chalk.blue(`Creating ${options.language} ${options.encoding} paper wallet`));
     let bitbox = new BITBOXCli();
-    let mnemonic = bitbox.BitcoinCash.generateMnemonic(256, bitbox.BitcoinCash.mnemonicWordLists()[options.language]);
-    let keypair = bitbox.BitcoinCash.keypairsFromMnemonic(mnemonic, 1)[0];
+    let mnemonic = bitbox.Mnemonic.generateMnemonic(256, bitbox.Mnemonic.mnemonicWordLists()[options.language]);
+    let keypair = bitbox.Mnemonic.keypairsFromMnemonic(mnemonic, 1)[0];
     let privateKeyWIF = keypair.privateKeyWIF;
     let address = keypair.address;
     if(options.encoding === 'legacy') {
-      address = bitbox.BitcoinCash.toLegacyAddress(address);
+      address = bitbox.Address.toLegacyAddress(address);
     }
     touch(`./paper-wallet.html`);
     let QRCode = require('qrcode')
