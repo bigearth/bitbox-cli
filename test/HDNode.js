@@ -153,6 +153,28 @@ describe('#toXPriv', () => {
   });
 });
 
+describe('#toPublicKeyBuffer', () => {
+  fixtures.toPublicKeyBuffer.forEach((fixture) => {
+    it(`should create public key buffer ${fixture.publicKeyBuffer} from an HDNode`, () => {
+      let rootSeedHex = BITBOX.Mnemonic.mnemonicToSeedHex(fixture.mnemonic);
+      let hdNode = BITBOX.HDNode.fromSeedHex(rootSeedHex);
+      let publicKeyBuffer = BITBOX.HDNode.toPublicKeyBuffer(hdNode);
+      assert.equal(typeof publicKeyBuffer, 'object');
+    });
+  });
+});
+
+describe('#toPublicKeyHex', () => {
+  fixtures.toPublicKeyHex.forEach((fixture) => {
+    it(`should create public key hex ${fixture.publicKeyHex} from an HDNode`, () => {
+      let rootSeedHex = BITBOX.Mnemonic.mnemonicToSeedHex(fixture.mnemonic);
+      let hdNode = BITBOX.HDNode.fromSeedHex(rootSeedHex);
+      let publicKeyHex = BITBOX.HDNode.toPublicKeyHex(hdNode);
+      assert.equal(publicKeyHex, fixture.publicKeyHex);
+    });
+  });
+});
+
 describe('#fromXPriv', () => {
   fixtures.fromXPriv.forEach((fixture) => {
     let hdNode = BITBOX.HDNode.fromXPriv(fixture.xpriv);

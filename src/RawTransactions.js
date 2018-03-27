@@ -71,9 +71,9 @@ class RawTransactions {
       }
     })
     .then((response) => {
-      return response.data.result;
+      return JSON.stringify(response.data.result);
     })
-    .catch(error => {
+    .catch((error) => {
       return Error(error.response.data.error.message);
     });
   }

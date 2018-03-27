@@ -26,7 +26,7 @@ class Blockchain {
     .then((response) => {
       return response.data.result;
     })
-    .catch(error => {
+    .catch((error) => {
       return Error(error.response.data.error.message);
     });
   }

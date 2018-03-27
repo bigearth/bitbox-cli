@@ -12,6 +12,7 @@ import Wallet from './Wallet';
 import Mnemonic from './Mnemonic';
 import Address from './Address';
 import HDNode from './HDNode';
+import Transaction from './Transaction';
 
 class BITBOXCli {
   constructor(config) {
@@ -42,6 +43,7 @@ class BITBOXCli {
     this.Network = new Network(config, this.BitboxHTTP);
     this.RawTransactions = new RawTransactions(config, this.BitboxHTTP);
     this.Wallet = new Wallet(config, this.BitboxHTTP);
+    this.Transaction = Transaction;
   }
 
 

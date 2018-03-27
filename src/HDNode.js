@@ -31,6 +31,14 @@ class HDNode {
     return hdNode.toBase58();
   }
 
+  toPublicKeyBuffer(hdNode) {
+    return hdNode.getPublicKeyBuffer();
+  }
+
+  toPublicKeyHex(hdNode) {
+    return hdNode.getPublicKeyBuffer().toString('hex');
+  }
+
   fromXPriv(xpriv) {
     let network;
     if(xpriv[0] === 'x') {
@@ -67,6 +75,10 @@ class HDNode {
     });
     return new bip32utils.Account(arr);
   }
+  //
+  // createChain(hdNode) {
+  //   return new bip32utils.Chain(hdNode);
+  // }
 }
 
 export default HDNode;

@@ -43,6 +43,45 @@
       "xpriv": "xprv9s21ZrQH143K3191p59AJC9K13F2pWjAQ9inv5v9LRxdTFgx1kCjXU7Q2ACdAm7P432XP8MjAoTHW9dDxjbFpfRqv7cu3hkn9u5ZtBQs3Vi"
     }
   ],
+  "toPublicKeyBuffer": [
+    {
+      "mnemonic": "rare dinosaur army fat spend average design order ritual town brave spike"
+    },
+      {
+      "mnemonic": "rabbit track ahead moral either upper tiger paper echo snow multiply trial kind two cram"
+    },
+    {
+      "mnemonic": "shadow steak gospel heart life wedding loud jar marriage during lecture stove exclude price worry story art relief"
+    },
+    {
+      "mnemonic": "supply salute they blood coyote century envelope circle baby armed comfort sport jazz clarify museum portion wolf hour donkey frog juice"
+    },
+    {
+      "mnemonic": "tunnel ugly degree bid merry world pupil tornado ski rent casino rent security length wet twice luxury rookie invite destroy busy leopard escape shoe"
+    }
+  ],
+  "toPublicKeyHex": [
+    {
+      "mnemonic": "rare dinosaur army fat spend average design order ritual town brave spike",
+      "publicKeyHex": "0348739e5f5be2733a5cd0fe435f06aca01780b287855b29929120520261f817b2"
+    },
+      {
+      "mnemonic": "rabbit track ahead moral either upper tiger paper echo snow multiply trial kind two cram",
+      "publicKeyHex": "02686c951af9b1cf7cbc87f34dc519a5755681c1bd689e4202c9490b41fdbada03"
+    },
+    {
+      "mnemonic": "shadow steak gospel heart life wedding loud jar marriage during lecture stove exclude price worry story art relief",
+      "publicKeyHex": "0302507f1fae106e422baef0418211e9a4f6bb67e3670e39b06f261d9926a2435e"
+    },
+    {
+      "mnemonic": "supply salute they blood coyote century envelope circle baby armed comfort sport jazz clarify museum portion wolf hour donkey frog juice",
+      "publicKeyHex": "029bb47e71255d11a9a1cf2ca0a36edffc555008d0c29a0fc91894eab50109db3e"
+    },
+    {
+      "mnemonic": "tunnel ugly degree bid merry world pupil tornado ski rent casino rent security length wet twice luxury rookie invite destroy busy leopard escape shoe",
+      "publicKeyHex": "035d576e6277028cfef15ffc44922ee20d6974db99c5d73bd237a2e7c1490e7452"
+    }
+  ],
   "derive": [
     {
       "mnemonic": "rare dinosaur army fat spend average design order ritual town brave spike",
