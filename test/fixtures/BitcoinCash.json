@@ -266,5 +266,55 @@
         "url": "bitcoincash:qphgz6ut3uu9xu8sly2zj7n5jkg5eyes5vjv3juf0x?amount=20.3&label=Foobar"
       }
     ]
-  }
+  },
+  "getByteCount": [
+    {
+      "byteCount": 190,
+      "inputs": {
+        "P2PKH":1
+      },
+      "outputs": {
+        "P2SH":1
+      }
+    },
+    {
+      "byteCount": 2750,
+      "inputs": {
+        "MULTISIG-P2SH:2-4":4,
+        "P2PKH":10
+      },
+      "outputs": {
+        "P2PKH":23
+      }
+    },
+    {
+      "byteCount": 565,
+      "inputs": {
+        "MULTISIG-P2SH:3-5":2
+      },
+      "outputs": {
+        "P2PKH":2
+      }
+    },
+    {
+      "byteCount": 16506,
+      "inputs": {
+        "P2PKH":111
+      },
+      "outputs": {
+        "P2PKH":2
+      }
+    },
+    {
+      "byteCount": 1780,
+      "inputs": {
+        "P2PKH":10,
+        "MULTISIG-P2SH:1-2":1
+      },
+      "outputs": {
+        "P2PKH":2,
+        "P2SH":1
+      }
+    }
+  ]
 }

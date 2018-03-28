@@ -148,3 +148,12 @@ describe('encode and decode BIP21 urls', () => {
     });
   });
 });
+
+describe('#getByteCount', () => {
+  fixtures.getByteCount.forEach((fixture) => {
+    it(`get byte count`, () => {
+      let byteCount = BITBOX.BitcoinCash.getByteCount(fixture.inputs, fixture.outputs);
+      assert.equal(byteCount, fixture.byteCount);
+    });
+  });
+});
