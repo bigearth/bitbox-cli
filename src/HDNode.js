@@ -59,16 +59,6 @@ class HDNode {
     return Bitcoin.HDNode.fromBase58(xpub, Bitcoin.networks[network]);
   }
 
-  fromWIF(privateKeyWIF) {
-    let network;
-    if(privateKeyWIF[0] === 'L' || privateKeyWIF[0] === 'K') {
-      network = 'bitcoin';
-    } else if(privateKeyWIF[0] === 'c') {
-      network = 'testnet';
-    }
-    return Bitcoin.ECPair.fromWIF(privateKeyWIF, Bitcoin.networks[network]);
-  }
-
   createAccount(hdNodes) {
     let arr = hdNodes.map((item, index) => {
       return new bip32utils.Chain(item.neutered())

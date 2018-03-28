@@ -6,19 +6,8 @@ import bs58 from 'bs58';
 import bip21 from 'bip21';
 
 class BitcoinCash {
-  constructor() {
-  }
-
-  ECPair() {
-    return Bitcoin.ECPair;
-  }
-
   address() {
     return Bitcoin.address;
-  }
-
-  script() {
-    return Bitcoin.script;
   }
 
   transaction() {

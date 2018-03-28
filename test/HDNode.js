@@ -254,22 +254,3 @@ describe('create accounts and addresses', () => {
     });
   });
 });
-
-describe('#fromWIF', () => {
-  fixtures.fromWIF.forEach((fixture) => {
-    it(`should import ${fixture.privateKeyWIF} WIF`, () => {
-      let ecpair = BITBOX.HDNode.fromWIF(fixture.privateKeyWIF);
-      assert.notEqual(ecpair, null);
-    })
-
-    it(`should get ${fixture.legacy} legacy address`, () => {
-      let legacy = BITBOX.HDNode.fromWIF(fixture.privateKeyWIF);
-      assert.equal(BITBOX.HDNode.toLegacyAddress(legacy), fixture.legacy);
-    })
-
-    it(`should get ${fixture.cashAddr} cash address`, () => {
-      let cashAddr = BITBOX.HDNode.fromWIF(fixture.privateKeyWIF);
-      assert.equal(BITBOX.HDNode.toCashAddress(cashAddr), fixture.cashAddr);
-    })
-  });
-});

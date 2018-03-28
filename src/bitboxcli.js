@@ -1,4 +1,8 @@
+// 3rd party deps
 import axios from 'axios';
+import Bitcoin from 'bitcoinjs-lib';
+
+// local deps
 import BitcoinCash from './BitcoinCash';
 import Crypto from './Crypto';
 import Util from './Util';
@@ -13,6 +17,8 @@ import Mnemonic from './Mnemonic';
 import Address from './Address';
 import HDNode from './HDNode';
 import Transaction from './Transaction';
+import ECPair from './ECPair';
+import Script from './Script';
 
 class BITBOXCli {
   constructor(config) {
@@ -44,8 +50,9 @@ class BITBOXCli {
     this.RawTransactions = new RawTransactions(config, this.BitboxHTTP);
     this.Wallet = new Wallet(config, this.BitboxHTTP);
     this.Transaction = Transaction;
+    this.Script = Script;
+    this.ECPair = ECPair;
   }
-
 
   estimatesmartfee(nblocks) {
     // WARNING: This interface is unstable and may disappear or change!
