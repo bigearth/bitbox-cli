@@ -11,6 +11,14 @@ class ECPair {
     return Bitcoin.ECPair.fromWIF(privateKeyWIF, Bitcoin.networks[network]);
   }
 
+  static toPublicKeyBuffer(ecpair) {
+    return ecpair.getPublicKeyBuffer();
+  }
+
+  static toPublicKeyHex(ecpair) {
+    return ecpair.getPublicKeyBuffer().toString('hex');
+  }
+
   static fromPublicKeyBuffer(pubkeyBuffer) {
     return Bitcoin.ECPair.fromPublicKeyBuffer(pubkeyBuffer);
   }

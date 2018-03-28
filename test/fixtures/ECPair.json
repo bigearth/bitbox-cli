@@ -79,5 +79,39 @@
       "legacy": "14sq5dL1TeFdQJpj3vVMQvjrdmQoqVoM6m",
       "cashAddr": "bitcoincash:qq4g2nmk64wt7a2mx85cl07n45nkh2p7lcytfgmqdl"
     }
+  ],
+  "toPublicKeyBuffer": [
+    {
+      "pubkeyHex": "02fb721b92025e775b1b84774e65d568d24645cb633275f5c26f5c3101b214a8fb"
+    },
+      {
+      "pubkeyHex": "02d305772e0873fba6c1c7ff353ce374233316eb5820acd7ff3d7d9b82d514126b"
+    },
+    {
+      "pubkeyHex": "02d305772e0873fba6c1c7ff353ce374233316eb5820acd7ff3d7d9b82d514126b"
+    },
+    {
+      "pubkeyHex": "033c071f19057f11140f80308031fa58b6e7d8f9e889252805cae6a29c1248f843"
+    },
+    {
+      "pubkeyHex": "024933d7cc962415fda8249d6ee6820009fb6f0cf592385d91f8d9f39de507b7e1"
+    }
+  ],
+  "toPublicKeyHex": [
+    {
+      "pubkeyHex": "02fb721b92025e775b1b84774e65d568d24645cb633275f5c26f5c3101b214a8fb"
+    },
+      {
+      "pubkeyHex": "02d305772e0873fba6c1c7ff353ce374233316eb5820acd7ff3d7d9b82d514126b"
+    },
+    {
+      "pubkeyHex": "02d305772e0873fba6c1c7ff353ce374233316eb5820acd7ff3d7d9b82d514126b"
+    },
+    {
+      "pubkeyHex": "033c071f19057f11140f80308031fa58b6e7d8f9e889252805cae6a29c1248f843"
+    },
+    {
+      "pubkeyHex": "024933d7cc962415fda8249d6ee6820009fb6f0cf592385d91f8d9f39de507b7e1"
+    }
   ]
 }

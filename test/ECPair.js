@@ -46,18 +46,38 @@ describe('#fromPublicKeyBuffer', () => {
 describe('#fromPublicKeyHex', () => {
   fixtures.fromPublicKeyHex.forEach((fixture) => {
     it(`should create ECPair from ${fixture.pubkeyHex}`, () => {
-      let ecpair = BITBOX.ECPair.fromPublicKeyHex(Buffer.from(fixture.pubkeyHex, 'hex'));
+      let ecpair = BITBOX.ECPair.fromPublicKeyHex(fixture.pubkeyHex);
       assert.equal(typeof ecpair, 'object');
     });
 
     it(`should get ${fixture.legacy} legacy address`, () => {
-      let ecpair = BITBOX.ECPair.fromPublicKeyHex(Buffer.from(fixture.pubkeyHex, 'hex'));
+      let ecpair = BITBOX.ECPair.fromPublicKeyHex(fixture.pubkeyHex);
       assert.equal(BITBOX.HDNode.toLegacyAddress(ecpair), fixture.legacy);
     })
 
     it(`should get ${fixture.cashAddr} cash address`, () => {
-      let ecpair = BITBOX.ECPair.fromPublicKeyHex(Buffer.from(fixture.pubkeyHex, 'hex'));
+      let ecpair = BITBOX.ECPair.fromPublicKeyHex(fixture.pubkeyHex);
       assert.equal(BITBOX.HDNode.toCashAddress(ecpair), fixture.cashAddr);
     })
+  });
+});
+
+describe('#toPublicKeyBuffer', () => {
+  fixtures.toPublicKeyBuffer.forEach((fixture) => {
+    it(`should create a public key buffer from an ECPair`, () => {
+      let ecpair = BITBOX.ECPair.fromPublicKeyHex(fixture.pubkeyHex);
+      let pubkeyBuffer = BITBOX.ECPair.toPublicKeyBuffer(ecpair);
+      assert.equal(typeof pubkeyBuffer, 'object');
+    });
+  });
+});
+
+describe('#toPublicKeyHex', () => {
+  fixtures.toPublicKeyHex.forEach((fixture) => {
+    it(`should create a public key hex ${fixture.pubkeyHex} from an ECPair`, () => {
+      let ecpair = BITBOX.ECPair.fromPublicKeyHex(fixture.pubkeyHex);
+      let pubkeyHex = BITBOX.ECPair.toPublicKeyHex(ecpair);
+      assert.equal(pubkeyHex, fixture.pubkeyHex);
+    });
   });
 });

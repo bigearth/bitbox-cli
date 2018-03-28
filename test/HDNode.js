@@ -155,7 +155,7 @@ describe('#toXPriv', () => {
 
 describe('#toPublicKeyBuffer', () => {
   fixtures.toPublicKeyBuffer.forEach((fixture) => {
-    it(`should create public key buffer ${fixture.publicKeyBuffer} from an HDNode`, () => {
+    it(`should create public key buffer from an HDNode`, () => {
       let rootSeedHex = BITBOX.Mnemonic.mnemonicToSeedHex(fixture.mnemonic);
       let hdNode = BITBOX.HDNode.fromSeedHex(rootSeedHex);
       let publicKeyBuffer = BITBOX.HDNode.toPublicKeyBuffer(hdNode);

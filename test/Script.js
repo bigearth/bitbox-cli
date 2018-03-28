@@ -26,7 +26,7 @@ describe('#decompileBuffer', () => {
 });
 
 describe('#decompileHex', () => {
-  fixtures.decompileBuffer.forEach((fixture) => {
+  fixtures.decompileHex.forEach((fixture) => {
     it(`should decompile scriptSig buffer`, () => {
       let decompiledScriptSig = BITBOX.Script.decompileHex(fixture.scriptSigHex);
       assert.equal(typeof decompiledScriptSig, 'object');
