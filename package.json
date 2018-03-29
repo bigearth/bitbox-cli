@@ -1,6 +1,6 @@
 {
   "name": "bitbox-cli",
-  "version": "0.4.4",
+  "version": "0.4.5",
   "description": "A development framework for Bitcoin Cash",
   "author": "Gabriel Cardona gabriel.cardona@clone.earth",
   "main": "index.js",

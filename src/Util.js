@@ -4,6 +4,91 @@ class Util {
     this.BitboxHTTP = BitboxHTTP;
   }
 
+  estimateSmartFee(nblocks) {
+    // WARNING: This interface is unstable and may disappear or change!
+    //
+    // Estimates the approximate fee per kilobyte needed for a transaction to begin
+    // confirmation within nblocks blocks if possible and return the number of blocks
+    // for which the estimate is valid.
+    //
+    // Arguments:
+    // 1. nblocks     (numeric)
+    //
+    // Result:
+    // {
+    //   "feerate" : x.x,     (numeric) estimate fee-per-kilobyte (in BCH)
+    //   "blocks" : n         (numeric) block number where estimate was found
+    // }
+    //
+    // A negative value is returned if not enough transactions and blocks
+    // have been observed to make an estimate for any number of blocks.
+    // However it will not return a value below the mempool reject fee.
+
+    return this.BitboxHTTP({
+      method: 'post',
+      auth: {
+        username: this.config.username,
+        password: this.config.password
+      },
+      data: {
+        jsonrpc: "1.0",
+        id:"estimatesmartfee",
+        method: "estimatesmartfee",
+        params: [
+          nblocks
+        ]
+      }
+    })
+    .then((response) => {
+      return response.data.result;
+    })
+    .catch(error => {
+      return Error(error.response.data.error.message);
+    });
+  }
+
+  estimateSmartPriority(nblocks) {
+    // DEPRECATED. WARNING: This interface is unstable and may disappear or change!
+    //
+    // Estimates the approximate priority a zero-fee transaction needs to begin
+    // confirmation within nblocks blocks if possible and return the number of blocks
+    // for which the estimate is valid.
+    //
+    // Arguments:
+    // 1. nblocks     (numeric, required)
+    //
+    // Result:
+    // {
+    //   "priority" : x.x,    (numeric) estimated priority
+    //   "blocks" : n         (numeric) block number where estimate was found
+    // }
+    //
+    // A negative value is returned if not enough transactions and blocks
+    // have been observed to make an estimate for any number of blocks.
+    // However if the mempool reject fee is set it will return 1e9 * MAX_MONEY.
+    return this.BitboxHTTP({
+      method: 'post',
+      auth: {
+        username: this.config.username,
+        password: this.config.password
+      },
+      data: {
+        jsonrpc: "1.0",
+        id:"estimatesmartpriority",
+        method: "estimatesmartpriority",
+        params: [
+          nblocks
+        ]
+      }
+    })
+    .then((response) => {
+      return response.data.result;
+    })
+    .catch(error => {
+      return Error(error.response.data.error.message);
+    });
+  }
+
   createMultisig(required, address) {
     // The createmultisig RPC creates a P2SH multi-signature address.
 
