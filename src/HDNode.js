@@ -4,7 +4,7 @@ let bip32utils = require('bip32-utils')
 
 class HDNode {
   fromSeedBuffer(rootSeedBuffer, network = 'bitcoin') {
-    return Bitcoin.HDNode.fromSeedBuffer(rootSeedBuffer, Bitcoin.networks[network]);
+    return Bitcoin.HDNode.fromSeedBuffer(rootSeedBuffer, Bitcoin.networks.bitcoin);
   }
 
   fromSeedHex(rootSeedHex, network = 'bitcoin') {

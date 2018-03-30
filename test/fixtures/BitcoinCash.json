@@ -316,5 +316,44 @@
         "P2SH":1
       }
     }
+  ],
+  "byteToHexString": [
+    {
+      "hexString": "02b66ed5895f043a4bbf8abc60e7edd93aea6bbe03db324ffe2f5220fa3b1ad207"
+    },
+    {
+      "hexString": "a8b30eb2cc8b695dfce558a66e1fa1b382f4f3cb7e92b6f67f9dcf795a713748"
+    },
+    {
+      "hexString": "76a91479d3297d1823149f4ec61df31d19f2fad5390c0288ac"
+    },
+    {
+      "hexString": "362be6ef6ed9fd89a1dcce9978e0d448bbc60517"
+    },
+    {
+      "hexString": "740f5b2c2b3a467512c05a96b61ca79ebf5bee6f34e1170093a5fa36af283c8c"
+    }
+  ],
+  "hexStringToByte": [
+    {
+      "hexString": "02b66ed5895f043a4bbf8abc60e7edd93aea6bbe03db324ffe2f5220fa3b1ad207",
+      "length": 33
+    },
+    {
+      "hexString": "a8b30eb2cc8b695dfce558a66e1fa1b382f4f3cb7e92b6f67f9dcf795a713748",
+      "length": 32
+    },
+    {
+      "hexString": "76a91479d3297d1823149f4ec61df31d19f2fad5390c0288ac",
+      "length": 25
+    },
+    {
+      "hexString": "362be6ef6ed9fd89a1dcce9978e0d448bbc60517",
+      "length": 20
+    },
+    {
+      "hexString": "740f5b2c2b3a467512c05a96b61ca79ebf5bee6f34e1170093a5fa36af283c8c",
+      "length": 32
+    }
   ]
 }

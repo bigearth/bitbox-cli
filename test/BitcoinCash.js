@@ -157,3 +157,22 @@ describe('#getByteCount', () => {
     });
   });
 });
+
+describe('#byteToHexString', () => {
+  fixtures.byteToHexString.forEach((fixture) => {
+    it(`turn byte array to hex string ${fixture.hexString}`, () => {
+      let byteArray = BITBOX.BitcoinCash.hexStringToByte(fixture.hexString);
+      let hexString = BITBOX.BitcoinCash.byteToHexString(byteArray);
+      assert.equal(hexString.toLowerCase(), fixture.hexString);
+    });
+  });
+});
+
+describe('#hexStringToByte', () => {
+  fixtures.hexStringToByte.forEach((fixture) => {
+    it(`turn hex string ${fixture.hexString} to byte array of ${fixture.length} items`, () => {
+      let byteArray = BITBOX.BitcoinCash.hexStringToByte(fixture.hexString);
+      assert.equal(byteArray.length, fixture.length);
+    });
+  });
+});
