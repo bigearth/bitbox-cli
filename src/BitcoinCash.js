@@ -14,7 +14,10 @@ class BitcoinCash {
     return Bitcoin.Transaction;
   }
 
-  transactionBuilder(network = 'bitcoin') {
+  transactionBuilder(network = 'bitcoincash') {
+    if(network === 'bitcoincash') {
+      network = 'bitcoin';
+    }
     return new Bitcoin.TransactionBuilder(Bitcoin.networks[network]);
   }
 

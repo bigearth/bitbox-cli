@@ -16,6 +16,14 @@ class Script {
   static hexToASM(hex) {
     return Bitcoin.script.toASM(Buffer.from(hex, 'hex'));
   }
+
+  static encodePubKeyHashBuffer(pubKeyHashBuffer) {
+    return Bitcoin.script.pubKeyHash.output.encode(pubKeyHashBuffer);
+  }
+
+  static encodePubKeyHashHex(pubKeyHashHex) {
+    return Bitcoin.script.pubKeyHash.output.encode(new Buffer(pubKeyHashHex, 'hex'));
+  }
 }
 
 export default Script;

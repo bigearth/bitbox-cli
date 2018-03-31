@@ -3,11 +3,17 @@ import bchaddr from 'bchaddrjs';
 let bip32utils = require('bip32-utils')
 
 class HDNode {
-  fromSeedBuffer(rootSeedBuffer, network = 'bitcoin') {
-    return Bitcoin.HDNode.fromSeedBuffer(rootSeedBuffer, Bitcoin.networks.bitcoin);
+  fromSeedBuffer(rootSeedBuffer, network = 'bitcoincash') {
+    if(network === 'bitcoincash') {
+      network = 'bitcoin';
+    }
+    return Bitcoin.HDNode.fromSeedBuffer(rootSeedBuffer, Bitcoin.networks[network]);
   }
 
-  fromSeedHex(rootSeedHex, network = 'bitcoin') {
+  fromSeedHex(rootSeedHex, network = 'bitcoincash') {
+    if(network === 'bitcoincash') {
+      network = 'bitcoin';
+    }
     return Bitcoin.HDNode.fromSeedBuffer(Buffer.from(rootSeedHex, 'hex'), Bitcoin.networks[network]);
   }
 
