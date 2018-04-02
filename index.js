@@ -138,10 +138,10 @@ program
 
       console.log(chalk.green(`Creating ${title}/ directory`));
       console.log(chalk.green(`Creating src/ directory: ./${title}/src`));
-      mkdirp(`./${title}/tests`, (err) => {});
-
-      console.log(chalk.green(`Creating test/ directory: ./${title}/tests`));
       mkdirp(`./${title}/src`, (err) => {});
+
+      console.log(chalk.green(`Creating tests/ directory: ./${title}/tests`));
+      mkdirp(`./${title}/tests`, (err) => {});
 
       console.log(chalk.green(`Creating bitbox.js configuration file`));
 
