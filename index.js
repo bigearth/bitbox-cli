@@ -22,7 +22,7 @@ let clone = require('git-clone');
 // let ProgressBar = require('progress');
 
 program
-  .version('0.5.5');
+  .version('0.5.6');
 
 program
   .command('new')
