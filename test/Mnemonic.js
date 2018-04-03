@@ -304,65 +304,6 @@ describe('#mnemonicWordLists', () => {
   });
 });
 
-describe('#translateMnemonic', () => {
-  it('should translate mnemonic from english to chinese_simplified', () => {
-    let englishMnemonic = BITBOX.Mnemonic.generateMnemonic(256);
-    let chineseMnemonic = BITBOX.Mnemonic.translateMnemonic(englishMnemonic, 'english', 'chinese_simplified')
-    let englishMnemonic2 = BITBOX.Mnemonic.translateMnemonic(chineseMnemonic, 'chinese_simplified', 'english')
-    assert.equal(englishMnemonic, englishMnemonic2);
-  });
-
-  it('should translate mnemonic from english to chinese_traditional', () => {
-    let englishMnemonic = BITBOX.Mnemonic.generateMnemonic(256);
-    let chineseMnemonic = BITBOX.Mnemonic.translateMnemonic(englishMnemonic, 'english', 'chinese_traditional')
-    let englishMnemonic2 = BITBOX.Mnemonic.translateMnemonic(chineseMnemonic, 'chinese_traditional', 'english')
-    assert.equal(englishMnemonic, englishMnemonic2);
-  });
-
-  it('should translate mnemonic from english to french', () => {
-    let englishMnemonic = BITBOX.Mnemonic.generateMnemonic(256);
-    let frenchMnemonic = BITBOX.Mnemonic.translateMnemonic(englishMnemonic, 'english', 'french')
-    let englishMnemonic2 = BITBOX.Mnemonic.translateMnemonic(frenchMnemonic, 'french', 'english')
-    assert.equal(englishMnemonic, englishMnemonic2);
-  });
-
-  it('should translate mnemonic from english to italian', () => {
-    let englishMnemonic = BITBOX.Mnemonic.generateMnemonic(256);
-    let italianMnemonic = BITBOX.Mnemonic.translateMnemonic(englishMnemonic, 'english', 'italian')
-    let englishMnemonic2 = BITBOX.Mnemonic.translateMnemonic(italianMnemonic, 'italian', 'english')
-    assert.equal(englishMnemonic, englishMnemonic2);
-  });
-
-  it('should translate mnemonic from english to japanese', () => {
-    let englishMnemonic = BITBOX.Mnemonic.generateMnemonic(256);
-    let japaneseMnemonic = BITBOX.Mnemonic.translateMnemonic(englishMnemonic, 'english', 'japanese')
-    let englishMnemonic2 = BITBOX.Mnemonic.translateMnemonic(japaneseMnemonic, 'japanese', 'english')
-    assert.equal(englishMnemonic, englishMnemonic2);
-  });
-
-  it('should translate mnemonic from english to korean', () => {
-    let englishMnemonic = BITBOX.Mnemonic.generateMnemonic(256);
-    let koreanMnemonic = BITBOX.Mnemonic.translateMnemonic(englishMnemonic, 'english', 'korean')
-    let englishMnemonic2 = BITBOX.Mnemonic.translateMnemonic(koreanMnemonic, 'korean', 'english')
-    assert.equal(englishMnemonic, englishMnemonic2);
-  });
-
-  it('should translate mnemonic from english to spanish', () => {
-    let englishMnemonic = BITBOX.Mnemonic.generateMnemonic(256);
-    let spanishMnemonic = BITBOX.Mnemonic.translateMnemonic(englishMnemonic, 'english', 'spanish')
-    let englishMnemonic2 = BITBOX.Mnemonic.translateMnemonic(spanishMnemonic, 'spanish', 'english')
-    assert.equal(englishMnemonic, englishMnemonic2);
-  });
-
-  it('should translate mnemonic from korean to spanish', () => {
-    let koreanWordlist = BITBOX.Mnemonic.mnemonicWordLists().korean;
-    let koreanMnemonic = BITBOX.Mnemonic.generateMnemonic(256, koreanWordlist);
-    let spanishMnemonic = BITBOX.Mnemonic.translateMnemonic(koreanMnemonic, 'korean', 'spanish')
-    let koreanMnemonic2 = BITBOX.Mnemonic.translateMnemonic(spanishMnemonic, 'spanish', 'korean')
-    assert.equal(koreanMnemonic, koreanMnemonic2);
-  });
-});
-
 describe('#keypairsFromMnemonic', () => {
   fixtures.keypairsFromMnemonic.forEach((fixture, i) => {
     let keypairs = BITBOX.Mnemonic.keypairsFromMnemonic(fixture.mnemonic, 5);

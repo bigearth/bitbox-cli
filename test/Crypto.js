@@ -80,9 +80,67 @@ describe('#randomBytes', () => {
       assert.lengthOf(entropy, 56);
     });
 
-    it('should return 20 bytes of entropy hex encoded', () => {
+    it('should return 32 bytes of entropy hex encoded', () => {
       let entropy = BITBOX.Crypto.randomBytes(32);
       assert.lengthOf(entropy, 64);
+    });
+  }
+});
+
+describe('#randomBytesHex', () => {
+  for(let i = 0; i < 6; i++) {
+    it('should return 16 bytes of entropy hex encoded', () => {
+      let entropy = BITBOX.Crypto.randomBytesHex(16);
+      assert.lengthOf(entropy, 32);
+    });
+
+    it('should return 20 bytes of entropy hex encoded', () => {
+      let entropy = BITBOX.Crypto.randomBytesHex(20);
+      assert.lengthOf(entropy, 40);
+    });
+
+    it('should return 24 bytes of entropy hex encoded', () => {
+      let entropy = BITBOX.Crypto.randomBytesHex(24);
+      assert.lengthOf(entropy, 48);
+    });
+
+    it('should return 28 bytes of entropy hex encoded', () => {
+      let entropy = BITBOX.Crypto.randomBytesHex(28);
+      assert.lengthOf(entropy, 56);
+    });
+
+    it('should return 32 bytes of entropy hex encoded', () => {
+      let entropy = BITBOX.Crypto.randomBytesHex(32);
+      assert.lengthOf(entropy, 64);
+    });
+  }
+});
+
+describe('#randomBytesBuffer', () => {
+  for(let i = 0; i < 6; i++) {
+    it('should return 16 bytes of entropy as a buffer', () => {
+      let entropy = BITBOX.Crypto.randomBytesBuffer(16);
+      assert.lengthOf(entropy, 16);
+    });
+
+    it('should return 20 bytes of entropy as a buffer', () => {
+      let entropy = BITBOX.Crypto.randomBytesBuffer(20);
+      assert.lengthOf(entropy, 20);
+    });
+
+    it('should return 24 bytes of entropy as a buffer', () => {
+      let entropy = BITBOX.Crypto.randomBytesBuffer(24);
+      assert.lengthOf(entropy, 24);
+    });
+
+    it('should return 28 bytes of entropy as a buffer', () => {
+      let entropy = BITBOX.Crypto.randomBytesBuffer(28);
+      assert.lengthOf(entropy, 28);
+    });
+
+    it('should return 32 bytes of entropy as a buffer', () => {
+      let entropy = BITBOX.Crypto.randomBytesBuffer(32);
+      assert.lengthOf(entropy, 32);
     });
   }
 });

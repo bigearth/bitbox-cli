@@ -26,6 +26,14 @@ class Crypto {
   static randomBytes(size = 16) {
     return crypto.randomBytes(size).toString('hex');
   }
+
+  static randomBytesHex(size = 16) {
+    return crypto.randomBytes(size).toString('hex');
+  }
+
+  static randomBytesBuffer(size = 16) {
+    return crypto.randomBytes(size);
+  }
 }
 
 export default Crypto;

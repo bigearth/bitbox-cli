@@ -73,13 +73,6 @@ class Mnemonic {
     return BIP39.mnemonicToSeed(mnemonic, password);
   }
 
-  translateMnemonic(mnemonic, from = 'english', to = 'english') {
-    let fromWordlist = this.mnemonicWordLists()[from.toLowerCase()];
-    let toWordlist = this.mnemonicWordLists()[to.toLowerCase()];
-    let entropy = this.mnemonicToEntropy(mnemonic, fromWordlist);
-    return this.entropyToMnemonic(entropy, toWordlist);
-  }
-
   mnemonicWordLists() {
     return BIP39.wordlists;
   }
