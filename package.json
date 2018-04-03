@@ -1,6 +1,6 @@
 {
   "name": "bitbox-cli",
-  "version": "0.5.3",
+  "version": "0.5.4",
   "description": "A development framework for Bitcoin Cash",
   "author": "Gabriel Cardona gabriel.cardona@clone.earth",
   "main": "index.js",
@@ -23,7 +23,7 @@
     "bip21": "git+https://github.com/bigearth/bip21.git",
     "bip32-utils": "^0.11.1",
     "bip39": "^2.5.0",
-    "bitcoinjs-lib": "github:bigearth/bitcoinjs-lib",
+    "bitcoinjs-lib": "git+https://github.com/bigearth/bitcoinjs-lib",
     "bitcoinjs-message": "^2.0.0",
     "bs58": "^4.0.1",
     "chalk": "^2.3.0",
