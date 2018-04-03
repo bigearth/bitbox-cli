@@ -12,7 +12,7 @@ let touch = require("touch");
 let emoji = require('node-emoji');
 let repl = require("repl");
 let ini = require('ini');
-let BITBOXCli = require('./lib/BITBOXCli').default;
+let BITBOXCli = require('./lib/bitboxcli').default;
 let clone = require('git-clone');
 
 // let request = require('superagent');
