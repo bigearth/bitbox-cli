@@ -22,7 +22,7 @@ class Script {
   }
 
   static encodePubKeyHashHex(pubKeyHashHex) {
-    return Bitcoin.script.pubKeyHash.output.encode(new Buffer(pubKeyHashHex, 'hex'));
+    return Bitcoin.script.pubKeyHash.output.encode(Buffer.from(pubKeyHashHex, 'hex'));
   }
 }
 

@@ -113,5 +113,49 @@
     {
       "pubkeyHex": "024933d7cc962415fda8249d6ee6820009fb6f0cf592385d91f8d9f39de507b7e1"
     }
+  ],
+  "toLegacyAddress": [
+    {
+      "privateKeyWIF": "L5PKiCuwwgmVN1GQNg8CdR6Rmg7tg1Npw7GyL5ULRPZ5EVPhtSrz",
+      "legacy": "1P23VhvFLH18qP7YRCPDWPwA9TCJjmp9B5"
+    },
+    {
+      "privateKeyWIF": "L1SD3NYLMcoqpUzn2hwJ7c1Vb4pPiqMToSMyGMTcbcvRBDh9U9SP",
+      "legacy": "14tqru6iL3KX2m4nKg36tfLFe13J1d1uwu"
+    },
+    {
+      "privateKeyWIF": "L57L3Xtu3j1Z2B2RuQzc59JLQXJQ86TH8To1hM348URbC2iCZqLe",
+      "legacy": "135cNoFyxcwJ88BQsJd7c6qKfSBgRK7cCT"
+    },
+    {
+      "privateKeyWIF": "KzTm29RBrSgUbMyeJL9sCNUnc7LQEuDeT6Upq1iUwx78qWRdRzyW",
+      "legacy": "1NbRysVu1cy8A8mjrLh4z649HqG6DrX9Z"
+    },
+    {
+      "privateKeyWIF": "L4BwXDmjzEyzKHbAfGruhieUDPs8KTx7DMgqPk4aF9GefzgqPENV",
+      "legacy": "1FoZGWj8rgrimR7W383LNSLUfdPCjKAXLK"
+    }
+  ],
+  "toCashAddress": [
+    {
+      "privateKeyWIF": "L5PKiCuwwgmVN1GQNg8CdR6Rmg7tg1Npw7GyL5ULRPZ5EVPhtSrz",
+      "cashAddr": "bitcoincash:qrcc23q0w7wgld690kduxvhetu0am523c5ufq5pes4"
+    },
+    {
+      "privateKeyWIF": "L1SD3NYLMcoqpUzn2hwJ7c1Vb4pPiqMToSMyGMTcbcvRBDh9U9SP",
+      "cashAddr": "bitcoincash:qq4tvcxq5z35pkfj65a2elyy8xpn0r55r59r5he7nz"
+    },
+    {
+      "privateKeyWIF": "L57L3Xtu3j1Z2B2RuQzc59JLQXJQ86TH8To1hM348URbC2iCZqLe",
+      "cashAddr": "bitcoincash:qqtv7uskar0nd8hyflesg7wq4uuqwdmtyg4hsx9kge"
+    },
+    {
+      "privateKeyWIF": "KzTm29RBrSgUbMyeJL9sCNUnc7LQEuDeT6Upq1iUwx78qWRdRzyW",
+      "cashAddr": "bitcoincash:qqzp270mhkglttfaysmt985aykwjhndw0ulmgr5g5d"
+    },
+    {
+      "privateKeyWIF": "L4BwXDmjzEyzKHbAfGruhieUDPs8KTx7DMgqPk4aF9GefzgqPENV",
+      "cashAddr": "bitcoincash:qz39l492msv9zz838t8ltx2w4zmycnqhwck4fnnyym"
+    }
   ]
 }

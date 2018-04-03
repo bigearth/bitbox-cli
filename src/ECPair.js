@@ -1,4 +1,5 @@
 import Bitcoin from 'bitcoinjs-lib';
+import bchaddr from 'bchaddrjs';
 
 class ECPair {
   static fromWIF(privateKeyWIF) {
@@ -25,6 +26,14 @@ class ECPair {
 
   static fromPublicKeyHex(pubkeyHex) {
     return Bitcoin.ECPair.fromPublicKeyBuffer(Buffer.from(pubkeyHex, 'hex'));
+  }
+
+  static toLegacyAddress(ecpair) {
+    return ecpair.getAddress();
+  }
+
+  static toCashAddress(ecpair) {
+    return bchaddr.toCashAddress(ecpair.getAddress());
   }
 }
 

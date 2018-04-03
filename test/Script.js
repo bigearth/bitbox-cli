@@ -7,18 +7,18 @@ let BITBOX = new BITBOXCli();
 describe('#decompileBuffer', () => {
   fixtures.decompileBuffer.forEach((fixture) => {
     it(`should decompile scriptSig buffer`, () => {
-      let decompiledScriptSig = BITBOX.Script.decompileBuffer(new Buffer(fixture.scriptSigHex, 'hex'));
+      let decompiledScriptSig = BITBOX.Script.decompileBuffer(Buffer.from(fixture.scriptSigHex, 'hex'));
       assert.equal(typeof decompiledScriptSig, 'object');
     });
 
     it(`should decompile scriptSig buffer to cash address ${fixture.cashAddress}`, () => {
-      let decompiledScriptSig = BITBOX.Script.decompileBuffer(new Buffer(fixture.scriptSigHex, 'hex'));
+      let decompiledScriptSig = BITBOX.Script.decompileBuffer(Buffer.from(fixture.scriptSigHex, 'hex'));
       let address = BITBOX.HDNode.toCashAddress(BITBOX.ECPair.fromPublicKeyBuffer(decompiledScriptSig[1]));
       assert.equal(address, fixture.cashAddress);
     });
 
     it(`should decompile scriptSig buffer to legacy address ${fixture.legacyAddress}`, () => {
-      let decompiledScriptSig = BITBOX.Script.decompileBuffer(new Buffer(fixture.scriptSigHex, 'hex'));
+      let decompiledScriptSig = BITBOX.Script.decompileBuffer(Buffer.from(fixture.scriptSigHex, 'hex'));
       let address = BITBOX.HDNode.toLegacyAddress(BITBOX.ECPair.fromPublicKeyBuffer(decompiledScriptSig[1]));
       assert.equal(address, fixture.legacyAddress);
     });
