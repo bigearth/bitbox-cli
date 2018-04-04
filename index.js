@@ -199,7 +199,7 @@ program
 
 program
   .command('scaffold')
-  .option('-f, --framework <framework>', 'The framework to use. Options include "react", "angular" and "node". Default: "react"')
+  .option('-f, --framework <framework>', 'The framework to use. Options include "react", "angular", "next" and "node". Default: "react"')
   .option('-r, --repo <repo>', 'The github repository to use. Ex: https://github.com/bigearth/bitbox-scaffold-react.git')
   .description('Scaffold out basic apps in major frameworks w/ BITBOX bindings')
   .action((options) => {
@@ -217,6 +217,8 @@ program
       repo = 'https://github.com/bigearth/bitbox-scaffold-node.git';
     } else if(framework === 'angular') {
       repo = 'https://github.com/bigearth/bitbox-scaffold-angular.git';
+    } else if(framework === 'next') {
+      repo = 'https://github.com/bigearth/bitbox-scaffold-next.git';
     } else {
       repo = 'https://github.com/bigearth/bitbox-scaffold-react.git';
     }
