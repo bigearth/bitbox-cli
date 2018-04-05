@@ -25,6 +25,16 @@ describe('ECPair', () => {
     });
   });
 
+  describe('#toWIF', () => {
+    fixtures.toWIF.forEach((fixture) => {
+      it(`should get WIF ${fixture.privateKeyWIF} from ECPair`, () => {
+        let ecpair = BITBOX.ECPair.fromWIF(fixture.privateKeyWIF);
+        let wif = BITBOX.ECPair.toWIF(ecpair);
+        assert.equal(wif, fixture.privateKeyWIF);
+      })
+    });
+  });
+
   describe('#fromPublicKeyBuffer', () => {
     fixtures.fromPublicKeyBuffer.forEach((fixture) => {
       it(`should create ECPair from public key buffer`, () => {
@@ -99,6 +109,54 @@ describe('ECPair', () => {
         let ecpair = BITBOX.ECPair.fromWIF(fixture.privateKeyWIF);
         let cashAddr = BITBOX.ECPair.toCashAddress(ecpair);
         assert.equal(cashAddr, fixture.cashAddr);
+      });
+    });
+  });
+
+  describe('#signHex', () => {
+    fixtures.signHex.forEach((fixture) => {
+      it(`should sign 32 byte hash encoded as hex`, () => {
+        let ecpair = BITBOX.ECPair.fromWIF(fixture.privateKeyWIF);
+        let hex = BITBOX.Crypto.createSHA256Hash('EARTH');
+        let signatureHex = BITBOX.ECPair.signHex(ecpair, hex);
+        assert.equal(typeof signatureHex, 'object');
+      });
+    });
+  });
+
+  describe('#verifyHex', () => {
+    fixtures.verifyHex.forEach((fixture) => {
+      it(`should verify signed 32 byte hash encoded as hex`, () => {
+        let ecpair1 = BITBOX.ECPair.fromWIF(fixture.privateKeyWIF1);
+        let ecpair2 = BITBOX.ECPair.fromWIF(fixture.privateKeyWIF2);
+        let hex = BITBOX.Crypto.createSHA256Hash(fixture.data);
+        let signature = BITBOX.ECPair.signHex(ecpair1, hex);
+        let verify = BITBOX.ECPair.verifyHex(ecpair1, hex, signature);
+        assert.equal(verify, true);
+      });
+    });
+  });
+
+  describe('#signBuffer', () => {
+    fixtures.signBuffer.forEach((fixture) => {
+      it(`should sign 32 byte hash buffer`, () => {
+        let ecpair = BITBOX.ECPair.fromWIF(fixture.privateKeyWIF);
+        let buf = Buffer.from(BITBOX.Crypto.createSHA256Hash(fixture.data), 'hex');
+        let signatureBuf = BITBOX.ECPair.signBuffer(ecpair, buf);
+        assert.equal(typeof signatureBuf, 'object');
+      });
+    });
+  });
+
+  describe('#verifyBuffer', () => {
+    fixtures.verifyBuffer.forEach((fixture) => {
+      it(`should verify signed 32 byte hash buffer`, () => {
+        let ecpair1 = BITBOX.ECPair.fromWIF(fixture.privateKeyWIF1);
+        let ecpair2 = BITBOX.ECPair.fromWIF(fixture.privateKeyWIF2);
+        let buf = Buffer.from(BITBOX.Crypto.createSHA256Hash(fixture.data), 'hex');
+        let signature = BITBOX.ECPair.signBuffer(ecpair1, buf);
+        let verify = BITBOX.ECPair.verifyBuffer(ecpair1, buf, signature);
+        assert.equal(verify, true);
       });
     });
   });

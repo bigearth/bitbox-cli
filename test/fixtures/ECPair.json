@@ -26,6 +26,23 @@
       "cashAddr": "bitcoincash:qz39l492msv9zz838t8ltx2w4zmycnqhwck4fnnyym"
     }
   ],
+  "toWIF": [
+    {
+      "privateKeyWIF": "L5PKiCuwwgmVN1GQNg8CdR6Rmg7tg1Npw7GyL5ULRPZ5EVPhtSrz"
+    },
+    {
+      "privateKeyWIF": "L1SD3NYLMcoqpUzn2hwJ7c1Vb4pPiqMToSMyGMTcbcvRBDh9U9SP"
+    },
+    {
+      "privateKeyWIF": "L57L3Xtu3j1Z2B2RuQzc59JLQXJQ86TH8To1hM348URbC2iCZqLe"
+    },
+    {
+      "privateKeyWIF": "KzTm29RBrSgUbMyeJL9sCNUnc7LQEuDeT6Upq1iUwx78qWRdRzyW"
+    },
+    {
+      "privateKeyWIF": "L4BwXDmjzEyzKHbAfGruhieUDPs8KTx7DMgqPk4aF9GefzgqPENV"
+    }
+  ],
   "fromPublicKeyBuffer": [
     {
       "pubkeyHex": "02fb721b92025e775b1b84774e65d568d24645cb633275f5c26f5c3101b214a8fb",
@@ -156,6 +173,104 @@
     {
       "privateKeyWIF": "L4BwXDmjzEyzKHbAfGruhieUDPs8KTx7DMgqPk4aF9GefzgqPENV",
       "cashAddr": "bitcoincash:qz39l492msv9zz838t8ltx2w4zmycnqhwck4fnnyym"
+    }
+  ],
+  "signHex": [
+    {
+      "privateKeyWIF": "L5PKiCuwwgmVN1GQNg8CdR6Rmg7tg1Npw7GyL5ULRPZ5EVPhtSrz",
+      "data": "EARTH"
+    },
+    {
+      "privateKeyWIF": "L1SD3NYLMcoqpUzn2hwJ7c1Vb4pPiqMToSMyGMTcbcvRBDh9U9SP",
+      "data": "foobar"
+    },
+    {
+      "privateKeyWIF": "L57L3Xtu3j1Z2B2RuQzc59JLQXJQ86TH8To1hM348URbC2iCZqLe",
+      "data": "12334567890"
+    },
+    {
+      "privateKeyWIF": "KzTm29RBrSgUbMyeJL9sCNUnc7LQEuDeT6Upq1iUwx78qWRdRzyW",
+      "data": "Be excellent to each other"
+    },
+    {
+      "privateKeyWIF": "L4BwXDmjzEyzKHbAfGruhieUDPs8KTx7DMgqPk4aF9GefzgqPENV",
+      "data": "satoshi"
+    }
+  ],
+  "verifyHex": [
+    {
+      "privateKeyWIF1": "L5PKiCuwwgmVN1GQNg8CdR6Rmg7tg1Npw7GyL5ULRPZ5EVPhtSrz",
+      "privateKeyWIF2": "L4BwXDmjzEyzKHbAfGruhieUDPs8KTx7DMgqPk4aF9GefzgqPENV",
+      "data": "EARTH"
+    },
+    {
+      "privateKeyWIF1": "L1SD3NYLMcoqpUzn2hwJ7c1Vb4pPiqMToSMyGMTcbcvRBDh9U9SP",
+      "privateKeyWIF2": "L5PKiCuwwgmVN1GQNg8CdR6Rmg7tg1Npw7GyL5ULRPZ5EVPhtSrz",
+      "data": "foobar"
+    },
+    {
+      "privateKeyWIF1": "L57L3Xtu3j1Z2B2RuQzc59JLQXJQ86TH8To1hM348URbC2iCZqLe",
+      "privateKeyWIF2": "L1SD3NYLMcoqpUzn2hwJ7c1Vb4pPiqMToSMyGMTcbcvRBDh9U9SP",
+      "data": "12334567890"
+    },
+    {
+      "privateKeyWIF1": "KzTm29RBrSgUbMyeJL9sCNUnc7LQEuDeT6Upq1iUwx78qWRdRzyW",
+      "privateKeyWIF2": "L1SD3NYLMcoqpUzn2hwJ7c1Vb4pPiqMToSMyGMTcbcvRBDh9U9SP",
+      "data": "Be excellent to each other"
+    },
+    {
+      "privateKeyWIF1": "L4BwXDmjzEyzKHbAfGruhieUDPs8KTx7DMgqPk4aF9GefzgqPENV",
+      "privateKeyWIF2": "L1SD3NYLMcoqpUzn2hwJ7c1Vb4pPiqMToSMyGMTcbcvRBDh9U9SP",
+      "data": "satoshi"
+    }
+  ],
+  "signBuffer": [
+    {
+      "privateKeyWIF": "L5PKiCuwwgmVN1GQNg8CdR6Rmg7tg1Npw7GyL5ULRPZ5EVPhtSrz",
+      "data": "EARTH"
+    },
+    {
+      "privateKeyWIF": "L1SD3NYLMcoqpUzn2hwJ7c1Vb4pPiqMToSMyGMTcbcvRBDh9U9SP",
+      "data": "foobar"
+    },
+    {
+      "privateKeyWIF": "L57L3Xtu3j1Z2B2RuQzc59JLQXJQ86TH8To1hM348URbC2iCZqLe",
+      "data": "12334567890"
+    },
+    {
+      "privateKeyWIF": "KzTm29RBrSgUbMyeJL9sCNUnc7LQEuDeT6Upq1iUwx78qWRdRzyW",
+      "data": "Be excellent to each other"
+    },
+    {
+      "privateKeyWIF": "L4BwXDmjzEyzKHbAfGruhieUDPs8KTx7DMgqPk4aF9GefzgqPENV",
+      "data": "satoshi"
+    }
+  ],
+  "verifyBuffer": [
+    {
+      "privateKeyWIF1": "L5PKiCuwwgmVN1GQNg8CdR6Rmg7tg1Npw7GyL5ULRPZ5EVPhtSrz",
+      "privateKeyWIF2": "L4BwXDmjzEyzKHbAfGruhieUDPs8KTx7DMgqPk4aF9GefzgqPENV",
+      "data": "EARTH"
+    },
+    {
+      "privateKeyWIF1": "L1SD3NYLMcoqpUzn2hwJ7c1Vb4pPiqMToSMyGMTcbcvRBDh9U9SP",
+      "privateKeyWIF2": "L5PKiCuwwgmVN1GQNg8CdR6Rmg7tg1Npw7GyL5ULRPZ5EVPhtSrz",
+      "data": "foobar"
+    },
+    {
+      "privateKeyWIF1": "L57L3Xtu3j1Z2B2RuQzc59JLQXJQ86TH8To1hM348URbC2iCZqLe",
+      "privateKeyWIF2": "L1SD3NYLMcoqpUzn2hwJ7c1Vb4pPiqMToSMyGMTcbcvRBDh9U9SP",
+      "data": "12334567890"
+    },
+    {
+      "privateKeyWIF1": "KzTm29RBrSgUbMyeJL9sCNUnc7LQEuDeT6Upq1iUwx78qWRdRzyW",
+      "privateKeyWIF2": "L1SD3NYLMcoqpUzn2hwJ7c1Vb4pPiqMToSMyGMTcbcvRBDh9U9SP",
+      "data": "Be excellent to each other"
+    },
+    {
+      "privateKeyWIF1": "L4BwXDmjzEyzKHbAfGruhieUDPs8KTx7DMgqPk4aF9GefzgqPENV",
+      "privateKeyWIF2": "L1SD3NYLMcoqpUzn2hwJ7c1Vb4pPiqMToSMyGMTcbcvRBDh9U9SP",
+      "data": "satoshi"
     }
   ]
 }

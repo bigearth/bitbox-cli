@@ -12,8 +12,24 @@ class ECPair {
     return Bitcoin.ECPair.fromWIF(privateKeyWIF, Bitcoin.networks[network]);
   }
 
-  static toPublicKeyBuffer(ecpair) {
-    return ecpair.getPublicKeyBuffer();
+  static toWIF(ecpair) {
+    return ecpair.toWIF();
+  }
+
+  static signHex(ecpair, hex) {
+    return ecpair.sign(Buffer.from(hex, 'hex'));
+  }
+
+  static signBuffer(ecpair, buffer) {
+    return ecpair.sign(buffer);
+  }
+
+  static verifyHex(ecpair, hex, signature) {
+    return ecpair.verify(Buffer.from(hex, 'hex'), signature);
+  }
+
+  static verifyBuffer(ecpair, buffer, signature) {
+    return ecpair.verify(buffer, signature);
   }
 
   static toPublicKeyHex(ecpair) {
@@ -22,6 +38,10 @@ class ECPair {
 
   static fromPublicKeyBuffer(pubkeyBuffer) {
     return Bitcoin.ECPair.fromPublicKeyBuffer(pubkeyBuffer);
+  }
+
+  static toPublicKeyBuffer(ecpair) {
+    return ecpair.getPublicKeyBuffer();
   }
 
   static fromPublicKeyHex(pubkeyHex) {
