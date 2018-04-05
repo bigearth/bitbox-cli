@@ -9,6 +9,14 @@ class Script {
     return Bitcoin.script.decompile(Buffer.from(scriptHex, 'hex'));
   }
 
+  static compileBuffer(scriptChunks) {
+    return Bitcoin.script.compile(scriptChunks);
+  }
+
+  static compileHex(scriptChunks) {
+    return Bitcoin.script.compile(scriptChunks).toString('hex');
+  }
+
   static bufferToASM(buffer) {
     return Bitcoin.script.toASM(buffer);
   }
@@ -17,12 +25,12 @@ class Script {
     return Bitcoin.script.toASM(Buffer.from(hex, 'hex'));
   }
 
-  static encodePubKeyHashBuffer(pubKeyHashBuffer) {
-    return Bitcoin.script.pubKeyHash.output.encode(pubKeyHashBuffer);
+  static bufferFromASM(asm) {
+    return Bitcoin.script.fromASM(asm);
   }
 
-  static encodePubKeyHashHex(pubKeyHashHex) {
-    return Bitcoin.script.pubKeyHash.output.encode(Buffer.from(pubKeyHashHex, 'hex'));
+  static hexFromASM(asm) {
+    return Bitcoin.script.fromASM(asm).toString('hex');
   }
 }
 
