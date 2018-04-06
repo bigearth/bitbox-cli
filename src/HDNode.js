@@ -71,6 +71,35 @@ class HDNode {
     });
     return new bip32utils.Account(arr);
   }
+
+  signHex(hdnode, hex) {
+    return hdnode.sign(Buffer.from(hex, 'hex'));
+  }
+
+  signBuffer(hdnode, buffer) {
+    return hdnode.sign(buffer);
+  }
+
+  verifyHex(hdnode, hex, signature) {
+    return hdnode.verify(Buffer.from(hex, 'hex'), signature);
+  }
+
+  verifyBuffer(hdnode, buffer, signature) {
+    return hdnode.verify(buffer, signature);
+  }
+
+  isPublic(hdnode) {
+    return hdnode.isNeutered();
+  }
+
+  isPrivate(hdnode) {
+    return !hdnode.isNeutered();
+  }
+
+  toIdentifier(hdnode) {
+    return hdnode.getIdentifier();
+  }
+
   //
   // createChain(hdNode) {
   //   return new bip32utils.Chain(hdNode);

@@ -43,37 +43,37 @@ describe('#generateMnemonic', () => {
 describe('#entropyToMnemonic', () => {
   it('should generate a 12 word mnemonic from 16 bytes of entropy', () => {
     let rand = BITBOX.Crypto.randomBytes(16);
-    let mnemonic = BITBOX.Mnemonic.entropyToMnemonic(rand);
+    let mnemonic = BITBOX.Mnemonic.entropyToMnemonic(rand.toString('hex'));
     assert.lengthOf(mnemonic.split(' '), 12);
   });
 
   it('should generate a 15 word mnemonic from 20 bytes of entropy', () => {
     let rand = BITBOX.Crypto.randomBytes(20);
-    let mnemonic = BITBOX.Mnemonic.entropyToMnemonic(rand);
+    let mnemonic = BITBOX.Mnemonic.entropyToMnemonic(rand.toString('hex'));
     assert.lengthOf(mnemonic.split(' '), 15);
   });
 
   it('should generate an 18 word mnemonic from 24 bytes of entropy', () => {
     let rand = BITBOX.Crypto.randomBytes(24);
-    let mnemonic = BITBOX.Mnemonic.entropyToMnemonic(rand);
+    let mnemonic = BITBOX.Mnemonic.entropyToMnemonic(rand.toString('hex'));
     assert.lengthOf(mnemonic.split(' '), 18);
   });
 
   it('should generate an 21 word mnemonic from 28 bytes of entropy', () => {
     let rand = BITBOX.Crypto.randomBytes(28);
-    let mnemonic = BITBOX.Mnemonic.entropyToMnemonic(rand);
+    let mnemonic = BITBOX.Mnemonic.entropyToMnemonic(rand.toString('hex'));
     assert.lengthOf(mnemonic.split(' '), 21);
   });
 
   it('should generate an 24 word mnemonic from 32 bytes of entropy', () => {
     let rand = BITBOX.Crypto.randomBytes(32);
-    let mnemonic = BITBOX.Mnemonic.entropyToMnemonic(rand);
+    let mnemonic = BITBOX.Mnemonic.entropyToMnemonic(rand.toString('hex'));
     assert.lengthOf(mnemonic.split(' '), 24);
   });
 
   it('should generate an 24 french word mnemonic 32 bytes of entropy', () => {
     let rand = BITBOX.Crypto.randomBytes(32);
-    let mnemonic = BITBOX.Mnemonic.entropyToMnemonic(rand, BITBOX.Mnemonic.mnemonicWordLists().french);
+    let mnemonic = BITBOX.Mnemonic.entropyToMnemonic(rand.toString('hex'), BITBOX.Mnemonic.mnemonicWordLists().french);
     assert.lengthOf(mnemonic.split(' '), 24);
   });
 

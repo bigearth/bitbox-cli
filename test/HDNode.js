@@ -255,4 +255,96 @@ describe('HDNode', () => {
       });
     });
   });
+
+  describe('#signHex', () => {
+    fixtures.signHex.forEach((fixture) => {
+      it(`should sign 32 byte hash encoded as hex`, () => {
+        let hdnode = BITBOX.HDNode.fromXPriv(fixture.privateKeyWIF);
+        let hex = BITBOX.Crypto.sha256('EARTH');
+        let signatureHex = BITBOX.HDNode.signHex(hdnode, hex);
+        assert.equal(typeof signatureHex, 'object');
+      });
+    });
+  });
+
+  describe('#verifyHex', () => {
+    fixtures.verifyHex.forEach((fixture) => {
+      it(`should verify signed 32 byte hash encoded as hex`, () => {
+        let hdnode1 = BITBOX.HDNode.fromXPriv(fixture.privateKeyWIF1);
+        let hdnode2 = BITBOX.HDNode.fromXPriv(fixture.privateKeyWIF2);
+        let hex = BITBOX.Crypto.sha256(fixture.data);
+        let signature = BITBOX.HDNode.signHex(hdnode1, hex);
+        let verify = BITBOX.HDNode.verifyHex(hdnode1, hex, signature);
+        assert.equal(verify, true);
+      });
+    });
+  });
+
+  describe('#signBuffer', () => {
+    fixtures.signBuffer.forEach((fixture) => {
+      it(`should sign 32 byte hash buffer`, () => {
+        let hdnode = BITBOX.HDNode.fromXPriv(fixture.privateKeyWIF);
+        let buf = Buffer.from(BITBOX.Crypto.sha256(fixture.data), 'hex');
+        let signatureBuf = BITBOX.HDNode.signBuffer(hdnode, buf);
+        assert.equal(typeof signatureBuf, 'object');
+      });
+    });
+  });
+
+  describe('#verifyBuffer', () => {
+    fixtures.verifyBuffer.forEach((fixture) => {
+      it(`should verify signed 32 byte hash buffer`, () => {
+        let hdnode1 = BITBOX.HDNode.fromXPriv(fixture.privateKeyWIF1);
+        let hdnode2 = BITBOX.HDNode.fromXPriv(fixture.privateKeyWIF2);
+        let buf = Buffer.from(BITBOX.Crypto.sha256(fixture.data), 'hex');
+        let signature = BITBOX.HDNode.signBuffer(hdnode1, buf);
+        let verify = BITBOX.HDNode.verifyBuffer(hdnode1, buf, signature);
+        assert.equal(verify, true);
+      });
+    });
+  });
+
+  describe('#isPublic', () => {
+    fixtures.isPublic.forEach((fixture) => {
+      it(`should verify hdnode is public`, () => {
+        let node = BITBOX.HDNode.fromXPub(fixture.xpub);
+        assert.equal(BITBOX.HDNode.isPublic(node), true);
+      });
+    });
+
+    fixtures.isPublic.forEach((fixture) => {
+      it(`should verify hdnode is not public`, () => {
+        let node = BITBOX.HDNode.fromXPriv(fixture.xpriv);
+        assert.equal(BITBOX.HDNode.isPublic(node), false);
+      });
+    });
+  });
+
+  describe('#isPrivate', () => {
+    fixtures.isPrivate.forEach((fixture) => {
+      it(`should verify hdnode is not private`, () => {
+        let node = BITBOX.HDNode.fromXPub(fixture.xpub);
+        assert.equal(BITBOX.HDNode.isPrivate(node), false);
+      });
+    });
+
+    fixtures.isPrivate.forEach((fixture) => {
+      it(`should verify hdnode is private`, () => {
+        let node = BITBOX.HDNode.fromXPriv(fixture.xpriv);
+        assert.equal(BITBOX.HDNode.isPrivate(node), true);
+      });
+    });
+  });
+
+  describe('#toIdentifier', () => {
+    fixtures.toIdentifier.forEach((fixture) => {
+      it(`should get identifier of hdnode`, () => {
+        let node = BITBOX.HDNode.fromXPriv(fixture.xpriv);
+        let publicKeyBuffer = BITBOX.HDNode.toPublicKeyBuffer(node);
+        let hash160 = BITBOX.Crypto.hash160(publicKeyBuffer);
+        let identifier = BITBOX.HDNode.toIdentifier(node);
+        assert.equal(identifier.toString('hex'), hash160.toString('hex'));
+      });
+    });
+  });
 });

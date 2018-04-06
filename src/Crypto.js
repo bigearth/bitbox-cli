@@ -1,37 +1,28 @@
 import crypto from 'crypto';
 import BitcoinCash from './BitcoinCash';
+import Bitcoin from 'bitcoinjs-lib';
 let bc = new BitcoinCash();
 
 class Crypto {
   // Utility class to wrap NodeJS's crypto module
   // https://nodejs.org/api/crypto.html
-  static createHash(data, type = 'sha256') {
-    // create byte array from string
-    let byteArray = bc.hexStringToByte(data);
-    return crypto.createHash(type).update(byteArray).digest().toString('hex');
+  static sha256(buffer) {
+    return Bitcoin.crypto.sha256(buffer);
   }
 
-  static createSHA256Hash(data) {
-    // create byte array from string
-    let byteArray = bc.hexStringToByte(data);
-    return crypto.createHash('sha256').update(byteArray).digest().toString('hex');
+  static ripemd160(buffer) {
+    return Bitcoin.crypto.ripemd160(buffer);
   }
 
-  static createRIPEMD160Hash(data) {
-    // create byte array from string
-    let byteArray = bc.hexStringToByte(data);
-    return crypto.createHash('ripemd160').update(byteArray).digest().toString('hex');
+  static hash256(buffer) {
+    return Bitcoin.crypto.hash256(buffer);
+  }
+
+  static hash160(buffer) {
+    return Bitcoin.crypto.hash160(buffer);
   }
 
   static randomBytes(size = 16) {
-    return crypto.randomBytes(size).toString('hex');
-  }
-
-  static randomBytesHex(size = 16) {
-    return crypto.randomBytes(size).toString('hex');
-  }
-
-  static randomBytesBuffer(size = 16) {
     return crypto.randomBytes(size);
   }
 }

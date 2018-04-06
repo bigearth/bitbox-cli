@@ -412,5 +412,164 @@
         "bitcoincash:qqrlf0qszjwrrsh0d8cz3anvusu6q37xvynms533gt"
       ]
     }
+  ],
+  "signHex": [
+    {
+      "privateKeyWIF": "tprv8gSiosqMhzpP3XaTadTEcFe57vcwxWbxNPvcwesb262wbzcFzKtqH8KAZApTBDJipJuAu3Dqzj3MZmLTz1mSeXP7Kn9uZeNXFpHBDQHr4hW",
+      "data": "EARTH"
+    },
+    {
+      "privateKeyWIF": "xprv9yFjArUhvYMNZGr63oZK2TptuZDLMfBSz2c5mnFwSCmQeCMNTgJyZwkhjAumNgfsDsRJEn7pYmLQM7o8u5P2dWk6tG6TndWoVBPQi3DvmpY",
+      "data": "foobar"
+    },
+    {
+      "privateKeyWIF": "tprv8gSiosqMhzpPMPbutrLEoyEea5DetcC5oorjaqY5qUFVwdPves2vkdYxR3PpXj67hBC6EUH9DTCDzReR6UWAjgF69bsrJTudWqNHe5LbNTU",
+      "data": "12334567890"
+    },
+    {
+      "privateKeyWIF": "xprv9yFjArUhvYMNciVULCdXz7D6xAevAHgWXmsioewMAiuaAzBgkyVqxkqDcyg8KTeJedKRyxaNWLYSwAUts41vGoWCkWiEtcrRMo7y1gCfCZe",
+      "data": "Be excellent to each other"
+    },
+    {
+      "privateKeyWIF": "xprv9yFjArUhvYMNmSjZ8k77PA6B6wsJUAq7sm6cKuZhkcVe85jkdpwbWgcMmXq4SDZZ7dg9GaoJCCaFSnRSVhFTQh2LJdH3pzMwaTQANk78PFA",
+      "data": "satoshi"
+    }
+  ],
+  "verifyHex": [
+    {
+      "privateKeyWIF1": "xprv9yFjArUhvYMNZGr63oZK2TptuZDLMfBSz2c5mnFwSCmQeCMNTgJyZwkhjAumNgfsDsRJEn7pYmLQM7o8u5P2dWk6tG6TndWoVBPQi3DvmpY",
+      "privateKeyWIF2": "xprv9yFjArUhvYMNmSjZ8k77PA6B6wsJUAq7sm6cKuZhkcVe85jkdpwbWgcMmXq4SDZZ7dg9GaoJCCaFSnRSVhFTQh2LJdH3pzMwaTQANk78PFA",
+      "data": "EARTH"
+    },
+    {
+      "privateKeyWIF1": "tprv8gSiosqMhzpPMPbutrLEoyEea5DetcC5oorjaqY5qUFVwdPves2vkdYxR3PpXj67hBC6EUH9DTCDzReR6UWAjgF69bsrJTudWqNHe5LbNTU",
+      "privateKeyWIF2": "tprv8gSiosqMhzpP3XaTadTEcFe57vcwxWbxNPvcwesb262wbzcFzKtqH8KAZApTBDJipJuAu3Dqzj3MZmLTz1mSeXP7Kn9uZeNXFpHBDQHr4hW",
+      "data": "foobar"
+    },
+    {
+      "privateKeyWIF1": "xprv9yFjArUhvYMNmSjZ8k77PA6B6wsJUAq7sm6cKuZhkcVe85jkdpwbWgcMmXq4SDZZ7dg9GaoJCCaFSnRSVhFTQh2LJdH3pzMwaTQANk78PFA",
+      "privateKeyWIF2": "xprv9yFjArUhvYMNZGr63oZK2TptuZDLMfBSz2c5mnFwSCmQeCMNTgJyZwkhjAumNgfsDsRJEn7pYmLQM7o8u5P2dWk6tG6TndWoVBPQi3DvmpY",
+      "data": "12334567890"
+    },
+    {
+      "privateKeyWIF1": "xprv9yFjArUhvYMNu32qRztSu86QozxDQjcUqFQ2YKxEaZ3Ww8m5CkfXXJMQxNLGQysS8uDnf7NGyboab2Rn4YskRh97jxFXNPgpqxVinM3vMki",
+      "privateKeyWIF2": "xprv9yFjArUhvYMNZGr63oZK2TptuZDLMfBSz2c5mnFwSCmQeCMNTgJyZwkhjAumNgfsDsRJEn7pYmLQM7o8u5P2dWk6tG6TndWoVBPQi3DvmpY",
+      "data": "Be excellent to each other"
+    },
+    {
+      "privateKeyWIF1": "xprv9yFjArUhvYMNyhQ3AsdJ6r8NH4NWwyXDg91twPN3hqdWZw6GJSz2JDLxfhJf46PCbs2K73239jzvNxRXqg62aV9M5ytN4kuSpi6JyGxm7eZ",
+      "privateKeyWIF2": "xprv9yFjArUhvYMNu32qRztSu86QozxDQjcUqFQ2YKxEaZ3Ww8m5CkfXXJMQxNLGQysS8uDnf7NGyboab2Rn4YskRh97jxFXNPgpqxVinM3vMki",
+      "data": "satoshi"
+    }
+  ],
+  "signBuffer": [
+    {
+      "privateKeyWIF": "tprv8gSiosqMhzpP3XaTadTEcFe57vcwxWbxNPvcwesb262wbzcFzKtqH8KAZApTBDJipJuAu3Dqzj3MZmLTz1mSeXP7Kn9uZeNXFpHBDQHr4hW",
+      "data": "EARTH"
+    },
+    {
+      "privateKeyWIF": "xprv9yFjArUhvYMNZGr63oZK2TptuZDLMfBSz2c5mnFwSCmQeCMNTgJyZwkhjAumNgfsDsRJEn7pYmLQM7o8u5P2dWk6tG6TndWoVBPQi3DvmpY",
+      "data": "foobar"
+    },
+    {
+      "privateKeyWIF": "tprv8gSiosqMhzpPMPbutrLEoyEea5DetcC5oorjaqY5qUFVwdPves2vkdYxR3PpXj67hBC6EUH9DTCDzReR6UWAjgF69bsrJTudWqNHe5LbNTU",
+      "data": "12334567890"
+    },
+    {
+      "privateKeyWIF": "xprv9yFjArUhvYMNciVULCdXz7D6xAevAHgWXmsioewMAiuaAzBgkyVqxkqDcyg8KTeJedKRyxaNWLYSwAUts41vGoWCkWiEtcrRMo7y1gCfCZe",
+      "data": "Be excellent to each other"
+    },
+    {
+      "privateKeyWIF": "xprv9yFjArUhvYMNmSjZ8k77PA6B6wsJUAq7sm6cKuZhkcVe85jkdpwbWgcMmXq4SDZZ7dg9GaoJCCaFSnRSVhFTQh2LJdH3pzMwaTQANk78PFA",
+      "data": "satoshi"
+    }
+  ],
+  "verifyBuffer": [
+    {
+      "privateKeyWIF1": "xprv9yFjArUhvYMNZGr63oZK2TptuZDLMfBSz2c5mnFwSCmQeCMNTgJyZwkhjAumNgfsDsRJEn7pYmLQM7o8u5P2dWk6tG6TndWoVBPQi3DvmpY",
+      "privateKeyWIF2": "xprv9yFjArUhvYMNmSjZ8k77PA6B6wsJUAq7sm6cKuZhkcVe85jkdpwbWgcMmXq4SDZZ7dg9GaoJCCaFSnRSVhFTQh2LJdH3pzMwaTQANk78PFA",
+      "data": "EARTH"
+    },
+    {
+      "privateKeyWIF1": "tprv8gSiosqMhzpPMPbutrLEoyEea5DetcC5oorjaqY5qUFVwdPves2vkdYxR3PpXj67hBC6EUH9DTCDzReR6UWAjgF69bsrJTudWqNHe5LbNTU",
+      "privateKeyWIF2": "tprv8gSiosqMhzpP3XaTadTEcFe57vcwxWbxNPvcwesb262wbzcFzKtqH8KAZApTBDJipJuAu3Dqzj3MZmLTz1mSeXP7Kn9uZeNXFpHBDQHr4hW",
+      "data": "foobar"
+    },
+    {
+      "privateKeyWIF1": "xprv9yFjArUhvYMNmSjZ8k77PA6B6wsJUAq7sm6cKuZhkcVe85jkdpwbWgcMmXq4SDZZ7dg9GaoJCCaFSnRSVhFTQh2LJdH3pzMwaTQANk78PFA",
+      "privateKeyWIF2": "xprv9yFjArUhvYMNZGr63oZK2TptuZDLMfBSz2c5mnFwSCmQeCMNTgJyZwkhjAumNgfsDsRJEn7pYmLQM7o8u5P2dWk6tG6TndWoVBPQi3DvmpY",
+      "data": "12334567890"
+    },
+    {
+      "privateKeyWIF1": "xprv9yFjArUhvYMNu32qRztSu86QozxDQjcUqFQ2YKxEaZ3Ww8m5CkfXXJMQxNLGQysS8uDnf7NGyboab2Rn4YskRh97jxFXNPgpqxVinM3vMki",
+      "privateKeyWIF2": "xprv9yFjArUhvYMNZGr63oZK2TptuZDLMfBSz2c5mnFwSCmQeCMNTgJyZwkhjAumNgfsDsRJEn7pYmLQM7o8u5P2dWk6tG6TndWoVBPQi3DvmpY",
+      "data": "Be excellent to each other"
+    },
+    {
+      "privateKeyWIF1": "xprv9yFjArUhvYMNyhQ3AsdJ6r8NH4NWwyXDg91twPN3hqdWZw6GJSz2JDLxfhJf46PCbs2K73239jzvNxRXqg62aV9M5ytN4kuSpi6JyGxm7eZ",
+      "privateKeyWIF2": "xprv9yFjArUhvYMNu32qRztSu86QozxDQjcUqFQ2YKxEaZ3Ww8m5CkfXXJMQxNLGQysS8uDnf7NGyboab2Rn4YskRh97jxFXNPgpqxVinM3vMki",
+      "data": "satoshi"
+    }
+  ],
+  "isPublic": [
+    {
+      "xpriv": "xprv9ys4cvcoU8RoxqkZ7Fgt33te4LPHgcsKwyoZYVorkzp9uonWxWgP9wiSQhPeBUqVHbdAyov4Yi55RywBkDfZKdJFRqA51Anz6v72zGaMGZp",
+      "xpub": "xpub6CrR2S9hJVz7BKq2DHDtQBqNcNDn65bBKCjALtDUKLM8nc7fW3zdhk2vFwgAKyFx1VNfQrXTZyKz9sAHZp8rHUEq6n8aWLSaDHxBcsHUPr8"
+    },
+    {
+      "xpriv": "xprv9ys4cvcoU8RoqvzxGj886r4Ey3w1WfVNYH8sMnVPVzyQtaPPM6Q8pHm3D9WPWvEupGEgcJ1xLaGaZDcvKfoAurE2AzHRRRup5FuHzDr8n15",
+      "xpub": "xpub6CrR2S9hJVz74R5RNkf8TyzyX5mVv8DDuW4UAAu14LWPmNiXtdiPN65X4RFeCDjdgMQsFYBGVFV3gtscV3Caa1jkZMccuMSUchy6193GqoA"
+    },
+    {
+      "xpriv": "xprv9ys4cvcoU8RoskNxLPn5ia9NLq5o2KS2H5aPXAp8yrXZCtDETASDjp1dbj4fDKHFzJD3T7xZgZRUeD1wi498xLtJcEEaqQty7xhQ8eYP2jv",
+      "xpub": "xpub6CrR2S9hJVz76ETRSRK65i66trvHRn9seJVzKZDkYC4Y5gYNzhkUHcL7SzB5fZ8Dcbv19bzMqKR3W3XRKfMoJ8Us8QVkhAowV3KTVjibTjj"
+    },
+    {
+      "xpriv": "tprv8gHe7RzeBHKRs7RNjmrcwaBeupsSMj6pJ5Fc9VyoWgHSQNQS2MuSv66VunfCVDGDuDUPj1T5CyXkmUyEZULcntcfc5TdQfpNWni9UU8QTkC",
+      "xpub": "tpubDCygFr2tKf16kaTAdRXDLyqmUrPNX4HisNrPS226vx5qErfCekj36aiN5x2EDBBefiewYnLHKnRyUMLHN1X2A7212XEzoQqnTbdi5xGSu3X"
+    },
+    {
+      "xpriv": "tprv8gHe7RzeBHKRz5dTMj3kbdpZUhSoEbx9dKgeTMf1Krcv4Vad4ESDpChSb2Dd1te4URYFp47aa7Ps6HYgz7UEPs9r438n9iST7LEJyDsLjXB",
+      "xpub": "tpubDCygFr2tKf16sYfFFNiM13Ug3ixjPw94CdHRjshJk8RJtyqPgdFozhKJm8snjzRrAqSho3f3K4AT9XeP6xYN1sx58dPRfBsJ5FxTB5weFLL"
+    }
+  ],
+  "isPrivate": [
+    {
+      "xpriv": "xprv9ys4cvcoU8RoxqkZ7Fgt33te4LPHgcsKwyoZYVorkzp9uonWxWgP9wiSQhPeBUqVHbdAyov4Yi55RywBkDfZKdJFRqA51Anz6v72zGaMGZp",
+      "xpub": "xpub6CrR2S9hJVz7BKq2DHDtQBqNcNDn65bBKCjALtDUKLM8nc7fW3zdhk2vFwgAKyFx1VNfQrXTZyKz9sAHZp8rHUEq6n8aWLSaDHxBcsHUPr8"
+    },
+    {
+      "xpriv": "xprv9ys4cvcoU8RoqvzxGj886r4Ey3w1WfVNYH8sMnVPVzyQtaPPM6Q8pHm3D9WPWvEupGEgcJ1xLaGaZDcvKfoAurE2AzHRRRup5FuHzDr8n15",
+      "xpub": "xpub6CrR2S9hJVz74R5RNkf8TyzyX5mVv8DDuW4UAAu14LWPmNiXtdiPN65X4RFeCDjdgMQsFYBGVFV3gtscV3Caa1jkZMccuMSUchy6193GqoA"
+    },
+    {
+      "xpriv": "xprv9ys4cvcoU8RoskNxLPn5ia9NLq5o2KS2H5aPXAp8yrXZCtDETASDjp1dbj4fDKHFzJD3T7xZgZRUeD1wi498xLtJcEEaqQty7xhQ8eYP2jv",
+      "xpub": "xpub6CrR2S9hJVz76ETRSRK65i66trvHRn9seJVzKZDkYC4Y5gYNzhkUHcL7SzB5fZ8Dcbv19bzMqKR3W3XRKfMoJ8Us8QVkhAowV3KTVjibTjj"
+    },
+    {
+      "xpriv": "tprv8gHe7RzeBHKRs7RNjmrcwaBeupsSMj6pJ5Fc9VyoWgHSQNQS2MuSv66VunfCVDGDuDUPj1T5CyXkmUyEZULcntcfc5TdQfpNWni9UU8QTkC",
+      "xpub": "tpubDCygFr2tKf16kaTAdRXDLyqmUrPNX4HisNrPS226vx5qErfCekj36aiN5x2EDBBefiewYnLHKnRyUMLHN1X2A7212XEzoQqnTbdi5xGSu3X"
+    },
+    {
+      "xpriv": "tprv8gHe7RzeBHKRz5dTMj3kbdpZUhSoEbx9dKgeTMf1Krcv4Vad4ESDpChSb2Dd1te4URYFp47aa7Ps6HYgz7UEPs9r438n9iST7LEJyDsLjXB",
+      "xpub": "tpubDCygFr2tKf16sYfFFNiM13Ug3ixjPw94CdHRjshJk8RJtyqPgdFozhKJm8snjzRrAqSho3f3K4AT9XeP6xYN1sx58dPRfBsJ5FxTB5weFLL"
+    }
+  ],
+  "toIdentifier": [
+    {
+      "xpriv": "tprv8ggxJ8SG5EdqakzVUeLa9Gr7sqCdEcJPUNDmtdJscNxfmxoXvU36ZguiUWukJVEWEixAUr8pJabJkCt33wzxFQA587gqN51Lxdxx97zAzuG"
+    },
+    {
+      "xpriv": "xprv9ys4cvcoU8RoqvzxGj886r4Ey3w1WfVNYH8sMnVPVzyQtaPPM6Q8pHm3D9WPWvEupGEgcJ1xLaGaZDcvKfoAurE2AzHRRRup5FuHzDr8n15"
+    },
+    {
+      "xpriv": "xprv9ys4cvcoU8RoskNxLPn5ia9NLq5o2KS2H5aPXAp8yrXZCtDETASDjp1dbj4fDKHFzJD3T7xZgZRUeD1wi498xLtJcEEaqQty7xhQ8eYP2jv"
+    },
+    {
+      "xpriv": "tprv8gHe7RzeBHKRs7RNjmrcwaBeupsSMj6pJ5Fc9VyoWgHSQNQS2MuSv66VunfCVDGDuDUPj1T5CyXkmUyEZULcntcfc5TdQfpNWni9UU8QTkC"
+    },
+    {
+      "xpriv": "tprv8gHe7RzeBHKRz5dTMj3kbdpZUhSoEbx9dKgeTMf1Krcv4Vad4ESDpChSb2Dd1te4URYFp47aa7Ps6HYgz7UEPs9r438n9iST7LEJyDsLjXB"
+    }
   ]
 }

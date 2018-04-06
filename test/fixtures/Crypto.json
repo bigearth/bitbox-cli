@@ -1,46 +1,90 @@
 {
-  "createSHA256Hash": [
+  "sha256": [
     {
-      "hash": "9a907aa08098b9ffa935def2c1dc15007a23f38e6afb650230944832a1e35348",
-      "label": "foobar"
+      "hash": "04abc8821a06e5a30937967d11ad10221cb5ac3b5273e434f1284ee87129a061",
+      "hex": "0101010101010101"
     },
     {
-      "hash": "740f5b2c2b3a467512c05a96b61ca79ebf5bee6f34e1170093a5fa36af283c8c",
-      "label": "EARTH"
+      "hash": "75618d82d1f6251f2ef1f42f5f0d5040330948a707ff6d69720dbdcb00b48aab",
+      "hex": "031ad329b3117e1d1e2974406868e575d48cff88e8128ba0eedb10da053785033b"
     },
     {
-      "hash": "8e830655c84f9fbd951373c967fee8060e7f00fbb6da5c2b9e7591afca02a45a",
-      "label": "Carlos Gabriel Cardona"
+      "hash": "978c09dd46091d1922fa01e9f4a975b91a371f26ba8399de27d53801152121de",
+      "hex": "03123464075c7a5fa6b8680afa2c962a02e7bf071c6b2395b0ac711d462cac9354"
     },
     {
-      "hash": "8861475d7a1634cb0c174f20f8c3025a5ce65b062be80ec0f93627edad741bb1",
-      "label": "Be excellent to each other"
+      "hash": "243e5ec9798d6ac435b30661528d8d83745543f517b8adac421a76fbe7f08105",
+      "hex": "03ea9277ebf3d6edd26847fb109494def7d458f05e6e4fba381c094ce703c62248"
     },
     {
-      "hash": "a8b30eb2cc8b695dfce558a66e1fa1b382f4f3cb7e92b6f67f9dcf795a713748",
-      "label": "Party on Wayne!"
+      "hash": "1304a815512047082dba9a9414ff0db643dbbf9eeb68527195f79cc26b021e10",
+      "hex": "020379254cc10ef94976192ab42cab25f65ba4438e4b2b4610debd145d2bdb8d53"
     }
   ],
-  "createRIPEMD160Hash": [
+  "ripemd160": [
     {
-      "hash": "965bafd11fdf26dd3d0b1cc80024d13fe4cc1c76",
-      "label": "foobar"
+      "hash": "5825701b4b9767fd35063b286dca3582853e0630",
+      "hex": "0101010101010101"
     },
     {
-      "hash": "7629501f7dc77b2d6a20b38ac094b6a6d5588938",
-      "label": "EARTH"
+      "hash": "8874ef888a9bcbd83b87d06ff7bc213c51497362",
+      "hex": "75618d82d1f6251f2ef1f42f5f0d5040330948a707ff6d69720dbdcb00b48aab"
     },
     {
-      "hash": "362be6ef6ed9fd89a1dcce9978e0d448bbc60517",
-      "label": "Carlos Gabriel Cardona"
+      "hash": "5f956a88863051ea5215d8970ced8e218eb615cf",
+      "hex": "978c09dd46091d1922fa01e9f4a975b91a371f26ba8399de27d53801152121de"
     },
     {
-      "hash": "24806a41ed63a6bc460494a728a6fd33b49eebe7",
-      "label": "Be excellent to each other"
+      "hash": "1fc790f399d3064cdf917c6b22bb0ef534fe35c9",
+      "hex": "243e5ec9798d6ac435b30661528d8d83745543f517b8adac421a76fbe7f08105"
     },
     {
-      "hash": "a7695cf938911b64d4c026ab0738e61bf5a9801d",
-      "label": "Party on Wayne!"
+      "hash": "abd7091d8c4bd1e2c074f125870427f3dc0c0ce9",
+      "hex": "1304a815512047082dba9a9414ff0db643dbbf9eeb68527195f79cc26b021e10"
+    }
+  ],
+  "hash256": [
+    {
+      "hash": "728338d99f356175c4945ef5cccfa61b7b56143cbbf426ddd0e0fc7cfe8c3c23",
+      "hex": "0101010101010101"
+    },
+    {
+      "hash": "7ad2a74bd59698714a2991a82b71736f3542b2828b6ac24de427c440da89d01a",
+      "hex": "031ad329b3117e1d1e2974406868e575d48cff88e8128ba0eedb10da053785033b"
+    },
+    {
+      "hash": "688f1d029ed54c34d0320b838bf6fc64f62f38a6e930a0af5bdb4e27d1a684cd",
+      "hex": "03123464075c7a5fa6b8680afa2c962a02e7bf071c6b2395b0ac711d462cac9354"
+    },
+    {
+      "hash": "46f3c4ddfa908cf8a3cda8ce3a676d98fec149d97db834a6e8f071790d839c52",
+      "hex": "03ea9277ebf3d6edd26847fb109494def7d458f05e6e4fba381c094ce703c62248"
+    },
+    {
+      "hash": "72cfe7b6b9402a4463dfc8bc1c08080578b1b82a2e3e632062e2cce2c9327c1f",
+      "hex": "020379254cc10ef94976192ab42cab25f65ba4438e4b2b4610debd145d2bdb8d53"
+    }
+  ],
+  "hash160": [
+    {
+      "hash": "abaf1119f83e384210fe8e222eac76e2f0da39dc",
+      "hex": "0101010101010101"
+    },
+    {
+      "hash": "8874ef888a9bcbd83b87d06ff7bc213c51497362",
+      "hex": "031ad329b3117e1d1e2974406868e575d48cff88e8128ba0eedb10da053785033b"
+    },
+    {
+      "hash": "5f956a88863051ea5215d8970ced8e218eb615cf",
+      "hex": "03123464075c7a5fa6b8680afa2c962a02e7bf071c6b2395b0ac711d462cac9354"
+    },
+    {
+      "hash": "1fc790f399d3064cdf917c6b22bb0ef534fe35c9",
+      "hex": "03ea9277ebf3d6edd26847fb109494def7d458f05e6e4fba381c094ce703c62248"
+    },
+    {
+      "hash": "abd7091d8c4bd1e2c074f125870427f3dc0c0ce9",
+      "hex": "020379254cc10ef94976192ab42cab25f65ba4438e4b2b4610debd145d2bdb8d53"
     }
   ]
 }

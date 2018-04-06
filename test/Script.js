@@ -37,9 +37,9 @@ describe('Script', () => {
 
         it(`should match hashed pubKey ${fixture.pubKeyHex}`, () => {
           let decompiledScriptPubKey = BITBOX.Script.decompileBuffer(Buffer.from(fixture.scriptPubKeyHex, 'hex'));
-          let sha256 = BITBOX.Crypto.createSHA256Hash(fixture.pubKeyHex);
-          let ripe = BITBOX.Crypto.createRIPEMD160Hash(sha256);
-          assert.equal(decompiledScriptPubKey[2].toString('hex'), ripe);
+          let data = Buffer.from(fixture.pubKeyHex, 'hex')
+          let hash160 = BITBOX.Crypto.hash160(data).toString('hex');
+          assert.equal(decompiledScriptPubKey[2].toString('hex'), hash160);
         });
       });
     });
@@ -78,9 +78,9 @@ describe('Script', () => {
 
         it(`should match hashed pubKey ${fixture.pubKeyHex}`, () => {
           let decompiledScriptPubKey = BITBOX.Script.decompileHex(fixture.scriptPubKeyHex);
-          let sha256 = BITBOX.Crypto.createSHA256Hash(fixture.pubKeyHex);
-          let ripe = BITBOX.Crypto.createRIPEMD160Hash(sha256);
-          assert.equal(decompiledScriptPubKey[2].toString('hex'), ripe);
+          let data = Buffer.from(fixture.pubKeyHex, 'hex')
+          let hash160 = BITBOX.Crypto.hash160(data).toString('hex');
+          assert.equal(decompiledScriptPubKey[2].toString('hex'), hash160);
         });
       });
     });
