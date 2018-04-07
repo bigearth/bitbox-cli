@@ -4,23 +4,23 @@ let assert = chai.assert;
 let BITBOXCli = require('./../lib/bitboxcli').default;
 let BITBOX = new BITBOXCli();
 
-describe('Script', () => {
-  describe('#decompileBuffer', () => {
+describe('#Script', () => {
+  describe('#decompile', () => {
     describe('P2PKH scriptSig', () => {
-      fixtures.decompileScriptSigBuffer.forEach((fixture) => {
+      fixtures.decompileScriptSig.forEach((fixture) => {
         it(`should decompile scriptSig buffer`, () => {
-          let decompiledScriptSig = BITBOX.Script.decompileBuffer(Buffer.from(fixture.scriptSigHex, 'hex'));
+          let decompiledScriptSig = BITBOX.Script.decompile(Buffer.from(fixture.scriptSigHex, 'hex'));
           assert.equal(typeof decompiledScriptSig, 'object');
         });
 
         it(`should decompile scriptSig buffer to cash address ${fixture.cashAddress}`, () => {
-          let decompiledScriptSig = BITBOX.Script.decompileBuffer(Buffer.from(fixture.scriptSigHex, 'hex'));
+          let decompiledScriptSig = BITBOX.Script.decompile(Buffer.from(fixture.scriptSigHex, 'hex'));
           let address = BITBOX.HDNode.toCashAddress(BITBOX.ECPair.fromPublicKeyBuffer(decompiledScriptSig[1]));
           assert.equal(address, fixture.cashAddress);
         });
 
         it(`should decompile scriptSig buffer to legacy address ${fixture.legacyAddress}`, () => {
-          let decompiledScriptSig = BITBOX.Script.decompileBuffer(Buffer.from(fixture.scriptSigHex, 'hex'));
+          let decompiledScriptSig = BITBOX.Script.decompile(Buffer.from(fixture.scriptSigHex, 'hex'));
           let address = BITBOX.HDNode.toLegacyAddress(BITBOX.ECPair.fromPublicKeyBuffer(decompiledScriptSig[1]));
           assert.equal(address, fixture.legacyAddress);
         });
@@ -28,14 +28,14 @@ describe('Script', () => {
     });
 
     describe('P2PKH scriptPubKey', () => {
-      fixtures.decompileScriptPubKeyBuffer.forEach((fixture) => {
+      fixtures.decompileScriptPubKey.forEach((fixture) => {
         it(`should decompile scriptSig buffer`, () => {
-          let decompiledScriptPubKey = BITBOX.Script.decompileBuffer(Buffer.from(fixture.scriptPubKeyHex, 'hex'));
+          let decompiledScriptPubKey = BITBOX.Script.decompile(Buffer.from(fixture.scriptPubKeyHex, 'hex'));
           assert.equal(decompiledScriptPubKey.length, 5);
         });
 
         it(`should match hashed pubKey ${fixture.pubKeyHex}`, () => {
-          let decompiledScriptPubKey = BITBOX.Script.decompileBuffer(Buffer.from(fixture.scriptPubKeyHex, 'hex'));
+          let decompiledScriptPubKey = BITBOX.Script.decompile(Buffer.from(fixture.scriptPubKeyHex, 'hex'));
           let data = Buffer.from(fixture.pubKeyHex, 'hex')
           let hash160 = BITBOX.Crypto.hash160(data).toString('hex');
           assert.equal(decompiledScriptPubKey[2].toString('hex'), hash160);
@@ -44,157 +44,71 @@ describe('Script', () => {
     });
   });
 
-  describe('#decompileHex', () => {
+  describe('#compile', () => {
     describe('P2PKH scriptSig', () => {
-      fixtures.decompileScriptSigHex.forEach((fixture) => {
-        it(`should decompile scriptSig hex`, () => {
-          let decompiledScriptSig = BITBOX.Script.decompileHex(fixture.scriptSigHex);
-          assert.equal(typeof decompiledScriptSig, 'object');
-        });
-
-        it(`should decompile scriptSig hex to cash address ${fixture.cashAddress}`, () => {
-          let decompiledScriptSig = BITBOX.Script.decompileHex(fixture.scriptSigHex);
-          console.log(decompiledScriptSig[0].toString('hex'))
-          console.log(decompiledScriptSig[1].toString('hex'))
-          let address = BITBOX.HDNode.toCashAddress(BITBOX.ECPair.fromPublicKeyBuffer(decompiledScriptSig[1]));
-          assert.equal(address, fixture.cashAddress);
-        });
-
-        it(`should decompile scriptSig hex to legacy address ${fixture.legacyAddress}`, () => {
-          let decompiledScriptSig = BITBOX.Script.decompileHex(fixture.scriptSigHex);
-          let address = BITBOX.HDNode.toLegacyAddress(BITBOX.ECPair.fromPublicKeyBuffer(decompiledScriptSig[1]));
-          assert.equal(address, fixture.legacyAddress);
-        });
-      });
-    });
-
-    describe('P2PKH scriptPubKey', () => {
-      fixtures.decompileScriptPubKeyHex.forEach((fixture) => {
-        it(`should decompile scriptSig hex`, () => {
-          let decompiledScriptPubKey = BITBOX.Script.decompileHex(fixture.scriptPubKeyHex);
-          assert.equal(decompiledScriptPubKey.length, 5);
-        });
-
-        it(`should match hashed pubKey ${fixture.pubKeyHex}`, () => {
-          let decompiledScriptPubKey = BITBOX.Script.decompileHex(fixture.scriptPubKeyHex);
-          let data = Buffer.from(fixture.pubKeyHex, 'hex')
-          let hash160 = BITBOX.Crypto.hash160(data).toString('hex');
-          assert.equal(decompiledScriptPubKey[2].toString('hex'), hash160);
-        });
-      });
-    });
-  });
-
-  describe('#compileBuffer', () => {
-    describe('P2PKH scriptSig', () => {
-      fixtures.compileScriptSigBuffer.forEach((fixture) => {
+      fixtures.compileScriptSig.forEach((fixture) => {
         it(`should compile scriptSig chunks to buffer`, () => {
           let arr = [
             Buffer.from(fixture.scriptSigChunks[0], 'hex'),
             Buffer.from(fixture.scriptSigChunks[1], 'hex')
           ];
-          let compiledScriptSig = BITBOX.Script.compileBuffer(arr);
+          let compiledScriptSig = BITBOX.Script.compile(arr);
           assert.equal(typeof compiledScriptSig, 'object');
         });
       });
     });
 
     describe('P2PKH scriptPubKey', () => {
-      fixtures.compileScriptPubKeyBuffer.forEach((fixture) => {
+      fixtures.compileScriptPubKey.forEach((fixture) => {
         it(`should compile scriptPubKey buffer`, () => {
-          let decompiledScriptPubKey = BITBOX.Script.decompileHex(fixture.scriptPubKeyHex);
-          let compiledScriptPubKey = BITBOX.Script.compileBuffer(decompiledScriptPubKey);
+          let decompiledScriptPubKey = BITBOX.Script.decompile(Buffer.from(fixture.scriptPubKeyHex, 'hex'));
+          let compiledScriptPubKey = BITBOX.Script.compile(decompiledScriptPubKey);
           assert.equal(compiledScriptPubKey.toString('hex'), fixture.scriptPubKeyHex);
         });
       });
     });
   });
 
-  describe('#bufferToASM', () => {
+  describe('#toASM', () => {
     describe('P2PKH scriptSig', () => {
-      fixtures.scriptSigBufferToASM.forEach((fixture) => {
+      fixtures.scriptSigToASM.forEach((fixture) => {
         it(`should compile scriptSig buffer to ${fixture.asm}`, () => {
           let arr = [
             Buffer.from(fixture.scriptSigChunks[0], 'hex'),
             Buffer.from(fixture.scriptSigChunks[1], 'hex')
           ];
-          let compiledScriptSig = BITBOX.Script.compileBuffer(arr);
-          let asm = BITBOX.Script.bufferToASM(compiledScriptSig);
+          let compiledScriptSig = BITBOX.Script.compile(arr);
+          let asm = BITBOX.Script.toASM(compiledScriptSig);
           assert.equal(asm, fixture.asm);
         });
       });
     });
 
     describe('P2PKH scriptPubKey', () => {
-      fixtures.scriptPubKeyBufferToASM.forEach((fixture) => {
+      fixtures.scriptPubKeyToASM.forEach((fixture) => {
         it(`should compile scriptPubKey buffer to ${fixture.asm}`, () => {
-          let asm = BITBOX.Script.bufferToASM(Buffer.from(fixture.scriptPubKeyHex, 'hex'));
+          let asm = BITBOX.Script.toASM(Buffer.from(fixture.scriptPubKeyHex, 'hex'));
           assert.equal(asm, fixture.asm);
         });
       });
     });
   });
 
-  describe('#hexToASM', () => {
+  describe('#fromASM', () => {
     describe('P2PKH scriptSig', () => {
-      fixtures.scriptSigHexToASM.forEach((fixture) => {
-        it(`should compile scriptSig hex to ${fixture.asm}`, () => {
-          let arr = [
-            Buffer.from(fixture.scriptSigChunks[0], 'hex'),
-            Buffer.from(fixture.scriptSigChunks[1], 'hex')
-          ];
-          let compiledScriptSig = BITBOX.Script.compileBuffer(arr);
-          let asm = BITBOX.Script.hexToASM(compiledScriptSig.toString('hex'));
-          assert.equal(asm, fixture.asm);
-        });
-      });
-    });
-
-    describe('P2PKH scriptPubKey', () => {
-      fixtures.scriptPubKeyHexToASM.forEach((fixture) => {
-        it(`should compile scriptPubKey hex to ${fixture.asm}`, () => {
-          let asm = BITBOX.Script.hexToASM(fixture.scriptPubKeyHex);
-          assert.equal(asm, fixture.asm);
-        });
-      });
-    });
-  });
-
-  describe('#bufferFromASM', () => {
-    describe('P2PKH scriptSig', () => {
-      fixtures.scriptSigBufferFromASM.forEach((fixture) => {
+      fixtures.scriptSigFromASM.forEach((fixture) => {
         it(`should decompile scriptSig asm to buffer`, () => {
-          let buf = BITBOX.Script.bufferFromASM(fixture.asm);
+          let buf = BITBOX.Script.fromASM(fixture.asm);
           assert.equal(typeof buf, 'object');
         });
       });
     });
 
     describe('P2PKH scriptPubKey', () => {
-      fixtures.scriptPubKeyBufferFromASM.forEach((fixture) => {
+      fixtures.scriptPubKeyFromASM.forEach((fixture) => {
         it(`should decompile scriptPubKey asm to buffer`, () => {
-          let buf = BITBOX.Script.bufferFromASM(fixture.asm);
+          let buf = BITBOX.Script.fromASM(fixture.asm);
           assert.equal(typeof buf, 'object');
-        });
-      });
-    });
-  });
-
-  describe('#hexFromASM', () => {
-    describe('P2PKH scriptSig', () => {
-      fixtures.scriptSigHexFromASM.forEach((fixture) => {
-        it(`should decompile scriptSig asm to hex`, () => {
-          let hex = BITBOX.Script.hexFromASM(fixture.asm);
-          assert.equal(hex, fixture.scriptSigHex);
-        });
-      });
-    });
-
-    describe('P2PKH scriptPubKey', () => {
-      fixtures.scriptPubKeyHexFromASM.forEach((fixture) => {
-        it(`should decompile scriptPubKey asm to hex`, () => {
-          let hex = BITBOX.Script.hexFromASM(fixture.asm);
-          assert.equal(hex, fixture.scriptPubKeyHex);
         });
       });
     });

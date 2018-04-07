@@ -6,15 +6,11 @@ class Script {
     this.opcodes = opcodes;
   }
 
-  decompileBuffer(scriptBuffer) {
+  decompile(scriptBuffer) {
     return Bitcoin.script.decompile(scriptBuffer);
   }
 
-  decompileHex(scriptHex) {
-    return Bitcoin.script.decompile(Buffer.from(scriptHex, 'hex'));
-  }
-
-  compileBuffer(scriptChunks) {
+  compile(scriptChunks) {
     let arr = [];
     scriptChunks.forEach((chunk) => {
       arr.push(chunk);
@@ -22,24 +18,12 @@ class Script {
     return Bitcoin.script.compile(arr);
   }
 
-  compileHex(scriptChunks) {
-    return Bitcoin.script.compile(scriptChunks).toString('hex');
-  }
-
-  bufferToASM(buffer) {
+  toASM(buffer) {
     return Bitcoin.script.toASM(buffer);
   }
 
-  hexToASM(hex) {
-    return Bitcoin.script.toASM(Buffer.from(hex, 'hex'));
-  }
-
-  bufferFromASM(asm) {
+  fromASM(asm) {
     return Bitcoin.script.fromASM(asm);
-  }
-
-  hexFromASM(asm) {
-    return Bitcoin.script.fromASM(asm).toString('hex');
   }
 }
 
