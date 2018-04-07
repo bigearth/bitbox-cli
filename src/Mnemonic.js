@@ -10,29 +10,8 @@ class Mnemonic {
     return BIP39.generateMnemonic(bits, randomBytes, wordlist);
   }
 
-  entropyToMnemonic(bytes = 16, wordlist) {
-    // Generate cryptographically strong pseudo-random data.
-    // The bytes argument is a number indicating the number of bytes to generate.
-    // Uses the NodeJS crypto lib. More info: https://nodejs.org/api/crypto.html#crypto_crypto_randombytes_size_callback
-    let randomBytes;
-    if(typeof bytes === 'number') {
-      randomBytes = Crypto.randomBytes(bytes);
-    } else if(typeof bytes === 'string') {
-      randomBytes = bytes;
-    }
-    // Create BIP 39 compliant mnemonic w/ entropy
-    // Entropy (bits/bytes)	Checksum (bits)	Entropy + checksum (bits)	Mnemonic length (words)
-    // 128/16               4               132                       12
-    //
-    // 160/20               5               165                       15
-    //
-    // 192/24               6               198                       18
-    //
-    // 224/28               7               231                       21
-    //
-    // 256/32               8               264                       24
-
-    return BIP39.entropyToMnemonic(randomBytes, wordlist);
+  entropyToMnemonic(bytes, wordlist) {
+    return BIP39.entropyToMnemonic(bytes, wordlist);
   }
 
   mnemonicToEntropy(mnemonic, wordlist) {
