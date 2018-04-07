@@ -43,7 +43,7 @@
       "privateKeyWIF": "L4BwXDmjzEyzKHbAfGruhieUDPs8KTx7DMgqPk4aF9GefzgqPENV"
     }
   ],
-  "fromPublicKeyBuffer": [
+  "fromPublicKey": [
     {
       "pubkeyHex": "02fb721b92025e775b1b84774e65d568d24645cb633275f5c26f5c3101b214a8fb",
       "legacy": "1SeP7kmdWTwjFmWiRMpqtSkDpW39zrVLK",
@@ -70,51 +70,7 @@
       "cashAddr": "bitcoincash:qq4g2nmk64wt7a2mx85cl07n45nkh2p7lcytfgmqdl"
     }
   ],
-  "fromPublicKeyHex": [
-    {
-      "pubkeyHex": "02fb721b92025e775b1b84774e65d568d24645cb633275f5c26f5c3101b214a8fb",
-      "legacy": "1SeP7kmdWTwjFmWiRMpqtSkDpW39zrVLK",
-      "cashAddr": "bitcoincash:qqzdnxncgm3v247u5v0gqnglr2vpdhe0hu4wl0rmwt"
-    },
-      {
-      "pubkeyHex": "02d305772e0873fba6c1c7ff353ce374233316eb5820acd7ff3d7d9b82d514126b",
-      "legacy": "1GpugKfjEycPRhk8A8ALPh1zAJmTQGdJPp",
-      "cashAddr": "bitcoincash:qzkej6g2zr9c9k83chyqh5pllzv6pkw62ckf2m82ks"
-    },
-    {
-      "pubkeyHex": "02d305772e0873fba6c1c7ff353ce374233316eb5820acd7ff3d7d9b82d514126b",
-      "legacy": "1GpugKfjEycPRhk8A8ALPh1zAJmTQGdJPp",
-      "cashAddr": "bitcoincash:qzkej6g2zr9c9k83chyqh5pllzv6pkw62ckf2m82ks"
-    },
-    {
-      "pubkeyHex": "033c071f19057f11140f80308031fa58b6e7d8f9e889252805cae6a29c1248f843",
-      "legacy": "15NQKRj7rAVsFL5rWMmhkAgx2K1dYoHoDW",
-      "cashAddr": "bitcoincash:qqh7evl4w7h6lsu7uvakvadm0z5hj535lqk098l670"
-    },
-    {
-      "pubkeyHex": "024933d7cc962415fda8249d6ee6820009fb6f0cf592385d91f8d9f39de507b7e1",
-      "legacy": "14sq5dL1TeFdQJpj3vVMQvjrdmQoqVoM6m",
-      "cashAddr": "bitcoincash:qq4g2nmk64wt7a2mx85cl07n45nkh2p7lcytfgmqdl"
-    }
-  ],
-  "toPublicKeyBuffer": [
-    {
-      "pubkeyHex": "02fb721b92025e775b1b84774e65d568d24645cb633275f5c26f5c3101b214a8fb"
-    },
-      {
-      "pubkeyHex": "02d305772e0873fba6c1c7ff353ce374233316eb5820acd7ff3d7d9b82d514126b"
-    },
-    {
-      "pubkeyHex": "02d305772e0873fba6c1c7ff353ce374233316eb5820acd7ff3d7d9b82d514126b"
-    },
-    {
-      "pubkeyHex": "033c071f19057f11140f80308031fa58b6e7d8f9e889252805cae6a29c1248f843"
-    },
-    {
-      "pubkeyHex": "024933d7cc962415fda8249d6ee6820009fb6f0cf592385d91f8d9f39de507b7e1"
-    }
-  ],
-  "toPublicKeyHex": [
+  "toPublicKey": [
     {
       "pubkeyHex": "02fb721b92025e775b1b84774e65d568d24645cb633275f5c26f5c3101b214a8fb"
     },
@@ -175,7 +131,7 @@
       "cashAddr": "bitcoincash:qz39l492msv9zz838t8ltx2w4zmycnqhwck4fnnyym"
     }
   ],
-  "signHex": [
+  "sign": [
     {
       "privateKeyWIF": "L5PKiCuwwgmVN1GQNg8CdR6Rmg7tg1Npw7GyL5ULRPZ5EVPhtSrz",
       "data": "EARTH"
@@ -197,56 +153,7 @@
       "data": "satoshi"
     }
   ],
-  "verifyHex": [
-    {
-      "privateKeyWIF1": "L5PKiCuwwgmVN1GQNg8CdR6Rmg7tg1Npw7GyL5ULRPZ5EVPhtSrz",
-      "privateKeyWIF2": "L4BwXDmjzEyzKHbAfGruhieUDPs8KTx7DMgqPk4aF9GefzgqPENV",
-      "data": "EARTH"
-    },
-    {
-      "privateKeyWIF1": "L1SD3NYLMcoqpUzn2hwJ7c1Vb4pPiqMToSMyGMTcbcvRBDh9U9SP",
-      "privateKeyWIF2": "L5PKiCuwwgmVN1GQNg8CdR6Rmg7tg1Npw7GyL5ULRPZ5EVPhtSrz",
-      "data": "foobar"
-    },
-    {
-      "privateKeyWIF1": "L57L3Xtu3j1Z2B2RuQzc59JLQXJQ86TH8To1hM348URbC2iCZqLe",
-      "privateKeyWIF2": "L1SD3NYLMcoqpUzn2hwJ7c1Vb4pPiqMToSMyGMTcbcvRBDh9U9SP",
-      "data": "12334567890"
-    },
-    {
-      "privateKeyWIF1": "KzTm29RBrSgUbMyeJL9sCNUnc7LQEuDeT6Upq1iUwx78qWRdRzyW",
-      "privateKeyWIF2": "L1SD3NYLMcoqpUzn2hwJ7c1Vb4pPiqMToSMyGMTcbcvRBDh9U9SP",
-      "data": "Be excellent to each other"
-    },
-    {
-      "privateKeyWIF1": "L4BwXDmjzEyzKHbAfGruhieUDPs8KTx7DMgqPk4aF9GefzgqPENV",
-      "privateKeyWIF2": "L1SD3NYLMcoqpUzn2hwJ7c1Vb4pPiqMToSMyGMTcbcvRBDh9U9SP",
-      "data": "satoshi"
-    }
-  ],
-  "signBuffer": [
-    {
-      "privateKeyWIF": "L5PKiCuwwgmVN1GQNg8CdR6Rmg7tg1Npw7GyL5ULRPZ5EVPhtSrz",
-      "data": "EARTH"
-    },
-    {
-      "privateKeyWIF": "L1SD3NYLMcoqpUzn2hwJ7c1Vb4pPiqMToSMyGMTcbcvRBDh9U9SP",
-      "data": "foobar"
-    },
-    {
-      "privateKeyWIF": "L57L3Xtu3j1Z2B2RuQzc59JLQXJQ86TH8To1hM348URbC2iCZqLe",
-      "data": "12334567890"
-    },
-    {
-      "privateKeyWIF": "KzTm29RBrSgUbMyeJL9sCNUnc7LQEuDeT6Upq1iUwx78qWRdRzyW",
-      "data": "Be excellent to each other"
-    },
-    {
-      "privateKeyWIF": "L4BwXDmjzEyzKHbAfGruhieUDPs8KTx7DMgqPk4aF9GefzgqPENV",
-      "data": "satoshi"
-    }
-  ],
-  "verifyBuffer": [
+  "verify": [
     {
       "privateKeyWIF1": "L5PKiCuwwgmVN1GQNg8CdR6Rmg7tg1Npw7GyL5ULRPZ5EVPhtSrz",
       "privateKeyWIF2": "L4BwXDmjzEyzKHbAfGruhieUDPs8KTx7DMgqPk4aF9GefzgqPENV",

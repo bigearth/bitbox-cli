@@ -5,7 +5,7 @@ let BITBOXCli = require('./../lib/bitboxcli').default;
 let BITBOX = new BITBOXCli();
 let script = BITBOX.Script;
 
-describe('ECPair', () => {
+describe('#ECPair', () => {
   describe('#fromWIF', () => {
     fixtures.fromWIF.forEach((fixture) => {
       it(`should create ECPair from WIF ${fixture.privateKeyWIF}`, () => {
@@ -35,60 +35,31 @@ describe('ECPair', () => {
     });
   });
 
-  describe('#fromPublicKeyBuffer', () => {
-    fixtures.fromPublicKeyBuffer.forEach((fixture) => {
+  describe('#fromPublicKey', () => {
+    fixtures.fromPublicKey.forEach((fixture) => {
       it(`should create ECPair from public key buffer`, () => {
-        let ecpair = BITBOX.ECPair.fromPublicKeyBuffer(Buffer.from(fixture.pubkeyHex, 'hex'));
+        let ecpair = BITBOX.ECPair.fromPublicKey(Buffer.from(fixture.pubkeyHex, 'hex'));
         assert.equal(typeof ecpair, 'object');
       });
 
       it(`should get ${fixture.legacy} legacy address`, () => {
-        let ecpair = BITBOX.ECPair.fromPublicKeyBuffer(Buffer.from(fixture.pubkeyHex, 'hex'));
+        let ecpair = BITBOX.ECPair.fromPublicKey(Buffer.from(fixture.pubkeyHex, 'hex'));
         assert.equal(BITBOX.HDNode.toLegacyAddress(ecpair), fixture.legacy);
       })
 
       it(`should get ${fixture.cashAddr} cash address`, () => {
-        let ecpair = BITBOX.ECPair.fromPublicKeyBuffer(Buffer.from(fixture.pubkeyHex, 'hex'));
+        let ecpair = BITBOX.ECPair.fromPublicKey(Buffer.from(fixture.pubkeyHex, 'hex'));
         assert.equal(BITBOX.HDNode.toCashAddress(ecpair), fixture.cashAddr);
       })
     });
   });
 
-  describe('#fromPublicKeyHex', () => {
-    fixtures.fromPublicKeyHex.forEach((fixture) => {
-      it(`should create ECPair from ${fixture.pubkeyHex}`, () => {
-        let ecpair = BITBOX.ECPair.fromPublicKeyHex(fixture.pubkeyHex);
-        assert.equal(typeof ecpair, 'object');
-      });
-
-      it(`should get ${fixture.legacy} legacy address`, () => {
-        let ecpair = BITBOX.ECPair.fromPublicKeyHex(fixture.pubkeyHex);
-        assert.equal(BITBOX.HDNode.toLegacyAddress(ecpair), fixture.legacy);
-      })
-
-      it(`should get ${fixture.cashAddr} cash address`, () => {
-        let ecpair = BITBOX.ECPair.fromPublicKeyHex(fixture.pubkeyHex);
-        assert.equal(BITBOX.HDNode.toCashAddress(ecpair), fixture.cashAddr);
-      })
-    });
-  });
-
-  describe('#toPublicKeyBuffer', () => {
-    fixtures.toPublicKeyBuffer.forEach((fixture) => {
+  describe('#toPublicKey', () => {
+    fixtures.toPublicKey.forEach((fixture) => {
       it(`should create a public key buffer from an ECPair`, () => {
-        let ecpair = BITBOX.ECPair.fromPublicKeyHex(fixture.pubkeyHex);
-        let pubkeyBuffer = BITBOX.ECPair.toPublicKeyBuffer(ecpair);
+        let ecpair = BITBOX.ECPair.fromPublicKey(Buffer.from(fixture.pubkeyHex, 'hex'));
+        let pubkeyBuffer = BITBOX.ECPair.toPublicKey(ecpair);
         assert.equal(typeof pubkeyBuffer, 'object');
-      });
-    });
-  });
-
-  describe('#toPublicKeyHex', () => {
-    fixtures.toPublicKeyHex.forEach((fixture) => {
-      it(`should create a public key hex ${fixture.pubkeyHex} from an ECPair`, () => {
-        let ecpair = BITBOX.ECPair.fromPublicKeyHex(fixture.pubkeyHex);
-        let pubkeyHex = BITBOX.ECPair.toPublicKeyHex(ecpair);
-        assert.equal(pubkeyHex, fixture.pubkeyHex);
       });
     });
   });
@@ -113,49 +84,25 @@ describe('ECPair', () => {
     });
   });
 
-  describe('#signHex', () => {
-    fixtures.signHex.forEach((fixture) => {
-      it(`should sign 32 byte hash encoded as hex`, () => {
-        let ecpair = BITBOX.ECPair.fromWIF(fixture.privateKeyWIF);
-        let hex = BITBOX.Crypto.sha256('EARTH');
-        let signatureHex = BITBOX.ECPair.signHex(ecpair, hex);
-        assert.equal(typeof signatureHex, 'object');
-      });
-    });
-  });
-
-  describe('#verifyHex', () => {
-    fixtures.verifyHex.forEach((fixture) => {
-      it(`should verify signed 32 byte hash encoded as hex`, () => {
-        let ecpair1 = BITBOX.ECPair.fromWIF(fixture.privateKeyWIF1);
-        let ecpair2 = BITBOX.ECPair.fromWIF(fixture.privateKeyWIF2);
-        let hex = BITBOX.Crypto.sha256(fixture.data);
-        let signature = BITBOX.ECPair.signHex(ecpair1, hex);
-        let verify = BITBOX.ECPair.verifyHex(ecpair1, hex, signature);
-        assert.equal(verify, true);
-      });
-    });
-  });
-
-  describe('#signBuffer', () => {
-    fixtures.signBuffer.forEach((fixture) => {
+  describe('#sign', () => {
+    fixtures.sign.forEach((fixture) => {
       it(`should sign 32 byte hash buffer`, () => {
         let ecpair = BITBOX.ECPair.fromWIF(fixture.privateKeyWIF);
         let buf = Buffer.from(BITBOX.Crypto.sha256(fixture.data), 'hex');
-        let signatureBuf = BITBOX.ECPair.signBuffer(ecpair, buf);
+        let signatureBuf = BITBOX.ECPair.sign(ecpair, buf);
         assert.equal(typeof signatureBuf, 'object');
       });
     });
   });
 
-  describe('#verifyBuffer', () => {
-    fixtures.verifyBuffer.forEach((fixture) => {
+  describe('#verify', () => {
+    fixtures.verify.forEach((fixture) => {
       it(`should verify signed 32 byte hash buffer`, () => {
         let ecpair1 = BITBOX.ECPair.fromWIF(fixture.privateKeyWIF1);
         let ecpair2 = BITBOX.ECPair.fromWIF(fixture.privateKeyWIF2);
         let buf = Buffer.from(BITBOX.Crypto.sha256(fixture.data), 'hex');
-        let signature = BITBOX.ECPair.signBuffer(ecpair1, buf);
-        let verify = BITBOX.ECPair.verifyBuffer(ecpair1, buf, signature);
+        let signature = BITBOX.ECPair.sign(ecpair1, buf);
+        let verify = BITBOX.ECPair.verify(ecpair1, buf, signature);
         assert.equal(verify, true);
       });
     });

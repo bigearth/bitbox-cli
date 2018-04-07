@@ -15,13 +15,13 @@ describe('#Script', () => {
 
         it(`should decompile scriptSig buffer to cash address ${fixture.cashAddress}`, () => {
           let decompiledScriptSig = BITBOX.Script.decompile(Buffer.from(fixture.scriptSigHex, 'hex'));
-          let address = BITBOX.HDNode.toCashAddress(BITBOX.ECPair.fromPublicKeyBuffer(decompiledScriptSig[1]));
+          let address = BITBOX.HDNode.toCashAddress(BITBOX.ECPair.fromPublicKey(decompiledScriptSig[1]));
           assert.equal(address, fixture.cashAddress);
         });
 
         it(`should decompile scriptSig buffer to legacy address ${fixture.legacyAddress}`, () => {
           let decompiledScriptSig = BITBOX.Script.decompile(Buffer.from(fixture.scriptSigHex, 'hex'));
-          let address = BITBOX.HDNode.toLegacyAddress(BITBOX.ECPair.fromPublicKeyBuffer(decompiledScriptSig[1]));
+          let address = BITBOX.HDNode.toLegacyAddress(BITBOX.ECPair.fromPublicKey(decompiledScriptSig[1]));
           assert.equal(address, fixture.legacyAddress);
         });
       });

@@ -16,36 +16,20 @@ class ECPair {
     return ecpair.toWIF();
   }
 
-  static signHex(ecpair, hex) {
-    return ecpair.sign(Buffer.from(hex, 'hex'));
-  }
-
-  static signBuffer(ecpair, buffer) {
+  static sign(ecpair, buffer) {
     return ecpair.sign(buffer);
   }
 
-  static verifyHex(ecpair, hex, signature) {
-    return ecpair.verify(Buffer.from(hex, 'hex'), signature);
-  }
-
-  static verifyBuffer(ecpair, buffer, signature) {
+  static verify(ecpair, buffer, signature) {
     return ecpair.verify(buffer, signature);
   }
 
-  static toPublicKeyHex(ecpair) {
-    return ecpair.getPublicKeyBuffer().toString('hex');
-  }
-
-  static fromPublicKeyBuffer(pubkeyBuffer) {
+  static fromPublicKey(pubkeyBuffer) {
     return Bitcoin.ECPair.fromPublicKeyBuffer(pubkeyBuffer);
   }
 
-  static toPublicKeyBuffer(ecpair) {
+  static toPublicKey(ecpair) {
     return ecpair.getPublicKeyBuffer();
-  }
-
-  static fromPublicKeyHex(pubkeyHex) {
-    return Bitcoin.ECPair.fromPublicKeyBuffer(Buffer.from(pubkeyHex, 'hex'));
   }
 
   static toLegacyAddress(ecpair) {
