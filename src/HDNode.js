@@ -3,18 +3,11 @@ import bchaddr from 'bchaddrjs';
 let bip32utils = require('bip32-utils')
 
 class HDNode {
-  fromSeedBuffer(rootSeedBuffer, network = 'bitcoincash') {
+  fromSeed(rootSeedBuffer, network = 'bitcoincash') {
     if(network === 'bitcoincash') {
       network = 'bitcoin';
     }
     return Bitcoin.HDNode.fromSeedBuffer(rootSeedBuffer, Bitcoin.networks[network]);
-  }
-
-  fromSeedHex(rootSeedHex, network = 'bitcoincash') {
-    if(network === 'bitcoincash') {
-      network = 'bitcoin';
-    }
-    return Bitcoin.HDNode.fromSeedBuffer(Buffer.from(rootSeedHex, 'hex'), Bitcoin.networks[network]);
   }
 
   toLegacyAddress(hdNode) {
@@ -37,12 +30,8 @@ class HDNode {
     return hdNode.toBase58();
   }
 
-  toPublicKeyBuffer(hdNode) {
+  toPublicKey(hdNode) {
     return hdNode.getPublicKeyBuffer();
-  }
-
-  toPublicKeyHex(hdNode) {
-    return hdNode.getPublicKeyBuffer().toString('hex');
   }
 
   fromXPriv(xpriv) {
@@ -72,19 +61,23 @@ class HDNode {
     return new bip32utils.Account(arr);
   }
 
-  signHex(hdnode, hex) {
-    return hdnode.sign(Buffer.from(hex, 'hex'));
+  derivePath(hdnode, path) {
+    return hdnode.derivePath(path);
   }
 
-  signBuffer(hdnode, buffer) {
+  derive(hdnode, path) {
+    return hdnode.derive(path);
+  }
+
+  deriveHardened(hdnode, path) {
+    return hdnode.deriveHardened(path);
+  }
+
+  sign(hdnode, buffer) {
     return hdnode.sign(buffer);
   }
 
-  verifyHex(hdnode, hex, signature) {
-    return hdnode.verify(Buffer.from(hex, 'hex'), signature);
-  }
-
-  verifyBuffer(hdnode, buffer, signature) {
+  verify(hdnode, buffer, signature) {
     return hdnode.verify(buffer, signature);
   }
 

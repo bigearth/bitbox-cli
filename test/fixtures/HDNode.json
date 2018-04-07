@@ -43,7 +43,7 @@
       "xpriv": "xprv9s21ZrQH143K3191p59AJC9K13F2pWjAQ9inv5v9LRxdTFgx1kCjXU7Q2ACdAm7P432XP8MjAoTHW9dDxjbFpfRqv7cu3hkn9u5ZtBQs3Vi"
     }
   ],
-  "toPublicKeyBuffer": [
+  "toPublicKey": [
     {
       "mnemonic": "rare dinosaur army fat spend average design order ritual town brave spike"
     },
@@ -58,28 +58,6 @@
     },
     {
       "mnemonic": "tunnel ugly degree bid merry world pupil tornado ski rent casino rent security length wet twice luxury rookie invite destroy busy leopard escape shoe"
-    }
-  ],
-  "toPublicKeyHex": [
-    {
-      "mnemonic": "rare dinosaur army fat spend average design order ritual town brave spike",
-      "publicKeyHex": "0348739e5f5be2733a5cd0fe435f06aca01780b287855b29929120520261f817b2"
-    },
-      {
-      "mnemonic": "rabbit track ahead moral either upper tiger paper echo snow multiply trial kind two cram",
-      "publicKeyHex": "02686c951af9b1cf7cbc87f34dc519a5755681c1bd689e4202c9490b41fdbada03"
-    },
-    {
-      "mnemonic": "shadow steak gospel heart life wedding loud jar marriage during lecture stove exclude price worry story art relief",
-      "publicKeyHex": "0302507f1fae106e422baef0418211e9a4f6bb67e3670e39b06f261d9926a2435e"
-    },
-    {
-      "mnemonic": "supply salute they blood coyote century envelope circle baby armed comfort sport jazz clarify museum portion wolf hour donkey frog juice",
-      "publicKeyHex": "029bb47e71255d11a9a1cf2ca0a36edffc555008d0c29a0fc91894eab50109db3e"
-    },
-    {
-      "mnemonic": "tunnel ugly degree bid merry world pupil tornado ski rent casino rent security length wet twice luxury rookie invite destroy busy leopard escape shoe",
-      "publicKeyHex": "035d576e6277028cfef15ffc44922ee20d6974db99c5d73bd237a2e7c1490e7452"
     }
   ],
   "derive": [
@@ -283,14 +261,7 @@
       "xpriv": "xprv9ysdmq3FsEdRD3iBKzw3f8HwpR1TbZNbySfxvXFZ6ZnmiMQGPfcnfCuDoLcnGT27p8DTvsqVubj8tv6yQp5siqUoPmT4WRLpjZXauriLnZB"
     }
   ],
-  "fromSeedBuffer": [
-    "rare dinosaur army fat spend average design order ritual town brave spike",
-    "rabbit track ahead moral either upper tiger paper echo snow multiply trial kind two cram",
-    "shadow steak gospel heart life wedding loud jar marriage during lecture stove exclude price worry story art relief",
-    "supply salute they blood coyote century envelope circle baby armed comfort sport jazz clarify museum portion wolf hour donkey frog juice",
-    "tunnel ugly degree bid merry world pupil tornado ski rent casino rent security length wet twice luxury rookie invite destroy busy leopard escape shoe"
-  ],
-  "fromSeedHex": [
+  "fromSeed": [
     "rare dinosaur army fat spend average design order ritual town brave spike",
     "rabbit track ahead moral either upper tiger paper echo snow multiply trial kind two cram",
     "shadow steak gospel heart life wedding loud jar marriage during lecture stove exclude price worry story art relief",
@@ -413,7 +384,7 @@
       ]
     }
   ],
-  "signHex": [
+  "sign": [
     {
       "privateKeyWIF": "tprv8gSiosqMhzpP3XaTadTEcFe57vcwxWbxNPvcwesb262wbzcFzKtqH8KAZApTBDJipJuAu3Dqzj3MZmLTz1mSeXP7Kn9uZeNXFpHBDQHr4hW",
       "data": "EARTH"
@@ -435,56 +406,7 @@
       "data": "satoshi"
     }
   ],
-  "verifyHex": [
-    {
-      "privateKeyWIF1": "xprv9yFjArUhvYMNZGr63oZK2TptuZDLMfBSz2c5mnFwSCmQeCMNTgJyZwkhjAumNgfsDsRJEn7pYmLQM7o8u5P2dWk6tG6TndWoVBPQi3DvmpY",
-      "privateKeyWIF2": "xprv9yFjArUhvYMNmSjZ8k77PA6B6wsJUAq7sm6cKuZhkcVe85jkdpwbWgcMmXq4SDZZ7dg9GaoJCCaFSnRSVhFTQh2LJdH3pzMwaTQANk78PFA",
-      "data": "EARTH"
-    },
-    {
-      "privateKeyWIF1": "tprv8gSiosqMhzpPMPbutrLEoyEea5DetcC5oorjaqY5qUFVwdPves2vkdYxR3PpXj67hBC6EUH9DTCDzReR6UWAjgF69bsrJTudWqNHe5LbNTU",
-      "privateKeyWIF2": "tprv8gSiosqMhzpP3XaTadTEcFe57vcwxWbxNPvcwesb262wbzcFzKtqH8KAZApTBDJipJuAu3Dqzj3MZmLTz1mSeXP7Kn9uZeNXFpHBDQHr4hW",
-      "data": "foobar"
-    },
-    {
-      "privateKeyWIF1": "xprv9yFjArUhvYMNmSjZ8k77PA6B6wsJUAq7sm6cKuZhkcVe85jkdpwbWgcMmXq4SDZZ7dg9GaoJCCaFSnRSVhFTQh2LJdH3pzMwaTQANk78PFA",
-      "privateKeyWIF2": "xprv9yFjArUhvYMNZGr63oZK2TptuZDLMfBSz2c5mnFwSCmQeCMNTgJyZwkhjAumNgfsDsRJEn7pYmLQM7o8u5P2dWk6tG6TndWoVBPQi3DvmpY",
-      "data": "12334567890"
-    },
-    {
-      "privateKeyWIF1": "xprv9yFjArUhvYMNu32qRztSu86QozxDQjcUqFQ2YKxEaZ3Ww8m5CkfXXJMQxNLGQysS8uDnf7NGyboab2Rn4YskRh97jxFXNPgpqxVinM3vMki",
-      "privateKeyWIF2": "xprv9yFjArUhvYMNZGr63oZK2TptuZDLMfBSz2c5mnFwSCmQeCMNTgJyZwkhjAumNgfsDsRJEn7pYmLQM7o8u5P2dWk6tG6TndWoVBPQi3DvmpY",
-      "data": "Be excellent to each other"
-    },
-    {
-      "privateKeyWIF1": "xprv9yFjArUhvYMNyhQ3AsdJ6r8NH4NWwyXDg91twPN3hqdWZw6GJSz2JDLxfhJf46PCbs2K73239jzvNxRXqg62aV9M5ytN4kuSpi6JyGxm7eZ",
-      "privateKeyWIF2": "xprv9yFjArUhvYMNu32qRztSu86QozxDQjcUqFQ2YKxEaZ3Ww8m5CkfXXJMQxNLGQysS8uDnf7NGyboab2Rn4YskRh97jxFXNPgpqxVinM3vMki",
-      "data": "satoshi"
-    }
-  ],
-  "signBuffer": [
-    {
-      "privateKeyWIF": "tprv8gSiosqMhzpP3XaTadTEcFe57vcwxWbxNPvcwesb262wbzcFzKtqH8KAZApTBDJipJuAu3Dqzj3MZmLTz1mSeXP7Kn9uZeNXFpHBDQHr4hW",
-      "data": "EARTH"
-    },
-    {
-      "privateKeyWIF": "xprv9yFjArUhvYMNZGr63oZK2TptuZDLMfBSz2c5mnFwSCmQeCMNTgJyZwkhjAumNgfsDsRJEn7pYmLQM7o8u5P2dWk6tG6TndWoVBPQi3DvmpY",
-      "data": "foobar"
-    },
-    {
-      "privateKeyWIF": "tprv8gSiosqMhzpPMPbutrLEoyEea5DetcC5oorjaqY5qUFVwdPves2vkdYxR3PpXj67hBC6EUH9DTCDzReR6UWAjgF69bsrJTudWqNHe5LbNTU",
-      "data": "12334567890"
-    },
-    {
-      "privateKeyWIF": "xprv9yFjArUhvYMNciVULCdXz7D6xAevAHgWXmsioewMAiuaAzBgkyVqxkqDcyg8KTeJedKRyxaNWLYSwAUts41vGoWCkWiEtcrRMo7y1gCfCZe",
-      "data": "Be excellent to each other"
-    },
-    {
-      "privateKeyWIF": "xprv9yFjArUhvYMNmSjZ8k77PA6B6wsJUAq7sm6cKuZhkcVe85jkdpwbWgcMmXq4SDZZ7dg9GaoJCCaFSnRSVhFTQh2LJdH3pzMwaTQANk78PFA",
-      "data": "satoshi"
-    }
-  ],
-  "verifyBuffer": [
+  "verify": [
     {
       "privateKeyWIF1": "xprv9yFjArUhvYMNZGr63oZK2TptuZDLMfBSz2c5mnFwSCmQeCMNTgJyZwkhjAumNgfsDsRJEn7pYmLQM7o8u5P2dWk6tG6TndWoVBPQi3DvmpY",
       "privateKeyWIF2": "xprv9yFjArUhvYMNmSjZ8k77PA6B6wsJUAq7sm6cKuZhkcVe85jkdpwbWgcMmXq4SDZZ7dg9GaoJCCaFSnRSVhFTQh2LJdH3pzMwaTQANk78PFA",

@@ -36,7 +36,7 @@ class Mnemonic {
   }
 
   mnemonicToEntropy(mnemonic, wordlist) {
-    return BIP39.mnemonicToEntropy(mnemonic, wordlist);
+    return Buffer.from(BIP39.mnemonicToEntropy(mnemonic, wordlist), 'hex');
   }
 
   validateMnemonic(mnemonic, wordlist) {
@@ -65,11 +65,7 @@ class Mnemonic {
     }
   }
 
-  mnemonicToSeedHex(mnemonic, password = '') {
-    return BIP39.mnemonicToSeedHex(mnemonic, password);
-  }
-
-  mnemonicToSeedBuffer(mnemonic, password = '') {
+  mnemonicToSeed(mnemonic, password = '') {
     return BIP39.mnemonicToSeed(mnemonic, password);
   }
 
@@ -78,7 +74,7 @@ class Mnemonic {
   }
 
   keypairsFromMnemonic(mnemonic, numberOfKeypairs = 1) {
-    let rootSeedBuffer = this.mnemonicToSeedBuffer(mnemonic, '');
+    let rootSeedBuffer = this.mnemonicToSeed(mnemonic, '');
     let hdNode = Bitcoin.HDNode.fromSeedBuffer(rootSeedBuffer);
     let HDPath = `44'/145'/0'/0/`
 
