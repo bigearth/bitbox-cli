@@ -52,7 +52,7 @@ class BITBOXCli {
     this.Wallet = new Wallet(config, this.BitboxHTTP);
     this.Transaction = Transaction;
     this.TransactionBuilder = TransactionBuilder;
-    this.Script = Script;
+    this.Script = new Script();
     this.ECPair = ECPair;
   }
   //

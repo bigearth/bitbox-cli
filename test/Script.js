@@ -4,7 +4,6 @@ let assert = chai.assert;
 let BITBOXCli = require('./../lib/bitboxcli').default;
 let BITBOX = new BITBOXCli();
 
-
 describe('Script', () => {
   describe('#decompileBuffer', () => {
     describe('P2PKH scriptSig', () => {
@@ -199,5 +198,13 @@ describe('Script', () => {
         });
       });
     });
+  });
+
+  describe('#OPCodes', () => {
+    for (let opcode in fixtures.opcodes) {
+      it(`should have have OP Code ${opcode}`, () => {
+        assert.equal(BITBOX.Script.opcodes[opcode], fixtures.opcodes[opcode]);
+      });
+    }
   });
 });

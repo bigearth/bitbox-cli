@@ -1,35 +1,44 @@
 import Bitcoin from 'bitcoinjs-lib';
+import opcodes from 'bitcoin-ops';
 
 class Script {
-  static decompileBuffer(scriptBuffer) {
+  constructor() {
+    this.opcodes = opcodes;
+  }
+
+  decompileBuffer(scriptBuffer) {
     return Bitcoin.script.decompile(scriptBuffer);
   }
 
-  static decompileHex(scriptHex) {
+  decompileHex(scriptHex) {
     return Bitcoin.script.decompile(Buffer.from(scriptHex, 'hex'));
   }
 
-  static compileBuffer(scriptChunks) {
-    return Bitcoin.script.compile(scriptChunks);
+  compileBuffer(scriptChunks) {
+    let arr = [];
+    scriptChunks.forEach((chunk) => {
+      arr.push(chunk);
+    });
+    return Bitcoin.script.compile(arr);
   }
 
-  static compileHex(scriptChunks) {
+  compileHex(scriptChunks) {
     return Bitcoin.script.compile(scriptChunks).toString('hex');
   }
 
-  static bufferToASM(buffer) {
+  bufferToASM(buffer) {
     return Bitcoin.script.toASM(buffer);
   }
 
-  static hexToASM(hex) {
+  hexToASM(hex) {
     return Bitcoin.script.toASM(Buffer.from(hex, 'hex'));
   }
 
-  static bufferFromASM(asm) {
+  bufferFromASM(asm) {
     return Bitcoin.script.fromASM(asm);
   }
 
-  static hexFromASM(asm) {
+  hexFromASM(asm) {
     return Bitcoin.script.fromASM(asm).toString('hex');
   }
 }

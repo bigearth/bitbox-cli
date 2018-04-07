@@ -45,6 +45,17 @@ class TransactionBuilder {
   build() {
     return this.transaction.build();
   }
+
+  static createMultisigAddress(required, pubKeys) {
+    let pks = [];
+    pubKeys.forEach((pk) => {
+      pks.push(pk);
+    });
+
+    let redeemScript = Bitcoin.script.multisig.output.encode(required, pks.map(function (hex) { return Buffer.from(hex, 'hex') }));
+    let scriptPubKey = Bitcoin.script.scriptHash.output.encode(Bitcoin.crypto.hash160(redeemScript));
+    return bchaddr.toCashAddress(Bitcoin.address.fromOutputScript(scriptPubKey));
+  }
 }
 
 export default TransactionBuilder;
