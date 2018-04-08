@@ -10,7 +10,7 @@ describe('#TransactionBuilder', () => {
       it(`should create 1-to-1 transaction`, () => {
         let hdnode = BITBOX.HDNode.fromXPriv(fixture.xpriv);
         let transactionBuilder = new BITBOX.TransactionBuilder('bitcoincash');
-        let keyPair = hdnode.keyPair;
+        let keyPair = BITBOX.HDNode.toKeyPair(hdnode);
         let txid = fixture.txid;
         // original amount of satoshis in vin
         let originalAmount = fixture.amount;
@@ -36,7 +36,7 @@ describe('#TransactionBuilder', () => {
       it(`should create 1-to-2 transaction`, () => {
         let hdnode = BITBOX.HDNode.fromXPriv(fixture.xpriv);
         let transactionBuilder = new BITBOX.TransactionBuilder();
-        let keyPair = hdnode.keyPair;
+        let keyPair = BITBOX.HDNode.toKeyPair(hdnode);
         let txid = fixture.txid;
         // original amount of satoshis in vin
         let originalAmount = fixture.amount;
@@ -93,13 +93,13 @@ describe('#TransactionBuilder', () => {
         let transactionBuilder = new BITBOX.TransactionBuilder('bitcoincash');
         let txid = fixture.txid;
         let hdnode0 = BITBOX.HDNode.fromXPriv(fixture.xprivs[0]);
-        let keyPair0 = hdnode0.keyPair;
+        let keyPair0 = BITBOX.HDNode.toKeyPair(hdnode0);
         // original amount of satoshis in vin
         let originalAmount = fixture.amount;
         transactionBuilder.addInput(txid, 0, originalAmount / 2);
 
         let hdnode1 = BITBOX.HDNode.fromXPriv(fixture.xprivs[1]);
-        let keyPair1 = hdnode1.keyPair;
+        let keyPair1 = BITBOX.HDNode.toKeyPair(hdnode1);
         transactionBuilder.addInput(txid, 1, originalAmount / 2);
         // get byte count to calculate fee. paying 1 sat/byte
         let byteCount = BITBOX.BitcoinCash.getByteCount({ P2PKH: 2 }, { P2PKH: 1 });

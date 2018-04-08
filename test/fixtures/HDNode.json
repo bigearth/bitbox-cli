@@ -43,6 +43,23 @@
       "xpriv": "xprv9s21ZrQH143K3191p59AJC9K13F2pWjAQ9inv5v9LRxdTFgx1kCjXU7Q2ACdAm7P432XP8MjAoTHW9dDxjbFpfRqv7cu3hkn9u5ZtBQs3Vi"
     }
   ],
+  "toKeyPair": [
+    {
+      "mnemonic": "rare dinosaur army fat spend average design order ritual town brave spike"
+    },
+      {
+      "mnemonic": "rabbit track ahead moral either upper tiger paper echo snow multiply trial kind two cram"
+    },
+    {
+      "mnemonic": "shadow steak gospel heart life wedding loud jar marriage during lecture stove exclude price worry story art relief"
+    },
+    {
+      "mnemonic": "supply salute they blood coyote century envelope circle baby armed comfort sport jazz clarify museum portion wolf hour donkey frog juice"
+    },
+    {
+      "mnemonic": "tunnel ugly degree bid merry world pupil tornado ski rent casino rent security length wet twice luxury rookie invite destroy busy leopard escape shoe"
+    }
+  ],
   "toPublicKey": [
     {
       "mnemonic": "rare dinosaur army fat spend average design order ritual town brave spike"

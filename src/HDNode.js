@@ -30,6 +30,10 @@ class HDNode {
     return hdNode.toBase58();
   }
 
+  toKeyPair(hdNode) {
+    return hdNode.keyPair;
+  }
+
   toPublicKey(hdNode) {
     return hdNode.getPublicKeyBuffer();
   }

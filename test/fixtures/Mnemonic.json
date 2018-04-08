@@ -1,5 +1,5 @@
 {
-  "entropyToMnemonic": [
+  "fromEntropy": [
     {
       "mnemonic": "rare dinosaur army fat spend average design order ritual town brave spike",
       "entropy": "b207cc3029bd141f8ef4e1ba9cc86d68"
@@ -21,7 +21,7 @@
       "entropy": "ea9d80e70b08bbfb6b7f2bca56c88ddb2c2d003e675a855779d81e11f3009346"
     }
   ],
-  "keypairsFromMnemonic": [
+  "toKeypairs": [
     {
       "mnemonic": "curve quiz lesson bone wave endless rigid symbol plug shift access dragon",
       "output": [

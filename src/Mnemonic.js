@@ -6,19 +6,19 @@ import Bitcoin from 'bitcoinjs-lib';
 import bchaddr from 'bchaddrjs';
 
 class Mnemonic {
-  generateMnemonic(bits = 128, wordlist) {
+  generate(bits = 128, wordlist) {
     return BIP39.generateMnemonic(bits, randomBytes, wordlist);
   }
 
-  entropyToMnemonic(bytes, wordlist) {
+  fromEntropy(bytes, wordlist) {
     return BIP39.entropyToMnemonic(bytes, wordlist);
   }
 
-  mnemonicToEntropy(mnemonic, wordlist) {
+  toEntropy(mnemonic, wordlist) {
     return Buffer.from(BIP39.mnemonicToEntropy(mnemonic, wordlist), 'hex');
   }
 
-  validateMnemonic(mnemonic, wordlist) {
+  validate(mnemonic, wordlist) {
     // Preprocess the words
     let words = mnemonic.split(' ');
     // Detect blank phrase
@@ -44,16 +44,16 @@ class Mnemonic {
     }
   }
 
-  mnemonicToSeed(mnemonic, password = '') {
+  toSeed(mnemonic, password = '') {
     return BIP39.mnemonicToSeed(mnemonic, password);
   }
 
-  mnemonicWordLists() {
+  wordLists() {
     return BIP39.wordlists;
   }
 
-  keypairsFromMnemonic(mnemonic, numberOfKeypairs = 1) {
-    let rootSeedBuffer = this.mnemonicToSeed(mnemonic, '');
+  toKeypairs(mnemonic, numberOfKeypairs = 1) {
+    let rootSeedBuffer = this.toSeed(mnemonic, '');
     let hdNode = Bitcoin.HDNode.fromSeedBuffer(rootSeedBuffer);
     let HDPath = `44'/145'/0'/0/`
 
