@@ -108,6 +108,21 @@
       ]
     }
   ],
+  "manyToMany": [
+    {
+      "wifs": [
+        "KxiBHmFK1vn14RSPuwgKZTFtkC19Q6JpEXU9AdUj9zQL7rKygweX",
+        "KwwMefFcSPWoS5LzCJ2tTy7iALXkNbuEbDvf5BAYktQE8aZsUTzt"
+      ],
+      "txid": "622e51eed9065d0ee1cba630daf0384279cb129996cd6c2c27b7835c26ec43a9",
+      "hex": "0200000002a943ec265c83b7272c6ccd969912cb794238f0da30a6cbe10e5d06d9ee512e62000000006a47304402207aacf0c2a8e47bad197f2e1bc2e7bb579b50466487914b644f0d82849247be2d0220398dd1c1825733d6b86b6507cebc3cca5f8b4f8fff97db8a6584beb440f7f347412103cbd6298a28eaa8e2eb223acafd6fb868156869c59bb2522a8e4b7473664a25bdffffffffa943ec265c83b7272c6ccd969912cb794238f0da30a6cbe10e5d06d9ee512e62010000006b483045022100d09ac350268f41a7a58048f08a405faa2d0e339b1f0d039ca44579b374a13f2f02202f58698a38515c4789f30ca5e9a424b48894c108dd84dfa3f77cbaa19ff6957a412103cbd6298a28eaa8e2eb223acafd6fb868156869c59bb2522a8e4b7473664a25bdffffffff02121d0000000000001976a9144c86c67ca363834e56f4fa6851bbaba8219d120f88ac121d0000000000001976a9147489b30d4bb0fd580b273ed0836e251af34d236b88ac00000000",
+      "amount": 15258,
+      "outputs": [
+        "bitcoincash:qpxgd3nu5d3cxnjk7naxs5dm4w5zr8gjpu0e3jegh8",
+        "bitcoincash:qp6gnvcdfwc06kqtyuldpqmwy5d0xnfrdvzmhhezc0"
+      ]
+    }
+  ],
   "fromMany": [
     {
       "xprivs": [

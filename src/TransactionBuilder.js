@@ -6,30 +6,31 @@ class TransactionBuilder {
     if(network === 'bitcoincash') {
       network = 'bitcoin';
     }
-    this.keyPairs = [];
+    this.amounts = [];
     this.transaction = new Bitcoin.TransactionBuilder(Bitcoin.networks[network]);
   }
 
-  addInput(txid, vin, keyPair) {
+  addInput(txid, vin, amount) {
     let defaultSequence = 0xffffffff;
-    let pubkey = keyPair.getPublicKeyBuffer();
-    let pubKeyHashBuffer = Bitcoin.crypto.hash160(pubkey);
-    let scriptPubKey = Bitcoin.script.pubKeyHash.output.encode(pubKeyHashBuffer);
-    this.keyPairs.push(keyPair)
+    this.amounts.push(amount)
 
     this.transaction.addInput(
       txid,
       vin,
-      defaultSequence,
-      scriptPubKey
+      defaultSequence
     );
   }
 
   addOutput(address, amount) {
-    this.transaction.addOutput(bchaddr.toLegacyAddress(address), amount);
+    try {
+      this.transaction.addOutput(bchaddr.toLegacyAddress(address), amount);
+    }
+    catch(error) {
+      this.transaction.addOutput(address, amount);
+    }
   }
 
-  sign(vin, originalAmount) {
+  sign(vin, keyPair) {
     this.transaction.enableBitcoinCash(true);
 
     this.transaction.setVersion(2);
@@ -39,7 +40,7 @@ class TransactionBuilder {
 
     let hashType = sighashAll | sighashBitcoinCashBIP143;
 
-    this.transaction.sign(vin, this.keyPairs[vin], null, hashType, originalAmount);
+    this.transaction.sign(vin, keyPair, null, hashType, this.amounts[vin]);
   }
 
   build() {
