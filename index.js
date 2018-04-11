@@ -22,7 +22,7 @@ let clone = require('git-clone');
 // let ProgressBar = require('progress');
 
 program
-  .version('0.6.6');
+  .version('0.6.7');
 
 program
   .command('new')
@@ -252,8 +252,8 @@ program
 
     console.log(chalk.blue(`Creating ${options.language} ${options.encoding} paper wallet`));
     let bitbox = new BITBOXCli();
-    let mnemonic = bitbox.Mnemonic.generateMnemonic(256, bitbox.Mnemonic.mnemonicWordLists()[options.language]);
-    let keypair = bitbox.Mnemonic.keypairsFromMnemonic(mnemonic, 1)[0];
+    let mnemonic = bitbox.Mnemonic.generate(256, bitbox.Mnemonic.wordLists()[options.language]);
+    let keypair = bitbox.Mnemonic.toKeypairs(mnemonic, 1)[0];
     let privateKeyWIF = keypair.privateKeyWIF;
     let address = keypair.address;
     if(options.encoding === 'legacy') {
