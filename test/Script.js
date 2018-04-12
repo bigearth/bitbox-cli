@@ -44,23 +44,23 @@ describe('#Script', () => {
     });
   });
 
-  describe('#compile', () => {
+  describe('#encode', () => {
     describe('P2PKH scriptSig', () => {
-      fixtures.compileScriptSig.forEach((fixture) => {
-        it(`should compile scriptSig chunks to buffer`, () => {
+      fixtures.encodeScriptSig.forEach((fixture) => {
+        it(`should encode scriptSig chunks to buffer`, () => {
           let arr = [
             Buffer.from(fixture.scriptSigChunks[0], 'hex'),
             Buffer.from(fixture.scriptSigChunks[1], 'hex')
           ];
-          let compiledScriptSig = BITBOX.Script.encode(arr);
-          assert.equal(typeof compiledScriptSig, 'object');
+          let encodedScriptSig = BITBOX.Script.encode(arr);
+          assert.equal(typeof encodedScriptSig, 'object');
         });
       });
     });
 
     describe('P2PKH scriptPubKey', () => {
-      fixtures.compileScriptPubKey.forEach((fixture) => {
-        it(`should compile scriptPubKey buffer`, () => {
+      fixtures.encodeScriptPubKey.forEach((fixture) => {
+        it(`should encode scriptPubKey buffer`, () => {
           let decodedScriptPubKey = BITBOX.Script.decode(Buffer.from(fixture.scriptPubKeyHex, 'hex'));
           let compiledScriptPubKey = BITBOX.Script.encode(decodedScriptPubKey);
           assert.equal(compiledScriptPubKey.toString('hex'), fixture.scriptPubKeyHex);
@@ -72,7 +72,7 @@ describe('#Script', () => {
   describe('#toASM', () => {
     describe('P2PKH scriptSig', () => {
       fixtures.scriptSigToASM.forEach((fixture) => {
-        it(`should compile scriptSig buffer to ${fixture.asm}`, () => {
+        it(`should encode scriptSig buffer to ${fixture.asm}`, () => {
           let arr = [
             Buffer.from(fixture.scriptSigChunks[0], 'hex'),
             Buffer.from(fixture.scriptSigChunks[1], 'hex')

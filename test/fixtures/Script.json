@@ -48,7 +48,7 @@
       "pubKeyHex": "036effd263eb7b3f48a0a26920a8972c711af30606bf3a651843455e91cf385cf0"
     }
   ],
-  "compileScriptSig": [
+  "encodeScriptSig": [
     {
       "scriptSigChunks": [
         "3045022100877e2f9c28421f0a850cc8ff66ba1d0f6c8dbe9e63e199c2c2600c9c15bf9d4402204d35b13d3cc202aa25722b2b1791442ebc5c39d898b609515260ad08f0e766a601",
@@ -80,7 +80,7 @@
       ]
     }
   ],
-  "compileScriptPubKey": [
+  "encodeScriptPubKey": [
     {
       "scriptPubKeyHex": "76a91424e9c07804d0ee7e5bda934e0a3ae8710fc007dd88ac"
     },
