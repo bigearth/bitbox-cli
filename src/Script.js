@@ -4,13 +4,26 @@ import opcodes from 'bitcoin-ops';
 class Script {
   constructor() {
     this.opcodes = opcodes;
+    this.nullData = Bitcoin.script.nullData;
+    this.multisig = Bitcoin.script.multisig;
+    this.pubKey = Bitcoin.script.pubKey;
+    this.pubKeyHash = Bitcoin.script.pubKeyHash;
+    this.scriptHash = Bitcoin.script.scriptHash;
   }
 
-  decompile(scriptBuffer) {
+  classifyInput(script) {
+    return Bitcoin.script.classifyInput(script);
+  }
+
+  classifyOutput(script) {
+    return Bitcoin.script.classifyOutput(script);
+  }
+
+  decode(scriptBuffer) {
     return Bitcoin.script.decompile(scriptBuffer);
   }
 
-  compile(scriptChunks) {
+  encode(scriptChunks) {
     let arr = [];
     scriptChunks.forEach((chunk) => {
       arr.push(chunk);

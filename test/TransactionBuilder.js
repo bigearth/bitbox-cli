@@ -127,7 +127,7 @@ describe('#TransactionBuilder', () => {
       let originalAmount = 7696;
 
       transactionBuilder.addInput("2169dfc071306d38ec263490284647eea890f3eae0bde345b692558530e49653", 1, originalAmount)
-      let data = BITBOX.Script.compile([
+      let data = BITBOX.Script.encode([
         BITBOX.Script.opcodes.OP_RETURN,
         buf
       ])
@@ -147,7 +147,7 @@ describe('#TransactionBuilder', () => {
     it(`should decompile data to #BCHForEveryone`, () => {
 
       let b = BITBOX.Script.fromASM("OP_RETURN 23424348466f7245766572796f6e65")
-      let a = BITBOX.Script.decompile(b)
+      let a = BITBOX.Script.decode(b)
 
       assert.equal(a[1].toString('ascii'), '#BCHForEveryone');
     });
