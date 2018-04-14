@@ -255,11 +255,7 @@ describe('#Script', () => {
     describe('#multisigInputTemplate', () => {
       fixtures.multisigInputTemplate.forEach((fixture) => {
         it(`should encode multisig input`, () => {
-          let signatures = fixture.signatures.map((signature) => {
-            return signature ? Buffer.from(signature, 'hex') : BITBOX.Script.opcodes.OP_0
-          })
-
-          let buf = BITBOX.Script.multisig.input.encode(signatures);
+          let buf = BITBOX.Script.multisig.input.encode(fixture.signatures);
           assert.equal(buf.toString('hex'), fixture.hex);
         });
 

@@ -5,7 +5,7 @@
   "author": "Gabriel Cardona gabriel.cardona@clone.earth",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --compilers js:babel-core/register",
+    "test": "nyc mocha --compilers js:babel-core/register",
     "build": "babel src/ -d lib/",
     "flow": "flow"
   },
@@ -46,6 +46,7 @@
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
     "chai": "^4.1.2",
-    "flow-bin": "^0.64.0"
+    "flow-bin": "^0.64.0",
+    "nyc": "^11.6.0"
   }
 }
