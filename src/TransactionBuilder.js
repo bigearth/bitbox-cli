@@ -19,7 +19,9 @@ class TransactionBuilder {
     }
   }
 
-  addInput(txHash, vout, sequence = this.DEFAULT_SEQUENCE, prevOutScript) {
+  addInput(txHash, vout) {
+    let sequence = this.DEFAULT_SEQUENCE;
+    let prevOutScript;
     this.transaction.addInput(
       txHash,
       vout,
@@ -37,14 +39,16 @@ class TransactionBuilder {
     }
   }
 
-  sign(vin, keyPair, redeemScript, hashType = this.hashTypes.SIGHASH_ALL, witnessValue, witnessScript) {
+  sign(vin, keyPair, redeemScript, hashType = this.hashTypes.SIGHASH_ALL, value) {
     this.transaction.enableBitcoinCash(true);
 
     this.transaction.setVersion(2);
 
     let ht = hashType | this.hashTypes.SIGHASH_BITCOINCASH_BIP143;
 
-    this.transaction.sign(vin, keyPair, redeemScript, ht, witnessValue, witnessScript);
+    let witnessScript;
+
+    this.transaction.sign(vin, keyPair, redeemScript, ht, value, witnessScript);
   }
 
   build() {

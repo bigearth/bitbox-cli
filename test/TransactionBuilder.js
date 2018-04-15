@@ -30,9 +30,8 @@ describe('#TransactionBuilder', () => {
         let sendAmount = originalAmount - byteCount;
         // add output w/ address and amount to send
         let redeemScript
-        let witnessScript
         transactionBuilder.addOutput(fixture.outputs[0], sendAmount);
-        transactionBuilder.sign(0, keyPair, redeemScript, fixture.hashType, originalAmount, witnessScript);
+        transactionBuilder.sign(0, keyPair, redeemScript, fixture.hashType, originalAmount);
 
         // build tx
         let tx = transactionBuilder.build();
@@ -61,8 +60,7 @@ describe('#TransactionBuilder', () => {
         transactionBuilder.addOutput(fixture.outputs[0], Math.floor(sendAmount / 2));
         transactionBuilder.addOutput(fixture.outputs[1], Math.floor(sendAmount / 2));
         let redeemScript
-        let witnessScript
-        transactionBuilder.sign(0, keyPair, redeemScript, fixture.hashType, originalAmount, witnessScript);
+        transactionBuilder.sign(0, keyPair, redeemScript, fixture.hashType, originalAmount);
         // build tx
         let tx = transactionBuilder.build();
         // output rawhex
@@ -91,9 +89,8 @@ describe('#TransactionBuilder', () => {
         transactionBuilder.addOutput(fixture.outputs[0], Math.floor(sendAmount / 2));
         transactionBuilder.addOutput(fixture.outputs[1], Math.floor(sendAmount / 2));
         let redeemScript
-        let witnessScript
-        transactionBuilder.sign(0, key1, redeemScript, fixture.hashType, originalAmount / 2, witnessScript);
-        transactionBuilder.sign(1, key2, redeemScript, fixture.hashType, originalAmount / 2, witnessScript);
+        transactionBuilder.sign(0, key1, redeemScript, fixture.hashType, originalAmount / 2);
+        transactionBuilder.sign(1, key2, redeemScript, fixture.hashType, originalAmount / 2);
         // build tx
         let tx = transactionBuilder.build();
         // output rawhex
@@ -125,9 +122,8 @@ describe('#TransactionBuilder', () => {
         transactionBuilder.addOutput(fixture.outputs[0], sendAmount);
 
         let redeemScript
-        let witnessScript
-        transactionBuilder.sign(0, keyPair0, redeemScript, fixture.hashType, originalAmount / 2, witnessScript);
-        transactionBuilder.sign(1, keyPair1, redeemScript, fixture.hashType, originalAmount / 2, witnessScript);
+        transactionBuilder.sign(0, keyPair0, redeemScript, fixture.hashType, originalAmount / 2);
+        transactionBuilder.sign(1, keyPair1, redeemScript, fixture.hashType, originalAmount / 2);
         // build tx
         let tx = transactionBuilder.build();
         // output rawhex
@@ -145,7 +141,7 @@ describe('#TransactionBuilder', () => {
         let transactionBuilder = new BITBOX.TransactionBuilder();
         let originalAmount = fixture.amount;
 
-        transactionBuilder.addInput(fixture.txHash, 1, originalAmount)
+        transactionBuilder.addInput(fixture.txHash, 1)
         let data = BITBOX.Script.encode([
           BITBOX.Script.opcodes.OP_RETURN,
           buf
@@ -159,8 +155,7 @@ describe('#TransactionBuilder', () => {
         let key = BITBOX.ECPair.fromWIF(fixture.wif);
 
         let redeemScript
-        let witnessScript
-        transactionBuilder.sign(0, key, redeemScript, fixture.hashType, originalAmount, witnessScript);
+        transactionBuilder.sign(0, key, redeemScript, fixture.hashType, originalAmount);
         let hex = transactionBuilder.build().toHex();
         assert.equal(hex, fixture.hex);
       });
