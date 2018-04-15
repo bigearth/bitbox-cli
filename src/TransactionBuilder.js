@@ -6,41 +6,45 @@ class TransactionBuilder {
     if(network === 'bitcoincash') {
       network = 'bitcoin';
     }
-    this.amounts = [];
     this.transaction = new Bitcoin.TransactionBuilder(Bitcoin.networks[network]);
+    this.DEFAULT_SEQUENCE = 0xffffffff;
+    this.hashTypes = {
+      SIGHASH_ALL: 0x01,
+      SIGHASH_NONE: 0x02,
+      SIGHASH_SINGLE: 0x03,
+      SIGHASH_ANYONECANPAY: 0x80,
+      SIGHASH_BITCOINCASH_BIP143: 0x40,
+      ADVANCED_TRANSACTION_MARKER: 0x00,
+      ADVANCED_TRANSACTION_FLAG: 0x01
+    }
   }
 
-  addInput(txid, vin, amount) {
-    let defaultSequence = 0xffffffff;
-    this.amounts.push(amount)
-
+  addInput(txHash, vout, sequence = this.DEFAULT_SEQUENCE, prevOutScript) {
     this.transaction.addInput(
-      txid,
-      vin,
-      defaultSequence
+      txHash,
+      vout,
+      sequence,
+      prevOutScript
     );
   }
 
-  addOutput(address, amount) {
+  addOutput(scriptPubKey, amount) {
     try {
-      this.transaction.addOutput(bchaddr.toLegacyAddress(address), amount);
+      this.transaction.addOutput(bchaddr.toLegacyAddress(scriptPubKey), amount);
     }
     catch(error) {
-      this.transaction.addOutput(address, amount);
+      this.transaction.addOutput(scriptPubKey, amount);
     }
   }
 
-  sign(vin, keyPair) {
+  sign(vin, keyPair, redeemScript, hashType = this.hashTypes.SIGHASH_ALL, witnessValue, witnessScript) {
     this.transaction.enableBitcoinCash(true);
 
     this.transaction.setVersion(2);
 
-    let sighashAll = 0x01;
-    let sighashBitcoinCashBIP143 = 0x40;
+    let ht = hashType | this.hashTypes.SIGHASH_BITCOINCASH_BIP143;
 
-    let hashType = sighashAll | sighashBitcoinCashBIP143;
-
-    this.transaction.sign(vin, keyPair, null, hashType, this.amounts[vin]);
+    this.transaction.sign(vin, keyPair, redeemScript, ht, witnessValue, witnessScript);
   }
 
   build() {

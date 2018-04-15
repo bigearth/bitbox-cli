@@ -77,6 +77,10 @@ class Address {
     let address = HDNode.derivePath(path);
     return this.toCashAddress(address.getAddress());
   }
+
+  fromOutputScript(scriptPubKey) {
+    return bchaddr.toCashAddress(Bitcoin.address.fromOutputScript(scriptPubKey));
+  }
 }
 
 export default Address;
