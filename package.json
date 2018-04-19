@@ -1,6 +1,6 @@
 {
   "name": "bitbox-cli",
-  "version": "0.7.1",
+  "version": "0.7.2",
   "description": "A development framework for Bitcoin Cash",
   "author": "Gabriel Cardona gabriel.cardona@clone.earth",
   "main": "index.js",
@@ -18,6 +18,8 @@
     "babel-cli": "^6.26.0",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-flow": "^6.23.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.24.1",
     "babel-register": "^6.26.0",
     "bchaddrjs": "^0.2.1",
     "bip21": "bigearth/bip21",
@@ -43,8 +45,6 @@
     "touch": "^3.1.0"
   },
   "devDependencies": {
-    "babel-preset-env": "^1.6.1",
-    "babel-preset-react": "^6.24.1",
     "chai": "^4.1.2",
     "flow-bin": "^0.64.0",
     "nyc": "^11.6.0"

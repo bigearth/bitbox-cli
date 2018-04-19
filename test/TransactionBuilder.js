@@ -154,7 +154,7 @@ describe('#TransactionBuilder', () => {
         transactionBuilder.addOutput(data, 0);
         let key = BITBOX.ECPair.fromWIF(fixture.wif);
 
-        let redeemScript
+        let redeemScript;
         transactionBuilder.sign(0, key, redeemScript, fixture.hashType, originalAmount);
         let hex = transactionBuilder.build().toHex();
         assert.equal(hex, fixture.hex);
