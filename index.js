@@ -287,3 +287,8 @@ program
 
 program
   .parse(process.argv);
+
+// print help if no command given
+if (!process.argv.slice(2).length) {
+  program.outputHelp()
+}
