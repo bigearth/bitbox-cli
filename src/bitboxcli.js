@@ -29,14 +29,21 @@ class BITBOXCli {
         password: '',
         protocol: '',
         host: '',
-        port: ''
+        port: '',
+        corsproxy: false
       };
     }
 
     this.config = config;
-    this.BitboxHTTP = axios.create({
-      baseURL: `${config.protocol}://${config.host}:${config.port}/`
-    });
+    if(this.config.corsproxy) {
+      this.BitboxHTTP = axios.create({
+        baseURL: `${config.protocol}://localhost:1337/${config.host}:${config.port}/`
+      });
+    } else {
+      this.BitboxHTTP = axios.create({
+        baseURL: `${config.protocol}://${config.host}:${config.port}/`
+      });
+    }
     this.BitcoinCash = new BitcoinCash();
     this.Crypto = Crypto;
     this.Mnemonic = new Mnemonic();

@@ -14,6 +14,8 @@ let repl = require("repl");
 let ini = require('ini');
 let BITBOXCli = require('./lib/bitboxcli').default;
 let clone = require('git-clone');
+let corsproxy = require('corsproxy');
+let cmd = require('node-cmd');
 
 // let request = require('superagent');
 // let co = require('co');
@@ -22,7 +24,7 @@ let clone = require('git-clone');
 // let ProgressBar = require('progress');
 
 program
-  .version('0.7.2');
+  .version('0.7.3');
 
 program
   .command('new')
@@ -281,6 +283,22 @@ program
         `);
       })
     })
+
+  }
+);
+
+program
+  .command('proxy')
+  .description('localhost proxy for POSTing to full BCH node')
+  .action((options) => {
+    console.log(chalk.green(`CORS Proxy running at: http://localhost:1337`));
+    cmd.run('npm install -g corsproxy');
+    cmd.get(
+    'corsproxy',
+    function(err, data, stderr){
+      // console.log('')
+    }
+    );
 
   }
 );
