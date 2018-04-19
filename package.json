@@ -5,7 +5,7 @@
   "author": "Gabriel Cardona gabriel.cardona@clone.earth",
   "main": "index.js",
   "scripts": {
-    "test": "nyc mocha --compilers js:babel-core/register",
+    "test": "nyc mocha --require babel-core/register",
     "build": "babel src/ -d lib/",
     "flow": "flow"
   },

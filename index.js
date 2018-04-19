@@ -33,10 +33,7 @@ program
   .option('-p, --port <port>', 'port of running BITBOX instance. Default: 8332')
   .option('-u, --username <username>', 'Bitcoin Cash JSON RPC username')
   .option('-a, --password <passwore>', 'Bitcoin Cash JSON RPC password')
-  .description(`The 'bitbox new' command creates a new BITBOX application w/ a
-  directory structure and bitbox.js configuration file.
-
-  Pass in command line arguments or optionally specify commonly used arguments in a .bitboxrc file in your home directory`)
+  .description(`create a new BITBOX application`)
   .action((options) => {
     clear();
     console.log(
@@ -290,3 +287,8 @@ program
 
 program
   .parse(process.argv);
+
+// print help if no command given
+if (!process.argv.slice(2).length) {
+  program.outputHelp()
+}
