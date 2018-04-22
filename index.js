@@ -35,7 +35,8 @@ program
   .option('-o, --host <host>', 'host of running BITBOX instance. (Default: localhost)')
   .option('-p, --port <port>', 'port of running BITBOX instance. (Default: 8332)')
   .option('-u, --username <username>', 'Bitcoin Cash JSON RPC username')
-  .option('-a, --password <passwore>', 'Bitcoin Cash JSON RPC password')
+  .option('-a, --password <password>', 'Bitcoin Cash JSON RPC password')
+  .option('-c, --corsproxy <corsproxy>', 'Bitcoin Cash JSON RPC password')
   .description(`create a new BITBOX application`)
   .action((name, options) => {
     clear();
