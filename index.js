@@ -24,7 +24,7 @@ let cmd = require('node-cmd');
 // let ProgressBar = require('progress');
 
 program
-  .version('0.7.3');
+  .version('0.7.4');
 
 program
   .command('new <name>')
@@ -107,6 +107,15 @@ program
         password = '';
       }
 
+      let corsproxy;
+      if(options && options.corsproxy) {
+        corsproxy = options.corsproxy;
+      } else if(config && config.new && config.new.corsproxy) {
+        corsproxy = config.new.corsproxy;
+      } else {
+        corsproxy = false;
+      }
+
       if(options && options.scaffold) {
         let scaffold = options.scaffold.toLowerCase();
         let repo;
@@ -140,7 +149,7 @@ program
       console.log(chalk.green(`Creating tests/ directory: ./${name}/tests`));
       mkdirp(`./${name}/tests`, (err) => {});
 
-      console.log(chalk.green(`Creating bitbox.js configuration file`));
+      console.log(chalk.green(`Creating bitbox.js configuration file: ./${name}/bitbox.js`));
 
       mkdirp(`./${name}`, (err) => {});
       touch(`./${name}/bitbox.js`);
@@ -151,7 +160,8 @@ program
       host: "${host}",
       port: "${port}",
       username: "${username}",
-      password: "${password}"
+      password: "${password}",
+      corsproxy: ${corsproxy}
     }
   }
 };
