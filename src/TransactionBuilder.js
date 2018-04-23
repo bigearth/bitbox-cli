@@ -19,9 +19,7 @@ class TransactionBuilder {
     }
   }
 
-  addInput(txHash, vout) {
-    let sequence = this.DEFAULT_SEQUENCE;
-    let prevOutScript;
+  addInput(txHash, vout, sequence = this.DEFAULT_SEQUENCE, prevOutScript) {
     this.transaction.addInput(
       txHash,
       vout,

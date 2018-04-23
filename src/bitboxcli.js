@@ -20,6 +20,7 @@ import Transaction from './Transaction';
 import TransactionBuilder from './TransactionBuilder';
 import ECPair from './ECPair';
 import Script from './Script';
+import Stealth from './Stealth';
 
 class BITBOXCli {
   constructor(config) {
@@ -60,6 +61,7 @@ class BITBOXCli {
     this.Transaction = Transaction;
     this.TransactionBuilder = TransactionBuilder;
     this.Script = new Script();
+    this.Stealth = new Stealth();
     this.ECPair = ECPair;
   }
   //
