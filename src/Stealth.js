@@ -1,9 +1,5 @@
 import Bitcoin from 'bitcoinjs-lib';
 import bchaddr from 'bchaddrjs';
-import sb from 'satoshi-Bitcoin';
-import BitcoinMessage from 'Bitcoinjs-message';
-import bs58 from 'bs58';
-import bip21 from 'bip21';
 import bigi from 'bigi';
 import ecurve from 'ecurve';
 
