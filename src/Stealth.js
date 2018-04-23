@@ -1,4 +1,4 @@
-import Bitcoin from 'Bitcoinjs-lib';
+import Bitcoin from 'bitcoinjs-lib';
 import bchaddr from 'bchaddrjs';
 import sb from 'satoshi-Bitcoin';
 import BitcoinMessage from 'Bitcoinjs-message';
