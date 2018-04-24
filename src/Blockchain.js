@@ -172,7 +172,9 @@ class Blockchain {
         jsonrpc: "1.0",
         id:"getblockhash",
         method: "getblockhash",
-        params: params
+        params: [
+          parseInt(params)
+        ]
       }
     })
     .then((response) => {

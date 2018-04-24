@@ -149,14 +149,14 @@ class Util {
         id:"estimatefee",
         method: "estimatefee",
         params: [
-          nblocks
+          parseInt(nblocks)
         ]
       }
     })
     .then((response) => {
       return response.data.result;
     })
-    .catch(error => {
+    .catch((error) => {
       return Error(error.response.data.error.message);
     });
   }
@@ -181,14 +181,14 @@ class Util {
         id:"estimatepriority",
         method: "estimatepriority",
         params: [
-          nblocks
+          parseInt(nblocks)
         ]
       }
     })
     .then((response) => {
       return response.data.result;
     })
-    .catch(error => {
+    .catch((error) => {
       return Error(error.response.data.error.message);
     });
   }
@@ -275,7 +275,7 @@ class Util {
     .then((response) => {
       return response.data.result;
     })
-    .catch(error => {
+    .catch((error) => {
       return Error(error.response.data.error.message);
     });
   }
