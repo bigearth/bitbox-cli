@@ -52,7 +52,7 @@ class Wallet {
       return response.data.result;
     })
     .catch((error) => {
-      return Error(error.response.data.error.message);
+      return JSON.stringify(error.response.data.error.message);
     });
   }
 
@@ -82,14 +82,14 @@ class Wallet {
 
       fs.appendFile(destination, response.data, (error) => {
         if (error) {
-          return Error(error.response.data.error.message);
+          return JSON.stringify(error.response.data.error.message);
         } else {
           return response.data.result;
         }
       });
     })
     .catch((error) => {
-      return Error(error.response.data.error.message);
+      return JSON.stringify(error.response.data.error.message);
     });
   }
 
@@ -118,8 +118,8 @@ class Wallet {
     .then((response) => {
       return response.data.result;
     })
-    .catch(error => {
-      return Error(error.response.data.error.message);
+    .catch((error) => {
+      return JSON.stringify(error.response.data.error.message);
     });
   }
 
@@ -151,14 +151,14 @@ class Wallet {
       //
       // fs.appendFile("wallet.txt", response.data, (error) => {
       //   if (error) {
-      //     return Error(error.response.data.error.message);
+      //     return JSON.stringify(error.response.data.error.message);
       //   }  else {
       //     return response.data.result;
       //   }
       // });
     })
-    .catch(error => {
-      return Error(error.response.data.error.message);
+    .catch((error) => {
+      return JSON.stringify(error.response.data.error.message);
     });
   }
 
@@ -188,8 +188,8 @@ class Wallet {
     .then((response) => {
       return response.data.result;
     })
-    .catch(error => {
-      return Error(error.response.data.error.message);
+    .catch((error) => {
+      return JSON.stringify(error.response.data.error.message);
     });
   }
 
@@ -219,8 +219,8 @@ class Wallet {
     .then((response) => {
       return response.data.result;
     })
-    .catch(error => {
-      return Error(error.response.data.error.message);
+    .catch((error) => {
+      return JSON.stringify(error.response.data.error.message);
     });
   }
 
@@ -254,8 +254,8 @@ class Wallet {
     .then((response) => {
       return response.data.result;
     })
-    .catch(error => {
-      return Error(error.response.data.error.message);
+    .catch((error) => {
+      return JSON.stringify(error.response.data.error.message);
     });
   }
 
@@ -298,8 +298,8 @@ class Wallet {
     .then((response) => {
       return response.data.result;
     })
-    .catch(error => {
-      return Error(error.response.data.error.message);
+    .catch((error) => {
+      return JSON.stringify(error.response.data.error.message);
     });
   }
 
@@ -360,8 +360,8 @@ class Wallet {
     .then((response) => {
       return response.data.result;
     })
-    .catch(error => {
-      return Error(error.response.data.error.message);
+    .catch((error) => {
+      return JSON.stringify(error.response.data.error.message);
     });
   }
 
@@ -397,8 +397,8 @@ class Wallet {
     .then((response) => {
       return response.data.result;
     })
-    .catch(error => {
-      return Error(error.response.data.error.message);
+    .catch((error) => {
+      return JSON.stringify(error.response.data.error.message);
     });
   }
 
@@ -425,8 +425,8 @@ class Wallet {
     .then((response) => {
       return response.data.result;
     })
-    .catch(error => {
-      return Error(error.response.data.error.message);
+    .catch((error) => {
+      return JSON.stringify(error.response.data.error.message);
     });
   }
 
@@ -471,8 +471,8 @@ class Wallet {
     .then((response) => {
       return response.data.result;
     })
-    .catch(error => {
-      return Error(error.response.data.error.message);
+    .catch((error) => {
+      return JSON.stringify(error.response.data.error.message);
     });
   }
 
@@ -514,8 +514,8 @@ class Wallet {
     .then((response) => {
       return response.data.result;
     })
-    .catch(error => {
-      return Error(error.response.data.error.message);
+    .catch((error) => {
+      return JSON.stringify(error.response.data.error.message);
     });
   }
 
@@ -585,8 +585,8 @@ class Wallet {
     .then((response) => {
       return response.data.result;
     })
-    .catch(error => {
-      return Error(error.response.data.error.message);
+    .catch((error) => {
+      return JSON.stringify(error.response.data.error.message);
     });
   }
 
@@ -609,8 +609,8 @@ class Wallet {
     .then((response) => {
       return response.data.result;
     })
-    .catch(error => {
-      return Error(error.response.data.error.message);
+    .catch((error) => {
+      return JSON.stringify(error.response.data.error.message);
     });
   }
 
@@ -647,8 +647,8 @@ class Wallet {
     .then((response) => {
       return response.data.result;
     })
-    .catch(error => {
-      return Error(error.response.data.error.message);
+    .catch((error) => {
+      return JSON.stringify(error.response.data.error.message);
     });
   }
 
@@ -709,8 +709,8 @@ class Wallet {
     .then((response) => {
       return response.data.result;
     })
-    .catch(error => {
-      return Error(error.response.data.error.message);
+    .catch((error) => {
+      return JSON.stringify(error.response.data.error.message);
     });
   }
 
@@ -774,8 +774,8 @@ class Wallet {
     .then((response) => {
       return response.data.result;
     })
-    .catch(error => {
-      return Error(error.response.data.error.message);
+    .catch((error) => {
+      return JSON.stringify(error.response.data.error.message);
     });
   }
 
@@ -819,8 +819,8 @@ class Wallet {
     .then((response) => {
       return response.data.result;
     })
-    .catch(error => {
-      return Error(error.response.data.error.message);
+    .catch((error) => {
+      return JSON.stringify(error.response.data.error.message);
     });
   }
 
@@ -850,8 +850,8 @@ class Wallet {
     .then((response) => {
       return response.data.result;
     })
-    .catch(error => {
-      return Error(error.response.data.error.message);
+    .catch((error) => {
+      return JSON.stringify(error.response.data.error.message);
     });
   }
 
@@ -878,8 +878,8 @@ class Wallet {
     .then((response) => {
       return response.data.result;
     })
-    .catch(error => {
-      return Error(error.response.data.error.message);
+    .catch((error) => {
+      return JSON.stringify(error.response.data.error.message);
     });
   }
 
@@ -910,8 +910,8 @@ class Wallet {
     .then((response) => {
       return response.data.result;
     })
-    .catch(error => {
-      return Error(error.response.data.error.message);
+    .catch((error) => {
+      return JSON.stringify(error.response.data.error.message);
     });
   }
 
@@ -955,8 +955,8 @@ class Wallet {
     .then((response) => {
       return response.data.result;
     })
-    .catch(error => {
-      return Error(error.response.data.error.message);
+    .catch((error) => {
+      return JSON.stringify(error.response.data.error.message);
     });
   }
 
@@ -994,8 +994,8 @@ class Wallet {
     .then((response) => {
       return response.data.result;
     })
-    .catch(error => {
-      return Error(error.response.data.error.message);
+    .catch((error) => {
+      return JSON.stringify(error.response.data.error.message);
     });
   }
 
@@ -1027,8 +1027,8 @@ class Wallet {
     .then((response) => {
       return response.data.result;
     })
-    .catch(error => {
-      return Error(error.response.data.error.message);
+    .catch((error) => {
+      return JSON.stringify(error.response.data.error.message);
     });
   }
 
@@ -1087,8 +1087,8 @@ class Wallet {
     .then((response) => {
       return response.data.result;
     })
-    .catch(error => {
-      return Error(error.response.data.error.message);
+    .catch((error) => {
+      return JSON.stringify(error.response.data.error.message);
     });
   }
 
@@ -1152,8 +1152,8 @@ class Wallet {
     .then((response) => {
       return response.data.result;
     })
-    .catch(error => {
-      return Error(error.response.data.error.message);
+    .catch((error) => {
+      return JSON.stringify(error.response.data.error.message);
     });
   }
 
@@ -1220,8 +1220,8 @@ class Wallet {
     .then((response) => {
       return response.data.result;
     })
-    .catch(error => {
-      return Error(error.response.data.error.message);
+    .catch((error) => {
+      return JSON.stringify(error.response.data.error.message);
     });
   }
 
@@ -1275,8 +1275,8 @@ class Wallet {
     .then((response) => {
       return response.data.result;
     })
-    .catch(error => {
-      return Error(error.response.data.error.message);
+    .catch((error) => {
+      return JSON.stringify(error.response.data.error.message);
     });
   }
 
@@ -1353,8 +1353,8 @@ class Wallet {
     .then((response) => {
       return response.data.result;
     })
-    .catch(error => {
-      return Error(error.response.data.error.message);
+    .catch((error) => {
+      return JSON.stringify(error.response.data.error.message);
     });
   }
 
@@ -1408,8 +1408,8 @@ class Wallet {
     .then((response) => {
       return response.data.result;
     })
-    .catch(error => {
-      return Error(error.response.data.error.message);
+    .catch((error) => {
+      return JSON.stringify(error.response.data.error.message);
     });
   }
 
@@ -1463,8 +1463,8 @@ class Wallet {
     .then((response) => {
       return response.data.result;
     })
-    .catch(error => {
-      return Error(error.response.data.error.message);
+    .catch((error) => {
+      return JSON.stringify(error.response.data.error.message);
     });
   }
 
@@ -1492,8 +1492,8 @@ class Wallet {
     .then((response) => {
       return response.data.result;
     })
-    .catch(error => {
-      return Error(error.response.data.error.message);
+    .catch((error) => {
+      return JSON.stringify(error.response.data.error.message);
     });
   }
 
@@ -1557,8 +1557,8 @@ class Wallet {
     .then((response) => {
       return response.data.result;
     })
-    .catch(error => {
-      return Error(error.response.data.error.message);
+    .catch((error) => {
+      return JSON.stringify(error.response.data.error.message);
     });
   }
 
@@ -1623,8 +1623,8 @@ class Wallet {
     .then((response) => {
       return response.data.result;
     })
-    .catch(error => {
-      return Error(error.response.data.error.message);
+    .catch((error) => {
+      return JSON.stringify(error.response.data.error.message);
     });
   }
 
@@ -1681,8 +1681,8 @@ class Wallet {
     .then((response) => {
       return response.data.result;
     })
-    .catch(error => {
-      return Error(error.response.data.error.message);
+    .catch((error) => {
+      return JSON.stringify(error.response.data.error.message);
     });
   }
 
@@ -1717,8 +1717,8 @@ class Wallet {
     .then((response) => {
       return response.data.result;
     })
-    .catch(error => {
-      return Error(error.response.data.error.message);
+    .catch((error) => {
+      return JSON.stringify(error.response.data.error.message);
     });
   }
 
@@ -1749,8 +1749,8 @@ class Wallet {
     .then((response) => {
       return response.data.result;
     })
-    .catch(error => {
-      return Error(error.response.data.error.message);
+    .catch((error) => {
+      return JSON.stringify(error.response.data.error.message);
     });
   }
 
@@ -1790,8 +1790,8 @@ class Wallet {
     .then((response) => {
       return response.data.result;
     })
-    .catch(error => {
-      return Error(error.response.data.error.message);
+    .catch((error) => {
+      return JSON.stringify(error.response.data.error.message);
     });
   }
 }

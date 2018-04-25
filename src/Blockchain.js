@@ -27,7 +27,7 @@ class Blockchain {
       return response.data.result;
     })
     .catch((error) => {
-      return Error(error.response.data.error.message);
+      return JSON.stringify(error.response.data.error.message);
     });
   }
 
@@ -92,8 +92,8 @@ class Blockchain {
     .then((response) => {
       return response.data.result;
     })
-    .catch(error => {
-      return Error(error.response.data.error.message);
+    .catch((error) => {
+      return JSON.stringify(error.response.data.error.message);
     });
   }
 
@@ -115,8 +115,8 @@ class Blockchain {
     .then((response) => {
       return response.data.result;
     })
-    .catch(error => {
-      return Error(error.response.data.error.message);
+    .catch((error) => {
+      return JSON.stringify(error.response.data.error.message);
     });
   }
 
@@ -142,8 +142,8 @@ class Blockchain {
     .then((response) => {
       return response.data.result;
     })
-    .catch(error => {
-      return Error(error.response.data.error.message);
+    .catch((error) => {
+      return JSON.stringify(error.response.data.error.message);
     });
   }
 
@@ -180,8 +180,8 @@ class Blockchain {
     .then((response) => {
       return response.data.result;
     })
-    .catch(error => {
-      return Error(error.response.data.error.message);
+    .catch((error) => {
+      return JSON.stringify(error.response.data.error.message);
     });
   }
 
@@ -242,8 +242,8 @@ class Blockchain {
     .then((response) => {
       return response.data.result;
     })
-    .catch(error => {
-      return Error(error.response.data.error.message);
+    .catch((error) => {
+      return JSON.stringify(error.response.data.error.message);
     });
   }
 
@@ -289,8 +289,8 @@ class Blockchain {
     .then((response) => {
       return response.data.result;
     })
-    .catch(error => {
-      return Error(error.response.data.error.message);
+    .catch((error) => {
+      return JSON.stringify(error.response.data.error.message);
     });
   }
 
@@ -317,8 +317,8 @@ class Blockchain {
     .then((response) => {
       return response.data.result;
     })
-    .catch(error => {
-      return Error(error.response.data.error.message);
+    .catch((error) => {
+      return JSON.stringify(error.response.data.error.message);
     });
   }
 
@@ -385,8 +385,8 @@ class Blockchain {
     .then((response) => {
       return response.data.result;
     })
-    .catch(error => {
-      return Error(error.response.data.error.message);
+    .catch((error) => {
+      return JSON.stringify(error.response.data.error.message);
     });
   }
 
@@ -452,8 +452,8 @@ class Blockchain {
     .then((response) => {
       return response.data.result;
     })
-    .catch(error => {
-      return Error(error.response.data.error.message);
+    .catch((error) => {
+      return JSON.stringify(error.response.data.error.message);
     });
   }
 
@@ -501,8 +501,8 @@ class Blockchain {
     .then((response) => {
       return response.data.result;
     })
-    .catch(error => {
-      return Error(error.response.data.error.message);
+    .catch((error) => {
+      return JSON.stringify(error.response.data.error.message);
     });
   }
 
@@ -534,8 +534,8 @@ class Blockchain {
     .then((response) => {
       return response.data.result;
     })
-    .catch(error => {
-      return Error(error.response.data.error.message);
+    .catch((error) => {
+      return JSON.stringify(error.response.data.error.message);
     });
   }
 
@@ -593,8 +593,8 @@ class Blockchain {
     .then((response) => {
       return response.data.result;
     })
-    .catch(error => {
-      return Error(error.response.data.error.message);
+    .catch((error) => {
+      return JSON.stringify(error.response.data.error.message);
     });
   }
 
@@ -654,8 +654,8 @@ class Blockchain {
     .then((response) => {
       return response.data.result;
     })
-    .catch(error => {
-      return Error(error.response.data.error.message);
+    .catch((error) => {
+      return JSON.stringify(error.response.data.error.message);
     });
   }
 
@@ -705,8 +705,8 @@ class Blockchain {
     .then((response) => {
       return response.data.result;
     })
-    .catch(error => {
-      return Error(error.response.data.error.message);
+    .catch((error) => {
+      return JSON.stringify(error.response.data.error.message);
     });
   }
 
@@ -743,8 +743,8 @@ class Blockchain {
     .then((response) => {
       return response.data.result;
     })
-    .catch(error => {
-      return Error(error.response.data.error.message);
+    .catch((error) => {
+      return JSON.stringify(error.response.data.error.message);
     });
   }
 
@@ -778,8 +778,8 @@ class Blockchain {
     .then((response) => {
       return response.data.result;
     })
-    .catch(error => {
-      return Error(error.response.data.error.message);
+    .catch((error) => {
+      return JSON.stringify(error.response.data.error.message);
     });
   }
 
@@ -811,8 +811,8 @@ class Blockchain {
     .then((response) => {
       return response.data.result;
     })
-    .catch(error => {
-      return Error(error.response.data.error.message);
+    .catch((error) => {
+      return JSON.stringify(error.response.data.error.message);
     });
   }
 
@@ -850,8 +850,8 @@ class Blockchain {
     .then((response) => {
       return response.data.result;
     })
-    .catch(error => {
-      return Error(error.response.data.error.message);
+    .catch((error) => {
+      return JSON.stringify(error.response.data.error.message);
     });
   }
 
@@ -883,8 +883,8 @@ class Blockchain {
     .then((response) => {
       return response.data.result;
     })
-    .catch(error => {
-      return Error(error.response.data.error.message);
+    .catch((error) => {
+      return JSON.stringify(error.response.data.error.message);
     });
   }
 
