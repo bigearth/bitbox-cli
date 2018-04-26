@@ -129,7 +129,7 @@ program
           repo = 'https://github.com/bigearth/bitbox-scaffold-nextjs.git';
         } else if(scaffold === 'react') {
           repo = 'https://github.com/bigearth/bitbox-scaffold-react.git';
-        } else if(scaffold === 'vue') {
+        } else if(scaffold === 'vuejs') {
           repo = 'https://github.com/cyio/bitbox-scaffold-vue.git';
         }
 
