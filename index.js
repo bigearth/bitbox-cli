@@ -28,7 +28,7 @@ program
 
 program
   .command('new <name>')
-  .option('-s, --scaffold <scaffold>', 'The framework to use. Options include react, angular, nextjs and node. (Default: react)')
+  .option('-s, --scaffold <scaffold>', 'The framework to use. Options include react, angular, vuejs, nextjs and node. (Default: react)')
   .option('-r, --scaffold-repo <repo>', 'The github repository to use. Ex: https://github.com/bigearth/bitbox-scaffold-react.git')
   .option('-e, --environment <environment>', 'environment of running BITBOX instance. Ex: production, staging. (Default: development)')
   .option('-r, --protocol <protocol>', 'protocol of running BITBOX instance. (Default: http)')
@@ -129,6 +129,8 @@ program
           repo = 'https://github.com/bigearth/bitbox-scaffold-nextjs.git';
         } else if(scaffold === 'react') {
           repo = 'https://github.com/bigearth/bitbox-scaffold-react.git';
+        } else if(scaffold === 'vue') {
+          repo = 'https://github.com/cyio/bitbox-scaffold-vue.git';
         }
 
         if(options && options.repo) {
