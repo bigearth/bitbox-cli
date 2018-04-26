@@ -38,7 +38,7 @@ class BITBOXCli {
     this.config = config;
     if(this.config.corsproxy) {
       this.BitboxHTTP = axios.create({
-        baseURL: `${config.protocol}://localhost:1337/${config.host}:${config.port}/`
+        baseURL: `${config.protocol}://proxy.bitbox.earth/${config.host}:${config.port}/`
       });
     } else {
       this.BitboxHTTP = axios.create({
