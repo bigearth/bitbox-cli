@@ -24,7 +24,7 @@ let cmd = require('node-cmd');
 // let ProgressBar = require('progress');
 
 program
-  .version('0.7.8');
+  .version('0.7.9');
 
 program
   .command('new <name>')
@@ -125,12 +125,12 @@ program
           repo = 'https://github.com/bigearth/bitbox-scaffold-node.git';
         } else if(scaffold === 'angular') {
           repo = 'https://github.com/bigearth/bitbox-scaffold-angular.git';
-        } else if(scaffold === 'nextjs') {
-          repo = 'https://github.com/bigearth/bitbox-scaffold-nextjs.git';
+        } else if(scaffold === 'next') {
+          repo = 'https://github.com/bigearth/bitbox-scaffold-next.git';
         } else if(scaffold === 'react') {
           repo = 'https://github.com/bigearth/bitbox-scaffold-react.git';
-        } else if(scaffold === 'vuejs') {
-          repo = 'https://github.com/cyio/bitbox-scaffold-vue.git';
+        } else if(scaffold === 'vue') {
+          repo = 'https://github.com/bigearth/bitbox-scaffold-vue.git';
         }
 
         if(options && options.repo) {
@@ -140,7 +140,7 @@ program
         console.log(chalk.blue(`Scaffolding ${scaffold} app in ${name}`));
         clone(repo, `./${name}`, [conf], () => {
           console.log(chalk.green('All done.'), emoji.get(':white_check_mark:'));
-          console.log(chalk.blue('Now confirm you have your locally running BITBOX and run `npm install && npm start`'), emoji.get(':rocket:'));
+          console.log(chalk.blue('Now `cd` in to your new project and run `npm install && npm start`'), emoji.get(':rocket:'));
         });
         return;
       }
