@@ -1,7 +1,8 @@
+import axios from 'axios';
 class Blockchain {
-  constructor(config, BitboxHTTP) {
+  constructor(config, baseURL) {
     this.config = config;
-    this.BitboxHTTP = BitboxHTTP;
+    this.baseURL = baseURL;
   }
 
   getBestBlockHash() {
@@ -9,18 +10,15 @@ class Blockchain {
     //
     // Result:
     // "hex"      (string) the block hash hex encoded
-
-    return this.BitboxHTTP({
-      method: 'post',
+    return axios.post(this.baseURL, {
+      jsonrpc: "1.0",
+      id:"getbestblockhash",
+      method: "getbestblockhash",
+      params: []
+    }, {
       auth: {
         username: this.config.username,
         password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"getbestblockhash",
-        method: "getbestblockhash",
-        params: []
       }
     })
     .then((response) => {
@@ -76,17 +74,15 @@ class Blockchain {
       ];
     }
 
-    return this.BitboxHTTP({
-      method: 'post',
+    return axios.post(this.baseURL, {
+      jsonrpc: "1.0",
+      id:"getblock",
+      method: "getblock",
+      params: params
+    }, {
       auth: {
         username: this.config.username,
         password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"getblock",
-        method: "getblock",
-        params: params
       }
     })
     .then((response) => {
@@ -99,17 +95,15 @@ class Blockchain {
 
   getBlockchainInfo() {
     // Returns an object containing various state info regarding blockchain processing.
-    return this.BitboxHTTP({
-      method: 'post',
+    return axios.post(this.baseURL, {
+      jsonrpc: "1.0",
+      id:"getblockchaininfo",
+      method: "getblockchaininfo",
+      params: []
+    }, {
       auth: {
         username: this.config.username,
         password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"getblockchaininfo",
-        method: "getblockchaininfo",
-        params: []
       }
     })
     .then((response) => {
@@ -126,17 +120,15 @@ class Blockchain {
     // Result:
     // n    (numeric) The current block count
 
-    return this.BitboxHTTP({
-      method: 'post',
+    return axios.post(this.baseURL, {
+      jsonrpc: "1.0",
+      id:"getblockcount",
+      method: "getblockcount",
+      params: []
+    }, {
       auth: {
         username: this.config.username,
         password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"getblockcount",
-        method: "getblockcount",
-        params: []
       }
     })
     .then((response) => {
@@ -162,19 +154,17 @@ class Blockchain {
       params.push(0)
     }
 
-    return this.BitboxHTTP({
-      method: 'post',
+    return axios.post(this.baseURL, {
+      jsonrpc: "1.0",
+      id:"getblockhash",
+      method: "getblockhash",
+      params: [
+        parseInt(params)
+      ]
+    }, {
       auth: {
         username: this.config.username,
         password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"getblockhash",
-        method: "getblockhash",
-        params: [
-          parseInt(params)
-        ]
       }
     })
     .then((response) => {
@@ -226,17 +216,15 @@ class Blockchain {
       ];
     }
 
-    return this.BitboxHTTP({
-      method: 'post',
+    return axios.post(this.baseURL, {
+      jsonrpc: "1.0",
+      id:"getblockheader",
+      method: "getblockheader",
+      params: params
+    }, {
       auth: {
         username: this.config.username,
         password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"getblockheader",
-        method: "getblockheader",
-        params: params
       }
     })
     .then((response) => {
@@ -273,17 +261,15 @@ class Blockchain {
     // 4.  "valid-fork"            This branch is not part of the active chain, but is fully validated
     // 5.  "active"                This is the tip of the active main chain, which is certainly valid
 
-    return this.BitboxHTTP({
-      method: 'post',
+    return axios.post(this.baseURL, {
+      jsonrpc: "1.0",
+      id:"getchaintips",
+      method: "getchaintips",
+      params: []
+    }, {
       auth: {
         username: this.config.username,
         password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"getchaintips",
-        method: "getchaintips",
-        params: []
       }
     })
     .then((response) => {
@@ -301,17 +287,15 @@ class Blockchain {
     // Result:
     // n.nnn       (numeric) the proof-of-work difficulty as a multiple of the minimum difficulty.
 
-    return this.BitboxHTTP({
-      method: 'post',
+    return axios.post(this.baseURL, {
+      jsonrpc: "1.0",
+      id:"getdifficulty",
+      method: "getdifficulty",
+      params: []
+    }, {
       auth: {
         username: this.config.username,
         password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"getdifficulty",
-        method: "getdifficulty",
-        params: []
       }
     })
     .then((response) => {
@@ -369,17 +353,15 @@ class Blockchain {
       ]
     }
 
-    return this.BitboxHTTP({
-      method: 'post',
+    return axios.post(this.baseURL, {
+      jsonrpc: "1.0",
+      id:"getmempoolancestors",
+      method: "getmempoolancestors",
+      params: params
+    }, {
       auth: {
         username: this.config.username,
         password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"getmempoolancestors",
-        method: "getmempoolancestors",
-        params: params
       }
     })
     .then((response) => {
@@ -436,17 +418,16 @@ class Blockchain {
         verbose
       ]
     }
-    return this.BitboxHTTP({
-      method: 'post',
+
+    return axios.post(this.baseURL, {
+      jsonrpc: "1.0",
+      id:"getmempooldescendants",
+      method: "getmempooldescendants",
+      params: params
+    }, {
       auth: {
         username: this.config.username,
         password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"getmempooldescendants",
-        method: "getmempooldescendants",
-        params: params
       }
     })
     .then((response) => {
@@ -483,19 +464,17 @@ class Blockchain {
     //        ... ]
     // }
 
-    return this.BitboxHTTP({
-      method: 'post',
+    return axios.post(this.baseURL, {
+      jsonrpc: "1.0",
+      id:"getmempoolentry",
+      method: "getmempoolentry",
+      params: [
+        txid
+      ]
+    }, {
       auth: {
         username: this.config.username,
         password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"getmempoolentry",
-        method: "getmempoolentry",
-        params: [
-          txid
-        ]
       }
     })
     .then((response) => {
@@ -518,17 +497,15 @@ class Blockchain {
     //   "mempoolminfee": xxxxx       (numeric) Minimum fee for tx to be accepted
     // }
 
-    return this.BitboxHTTP({
-      method: 'post',
+    return axios.post(this.baseURL, {
+      jsonrpc: "1.0",
+      id:"getmempoolinfo",
+      method: "getmempoolinfo",
+      params: []
+    }, {
       auth: {
         username: this.config.username,
         password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"getmempoolinfo",
-        method: "getmempoolinfo",
-        params: []
       }
     })
     .then((response) => {
@@ -577,17 +554,15 @@ class Blockchain {
       params.push(verbose);
     }
 
-    return this.BitboxHTTP({
-      method: 'post',
+    return axios.post(this.baseURL, {
+      jsonrpc: "1.0",
+      id:"getrawmempool",
+      method: "getrawmempool",
+      params: params
+    }, {
       auth: {
         username: this.config.username,
         password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"getrawmempool",
-        method: "getrawmempool",
-        params: params
       }
     })
     .then((response) => {
@@ -638,17 +613,15 @@ class Blockchain {
       ];
     }
 
-    return this.BitboxHTTP({
-      method: 'post',
+    return axios.post(this.baseURL, {
+      jsonrpc: "1.0",
+      id:"gettxout",
+      method: "gettxout",
+      params: params
+    }, {
       auth: {
         username: this.config.username,
         password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"gettxout",
-        method: "gettxout",
-        params: params
       }
     })
     .then((response) => {
@@ -689,17 +662,15 @@ class Blockchain {
       ];
     }
 
-    return this.BitboxHTTP({
-      method: 'post',
+    return axios.post(this.baseURL, {
+      jsonrpc: "1.0",
+      id:"gettxoutproof",
+      method: "gettxoutproof",
+      params: params
+    }, {
       auth: {
         username: this.config.username,
         password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"gettxoutproof",
-        method: "gettxoutproof",
-        params: params
       }
     })
     .then((response) => {
@@ -727,17 +698,15 @@ class Blockchain {
     // }
     //
 
-    return this.BitboxHTTP({
-      method: 'post',
+    return axios.post(this.baseURL, {
+      jsonrpc: "1.0",
+      id:"gettxoutsetinfo",
+      method: "gettxoutsetinfo",
+      params: []
+    }, {
       auth: {
         username: this.config.username,
         password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"gettxoutsetinfo",
-        method: "gettxoutsetinfo",
-        params: []
       }
     })
     .then((response) => {
@@ -759,20 +728,16 @@ class Blockchain {
     // 1. "blockhash"   (string, required) the hash of the block to mark as precious
 
     let params = [];
-    if(blockhash) {
-      params.push(blockhash);
-    }
-    return this.BitboxHTTP({
-      method: 'post',
+
+    return axios.post(this.baseURL, {
+      jsonrpc: "1.0",
+      id:"preciousblock",
+      method: "preciousblock",
+      params: params
+    }, {
       auth: {
         username: this.config.username,
         password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"preciousblock",
-        method: "preciousblock",
-        params: params
       }
     })
     .then((response) => {
@@ -795,17 +760,15 @@ class Blockchain {
       params.push(height);
     }
 
-    return this.BitboxHTTP({
-      method: 'post',
+    return axios.post(this.baseURL, {
+      jsonrpc: "1.0",
+      id:"pruneblockchain",
+      method: "pruneblockchain",
+      params: params
+    }, {
       auth: {
         username: this.config.username,
         password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"pruneblockchain",
-        method: "pruneblockchain",
-        params: params
       }
     })
     .then((response) => {
@@ -834,17 +797,15 @@ class Blockchain {
       params.push(nblocks);
     }
 
-    return this.BitboxHTTP({
-      method: 'post',
+    return axios.post(this.baseURL, {
+      jsonrpc: "1.0",
+      id:"verifychain",
+      method: "verifychain",
+      params: params
+    }, {
       auth: {
         username: this.config.username,
         password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"verifychain",
-        method: "verifychain",
-        params: params
       }
     })
     .then((response) => {
@@ -865,19 +826,17 @@ class Blockchain {
     // Result:
     // ["txid"]      (array, strings) The txid(s) which the proof commits to, or empty array if the proof is invalid
 
-    return this.BitboxHTTP({
-      method: 'post',
-      auth: {
-        username: this.config.username,
-        password: this.config.password
-      },
-      data: {
+    return axios.post(this.baseURL, {
         jsonrpc: "1.0",
         id:"verifytxoutproof",
         method: "verifytxoutproof",
         params: [
           proof
         ]
+    }, {
+      auth: {
+        username: this.config.username,
+        password: this.config.password
       }
     })
     .then((response) => {
@@ -887,7 +846,6 @@ class Blockchain {
       return JSON.stringify(error.response.data.error.message);
     });
   }
-
 }
 
 export default Blockchain;

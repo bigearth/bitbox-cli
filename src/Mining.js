@@ -1,7 +1,8 @@
+import axios from 'axios';
 class Mining {
-  constructor(config, BitboxHTTP) {
+  constructor(config, baseURL) {
     this.config = config;
-    this.BitboxHTTP = BitboxHTTP;
+    this.baseURL = baseURL;
   }
 
   getBlockTemplate(template_request) {
@@ -37,18 +38,15 @@ class Mining {
       ];
     }
 
-
-    return this.BitboxHTTP({
-      method: 'post',
+    return axios.post(this.baseURL, {
+      jsonrpc: "1.0",
+      id:"getblocktemplate",
+      method: "getblocktemplate",
+      params: params
+    }, {
       auth: {
         username: this.config.username,
         password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"getblocktemplate",
-        method: "getblocktemplate",
-        params: params
       }
     })
     .then((response) => {
@@ -73,18 +71,15 @@ class Mining {
     //   "chain": "xxxx",           (string) current network name as defined in BIP70 (main, test, regtest)
     // }
 
-
-    return this.BitboxHTTP({
-      method: 'post',
+    return axios.post(this.baseURL, {
+      jsonrpc: "1.0",
+      id:"getmininginfo",
+      method: "getmininginfo",
+      params: []
+    }, {
       auth: {
         username: this.config.username,
         password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"getmininginfo",
-        method: "getmininginfo",
-        params: []
       }
     })
     .then((response) => {
@@ -114,20 +109,15 @@ class Mining {
       params.push(0);
     }
 
-    if(height) {
-      params.push(height);
-    }
-    return this.BitboxHTTP({
-      method: 'post',
+    return axios.post(this.baseURL, {
+      jsonrpc: "1.0",
+      id:"getnetworkhashps",
+      method: "getnetworkhashps",
+      params: params
+    }, {
       auth: {
         username: this.config.username,
         password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"getnetworkhashps",
-        method: "getnetworkhashps",
-        params: params
       }
     })
     .then((response) => {
@@ -166,17 +156,15 @@ class Mining {
       params.push(fee_delta);
     }
 
-    return this.BitboxHTTP({
-      method: 'post',
+    return axios.post(this.baseURL, {
+      jsonrpc: "1.0",
+      id:"prioritisetransaction",
+      method: "prioritisetransaction",
+      params: params
+    }, {
       auth: {
         username: this.config.username,
         password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"prioritisetransaction",
-        method: "prioritisetransaction",
-        params: params
       }
     })
     .then((response) => {
@@ -208,17 +196,15 @@ class Mining {
       params.push(parameters);
     }
 
-    return this.BitboxHTTP({
-      method: 'post',
+    return axios.post(this.baseURL, {
+      jsonrpc: "1.0",
+      id:"submitblock",
+      method: "submitblock",
+      params: params
+    }, {
       auth: {
         username: this.config.username,
         password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"submitblock",
-        method: "submitblock",
-        params: params
       }
     })
     .then((response) => {
@@ -228,7 +214,6 @@ class Mining {
       return JSON.stringify(error.response.data.error.message);
     });
   }
-
 }
 
 export default Mining;

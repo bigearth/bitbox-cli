@@ -1,7 +1,8 @@
+import axios from 'axios';
 class Control {
-  constructor(config, BitboxHTTP) {
+  constructor(config, baseURL) {
     this.config = config;
-    this.BitboxHTTP = BitboxHTTP;
+    this.baseURL = baseURL;
   }
 
   getInfo() {
@@ -27,17 +28,15 @@ class Control {
     //   "errors": "..."           (string) any error messages
     // }
 
-    return this.BitboxHTTP({
-      method: 'post',
+    return axios.post(this.baseURL, {
+      jsonrpc: "1.0",
+      id:"getinfo",
+      method: "getinfo",
+      params: []
+    }, {
       auth: {
         username: this.config.username,
         password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"getinfo",
-        method: "getinfo",
-        params: []
       }
     })
     .then((response) => {
@@ -65,17 +64,15 @@ class Control {
     // }
     //
 
-    return this.BitboxHTTP({
-      method: 'post',
+    return axios.post(this.baseURL, {
+      jsonrpc: "1.0",
+      id:"getmemoryinfo",
+      method: "getmemoryinfo",
+      params: []
+    }, {
       auth: {
         username: this.config.username,
         password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"getmemoryinfo",
-        method: "getmemoryinfo",
-        params: []
       }
     })
     .then((response) => {
@@ -98,17 +95,16 @@ class Control {
     if(command) {
       params.push(command);
     }
-    return this.BitboxHTTP({
-      method: 'post',
+
+    return axios.post(this.baseURL, {
+      jsonrpc: "1.0",
+      id:"help",
+      method: "help",
+      params: params
+    }, {
       auth: {
         username: this.config.username,
         password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"help",
-        method: "help",
-        params: params
       }
     })
     .then((response) => {
@@ -121,17 +117,15 @@ class Control {
 
   stop() {
     // Stop Bitcoin Cash server.
-    return this.BitboxHTTP({
-      method: 'post',
+    return axios.post(this.baseURL, {
+      jsonrpc: "1.0",
+      id:"stop",
+      method: "stop",
+      params: []
+    }, {
       auth: {
         username: this.config.username,
         password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"stop",
-        method: "stop",
-        params: []
       }
     })
     .then((response) => {

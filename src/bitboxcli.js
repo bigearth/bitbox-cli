@@ -31,30 +31,29 @@ class BITBOXCli {
         protocol: '',
         host: '',
         port: '',
-        corsproxy: false
+        corsproxy: false,
+        test: true
       };
     }
 
     this.config = config;
-    if(this.config.corsproxy) {
-      this.BitboxHTTP = axios.create({
-        baseURL: `${config.protocol}://localhost:1337/${config.host}:${config.port}/`
-      });
-    } else {
-      this.BitboxHTTP = axios.create({
-        baseURL: `${config.protocol}://${config.host}:${config.port}/`
-      });
+    this.baseURL = '/';
+    if(this.config.corsproxy && !this.config.test) {
+      this.baseURL = `${config.protocol}://localhost:1337/${config.host}:${config.port}/`;
+    } else if(!this.config.test) {
+      this.baseURL = `${config.protocol}://${config.host}:${config.port}/`;
     }
+
     this.BitcoinCash = new BitcoinCash();
     this.Crypto = Crypto;
     this.Mnemonic = new Mnemonic();
     this.Address = new Address();
     this.HDNode = new HDNode();
     this.Util = new Util(config, this.BitboxHTTP);
-    this.Blockchain = new Blockchain(config, this.BitboxHTTP);
-    this.Control = new Control(config, this.BitboxHTTP);
+    this.Blockchain = new Blockchain(config, this.baseURL);
+    this.Control = new Control(config, this.baseURL);
     this.Generating = new Generating(config, this.BitboxHTTP);
-    this.Mining = new Mining(config, this.BitboxHTTP);
+    this.Mining = new Mining(config, this.baseURL);
     this.Network = new Network(config, this.BitboxHTTP);
     this.RawTransactions = new RawTransactions(config, this.BitboxHTTP);
     this.Wallet = new Wallet(config, this.BitboxHTTP);
