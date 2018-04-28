@@ -29,15 +29,16 @@ class BITBOXCli {
         protocol: '',
         host: '',
         port: '',
-        corsproxy: false,
         test: true
       };
     }
 
     this.config = config;
     this.baseURL = '/';
-    if(this.config.corsproxy && !this.config.test) {
+    if(this.config.corsproxy && this.config.corsproxy === 'local' && !this.config.test) {
       this.baseURL = `${config.protocol}://localhost:1337/${config.host}:${config.port}/`;
+    } else if(this.config.corsproxy && this.config.corsproxy === 'remote' && !this.config.test) {
+      this.baseURL = `${config.protocol}://proxy.bitbox.earth/${config.host}:${config.port}/`;
     } else if(!this.config.test) {
       this.baseURL = `${config.protocol}://${config.host}:${config.port}/`;
     }
