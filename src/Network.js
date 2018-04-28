@@ -29,11 +29,9 @@ class Network {
       }
     })
     .then((response) => {
-      console.log('res', response)
       return response.data.result;
     })
     .catch((error) => {
-      console.log('error', error)
       return JSON.stringify(error.response.data.error.message);
     });
   }

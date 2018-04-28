@@ -12,7 +12,6 @@ import Generating from './Generating';
 import Mining from './Mining';
 import Network from './Network';
 import RawTransactions from './RawTransactions';
-import Wallet from './Wallet';
 import Mnemonic from './Mnemonic';
 import Address from './Address';
 import HDNode from './HDNode';
@@ -20,7 +19,6 @@ import Transaction from './Transaction';
 import TransactionBuilder from './TransactionBuilder';
 import ECPair from './ECPair';
 import Script from './Script';
-import Stealth from './Stealth';
 
 class BITBOXCli {
   constructor(config) {
@@ -56,11 +54,9 @@ class BITBOXCli {
     this.Mining = new Mining(config, this.baseURL);
     this.Network = new Network(config, this.baseURL);
     this.RawTransactions = new RawTransactions(config, this.baseURL);
-    this.Wallet = new Wallet(config, this.baseURL);
     this.Transaction = Transaction;
     this.TransactionBuilder = TransactionBuilder;
     this.Script = new Script();
-    this.Stealth = new Stealth();
     this.ECPair = ECPair;
   }
 }
