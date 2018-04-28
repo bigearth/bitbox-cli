@@ -1,7 +1,8 @@
+import axios from 'axios';
 class Util {
-  constructor(config, BitboxHTTP) {
+  constructor(config, baseURL) {
     this.config = config;
-    this.BitboxHTTP = BitboxHTTP;
+    this.baseURL = baseURL;
   }
 
   estimateSmartFee(nblocks) {
@@ -24,19 +25,17 @@ class Util {
     // have been observed to make an estimate for any number of blocks.
     // However it will not return a value below the mempool reject fee.
 
-    return this.BitboxHTTP({
-      method: 'post',
+    return axios.post(this.baseURL, {
+      jsonrpc: "1.0",
+      id:"estimatesmartfee",
+      method: "estimatesmartfee",
+      params: [
+        nblocks
+      ]
+    }, {
       auth: {
         username: this.config.username,
         password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"estimatesmartfee",
-        method: "estimatesmartfee",
-        params: [
-          nblocks
-        ]
       }
     })
     .then((response) => {
@@ -66,19 +65,18 @@ class Util {
     // A negative value is returned if not enough transactions and blocks
     // have been observed to make an estimate for any number of blocks.
     // However if the mempool reject fee is set it will return 1e9 * MAX_MONEY.
-    return this.BitboxHTTP({
-      method: 'post',
+
+    return axios.post(this.baseURL, {
+      jsonrpc: "1.0",
+      id:"estimatesmartpriority",
+      method: "estimatesmartpriority",
+      params: [
+        nblocks
+      ]
+    }, {
       auth: {
         username: this.config.username,
         password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"estimatesmartpriority",
-        method: "estimatesmartpriority",
-        params: [
-          nblocks
-        ]
       }
     })
     .then((response) => {
@@ -104,20 +102,18 @@ class Util {
 
     // Result—P2SH address and hex-encoded redeem script
 
-    return this.BitboxHTTP({
-      method: 'post',
+    return axios.post(this.baseURL, {
+      jsonrpc: "1.0",
+      id:"createmultisig",
+      method: "createmultisig",
+      params: [
+        required,
+        address
+      ]
+    }, {
       auth: {
         username: this.config.username,
         password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"createmultisig",
-        method: "createmultisig",
-        params: [
-          required,
-          address
-        ]
       }
     })
     .then((response) => {
@@ -138,19 +134,17 @@ class Util {
     // Result:
     // n              (numeric) estimated fee-per-kilobyte
 
-    return this.BitboxHTTP({
-      method: 'post',
+    return axios.post(this.baseURL, {
+      jsonrpc: "1.0",
+      id:"estimatefee",
+      method: "estimatefee",
+      params: [
+        parseInt(nblocks)
+      ]
+    }, {
       auth: {
         username: this.config.username,
         password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"estimatefee",
-        method: "estimatefee",
-        params: [
-          parseInt(nblocks)
-        ]
       }
     })
     .then((response) => {
@@ -170,19 +164,18 @@ class Util {
     //
     // Result:
     // n              (numeric) estimated priority
-    return this.BitboxHTTP({
-      method: 'post',
+
+    return axios.post(this.baseURL, {
+      jsonrpc: "1.0",
+      id:"estimatepriority",
+      method: "estimatepriority",
+      params: [
+        parseInt(nblocks)
+      ]
+    }, {
       auth: {
         username: this.config.username,
         password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"estimatepriority",
-        method: "estimatepriority",
-        params: [
-          parseInt(nblocks)
-        ]
       }
     })
     .then((response) => {
@@ -212,17 +205,15 @@ class Util {
       params.push(message);
     }
 
-    return this.BitboxHTTP({
-      method: 'post',
+    return axios.post(this.baseURL, {
+      jsonrpc: "1.0",
+      id:"signmessagewithprivkey",
+      method: "signmessagewithprivkey",
+      params: params
+    }, {
       auth: {
         username: this.config.username,
         password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"signmessagewithprivkey",
-        method: "signmessagewithprivkey",
-        params: params
       }
     })
     .then((response) => {
@@ -259,17 +250,15 @@ class Util {
       params.push(address);
     }
 
-    return this.BitboxHTTP({
-      method: 'post',
+    return axios.post(this.baseURL, {
+      jsonrpc: "1.0",
+      id:"validateaddress",
+      method: "validateaddress",
+      params: params
+    }, {
       auth: {
         username: this.config.username,
         password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"validateaddress",
-        method: "validateaddress",
-        params: params
       }
     })
     .then((response) => {
@@ -303,17 +292,16 @@ class Util {
     if(message) {
       params.push(message);
     }
-    return this.BitboxHTTP({
-      method: 'post',
+    
+    return axios.post(this.baseURL, {
+      jsonrpc: "1.0",
+      id:"verifymessage",
+      method: "verifymessage",
+      params: params
+    }, {
       auth: {
         username: this.config.username,
         password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"verifymessage",
-        method: "verifymessage",
-        params: params
       }
     })
     .then((response) => {

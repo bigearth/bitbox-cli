@@ -145,5 +145,3 @@ describe('#Mining', () => {
     });
   });
 });
-
-// BITBOX.Mining.prioritiseTransaction('daf58932cb91619304dd4cbd03c7202e89ad7d6cbd6e2209e5f64ce3b6ed7c88', 0.0, 10000).then((result) => { console.log(result); }, (err) => { console.log(err); });

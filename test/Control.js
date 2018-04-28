@@ -118,5 +118,3 @@ describe('#Control', () => {
     });
   });
 });
-
-// BITBOX.Control.stop().then((result) => { console.log(result); }, (err) => { console.log(err); });

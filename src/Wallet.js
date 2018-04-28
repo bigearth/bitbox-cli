@@ -1,7 +1,7 @@
 class Wallet {
-  constructor(config, BitboxHTTP) {
+  constructor(config, baseURL) {
     this.config = config;
-    this.BitboxHTTP = BitboxHTTP;
+    this.baseURL = baseURL;
   }
 
   addMultisigAddress(nrequired, keys, account){
@@ -35,17 +35,15 @@ class Wallet {
       ];
     }
 
-    return this.BitboxHTTP({
-      method: 'post',
+    return axios.post(this.baseURL, {
+      jsonrpc: "1.0",
+      id:"addmultisigaddress",
+      method: "addmultisigaddress",
+      params: params
+    }, {
       auth: {
         username: this.config.username,
         password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"addmultisigaddress",
-        method: "addmultisigaddress",
-        params: params
       }
     })
     .then((response) => {
@@ -62,31 +60,21 @@ class Wallet {
     // Arguments:
     // 1. "destination"   (string) The destination directory or file
 
-    return this.BitboxHTTP({
-      method: 'post',
+    return axios.post(this.baseURL, {
+      jsonrpc: "1.0",
+      id:"backupWallet",
+      method: "backupWallet",
+      params: [
+        destination
+      ]
+    }, {
       auth: {
         username: this.config.username,
         password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"backupWallet",
-        method: "backupWallet",
-        params: [
-          destination
-        ]
       }
     })
     .then((response) => {
-      let fs = require('fs');
-
-      fs.appendFile(destination, response.data, (error) => {
-        if (error) {
-          return JSON.stringify(error.response.data.error.message);
-        } else {
-          return response.data.result;
-        }
-      });
+      return response.data.result;
     })
     .catch((error) => {
       return JSON.stringify(error.response.data.error.message);
@@ -100,19 +88,17 @@ class Wallet {
 
     // Result—the private key
 
-    return this.BitboxHTTP({
-      method: 'post',
+    return axios.post(this.baseURL, {
+      jsonrpc: "1.0",
+      id:"dumpprivkey",
+      method: "dumpprivkey",
+      params: [
+        address
+      ]
+    }, {
       auth: {
         username: this.config.username,
         password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"dumpprivkey",
-        method: "dumpprivkey",
-        params: [
-          address
-        ]
       }
     })
     .then((response) => {
@@ -130,32 +116,21 @@ class Wallet {
 
     // Result—null or error
 
-    return this.BitboxHTTP({
-      method: 'post',
+    return axios.post(this.baseURL, {
+      jsonrpc: "1.0",
+      id:"dumpwallet",
+      method: "dumpwallet",
+      params: [
+        filename
+      ]
+    }, {
       auth: {
         username: this.config.username,
         password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"dumpwallet",
-        method: "dumpwallet",
-        params: [
-          filename
-        ]
       }
     })
     .then((response) => {
       return response.data.result;
-      // let fs = require('fs');
-      //
-      // fs.appendFile("wallet.txt", response.data, (error) => {
-      //   if (error) {
-      //     return JSON.stringify(error.response.data.error.message);
-      //   }  else {
-      //     return response.data.result;
-      //   }
-      // });
     })
     .catch((error) => {
       return JSON.stringify(error.response.data.error.message);
@@ -170,19 +145,17 @@ class Wallet {
 
     // Result—a notice (with program shutdown)
 
-    return this.BitboxHTTP({
-      method: 'post',
+    return axios.post(this.baseURL, {
+      jsonrpc: "1.0",
+      id:"encryptwallet",
+      method: "encryptwallet",
+      params: [
+        passphrase
+      ]
+    }, {
       auth: {
         username: this.config.username,
         password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"encryptwallet",
-        method: "encryptwallet",
-        params: [
-          passphrase
-        ]
       }
     })
     .then((response) => {
@@ -201,19 +174,18 @@ class Wallet {
     //
     // Result:
     // "address"          (string) The account bitcoin address
-    return this.BitboxHTTP({
-      method: 'post',
+
+    return axios.post(this.baseURL, {
+      jsonrpc: "1.0",
+      id:"getaccountaddress",
+      method: "getaccountaddress",
+      params: [
+        account
+      ]
+    }, {
       auth: {
         username: this.config.username,
         password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"getaccountaddress",
-        method: "getaccountaddress",
-        params: [
-          account
-        ]
       }
     })
     .then((response) => {
@@ -238,17 +210,16 @@ class Wallet {
     } else {
       params.push("");
     }
-    return this.BitboxHTTP({
-      method: 'post',
+
+    return axios.post(this.baseURL, {
+      jsonrpc: "1.0",
+      id:"getaccount",
+      method: "getaccount",
+      params: params
+    }, {
       auth: {
         username: this.config.username,
         password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"getaccount",
-        method: "getaccount",
-        params: params
       }
     })
     .then((response) => {
@@ -282,17 +253,15 @@ class Wallet {
       ];
     }
 
-    return this.BitboxHTTP({
-      method: 'post',
+    return axios.post(this.baseURL, {
+      jsonrpc: "1.0",
+      id:"getaddressesbyaccount",
+      method: "getaddressesbyaccount",
+      params: params
+    }, {
       auth: {
         username: this.config.username,
         password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"getaddressesbyaccount",
-        method: "getaddressesbyaccount",
-        params: params
       }
     })
     .then((response) => {
@@ -344,17 +313,15 @@ class Wallet {
       params.push(include_watchonly);
     }
 
-    return this.BitboxHTTP({
-      method: 'post',
+    return axios.post(this.baseURL, {
+      jsonrpc: "1.0",
+      id:"getbalance",
+      method: "getbalance",
+      params: params
+    }, {
       auth: {
         username: this.config.username,
         password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"getbalance",
-        method: "getbalance",
-        params: params
       }
     })
     .then((response) => {
@@ -381,17 +348,15 @@ class Wallet {
       params.push(account);
     }
 
-    return this.BitboxHTTP({
-      method: 'post',
+    return axios.post(this.baseURL, {
+      jsonrpc: "1.0",
+      id:"getnewaddress",
+      method: "getnewaddress",
+      params: params
+    }, {
       auth: {
         username: this.config.username,
         password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"getnewaddress",
-        method: "getnewaddress",
-        params: params
       }
     })
     .then((response) => {
@@ -409,17 +374,15 @@ class Wallet {
     // Result:
     // "address"    (string) The address
 
-    return this.BitboxHTTP({
-      method: 'post',
+    return axios.post(this.baseURL, {
+      jsonrpc: "1.0",
+      id:"getrawchangeaddress",
+      method: "getrawchangeaddress",
+      params: []
+    }, {
       auth: {
         username: this.config.username,
         password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"getrawchangeaddress",
-        method: "getrawchangeaddress",
-        params: []
       }
     })
     .then((response) => {
@@ -455,17 +418,16 @@ class Wallet {
         minconf
       ];
     }
-    return this.BitboxHTTP({
-      method: 'post',
+
+    return axios.post(this.baseURL, {
+      jsonrpc: "1.0",
+      id:"getreceivedbyaccount",
+      method: "getreceivedbyaccount",
+      params: params
+    }, {
       auth: {
         username: this.config.username,
         password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"getreceivedbyaccount",
-        method: "getreceivedbyaccount",
-        params: params
       }
     })
     .then((response) => {
@@ -498,17 +460,16 @@ class Wallet {
         minconf
       ];
     }
-    return this.BitboxHTTP({
-      method: 'post',
+
+    return axios.post(this.baseURL, {
+      jsonrpc: "1.0",
+      id:"getreceivedbyaddress",
+      method: "getreceivedbyaddress",
+      params: params
+    }, {
       auth: {
         username: this.config.username,
         password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"getreceivedbyaddress",
-        method: "getreceivedbyaddress",
-        params: params
       }
     })
     .then((response) => {
@@ -569,17 +530,16 @@ class Wallet {
         include_watchonly
       ];
     }
-    return this.BitboxHTTP({
-      method: 'post',
+
+    return axios.post(this.baseURL, {
+      jsonrpc: "1.0",
+      id:"gettransaction",
+      method: "gettransaction",
+      params: params
+    }, {
       auth: {
         username: this.config.username,
         password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"gettransaction",
-        method: "gettransaction",
-        params: params
       }
     })
     .then((response) => {
@@ -593,17 +553,15 @@ class Wallet {
   getUnconfirmedBalance() {
     // Returns the server's total unconfirmed balance
 
-    return this.BitboxHTTP({
-      method: 'post',
+    return axios.post(this.baseURL, {
+      jsonrpc: "1.0",
+      id:"getunconfirmedbalance",
+      method: "getunconfirmedbalance",
+      params: []
+    }, {
       auth: {
         username: this.config.username,
         password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"getunconfirmedbalance",
-        method: "getunconfirmedbalance",
-        params: []
       }
     })
     .then((response) => {
@@ -631,17 +589,16 @@ class Wallet {
     //   "hdmasterkeyid": "<hash160>" (string) the Hash160 of the HD master pubkey
     // }
     //
-    return this.BitboxHTTP({
-      method: 'post',
+
+    return axios.post(this.baseURL, {
+      jsonrpc: "1.0",
+      id:"getwalletinfo",
+      method: "getwalletinfo",
+      params: []
+    }, {
       auth: {
         username: this.config.username,
         password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"getwalletinfo",
-        method: "getwalletinfo",
-        params: []
       }
     })
     .then((response) => {
@@ -693,17 +650,15 @@ class Wallet {
       params.push(false);
     }
 
-    return this.BitboxHTTP({
-      method: 'post',
+    return axios.post(this.baseURL, {
+      jsonrpc: "1.0",
+      id:"importaddress",
+      method: "importaddress",
+      params: params
+    }, {
       auth: {
         username: this.config.username,
         password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"importaddress",
-        method: "importaddress",
-        params: params
       }
     })
     .then((response) => {
@@ -758,17 +713,15 @@ class Wallet {
       ];
     }
 
-    return this.BitboxHTTP({
-      method: 'post',
+    return axios.post(this.baseURL, {
+      jsonrpc: "1.0",
+      id:"importmulti",
+      method: "importmulti",
+      params: params
+    }, {
       auth: {
         username: this.config.username,
         password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"importmulti",
-        method: "importmulti",
-        params: params
       }
     })
     .then((response) => {
@@ -803,17 +756,15 @@ class Wallet {
       params.push(rescan);
     }
 
-    return this.BitboxHTTP({
-      method: 'post',
+    return axios.post(this.baseURL, {
+      jsonrpc: "1.0",
+      id:"importprivkey",
+      method: "importprivkey",
+      params: params
+    }, {
       auth: {
         username: this.config.username,
         password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"importprivkey",
-        method: "importprivkey",
-        params: params
       }
     })
     .then((response) => {
@@ -831,20 +782,18 @@ class Wallet {
     // 1. "rawtransaction" (string, required) A raw transaction in hex funding an already-existing address in wallet
     // 2. "txoutproof"     (string, required) The hex output from gettxoutproof that contains the transaction
 
-    return this.BitboxHTTP({
-      method: 'post',
+    return axios.post(this.baseURL, {
+      jsonrpc: "1.0",
+      id:"importprunedfunds",
+      method: "importprunedfunds",
+      params: [
+        rawtransaction,
+        txoutproof
+      ]
+    }, {
       auth: {
         username: this.config.username,
         password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"importprunedfunds",
-        method: "importprunedfunds",
-        params: [
-          rawtransaction,
-          txoutproof
-        ]
       }
     })
     .then((response) => {
@@ -860,19 +809,18 @@ class Wallet {
     //
     // Arguments:
     // 1. "filename"    (string, required) The wallet file
-    return this.BitboxHTTP({
-      method: 'post',
+
+    return axios.post(this.baseURL, {
+      jsonrpc: "1.0",
+      id:"importwallet",
+      method: "importwallet",
+      params: [
+        filename
+      ]
+    }, {
       auth: {
         username: this.config.username,
         password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"importwallet",
-        method: "importwallet",
-        params: [
-          filename
-        ]
       }
     })
     .then((response) => {
@@ -894,17 +842,15 @@ class Wallet {
       params.push(newsize);
     }
 
-    return this.BitboxHTTP({
-      method: 'post',
+    return axios.post(this.baseURL, {
+      jsonrpc: "1.0",
+      id:"keypoolrefill",
+      method: "keypoolrefill",
+      params: params
+    }, {
       auth: {
         username: this.config.username,
         password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"keypoolrefill",
-        method: "keypoolrefill",
-        params: params
       }
     })
     .then((response) => {
@@ -939,17 +885,15 @@ class Wallet {
       params.push(false);
     }
 
-    return this.BitboxHTTP({
-      method: 'post',
+    return axios.post(this.baseURL, {
+      jsonrpc: "1.0",
+      id:"listaccounts",
+      method: "listaccounts",
+      params: params
+    }, {
       auth: {
         username: this.config.username,
         password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"listaccounts",
-        method: "listaccounts",
-        params: params
       }
     })
     .then((response) => {
@@ -978,17 +922,15 @@ class Wallet {
     //   ,...
     // ]
 
-    return this.BitboxHTTP({
-      method: 'post',
+    return axios.post(this.baseURL, {
+      jsonrpc: "1.0",
+      id:"listaddressgroupings",
+      method: "listaddressgroupings",
+      params: []
+    }, {
       auth: {
         username: this.config.username,
         password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"listaddressgroupings",
-        method: "listaddressgroupings",
-        params: []
       }
     })
     .then((response) => {
@@ -1011,17 +953,15 @@ class Wallet {
     //   }
     //   ,...
 
-    return this.BitboxHTTP({
-      method: 'post',
+    return axios.post(this.baseURL, {
+      jsonrpc: "1.0",
+      id:"listlockunspent",
+      method: "listlockunspent",
+      params: []
+    }, {
       auth: {
         username: this.config.username,
         password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"listlockunspent",
-        method: "listlockunspent",
-        params: []
       }
     })
     .then((response) => {
@@ -1071,17 +1011,15 @@ class Wallet {
       params.push(false);
     }
 
-    return this.BitboxHTTP({
-      method: 'post',
+    return axios.post(this.baseURL, {
+      jsonrpc: "1.0",
+      id:"listreceivedbyaccount",
+      method: "listreceivedbyaccount",
+      params: params
+    }, {
       auth: {
         username: this.config.username,
         password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"listreceivedbyaccount",
-        method: "listreceivedbyaccount",
-        params: params
       }
     })
     .then((response) => {
@@ -1136,17 +1074,15 @@ class Wallet {
       params.push(false);
     }
 
-    return this.BitboxHTTP({
-      method: 'post',
+    return axios.post(this.baseURL, {
+      jsonrpc: "1.0",
+      id:"listreceivedbyaddress",
+      method: "listreceivedbyaddress",
+      params: params
+    }, {
       auth: {
         username: this.config.username,
         password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"listreceivedbyaddress",
-        method: "listreceivedbyaddress",
-        params: params
       }
     })
     .then((response) => {
@@ -1204,17 +1140,15 @@ class Wallet {
       params.push(include_watchonly);
     }
 
-    return this.BitboxHTTP({
-      method: 'post',
+    return axios.post(this.baseURL, {
+      jsonrpc: "1.0",
+      id:"listsinceblock",
+      method: "listsinceblock",
+      params: params
+    }, {
       auth: {
         username: this.config.username,
         password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"listsinceblock",
-        method: "listsinceblock",
-        params: params
       }
     })
     .then((response) => {
@@ -1259,17 +1193,15 @@ class Wallet {
       params.push(false);
     }
 
-    return this.BitboxHTTP({
-      method: 'post',
+    return axios.post(this.baseURL, {
+      jsonrpc: "1.0",
+      id:"listtransactions",
+      method: "listtransactions",
+      params: params
+    }, {
       auth: {
         username: this.config.username,
         password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"listtransactions",
-        method: "listtransactions",
-        params: params
       }
     })
     .then((response) => {
@@ -1337,17 +1269,15 @@ class Wallet {
       params.push(true);
     }
 
-    return this.BitboxHTTP({
-      method: 'post',
+    return axios.post(this.baseURL, {
+      jsonrpc: "1.0",
+      id:"listunspent",
+      method: "listunspent",
+      params: params
+    }, {
       auth: {
         username: this.config.username,
         password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"listunspent",
-        method: "listunspent",
-        params: params
       }
     })
     .then((response) => {
@@ -1392,17 +1322,15 @@ class Wallet {
       params.push(transactions);
     }
 
-    return this.BitboxHTTP({
-      method: 'post',
+    return axios.post(this.baseURL, {
+      jsonrpc: "1.0",
+      id:"lockunspent",
+      method: "lockunspent",
+      params: params
+    }, {
       auth: {
         username: this.config.username,
         password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"lockunspent",
-        method: "lockunspent",
-        params: params
       }
     })
     .then((response) => {
@@ -1447,17 +1375,15 @@ class Wallet {
       params.push(comment);
     }
 
-    return this.BitboxHTTP({
-      method: 'post',
+    return axios.post(this.baseURL, {
+      jsonrpc: "1.0",
+      id:"move",
+      method: "move",
+      params: params
+    }, {
       auth: {
         username: this.config.username,
         password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"move",
-        method: "move",
-        params: params
       }
     })
     .then((response) => {
@@ -1474,19 +1400,18 @@ class Wallet {
     // Arguments:
     // 1. "txid"           (string, required) The hex-encoded id of the transaction you are deleting
     //
-    return this.BitboxHTTP({
-      method: 'post',
+
+    return axios.post(this.baseURL, {
+      jsonrpc: "1.0",
+      id:"removeprunedfunds",
+      method: "removeprunedfunds",
+      params: [
+        txid
+      ]
+    }, {
       auth: {
         username: this.config.username,
         password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"removeprunedfunds",
-        method: "removeprunedfunds",
-        params: [
-          txid
-        ]
       }
     })
     .then((response) => {
@@ -1541,17 +1466,15 @@ class Wallet {
       params.push(comment_to);
     }
 
-    return this.BitboxHTTP({
-      method: 'post',
+    return axios.post(this.baseURL, {
+      jsonrpc: "1.0",
+      id:"sendfrom",
+      method: "sendfrom",
+      params: params
+    }, {
       auth: {
         username: this.config.username,
         password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"sendfrom",
-        method: "sendfrom",
-        params: params
       }
     })
     .then((response) => {
@@ -1607,17 +1530,15 @@ class Wallet {
       params.push(subtractfeefrom);
     }
 
-    return this.BitboxHTTP({
-      method: 'post',
+    return axios.post(this.baseURL, {
+      jsonrpc: "1.0",
+      id:"sendmany",
+      method: "sendmany",
+      params: params
+    }, {
       auth: {
         username: this.config.username,
         password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"sendmany",
-        method: "sendmany",
-        params: params
       }
     })
     .then((response) => {
@@ -1665,17 +1586,15 @@ class Wallet {
       params.push(subtractfeefromamount);
     }
 
-    return this.BitboxHTTP({
-      method: 'post',
+    return axios.post(this.baseURL, {
+      jsonrpc: "1.0",
+      id:"sendtoaddress",
+      method: "sendtoaddress",
+      params: params
+    }, {
       auth: {
         username: this.config.username,
         password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"sendtoaddress",
-        method: "sendtoaddress",
-        params: params
       }
     })
     .then((response) => {
@@ -1701,17 +1620,15 @@ class Wallet {
       params.push(account);
     }
 
-    return this.BitboxHTTP({
-      method: 'post',
+    return axios.post(this.baseURL, {
+      jsonrpc: "1.0",
+      id:"setaccount",
+      method: "setaccount",
+      params: params
+    }, {
       auth: {
         username: this.config.username,
         password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"setaccount",
-        method: "setaccount",
-        params: params
       }
     })
     .then((response) => {
@@ -1731,19 +1648,17 @@ class Wallet {
     // Result
     // true|false        (boolean) Returns true if successful
 
-    return this.BitboxHTTP({
-      method: 'post',
+    return axios.post(this.baseURL, {
+      jsonrpc: "1.0",
+      id:"settxfee",
+      method: "settxfee",
+      params: [
+        amount
+      ]
+    }, {
       auth: {
         username: this.config.username,
         password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"settxfee",
-        method: "settxfee",
-        params: [
-          amount
-        ]
       }
     })
     .then((response) => {
@@ -1774,17 +1689,15 @@ class Wallet {
       params.push(message);
     }
 
-    return this.BitboxHTTP({
-      method: 'post',
+    return axios.post(this.baseURL, {
+      jsonrpc: "1.0",
+      id:"signmessage",
+      method: "signmessage",
+      params: params
+    }, {
       auth: {
         username: this.config.username,
         password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"signmessage",
-        method: "signmessage",
-        params: params
       }
     })
     .then((response) => {

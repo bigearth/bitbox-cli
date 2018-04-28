@@ -1,7 +1,8 @@
+import axios from 'axios';
 class Network {
-  constructor(config, BitboxHTTP) {
+  constructor(config, baseURL) {
     this.config = config;
-    this.BitboxHTTP = BitboxHTTP;
+    this.baseURL = baseURL;
   }
 
   addNode(node, command){
@@ -12,26 +13,27 @@ class Network {
     // 1. "node"     (string, required) The node (see getpeerinfo for nodes)
     // 2. "command"  (string, required) 'add' to add a node to the list, 'remove' to remove a node from the list, 'onetry' to try a connection to the node once
     //
-    return this.BitboxHTTP({
-      method: 'post',
+
+    return axios.post(this.baseURL, {
+      jsonrpc: "1.0",
+      id:"addnode",
+      method: "addnode",
+      params: [
+        node,
+        command
+      ]
+    }, {
       auth: {
         username: this.config.username,
         password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"addnode",
-        method: "addnode",
-        params: [
-          node,
-          command
-        ]
       }
     })
     .then((response) => {
+      console.log('res', response)
       return response.data.result;
     })
     .catch((error) => {
+      console.log('error', error)
       return JSON.stringify(error.response.data.error.message);
     });
   }
@@ -44,17 +46,15 @@ class Network {
     // Result—null on success
     // JSON null when the list was cleared
 
-    return this.BitboxHTTP({
-      method: 'post',
+    return axios.post(this.baseURL, {
+      jsonrpc: "1.0",
+      id:"clearbanned",
+      method: "clearbanned",
+      params: []
+    }, {
       auth: {
         username: this.config.username,
         password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"clearbanned",
-        method: "clearbanned",
-        params: []
       }
     })
     .then((response) => {
@@ -88,17 +88,16 @@ class Network {
         configuration.nodeid
       ];
     }
-    return this.BitboxHTTP({
-      method: 'post',
+
+    return axios.post(this.baseURL, {
+      jsonrpc: "1.0",
+      id:"disconnectnode",
+      method: "disconnectnode",
+      params: params
+    }, {
       auth: {
         username: this.config.username,
         password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"disconnectnode",
-        method: "disconnectnode",
-        params: params
       }
     })
     .then((response) => {
@@ -139,17 +138,15 @@ class Network {
       ];
     }
 
-    return this.BitboxHTTP({
-      method: 'post',
+    return axios.post(this.baseURL, {
+      jsonrpc: "1.0",
+      id:"getaddednodeinfo",
+      method: "getaddednodeinfo",
+      params: params
+    }, {
       auth: {
         username: this.config.username,
         password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"getaddednodeinfo",
-        method: "getaddednodeinfo",
-        params: params
       }
     })
     .then((response) => {
@@ -167,17 +164,15 @@ class Network {
     // Result:
     // n          (numeric) The connection count
 
-    return this.BitboxHTTP({
-      method: 'post',
+    return axios.post(this.baseURL, {
+      jsonrpc: "1.0",
+      id:"getconnectioncount",
+      method: "getconnectioncount",
+      params: []
+    }, {
       auth: {
         username: this.config.username,
         password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"getconnectioncount",
-        method: "getconnectioncount",
-        params: []
       }
     })
     .then((response) => {
@@ -207,17 +202,15 @@ class Network {
     //   }
     // }
 
-    return this.BitboxHTTP({
-      method: 'post',
+    return axios.post(this.baseURL, {
+      jsonrpc: "1.0",
+      id:"getnettotals",
+      method: "getnettotals",
+      params: []
+    }, {
       auth: {
         username: this.config.username,
         password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"getnettotals",
-        method: "getnettotals",
-        params: []
       }
     })
     .then((response) => {
@@ -264,17 +257,15 @@ class Network {
     //   "warnings": "..."                    (string) any network warnings
     // }
 
-    return this.BitboxHTTP({
-      method: 'post',
+    return axios.post(this.baseURL, {
+      jsonrpc: "1.0",
+      id:"getnetworkinfo",
+      method: "getnetworkinfo",
+      params: []
+    }, {
       auth: {
         username: this.config.username,
         password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"getnetworkinfo",
-        method: "getnetworkinfo",
-        params: []
       }
     })
     .then((response) => {
@@ -330,17 +321,15 @@ class Network {
     //   ,...
     // ]
 
-    return this.BitboxHTTP({
-      method: 'post',
+    return axios.post(this.baseURL, {
+      jsonrpc: "1.0",
+      id:"getpeerinfo",
+      method: "getpeerinfo",
+      params: []
+    }, {
       auth: {
         username: this.config.username,
         password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"getpeerinfo",
-        method: "getpeerinfo",
-        params: []
       }
     })
     .then((response) => {
@@ -353,17 +342,15 @@ class Network {
 
   listBanned() {
     // List all banned IPs/Subnets.
-    return this.BitboxHTTP({
-      method: 'post',
+    return axios.post(this.baseURL, {
+      jsonrpc: "1.0",
+      id:"listbanned",
+      method: "listbanned",
+      params: []
+    }, {
       auth: {
         username: this.config.username,
         password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"listbanned",
-        method: "listbanned",
-        params: []
       }
     })
     .then((response) => {
@@ -379,17 +366,15 @@ class Network {
     // Results provided in getpeerinfo, pingtime and pingwait fields are decimal seconds.
     // Ping command is handled in queue with all other commands, so it measures processing backlog, not just network ping.
 
-    return this.BitboxHTTP({
-      method: 'post',
+    return axios.post(this.baseURL, {
+      jsonrpc: "1.0",
+      id:"ping",
+      method: "ping",
+      params: []
+    }, {
       auth: {
         username: this.config.username,
         password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"ping",
-        method: "ping",
-        params: []
       }
     })
     .then((response) => {
@@ -425,17 +410,15 @@ class Network {
       params.push(absolute);
     }
 
-    return this.BitboxHTTP({
-      method: 'post',
+    return axios.post(this.baseURL, {
+      jsonrpc: "1.0",
+      id:"setban",
+      method: "setban",
+      params: params
+    }, {
       auth: {
         username: this.config.username,
         password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"setban",
-        method: "setban",
-        params: params
       }
     })
     .then((response) => {
@@ -452,19 +435,17 @@ class Network {
     // Arguments:
     // 1. "state"        (boolean, required) true to enable networking, false to disable
 
-    return this.BitboxHTTP({
-      method: 'post',
+    return axios.post(this.baseURL, {
+      jsonrpc: "1.0",
+      id:"setnetworkactive",
+      method: "setnetworkactive",
+      params: [
+        state
+      ]
+    }, {
       auth: {
         username: this.config.username,
         password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"setnetworkactive",
-        method: "setnetworkactive",
-        params: [
-          state
-        ]
       }
     })
     .then((response) => {

@@ -1,7 +1,8 @@
+import axios from 'axios';
 class RawTransactions {
-  constructor(config, BitboxHTTP) {
+  constructor(config, baseURL) {
     this.config = config;
-    this.BitboxHTTP = BitboxHTTP;
+    this.baseURL = baseURL;
   }
 
   createRawTransaction(inputs, outputs, locktime) {
@@ -27,17 +28,16 @@ class RawTransactions {
         locktime
       ];
     }
-    return this.BitboxHTTP({
-      method: 'post',
+
+    return axios.post(this.baseURL, {
+      jsonrpc: "1.0",
+      id:"createrawtransaction",
+      method: "createrawtransaction",
+      params: params
+    }, {
       auth: {
         username: this.config.username,
         password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"createrawtransaction",
-        method: "createrawtransaction",
-        params: params
       }
     })
     .then((response) => {
@@ -55,23 +55,21 @@ class RawTransactions {
 
     // Result—the decoded transaction
 
-    return this.BitboxHTTP({
-      method: 'post',
+    return axios.post(this.baseURL, {
+      jsonrpc: "1.0",
+      id:"decoderawtransaction",
+      method: "decoderawtransaction",
+      params: [
+        rawHex
+      ]
+    }, {
       auth: {
         username: this.config.username,
         password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"decoderawtransaction",
-        method: "decoderawtransaction",
-        params: [
-          rawHex
-        ]
       }
     })
     .then((response) => {
-      return JSON.stringify(response.data.result);
+      return response.data.result;
     })
     .catch((error) => {
       return JSON.stringify(error.response.data.error.message);
@@ -86,19 +84,17 @@ class RawTransactions {
     // Result—the decoded script
     // console.log('decode script called *****', redeemScript)
 
-    return this.BitboxHTTP({
-      method: 'post',
+    return axios.post(this.baseURL, {
+      jsonrpc: "1.0",
+      id:"decodescript",
+      method: "decodescript",
+      params: [
+        redeemScript
+      ]
+    }, {
       auth: {
         username: this.config.username,
         password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"decodescript",
-        method: "decodescript",
-        params: [
-          redeemScript
-        ]
       }
     })
     .then((response) => {
@@ -158,17 +154,16 @@ class RawTransactions {
         options
       ];
     }
-    return this.BitboxHTTP({
-      method: 'post',
+
+    return axios.post(this.baseURL, {
+      jsonrpc: "1.0",
+      id:"fundrawtransaction",
+      method: "fundrawtransaction",
+      params: params
+    }, {
       auth: {
         username: this.config.username,
         password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"fundrawtransaction",
-        method: "fundrawtransaction",
-        params: params
       }
     })
     .then((response) => {
@@ -207,17 +202,16 @@ class RawTransactions {
         verbose
       ];
     }
-    return this.BitboxHTTP({
-      method: 'post',
+
+    return axios.post(this.baseURL, {
+      jsonrpc: "1.0",
+      id:"getrawtransaction",
+      method: "getrawtransaction",
+      params: params
+    }, {
       auth: {
         username: this.config.username,
         password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"getrawtransaction",
-        method: "getrawtransaction",
-        params: params
       }
     })
     .then((response) => {
@@ -250,17 +244,15 @@ class RawTransactions {
       params.push(allowhighfees);
     }
 
-    return this.BitboxHTTP({
-      method: 'post',
+    return axios.post(this.baseURL, {
+      jsonrpc: "1.0",
+      id:"sendrawtransaction",
+      method: "sendrawtransaction",
+      params: params
+    }, {
       auth: {
         username: this.config.username,
         password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"sendrawtransaction",
-        method: "sendrawtransaction",
-        params: params
       }
     })
     .then((response) => {
@@ -328,17 +320,15 @@ class RawTransactions {
       params.push(sighashtype);
     }
 
-    return this.BitboxHTTP({
-      method: 'post',
+    return axios.post(this.baseURL, {
+      jsonrpc: "1.0",
+      id:"signrawtransaction",
+      method: "signrawtransaction",
+      params: params
+    }, {
       auth: {
         username: this.config.username,
         password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"signrawtransaction",
-        method: "signrawtransaction",
-        params: params
       }
     })
     .then((response) => {
