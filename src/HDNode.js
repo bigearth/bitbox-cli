@@ -97,6 +97,10 @@ class HDNode {
     return hdnode.getIdentifier();
   }
 
+  fromBase58(base58, network) {
+    return Bitcoin.HDNode.fromBase58(base58, network);
+  }
+
   //
   // createChain(hdNode) {
   //   return new bip32utils.Chain(hdNode);
