@@ -1,6 +1,6 @@
 {
   "name": "bitbox-cli",
-  "version": "0.7.12",
+  "version": "0.7.13",
   "description": "A development framework for Bitcoin Cash",
   "author": "@bitboxearth",
   "main": "index.js",
@@ -30,6 +30,7 @@
     "bitcoinjs-lib": "bigearth/bitcoinjs-lib",
     "bitcoinjs-message": "^2.0.0",
     "bs58": "^4.0.1",
+    "buffer": "^5.1.0",
     "chalk": "^2.3.0",
     "clear": "0.0.1",
     "commander": "^2.13.0",
