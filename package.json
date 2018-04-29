@@ -1,6 +1,6 @@
 {
   "name": "bitbox-cli",
-  "version": "0.7.13",
+  "version": "0.7.14",
   "description": "A development framework for Bitcoin Cash",
   "author": "@bitboxearth",
   "main": "index.js",
@@ -14,6 +14,7 @@
     "bitbox": "./index.js"
   },
   "dependencies": {
+    "assert": "^1.4.1",
     "axios": "^0.17.1",
     "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.6.1",

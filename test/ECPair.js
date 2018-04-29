@@ -1,6 +1,6 @@
 let fixtures = require('./fixtures/ECPair.json')
 let chai = require('chai');
-let assert = chai.assert;
+let assert = require('assert');
 let BITBOXCli = require('./../lib/bitboxcli').default;
 let BITBOX = new BITBOXCli();
 let script = BITBOX.Script;

@@ -1,6 +1,6 @@
 let fixtures = require('./fixtures/Mnemonic.json')
 let chai = require('chai');
-let assert = chai.assert;
+let assert = require('assert');
 let BITBOXCli = require('./../lib/bitboxcli').default;
 let BITBOX = new BITBOXCli();
 let Buffer = require('safe-buffer').Buffer
@@ -9,32 +9,32 @@ describe('#Mnemonic', () => {
   describe('#generate', () => {
     it('should generate a 12 word mnemonic', () => {
       let mnemonic = BITBOX.Mnemonic.generate(128);
-      assert.lengthOf(mnemonic.split(' '), 12);
+      assert.equal(mnemonic.split(' ').length, 12);
     });
 
     it('should generate a 15 word mnemonic', () => {
       let mnemonic = BITBOX.Mnemonic.generate(160);
-      assert.lengthOf(mnemonic.split(' '), 15);
+      assert.equal(mnemonic.split(' ').length, 15);
     });
 
     it('should generate a 18 word mnemonic', () => {
       let mnemonic = BITBOX.Mnemonic.generate(192);
-      assert.lengthOf(mnemonic.split(' '), 18);
+      assert.equal(mnemonic.split(' ').length, 18);
     });
 
     it('should generate an 21 word mnemonic', () => {
       let mnemonic = BITBOX.Mnemonic.generate(224);
-      assert.lengthOf(mnemonic.split(' '), 21);
+      assert.equal(mnemonic.split(' ').length, 21);
     });
 
     it('should generate an 24 word mnemonic', () => {
       let mnemonic = BITBOX.Mnemonic.generate(256);
-      assert.lengthOf(mnemonic.split(' '), 24);
+      assert.equal(mnemonic.split(' ').length, 24);
     });
 
     it('should generate an 24 word italian mnemonic', () => {
       let mnemonic = BITBOX.Mnemonic.generate(256, BITBOX.Mnemonic.wordLists().italian);
-      assert.lengthOf(mnemonic.split(' '), 24);
+      assert.equal(mnemonic.split(' ').length, 24);
     });
   });
 
@@ -42,37 +42,37 @@ describe('#Mnemonic', () => {
     it('should generate a 12 word mnemonic from 16 bytes of entropy', () => {
       let rand = BITBOX.Crypto.randomBytes(16);
       let mnemonic = BITBOX.Mnemonic.fromEntropy(rand.toString('hex'));
-      assert.lengthOf(mnemonic.split(' '), 12);
+      assert.equal(mnemonic.split(' ').length, 12);
     });
 
     it('should generate a 15 word mnemonic from 20 bytes of entropy', () => {
       let rand = BITBOX.Crypto.randomBytes(20);
       let mnemonic = BITBOX.Mnemonic.fromEntropy(rand.toString('hex'));
-      assert.lengthOf(mnemonic.split(' '), 15);
+      assert.equal(mnemonic.split(' ').length, 15);
     });
 
     it('should generate an 18 word mnemonic from 24 bytes of entropy', () => {
       let rand = BITBOX.Crypto.randomBytes(24);
       let mnemonic = BITBOX.Mnemonic.fromEntropy(rand.toString('hex'));
-      assert.lengthOf(mnemonic.split(' '), 18);
+      assert.equal(mnemonic.split(' ').length, 18);
     });
 
     it('should generate an 21 word mnemonic from 28 bytes of entropy', () => {
       let rand = BITBOX.Crypto.randomBytes(28);
       let mnemonic = BITBOX.Mnemonic.fromEntropy(rand.toString('hex'));
-      assert.lengthOf(mnemonic.split(' '), 21);
+      assert.equal(mnemonic.split(' ').length, 21);
     });
 
     it('should generate an 24 word mnemonic from 32 bytes of entropy', () => {
       let rand = BITBOX.Crypto.randomBytes(32);
       let mnemonic = BITBOX.Mnemonic.fromEntropy(rand.toString('hex'));
-      assert.lengthOf(mnemonic.split(' '), 24);
+      assert.equal(mnemonic.split(' ').length, 24);
     });
 
     it('should generate an 24 french word mnemonic 32 bytes of entropy', () => {
       let rand = BITBOX.Crypto.randomBytes(32);
       let mnemonic = BITBOX.Mnemonic.fromEntropy(rand.toString('hex'), BITBOX.Mnemonic.wordLists().french);
-      assert.lengthOf(mnemonic.split(' '), 24);
+      assert.equal(mnemonic.split(' ').length, 24);
     });
 
     fixtures.fromEntropy.forEach((entropy) => {
@@ -87,37 +87,37 @@ describe('#Mnemonic', () => {
     it('should turn a 12 word mnemonic to entropy', () => {
       let mnemonic = BITBOX.Mnemonic.generate(128);
       let entropy = BITBOX.Mnemonic.toEntropy(mnemonic);
-      assert.lengthOf(entropy, 16);
+      assert.equal(entropy.length, 16);
     });
 
     it('should turn a 15 word mnemonic to entropy', () => {
       let mnemonic = BITBOX.Mnemonic.generate(160);
       let entropy = BITBOX.Mnemonic.toEntropy(mnemonic);
-      assert.lengthOf(entropy, 20);
+      assert.equal(entropy.length, 20);
     });
 
     it('should turn a 18 word mnemonic to entropy', () => {
       let mnemonic = BITBOX.Mnemonic.generate(192);
       let entropy = BITBOX.Mnemonic.toEntropy(mnemonic);
-      assert.lengthOf(entropy, 24);
+      assert.equal(entropy.length, 24);
     });
 
     it('should turn a 21 word mnemonic to entropy', () => {
       let mnemonic = BITBOX.Mnemonic.generate(224);
       let entropy = BITBOX.Mnemonic.toEntropy(mnemonic);
-      assert.lengthOf(entropy, 28);
+      assert.equal(entropy.length, 28);
     });
 
     it('should turn a 24 word mnemonic to entropy', () => {
       let mnemonic = BITBOX.Mnemonic.generate(256);
       let entropy = BITBOX.Mnemonic.toEntropy(mnemonic);
-      assert.lengthOf(entropy, 32);
+      assert.equal(entropy.length, 32);
     });
 
     it('should turn a 24 word spanish mnemonic to entropy', () => {
       let mnemonic = BITBOX.Mnemonic.generate(256, BITBOX.Mnemonic.wordLists().spanish);
       let entropy = BITBOX.Mnemonic.toEntropy(mnemonic, BITBOX.Mnemonic.wordLists().spanish);
-      assert.lengthOf(entropy, 32);
+      assert.equal(entropy.length, 32);
     });
 
     fixtures.fromEntropy.forEach((fixture) => {
@@ -206,35 +206,35 @@ describe('#Mnemonic', () => {
 
   describe('#wordLists', () => {
     it('return a list of 2048 english words', () => {
-      assert.lengthOf(BITBOX.Mnemonic.wordLists().english, 2048);
+      assert.equal(BITBOX.Mnemonic.wordLists().english.length, 2048);
     });
 
     it('return a list of 2048 japanese words', () => {
-      assert.lengthOf(BITBOX.Mnemonic.wordLists().japanese, 2048);
+      assert.equal(BITBOX.Mnemonic.wordLists().japanese.length, 2048);
     });
 
     it('return a list of 2048 chinese simplified words', () => {
-      assert.lengthOf(BITBOX.Mnemonic.wordLists().chinese_simplified, 2048);
+      assert.equal(BITBOX.Mnemonic.wordLists().chinese_simplified.length, 2048);
     });
 
     it('return a list of 2048 chinese traditional words', () => {
-      assert.lengthOf(BITBOX.Mnemonic.wordLists().chinese_traditional, 2048);
+      assert.equal(BITBOX.Mnemonic.wordLists().chinese_traditional.length, 2048);
     });
 
     it('return a list of 2048 french words', () => {
-      assert.lengthOf(BITBOX.Mnemonic.wordLists().french, 2048);
+      assert.equal(BITBOX.Mnemonic.wordLists().french.length, 2048);
     });
 
     it('return a list of 2048 italian words', () => {
-      assert.lengthOf(BITBOX.Mnemonic.wordLists().italian, 2048);
+      assert.equal(BITBOX.Mnemonic.wordLists().italian.length, 2048);
     });
 
     it('return a list of 2048 korean words', () => {
-      assert.lengthOf(BITBOX.Mnemonic.wordLists().korean, 2048);
+      assert.equal(BITBOX.Mnemonic.wordLists().korean.length, 2048);
     });
 
     it('return a list of 2048 spanish words', () => {
-      assert.lengthOf(BITBOX.Mnemonic.wordLists().spanish, 2048);
+      assert.equal(BITBOX.Mnemonic.wordLists().spanish.length, 2048);
     });
   });
 
