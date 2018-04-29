@@ -4,6 +4,7 @@ import sb from 'satoshi-bitcoin';
 import bitcoinMessage from 'bitcoinjs-message';
 import bs58 from 'bs58';
 import bip21 from 'bip21';
+let Buffer = require('safe-buffer').Buffer
 
 class BitcoinCash {
   address() {

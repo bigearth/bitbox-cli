@@ -4,6 +4,7 @@ let assert = chai.assert;
 let BITBOXCli = require('./../lib/bitboxcli').default;
 let BITBOX = new BITBOXCli();
 let script = BITBOX.Script;
+let Buffer = require('safe-buffer').Buffer
 
 describe('#ECPair', () => {
   describe('#fromWIF', () => {
