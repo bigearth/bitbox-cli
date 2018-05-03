@@ -7,54 +7,6 @@ let BITBOX = new BITBOXCli();
 let sinon = require('sinon');
 
 describe('#Util', () => {
-  describe('#estimateSmartFee', () => {
-    let sandbox;
-    beforeEach(() => sandbox = sinon.sandbox.create());
-    afterEach(() => sandbox.restore());
-
-    it('should estimate smart fee', (done) => {
-      let data = {
-        result: { feerate: 0.00000999, blocks: 2 }
-      };
-
-      const resolved = new Promise((r) => r({ data: data }));
-      sandbox.stub(axios, 'post').returns(resolved);
-
-      BITBOX.Util.estimateSmartFee(1)
-      .then((result) => {
-        assert.deepEqual(
-          data.result,
-          result
-        );
-      })
-      .then(done, done);
-    });
-  });
-
-  describe('#estimateSmartPriority', () => {
-    let sandbox;
-    beforeEach(() => sandbox = sinon.sandbox.create());
-    afterEach(() => sandbox.restore());
-
-    it('should estimate smart priority', (done) => {
-      let data = {
-        result: { priority: -1, blocks: 1 }
-      };
-
-      const resolved = new Promise((r) => r({ data: data }));
-      sandbox.stub(axios, 'post').returns(resolved);
-
-      BITBOX.Util.estimateSmartPriority(1)
-      .then((result) => {
-        assert.deepEqual(
-          data.result,
-          result
-        );
-      })
-      .then(done, done);
-    });
-  });
-
   describe('#createMultisig', () => {
     let sandbox;
     beforeEach(() => sandbox = sinon.sandbox.create());
@@ -72,54 +24,6 @@ describe('#Util', () => {
       sandbox.stub(axios, 'post').returns(resolved);
 
       BITBOX.Util.createMultisig(1, ["0216f220122e31c5228eff825020fa3b7ae2770385f0770a6a440f4453225e77ca", "03070c2f8b9cfc347470849c46d2efc89747c14a4f62e55143a28f62914e9cd503"])
-      .then((result) => {
-        assert.deepEqual(
-          data.result,
-          result
-        );
-      })
-      .then(done, done);
-    });
-  });
-
-  describe('#estimateFee', () => {
-    let sandbox;
-    beforeEach(() => sandbox = sinon.sandbox.create());
-    afterEach(() => sandbox.restore());
-
-    it('should estimate fee', (done) => {
-      let data = {
-        result: -1
-      };
-
-      const resolved = new Promise((r) => r({ data: data }));
-      sandbox.stub(axios, 'post').returns(resolved);
-
-      BITBOX.Util.estimateFee(1)
-      .then((result) => {
-        assert.deepEqual(
-          data.result,
-          result
-        );
-      })
-      .then(done, done);
-    });
-  });
-
-  describe('#estimatePriority', () => {
-    let sandbox;
-    beforeEach(() => sandbox = sinon.sandbox.create());
-    afterEach(() => sandbox.restore());
-
-    it('should estimate priority', (done) => {
-      let data = {
-        result: -1
-      };
-
-      const resolved = new Promise((r) => r({ data: data }));
-      sandbox.stub(axios, 'post').returns(resolved);
-
-      BITBOX.Util.estimatePriority(1)
       .then((result) => {
         assert.deepEqual(
           data.result,

@@ -404,7 +404,7 @@ class Blockchain {
     // }
     //
 
-    return axios.get(`${this.baseURL}blockchain/getTxOut/${txid}/n?include_mempool=${verbose}`)
+    return axios.get(`${this.baseURL}blockchain/getTxOut/${txid}/n?include_mempool=${include_mempool}`)
     .then((response) => {
       return response.data.result;
     })
@@ -514,9 +514,9 @@ class Blockchain {
     //
     // Result:
     // true|false       (boolean) Verified or not
-    return axios.get(`${this.baseURL}blockchain/verifyChain?checklevel=${height}&nblocks=${nblocks}`)
+    return axios.get(`${this.baseURL}blockchain/verifyChain?checklevel=${checklevel}&nblocks=${nblocks}`)
     .then((response) => {
-      return response.data.result;
+      return response.data;
     })
     .catch((error) => {
       return JSON.stringify(error.response.data.error.message);

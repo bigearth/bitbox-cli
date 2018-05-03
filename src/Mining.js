@@ -80,7 +80,7 @@ class Mining {
     });
   }
 
-  getNetworkHashps(nblocks, height) {
+  getNetworkHashps(nblocks = 120, height = 1) {
     // Returns the estimated network hashes per second based on the last n blocks.
     // Pass in [blocks] to override # of blocks, -1 specifies since last difficulty change.
     // Pass in [height] to estimate the network speed at the time when a certain block was found.
@@ -99,19 +99,9 @@ class Mining {
       params.push(0);
     }
 
-    return axios.post(this.baseURL, {
-      jsonrpc: "1.0",
-      id:"getnetworkhashps",
-      method: "getnetworkhashps",
-      params: params
-    }, {
-      auth: {
-        username: this.config.username,
-        password: this.config.password
-      }
-    })
+    return axios.get(`${this.baseURL}mining/getNetworkHashps?nblocks=${nblocks}&height=${height}`)
     .then((response) => {
-      return response.data.result;
+      return response.data;
     })
     .catch((error) => {
       return JSON.stringify(error.response.data.error.message);

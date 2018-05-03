@@ -58,7 +58,7 @@ describe('#Mining', () => {
       };
 
       const resolved = new Promise((r) => r({ data: data }));
-      sandbox.stub(axios, 'post').returns(resolved);
+      sandbox.stub(axios, 'get').returns(resolved);
 
       BITBOX.Mining.getMiningInfo()
         .then((result) => {
@@ -77,17 +77,15 @@ describe('#Mining', () => {
     afterEach(() => sandbox.restore());
 
     it('should get network hashps', (done) => {
-      let data = {
-        result: 3586365937646890000
-      };
+      let data = 3586365937646890000;
 
       const resolved = new Promise((r) => r({ data: data }));
-      sandbox.stub(axios, 'post').returns(resolved);
+      sandbox.stub(axios, 'get').returns(resolved);
 
       BITBOX.Mining.getNetworkHashps()
         .then((result) => {
           assert.deepEqual(
-            data.result,
+            data,
             result
           );
         })
