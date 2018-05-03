@@ -80,42 +80,42 @@ program
       } else {
         host = 'localhost';
       }
-
-      let port;
-      if(options && options.port) {
-        port = options.port;
-      } else if(config && config.new && config.new.port) {
-        port = config.new.port;
-      } else {
-        port = 8332;
-      }
-
-      let username;
-      if(options && options.username) {
-        username = options.username;
-      } else if(config && config.new && config.new.username) {
-        username = config.new.username;
-      } else {
-        username = '';
-      }
-
-      let password;
-      if(options && options.password) {
-        password = options.password;
-      } else if(config && config.new && config.new.password) {
-        password = config.new.password;
-      } else {
-        password = '';
-      }
-
-      let corsproxy;
-      if(options && options.corsproxy) {
-        corsproxy = options.corsproxy;
-      } else if(config && config.new && config.new.corsproxy) {
-        corsproxy = config.new.corsproxy;
-      } else {
-        corsproxy = false;
-      }
+      //
+      // let port;
+      // if(options && options.port) {
+      //   port = options.port;
+      // } else if(config && config.new && config.new.port) {
+      //   port = config.new.port;
+      // } else {
+      //   port = 8332;
+      // }
+      //
+      // let username;
+      // if(options && options.username) {
+      //   username = options.username;
+      // } else if(config && config.new && config.new.username) {
+      //   username = config.new.username;
+      // } else {
+      //   username = '';
+      // }
+      //
+      // let password;
+      // if(options && options.password) {
+      //   password = options.password;
+      // } else if(config && config.new && config.new.password) {
+      //   password = config.new.password;
+      // } else {
+      //   password = '';
+      // }
+      //
+      // let corsproxy;
+      // if(options && options.corsproxy) {
+      //   corsproxy = options.corsproxy;
+      // } else if(config && config.new && config.new.corsproxy) {
+      //   corsproxy = config.new.corsproxy;
+      // } else {
+      //   corsproxy = false;
+      // }
 
       if(options && options.scaffold) {
         let scaffold = options.scaffold.toLowerCase();

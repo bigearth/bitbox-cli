@@ -32,8 +32,11 @@ class BITBOXCli {
 
     this.config = config;
     this.baseURL = '/';
-    if(!this.config.test) {
+
+    if(!this.config.test && this.config.host !== 'localhost') {
       this.baseURL = `${config.protocol}://${config.host}/v1/`;
+    } else if(!this.config.test && this.config.host === 'localhost') {
+      this.baseURL = `${config.protocol}://${config.host}:8332/`;
     }
 
     this.BitcoinCash = new BitcoinCash();
