@@ -162,17 +162,7 @@ class Network {
     // Result:
     // n          (numeric) The connection count
 
-    return axios.post(this.baseURL, {
-      jsonrpc: "1.0",
-      id:"getconnectioncount",
-      method: "getconnectioncount",
-      params: []
-    }, {
-      auth: {
-        username: this.config.username,
-        password: this.config.password
-      }
-    })
+    return axios.get(`${this.baseURL}mining/getConnectionCount`)
     .then((response) => {
       return response.data.result;
     })
@@ -200,17 +190,7 @@ class Network {
     //   }
     // }
 
-    return axios.post(this.baseURL, {
-      jsonrpc: "1.0",
-      id:"getnettotals",
-      method: "getnettotals",
-      params: []
-    }, {
-      auth: {
-        username: this.config.username,
-        password: this.config.password
-      }
-    })
+    return axios.get(`${this.baseURL}mining/getNetTotals`)
     .then((response) => {
       return response.data.result;
     })
@@ -255,17 +235,7 @@ class Network {
     //   "warnings": "..."                    (string) any network warnings
     // }
 
-    return axios.post(this.baseURL, {
-      jsonrpc: "1.0",
-      id:"getnetworkinfo",
-      method: "getnetworkinfo",
-      params: []
-    }, {
-      auth: {
-        username: this.config.username,
-        password: this.config.password
-      }
-    })
+    return axios.get(`${this.baseURL}mining/getNetworkInfo`)
     .then((response) => {
       return response.data.result;
     })
@@ -319,17 +289,7 @@ class Network {
     //   ,...
     // ]
 
-    return axios.post(this.baseURL, {
-      jsonrpc: "1.0",
-      id:"getpeerinfo",
-      method: "getpeerinfo",
-      params: []
-    }, {
-      auth: {
-        username: this.config.username,
-        password: this.config.password
-      }
-    })
+    return axios.get(`${this.baseURL}mining/getPeerInfo`)
     .then((response) => {
       return response.data.result;
     })
@@ -340,17 +300,7 @@ class Network {
 
   listBanned() {
     // List all banned IPs/Subnets.
-    return axios.post(this.baseURL, {
-      jsonrpc: "1.0",
-      id:"listbanned",
-      method: "listbanned",
-      params: []
-    }, {
-      auth: {
-        username: this.config.username,
-        password: this.config.password
-      }
-    })
+    return axios.get(`${this.baseURL}mining/listBanned`)
     .then((response) => {
       return response.data.result;
     })
@@ -364,17 +314,7 @@ class Network {
     // Results provided in getpeerinfo, pingtime and pingwait fields are decimal seconds.
     // Ping command is handled in queue with all other commands, so it measures processing backlog, not just network ping.
 
-    return axios.post(this.baseURL, {
-      jsonrpc: "1.0",
-      id:"ping",
-      method: "ping",
-      params: []
-    }, {
-      auth: {
-        username: this.config.username,
-        password: this.config.password
-      }
-    })
+    return axios.get(`${this.baseURL}mining/ping`)
     .then((response) => {
       return response.data.result;
     })

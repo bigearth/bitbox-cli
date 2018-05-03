@@ -28,17 +28,7 @@ class Control {
     //   "errors": "..."           (string) any error messages
     // }
 
-    return axios.post(this.baseURL, {
-      jsonrpc: "1.0",
-      id:"getinfo",
-      method: "getinfo",
-      params: []
-    }, {
-      auth: {
-        username: this.config.username,
-        password: this.config.password
-      }
-    })
+    return axios.get(`${this.baseURL}control/getInfo`)
     .then((response) => {
       return response.data.result;
     })
@@ -64,49 +54,7 @@ class Control {
     // }
     //
 
-    return axios.post(this.baseURL, {
-      jsonrpc: "1.0",
-      id:"getmemoryinfo",
-      method: "getmemoryinfo",
-      params: []
-    }, {
-      auth: {
-        username: this.config.username,
-        password: this.config.password
-      }
-    })
-    .then((response) => {
-      return response.data.result;
-    })
-    .catch((error) => {
-      return JSON.stringify(error.response.data.error.message);
-    });
-  }
-
-  help(command) {
-    // List all commands, or get help for a specified command.
-    //
-    // Arguments:
-    // 1. "command"     (string, optional) The command to get help on
-    //
-    // Result:
-    // "text"     (string) The help text
-    let params = [];
-    if(command) {
-      params.push(command);
-    }
-
-    return axios.post(this.baseURL, {
-      jsonrpc: "1.0",
-      id:"help",
-      method: "help",
-      params: params
-    }, {
-      auth: {
-        username: this.config.username,
-        password: this.config.password
-      }
-    })
+    return axios.get(`${this.baseURL}control/getMemoryInfo`)
     .then((response) => {
       return response.data.result;
     })

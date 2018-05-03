@@ -71,17 +71,7 @@ class Mining {
     //   "chain": "xxxx",           (string) current network name as defined in BIP70 (main, test, regtest)
     // }
 
-    return axios.post(this.baseURL, {
-      jsonrpc: "1.0",
-      id:"getmininginfo",
-      method: "getmininginfo",
-      params: []
-    }, {
-      auth: {
-        username: this.config.username,
-        password: this.config.password
-      }
-    })
+    return axios.get(`${this.baseURL}mining/getMiningInfo`)
     .then((response) => {
       return response.data.result;
     })
@@ -113,53 +103,6 @@ class Mining {
       jsonrpc: "1.0",
       id:"getnetworkhashps",
       method: "getnetworkhashps",
-      params: params
-    }, {
-      auth: {
-        username: this.config.username,
-        password: this.config.password
-      }
-    })
-    .then((response) => {
-      return response.data.result;
-    })
-    .catch((error) => {
-      return JSON.stringify(error.response.data.error.message);
-    });
-  }
-
-  prioritiseTransaction(txid, priority_delta, fee_delta) {
-    // Accepts the transaction into mined blocks at a higher (or lower) priority
-    //
-    // Arguments:
-    // 1. "txid"       (string, required) The transaction id.
-    // 2. priority_delta (numeric, required) The priority to add or subtract.
-    //                   The transaction selection algorithm considers the tx as it would have a higher priority.
-    //                   (priority of a transaction is calculated: coinage * value_in_satoshis / txsize)
-    // 3. fee_delta      (numeric, required) The fee value (in satoshis) to add (or subtract, if negative).
-    //                   The fee is not actually paid, only the algorithm for selecting transactions into a block
-    //                   considers the transaction as it would have paid a higher (or lower) fee.
-    //
-    // Result:
-    // true              (boolean) Returns true
-
-    let params = [];
-    if(txid) {
-      params.push(txid);
-    }
-
-    if(priority_delta) {
-      params.push(priority_delta);
-    }
-
-    if(fee_delta) {
-      params.push(fee_delta);
-    }
-
-    return axios.post(this.baseURL, {
-      jsonrpc: "1.0",
-      id:"prioritisetransaction",
-      method: "prioritisetransaction",
       params: params
     }, {
       auth: {

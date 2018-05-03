@@ -95,31 +95,6 @@ describe('#Mining', () => {
     });
   });
 
-  describe('#prioritiseTransaction', () => {
-    // TODO finish
-    let sandbox;
-    beforeEach(() => sandbox = sinon.sandbox.create());
-    afterEach(() => sandbox.restore());
-
-    it('should TODO', (done) => {
-      let data = {
-        result: {}
-      };
-
-      const resolved = new Promise((r) => r({ data: data }));
-      sandbox.stub(axios, 'post').returns(resolved);
-
-      BITBOX.Mining.prioritiseTransaction()
-        .then((result) => {
-          assert.deepEqual(
-            data.result,
-            result
-          );
-        })
-        .then(done, done);
-    });
-  });
-
   describe('#submitBlock', () => {
     // TODO finish
     let sandbox;
