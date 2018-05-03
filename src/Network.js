@@ -131,7 +131,7 @@ class Network {
     if(node) {
       path = `${path}?node=${node}`;
     }
-    
+
     return axios.get()
     .then((response) => {
       return response.data.result;
@@ -148,7 +148,7 @@ class Network {
     // Result:
     // n          (numeric) The connection count
 
-    return axios.get(`${this.baseURL}mining/getConnectionCount`)
+    return axios.get(`${this.baseURL}network/getConnectionCount`)
     .then((response) => {
       return response.data.result;
     })
@@ -176,7 +176,7 @@ class Network {
     //   }
     // }
 
-    return axios.get(`${this.baseURL}mining/getNetTotals`)
+    return axios.get(`${this.baseURL}network/getNetTotals`)
     .then((response) => {
       return response.data.result;
     })
@@ -221,7 +221,7 @@ class Network {
     //   "warnings": "..."                    (string) any network warnings
     // }
 
-    return axios.get(`${this.baseURL}mining/getNetworkInfo`)
+    return axios.get(`${this.baseURL}network/getNetworkInfo`)
     .then((response) => {
       return response.data.result;
     })
@@ -275,7 +275,7 @@ class Network {
     //   ,...
     // ]
 
-    return axios.get(`${this.baseURL}mining/getPeerInfo`)
+    return axios.get(`${this.baseURL}network/getPeerInfo`)
     .then((response) => {
       return response.data.result;
     })
@@ -286,7 +286,7 @@ class Network {
 
   listBanned() {
     // List all banned IPs/Subnets.
-    return axios.get(`${this.baseURL}mining/listBanned`)
+    return axios.get(`${this.baseURL}network/listBanned`)
     .then((response) => {
       return response.data.result;
     })
@@ -300,7 +300,7 @@ class Network {
     // Results provided in getpeerinfo, pingtime and pingwait fields are decimal seconds.
     // Ping command is handled in queue with all other commands, so it measures processing backlog, not just network ping.
 
-    return axios.get(`${this.baseURL}mining/ping`)
+    return axios.get(`${this.baseURL}network/ping`)
     .then((response) => {
       return response.data.result;
     })
