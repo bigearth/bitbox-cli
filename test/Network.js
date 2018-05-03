@@ -92,7 +92,7 @@ describe('#Network', () => {
       };
 
       const resolved = new Promise((r) => r({ data: data }));
-      sandbox.stub(axios, 'post').returns(resolved);
+      sandbox.stub(axios, 'get').returns(resolved);
 
       BITBOX.Network.getAddedNodeInfo()
         .then((result) => {

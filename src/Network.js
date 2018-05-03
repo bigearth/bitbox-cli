@@ -127,26 +127,12 @@ class Network {
     //   }
     //   ,...
     // ]
-    let params;
-    if(!node) {
-      params = [];
-    } else {
-      params = [
-        node
-      ];
+    let path = `${this.baseURL}network/getAddedNodeInfo`;
+    if(node) {
+      path = `${path}?node=${node}`;
     }
-
-    return axios.post(this.baseURL, {
-      jsonrpc: "1.0",
-      id:"getaddednodeinfo",
-      method: "getaddednodeinfo",
-      params: params
-    }, {
-      auth: {
-        username: this.config.username,
-        password: this.config.password
-      }
-    })
+    
+    return axios.get()
     .then((response) => {
       return response.data.result;
     })

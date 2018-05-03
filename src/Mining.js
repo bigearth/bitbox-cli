@@ -29,26 +29,7 @@ class Mining {
     //        ]
     //      }
 
-    let params;
-    if(!template_request) {
-      params = [];
-    } else {
-      params = [
-        template_request
-      ];
-    }
-
-    return axios.post(this.baseURL, {
-      jsonrpc: "1.0",
-      id:"getblocktemplate",
-      method: "getblocktemplate",
-      params: params
-    }, {
-      auth: {
-        username: this.config.username,
-        password: this.config.password
-      }
-    })
+    return axios.get(`${this.baseURL}mining/getBlockTemplate`)
     .then((response) => {
       return response.data.result;
     })
@@ -91,14 +72,6 @@ class Mining {
     //
     // Result:
     // x             (numeric) Hashes per second estimated
-
-    let params = [];
-    if(nblocks) {
-      params.push(nblocks);
-    } else {
-      params.push(0);
-    }
-
     return axios.get(`${this.baseURL}mining/getNetworkHashps?nblocks=${nblocks}&height=${height}`)
     .then((response) => {
       return response.data;

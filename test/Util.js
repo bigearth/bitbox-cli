@@ -76,7 +76,7 @@ describe('#Util', () => {
       };
 
       const resolved = new Promise((r) => r({ data: data }));
-      sandbox.stub(axios, 'post').returns(resolved);
+      sandbox.stub(axios, 'get').returns(resolved);
 
       BITBOX.Util.validateAddress('bitcoincash:qpz7qtkuyhrsz4qmnnrvf8gz9zd0u9v7eqsewyk4w5')
       .then((result) => {
@@ -100,7 +100,7 @@ describe('#Util', () => {
       };
 
       const resolved = new Promise((r) => r({ data: data }));
-      sandbox.stub(axios, 'post').returns(resolved);
+      sandbox.stub(axios, 'get').returns(resolved);
 
       BITBOX.Util.verifyMessage('bitcoincash:qqy7dlefcrknfsl0d2jfnf7pe0r2tt6vqy2pedtdfu', 'H8GjNeEdrj/p6waepyYXwlZPdBH4l69xQjyMBOR0m7lCYb2lNWDicp/M6qlZQlXVoJsz0m8/h87hpvI9F8oBVBY=', 'BITBOX')
       .then((result) => {

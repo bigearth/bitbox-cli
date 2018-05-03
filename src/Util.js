@@ -101,22 +101,7 @@ class Util {
     //   "hdkeypath" : "keypath"       (string, optional) The HD keypath if the key is HD and available
     //   "hdmasterkeyid" : "<hash160>" (string, optional) The Hash160 of the HD master pubkey
     // }
-    let params = [];
-    if(address) {
-      params.push(address);
-    }
-
-    return axios.post(this.baseURL, {
-      jsonrpc: "1.0",
-      id:"validateaddress",
-      method: "validateaddress",
-      params: params
-    }, {
-      auth: {
-        username: this.config.username,
-        password: this.config.password
-      }
-    })
+    return axios.get(`${this.baseURL}util/validateAddress/${address}`)
     .then((response) => {
       return response.data.result;
     })
@@ -136,30 +121,7 @@ class Util {
     // Result:
     // true|false   (boolean) If the signature is verified or not.
 
-    let params = [];
-    if(address) {
-      params.push(address);
-    }
-
-    if(signature) {
-      params.push(signature);
-    }
-
-    if(message) {
-      params.push(message);
-    }
-
-    return axios.post(this.baseURL, {
-      jsonrpc: "1.0",
-      id:"verifymessage",
-      method: "verifymessage",
-      params: params
-    }, {
-      auth: {
-        username: this.config.username,
-        password: this.config.password
-      }
-    })
+    return axios.get(`${this.baseURL}util/verifyMessage/${address}/${signature}/${message}`)
     .then((response) => {
       return response.data.result;
     })
