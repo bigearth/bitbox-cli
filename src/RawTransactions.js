@@ -4,50 +4,7 @@ class RawTransactions {
     this.config = config;
     this.baseURL = baseURL;
   }
-
-  createRawTransaction(inputs, outputs, locktime) {
-    // creates an unsigned serialized transaction that spends a previous output to a new output with a P2PKH or P2SH address. The transaction is not stored in the wallet or transmitted to the network.
-
-    // Parameter #1—Inputs
-
-    // Parameter #2—P2PKH or P2SH addresses and amounts
-
-    // Parameter #3—locktime
-
-    // Result—the unsigned raw transaction in hex
-    let params;
-    if(!locktime) {
-      params = [
-        inputs,
-        outputs
-      ];
-    } else {
-      params = [
-        inputs,
-        outputs,
-        locktime
-      ];
-    }
-
-    return axios.post(this.baseURL, {
-      jsonrpc: "1.0",
-      id:"createrawtransaction",
-      method: "createrawtransaction",
-      params: params
-    }, {
-      auth: {
-        username: this.config.username,
-        password: this.config.password
-      }
-    })
-    .then((response) => {
-      return response.data.result;
-    })
-    .catch((error) => {
-      return JSON.stringify(error.response.data.error.message);
-    });
-  }
-
+  
   decodeRawTransaction(hex) {
     // decodes a serialized transaction hex string into a JSON object describing the transaction.
 
@@ -107,7 +64,7 @@ class RawTransactions {
     });
   }
 
-  sendRawTransaction(hexstring, allowhighfees) {
+  sendRawTransaction(hexstring, allowhighfees = false) {
     // Submits raw transaction (serialized, hex-encoded) to local node and network.
     //
     // Also see createrawtransaction and signrawtransaction calls.

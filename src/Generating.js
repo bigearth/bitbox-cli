@@ -5,7 +5,7 @@ class Generating {
     this.baseURL = baseURL;
   }
 
-  generateToAddress(blocks, address, maxtries) {
+  generateToAddress(blocks, address, maxtries = 1000000) {
 
     // Mine blocks immediately to a specified address (before the RPC call returns)
     //
@@ -17,31 +17,7 @@ class Generating {
     // Result:
     // [ blockhashes ]     (array) hashes of blocks generated
     //
-    let params;
-    if(!maxtries) {
-      params = [
-        blocks,
-        address
-      ];
-    } else {
-      params = [
-        blocks,
-        address,
-        maxtries
-      ];
-    }
-
-    return axios.post(this.baseURL, {
-      jsonrpc: "1.0",
-      id:"generatetoaddress",
-      method: "generatetoaddress",
-      params: params
-    }, {
-      auth: {
-        username: this.config.username,
-        password: this.config.password
-      }
-    })
+    return axios.post(`${this.baseURL}generating/generateToAddress/${blocks}/${address}?maxtries=${maxtries}`)
     .then((response) => {
       return response.data.result;
     })

@@ -160,11 +160,7 @@ program
   networks: {
     ${environment}: {
       protocol: "${protocol}",
-      host: "${host}",
-      port: "${port}",
-      username: "${username}",
-      password: "${password}",
-      corsproxy: ${corsproxy}
+      host: "${host}"
     }
   }
 };

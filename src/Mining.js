@@ -81,38 +81,23 @@ class Mining {
     });
   }
 
-  submitBlock(hexdata, parameters) {
+  submitBlock(hex, parameters) {
     // Attempts to submit new block to network.
     // The 'jsonparametersobject' parameter is currently ignored.
     // See https://en.bitcoin.it/wiki/BIP_0022 for full specification.
     //
     // Arguments
-    // 1. "hexdata"        (string, required) the hex-encoded block data to submit
+    // 1. "hex"        (string, required) the hex-encoded block data to submit
     // 2. "parameters"     (string, optional) object of optional parameters
     //     {
     //       "workid" : "id"    (string, optional) if the server provided a workid, it MUST be included with submissions
     //     }
     //
-    let params = [];
-    if(hexdata) {
-      params.push(hexdata);
-    }
-
+    let path = `${this.baseURL}mining/submitBlock/${hex}`;
     if(parameters) {
-      params.push(parameters);
+      path = `${path}?parameters=${parameters}`;
     }
-
-    return axios.post(this.baseURL, {
-      jsonrpc: "1.0",
-      id:"submitblock",
-      method: "submitblock",
-      params: params
-    }, {
-      auth: {
-        username: this.config.username,
-        password: this.config.password
-      }
-    })
+    return axios.post(path)
     .then((response) => {
       return response.data.result;
     })
