@@ -5,7 +5,7 @@ class Util {
     this.baseURL = baseURL;
   }
 
-  createMultisig(required, address) {
+  createMultisig(nrequired, address) {
     // The createmultisig RPC creates a P2SH multi-signature address.
 
     // Parameter #1—the number of signatures required
@@ -20,58 +20,7 @@ class Util {
 
     // Result—P2SH address and hex-encoded redeem script
 
-    return axios.post(this.baseURL, {
-      jsonrpc: "1.0",
-      id:"createmultisig",
-      method: "createmultisig",
-      params: [
-        required,
-        address
-      ]
-    }, {
-      auth: {
-        username: this.config.username,
-        password: this.config.password
-      }
-    })
-    .then((response) => {
-      return response.data.result;
-    })
-    .catch((error) => {
-      return JSON.stringify(error.response.data.error.message);
-    });
-  }
-
-  signMessageWithPrivKey(privkey, message) {
-    // Sign a message with the private key of an address
-
-    // Arguments:
-    // 1. "privkey"         (string, required) The private key to sign the message with.
-    // 2. "message"         (string, required) The message to create a signature of.
-
-    // Result:
-    // "signature"          (string) The signature of the message encoded in base 64
-
-    let params = [];
-    if(privkey) {
-      params.push(privkey);
-    }
-
-    if(message) {
-      params.push(message);
-    }
-
-    return axios.post(this.baseURL, {
-      jsonrpc: "1.0",
-      id:"signmessagewithprivkey",
-      method: "signmessagewithprivkey",
-      params: params
-    }, {
-      auth: {
-        username: this.config.username,
-        password: this.config.password
-      }
-    })
+    return axios.get(`${this.baseURL}util/createMultisig/${nrequired}/${address}`)
     .then((response) => {
       return response.data.result;
     })
@@ -102,26 +51,6 @@ class Util {
     //   "hdmasterkeyid" : "<hash160>" (string, optional) The Hash160 of the HD master pubkey
     // }
     return axios.get(`${this.baseURL}util/validateAddress/${address}`)
-    .then((response) => {
-      return response.data.result;
-    })
-    .catch((error) => {
-      return JSON.stringify(error.response.data.error.message);
-    });
-  }
-
-  verifyMessage(address, signature, message) {
-    // Verify a signed message
-
-    // Arguments:
-    // 1. "address"         (string, required) The bitcoin address to use for the signature.
-    // 2. "signature"       (string, required) The signature provided by the signer in base 64 encoding (see signmessage).
-    // 3. "message"         (string, required) The message that was signed.
-
-    // Result:
-    // true|false   (boolean) If the signature is verified or not.
-
-    return axios.get(`${this.baseURL}util/verifyMessage/${address}/${signature}/${message}`)
     .then((response) => {
       return response.data.result;
     })

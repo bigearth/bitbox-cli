@@ -4,7 +4,7 @@ class RawTransactions {
     this.config = config;
     this.baseURL = baseURL;
   }
-  
+
   decodeRawTransaction(hex) {
     // decodes a serialized transaction hex string into a JSON object describing the transaction.
 
@@ -77,102 +77,7 @@ class RawTransactions {
     // "hex"             (string) The transaction hash in hex
     //
 
-    let params = [];
-    if(hexstring) {
-      params.push(hexstring);
-    }
-
-    if(allowhighfees) {
-      params.push(allowhighfees);
-    }
-
-    return axios.post(this.baseURL, {
-      jsonrpc: "1.0",
-      id:"sendrawtransaction",
-      method: "sendrawtransaction",
-      params: params
-    }, {
-      auth: {
-        username: this.config.username,
-        password: this.config.password
-      }
-    })
-    .then((response) => {
-      return response.data.result;
-    })
-    .catch((error) => {
-      return JSON.stringify(error.response.data.error.message);
-    });
-  }
-
-  signRawTransaction(hexstring, prevtxs, privkeys, sighashtype) {
-  // Sign inputs for raw transaction (serialized, hex-encoded).
-  // The second optional argument (may be null) is an array of previous transaction outputs that
-  // this transaction depends on but may not yet be in the block chain.
-  // The third optional argument (may be null) is an array of base58-encoded private
-  // keys that, if given, will be the only keys used to sign the transaction.
-  //
-  //
-  // Arguments:
-  // 1. "hexstring"     (string, required) The transaction hex string
-  // 2. "prevtxs"       (string, optional) An json array of previous dependent transaction outputs
-  //      [               (json array of json objects, or 'null' if none provided)
-  //        {
-  //          "txid":"id",             (string, required) The transaction id
-  //          "vout":n,                  (numeric, required) The output number
-  //          "scriptPubKey": "hex",   (string, required) script key
-  //          "redeemScript": "hex",   (string, required for P2SH or P2WSH) redeem script
-  //          "amount": value            (numeric, required) The amount spent
-  //        }
-  //        ,...
-  //     ]
-  // 3. "privkeys"     (string, optional) A json array of base58-encoded private keys for signing
-  //     [                  (json array of strings, or 'null' if none provided)
-  //       "privatekey"   (string) private key in base58-encoding
-  //       ,...
-  //     ]
-  // 4. "sighashtype"     (string, optional, default=ALL) The signature hash type. Must be one of
-  //        "ALL"
-  //        "NONE"
-  //        "SINGLE"
-  //        "ALL|ANYONECANPAY"
-  //        "NONE|ANYONECANPAY"
-  //        "SINGLE|ANYONECANPAY"
-  //        "ALL|FORKID"
-  //        "NONE|FORKID"
-  //        "SINGLE|FORKID"
-  //        "ALL|FORKID|ANYONECANPAY"
-  //        "NONE|FORKID|ANYONECANPAY"
-  //        "SINGLE|FORKID|ANYONECANPAY"
-
-    let params = [];
-    if(hexstring) {
-      params.push(hexstring);
-    }
-
-    if(prevtxs) {
-      params.push(prevtxs);
-    }
-
-    if(privkeys) {
-      params.push(privkeys);
-    }
-
-    if(sighashtype) {
-      params.push(sighashtype);
-    }
-
-    return axios.post(this.baseURL, {
-      jsonrpc: "1.0",
-      id:"signrawtransaction",
-      method: "signrawtransaction",
-      params: params
-    }, {
-      auth: {
-        username: this.config.username,
-        password: this.config.password
-      }
-    })
+    return axios.post(`${this.baseurl}rawtransactions/hexstring?allowhighfees=${allowhighfees}`)
     .then((response) => {
       return response.data.result;
     })
