@@ -111,9 +111,7 @@ describe('#Network', () => {
     afterEach(() => sandbox.restore());
 
     it('should get connection count', (done) => {
-      let data = {
-        result: 13
-      };
+      let data = 13;
 
       const resolved = new Promise((r) => r({ data: data }));
       sandbox.stub(axios, 'get').returns(resolved);
@@ -121,7 +119,7 @@ describe('#Network', () => {
       BITBOX.Network.getConnectionCount()
         .then((result) => {
           assert.deepEqual(
-            data.result,
+            data,
             result
           );
         })

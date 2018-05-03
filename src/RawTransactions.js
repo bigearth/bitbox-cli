@@ -100,7 +100,7 @@ class RawTransactions {
 
     return axios.get(`${this.baseURL}rawtransactions/getRawTransaction/${txid}?verbose=${verbose}`)
     .then((response) => {
-      return response.data.result;
+      return response.data;
     })
     .catch((error) => {
       return JSON.stringify(error.response.data.error.message);

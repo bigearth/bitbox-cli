@@ -142,7 +142,6 @@ class Network {
   }
 
   getConnectionCount() {
-
     // Returns the number of connections to other nodes.
     //
     // Result:
@@ -150,7 +149,7 @@ class Network {
 
     return axios.get(`${this.baseURL}network/getConnectionCount`)
     .then((response) => {
-      return response.data.result;
+      return response.data;
     })
     .catch((error) => {
       return JSON.stringify(error.response.data.error.message);
