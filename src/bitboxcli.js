@@ -24,11 +24,8 @@ class BITBOXCli {
   constructor(config) {
     if(!config) {
       config = {
-        username: '',
-        password: '',
         protocol: '',
         host: '',
-        port: '',
         test: true
       };
     }
