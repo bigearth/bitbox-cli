@@ -29,26 +29,7 @@ class Mining {
     //        ]
     //      }
 
-    let params;
-    if(!template_request) {
-      params = [];
-    } else {
-      params = [
-        template_request
-      ];
-    }
-
-    return axios.post(this.baseURL, {
-      jsonrpc: "1.0",
-      id:"getblocktemplate",
-      method: "getblocktemplate",
-      params: params
-    }, {
-      auth: {
-        username: this.config.username,
-        password: this.config.password
-      }
-    })
+    return axios.get(`${this.baseURL}mining/getBlockTemplate`)
     .then((response) => {
       return response.data.result;
     })
@@ -71,17 +52,7 @@ class Mining {
     //   "chain": "xxxx",           (string) current network name as defined in BIP70 (main, test, regtest)
     // }
 
-    return axios.post(this.baseURL, {
-      jsonrpc: "1.0",
-      id:"getmininginfo",
-      method: "getmininginfo",
-      params: []
-    }, {
-      auth: {
-        username: this.config.username,
-        password: this.config.password
-      }
-    })
+    return axios.get(`${this.baseURL}mining/getMiningInfo`)
     .then((response) => {
       return response.data.result;
     })
@@ -90,7 +61,7 @@ class Mining {
     });
   }
 
-  getNetworkHashps(nblocks, height) {
+  getNetworkHashps(nblocks = 120, height = 1) {
     // Returns the estimated network hashes per second based on the last n blocks.
     // Pass in [blocks] to override # of blocks, -1 specifies since last difficulty change.
     // Pass in [height] to estimate the network speed at the time when a certain block was found.
@@ -101,74 +72,9 @@ class Mining {
     //
     // Result:
     // x             (numeric) Hashes per second estimated
-
-    let params = [];
-    if(nblocks) {
-      params.push(nblocks);
-    } else {
-      params.push(0);
-    }
-
-    return axios.post(this.baseURL, {
-      jsonrpc: "1.0",
-      id:"getnetworkhashps",
-      method: "getnetworkhashps",
-      params: params
-    }, {
-      auth: {
-        username: this.config.username,
-        password: this.config.password
-      }
-    })
+    return axios.get(`${this.baseURL}mining/getNetworkHashps?nblocks=${nblocks}&height=${height}`)
     .then((response) => {
-      return response.data.result;
-    })
-    .catch((error) => {
-      return JSON.stringify(error.response.data.error.message);
-    });
-  }
-
-  prioritiseTransaction(txid, priority_delta, fee_delta) {
-    // Accepts the transaction into mined blocks at a higher (or lower) priority
-    //
-    // Arguments:
-    // 1. "txid"       (string, required) The transaction id.
-    // 2. priority_delta (numeric, required) The priority to add or subtract.
-    //                   The transaction selection algorithm considers the tx as it would have a higher priority.
-    //                   (priority of a transaction is calculated: coinage * value_in_satoshis / txsize)
-    // 3. fee_delta      (numeric, required) The fee value (in satoshis) to add (or subtract, if negative).
-    //                   The fee is not actually paid, only the algorithm for selecting transactions into a block
-    //                   considers the transaction as it would have paid a higher (or lower) fee.
-    //
-    // Result:
-    // true              (boolean) Returns true
-
-    let params = [];
-    if(txid) {
-      params.push(txid);
-    }
-
-    if(priority_delta) {
-      params.push(priority_delta);
-    }
-
-    if(fee_delta) {
-      params.push(fee_delta);
-    }
-
-    return axios.post(this.baseURL, {
-      jsonrpc: "1.0",
-      id:"prioritisetransaction",
-      method: "prioritisetransaction",
-      params: params
-    }, {
-      auth: {
-        username: this.config.username,
-        password: this.config.password
-      }
-    })
-    .then((response) => {
-      return response.data.result;
+      return response.data;
     })
     .catch((error) => {
       return JSON.stringify(error.response.data.error.message);

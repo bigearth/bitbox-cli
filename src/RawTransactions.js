@@ -48,26 +48,14 @@ class RawTransactions {
     });
   }
 
-  decodeRawTransaction(rawHex) {
+  decodeRawTransaction(hex) {
     // decodes a serialized transaction hex string into a JSON object describing the transaction.
 
     // Parameter #1—serialized transaction in hex
 
     // Result—the decoded transaction
 
-    return axios.post(this.baseURL, {
-      jsonrpc: "1.0",
-      id:"decoderawtransaction",
-      method: "decoderawtransaction",
-      params: [
-        rawHex
-      ]
-    }, {
-      auth: {
-        username: this.config.username,
-        password: this.config.password
-      }
-    })
+    return axios.get(`${this.baseURL}rawtransactions/decodeRawTransaction/${hex}`)
     .then((response) => {
       return response.data.result;
     })
@@ -76,7 +64,7 @@ class RawTransactions {
     });
   }
 
-  decodeScript(redeemScript) {
+  decodeScript(hex) {
     // decodes a hex-encoded P2SH redeem script.
 
     // Parameter #1—a hex-encoded redeem script
@@ -84,19 +72,7 @@ class RawTransactions {
     // Result—the decoded script
     // console.log('decode script called *****', redeemScript)
 
-    return axios.post(this.baseURL, {
-      jsonrpc: "1.0",
-      id:"decodescript",
-      method: "decodescript",
-      params: [
-        redeemScript
-      ]
-    }, {
-      auth: {
-        username: this.config.username,
-        password: this.config.password
-      }
-    })
+    return axios.get(`${this.baseURL}rawtransactions/decodeScript/${hex}`)
     .then((response) => {
       return response.data.result;
     })
@@ -105,7 +81,7 @@ class RawTransactions {
     });
   }
 
-  getRawTransaction(txid, verbose) {
+  getRawTransaction(txid, verbose = false) {
     // NOTE: By default this function only works for mempool transactions. If the -txindex option is
     // enabled, it also works for blockchain transactions.
     // DEPRECATED: for now, it also works for transactions with unspent outputs.
@@ -122,29 +98,7 @@ class RawTransactions {
     // Result (if verbose is not set or set to false):
     // "data"      (string) The serialized, hex-encoded data for 'txid'
 
-    let params;
-    if(!verbose) {
-      params = [
-        txid
-      ];
-    } else {
-      params = [
-        txid,
-        verbose
-      ];
-    }
-
-    return axios.post(this.baseURL, {
-      jsonrpc: "1.0",
-      id:"getrawtransaction",
-      method: "getrawtransaction",
-      params: params
-    }, {
-      auth: {
-        username: this.config.username,
-        password: this.config.password
-      }
-    })
+    return axios.get(`${this.baseURL}rawtransactions/getRawTransaction/${txid}?verbose=${verbose}`)
     .then((response) => {
       return response.data.result;
     })

@@ -40,7 +40,7 @@ class BITBOXCli {
     } else if(this.config.corsproxy && this.config.corsproxy === 'remote' && !this.config.test) {
       this.baseURL = `${config.protocol}://proxy.bitbox.earth/${config.host}:${config.port}/`;
     } else if(!this.config.test) {
-      this.baseURL = `${config.protocol}://${config.host}:${config.port}/`;
+      this.baseURL = `${config.protocol}://${config.host}/v1/`;
     }
 
     this.BitcoinCash = new BitcoinCash();
