@@ -78,16 +78,14 @@ describe('#Control', () => {
     afterEach(() => sandbox.restore());
 
     it('should stop bitcoind', (done) => {
-      let data = {
-        result: 'Bitcoin server stopping'
-      };
+      let data = 'Bitcoin server stopping';
       const resolved = new Promise((r) => r({ data: data }));
       sandbox.stub(axios, 'post').returns(resolved);
 
       BITBOX.Control.stop()
         .then((result) => {
           assert.deepEqual(
-            data.result,
+            data,
             result
           );
         })

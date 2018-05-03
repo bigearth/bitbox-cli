@@ -65,19 +65,9 @@ class Control {
 
   stop() {
     // Stop Bitcoin Cash server.
-    return axios.post(this.baseURL, {
-      jsonrpc: "1.0",
-      id:"stop",
-      method: "stop",
-      params: []
-    }, {
-      auth: {
-        username: this.config.username,
-        password: this.config.password
-      }
-    })
+    return axios.post(`${this.baseURL}control/stop`)
     .then((response) => {
-      return response.data.result;
+      return response.data;
     })
     .catch((error) => {
       return JSON.stringify(error.response.data.error.message);

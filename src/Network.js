@@ -14,20 +14,7 @@ class Network {
     // 2. "command"  (string, required) 'add' to add a node to the list, 'remove' to remove a node from the list, 'onetry' to try a connection to the node once
     //
 
-    return axios.post(this.baseURL, {
-      jsonrpc: "1.0",
-      id:"addnode",
-      method: "addnode",
-      params: [
-        node,
-        command
-      ]
-    }, {
-      auth: {
-        username: this.config.username,
-        password: this.config.password
-      }
-    })
+    return axios.post(`${this.baseURL}network/addNode/${node}/${command}`)
     .then((response) => {
       return response.data.result;
     })
@@ -44,17 +31,7 @@ class Network {
     // Result—null on success
     // JSON null when the list was cleared
 
-    return axios.post(this.baseURL, {
-      jsonrpc: "1.0",
-      id:"clearbanned",
-      method: "clearbanned",
-      params: []
-    }, {
-      auth: {
-        username: this.config.username,
-        password: this.config.password
-      }
-    })
+    return axios.post(`${this.baseURL}clearBanned`)
     .then((response) => {
       return response.data.result;
     })
@@ -75,29 +52,7 @@ class Network {
     // Properties
     // 1. "address"     (string, optional) The IP address/port of the node
     // 2. "nodeid"      (number, optional) The node ID (see getpeerinfo for node IDs)
-    let params;
-    if(configuration && configuration.address && configuration.address !== "") {
-      params = [
-        configuration.address
-      ];
-    } else if(configuration && configuration.nodeid) {
-      params = [
-        "",
-        configuration.nodeid
-      ];
-    }
-
-    return axios.post(this.baseURL, {
-      jsonrpc: "1.0",
-      id:"disconnectnode",
-      method: "disconnectnode",
-      params: params
-    }, {
-      auth: {
-        username: this.config.username,
-        password: this.config.password
-      }
-    })
+    return axios.post(`${this.baseURL}disconnectNode/${configuration}`)
     .then((response) => {
       return response.data.result;
     })
@@ -132,7 +87,7 @@ class Network {
       path = `${path}?node=${node}`;
     }
 
-    return axios.get()
+    return axios.get(path)
     .then((response) => {
       return response.data.result;
     })

@@ -64,7 +64,7 @@ class RawTransactions {
     });
   }
 
-  sendRawTransaction(hexstring, allowhighfees = false) {
+  sendRawTransaction(hex, allowhighfees = false) {
     // Submits raw transaction (serialized, hex-encoded) to local node and network.
     //
     // Also see createrawtransaction and signrawtransaction calls.
@@ -77,7 +77,7 @@ class RawTransactions {
     // "hex"             (string) The transaction hash in hex
     //
 
-    return axios.post(`${this.baseurl}rawtransactions/hexstring?allowhighfees=${allowhighfees}`)
+    return axios.post(`${this.baseURL}rawtransactions/sendRawTransaction/${hex}?allowhighfees=${allowhighfees}`)
     .then((response) => {
       return response.data.result;
     })
