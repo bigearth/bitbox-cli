@@ -218,36 +218,36 @@ describe('#HDNode', () => {
       });
     });
   });
-
-  describe('create accounts and addresses', () => {
-    fixtures.accounts.forEach((fixture) => {
-      let seedBuffer = BITBOX.Mnemonic.toSeed(fixture.mnemonic)
-      let hdNode = BITBOX.HDNode.fromSeed(seedBuffer)
-      let a = BITBOX.HDNode.derivePath(hdNode, "0'");
-      let external = BITBOX.HDNode.derivePath(a, "0");
-      let account = BITBOX.HDNode.createAccount([external]);
-
-      it(`#createAccount`, () => {
-        assert.notEqual(account, null);
-      });
-
-      describe('#getChainAddress', () => {
-        let external1 = BITBOX.Address.toCashAddress(account.getChainAddress(0));
-        it(`should create external change address ${external1}`, () => {
-          assert.equal(external1, fixture.externals[0] );
-        });
-      });
-
-      describe('#nextChainAddress', () => {
-        for(let i = 0; i < 4; i++) {
-          let ex = BITBOX.Address.toCashAddress(account.nextChainAddress(0));
-          it(`should create external change address ${ex}`, () => {
-            assert.equal(ex, fixture.externals[i + 1]);
-          });
-        }
-      });
-    });
-  });
+  //
+  // describe('create accounts and addresses', () => {
+  //   fixtures.accounts.forEach((fixture) => {
+  //     let seedBuffer = BITBOX.Mnemonic.toSeed(fixture.mnemonic)
+  //     let hdNode = BITBOX.HDNode.fromSeed(seedBuffer)
+  //     let a = BITBOX.HDNode.derivePath(hdNode, "0'");
+  //     let external = BITBOX.HDNode.derivePath(a, "0");
+  //     let account = BITBOX.HDNode.createAccount([external]);
+  //
+  //     it(`#createAccount`, () => {
+  //       assert.notEqual(account, null);
+  //     });
+  //
+  //     describe('#getChainAddress', () => {
+  //       let external1 = BITBOX.Address.toCashAddress(account.getChainAddress(0));
+  //       it(`should create external change address ${external1}`, () => {
+  //         assert.equal(external1, fixture.externals[0] );
+  //       });
+  //     });
+  //
+  //     describe('#nextChainAddress', () => {
+  //       for(let i = 0; i < 4; i++) {
+  //         let ex = BITBOX.Address.toCashAddress(account.nextChainAddress(0));
+  //         it(`should create external change address ${ex}`, () => {
+  //           assert.equal(ex, fixture.externals[i + 1]);
+  //         });
+  //       }
+  //     });
+  //   });
+  // });
 
   describe('#sign', () => {
     fixtures.sign.forEach((fixture) => {
