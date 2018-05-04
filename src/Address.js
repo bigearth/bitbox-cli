@@ -1,3 +1,4 @@
+import axios from 'axios';
 import bchaddr from 'bchaddrjs';
 import Bitcoin from 'bitcoinjs-lib';
 
@@ -81,6 +82,26 @@ class Address {
   fromOutputScript(scriptPubKey) {
     return bchaddr.toCashAddress(Bitcoin.address.fromOutputScript(scriptPubKey));
   }
+
+  details(address) {
+    return axios.get(`https://explorer.bitcoin.com/api/bch/addr/${address}`)
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      return JSON.stringify(error.response.data.error.message);
+    });
+  }
+
+  utxo(address) {
+    return axios.get(`https://explorer.bitcoin.com/api/bch/addr/${address}/utxo`)
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      return JSON.stringify(error.response.data.error.message);
+    });
+  }
 }
 
-export default Address;
+export default Address
