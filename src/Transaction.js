@@ -1,9 +1,5 @@
 import Bitcoin from 'bitcoinjs-lib';
-import bchaddr from 'bchaddrjs';
-import sb from 'satoshi-bitcoin';
-import bitcoinMessage from 'bitcoinjs-message';
-import bs58 from 'bs58';
-import bip21 from 'bip21';
+import axios from 'axios';
 
 class Transaction {
   static transaction() {
@@ -20,6 +16,16 @@ class Transaction {
 
   static fromTransaction(tx) {
     return Bitcoin.TransactionBuilder.fromTransaction(tx);
+  }
+
+  static details(txid) {
+    return axios.get(`https://explorer.bitcoin.com/api/bch/tx/${txid}`)
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      return JSON.stringify(error.response.data.error.message);
+    });
   }
 }
 

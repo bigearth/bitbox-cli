@@ -1,6 +1,6 @@
 {
   "name": "bitbox-cli",
-  "version": "0.7.17",
+  "version": "0.7.18",
   "description": "A development framework for Bitcoin Cash",
   "author": "@bitboxearth",
   "main": "index.js",
