@@ -19,6 +19,10 @@ class Transaction {
   }
 
   static details(txid) {
+    if(typeof txid !== 'string') {
+      txid = JSON.stringify(txid);
+    }
+    
     return axios.get(`https://rest.bitbox.earth/v1/transaction/details/${txid}`)
     .then((response) => {
       return response.data;
