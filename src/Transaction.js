@@ -19,7 +19,7 @@ class Transaction {
   }
 
   static details(txid) {
-    return axios.get(`https://explorer.bitcoin.com/api/bch/tx/${txid}`)
+    return axios.get(`https://rest.bitbox.earth/v1/transaction/details/${txid}`)
     .then((response) => {
       return response.data;
     })
