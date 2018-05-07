@@ -84,8 +84,11 @@ class Address {
   }
 
   details(address) {
-    return axios.get(`https://explorer.bitcoin.com/api/bch/addr/${address}`)
+    return axios.get(`https://explorer.bitcoin.com/api/bch/addr/${bchaddr.toLegacyAddress(address)}`)
     .then((response) => {
+      delete response.data.addrStr;
+      response.data.legacyAddress = bchaddr.toLegacyAddress(address);
+      response.data.cashAddress = bchaddr.toCashAddress(address);
       return response.data;
     })
     .catch((error) => {
@@ -94,8 +97,13 @@ class Address {
   }
 
   utxo(address) {
-    return axios.get(`https://explorer.bitcoin.com/api/bch/addr/${address}/utxo`)
+    return axios.get(`https://explorer.bitcoin.com/api/bch/addr/${bchaddr.toLegacyAddress(address)}/utxo`)
     .then((response) => {
+      response.data.forEach((data) => {
+        delete data.address;
+        data.legacyAddress = bchaddr.toLegacyAddress(address);
+        data.cashAddress = bchaddr.toCashAddress(address);
+      })
       return response.data;
     })
     .catch((error) => {

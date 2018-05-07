@@ -482,7 +482,8 @@ describe('#details', () => {
 
   it('should get details', (done) => {
     let data = {
-      "addrStr": "3CnzuFFbtgVyHNiDH8BknGo3PQ3dpdThgJ",
+      "legacyAddress": "3CnzuFFbtgVyHNiDH8BknGo3PQ3dpdThgJ",
+      "cashAddress": "bitcoincash:ppuukp49np467kyzxl0fkla34rmgcddhvc33ce2d6l",
       "balance": 300.0828874,
       "balanceSat": 30008288740,
       "totalReceived": 12945.45174649,
@@ -519,7 +520,8 @@ describe('#utxo', () => {
   it('should get utxo', (done) => {
     let data = [
       {
-        "address": "3CnzuFFbtgVyHNiDH8BknGo3PQ3dpdThgJ",
+        "legacyAddress": "3CnzuFFbtgVyHNiDH8BknGo3PQ3dpdThgJ",
+        "cashAddress": "bitcoincash:ppuukp49np467kyzxl0fkla34rmgcddhvc33ce2d6l",
         "txid": "6f56254424378d6914cebd097579c70664843e5876ca86f0bf412ba7f3928326",
         "vout": 0,
         "scriptPubKey": "a91479cb06a5986baf588237de9b7fb1a8f68c35b76687",
@@ -529,7 +531,8 @@ describe('#utxo', () => {
         "confirmations": 17
         },
         {
-        "address": "3CnzuFFbtgVyHNiDH8BknGo3PQ3dpdThgJ",
+        "legacyAddress": "3CnzuFFbtgVyHNiDH8BknGo3PQ3dpdThgJ",
+        "cashAddress": "bitcoincash:ppuukp49np467kyzxl0fkla34rmgcddhvc33ce2d6l",
         "txid": "b29425a876f62e114508e67e66b5eb1ab0d320d7c9a57fb0ece086a36e2b7309",
         "vout": 0,
         "scriptPubKey": "a91479cb06a5986baf588237de9b7fb1a8f68c35b76687",
@@ -542,7 +545,7 @@ describe('#utxo', () => {
     const resolved = new Promise((r) => r({ data: data }));
     sandbox.stub(axios, 'get').returns(resolved);
 
-    BITBOX.Address.utxo('bitcoincash:qrdka2205f4hyukutc2g0s6lykperc8nsu5u2ddpqf')
+    BITBOX.Address.utxo('bitcoincash:ppuukp49np467kyzxl0fkla34rmgcddhvc33ce2d6l')
       .then((result) => {
         assert.deepEqual(
           data,
