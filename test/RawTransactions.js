@@ -7,30 +7,6 @@ let BITBOX = new BITBOXCli();
 let sinon = require('sinon');
 
 describe('#RawTransactions', () => {
-  describe('#createRawTransaction', () => {
-    let sandbox;
-    beforeEach(() => sandbox = sinon.sandbox.create());
-    afterEach(() => sandbox.restore());
-
-    it('should create raw transaction', (done) => {
-      let data = {
-        result: '02000000000000000000'
-      };
-
-      const resolved = new Promise((r) => r({ data: data }));
-      sandbox.stub(axios, 'post').returns(resolved);
-
-      BITBOX.RawTransactions.createRawTransaction([], {})
-      .then((result) => {
-        assert.deepEqual(
-          data.result,
-          result
-        );
-      })
-      .then(done, done);
-    });
-  });
-
   describe('#decodeRawTransaction', () => {
     let sandbox;
     beforeEach(() => sandbox = sinon.sandbox.create());
@@ -138,30 +114,4 @@ describe('#RawTransactions', () => {
       .then(done, done);
     });
   });
-
-  describe('#signRawTransaction', () => {
-    let sandbox;
-    beforeEach(() => sandbox = sinon.sandbox.create());
-    afterEach(() => sandbox.restore());
-
-    it('should send raw transaction', (done) => {
-      let data = {
-        result: "TX decode failed"
-      };
-
-      const resolved = new Promise((r) => r({ data: data }));
-      sandbox.stub(axios, 'post').returns(resolved);
-
-      BITBOX.RawTransactions.signRawTransaction('020000000160d663961c63c7f0a07f22ec07b8f55b3935bfdbed8b1d8454916e8932fbf109010000006b4830450221008479fab4cfdcb111833d250a43f98ac26d43272b7a29cb1b9a0491eae5c44b3502203448b17253632395c29a7d62058bbfe93efb20fc8636ba6837002d464195aec04121029123258f7cdcd45b864066bcaa9b71f24d5ed1fa1dd36eaf107d8432b5014658ffffffff016d180000000000001976a91479d3297d1823149f4ec61df31d19f2fad5390c0288ac00000000')
-      .then((result) => {
-        assert.deepEqual(
-          data.result,
-          result
-        );
-      })
-      .then(done, done);
-    });
-  });
 });
-
-// BITBOX.RawTrsactions.signRawTransaction('808d617eccaad4f1397fe07a06ec5ed15a0821cf22a3e0931c0c92aef9e572b6').then((result) => { console.log(result); }, (err) => { console.log(err); });

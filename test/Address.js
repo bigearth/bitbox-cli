@@ -498,6 +498,7 @@ describe('#details', () => {
         "b29425a876f62e114508e67e66b5eb1ab0d320d7c9a57fb0ece086a36e2b7309"
       ]
     };
+
     const resolved = new Promise((r) => r({ data: data }));
     sandbox.stub(axios, 'get').returns(resolved);
 

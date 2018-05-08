@@ -84,11 +84,11 @@ class Address {
   }
 
   details(address) {
-    return axios.get(`https://explorer.bitcoin.com/api/bch/addr/${bchaddr.toLegacyAddress(address)}`)
+    if(typeof address !== 'string') {
+      address = JSON.stringify(address);
+    }
+    return axios.get(`https://rest.bitbox.earth/v1/address/details/${address}`)
     .then((response) => {
-      delete response.data.addrStr;
-      response.data.legacyAddress = bchaddr.toLegacyAddress(address);
-      response.data.cashAddress = bchaddr.toCashAddress(address);
       return response.data;
     })
     .catch((error) => {
@@ -97,13 +97,11 @@ class Address {
   }
 
   utxo(address) {
-    return axios.get(`https://explorer.bitcoin.com/api/bch/addr/${bchaddr.toLegacyAddress(address)}/utxo`)
+    if(typeof address !== 'string') {
+      address = JSON.stringify(address);
+    }
+    return axios.get(`https://rest.bitbox.earth/v1/address/utxo/${address}`)
     .then((response) => {
-      response.data.forEach((data) => {
-        delete data.address;
-        data.legacyAddress = bchaddr.toLegacyAddress(address);
-        data.cashAddress = bchaddr.toCashAddress(address);
-      })
       return response.data;
     })
     .catch((error) => {
