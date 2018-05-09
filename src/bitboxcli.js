@@ -6,6 +6,7 @@ import Bitcoin from 'bitcoinjs-lib';
 import BitcoinCash from './BitcoinCash';
 import Crypto from './Crypto';
 import Util from './Util';
+import Block from './Block';
 import Blockchain from './Blockchain';
 import Control from './Control';
 import Generating from './Generating';
@@ -45,6 +46,7 @@ class BITBOXCli {
     this.Address = new Address();
     this.HDNode = new HDNode();
     this.Util = new Util(config, this.baseURL);
+    this.Block = Block;
     this.Blockchain = new Blockchain(config, this.baseURL);
     this.Control = new Control(config, this.baseURL);
     this.Generating = new Generating(config, this.baseURL);

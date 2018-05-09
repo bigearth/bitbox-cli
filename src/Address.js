@@ -1,3 +1,4 @@
+import axios from 'axios';
 import bchaddr from 'bchaddrjs';
 import Bitcoin from 'bitcoinjs-lib';
 
@@ -8,8 +9,12 @@ class Address {
     return bchaddr.toLegacyAddress(address);
   }
 
-  toCashAddress(address) {
-    return bchaddr.toCashAddress(address);
+  toCashAddress(address, prefix = true) {
+    if(prefix) {
+      return bchaddr.toCashAddress(address);
+    } else {
+      return bchaddr.toCashAddress(address).split(':')[1];
+    }
   }
 
   // Test for address format.
@@ -81,6 +86,32 @@ class Address {
   fromOutputScript(scriptPubKey) {
     return bchaddr.toCashAddress(Bitcoin.address.fromOutputScript(scriptPubKey));
   }
+
+  details(address) {
+    if(typeof address !== 'string') {
+      address = JSON.stringify(address);
+    }
+    return axios.get(`https://rest.bitbox.earth/v1/address/details/${address}`)
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      return JSON.stringify(error.response.data.error.message);
+    });
+  }
+
+  utxo(address) {
+    if(typeof address !== 'string') {
+      address = JSON.stringify(address);
+    }
+    return axios.get(`https://rest.bitbox.earth/v1/address/utxo/${address}`)
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      return JSON.stringify(error.response.data.error.message);
+    });
+  }
 }
 
-export default Address;
+export default Address

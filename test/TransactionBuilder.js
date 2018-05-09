@@ -1,8 +1,10 @@
 let fixtures = require('./fixtures/TransactionBuilder.json')
 let chai = require('chai');
-let assert = chai.assert;
+let assert = require('assert');
 let BITBOXCli = require('./../lib/bitboxcli').default;
 let BITBOX = new BITBOXCli();
+let Buffer = require('safe-buffer').Buffer
+
 
 describe('#TransactionBuilder', () => {
   describe('#hashTypes', () => {

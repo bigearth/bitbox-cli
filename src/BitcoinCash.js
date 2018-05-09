@@ -4,6 +4,7 @@ import sb from 'satoshi-bitcoin';
 import bitcoinMessage from 'bitcoinjs-message';
 import bs58 from 'bs58';
 import bip21 from 'bip21';
+let Buffer = require('safe-buffer').Buffer
 
 class BitcoinCash {
   address() {
@@ -116,36 +117,6 @@ class BitcoinCash {
     totalWeight += 10 * 4
 
     return Math.ceil(totalWeight / 4)
-  }
-
-  byteToHexString(uint8arr) {
-    // from https://gist.github.com/tauzen/3d18825ae41ff3fc8981
-    if (!uint8arr) {
-      return '';
-    }
-
-    var hexStr = '';
-    for (var i = 0; i < uint8arr.length; i++) {
-      var hex = (uint8arr[i] & 0xff).toString(16);
-      hex = (hex.length === 1) ? '0' + hex : hex;
-      hexStr += hex;
-    }
-
-    return hexStr.toUpperCase();
-  }
-
-  hexStringToByte(str) {
-    // from https://gist.github.com/tauzen/3d18825ae41ff3fc8981
-    if (!str) {
-      return new Uint8Array();
-    }
-
-    var a = [];
-    for (var i = 0, len = str.length; i < len; i+=2) {
-      a.push(parseInt(str.substr(i,2),16));
-    }
-
-    return new Uint8Array(a);
   }
 }
 

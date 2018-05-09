@@ -1,8 +1,9 @@
 let fixtures = require('./fixtures/Crypto.json')
 let chai = require('chai');
-let assert = chai.assert;
+let assert = require('assert');
 let BITBOXCli = require('./../lib/bitboxcli').default;
 let BITBOX = new BITBOXCli();
+let Buffer = require('safe-buffer').Buffer
 
 describe('#Crypto', () => {
   describe('#sha256', () => {
@@ -16,7 +17,7 @@ describe('#Crypto', () => {
       it(`should create 64 character SHA256Hash hex encoded`, () => {
         let data = Buffer.from(fixture.hex, 'hex')
         let sha256Hash = BITBOX.Crypto.sha256(data).toString('hex');
-        assert.lengthOf(sha256Hash, 64);
+        assert.equal(sha256Hash.length, 64);
       });
     });
   });
@@ -32,7 +33,7 @@ describe('#Crypto', () => {
       it(`should create 64 character RIPEMD160Hash hex encoded`, () => {
         let data = Buffer.from(fixture.hex, 'hex')
         let ripemd160 = BITBOX.Crypto.ripemd160(data).toString('hex');
-        assert.lengthOf(ripemd160, 40);
+        assert.equal(ripemd160.length, 40);
       });
     });
   });
@@ -48,7 +49,7 @@ describe('#Crypto', () => {
       it(`should create 64 character SHA256 Hash hex encoded`, () => {
         let data = Buffer.from(fixture.hex, 'hex')
         let hash256 = BITBOX.Crypto.hash256(data).toString('hex');
-        assert.lengthOf(hash256, 64);
+        assert.equal(hash256.length, 64);
       });
     });
   });
@@ -64,7 +65,7 @@ describe('#Crypto', () => {
       it(`should create 64 character SHA256Hash hex encoded`, () => {
         let data = Buffer.from(fixture.hex, 'hex')
         let hash160 = BITBOX.Crypto.hash160(data).toString('hex');
-        assert.lengthOf(hash160, 40);
+        assert.equal(hash160.length, 40);
       });
     });
   });

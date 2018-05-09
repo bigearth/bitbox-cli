@@ -1,6 +1,6 @@
 {
   "name": "bitbox-cli",
-  "version": "0.8.0",
+  "version": "0.7.23",
   "description": "A development framework for Bitcoin Cash",
   "author": "@bitboxearth",
   "main": "index.js",
@@ -14,6 +14,7 @@
     "bitbox": "./index.js"
   },
   "dependencies": {
+    "assert": "^1.4.1",
     "axios": "^0.17.1",
     "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.6.1",
@@ -24,12 +25,12 @@
     "bchaddrjs": "^0.2.1",
     "bigi": "^1.4.2",
     "bip21": "bigearth/bip21",
-    "bip32-utils": "^0.11.1",
     "bip39": "^2.5.0",
     "bitcoin-ops": "bigearth/bitcoin-ops",
     "bitcoinjs-lib": "bigearth/bitcoinjs-lib",
     "bitcoinjs-message": "^2.0.0",
     "bs58": "^4.0.1",
+    "buffer": "^5.1.0",
     "chalk": "^2.3.0",
     "clear": "0.0.1",
     "commander": "^2.13.0",
@@ -45,6 +46,7 @@
     "node-emoji": "^1.8.1",
     "qrcode": "^1.2.0",
     "randombytes": "^2.0.6",
+    "safe-buffer": "^5.1.2",
     "satoshi-bitcoin": "^1.0.4",
     "touch": "^3.1.0"
   },

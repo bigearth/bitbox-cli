@@ -1,6 +1,6 @@
 // let fixtures = require('./fixtures/BitcoinCash.json')
 let chai = require('chai');
-let assert = chai.assert;
+let assert = require('assert');
 let axios = require('axios');
 let BITBOXCli = require('./../lib/bitboxcli').default;
 let BITBOX = new BITBOXCli();
