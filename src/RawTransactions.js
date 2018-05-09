@@ -5,7 +5,6 @@ class RawTransactions {
     this.baseURL = baseURL;
   }
 
-<<<<<<< HEAD
   createRawTransaction(inputs, outputs, locktime) {
     // creates an unsigned serialized transaction that spends a previous output to a new output with a P2PKH or P2SH address. The transaction is not stored in the wallet or transmitted to the network.
 
@@ -50,9 +49,6 @@ class RawTransactions {
   }
 
   decodeRawTransaction(hex) {
-=======
-  decodeRawTransaction(rawHex) {
->>>>>>> 850411646bbe2151d77948e26a8b90f751dac77a
     // decodes a serialized transaction hex string into a JSON object describing the transaction.
 
     // Parameter #1—serialized transaction in hex
