@@ -65,7 +65,7 @@ let P2SH_ADDRESSES = flatten([
   fixtures.cashaddrMainnetP2SH
 ])
 
-describe('address conversion', () => {
+describe('#addressConversion', () => {
   describe('#toLegacyAddress', () => {
     it('should translate legacy address format to itself correctly', () => {
       assert.deepEqual(
@@ -96,23 +96,30 @@ describe('address conversion', () => {
   describe('#toCashAddress', () => {
     it('should convert legacy base58Check address to cashaddr', () => {
       assert.deepEqual(
-        LEGACY_ADDRESSES.map(BITBOX.Address.toCashAddress),
+        LEGACY_ADDRESSES.map(address => BITBOX.Address.toCashAddress(address, true)),
         CASHADDR_ADDRESSES
       );
     });
 
     it('should translate cashaddr address format to itself correctly', () => {
       assert.deepEqual(
-        CASHADDR_ADDRESSES.map(BITBOX.Address.toCashAddress),
+        CASHADDR_ADDRESSES.map(address => BITBOX.Address.toCashAddress(address, true)),
         CASHADDR_ADDRESSES
       );
     })
 
     it('should translate no-prefix cashaddr address format to itself correctly', () => {
       assert.deepEqual(
-        CASHADDR_ADDRESSES_NO_PREFIX.map(BITBOX.Address.toCashAddress),
+        CASHADDR_ADDRESSES_NO_PREFIX.map(address => BITBOX.Address.toCashAddress(address, true)),
         CASHADDR_ADDRESSES
       )
+    })
+
+    it('should translate no-prefix cashaddr address format to itself correctly', () => {
+      CASHADDR_ADDRESSES.forEach((address) => {
+        let noPrefix = BITBOX.Address.toCashAddress(address, false);
+        assert.equal(address.split(':')[1], noPrefix);
+      });
     })
 
     describe('errors', () => {

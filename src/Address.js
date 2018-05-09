@@ -9,8 +9,12 @@ class Address {
     return bchaddr.toLegacyAddress(address);
   }
 
-  toCashAddress(address) {
-    return bchaddr.toCashAddress(address);
+  toCashAddress(address, prefix = true) {
+    if(prefix) {
+      return bchaddr.toCashAddress(address);
+    } else {
+      return bchaddr.toCashAddress(address).split(':')[1];
+    }
   }
 
   // Test for address format.
