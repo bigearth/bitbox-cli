@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 require("babel-register");
+let path = require('path');
 let program = require('commander');
 let chalk = require('chalk');
 let mkdirp = require('mkdirp');
@@ -169,9 +170,9 @@ program
   }
 };
 `);
-
-    console.log(chalk.blue('All done.'), emoji.get(':white_check_mark:'));
-    console.log(chalk.blue('Go get em! Remember--with great power comes great responsibility.'), emoji.get(':rocket:'));
+      fs.appendFileSync( `./${name}/.gitignore`, '.console_history');
+      console.log(chalk.blue('All done.'), emoji.get(':white_check_mark:'));
+      console.log(chalk.blue('Go get em! Remember--with great power comes great responsibility.'), emoji.get(':rocket:'));
     });
   }
 );
@@ -182,7 +183,10 @@ program
   .description('Run a console with Bitcoin Cash RPC commands available')
   .action((options) => {
     let config = require(process.cwd() + '/bitbox.js').config;
-    var replServer = repl.start('> ');
+    let replServer = repl.start('> ');
+    let historyFile = path.join(process.cwd(), '.console_history');
+    require('repl.history')(replServer, historyFile);
+
     fs.readFile(os.homedir() + '/.bitboxrc', 'utf8', (err, contents) => {
       let conf;
       if(contents) {
