@@ -10,26 +10,16 @@ class Blockchain {
     //
     // Result:
     // "hex"      (string) the block hash hex encoded
-    return axios.post(this.baseURL, {
-      jsonrpc: "1.0",
-      id:"getbestblockhash",
-      method: "getbestblockhash",
-      params: []
-    }, {
-      auth: {
-        username: this.config.username,
-        password: this.config.password
-      }
-    })
+    return axios.get(`${this.baseURL}blockchain/getBestBlockHash`)
     .then((response) => {
-      return response.data.result;
+      return response.data;
     })
     .catch((error) => {
       return JSON.stringify(error.response.data.error.message);
     });
   }
 
-  getBlock(blockhash, verbose) {
+  getBlock(blockhash, verbose = true) {
     // If verbose is false, returns a string that is serialized, hex-encoded data for block 'hash'.
     // If verbose is true, returns an Object with information about block <hash>.
     //
@@ -62,29 +52,8 @@ class Blockchain {
     //
     // Result (for verbose=false):
     // "data"             (string) A string that is serialized, hex-encoded data for block 'hash'.
-    let params;
-    if(!verbose) {
-      params = [
-        blockhash
-      ];
-    } else {
-      params = [
-        blockhash,
-        verbose
-      ];
-    }
 
-    return axios.post(this.baseURL, {
-      jsonrpc: "1.0",
-      id:"getblock",
-      method: "getblock",
-      params: params
-    }, {
-      auth: {
-        username: this.config.username,
-        password: this.config.password
-      }
-    })
+    return axios.get(`${this.baseURL}blockchain/getBlock/${blockhash}?verbose=${verbose}`)
     .then((response) => {
       return response.data.result;
     })
@@ -95,17 +64,7 @@ class Blockchain {
 
   getBlockchainInfo() {
     // Returns an object containing various state info regarding blockchain processing.
-    return axios.post(this.baseURL, {
-      jsonrpc: "1.0",
-      id:"getblockchaininfo",
-      method: "getblockchaininfo",
-      params: []
-    }, {
-      auth: {
-        username: this.config.username,
-        password: this.config.password
-      }
-    })
+    return axios.get(`${this.baseURL}blockchain/getBlockchainInfo`)
     .then((response) => {
       return response.data.result;
     })
@@ -119,27 +78,16 @@ class Blockchain {
     //
     // Result:
     // n    (numeric) The current block count
-
-    return axios.post(this.baseURL, {
-      jsonrpc: "1.0",
-      id:"getblockcount",
-      method: "getblockcount",
-      params: []
-    }, {
-      auth: {
-        username: this.config.username,
-        password: this.config.password
-      }
-    })
+    return axios.get(`${this.baseURL}blockchain/getBlockCount`)
     .then((response) => {
-      return response.data.result;
+      return response.data;
     })
     .catch((error) => {
       return JSON.stringify(error.response.data.error.message);
     });
   }
 
-  getBlockHash(height) {
+  getBlockHash(height = 0) {
     // Returns hash of block in best-block-chain at height provided.
     //
     // Arguments:
@@ -147,26 +95,7 @@ class Blockchain {
     //
     // Result:
     // "hash"         (string) The block hash
-    let params = [];
-    if(height) {
-      params.push(height);
-    } else {
-      params.push(0)
-    }
-
-    return axios.post(this.baseURL, {
-      jsonrpc: "1.0",
-      id:"getblockhash",
-      method: "getblockhash",
-      params: [
-        parseInt(params)
-      ]
-    }, {
-      auth: {
-        username: this.config.username,
-        password: this.config.password
-      }
-    })
+    return axios.get(`${this.baseURL}blockchain/getBlockHash/${height}`)
     .then((response) => {
       return response.data.result;
     })
@@ -175,7 +104,7 @@ class Blockchain {
     });
   }
 
-  getBlockHeader(hash, verbose) {
+  getBlockHeader(hash, verbose = true) {
 
     // If verbose is false, returns a string that is serialized, hex-encoded data for blockheader 'hash'.
     // If verbose is true, returns an Object with information about blockheader <hash>.
@@ -204,29 +133,7 @@ class Blockchain {
     //
     // Result (for verbose=false):
     // "data"             (string) A string that is serialized, hex-encoded data for block 'hash'.
-    let params;
-    if(!verbose) {
-      params = [
-        hash
-      ];
-    } else {
-      params = [
-        hash,
-        verbose
-      ];
-    }
-
-    return axios.post(this.baseURL, {
-      jsonrpc: "1.0",
-      id:"getblockheader",
-      method: "getblockheader",
-      params: params
-    }, {
-      auth: {
-        username: this.config.username,
-        password: this.config.password
-      }
-    })
+    return axios.get(`${this.baseURL}blockchain/getBlockHash/${hash}?verbose=${verbose}`)
     .then((response) => {
       return response.data.result;
     })
@@ -236,7 +143,6 @@ class Blockchain {
   }
 
   getChainTips() {
-
     // Return information about all known tips in the block tree, including the main chain as well as orphaned branches.
     //
     // Result:
@@ -261,17 +167,7 @@ class Blockchain {
     // 4.  "valid-fork"            This branch is not part of the active chain, but is fully validated
     // 5.  "active"                This is the tip of the active main chain, which is certainly valid
 
-    return axios.post(this.baseURL, {
-      jsonrpc: "1.0",
-      id:"getchaintips",
-      method: "getchaintips",
-      params: []
-    }, {
-      auth: {
-        username: this.config.username,
-        password: this.config.password
-      }
-    })
+    return axios.get(`${this.baseURL}blockchain/getChainTips`)
     .then((response) => {
       return response.data.result;
     })
@@ -287,17 +183,7 @@ class Blockchain {
     // Result:
     // n.nnn       (numeric) the proof-of-work difficulty as a multiple of the minimum difficulty.
 
-    return axios.post(this.baseURL, {
-      jsonrpc: "1.0",
-      id:"getdifficulty",
-      method: "getdifficulty",
-      params: []
-    }, {
-      auth: {
-        username: this.config.username,
-        password: this.config.password
-      }
-    })
+    return axios.get(`${this.baseURL}blockchain/getDifficulty`)
     .then((response) => {
       return response.data.result;
     })
@@ -306,7 +192,7 @@ class Blockchain {
     });
   }
 
-  getMempoolAncestors(txid, verbose) {
+  getMempoolAncestors(txid, verbose = false) {
     // If txid is in the mempool, returns all in-mempool ancestors.
     //
     // Arguments:
@@ -340,30 +226,7 @@ class Blockchain {
     //        ... ]
     //   }, ...
     // }
-
-    let params;
-    if(!verbose) {
-      params = [
-        txid
-      ]
-    } else {
-      params = [
-        txid,
-        verbose
-      ]
-    }
-
-    return axios.post(this.baseURL, {
-      jsonrpc: "1.0",
-      id:"getmempoolancestors",
-      method: "getmempoolancestors",
-      params: params
-    }, {
-      auth: {
-        username: this.config.username,
-        password: this.config.password
-      }
-    })
+    return axios.get(`${this.baseURL}blockchain/getMempoolAncestors/${txid}?verbose=${verbose}`)
     .then((response) => {
       return response.data.result;
     })
@@ -372,7 +235,7 @@ class Blockchain {
     });
   }
 
-  getMempoolDescendants(txid, verbose) {
+  getMempoolDescendants(txid, verbose = false) {
     // If txid is in the mempool, returns all in-mempool descendants.
     //
     // Arguments:
@@ -407,29 +270,7 @@ class Blockchain {
     //   }, ...
     // }
 
-    let params;
-    if(!verbose) {
-      params = [
-        txid
-      ]
-    } else {
-      params = [
-        txid,
-        verbose
-      ]
-    }
-
-    return axios.post(this.baseURL, {
-      jsonrpc: "1.0",
-      id:"getmempooldescendants",
-      method: "getmempooldescendants",
-      params: params
-    }, {
-      auth: {
-        username: this.config.username,
-        password: this.config.password
-      }
-    })
+    return axios.get(`${this.baseURL}blockchain/getMempoolDescendants/${txid}?verbose=${verbose}`)
     .then((response) => {
       return response.data.result;
     })
@@ -464,19 +305,7 @@ class Blockchain {
     //        ... ]
     // }
 
-    return axios.post(this.baseURL, {
-      jsonrpc: "1.0",
-      id:"getmempoolentry",
-      method: "getmempoolentry",
-      params: [
-        txid
-      ]
-    }, {
-      auth: {
-        username: this.config.username,
-        password: this.config.password
-      }
-    })
+    return axios.get(`${this.baseURL}blockchain/getMempoolEntry/${txid}`)
     .then((response) => {
       return response.data.result;
     })
@@ -497,17 +326,7 @@ class Blockchain {
     //   "mempoolminfee": xxxxx       (numeric) Minimum fee for tx to be accepted
     // }
 
-    return axios.post(this.baseURL, {
-      jsonrpc: "1.0",
-      id:"getmempoolinfo",
-      method: "getmempoolinfo",
-      params: []
-    }, {
-      auth: {
-        username: this.config.username,
-        password: this.config.password
-      }
-    })
+    return axios.get(`${this.baseURL}blockchain/getMempoolInfo`)
     .then((response) => {
       return response.data.result;
     })
@@ -516,7 +335,7 @@ class Blockchain {
     });
   }
 
-  getRawMempool(verbose) {
+  getRawMempool(verbose = false) {
     // Returns all transaction ids in memory pool as a json array of string transaction ids.
     //
     // Arguments:
@@ -549,22 +368,7 @@ class Blockchain {
     //        ... ]
     //   }, ...
     // }
-    let params = [];
-    if(verbose) {
-      params.push(verbose);
-    }
-
-    return axios.post(this.baseURL, {
-      jsonrpc: "1.0",
-      id:"getrawmempool",
-      method: "getrawmempool",
-      params: params
-    }, {
-      auth: {
-        username: this.config.username,
-        password: this.config.password
-      }
-    })
+    return axios.get(`${this.baseURL}blockchain/getRawMempool?vebose=${verbose}`)
     .then((response) => {
       return response.data.result;
     })
@@ -573,7 +377,7 @@ class Blockchain {
     });
   }
 
-  getTxOut(txid, n, include_mempool) {
+  getTxOut(txid, n, include_mempool = true) {
     // Returns details about an unspent transaction output.
     //
     // Arguments:
@@ -599,31 +403,8 @@ class Blockchain {
     //   "coinbase" : true|false   (boolean) Coinbase or not
     // }
     //
-    let params;
-    if(!include_mempool) {
-      params = [
-        txid,
-        n
-      ];
-    } else {
-      params = [
-        txid,
-        n,
-        include_mempool
-      ];
-    }
 
-    return axios.post(this.baseURL, {
-      jsonrpc: "1.0",
-      id:"gettxout",
-      method: "gettxout",
-      params: params
-    }, {
-      auth: {
-        username: this.config.username,
-        password: this.config.password
-      }
-    })
+    return axios.get(`${this.baseURL}blockchain/getTxOut/${txid}/n?include_mempool=${include_mempool}`)
     .then((response) => {
       return response.data.result;
     })
@@ -633,6 +414,10 @@ class Blockchain {
   }
 
   getTxOutProof(txids, blockhash) {
+    let path = `${this.baseURL}blockchain/getTxOutProof/${txids}`;
+    if(blockhash) {
+      path = `${path}?blockhash=${blockhash}`
+    }
     // Returns a hex-encoded proof that "txid" was included in a block.
     //
     // NOTE: By default this function only works sometimes. This is when there is an
@@ -650,29 +435,7 @@ class Blockchain {
     //
     // Result:
     // "data"           (string) A string that is a serialized, hex-encoded data for the proof.
-    let params;
-    if(!blockhash) {
-      params = [
-        txids
-      ];
-    } else {
-      params = [
-        txids,
-        blockhash
-      ];
-    }
-
-    return axios.post(this.baseURL, {
-      jsonrpc: "1.0",
-      id:"gettxoutproof",
-      method: "gettxoutproof",
-      params: params
-    }, {
-      auth: {
-        username: this.config.username,
-        password: this.config.password
-      }
-    })
+    return axios.get(path)
     .then((response) => {
       return response.data.result;
     })
@@ -698,17 +461,7 @@ class Blockchain {
     // }
     //
 
-    return axios.post(this.baseURL, {
-      jsonrpc: "1.0",
-      id:"gettxoutsetinfo",
-      method: "gettxoutsetinfo",
-      params: []
-    }, {
-      auth: {
-        username: this.config.username,
-        password: this.config.password
-      }
-    })
+    return axios.get(`${this.baseURL}blockchain/getTxOutSetInfo`)
     .then((response) => {
       return response.data.result;
     })
@@ -727,19 +480,7 @@ class Blockchain {
     // Arguments:
     // 1. "blockhash"   (string, required) the hash of the block to mark as precious
 
-    let params = [];
-
-    return axios.post(this.baseURL, {
-      jsonrpc: "1.0",
-      id:"preciousblock",
-      method: "preciousblock",
-      params: params
-    }, {
-      auth: {
-        username: this.config.username,
-        password: this.config.password
-      }
-    })
+    return axios.get(`${this.baseURL}blockchain/preciousBlock/${blockhash}`)
     .then((response) => {
       return response.data.result;
     })
@@ -755,22 +496,7 @@ class Blockchain {
     //
     // Result:
     // n    (numeric) Height of the last block pruned.
-    let params = [];
-    if(height) {
-      params.push(height);
-    }
-
-    return axios.post(this.baseURL, {
-      jsonrpc: "1.0",
-      id:"pruneblockchain",
-      method: "pruneblockchain",
-      params: params
-    }, {
-      auth: {
-        username: this.config.username,
-        password: this.config.password
-      }
-    })
+    return axios.post(`${this.baseURL}blockchain/pruneBlockchain/${height}`)
     .then((response) => {
       return response.data.result;
     })
@@ -779,7 +505,7 @@ class Blockchain {
     });
   }
 
-  verifyChain(checklevel, nblocks) {
+  verifyChain(checklevel = 3, nblocks = 6) {
     // Verifies blockchain database.
     //
     // Arguments:
@@ -788,28 +514,9 @@ class Blockchain {
     //
     // Result:
     // true|false       (boolean) Verified or not
-    let params = [];
-    if(checklevel) {
-      params.push(checklevel);
-    }
-
-    if(nblocks) {
-      params.push(nblocks);
-    }
-
-    return axios.post(this.baseURL, {
-      jsonrpc: "1.0",
-      id:"verifychain",
-      method: "verifychain",
-      params: params
-    }, {
-      auth: {
-        username: this.config.username,
-        password: this.config.password
-      }
-    })
+    return axios.get(`${this.baseURL}blockchain/verifyChain?checklevel=${checklevel}&nblocks=${nblocks}`)
     .then((response) => {
-      return response.data.result;
+      return response.data;
     })
     .catch((error) => {
       return JSON.stringify(error.response.data.error.message);
@@ -826,19 +533,7 @@ class Blockchain {
     // Result:
     // ["txid"]      (array, strings) The txid(s) which the proof commits to, or empty array if the proof is invalid
 
-    return axios.post(this.baseURL, {
-        jsonrpc: "1.0",
-        id:"verifytxoutproof",
-        method: "verifytxoutproof",
-        params: [
-          proof
-        ]
-    }, {
-      auth: {
-        username: this.config.username,
-        password: this.config.password
-      }
-    })
+    return axios.get(`${this.baseURL}blockchain/verifyTxOutProof/proof`)
     .then((response) => {
       return response.data.result;
     })

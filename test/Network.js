@@ -92,7 +92,7 @@ describe('#Network', () => {
       };
 
       const resolved = new Promise((r) => r({ data: data }));
-      sandbox.stub(axios, 'post').returns(resolved);
+      sandbox.stub(axios, 'get').returns(resolved);
 
       BITBOX.Network.getAddedNodeInfo()
         .then((result) => {
@@ -116,7 +116,7 @@ describe('#Network', () => {
       };
 
       const resolved = new Promise((r) => r({ data: data }));
-      sandbox.stub(axios, 'post').returns(resolved);
+      sandbox.stub(axios, 'get').returns(resolved);
 
       BITBOX.Network.getConnectionCount()
         .then((result) => {
@@ -152,7 +152,7 @@ describe('#Network', () => {
       };
 
       const resolved = new Promise((r) => r({ data: data }));
-      sandbox.stub(axios, 'post').returns(resolved);
+      sandbox.stub(axios, 'get').returns(resolved);
 
       BITBOX.Network.getNetTotals()
         .then((result) => {
@@ -205,7 +205,7 @@ describe('#Network', () => {
       };
 
       const resolved = new Promise((r) => r({ data: data }));
-      sandbox.stub(axios, 'post').returns(resolved);
+      sandbox.stub(axios, 'get').returns(resolved);
 
       BITBOX.Network.getNetworkInfo()
         .then((result) => {
@@ -270,7 +270,7 @@ describe('#Network', () => {
       };
 
       const resolved = new Promise((r) => r({ data: data }));
-      sandbox.stub(axios, 'post').returns(resolved);
+      sandbox.stub(axios, 'get').returns(resolved);
 
       BITBOX.Network.getPeerInfo()
         .then((result) => {
@@ -315,7 +315,7 @@ describe('#Network', () => {
       };
 
       const resolved = new Promise((r) => r({ data: data }));
-      sandbox.stub(axios, 'post').returns(resolved);
+      sandbox.stub(axios, 'get').returns(resolved);
 
       BITBOX.Network.listBanned()
         .then((result) => {
@@ -339,7 +339,7 @@ describe('#Network', () => {
       };
 
       const resolved = new Promise((r) => r({ data: data }));
-      sandbox.stub(axios, 'post').returns(resolved);
+      sandbox.stub(axios, 'get').returns(resolved);
 
       BITBOX.Network.ping()
         .then((result) => {

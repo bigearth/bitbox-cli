@@ -29,7 +29,7 @@ describe('#Control', () => {
         }
       };
       const resolved = new Promise((r) => r({ data: data }));
-      sandbox.stub(axios, 'post').returns(resolved);
+      sandbox.stub(axios, 'get').returns(resolved);
 
       BITBOX.Control.getInfo()
         .then((result) => {
@@ -59,32 +59,9 @@ describe('#Control', () => {
         }
       };
       const resolved = new Promise((r) => r({ data: data }));
-      sandbox.stub(axios, 'post').returns(resolved);
+      sandbox.stub(axios, 'get').returns(resolved);
 
       BITBOX.Control.getMemoryInfo()
-        .then((result) => {
-          assert.deepEqual(
-            data.result,
-            result
-          );
-        })
-        .then(done, done);
-    });
-  });
-
-  describe('#help', () => {
-    let sandbox;
-    beforeEach(() => sandbox = sinon.sandbox.create());
-    afterEach(() => sandbox.restore());
-
-    it('should get help', (done) => {
-      let data = {
-        result: {}
-      };
-      const resolved = new Promise((r) => r({ data: data }));
-      sandbox.stub(axios, 'post').returns(resolved);
-
-      BITBOX.Control.help()
         .then((result) => {
           assert.deepEqual(
             data.result,

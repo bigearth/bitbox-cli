@@ -26,7 +26,7 @@ describe('#RawTransactions', () => {
       };
 
       const resolved = new Promise((r) => r({ data: data }));
-      sandbox.stub(axios, 'post').returns(resolved);
+      sandbox.stub(axios, 'get').returns(resolved);
 
       BITBOX.RawTransactions.decodeRawTransaction('02000000000000000000')
       .then((result) => {
@@ -54,7 +54,7 @@ describe('#RawTransactions', () => {
       };
 
       const resolved = new Promise((r) => r({ data: data }));
-      sandbox.stub(axios, 'post').returns(resolved);
+      sandbox.stub(axios, 'get').returns(resolved);
 
       BITBOX.RawTransactions.decodeScript('6a105361746f736869204e616b616d6f746f')
       .then((result) => {
@@ -78,7 +78,7 @@ describe('#RawTransactions', () => {
       };
 
       const resolved = new Promise((r) => r({ data: data }));
-      sandbox.stub(axios, 'post').returns(resolved);
+      sandbox.stub(axios, 'get').returns(resolved);
 
       BITBOX.RawTransactions.getRawTransaction('808d617eccaad4f1397fe07a06ec5ed15a0821cf22a3e0931c0c92aef9e572b6')
       .then((result) => {
