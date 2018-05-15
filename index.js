@@ -29,7 +29,7 @@ program
 
 program
   .command('new <name>')
-  .option('-s, --scaffold <scaffold>', 'The framework to use. Options include react, angular, vuejs, nextjs and node. (Default: react)')
+  .option('-s, --scaffold <scaffold>', 'The framework to use. Options include react, angular, vuejs, nextjs and node.')
   .option('-r, --scaffold-repo <repo>', 'The github repository to use. Ex: https://github.com/bigearth/bitbox-scaffold-react.git')
   .option('-e, --environment <environment>', 'environment of running BITBOX instance. Ex: production, staging. (Default: development)')
   .option('-r, --protocol <protocol>', 'protocol of running BITBOX instance. (Default: http)')
