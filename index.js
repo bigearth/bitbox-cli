@@ -145,6 +145,7 @@ program
 
         console.log(chalk.blue(`Scaffolding ${scaffold} app in ${name}`));
         clone(repo, `./${name}`, [conf], () => {
+          fs.appendFileSync( `./${name}/.gitignore`, '.console_history');
           console.log(chalk.green('All done.'), emoji.get(':white_check_mark:'));
           console.log(chalk.blue('Now `cd` in to your new project and run `npm install && npm start`'), emoji.get(':rocket:'));
         });
