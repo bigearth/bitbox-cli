@@ -95,6 +95,7 @@ program
           if(res == "Error: 'git clone' failed with status 128") {
             console.log(chalk.red('Must create new app in to an empty directory'));
           } else {
+            fs.appendFileSync( `./${name}/.gitignore`, '.console_history');
             console.log(chalk.green('All done.'), emoji.get(':white_check_mark:'));
             console.log(chalk.blue('Now `cd` in to your new project and run `npm install && npm start`'), emoji.get(':rocket:'));
           }
