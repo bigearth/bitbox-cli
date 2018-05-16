@@ -187,8 +187,9 @@ program
   .option('-e, --environment <environment>', 'environment of running BITBOX instance. Ex: production, staging. (Default: development)')
   .description('Run a console with Bitcoin Cash RPC commands available')
   .action((options) => {
+    let config;
     try {
-      let config = require(process.cwd() + '/bitbox.js').config;
+      config = require(process.cwd() + '/bitbox.js').config;
     } catch(err) {
       console.log(chalk.red('Console command must be run inside a bitbox project'));
       process.exit(1);
