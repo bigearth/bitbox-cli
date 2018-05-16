@@ -40,6 +40,11 @@ program
   .option('-c, --corsproxy', 'Enable proxy POST requests to bitbox proxy (default: disabled)')
   .description(`create a new BITBOX application`)
   .action((name, options) => {
+    if(fs.existsSync(`./${name}`)) {
+      console.log(chalk.red(`Project ${name} already exists`));
+      process.exit(1);
+    }
+
     fs.readFile(os.homedir() + '/.bitboxrc', 'utf8', (err, contents) => {
       let config;
       if(contents) {
