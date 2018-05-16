@@ -34,6 +34,11 @@ program
   .option('-e, --environment <environment>', 'environment of running BITBOX instance. Ex: production, staging. (Default: development)')
   .description(`create a new BITBOX application`)
   .action((name, options) => {
+    if(fs.existsSync(`./${name}`)) {
+      console.log(chalk.red(`Project ${name} already exists`));
+      process.exit(1);
+    }
+
     fs.readFile(os.homedir() + '/.bitboxrc', 'utf8', (err, contents) => {
       let config;
       if(contents) {
