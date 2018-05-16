@@ -45,21 +45,8 @@ program
         config = ini.parse(contents);
       }
 
-      let environment;
-      if(options && options.environment) {
-        environment = options.environment;
-      } else if(config && config.new && config.new.environment) {
-        environment = config.new.environment;
-      } else {
-        environment = 'development';
-      }
-
-      let restURL;
-      if(options && options.restURL) {
-        restURL = options.restURL;
-      } else {
-        restURL = 'https://rest.bitbox.earth/v1/';
-      }
+      let environment = fetchOption('environment=development', config, options);
+      let restURL     = fetchOption('restURL=https://rest.bitbox.earth/v1/', config, options);
 
       if(options && options.scaffold) {
         let scaffold = options.scaffold.toLowerCase();
@@ -151,19 +138,11 @@ program
     require('repl.history')(replServer, historyFile);
 
     fs.readFile(os.homedir() + '/.bitboxrc', 'utf8', (err, contents) => {
-      let conf;
       if(contents) {
-        conf = ini.parse(contents);
+        config = ini.parse(contents);
       }
 
-      let environment;
-      if(options && options.environment) {
-        environment = options.environment;
-      } else if(conf && conf.new && conf.new.environment) {
-        environment = conf.new.environment;
-      } else {
-        environment = 'development';
-      }
+      let environment = fetchOption('environment=development', config, options);
 
       replServer.context.BITBOX = new BITBOXCli(config.networks[environment]);
     });
@@ -235,6 +214,19 @@ program
     );
   }
 );
+
+function fetchOption(kv, config, options) {
+  let parts = kv.split('=');
+  let key = parts[0];
+  let defaultVal = parts[1];
+  if(options && options[key]) {
+    return options[key];
+  } else if(config && config.new && config.new[key]) {
+    return config.new[key];
+  } else {
+    return defaultVal;
+  }
+}
 
 program
   .parse(process.argv);
