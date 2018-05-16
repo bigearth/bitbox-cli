@@ -40,15 +40,6 @@ program
   .option('-c, --corsproxy', 'Enable proxy POST requests to bitbox proxy (default: disabled)')
   .description(`create a new BITBOX application`)
   .action((name, options) => {
-    clear();
-    console.log(
-      chalk.blue(
-        figlet.textSync('BITBOX', {
-          font: '3-D',
-          horizontalLayout: 'full'
-        })
-      )
-    );
     fs.readFile(os.homedir() + '/.bitboxrc', 'utf8', (err, contents) => {
       let config;
       if(contents) {
@@ -132,12 +123,26 @@ program
           repo = 'https://github.com/bigearth/bitbox-scaffold-react.git';
         } else if(scaffold === 'vue') {
           repo = 'https://github.com/bigearth/bitbox-scaffold-vue.git';
+        } else {
+          console.log(chalk.red(`Scaffold ${scaffold} not supported`));
+          process.exit(1)
         }
 
         if(options && options.repo) {
           scaffold = 'custom repo';
           repo = options.repo.toLowerCase();
         }
+
+        clear();
+        console.log(
+          chalk.blue(
+            figlet.textSync('BITBOX', {
+              font: '3-D',
+              horizontalLayout: 'full'
+            })
+          )
+        );
+
         console.log(chalk.blue(`Scaffolding ${scaffold} app in ${name}`));
         clone(repo, `./${name}`, [conf], () => {
           console.log(chalk.green('All done.'), emoji.get(':white_check_mark:'));
