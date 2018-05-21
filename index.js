@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 require("babel-register");
+let path = require('path');
 let program = require('commander');
 let chalk = require('chalk');
 let mkdirp = require('mkdirp');
@@ -24,11 +25,11 @@ let cmd = require('node-cmd');
 // let ProgressBar = require('progress');
 
 program
-  .version('0.7.23');
+  .version('0.7.28');
 
 program
   .command('new <name>')
-  .option('-s, --scaffold <scaffold>', 'The framework to use. Options include react, angular, vuejs, nextjs and node. (Default: react)')
+  .option('-s, --scaffold <scaffold>', 'The framework to use. Options include react, angular, vuejs, nextjs and node.')
   .option('-r, --scaffold-repo <repo>', 'The github repository to use. Ex: https://github.com/bigearth/bitbox-scaffold-react.git')
   .option('-e, --environment <environment>', 'environment of running BITBOX instance. Ex: production, staging. (Default: development)')
   .option('-r, --protocol <protocol>', 'protocol of running BITBOX instance. (Default: http)')
@@ -39,15 +40,6 @@ program
   .option('-c, --corsproxy', 'Enable proxy POST requests to bitbox proxy (default: disabled)')
   .description(`create a new BITBOX application`)
   .action((name, options) => {
-    clear();
-    console.log(
-      chalk.blue(
-        figlet.textSync('BITBOX', {
-          font: '3-D',
-          horizontalLayout: 'full'
-        })
-      )
-    );
     fs.readFile(os.homedir() + '/.bitboxrc', 'utf8', (err, contents) => {
       let config;
       if(contents) {
@@ -131,12 +123,26 @@ program
           repo = 'https://github.com/bigearth/bitbox-scaffold-react.git';
         } else if(scaffold === 'vue') {
           repo = 'https://github.com/bigearth/bitbox-scaffold-vue.git';
+        } else {
+          console.log(chalk.red(`Scaffold ${scaffold} not supported`));
+          process.exit(1)
         }
 
         if(options && options.repo) {
           scaffold = 'custom repo';
           repo = options.repo.toLowerCase();
         }
+
+        clear();
+        console.log(
+          chalk.blue(
+            figlet.textSync('BITBOX', {
+              font: '3-D',
+              horizontalLayout: 'full'
+            })
+          )
+        );
+
         console.log(chalk.blue(`Scaffolding ${scaffold} app in ${name}`));
         clone(repo, `./${name}`, [conf], () => {
           console.log(chalk.green('All done.'), emoji.get(':white_check_mark:'));
@@ -165,9 +171,9 @@ program
   }
 };
 `);
-
-    console.log(chalk.blue('All done.'), emoji.get(':white_check_mark:'));
-    console.log(chalk.blue('Go get em! Remember--with great power comes great responsibility.'), emoji.get(':rocket:'));
+      fs.appendFileSync( `./${name}/.gitignore`, '.console_history');
+      console.log(chalk.blue('All done.'), emoji.get(':white_check_mark:'));
+      console.log(chalk.blue('Go get em! Remember--with great power comes great responsibility.'), emoji.get(':rocket:'));
     });
   }
 );
@@ -177,8 +183,17 @@ program
   .option('-e, --environment <environment>', 'environment of running BITBOX instance. Ex: production, staging. (Default: development)')
   .description('Run a console with Bitcoin Cash RPC commands available')
   .action((options) => {
-    let config = require(process.cwd() + '/bitbox.js').config;
-    var replServer = repl.start('> ');
+    let config;
+    try {
+      config = require(process.cwd() + '/bitbox.js').config;
+    } catch(err) {
+      console.log(chalk.red('Console command must be run inside a bitbox project'));
+      process.exit(1);
+    }
+    let replServer = repl.start('> ');
+    let historyFile = path.join(process.cwd(), '.console_history');
+    require('repl.history')(replServer, historyFile);
+
     fs.readFile(os.homedir() + '/.bitboxrc', 'utf8', (err, contents) => {
       let conf;
       if(contents) {

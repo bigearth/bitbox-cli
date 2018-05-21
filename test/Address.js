@@ -563,3 +563,36 @@ describe('#utxo', () => {
       .then(done, done);
   });
 });
+
+describe('#unconfirmed', () => {
+  let sandbox;
+  beforeEach(() => sandbox = sinon.sandbox.create());
+  afterEach(() => sandbox.restore());
+
+  it('should get unconfirmed transactions', (done) => {
+    let data = [
+      {
+        "txid": "e0aadd861a06993e39af932bb0b9ad69e7b37ef5843a13c6724789e1c94f3513",
+        "vout": 1,
+        "scriptPubKey": "76a914a0f531f4ff810a415580c12e54a7072946bb927e88ac",
+        "amount": 0.00008273,
+        "satoshis": 8273,
+        "confirmations": 0,
+        "ts": 1526680569,
+        "legacyAddress": "1Fg4r9iDrEkCcDmHTy2T79EusNfhyQpu7W",
+        "cashAddress": "bitcoincash:qzs02v05l7qs5s24srqju498qu55dwuj0cx5ehjm2c"
+      }
+    ];
+    const resolved = new Promise((r) => r({ data: data }));
+    sandbox.stub(axios, 'get').returns(resolved);
+
+    BITBOX.Address.unconfirmed('bitcoincash:qzs02v05l7qs5s24srqju498qu55dwuj0cx5ehjm2c')
+      .then((result) => {
+        assert.deepEqual(
+          data,
+          result
+        );
+      })
+      .then(done, done);
+  });
+});

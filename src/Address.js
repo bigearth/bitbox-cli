@@ -112,6 +112,19 @@ class Address {
       return JSON.stringify(error.response.data.error.message);
     });
   }
+
+  unconfirmed(address) {
+    if(typeof address !== 'string') {
+      address = JSON.stringify(address);
+    }
+    return axios.get(`https://rest.bitbox.earth/v1/address/unconfirmed/${address}`)
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      return JSON.stringify(error.response.data.error.message);
+    });
+  }
 }
 
 export default Address
