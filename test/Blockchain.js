@@ -30,25 +30,23 @@ describe('#Blockchain', () => {
     beforeEach(() => sandbox = sinon.sandbox.create());
     afterEach(() => sandbox.restore());
     let data = {
-      result: {
-        hash: '00000000c937983704a73af28acdec37b049d214adbda81d7e2a3dd146f6ed09',
-        confirmations: 526807,
-        size: 216,
-        height: 1000,
-        version: 1,
-        versionHex: '00000001',
-        merkleroot: 'fe28050b93faea61fa88c4c630f0e1f0a1c24d0082dd0e10d369e13212128f33',
-        tx:
-         [ 'fe28050b93faea61fa88c4c630f0e1f0a1c24d0082dd0e10d369e13212128f33' ],
-        time: 1232346882,
-        mediantime: 1232344831,
-        nonce: 2595206198,
-        bits: '1d00ffff',
-        difficulty: 1,
-        chainwork: '000000000000000000000000000000000000000000000000000003e903e903e9',
-        previousblockhash: '0000000008e647742775a230787d66fdf92c46a48c896bfbc85cdc8acc67e87d',
-        nextblockhash: '00000000a2887344f8db859e372e7e4bc26b23b9de340f725afbf2edb265b4c6'
-      }
+      hash: '00000000c937983704a73af28acdec37b049d214adbda81d7e2a3dd146f6ed09',
+      confirmations: 526807,
+      size: 216,
+      height: 1000,
+      version: 1,
+      versionHex: '00000001',
+      merkleroot: 'fe28050b93faea61fa88c4c630f0e1f0a1c24d0082dd0e10d369e13212128f33',
+      tx:
+       [ 'fe28050b93faea61fa88c4c630f0e1f0a1c24d0082dd0e10d369e13212128f33' ],
+      time: 1232346882,
+      mediantime: 1232344831,
+      nonce: 2595206198,
+      bits: '1d00ffff',
+      difficulty: 1,
+      chainwork: '000000000000000000000000000000000000000000000000000003e903e903e9',
+      previousblockhash: '0000000008e647742775a230787d66fdf92c46a48c896bfbc85cdc8acc67e87d',
+      nextblockhash: '00000000a2887344f8db859e372e7e4bc26b23b9de340f725afbf2edb265b4c6'
     };
 
     it('should get block by hash', (done) => {
@@ -58,7 +56,7 @@ describe('#Blockchain', () => {
       BITBOX.Blockchain.getBlock("00000000c937983704a73af28acdec37b049d214adbda81d7e2a3dd146f6ed09")
         .then((result) => {
           assert.deepEqual(
-            data.result,
+            data,
             result
           );
         })
@@ -71,27 +69,27 @@ describe('#Blockchain', () => {
     beforeEach(() => sandbox = sinon.sandbox.create());
     afterEach(() => sandbox.restore());
     let data = {
-      result: {
-        chain: 'main',
-        blocks: 527810,
-        headers: 527810,
-        bestblockhash: '000000000000000001d127592d091d4c45062504663c9acab27a1b16c028e3c0',
-        difficulty: 576023394804.6666,
-        mediantime: 1524878499,
-        verificationprogress: 0.9999990106793685,
-        chainwork: '00000000000000000000000000000000000000000096da5b040913fa09249b4e',
-        pruned: false,
-        softforks:
-         [ { id: 'bip34', version: 2, reject: [Object] },
-           { id: 'bip66', version: 3, reject: [Object] },
-           { id: 'bip65', version: 4, reject: [Object] } ],
-        bip9_softforks:
-         { csv:
-            { status: 'active',
-              startTime: 1462060800,
-              timeout: 1493596800,
-              since: 419328 }
-      }}
+      chain: 'main',
+      blocks: 527810,
+      headers: 527810,
+      bestblockhash: '000000000000000001d127592d091d4c45062504663c9acab27a1b16c028e3c0',
+      difficulty: 576023394804.6666,
+      mediantime: 1524878499,
+      verificationprogress: 0.9999990106793685,
+      chainwork: '00000000000000000000000000000000000000000096da5b040913fa09249b4e',
+      pruned: false,
+      softforks:
+       [ { id: 'bip34', version: 2, reject: [Object] },
+         { id: 'bip66', version: 3, reject: [Object] },
+         { id: 'bip65', version: 4, reject: [Object] } ],
+      bip9_softforks:
+       { csv:
+          { status: 'active',
+            startTime: 1462060800,
+            timeout: 1493596800,
+            since: 419328
+          }
+      }
     };
 
     it('should get blockchain info', (done) => {
@@ -101,7 +99,7 @@ describe('#Blockchain', () => {
       BITBOX.Blockchain.getBlockchainInfo()
         .then((result) => {
           assert.deepEqual(
-            data.result,
+            data,
             result
           );
         })
@@ -134,9 +132,7 @@ describe('#Blockchain', () => {
     let sandbox;
     beforeEach(() => sandbox = sinon.sandbox.create());
     afterEach(() => sandbox.restore());
-    let data = {
-      result: '000000000000000001d127592d091d4c45062504663c9acab27a1b16c028e3c0'
-    };
+    let data = '000000000000000001d127592d091d4c45062504663c9acab27a1b16c028e3c0';
 
     it('should get block hash by height', (done) => {
       const resolved = new Promise((r) => r({ data: data }));
@@ -145,7 +141,7 @@ describe('#Blockchain', () => {
       BITBOX.Blockchain.getBlockHash(527810)
         .then((result) => {
           assert.deepEqual(
-            data.result,
+            data,
             result
           );
         })
@@ -158,21 +154,19 @@ describe('#Blockchain', () => {
     beforeEach(() => sandbox = sinon.sandbox.create());
     afterEach(() => sandbox.restore());
     let data = {
-      result: {
-        hash: '000000000000000001d127592d091d4c45062504663c9acab27a1b16c028e3c0',
-        confirmations: 1,
-        height: 527810,
-        version: 536870912,
-        versionHex: '20000000',
-        merkleroot: '9298432bbebe4638456aa19cb7ef91639da87668a285d88d0ecd6080424d223b',
-        time: 1524881438,
-        mediantime: 1524878499,
-        nonce: 3326843941,
-        bits: '1801e8a5',
-        difficulty: 576023394804.6666,
-        chainwork: '00000000000000000000000000000000000000000096da5b040913fa09249b4e',
-        previousblockhash: '000000000000000000b33251708bc7a7b4540e61880d8c376e8e2db6a19a4789'
-      }
+      hash: '000000000000000001d127592d091d4c45062504663c9acab27a1b16c028e3c0',
+      confirmations: 1,
+      height: 527810,
+      version: 536870912,
+      versionHex: '20000000',
+      merkleroot: '9298432bbebe4638456aa19cb7ef91639da87668a285d88d0ecd6080424d223b',
+      time: 1524881438,
+      mediantime: 1524878499,
+      nonce: 3326843941,
+      bits: '1801e8a5',
+      difficulty: 576023394804.6666,
+      chainwork: '00000000000000000000000000000000000000000096da5b040913fa09249b4e',
+      previousblockhash: '000000000000000000b33251708bc7a7b4540e61880d8c376e8e2db6a19a4789'
     };
 
     it('should get block header by hash', (done) => {
@@ -182,7 +176,7 @@ describe('#Blockchain', () => {
       BITBOX.Blockchain.getBlockHeader('000000000000000001d127592d091d4c45062504663c9acab27a1b16c028e3c0', true)
         .then((result) => {
           assert.deepEqual(
-            data.result,
+            data,
             result
           );
         })
@@ -194,9 +188,7 @@ describe('#Blockchain', () => {
     let sandbox;
     beforeEach(() => sandbox = sinon.sandbox.create());
     afterEach(() => sandbox.restore());
-    let data = {
-      result: '577528469277.1339'
-    };
+    let data = '577528469277.1339';
 
     it('should get difficulty', (done) => {
       const resolved = new Promise((r) => r({ data: data }));
@@ -205,7 +197,7 @@ describe('#Blockchain', () => {
       BITBOX.Blockchain.getDifficulty()
         .then((result) => {
           assert.deepEqual(
-            data.result,
+            data,
             result
           );
         })
@@ -217,9 +209,7 @@ describe('#Blockchain', () => {
     let sandbox;
     beforeEach(() => sandbox = sinon.sandbox.create());
     afterEach(() => sandbox.restore());
-    let data = {
-      result: "Transaction not in mempool"
-    };
+    let data = "Transaction not in mempool";
 
     it('should get mempool ancestors', (done) => {
       const resolved = new Promise((r) => r({ data: data }));
@@ -228,7 +218,7 @@ describe('#Blockchain', () => {
       BITBOX.Blockchain.getMempoolAncestors('daf58932cb91619304dd4cbd03c7202e89ad7d6cbd6e2209e5f64ce3b6ed7c88', true)
         .then((result) => {
           assert.deepEqual(
-            data.result,
+            data,
             result
           );
         })
@@ -251,7 +241,7 @@ describe('#Blockchain', () => {
       BITBOX.Blockchain.getMempoolDescendants('daf58932cb91619304dd4cbd03c7202e89ad7d6cbd6e2209e5f64ce3b6ed7c88', true)
         .then((result) => {
           assert.deepEqual(
-            data.result,
+            data,
             result
           );
         })
@@ -274,7 +264,7 @@ describe('#Blockchain', () => {
       BITBOX.Blockchain.getMempoolEntry('daf58932cb91619304dd4cbd03c7202e89ad7d6cbd6e2209e5f64ce3b6ed7c88')
         .then((result) => {
           assert.deepEqual(
-            data.result,
+            data,
             result
           );
         })
@@ -303,7 +293,7 @@ describe('#Blockchain', () => {
       BITBOX.Blockchain.getMempoolInfo()
         .then((result) => {
           assert.deepEqual(
-            data.result,
+            data,
             result
           );
         })
@@ -345,7 +335,7 @@ describe('#Blockchain', () => {
       BITBOX.Blockchain.getRawMempool()
         .then((result) => {
           assert.deepEqual(
-            data.result,
+            data,
             result
           );
         })
@@ -369,7 +359,7 @@ describe('#Blockchain', () => {
       BITBOX.Blockchain.getTxOut('daf58932cb91619304dd4cbd03c7202e89ad7d6cbd6e2209e5f64ce3b6ed7c88', 0, true)
         .then((result) => {
           assert.deepEqual(
-            data.result,
+            data,
             result
           );
         })
@@ -393,7 +383,7 @@ describe('#Blockchain', () => {
       BITBOX.Blockchain.getTxOutSetInfo()
         .then((result) => {
           assert.deepEqual(
-            data.result,
+            data,
             result
           );
         })
@@ -417,7 +407,7 @@ describe('#Blockchain', () => {
       BITBOX.Blockchain.preciousBlock()
         .then((result) => {
           assert.deepEqual(
-            data.result,
+            data,
             result
           );
         })
@@ -429,9 +419,7 @@ describe('#Blockchain', () => {
     let sandbox;
     beforeEach(() => sandbox = sinon.sandbox.create());
     afterEach(() => sandbox.restore());
-    let data = {
-      result: "Cannot prune blocks because node is not in prune mode."
-    };
+    let data = "Cannot prune blocks because node is not in prune mode.";
 
     it('should prune blockchain', (done) => {
       const resolved = new Promise((r) => r({ data: data }));
@@ -440,7 +428,7 @@ describe('#Blockchain', () => {
       BITBOX.Blockchain.pruneBlockchain(507)
         .then((result) => {
           assert.deepEqual(
-            data.result,
+            data,
             result
           );
         })
@@ -473,9 +461,7 @@ describe('#Blockchain', () => {
     let sandbox;
     beforeEach(() => sandbox = sinon.sandbox.create());
     afterEach(() => sandbox.restore());
-    let data = {
-      result: "proof must be hexadecimal string (not '')"
-    };
+    let data =  "proof must be hexadecimal string (not '')";
 
     it('should verify utxo proof', (done) => {
       const resolved = new Promise((r) => r({ data: data }));
@@ -484,7 +470,7 @@ describe('#Blockchain', () => {
       BITBOX.Blockchain.verifyTxOutProof(3, 6)
         .then((result) => {
           assert.deepEqual(
-            data.result,
+            data,
             result
           );
         })

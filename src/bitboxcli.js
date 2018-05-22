@@ -40,6 +40,7 @@ class BITBOXCli {
       this.baseURL = `${config.protocol}://${config.host}:8332/`;
     }
 
+    this.restBaseURL = 'https://rest.bitbox.earth/v1/';
     this.BitcoinCash = new BitcoinCash();
     this.Crypto = Crypto;
     this.Mnemonic = new Mnemonic();
@@ -47,7 +48,7 @@ class BITBOXCli {
     this.HDNode = new HDNode();
     this.Util = new Util(config, this.baseURL);
     this.Block = Block;
-    this.Blockchain = new Blockchain(config, this.baseURL);
+    this.Blockchain = new Blockchain(config, this.baseURL, this.restBaseURL);
     this.Control = new Control(config, this.baseURL);
     this.Generating = new Generating(config, this.baseURL);
     this.Mining = new Mining(config, this.baseURL);

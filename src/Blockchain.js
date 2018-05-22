@@ -1,8 +1,9 @@
 import axios from 'axios';
 class Blockchain {
-  constructor(config, baseURL) {
+  constructor(config, baseURL, restBaseURL) {
     this.config = config;
     this.baseURL = baseURL;
+    this.restBaseURL = restBaseURL;
   }
 
   getBestBlockHash() {
@@ -10,7 +11,7 @@ class Blockchain {
     //
     // Result:
     // "hex"      (string) the block hash hex encoded
-    return axios.get(`${this.baseURL}blockchain/getBestBlockHash`)
+    return axios.get(`${this.restBaseURL}blockchain/getBestBlockHash`)
     .then((response) => {
       return response.data;
     })
@@ -53,9 +54,9 @@ class Blockchain {
     // Result (for verbose=false):
     // "data"             (string) A string that is serialized, hex-encoded data for block 'hash'.
 
-    return axios.get(`${this.baseURL}blockchain/getBlock/${blockhash}?verbose=${verbose}`)
+    return axios.get(`${this.restBaseURL}blockchain/getBlock/${blockhash}?verbose=${verbose}`)
     .then((response) => {
-      return response.data.result;
+      return response.data;
     })
     .catch((error) => {
       return JSON.stringify(error.response.data.error.message);
@@ -64,9 +65,9 @@ class Blockchain {
 
   getBlockchainInfo() {
     // Returns an object containing various state info regarding blockchain processing.
-    return axios.get(`${this.baseURL}blockchain/getBlockchainInfo`)
+    return axios.get(`${this.restBaseURL}blockchain/getBlockchainInfo`)
     .then((response) => {
-      return response.data.result;
+      return response.data;
     })
     .catch((error) => {
       return JSON.stringify(error.response.data.error.message);
@@ -78,7 +79,7 @@ class Blockchain {
     //
     // Result:
     // n    (numeric) The current block count
-    return axios.get(`${this.baseURL}blockchain/getBlockCount`)
+    return axios.get(`${this.restBaseURL}blockchain/getBlockCount`)
     .then((response) => {
       return response.data;
     })
@@ -87,7 +88,7 @@ class Blockchain {
     });
   }
 
-  getBlockHash(height = 0) {
+  getBlockHash(height = 1) {
     // Returns hash of block in best-block-chain at height provided.
     //
     // Arguments:
@@ -95,9 +96,9 @@ class Blockchain {
     //
     // Result:
     // "hash"         (string) The block hash
-    return axios.get(`${this.baseURL}blockchain/getBlockHash/${height}`)
+    return axios.get(`${this.restBaseURL}blockchain/getBlockHash/${height}`)
     .then((response) => {
-      return response.data.result;
+      return response.data;
     })
     .catch((error) => {
       return JSON.stringify(error.response.data.error.message);
@@ -133,9 +134,9 @@ class Blockchain {
     //
     // Result (for verbose=false):
     // "data"             (string) A string that is serialized, hex-encoded data for block 'hash'.
-    return axios.get(`${this.baseURL}blockchain/getBlockHash/${hash}?verbose=${verbose}`)
+    return axios.get(`${this.restBaseURL}blockchain/getBlockHash/${hash}?verbose=${verbose}`)
     .then((response) => {
-      return response.data.result;
+      return response.data;
     })
     .catch((error) => {
       return JSON.stringify(error.response.data.error.message);
@@ -167,9 +168,9 @@ class Blockchain {
     // 4.  "valid-fork"            This branch is not part of the active chain, but is fully validated
     // 5.  "active"                This is the tip of the active main chain, which is certainly valid
 
-    return axios.get(`${this.baseURL}blockchain/getChainTips`)
+    return axios.get(`${this.restBaseURL}blockchain/getChainTips`)
     .then((response) => {
-      return response.data.result;
+      return response.data;
     })
     .catch((error) => {
       return JSON.stringify(error.response.data.error.message);
@@ -183,9 +184,9 @@ class Blockchain {
     // Result:
     // n.nnn       (numeric) the proof-of-work difficulty as a multiple of the minimum difficulty.
 
-    return axios.get(`${this.baseURL}blockchain/getDifficulty`)
+    return axios.get(`${this.restBaseURL}blockchain/getDifficulty`)
     .then((response) => {
-      return response.data.result;
+      return response.data;
     })
     .catch((error) => {
       return JSON.stringify(error.response.data.error.message);
@@ -226,9 +227,9 @@ class Blockchain {
     //        ... ]
     //   }, ...
     // }
-    return axios.get(`${this.baseURL}blockchain/getMempoolAncestors/${txid}?verbose=${verbose}`)
+    return axios.get(`${this.restBaseURL}blockchain/getMempoolAncestors/${txid}?verbose=${verbose}`)
     .then((response) => {
-      return response.data.result;
+      return response.data;
     })
     .catch((error) => {
       return JSON.stringify(error.response.data.error.message);
@@ -270,9 +271,9 @@ class Blockchain {
     //   }, ...
     // }
 
-    return axios.get(`${this.baseURL}blockchain/getMempoolDescendants/${txid}?verbose=${verbose}`)
+    return axios.get(`${this.restBaseURL}blockchain/getMempoolDescendants/${txid}?verbose=${verbose}`)
     .then((response) => {
-      return response.data.result;
+      return response.data;
     })
     .catch((error) => {
       return JSON.stringify(error.response.data.error.message);
@@ -305,9 +306,9 @@ class Blockchain {
     //        ... ]
     // }
 
-    return axios.get(`${this.baseURL}blockchain/getMempoolEntry/${txid}`)
+    return axios.get(`${this.restBaseURL}blockchain/getMempoolEntry/${txid}`)
     .then((response) => {
-      return response.data.result;
+      return response.data;
     })
     .catch((error) => {
       return JSON.stringify(error.response.data.error.message);
@@ -326,9 +327,9 @@ class Blockchain {
     //   "mempoolminfee": xxxxx       (numeric) Minimum fee for tx to be accepted
     // }
 
-    return axios.get(`${this.baseURL}blockchain/getMempoolInfo`)
+    return axios.get(`${this.restBaseURL}blockchain/getMempoolInfo`)
     .then((response) => {
-      return response.data.result;
+      return response.data;
     })
     .catch((error) => {
       return JSON.stringify(error.response.data.error.message);
@@ -368,9 +369,9 @@ class Blockchain {
     //        ... ]
     //   }, ...
     // }
-    return axios.get(`${this.baseURL}blockchain/getRawMempool?vebose=${verbose}`)
+    return axios.get(`${this.restBaseURL}blockchain/getRawMempool?vebose=${verbose}`)
     .then((response) => {
-      return response.data.result;
+      return response.data;
     })
     .catch((error) => {
       return JSON.stringify(error.response.data.error.message);
@@ -404,9 +405,9 @@ class Blockchain {
     // }
     //
 
-    return axios.get(`${this.baseURL}blockchain/getTxOut/${txid}/n?include_mempool=${include_mempool}`)
+    return axios.get(`${this.restBaseURL}blockchain/getTxOut/${txid}/n?include_mempool=${include_mempool}`)
     .then((response) => {
-      return response.data.result;
+      return response.data;
     })
     .catch((error) => {
       return JSON.stringify(error.response.data.error.message);
@@ -414,7 +415,7 @@ class Blockchain {
   }
 
   getTxOutProof(txids, blockhash) {
-    let path = `${this.baseURL}blockchain/getTxOutProof/${txids}`;
+    let path = `${this.restBaseURL}blockchain/getTxOutProof/${txids}`;
     if(blockhash) {
       path = `${path}?blockhash=${blockhash}`
     }
@@ -437,7 +438,7 @@ class Blockchain {
     // "data"           (string) A string that is a serialized, hex-encoded data for the proof.
     return axios.get(path)
     .then((response) => {
-      return response.data.result;
+      return response.data;
     })
     .catch((error) => {
       return JSON.stringify(error.response.data.error.message);
@@ -461,9 +462,9 @@ class Blockchain {
     // }
     //
 
-    return axios.get(`${this.baseURL}blockchain/getTxOutSetInfo`)
+    return axios.get(`${this.restBaseURL}blockchain/getTxOutSetInfo`)
     .then((response) => {
-      return response.data.result;
+      return response.data;
     })
     .catch((error) => {
       return JSON.stringify(error.response.data.error.message);
@@ -480,9 +481,9 @@ class Blockchain {
     // Arguments:
     // 1. "blockhash"   (string, required) the hash of the block to mark as precious
 
-    return axios.get(`${this.baseURL}blockchain/preciousBlock/${blockhash}`)
+    return axios.get(`${this.restBaseURL}blockchain/preciousBlock/${blockhash}`)
     .then((response) => {
-      return response.data.result;
+      return response.data;
     })
     .catch((error) => {
       return JSON.stringify(error.response.data.error.message);
@@ -496,9 +497,9 @@ class Blockchain {
     //
     // Result:
     // n    (numeric) Height of the last block pruned.
-    return axios.post(`${this.baseURL}blockchain/pruneBlockchain/${height}`)
+    return axios.post(`${this.restBaseURL}blockchain/pruneBlockchain/${height}`)
     .then((response) => {
-      return response.data.result;
+      return response.data;
     })
     .catch((error) => {
       return JSON.stringify(error.response.data.error.message);
@@ -514,7 +515,7 @@ class Blockchain {
     //
     // Result:
     // true|false       (boolean) Verified or not
-    return axios.get(`${this.baseURL}blockchain/verifyChain?checklevel=${checklevel}&nblocks=${nblocks}`)
+    return axios.get(`${this.restBaseURL}blockchain/verifyChain?checklevel=${checklevel}&nblocks=${nblocks}`)
     .then((response) => {
       return response.data;
     })
@@ -533,9 +534,9 @@ class Blockchain {
     // Result:
     // ["txid"]      (array, strings) The txid(s) which the proof commits to, or empty array if the proof is invalid
 
-    return axios.get(`${this.baseURL}blockchain/verifyTxOutProof/proof`)
+    return axios.get(`${this.restBaseURL}blockchain/verifyTxOutProof/proof`)
     .then((response) => {
-      return response.data.result;
+      return response.data;
     })
     .catch((error) => {
       return JSON.stringify(error.response.data.error.message);
