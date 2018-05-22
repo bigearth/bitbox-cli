@@ -1,8 +1,7 @@
 import axios from 'axios';
 class Blockchain {
-  constructor(config, baseURL, restBaseURL) {
+  constructor(config, restBaseURL) {
     this.config = config;
-    this.baseURL = baseURL;
     this.restBaseURL = restBaseURL;
   }
 
