@@ -57,13 +57,6 @@ class HDNode {
     }
     return Bitcoin.HDNode.fromBase58(xpub, Bitcoin.networks[network]);
   }
-  //
-  // createAccount(hdNodes) {
-  //   let arr = hdNodes.map((item, index) => {
-  //     return new bip32utils.Chain(item.neutered())
-  //   });
-  //   return new bip32utils.Account(arr);
-  // }
 
   derivePath(hdnode, path) {
     return hdnode.derivePath(path);

@@ -1,8 +1,7 @@
 import axios from 'axios';
 class Control {
-  constructor(config, baseURL) {
-    this.config = config;
-    this.baseURL = baseURL;
+  constructor(restBaseURL) {
+    this.restBaseURL = restBaseURL;
   }
 
   getInfo() {
@@ -28,9 +27,9 @@ class Control {
     //   "errors": "..."           (string) any error messages
     // }
 
-    return axios.get(`${this.baseURL}control/getInfo`)
+    return axios.get(`${this.restBaseURL}control/getInfo`)
     .then((response) => {
-      return response.data.result;
+      return response.data;
     })
     .catch((error) => {
       return JSON.stringify(error.response.data.error.message);
@@ -54,18 +53,7 @@ class Control {
     // }
     //
 
-    return axios.get(`${this.baseURL}control/getMemoryInfo`)
-    .then((response) => {
-      return response.data.result;
-    })
-    .catch((error) => {
-      return JSON.stringify(error.response.data.error.message);
-    });
-  }
-
-  stop() {
-    // Stop Bitcoin Cash server.
-    return axios.post(`${this.baseURL}control/stop`)
+    return axios.get(`${this.restBaseURL}control/getMemoryInfo`)
     .then((response) => {
       return response.data;
     })
@@ -73,6 +61,17 @@ class Control {
       return JSON.stringify(error.response.data.error.message);
     });
   }
+  //
+  // stop() {
+  //   // Stop Bitcoin Cash server.
+  //   return axios.post(`${this.restBaseURL}control/stop`)
+  //   .then((response) => {
+  //     return response.data;
+  //   })
+  //   .catch((error) => {
+  //     return JSON.stringify(error.response.data.error.message);
+  //   });
+  // }
 }
 
 export default Control;

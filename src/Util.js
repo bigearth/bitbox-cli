@@ -1,32 +1,7 @@
 import axios from 'axios';
 class Util {
-  constructor(config, baseURL) {
-    this.config = config;
-    this.baseURL = baseURL;
-  }
-
-  createMultisig(nrequired, address) {
-    // The createmultisig RPC creates a P2SH multi-signature address.
-
-    // Parameter #1—the number of signatures required
-    // The minimum (m) number of signatures required to spend this m-of-n multisig script
-
-    // Parameter #2—the full public keys, or addresses for known public keys
-
-    // An array of strings with each string being a public key or address
-    // or
-    // A public key against which signatures will be checked. If wallet support is enabled, this may be a P2PKH address belonging to the wallet—the corresponding public key will be substituted.
-    // There must be at least as many keys as specified by the Required parameter, and there may be more keys
-
-    // Result—P2SH address and hex-encoded redeem script
-
-    return axios.get(`${this.baseURL}util/createMultisig/${nrequired}/${address}`)
-    .then((response) => {
-      return response.data.result;
-    })
-    .catch((error) => {
-      return JSON.stringify(error.response.data.error.message);
-    });
+  constructor(restBaseURL) {
+    this.restBaseURL = restBaseURL;
   }
 
   validateAddress(address) {
@@ -50,9 +25,9 @@ class Util {
     //   "hdkeypath" : "keypath"       (string, optional) The HD keypath if the key is HD and available
     //   "hdmasterkeyid" : "<hash160>" (string, optional) The Hash160 of the HD master pubkey
     // }
-    return axios.get(`${this.baseURL}util/validateAddress/${address}`)
+    return axios.get(`${this.restBaseURL}util/validateAddress/${address}`)
     .then((response) => {
-      return response.data.result;
+      return response.data;
     })
     .catch((error) => {
       return JSON.stringify(error.response.data.error.message);

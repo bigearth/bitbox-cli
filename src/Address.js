@@ -3,6 +3,9 @@ import bchaddr from 'bchaddrjs';
 import Bitcoin from 'bitcoinjs-lib';
 
 class Address {
+  constructor(restBaseURL) {
+    this.restBaseURL = restBaseURL;
+  }
 
   // Translate address from any address format into a specific format.
   toLegacyAddress(address) {
@@ -91,7 +94,7 @@ class Address {
     if(typeof address !== 'string') {
       address = JSON.stringify(address);
     }
-    return axios.get(`https://rest.bitbox.earth/v1/address/details/${address}`)
+    return axios.get(`${this.restBaseURL}address/details/${address}`)
     .then((response) => {
       return response.data;
     })
@@ -104,7 +107,7 @@ class Address {
     if(typeof address !== 'string') {
       address = JSON.stringify(address);
     }
-    return axios.get(`https://rest.bitbox.earth/v1/address/utxo/${address}`)
+    return axios.get(`${this.restBaseURL}address/utxo/${address}`)
     .then((response) => {
       return response.data;
     })
@@ -117,7 +120,7 @@ class Address {
     if(typeof address !== 'string') {
       address = JSON.stringify(address);
     }
-    return axios.get(`https://rest.bitbox.earth/v1/address/unconfirmed/${address}`)
+    return axios.get(`${this.restBaseURL}address/unconfirmed/${address}`)
     .then((response) => {
       return response.data;
     })

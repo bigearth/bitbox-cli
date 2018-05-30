@@ -13,16 +13,14 @@ describe('#Generating', () => {
     afterEach(() => sandbox.restore());
 
     it('should generate', (done) => {
-      let data = {
-        result: []
-      };
+      let data = [];
       const resolved = new Promise((r) => r({ data: data }));
       sandbox.stub(axios, 'post').returns(resolved);
 
       BITBOX.Generating.generateToAddress(1, 'bitcoincash:qrdka2205f4hyukutc2g0s6lykperc8nsu5u2ddpqf')
         .then((result) => {
           assert.deepEqual(
-            data.result,
+            data,
             result
           );
         })

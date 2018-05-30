@@ -1,7 +1,6 @@
 import axios from 'axios';
 class Blockchain {
-  constructor(config, restBaseURL) {
-    this.config = config;
+  constructor(restBaseURL) {
     this.restBaseURL = restBaseURL;
   }
 
@@ -133,7 +132,7 @@ class Blockchain {
     //
     // Result (for verbose=false):
     // "data"             (string) A string that is serialized, hex-encoded data for block 'hash'.
-    return axios.get(`${this.restBaseURL}blockchain/getBlockHash/${hash}?verbose=${verbose}`)
+    return axios.get(`${this.restBaseURL}blockchain/getBlockHeader/${hash}?verbose=${verbose}`)
     .then((response) => {
       return response.data;
     })
@@ -436,32 +435,6 @@ class Blockchain {
     // Result:
     // "data"           (string) A string that is a serialized, hex-encoded data for the proof.
     return axios.get(path)
-    .then((response) => {
-      return response.data;
-    })
-    .catch((error) => {
-      return JSON.stringify(error.response.data.error.message);
-    });
-  }
-
-  getTxOutSetInfo() {
-    // Returns statistics about the unspent transaction output set.
-    // Note this call may take some time.
-    //
-    // Result:
-    // {
-    //   "height":n,     (numeric) The current block height (index)
-    //   "bestblock": "hex",   (string) the best block hash hex
-    //   "transactions": n,      (numeric) The number of transactions
-    //   "txouts": n,            (numeric) The number of output transactions
-    //   "bogosize": n,          (numeric) A database-independent metric for UTXO set size
-    //   "hash_serialized": "hash",   (string) The serialized hash
-    //   "disk_size": n,         (numeric) The estimated size of the chainstate on disk
-    //   "total_amount": x.xxx          (numeric) The total amount
-    // }
-    //
-
-    return axios.get(`${this.restBaseURL}blockchain/getTxOutSetInfo`)
     .then((response) => {
       return response.data;
     })

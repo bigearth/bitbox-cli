@@ -2,28 +2,32 @@ import Bitcoin from 'bitcoinjs-lib';
 import axios from 'axios';
 
 class Transaction {
-  static transaction() {
+  constructor(restBaseURL) {
+    this.restBaseURL = restBaseURL;
+  }
+
+  transaction() {
     return new Bitcoin.Transaction();
   }
 
-  static fromHex(hex) {
+  fromHex(hex) {
     return Bitcoin.Transaction.fromHex(hex);
   }
 
-  static transactionBuilder(network = 'bitcoin') {
+  transactionBuilder(network = 'bitcoin') {
     return new Bitcoin.TransactionBuilder(Bitcoin.networks[network]);
   }
 
-  static fromTransaction(tx) {
+  fromTransaction(tx) {
     return Bitcoin.TransactionBuilder.fromTransaction(tx);
   }
 
-  static details(txid) {
+  details(txid) {
     if(typeof txid !== 'string') {
       txid = JSON.stringify(txid);
     }
-    
-    return axios.get(`https://rest.bitbox.earth/v1/transaction/details/${txid}`)
+
+    return axios.get(`${this.restBaseURL}transaction/details/${txid}`)
     .then((response) => {
       return response.data;
     })

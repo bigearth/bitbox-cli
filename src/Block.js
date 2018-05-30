@@ -1,7 +1,11 @@
 import axios from 'axios';
 class Block {
-  static details(id) {
-    return axios.get(`https://explorer.bitcoin.com/api/bch/block/${id}`)
+  constructor(restBaseURL) {
+    this.restBaseURL = restBaseURL;
+  }
+
+  details(id) {
+    return axios.get(`${this.restBaseURL}block/details/${id}`)
     .then((response) => {
       return response.data;
     })

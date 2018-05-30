@@ -1,8 +1,7 @@
 import axios from 'axios';
 class Mining {
-  constructor(config, baseURL) {
-    this.config = config;
-    this.baseURL = baseURL;
+  constructor(restBaseURL) {
+    this.restBaseURL = restBaseURL;
   }
 
   getBlockTemplate(template_request) {
@@ -29,12 +28,12 @@ class Mining {
     //        ]
     //      }
 
-    return axios.get(`${this.baseURL}mining/getBlockTemplate`)
+    return axios.get(`${this.restBaseURL}mining/getBlockTemplate/${template_request}`)
     .then((response) => {
-      return response.data.result;
+      return response.data;
     })
     .catch((error) => {
-      return JSON.stringify(error.response.data.error.message);
+      return JSON.stringify(error.response.data.message);
     });
   }
 
@@ -52,9 +51,9 @@ class Mining {
     //   "chain": "xxxx",           (string) current network name as defined in BIP70 (main, test, regtest)
     // }
 
-    return axios.get(`${this.baseURL}mining/getMiningInfo`)
+    return axios.get(`${this.restBaseURL}mining/getMiningInfo`)
     .then((response) => {
-      return response.data.result;
+      return response.data;
     })
     .catch((error) => {
       return JSON.stringify(error.response.data.error.message);
@@ -72,7 +71,7 @@ class Mining {
     //
     // Result:
     // x             (numeric) Hashes per second estimated
-    return axios.get(`${this.baseURL}mining/getNetworkHashps?nblocks=${nblocks}&height=${height}`)
+    return axios.get(`${this.restBaseURL}mining/getNetworkHashps?nblocks=${nblocks}&height=${height}`)
     .then((response) => {
       return response.data;
     })
@@ -93,13 +92,13 @@ class Mining {
     //       "workid" : "id"    (string, optional) if the server provided a workid, it MUST be included with submissions
     //     }
     //
-    let path = `${this.baseURL}mining/submitBlock/${hex}`;
+    let path = `${this.restBaseURL}mining/submitBlock/${hex}`;
     if(parameters) {
       path = `${path}?parameters=${parameters}`;
     }
     return axios.post(path)
     .then((response) => {
-      return response.data.result;
+      return response.data;
     })
     .catch((error) => {
       return JSON.stringify(error.response.data.error.message);

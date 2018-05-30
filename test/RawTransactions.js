@@ -37,7 +37,7 @@ describe('#RawTransactions', () => {
       .then((result) => {
         assert.deepEqual(
           data,
-          JSON.parse(result)
+          result
         );
       })
       .then(done, done);

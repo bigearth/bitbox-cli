@@ -1,8 +1,7 @@
 import axios from 'axios';
 class Network {
-  constructor(config, baseURL) {
-    this.config = config;
-    this.baseURL = baseURL;
+  constructor(restBaseURL) {
+    this.restBaseURL = restBaseURL;
   }
 
   addNode(node, command){
@@ -14,9 +13,9 @@ class Network {
     // 2. "command"  (string, required) 'add' to add a node to the list, 'remove' to remove a node from the list, 'onetry' to try a connection to the node once
     //
 
-    return axios.post(`${this.baseURL}network/addNode/${node}/${command}`)
+    return axios.post(`${this.restBaseURL}network/addNode/${node}/${command}`)
     .then((response) => {
-      return response.data.result;
+      return response.data;
     })
     .catch((error) => {
       return JSON.stringify(error.response.data.error.message);
@@ -31,9 +30,9 @@ class Network {
     // Result—null on success
     // JSON null when the list was cleared
 
-    return axios.post(`${this.baseURL}clearBanned`)
+    return axios.post(`${this.restBaseURL}clearBanned`)
     .then((response) => {
-      return response.data.result;
+      return response.data;
     })
     .catch((error) => {
       return JSON.stringify(error.response.data.error.message);
@@ -52,9 +51,9 @@ class Network {
     // Properties
     // 1. "address"     (string, optional) The IP address/port of the node
     // 2. "nodeid"      (number, optional) The node ID (see getpeerinfo for node IDs)
-    return axios.post(`${this.baseURL}disconnectNode/${configuration}`)
+    return axios.post(`${this.restBaseURL}disconnectNode/${configuration}`)
     .then((response) => {
-      return response.data.result;
+      return response.data;
     })
     .catch((error) => {
       return JSON.stringify(error.response.data.error.message);
@@ -82,14 +81,14 @@ class Network {
     //   }
     //   ,...
     // ]
-    let path = `${this.baseURL}network/getAddedNodeInfo`;
+    let path = `${this.restBaseURL}network/getAddedNodeInfo`;
     if(node) {
       path = `${path}?node=${node}`;
     }
 
     return axios.get(path)
     .then((response) => {
-      return response.data.result;
+      return response.data;
     })
     .catch((error) => {
       return JSON.stringify(error.response.data.error.message);
@@ -102,7 +101,7 @@ class Network {
     // Result:
     // n          (numeric) The connection count
 
-    return axios.get(`${this.baseURL}network/getConnectionCount`)
+    return axios.get(`${this.restBaseURL}network/getConnectionCount`)
     .then((response) => {
       return response.data;
     })
@@ -130,9 +129,9 @@ class Network {
     //   }
     // }
 
-    return axios.get(`${this.baseURL}network/getNetTotals`)
+    return axios.get(`${this.restBaseURL}network/getNetTotals`)
     .then((response) => {
-      return response.data.result;
+      return response.data;
     })
     .catch((error) => {
       return JSON.stringify(error.response.data.error.message);
@@ -175,9 +174,9 @@ class Network {
     //   "warnings": "..."                    (string) any network warnings
     // }
 
-    return axios.get(`${this.baseURL}network/getNetworkInfo`)
+    return axios.get(`${this.restBaseURL}network/getNetworkInfo`)
     .then((response) => {
-      return response.data.result;
+      return response.data;
     })
     .catch((error) => {
       return JSON.stringify(error.response.data.error.message);
@@ -229,72 +228,72 @@ class Network {
     //   ,...
     // ]
 
-    return axios.get(`${this.baseURL}network/getPeerInfo`)
+    return axios.get(`${this.restBaseURL}network/getPeerInfo`)
     .then((response) => {
-      return response.data.result;
+      return response.data;
     })
     .catch((error) => {
       return JSON.stringify(error.response.data.error.message);
     });
   }
-
-  listBanned() {
-    // List all banned IPs/Subnets.
-    return axios.get(`${this.baseURL}network/listBanned`)
-    .then((response) => {
-      return response.data.result;
-    })
-    .catch((error) => {
-      return JSON.stringify(error.response.data.error.message);
-    });
-  }
+  //
+  // listBanned() {
+  //   // List all banned IPs/Subnets.
+  //   return axios.get(`${this.restBaseURL}network/listBanned`)
+  //   .then((response) => {
+  //     return response.data;
+  //   })
+  //   .catch((error) => {
+  //     return JSON.stringify(error.response.data.error.message);
+  //   });
+  // }
 
   ping() {
     // Requests that a ping be sent to all other nodes, to measure ping time.
     // Results provided in getpeerinfo, pingtime and pingwait fields are decimal seconds.
     // Ping command is handled in queue with all other commands, so it measures processing backlog, not just network ping.
 
-    return axios.get(`${this.baseURL}network/ping`)
+    return axios.get(`${this.restBaseURL}network/ping`)
     .then((response) => {
-      return response.data.result;
+      return response.data;
     })
     .catch((error) => {
       return JSON.stringify(error.response.data.error.message);
     });
   }
-
-  setBan(subnet, command, bantime, absolute) {
-    // Attempts add or remove a IP/Subnet from the banned list.
-    //
-    // Arguments:
-    // 1. "subnet"       (string, required) The IP/Subnet (see getpeerinfo for nodes ip) with a optional netmask (default is /32 = single ip)
-    // 2. "command"      (string, required) 'add' to add a IP/Subnet to the list, 'remove' to remove a IP/Subnet from the list
-    // 3. "bantime"      (numeric, optional) time in seconds how long (or until when if [absolute] is set) the ip is banned (0 or empty means using the default time of 24h which can also be overwritten by the -bantime startup argument)
-    // 4. "absolute"     (boolean, optional) If set, the bantime must be a absolute timestamp in seconds since epoch (Jan 1 1970 GMT)
-
-    return axios.post(`${this.baseurl}network/setban/${subnet}/${command}`)
-    .then((response) => {
-      return response.data.result;
-    })
-    .catch((error) => {
-      return JSON.stringify(error.response.data.error.message);
-    });
-  }
-
-  setNetworkActive(state) {
-    // Disable/enable all p2p network activity.
-    //
-    // Arguments:
-    // 1. "state"        (boolean, required) true to enable networking, false to disable
-
-    return axios.post(`${this.baseurl}network/setNetworkActive/${state}`)
-    .then((response) => {
-      return response.data.result;
-    })
-    .catch((error) => {
-      return JSON.stringify(error.response.data.error.message);
-    });
-  }
+  //
+  // setBan(subnet, command, bantime, absolute) {
+  //   // Attempts add or remove a IP/Subnet from the banned list.
+  //   //
+  //   // Arguments:
+  //   // 1. "subnet"       (string, required) The IP/Subnet (see getpeerinfo for nodes ip) with a optional netmask (default is /32 = single ip)
+  //   // 2. "command"      (string, required) 'add' to add a IP/Subnet to the list, 'remove' to remove a IP/Subnet from the list
+  //   // 3. "bantime"      (numeric, optional) time in seconds how long (or until when if [absolute] is set) the ip is banned (0 or empty means using the default time of 24h which can also be overwritten by the -bantime startup argument)
+  //   // 4. "absolute"     (boolean, optional) If set, the bantime must be a absolute timestamp in seconds since epoch (Jan 1 1970 GMT)
+  //
+  //   return axios.post(`${this.baseurl}network/setban/${subnet}/${command}`)
+  //   .then((response) => {
+  //     return response.data;
+  //   })
+  //   .catch((error) => {
+  //     return JSON.stringify(error.response.data.error.message);
+  //   });
+  // }
+  //
+  // setNetworkActive(state) {
+  //   // Disable/enable all p2p network activity.
+  //   //
+  //   // Arguments:
+  //   // 1. "state"        (boolean, required) true to enable networking, false to disable
+  //
+  //   return axios.post(`${this.baseurl}network/setNetworkActive/${state}`)
+  //   .then((response) => {
+  //     return response.data;
+  //   })
+  //   .catch((error) => {
+  //     return JSON.stringify(error.response.data.error.message);
+  //   });
+  // }
 }
 
 export default Network;

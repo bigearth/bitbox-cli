@@ -41,23 +41,23 @@ class BITBOXCli {
     }
 
     this.restBaseURL = 'https://rest.bitbox.earth/v1/';
+    this.Address = new Address(this.restBaseURL);
     this.BitcoinCash = new BitcoinCash();
+    this.Block = new Block(this.restBaseURL);
+    this.Blockchain = new Blockchain(this.restBaseURL);
+    this.Control = new Control(this.restBaseURL);
     this.Crypto = Crypto;
-    this.Mnemonic = new Mnemonic();
-    this.Address = new Address();
-    this.HDNode = new HDNode();
-    this.Util = new Util(config, this.baseURL);
-    this.Block = Block;
-    this.Blockchain = new Blockchain(config, this.restBaseURL);
-    this.Control = new Control(config, this.baseURL);
-    this.Generating = new Generating(config, this.baseURL);
-    this.Mining = new Mining(config, this.baseURL);
-    this.Network = new Network(config, this.baseURL);
-    this.RawTransactions = new RawTransactions(config, this.baseURL);
-    this.Transaction = Transaction;
-    this.TransactionBuilder = TransactionBuilder;
-    this.Script = new Script();
     this.ECPair = ECPair;
+    this.Generating = new Generating(this.restBaseURL);
+    this.HDNode = new HDNode();
+    this.Mining = new Mining(this.restBaseURL);
+    this.Mnemonic = new Mnemonic();
+    this.Network = new Network(this.restBaseURL);
+    this.RawTransactions = new RawTransactions(this.restBaseURL);
+    this.Script = new Script();
+    this.Transaction = new Transaction(this.restBaseURL);
+    this.TransactionBuilder = TransactionBuilder;
+    this.Util = new Util(this.restBaseURL);
   }
 }
 

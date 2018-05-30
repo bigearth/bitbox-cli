@@ -1,89 +1,26 @@
 import axios from 'axios';
-
 class RawTransactions {
-  constructor(config, baseURL) {
-    this.config = config;
-    this.BitboxHTTP = axios.create({
-      baseURL: `${config.protocol}://${config.host}:${config.port}/`
-    });
-
+  constructor(restBaseURL) {
+    this.restBaseURL = restBaseURL;
   }
 
-  createRawTransaction(inputs, outputs, locktime) {
-    // creates an unsigned serialized transaction that spends a previous output to a new output with a P2PKH or P2SH address. The transaction is not stored in the wallet or transmitted to the network.
-
-    // Parameter #1—Inputs
-
-    // Parameter #2—P2PKH or P2SH addresses and amounts
-
-    // Parameter #3—locktime
-
-    // Result—the unsigned raw transaction in hex
-    let params;
-    if(!locktime) {
-      params = [
-        inputs,
-        outputs
-      ];
-    } else {
-      params = [
-        inputs,
-        outputs,
-        locktime
-      ];
-    }
-    return this.BitboxHTTP({
-      method: 'post',
-      auth: {
-        username: this.config.username,
-        password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"createrawtransaction",
-        method: "createrawtransaction",
-        params: params
-      }
-    })
-    .then((response) => {
-      return response.data.result;
-    })
-    .catch(error => {
-      return Error(error.response.data.error.message);
-    });
-  }
-
-  decodeRawTransaction(rawHex) {
+  decodeRawTransaction(hex) {
     // decodes a serialized transaction hex string into a JSON object describing the transaction.
 
     // Parameter #1—serialized transaction in hex
 
     // Result—the decoded transaction
 
-    return this.BitboxHTTP({
-      method: 'post',
-      auth: {
-        username: this.config.username,
-        password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"decoderawtransaction",
-        method: "decoderawtransaction",
-        params: [
-          rawHex
-        ]
-      }
-    })
+    return axios.get(`${this.restBaseURL}rawtransactions/decodeRawTransaction/${hex}`)
     .then((response) => {
-      return JSON.stringify(response.data.result);
+      return response.data;
     })
     .catch((error) => {
-      return Error(error.response.data.error.message);
+      return JSON.stringify(error.response.data.error.message);
     });
   }
 
-  decodeScript(redeemScript) {
+  decodeScript(hex) {
     // decodes a hex-encoded P2SH redeem script.
 
     // Parameter #1—a hex-encoded redeem script
@@ -91,100 +28,16 @@ class RawTransactions {
     // Result—the decoded script
     // console.log('decode script called *****', redeemScript)
 
-    return this.BitboxHTTP({
-      method: 'post',
-      auth: {
-        username: this.config.username,
-        password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"decodescript",
-        method: "decodescript",
-        params: [
-          redeemScript
-        ]
-      }
-    })
+    return axios.get(`${this.restBaseURL}rawtransactions/decodeScript/${hex}`)
     .then((response) => {
-      return response.data.result;
+      return response.data;
     })
-    .catch(error => {
-      return Error(error.response.data.error.message);
+    .catch((error) => {
+      return JSON.stringify(error.response.data.error.message);
     });
   }
 
-  fundRawTransaction(hexstring, options) {
-    // Add inputs to a transaction until it has enough in value to meet its out value.
-    // This will not modify existing inputs, and will add at most one change output to the outputs.
-    // No existing outputs will be modified unless "subtractFeeFromOutputs" is specified.
-    // Note that inputs which were signed may need to be resigned after completion since in/outputs have been added.
-    // The inputs added will not be signed, use signrawtransaction for that.
-    // Note that all existing inputs must have their previous output transaction be in the wallet.
-    // Note that all inputs selected must be of standard form and P2SH scripts must be
-    // in the wallet using importaddress or addmultisigaddress (to calculate fees).
-    // You can see whether this is the case by checking the "solvable" field in the listunspent output.
-    // Only pay-to-pubkey, multisig, and P2SH versions thereof are currently supported for watch-only
-    //
-    // Arguments:
-    // 1. "hexstring"           (string, required) The hex string of the raw transaction
-    // 2. options                 (object, optional)
-    //    {
-    //      "changeAddress"          (string, optional, default pool address) The bitcoin address to receive the change
-    //      "changePosition"         (numeric, optional, default random) The index of the change output
-    //      "includeWatching"        (boolean, optional, default false) Also select inputs which are watch only
-    //      "lockUnspents"           (boolean, optional, default false) Lock selected unspent outputs
-    //      "reserveChangeKey"       (boolean, optional, default true) Reserves the change output key from the keypool
-    //      "feeRate"                (numeric, optional, default not set: makes wallet determine the fee) Set a specific feerate (BCH per KB)
-    //      "subtractFeeFromOutputs" (array, optional) A json array of integers.
-    //                               The fee will be equally deducted from the amount of each specified output.
-    //                               The outputs are specified by their zero-based index, before any change output is added.
-    //                               Those recipients will receive less bitcoins than you enter in their corresponding amount field.
-    //                               If no outputs are specified here, the sender pays the fee.
-    //                                   [vout_index,...]
-    //    }
-    //                          for backward compatibility: passing in a true instead of an object will result in {"includeWatching":true}
-    //
-    // Result:
-    // {
-    //   "hex":       "value", (string)  The resulting raw transaction (hex-encoded string)
-    //   "fee":       n,         (numeric) Fee in BCH the resulting transaction pays
-    //   "changepos": n          (numeric) The position of the added change output, or -1
-    // }
-
-    let params;
-    if(!options) {
-      params = [
-        hexstring
-      ];
-    } else {
-      params = [
-        hexstring,
-        options
-      ];
-    }
-    return this.BitboxHTTP({
-      method: 'post',
-      auth: {
-        username: this.config.username,
-        password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"fundrawtransaction",
-        method: "fundrawtransaction",
-        params: params
-      }
-    })
-    .then((response) => {
-      return response.data.result;
-    })
-    .catch(error => {
-      return Error(error.response.data.error.message);
-    });
-  }
-
-  getRawTransaction(txid, verbose) {
+  getRawTransaction(txid, verbose = false) {
     // NOTE: By default this function only works for mempool transactions. If the -txindex option is
     // enabled, it also works for blockchain transactions.
     // DEPRECATED: for now, it also works for transactions with unspent outputs.
@@ -201,39 +54,16 @@ class RawTransactions {
     // Result (if verbose is not set or set to false):
     // "data"      (string) The serialized, hex-encoded data for 'txid'
 
-    let params;
-    if(!verbose) {
-      params = [
-        txid
-      ];
-    } else {
-      params = [
-        txid,
-        verbose
-      ];
-    }
-    return this.BitboxHTTP({
-      method: 'post',
-      auth: {
-        username: this.config.username,
-        password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"getrawtransaction",
-        method: "getrawtransaction",
-        params: params
-      }
-    })
+    return axios.get(`${this.restBaseURL}rawtransactions/getRawTransaction/${txid}?verbose=${verbose}`)
     .then((response) => {
-      return response.data.result;
+      return response.data;
     })
-    .catch(error => {
-      return Error(error.response.data.error.message);
+    .catch((error) => {
+      return JSON.stringify(error.response.data.error.message);
     });
   }
 
-  sendRawTransaction(hexstring, allowhighfees) {
+  sendRawTransaction(hex, allowhighfees = false) {
     // Submits raw transaction (serialized, hex-encoded) to local node and network.
     //
     // Also see createrawtransaction and signrawtransaction calls.
@@ -246,111 +76,12 @@ class RawTransactions {
     // "hex"             (string) The transaction hash in hex
     //
 
-    let params = [];
-    if(hexstring) {
-      params.push(hexstring);
-    }
-
-    if(allowhighfees) {
-      params.push(allowhighfees);
-    }
-
-    return this.BitboxHTTP({
-      method: 'post',
-      auth: {
-        username: this.config.username,
-        password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"sendrawtransaction",
-        method: "sendrawtransaction",
-        params: params
-      }
-    })
+    return axios.post(`${this.restBaseURL}rawtransactions/sendRawTransaction/${hex}?allowhighfees=${allowhighfees}`)
     .then((response) => {
-      return response.data.result;
+      return response.data;
     })
     .catch((error) => {
-      return Error(error.response.data.error.message);
-    });
-  }
-
-  signRawTransaction(hexstring, prevtxs, privkeys, sighashtype) {
-  // Sign inputs for raw transaction (serialized, hex-encoded).
-  // The second optional argument (may be null) is an array of previous transaction outputs that
-  // this transaction depends on but may not yet be in the block chain.
-  // The third optional argument (may be null) is an array of base58-encoded private
-  // keys that, if given, will be the only keys used to sign the transaction.
-  //
-  //
-  // Arguments:
-  // 1. "hexstring"     (string, required) The transaction hex string
-  // 2. "prevtxs"       (string, optional) An json array of previous dependent transaction outputs
-  //      [               (json array of json objects, or 'null' if none provided)
-  //        {
-  //          "txid":"id",             (string, required) The transaction id
-  //          "vout":n,                  (numeric, required) The output number
-  //          "scriptPubKey": "hex",   (string, required) script key
-  //          "redeemScript": "hex",   (string, required for P2SH or P2WSH) redeem script
-  //          "amount": value            (numeric, required) The amount spent
-  //        }
-  //        ,...
-  //     ]
-  // 3. "privkeys"     (string, optional) A json array of base58-encoded private keys for signing
-  //     [                  (json array of strings, or 'null' if none provided)
-  //       "privatekey"   (string) private key in base58-encoding
-  //       ,...
-  //     ]
-  // 4. "sighashtype"     (string, optional, default=ALL) The signature hash type. Must be one of
-  //        "ALL"
-  //        "NONE"
-  //        "SINGLE"
-  //        "ALL|ANYONECANPAY"
-  //        "NONE|ANYONECANPAY"
-  //        "SINGLE|ANYONECANPAY"
-  //        "ALL|FORKID"
-  //        "NONE|FORKID"
-  //        "SINGLE|FORKID"
-  //        "ALL|FORKID|ANYONECANPAY"
-  //        "NONE|FORKID|ANYONECANPAY"
-  //        "SINGLE|FORKID|ANYONECANPAY"
-
-    let params = [];
-    if(hexstring) {
-      params.push(hexstring);
-    }
-
-    if(prevtxs) {
-      params.push(prevtxs);
-    }
-
-    if(privkeys) {
-      params.push(privkeys);
-    }
-
-    if(sighashtype) {
-      params.push(sighashtype);
-    }
-
-    return this.BitboxHTTP({
-      method: 'post',
-      auth: {
-        username: this.config.username,
-        password: this.config.password
-      },
-      data: {
-        jsonrpc: "1.0",
-        id:"signrawtransaction",
-        method: "signrawtransaction",
-        params: params
-      }
-    })
-    .then((response) => {
-      return response.data.result;
-    })
-    .catch(error => {
-      return Error(error.response.data.error.message);
+      return JSON.stringify(error.response.data.error.message);
     });
   }
 }

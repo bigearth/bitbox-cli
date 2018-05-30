@@ -14,14 +14,12 @@ describe('#Util', () => {
 
     it('should validate address', (done) => {
       let data = {
-        result: {
-          isvalid: true,
-          address: 'bitcoincash:qpz7qtkuyhrsz4qmnnrvf8gz9zd0u9v7eqsewyk4w5',
-          scriptPubKey: '76a91445e02edc25c701541b9cc6c49d02289afe159ec888ac',
-          ismine: false,
-          iswatchonly: false,
-          isscript: false
-        }
+        isvalid: true,
+        address: 'bitcoincash:qpz7qtkuyhrsz4qmnnrvf8gz9zd0u9v7eqsewyk4w5',
+        scriptPubKey: '76a91445e02edc25c701541b9cc6c49d02289afe159ec888ac',
+        ismine: false,
+        iswatchonly: false,
+        isscript: false
       };
 
       const resolved = new Promise((r) => r({ data: data }));
@@ -30,7 +28,7 @@ describe('#Util', () => {
       BITBOX.Util.validateAddress('bitcoincash:qpz7qtkuyhrsz4qmnnrvf8gz9zd0u9v7eqsewyk4w5')
       .then((result) => {
         assert.deepEqual(
-          data.result,
+          data,
           result
         );
       })

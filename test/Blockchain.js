@@ -367,30 +367,6 @@ describe('#Blockchain', () => {
     });
   });
 
-  describe('#getTxOutSetInfo', () => {
-    // TODO finish this test
-    let sandbox;
-    beforeEach(() => sandbox = sinon.sandbox.create());
-    afterEach(() => sandbox.restore());
-    let data = {
-      result: { }
-    };
-
-    it('should get TODO', (done) => {
-      const resolved = new Promise((r) => r({ data: data }));
-      sandbox.stub(axios, 'get').returns(resolved);
-
-      BITBOX.Blockchain.getTxOutSetInfo()
-        .then((result) => {
-          assert.deepEqual(
-            data,
-            result
-          );
-        })
-        .then(done, done);
-    });
-  });
-
   describe('#preciousBlock', () => {
     // TODO finish this test
     let sandbox;
