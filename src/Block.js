@@ -1,11 +1,11 @@
 import axios from 'axios';
 class Block {
-  constructor(restBaseURL) {
-    this.restBaseURL = restBaseURL;
+  constructor(restURL) {
+    this.restURL = restURL;
   }
 
   details(id) {
-    return axios.get(`${this.restBaseURL}block/details/${id}`)
+    return axios.get(`${this.restURL}block/details/${id}`)
     .then((response) => {
       return response.data;
     })

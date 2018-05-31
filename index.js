@@ -25,19 +25,13 @@ let cmd = require('node-cmd');
 // let ProgressBar = require('progress');
 
 program
-  .version('0.8.2');
+  .version('0.9.0');
 
 program
   .command('new <name>')
   .option('-s, --scaffold <scaffold>', 'The framework to use. Options include react, angular, vuejs, nextjs and node.')
-  .option('-r, --scaffold-repo <repo>', 'The github repository to use. Ex: https://github.com/bigearth/bitbox-scaffold-react.git')
+  .option('-r, --restURL <restURL>', 'The rest URL to use. default: https://rest.bitbox.earth/v1/')
   .option('-e, --environment <environment>', 'environment of running BITBOX instance. Ex: production, staging. (Default: development)')
-  .option('-r, --protocol <protocol>', 'protocol of running BITBOX instance. (Default: http)')
-  .option('-o, --host <host>', 'host of running BITBOX instance. (Default: localhost)')
-  .option('-p, --port <port>', 'port of running BITBOX instance. (Default: 8332)')
-  .option('-u, --username <username>', 'Bitcoin Cash JSON RPC username')
-  .option('-a, --password <password>', 'Bitcoin Cash JSON RPC password')
-  .option('-c, --corsproxy', 'Enable proxy POST requests to bitbox proxy (default: disabled)')
   .description(`create a new BITBOX application`)
   .action((name, options) => {
     fs.readFile(os.homedir() + '/.bitboxrc', 'utf8', (err, contents) => {
@@ -55,59 +49,12 @@ program
         environment = 'development';
       }
 
-      let protocol;
-      if(options && options.protocol) {
-        protocol = options.protocol;
-      } else if(config && config.new && config.new.protocol) {
-        protocol = config.new.protocol;
+      let restURL;
+      if(options && options.restURL) {
+        restURL = options.restURL;
       } else {
-        protocol = 'http';
+        restURL = 'https://rest.bitbox.earth/v1/';
       }
-
-      let host;
-      if(options && options.host) {
-        host = options.host;
-      } else if(config && config.new && config.new.host) {
-        host = config.new.host;
-      } else {
-        host = 'localhost';
-      }
-      //
-      // let port;
-      // if(options && options.port) {
-      //   port = options.port;
-      // } else if(config && config.new && config.new.port) {
-      //   port = config.new.port;
-      // } else {
-      //   port = 8332;
-      // }
-      //
-      // let username;
-      // if(options && options.username) {
-      //   username = options.username;
-      // } else if(config && config.new && config.new.username) {
-      //   username = config.new.username;
-      // } else {
-      //   username = '';
-      // }
-      //
-      // let password;
-      // if(options && options.password) {
-      //   password = options.password;
-      // } else if(config && config.new && config.new.password) {
-      //   password = config.new.password;
-      // } else {
-      //   password = '';
-      // }
-      //
-      // let corsproxy;
-      // if(options && options.corsproxy) {
-      //   corsproxy = options.corsproxy;
-      // } else if(config && config.new && config.new.corsproxy) {
-      //   corsproxy = config.new.corsproxy;
-      // } else {
-      //   corsproxy = false;
-      // }
 
       if(options && options.scaffold) {
         let scaffold = options.scaffold.toLowerCase();
@@ -165,8 +112,7 @@ program
       fs.writeFileSync( `./${name}/bitbox.js`, `exports.config = {
   networks: {
     ${environment}: {
-      protocol: "${protocol}",
-      host: "${host}"
+      restURL: "${restURL}"
     }
   }
 };

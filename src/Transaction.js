@@ -2,8 +2,8 @@ import Bitcoin from 'bitcoinjs-lib';
 import axios from 'axios';
 
 class Transaction {
-  constructor(restBaseURL) {
-    this.restBaseURL = restBaseURL;
+  constructor(restURL) {
+    this.restURL = restURL;
   }
 
   transaction() {
@@ -27,7 +27,7 @@ class Transaction {
       txid = JSON.stringify(txid);
     }
 
-    return axios.get(`${this.restBaseURL}transaction/details/${txid}`)
+    return axios.get(`${this.restURL}transaction/details/${txid}`)
     .then((response) => {
       return response.data;
     })

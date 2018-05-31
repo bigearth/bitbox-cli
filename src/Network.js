@@ -1,7 +1,7 @@
 import axios from 'axios';
 class Network {
-  constructor(restBaseURL) {
-    this.restBaseURL = restBaseURL;
+  constructor(restURL) {
+    this.restURL = restURL;
   }
 
   addNode(node, command){
@@ -13,7 +13,7 @@ class Network {
     // 2. "command"  (string, required) 'add' to add a node to the list, 'remove' to remove a node from the list, 'onetry' to try a connection to the node once
     //
 
-    return axios.post(`${this.restBaseURL}network/addNode/${node}/${command}`)
+    return axios.post(`${this.restURL}network/addNode/${node}/${command}`)
     .then((response) => {
       return response.data;
     })
@@ -30,7 +30,7 @@ class Network {
     // Result—null on success
     // JSON null when the list was cleared
 
-    return axios.post(`${this.restBaseURL}clearBanned`)
+    return axios.post(`${this.restURL}clearBanned`)
     .then((response) => {
       return response.data;
     })
@@ -51,7 +51,7 @@ class Network {
     // Properties
     // 1. "address"     (string, optional) The IP address/port of the node
     // 2. "nodeid"      (number, optional) The node ID (see getpeerinfo for node IDs)
-    return axios.post(`${this.restBaseURL}disconnectNode/${configuration}`)
+    return axios.post(`${this.restURL}disconnectNode/${configuration}`)
     .then((response) => {
       return response.data;
     })
@@ -81,7 +81,7 @@ class Network {
     //   }
     //   ,...
     // ]
-    let path = `${this.restBaseURL}network/getAddedNodeInfo`;
+    let path = `${this.restURL}network/getAddedNodeInfo`;
     if(node) {
       path = `${path}?node=${node}`;
     }
@@ -101,7 +101,7 @@ class Network {
     // Result:
     // n          (numeric) The connection count
 
-    return axios.get(`${this.restBaseURL}network/getConnectionCount`)
+    return axios.get(`${this.restURL}network/getConnectionCount`)
     .then((response) => {
       return response.data;
     })
@@ -129,7 +129,7 @@ class Network {
     //   }
     // }
 
-    return axios.get(`${this.restBaseURL}network/getNetTotals`)
+    return axios.get(`${this.restURL}network/getNetTotals`)
     .then((response) => {
       return response.data;
     })
@@ -174,7 +174,7 @@ class Network {
     //   "warnings": "..."                    (string) any network warnings
     // }
 
-    return axios.get(`${this.restBaseURL}network/getNetworkInfo`)
+    return axios.get(`${this.restURL}network/getNetworkInfo`)
     .then((response) => {
       return response.data;
     })
@@ -228,7 +228,7 @@ class Network {
     //   ,...
     // ]
 
-    return axios.get(`${this.restBaseURL}network/getPeerInfo`)
+    return axios.get(`${this.restURL}network/getPeerInfo`)
     .then((response) => {
       return response.data;
     })
@@ -239,7 +239,7 @@ class Network {
   //
   // listBanned() {
   //   // List all banned IPs/Subnets.
-  //   return axios.get(`${this.restBaseURL}network/listBanned`)
+  //   return axios.get(`${this.restURL}network/listBanned`)
   //   .then((response) => {
   //     return response.data;
   //   })
@@ -253,7 +253,7 @@ class Network {
     // Results provided in getpeerinfo, pingtime and pingwait fields are decimal seconds.
     // Ping command is handled in queue with all other commands, so it measures processing backlog, not just network ping.
 
-    return axios.get(`${this.restBaseURL}network/ping`)
+    return axios.get(`${this.restURL}network/ping`)
     .then((response) => {
       return response.data;
     })

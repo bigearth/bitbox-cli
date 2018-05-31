@@ -23,41 +23,29 @@ import Script from './Script';
 
 class BITBOXCli {
   constructor(config) {
-    if(!config) {
-      config = {
-        protocol: '',
-        host: '',
-        test: true
-      };
+    if(config && config.restURL && config.restURL !== '') {
+      this.restURL = config.restURL;
+    } else {
+      this.restURL = 'https://rest.bitbox.earth/v1/';
     }
 
-    this.config = config;
-    this.baseURL = '/';
-
-    if(!this.config.test && this.config.host !== 'localhost') {
-      this.baseURL = `${config.protocol}://${config.host}/v1/`;
-    } else if(!this.config.test && this.config.host === 'localhost') {
-      this.baseURL = `${config.protocol}://${config.host}:8332/`;
-    }
-
-    this.restBaseURL = 'https://rest.bitbox.earth/v1/';
-    this.Address = new Address(this.restBaseURL);
+    this.Address = new Address(this.restURL);
     this.BitcoinCash = new BitcoinCash();
-    this.Block = new Block(this.restBaseURL);
-    this.Blockchain = new Blockchain(this.restBaseURL);
-    this.Control = new Control(this.restBaseURL);
+    this.Block = new Block(this.restURL);
+    this.Blockchain = new Blockchain(this.restURL);
+    this.Control = new Control(this.restURL);
     this.Crypto = Crypto;
     this.ECPair = ECPair;
-    this.Generating = new Generating(this.restBaseURL);
+    this.Generating = new Generating(this.restURL);
     this.HDNode = new HDNode();
-    this.Mining = new Mining(this.restBaseURL);
+    this.Mining = new Mining(this.restURL);
     this.Mnemonic = new Mnemonic();
-    this.Network = new Network(this.restBaseURL);
-    this.RawTransactions = new RawTransactions(this.restBaseURL);
+    this.Network = new Network(this.restURL);
+    this.RawTransactions = new RawTransactions(this.restURL);
     this.Script = new Script();
-    this.Transaction = new Transaction(this.restBaseURL);
+    this.Transaction = new Transaction(this.restURL);
     this.TransactionBuilder = TransactionBuilder;
-    this.Util = new Util(this.restBaseURL);
+    this.Util = new Util(this.restURL);
   }
 }
 

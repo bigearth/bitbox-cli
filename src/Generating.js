@@ -1,7 +1,7 @@
 import axios from 'axios';
 class Generating {
-  constructor(restBaseURL) {
-    this.restBaseURL = restBaseURL;
+  constructor(restURL) {
+    this.restURL = restURL;
   }
 
   generateToAddress(blocks, address, maxtries = 1000000) {
@@ -16,7 +16,7 @@ class Generating {
     // Result:
     // [ blockhashes ]     (array) hashes of blocks generated
     //
-    return axios.post(`${this.restBaseURL}generating/generateToAddress/${blocks}/${address}?maxtries=${maxtries}`)
+    return axios.post(`${this.restURL}generating/generateToAddress/${blocks}/${address}?maxtries=${maxtries}`)
     .then((response) => {
       return response.data;
     })

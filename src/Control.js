@@ -1,7 +1,7 @@
 import axios from 'axios';
 class Control {
-  constructor(restBaseURL) {
-    this.restBaseURL = restBaseURL;
+  constructor(restURL) {
+    this.restURL = restURL;
   }
 
   getInfo() {
@@ -27,7 +27,7 @@ class Control {
     //   "errors": "..."           (string) any error messages
     // }
 
-    return axios.get(`${this.restBaseURL}control/getInfo`)
+    return axios.get(`${this.restURL}control/getInfo`)
     .then((response) => {
       return response.data;
     })
@@ -53,7 +53,7 @@ class Control {
     // }
     //
 
-    return axios.get(`${this.restBaseURL}control/getMemoryInfo`)
+    return axios.get(`${this.restURL}control/getMemoryInfo`)
     .then((response) => {
       return response.data;
     })
@@ -64,7 +64,7 @@ class Control {
   //
   // stop() {
   //   // Stop Bitcoin Cash server.
-  //   return axios.post(`${this.restBaseURL}control/stop`)
+  //   return axios.post(`${this.restURL}control/stop`)
   //   .then((response) => {
   //     return response.data;
   //   })

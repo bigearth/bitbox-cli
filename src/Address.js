@@ -3,8 +3,8 @@ import bchaddr from 'bchaddrjs';
 import Bitcoin from 'bitcoinjs-lib';
 
 class Address {
-  constructor(restBaseURL) {
-    this.restBaseURL = restBaseURL;
+  constructor(restURL) {
+    this.restURL = restURL;
   }
 
   // Translate address from any address format into a specific format.
@@ -94,7 +94,7 @@ class Address {
     if(typeof address !== 'string') {
       address = JSON.stringify(address);
     }
-    return axios.get(`${this.restBaseURL}address/details/${address}`)
+    return axios.get(`${this.restURL}address/details/${address}`)
     .then((response) => {
       return response.data;
     })
@@ -104,10 +104,11 @@ class Address {
   }
 
   utxo(address) {
+    console.log(this.restURL)
     if(typeof address !== 'string') {
       address = JSON.stringify(address);
     }
-    return axios.get(`${this.restBaseURL}address/utxo/${address}`)
+    return axios.get(`${this.restURL}address/utxo/${address}`)
     .then((response) => {
       return response.data;
     })
@@ -120,7 +121,7 @@ class Address {
     if(typeof address !== 'string') {
       address = JSON.stringify(address);
     }
-    return axios.get(`${this.restBaseURL}address/unconfirmed/${address}`)
+    return axios.get(`${this.restURL}address/unconfirmed/${address}`)
     .then((response) => {
       return response.data;
     })

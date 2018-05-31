@@ -1,7 +1,7 @@
 import axios from 'axios';
 class Util {
-  constructor(restBaseURL) {
-    this.restBaseURL = restBaseURL;
+  constructor(restURL) {
+    this.restURL = restURL;
   }
 
   validateAddress(address) {
@@ -25,7 +25,7 @@ class Util {
     //   "hdkeypath" : "keypath"       (string, optional) The HD keypath if the key is HD and available
     //   "hdmasterkeyid" : "<hash160>" (string, optional) The Hash160 of the HD master pubkey
     // }
-    return axios.get(`${this.restBaseURL}util/validateAddress/${address}`)
+    return axios.get(`${this.restURL}util/validateAddress/${address}`)
     .then((response) => {
       return response.data;
     })

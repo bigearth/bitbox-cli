@@ -1,7 +1,7 @@
 import axios from 'axios';
 class RawTransactions {
-  constructor(restBaseURL) {
-    this.restBaseURL = restBaseURL;
+  constructor(restURL) {
+    this.restURL = restURL;
   }
 
   decodeRawTransaction(hex) {
@@ -11,7 +11,7 @@ class RawTransactions {
 
     // Result—the decoded transaction
 
-    return axios.get(`${this.restBaseURL}rawtransactions/decodeRawTransaction/${hex}`)
+    return axios.get(`${this.restURL}rawtransactions/decodeRawTransaction/${hex}`)
     .then((response) => {
       return response.data;
     })
@@ -28,7 +28,7 @@ class RawTransactions {
     // Result—the decoded script
     // console.log('decode script called *****', redeemScript)
 
-    return axios.get(`${this.restBaseURL}rawtransactions/decodeScript/${hex}`)
+    return axios.get(`${this.restURL}rawtransactions/decodeScript/${hex}`)
     .then((response) => {
       return response.data;
     })
@@ -54,7 +54,7 @@ class RawTransactions {
     // Result (if verbose is not set or set to false):
     // "data"      (string) The serialized, hex-encoded data for 'txid'
 
-    return axios.get(`${this.restBaseURL}rawtransactions/getRawTransaction/${txid}?verbose=${verbose}`)
+    return axios.get(`${this.restURL}rawtransactions/getRawTransaction/${txid}?verbose=${verbose}`)
     .then((response) => {
       return response.data;
     })
@@ -76,7 +76,7 @@ class RawTransactions {
     // "hex"             (string) The transaction hash in hex
     //
 
-    return axios.post(`${this.restBaseURL}rawtransactions/sendRawTransaction/${hex}?allowhighfees=${allowhighfees}`)
+    return axios.post(`${this.restURL}rawtransactions/sendRawTransaction/${hex}?allowhighfees=${allowhighfees}`)
     .then((response) => {
       return response.data;
     })

@@ -1,7 +1,7 @@
 import axios from 'axios';
 class Mining {
-  constructor(restBaseURL) {
-    this.restBaseURL = restBaseURL;
+  constructor(restURL) {
+    this.restURL = restURL;
   }
 
   getBlockTemplate(template_request) {
@@ -28,7 +28,7 @@ class Mining {
     //        ]
     //      }
 
-    return axios.get(`${this.restBaseURL}mining/getBlockTemplate/${template_request}`)
+    return axios.get(`${this.restURL}mining/getBlockTemplate/${template_request}`)
     .then((response) => {
       return response.data;
     })
@@ -51,7 +51,7 @@ class Mining {
     //   "chain": "xxxx",           (string) current network name as defined in BIP70 (main, test, regtest)
     // }
 
-    return axios.get(`${this.restBaseURL}mining/getMiningInfo`)
+    return axios.get(`${this.restURL}mining/getMiningInfo`)
     .then((response) => {
       return response.data;
     })
@@ -71,7 +71,7 @@ class Mining {
     //
     // Result:
     // x             (numeric) Hashes per second estimated
-    return axios.get(`${this.restBaseURL}mining/getNetworkHashps?nblocks=${nblocks}&height=${height}`)
+    return axios.get(`${this.restURL}mining/getNetworkHashps?nblocks=${nblocks}&height=${height}`)
     .then((response) => {
       return response.data;
     })
@@ -92,7 +92,7 @@ class Mining {
     //       "workid" : "id"    (string, optional) if the server provided a workid, it MUST be included with submissions
     //     }
     //
-    let path = `${this.restBaseURL}mining/submitBlock/${hex}`;
+    let path = `${this.restURL}mining/submitBlock/${hex}`;
     if(parameters) {
       path = `${path}?parameters=${parameters}`;
     }
