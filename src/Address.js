@@ -104,7 +104,6 @@ class Address {
   }
 
   utxo(address) {
-    console.log(this.restURL)
     if(typeof address !== 'string') {
       address = JSON.stringify(address);
     }
