@@ -13,7 +13,7 @@ let touch = require("touch");
 let emoji = require('node-emoji');
 let repl = require("repl");
 let ini = require('ini');
-let BITBOXCli = require('./lib/bitboxcli').default;
+let BITBOXCli = require('./lib/bitbox-cli').default;
 let clone = require('git-clone');
 let corsproxy = require('corsproxy');
 let cmd = require('node-cmd');
@@ -25,7 +25,7 @@ let cmd = require('node-cmd');
 // let ProgressBar = require('progress');
 
 program
-  .version('0.9.1');
+  .version('0.9.2');
 
 program
   .command('new <name>')

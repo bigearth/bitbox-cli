@@ -1,6 +1,6 @@
 let chai = require('chai');
 let assert = require('assert');
-let BITBOXCli = require('./../lib/bitboxcli').default;
+let BITBOXCli = require('./../lib/bitbox-cli').default;
 let BITBOX = new BITBOXCli();
 let axios = require('axios');
 let sinon = require('sinon');

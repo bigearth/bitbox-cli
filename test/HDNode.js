@@ -1,7 +1,7 @@
 let fixtures = require('./fixtures/HDNode.json')
 let chai = require('chai');
 let assert = require('assert');
-let BITBOXCli = require('./../lib/bitboxcli').default;
+let BITBOXCli = require('./../lib/bitbox-cli').default;
 let BITBOX = new BITBOXCli();
 let Buffer = require('safe-buffer').Buffer
 

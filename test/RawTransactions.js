@@ -1,15 +1,8 @@
-// let fixtures = require('./fixtures/BitcoinCash.json')
 let chai = require('chai');
 let assert = require('assert');
 let axios = require('axios');
-let BITBOXCli = require('./../lib/bitboxcli').default;
-let BITBOX = new BITBOXCli({
-  protocol: 'http',
-  host: "138.68.54.100",
-  port: "8332",
-  username: "bitcoin",
-  password: "xhFjluMJMyOXcYvF"
-});
+let BITBOXCli = require('./../lib/bitbox-cli').default;
+let BITBOX = new BITBOXCli();
 
 let sinon = require('sinon');
 
