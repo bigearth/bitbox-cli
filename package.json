@@ -10,6 +10,9 @@
     "flow": "flow"
   },
   "license": "MIT",
+  "engines" : {
+    "node" : ">=10.3.0" 
+  },
   "bin": {
     "bitbox": "./index.js"
   },
