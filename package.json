@@ -1,6 +1,6 @@
 {
   "name": "bitbox-cli",
-  "version": "0.9.3",
+  "version": "0.9.4",
   "description": "A development framework for Bitcoin Cash",
   "author": "@bitboxearth",
   "main": "index.js",
@@ -10,8 +10,8 @@
     "flow": "flow"
   },
   "license": "MIT",
-  "engines" : {
-    "node" : ">=10.3.0" 
+  "engines": {
+    "node": ">=10.3.0"
   },
   "bin": {
     "bitbox": "./index.js"
@@ -30,7 +30,7 @@
     "bip21": "bigearth/bip21",
     "bip39": "^2.5.0",
     "bitcoin-ops": "bigearth/bitcoin-ops",
-    "bitcoinjs-lib": "bigearth/bitcoinjs-lib",
+    "bitcoinjs-lib": "bigearth/bitcoincashjs-lib",
     "bitcoinjs-message": "^2.0.0",
     "bs58": "^4.0.1",
     "buffer": "^5.1.0",

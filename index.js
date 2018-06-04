@@ -25,7 +25,7 @@ let cmd = require('node-cmd');
 // let ProgressBar = require('progress');
 
 program
-  .version('0.9.3');
+  .version('0.9.4');
 
 program
   .command('new <name>')
