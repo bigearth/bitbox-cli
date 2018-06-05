@@ -139,7 +139,7 @@ describe('#TransactionBuilder', () => {
     fixtures.nulldata.forEach((fixture) => {
       it(`should transaction w/ OP_RETURN output`, () => {
 
-        let buf = new Buffer(fixture.data);
+        let buf = Buffer.from(fixture.data);
         let transactionBuilder = new BITBOX.TransactionBuilder();
         let originalAmount = fixture.amount;
 
