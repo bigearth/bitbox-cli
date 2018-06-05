@@ -1,4 +1,4 @@
-import Bitcoin from 'bitcoinjs-lib';
+import Bitcoin from 'bitcoincashjs-lib';
 import bchaddr from 'bchaddrjs';
 
 class ECPair {

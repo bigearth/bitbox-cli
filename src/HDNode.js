@@ -1,4 +1,4 @@
-import Bitcoin from 'bitcoinjs-lib';
+import Bitcoin from 'bitcoincashjs-lib';
 import bchaddr from 'bchaddrjs';
 // let bip32utils = require('bip32-utils')
 

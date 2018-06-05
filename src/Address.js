@@ -1,6 +1,6 @@
 import axios from 'axios';
 import bchaddr from 'bchaddrjs';
-import Bitcoin from 'bitcoinjs-lib';
+import Bitcoin from 'bitcoincashjs-lib';
 
 class Address {
   constructor(restURL) {

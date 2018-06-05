@@ -1,6 +1,6 @@
 import randomBytes from 'randombytes';
 import BitcoinCash from './BitcoinCash';
-import Bitcoin from 'bitcoinjs-lib';
+import Bitcoin from 'bitcoincashjs-lib';
 let bc = new BitcoinCash();
 
 class Crypto {

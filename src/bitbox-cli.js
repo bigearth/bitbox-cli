@@ -1,6 +1,6 @@
 // 3rd party deps
 import axios from 'axios';
-import Bitcoin from 'bitcoinjs-lib';
+import Bitcoin from 'bitcoincashjs-lib';
 
 // local deps
 import BitcoinCash from './BitcoinCash';

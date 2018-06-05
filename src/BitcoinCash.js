@@ -1,4 +1,4 @@
-import Bitcoin from 'bitcoinjs-lib';
+import Bitcoin from 'bitcoincashjs-lib';
 import bchaddr from 'bchaddrjs';
 import sb from 'satoshi-bitcoin';
 import bitcoinMessage from 'bitcoinjs-message';
@@ -34,6 +34,16 @@ class BitcoinCash {
   // Translate satoshi to coin value
   toBitcoinCash(satoshis) {
     return sb.toBitcoin(satoshis);
+  }
+
+  // Translate satoshi to bits denomination
+  toBits(satoshis) {
+    return parseFloat(satoshis) / 100000;
+  }
+
+  // Translate bits to satoshi denomination
+  fromBits(bits) {
+    return Math.ceil(bits * 100000);
   }
 
   // sign message

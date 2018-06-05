@@ -2,7 +2,7 @@ import Crypto from './Crypto';
 
 import BIP39 from 'bip39';
 import randomBytes from 'randombytes';
-import Bitcoin from 'bitcoinjs-lib';
+import Bitcoin from 'bitcoincashjs-lib';
 import bchaddr from 'bchaddrjs';
 let Buffer = require('safe-buffer').Buffer
 

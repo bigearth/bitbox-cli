@@ -1,4 +1,4 @@
-import Bitcoin from 'bitcoinjs-lib';
+import Bitcoin from 'bitcoincashjs-lib';
 import axios from 'axios';
 
 class Transaction {

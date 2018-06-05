@@ -73,6 +73,34 @@ describe('#BitcoinCash', () => {
         });
       });
     });
+
+    describe('#toBits', () => {
+      fixtures.conversion.toBits.bch.forEach((bch) => {
+        it(`should convert ${bch[0]} BCH to ${bch[1]} bits`, () => {
+          assert.equal(BITBOX.BitcoinCash.toBits(BITBOX.BitcoinCash.toSatoshi(bch[0])), bch[1]);
+        });
+      });
+
+      fixtures.conversion.toBits.strings.forEach((bch) => {
+        it(`should convert "${bch[0]}" BCH as a string to ${bch[1]} bits`, () => {
+          assert.equal(BITBOX.BitcoinCash.toBits(BITBOX.BitcoinCash.toSatoshi(bch[0])), bch[1]);
+        });
+      });
+    });
+
+    describe('#fromBits', () => {
+      fixtures.conversion.fromBits.bch.forEach((bch) => {
+        it(`should convert ${bch[1]} bits to ${bch[0]} BCH`, () => {
+          assert.equal(BITBOX.BitcoinCash.toBitcoinCash(BITBOX.BitcoinCash.fromBits(bch[1])), bch[0]);
+        });
+      });
+
+      fixtures.conversion.fromBits.strings.forEach((bch) => {
+        it(`should convert "${bch[0]}" bits as a string to ${bch[1]} BCH`, () => {
+          assert.equal(BITBOX.BitcoinCash.toBitcoinCash(BITBOX.BitcoinCash.fromBits(bch[1])), bch[0]);
+        });
+      });
+    });
   });
 
   describe('sign and verify messages', () => {
