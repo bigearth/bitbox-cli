@@ -4,28 +4,10 @@ import sb from 'satoshi-bitcoin';
 import bitcoinMessage from 'bitcoinjs-message';
 import bs58 from 'bs58';
 import bip21 from 'bip21';
+import coininfo from'coininfo';
 let Buffer = require('safe-buffer').Buffer
 
 class BitcoinCash {
-  address() {
-    return Bitcoin.address;
-  }
-
-  transaction() {
-    return Bitcoin.Transaction;
-  }
-
-  transactionBuilder(network = 'bitcoincash') {
-    if(network === 'bitcoincash') {
-      network = 'bitcoin';
-    }
-    return new Bitcoin.TransactionBuilder(Bitcoin.networks[network]);
-  }
-
-  fromTransaction() {
-    return Bitcoin.TransactionBuilder;
-  }
-
   // Translate coins to satoshi value
   toSatoshi(coins) {
     return sb.toSatoshi(coins);
@@ -48,8 +30,15 @@ class BitcoinCash {
 
   // sign message
   signMessageWithPrivKey(privateKeyWIF, message) {
-    let network = privateKeyWIF.charAt(0) === 'c' ? 'testnet' : 'bitcoin';
-    let keyPair = Bitcoin.ECPair.fromWIF(privateKeyWIF, Bitcoin.networks[network])
+    let network = privateKeyWIF.charAt(0) === 'c' ? 'testnet' : 'bitcoincash';
+    let bitcoincash;
+    if(network === 'bitcoincash') {
+      bitcoincash = coininfo.bitcoincash.main;
+    } else {
+      bitcoincash = coininfo.bitcoincash.test;
+    }
+    let bitcoincashBitcoinJSLib = bitcoincash.toBitcoinJS();
+    let keyPair = Bitcoin.ECPair.fromWIF(privateKeyWIF, bitcoincashBitcoinJSLib)
     let privateKey = keyPair.d.toBuffer(32)
     return bitcoinMessage.sign(message, privateKey, keyPair.compressed).toString('base64');
   }

@@ -1,12 +1,17 @@
 import Bitcoin from 'bitcoincashjs-lib';
 import bchaddr from 'bchaddrjs';
+import coininfo from'coininfo';
 
 class TransactionBuilder {
   constructor(network = 'bitcoincash') {
+    let bitcoincash;
     if(network === 'bitcoincash') {
-      network = 'bitcoin';
+      bitcoincash = coininfo.bitcoincash.main;
+    } else {
+      bitcoincash = coininfo.bitcoincash.test;
     }
-    this.transaction = new Bitcoin.TransactionBuilder(Bitcoin.networks[network]);
+    let bitcoincashBitcoinJSLib = bitcoincash.toBitcoinJS();
+    this.transaction = new Bitcoin.TransactionBuilder(bitcoincashBitcoinJSLib);
     this.DEFAULT_SEQUENCE = 0xffffffff;
     this.hashTypes = {
       SIGHASH_ALL: 0x01,
@@ -51,17 +56,6 @@ class TransactionBuilder {
 
   build() {
     return this.transaction.build();
-  }
-
-  static createMultisigAddress(required, pubKeys) {
-    let pks = [];
-    pubKeys.forEach((pk) => {
-      pks.push(pk);
-    });
-
-    let redeemScript = Bitcoin.script.multisig.output.encode(required, pks.map(function (hex) { return Buffer.from(hex, 'hex') }));
-    let scriptPubKey = Bitcoin.script.scriptHash.output.encode(Bitcoin.crypto.hash160(redeemScript));
-    return bchaddr.toCashAddress(Bitcoin.address.fromOutputScript(scriptPubKey));
   }
 }
 

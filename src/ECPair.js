@@ -1,15 +1,24 @@
 import Bitcoin from 'bitcoincashjs-lib';
 import bchaddr from 'bchaddrjs';
+import coininfo from'coininfo';
 
 class ECPair {
   static fromWIF(privateKeyWIF) {
     let network;
     if(privateKeyWIF[0] === 'L' || privateKeyWIF[0] === 'K') {
-      network = 'bitcoin';
+      network = 'bitcoincash';
     } else if(privateKeyWIF[0] === 'c') {
       network = 'testnet';
     }
-    return Bitcoin.ECPair.fromWIF(privateKeyWIF, Bitcoin.networks[network]);
+    let bitcoincash;
+    if(network === 'bitcoincash') {
+      bitcoincash = coininfo.bitcoincash.main;
+    } else {
+      bitcoincash = coininfo.bitcoincash.test;
+    }
+    let bitcoincashBitcoinJSLib = bitcoincash.toBitcoinJS();
+
+    return Bitcoin.ECPair.fromWIF(privateKeyWIF, bitcoincashBitcoinJSLib);
   }
 
   static toWIF(ecpair) {

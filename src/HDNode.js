@@ -1,13 +1,18 @@
 import Bitcoin from 'bitcoincashjs-lib';
 import bchaddr from 'bchaddrjs';
+import coininfo from'coininfo';
 // let bip32utils = require('bip32-utils')
 
 class HDNode {
   fromSeed(rootSeedBuffer, network = 'bitcoincash') {
+    let bitcoincash;
     if(network === 'bitcoincash') {
-      network = 'bitcoin';
+      bitcoincash = coininfo.bitcoincash.main;
+    } else {
+      bitcoincash = coininfo.bitcoincash.test;
     }
-    return Bitcoin.HDNode.fromSeedBuffer(rootSeedBuffer, Bitcoin.networks[network]);
+    let bitcoincashBitcoinJSLib = bitcoincash.toBitcoinJS();
+    return Bitcoin.HDNode.fromSeedBuffer(rootSeedBuffer, bitcoincashBitcoinJSLib);
   }
 
   toLegacyAddress(hdNode) {
@@ -39,23 +44,25 @@ class HDNode {
   }
 
   fromXPriv(xpriv) {
-    let network;
+    let bitcoincash;
     if(xpriv[0] === 'x') {
-      network = 'bitcoin';
+      bitcoincash = coininfo.bitcoincash.main;
     } else if(xpriv[0] === 't') {
-      network = 'testnet';
+      bitcoincash = coininfo.bitcoincash.test;
     }
-    return Bitcoin.HDNode.fromBase58(xpriv, Bitcoin.networks[network]);
+    let bitcoincashBitcoinJSLib = bitcoincash.toBitcoinJS();
+    return Bitcoin.HDNode.fromBase58(xpriv, bitcoincashBitcoinJSLib);
   }
 
   fromXPub(xpub) {
-    let network;
+    let bitcoincash;
     if(xpub[0] === 'x') {
-      network = 'bitcoin';
+      bitcoincash = coininfo.bitcoincash.main;
     } else if(xpub[0] === 't') {
-      network = 'testnet';
+      bitcoincash = coininfo.bitcoincash.test;
     }
-    return Bitcoin.HDNode.fromBase58(xpub, Bitcoin.networks[network]);
+    let bitcoincashBitcoinJSLib = bitcoincash.toBitcoinJS();
+    return Bitcoin.HDNode.fromBase58(xpub, bitcoincashBitcoinJSLib);
   }
 
   derivePath(hdnode, path) {
