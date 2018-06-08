@@ -43,15 +43,9 @@ class TransactionBuilder {
   }
 
   sign(vin, keyPair, redeemScript, hashType = this.hashTypes.SIGHASH_ALL, value) {
-    this.transaction.enableBitcoinCash(true);
-
-    this.transaction.setVersion(2);
-
-    let ht = hashType | this.hashTypes.SIGHASH_BITCOINCASH_BIP143;
-
     let witnessScript;
 
-    this.transaction.sign(vin, keyPair, redeemScript, ht, value, witnessScript);
+    this.transaction.sign(vin, keyPair, redeemScript, hashType, value, witnessScript);
   }
 
   build() {
