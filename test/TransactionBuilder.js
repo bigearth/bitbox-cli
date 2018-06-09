@@ -809,6 +809,341 @@ describe('#TransactionBuilder', () => {
     });
   });
 
+  describe('#P2SH', () => {
+    describe('#toOne', () => {
+      describe('#Mainnet', () => {
+        fixtures.scripts.p2sh.toOne.mainnet.forEach((fixture) => {
+          it(`should create 1-to-1 P2SH transaction on mainnet`, () => {
+            let node1 = BITBOX.HDNode.fromXPriv(fixture.xprivs[0]);
+            let node2 = BITBOX.HDNode.fromXPriv(fixture.xprivs[1]);
+            let transactionBuilder = new BITBOX.TransactionBuilder();
+            let txid = fixture.txHash;
+            let originalAmount = fixture.amount;
+            let identifier1 = BITBOX.HDNode.toIdentifier(node1);
+            let buf1 = BITBOX.Script.encode([
+              BITBOX.Script.opcodes.OP_DUP,
+              BITBOX.Script.opcodes.OP_HASH160,
+              identifier1,
+              BITBOX.Script.opcodes.OP_EQUALVERIFY,
+              BITBOX.Script.opcodes.OP_CHECKSIG
+            ]);
+            let scriptHash1 = BITBOX.Crypto.hash160(buf1);
+            let data1 = BITBOX.Script.scriptHash.output.encode(scriptHash1);
+            transactionBuilder.addInput(txid, 0, transactionBuilder.DEFAULT_SEQUENCE, data1);
+            let byteCount = BITBOX.BitcoinCash.getByteCount({ P2PKH: 2 }, { P2PKH: 1 });
+            let sendAmount = originalAmount - byteCount;
+            let identifier2 = BITBOX.HDNode.toIdentifier(node2);
+            let buf2 = BITBOX.Script.encode([
+              BITBOX.Script.opcodes.OP_DUP,
+              BITBOX.Script.opcodes.OP_HASH160,
+              identifier2,
+              BITBOX.Script.opcodes.OP_EQUALVERIFY,
+              BITBOX.Script.opcodes.OP_CHECKSIG
+            ])
+
+            let scriptHash2 = BITBOX.Crypto.hash160(buf2);
+            let data2 = BITBOX.Script.scriptHash.output.encode(scriptHash2);
+            transactionBuilder.addOutput(data2, sendAmount);
+            let keyPair1 = BITBOX.HDNode.toKeyPair(node1);
+            transactionBuilder.sign(0, keyPair1, buf1, transactionBuilder.hashTypes.SIGHASH_ALL, originalAmount);
+            let tx = transactionBuilder.build();
+            let hex = tx.toHex();
+            assert.equal(hex, fixture.hex);
+          });
+        });
+      });
+
+      // describe('#Testnet', () => {
+      //   fixtures.scripts.p2sh.toOne.testnet.forEach((fixture) => {
+      //     it(`should create 1-to-1 P2SH transaction on testnet`, () => {
+      //       let hdnode = BITBOX.HDNode.fromXPriv(fixture.xpriv, 'testnet');
+      //       let transactionBuilder = new BITBOX.TransactionBuilder('testnet');
+      //       let keyPair = BITBOX.HDNode.toKeyPair(hdnode);
+      //       let txHash = fixture.txHash;
+      //       // original amount of satoshis in vin
+      //       let originalAmount = fixture.amount;
+      //       transactionBuilder.addInput(txHash, fixture.vout);
+      //       // get byte count to calculate fee. paying 1 sat/byte
+      //       let byteCount = BITBOX.BitcoinCash.getByteCount({ P2PKH: 1 }, { P2PKH: 1 });
+      //       // amount to send to receiver. It's the original amount - 1 sat/byte for tx size
+      //       let sendAmount = originalAmount - (byteCount * 15);
+      //       // add output w/ address and amount to send
+      //       let redeemScript
+      //       transactionBuilder.addOutput(fixture.outputs[0], sendAmount);
+      //       transactionBuilder.sign(0, keyPair, redeemScript, transactionBuilder.hashTypes.SIGHASH_ALL, originalAmount);
+      //
+      //       // build tx
+      //       let tx = transactionBuilder.build();
+      //       // output rawhex
+      //       let hex = tx.toHex();
+      //       assert.equal(hex, fixture.hex);
+      //     });
+      //   });
+      // });
+    });
+
+    describe('#toMany', () => {
+      describe('#Mainnet', () => {
+        fixtures.scripts.p2sh.toMany.mainnet.forEach((fixture) => {
+          it(`should create 1-to-2 P2SH transaction on mainnet`, () => {
+            let node1 = BITBOX.HDNode.fromXPriv(fixture.xprivs[0]);
+            let node2 = BITBOX.HDNode.fromXPriv(fixture.xprivs[1]);
+            let node3 = BITBOX.HDNode.fromXPriv(fixture.xprivs[2]);
+            let transactionBuilder = new BITBOX.TransactionBuilder();
+            let txid = fixture.txHash;
+            let originalAmount = fixture.amount;
+            let identifier1 = BITBOX.HDNode.toIdentifier(node1);
+            let buf1 = BITBOX.Script.encode([
+              BITBOX.Script.opcodes.OP_DUP,
+              BITBOX.Script.opcodes.OP_HASH160,
+              identifier1,
+              BITBOX.Script.opcodes.OP_EQUALVERIFY,
+              BITBOX.Script.opcodes.OP_CHECKSIG
+            ]);
+            let scriptHash1 = BITBOX.Crypto.hash160(buf1);
+            let data1 = BITBOX.Script.scriptHash.output.encode(scriptHash1);
+            transactionBuilder.addInput(txid, 0, transactionBuilder.DEFAULT_SEQUENCE, data1);
+            let byteCount = BITBOX.BitcoinCash.getByteCount({ P2PKH: 3 }, { P2PKH: 2 });
+            let sendAmount = originalAmount - byteCount;
+            let identifier2 = BITBOX.HDNode.toIdentifier(node2);
+            let buf2 = BITBOX.Script.encode([
+              BITBOX.Script.opcodes.OP_DUP,
+              BITBOX.Script.opcodes.OP_HASH160,
+              identifier2,
+              BITBOX.Script.opcodes.OP_EQUALVERIFY,
+              BITBOX.Script.opcodes.OP_CHECKSIG
+            ])
+            let scriptHash2 = BITBOX.Crypto.hash160(buf2);
+            let data2 = BITBOX.Script.scriptHash.output.encode(scriptHash2);
+            transactionBuilder.addOutput(data2, Math.floor(sendAmount / 2));
+            let identifier3 = BITBOX.HDNode.toIdentifier(node3);
+            let buf3 = BITBOX.Script.encode([
+              BITBOX.Script.opcodes.OP_DUP,
+              BITBOX.Script.opcodes.OP_HASH160,
+              identifier3,
+              BITBOX.Script.opcodes.OP_EQUALVERIFY,
+              BITBOX.Script.opcodes.OP_CHECKSIG
+            ])
+            let scriptHash3 = BITBOX.Crypto.hash160(buf3);
+            let data3 = BITBOX.Script.scriptHash.output.encode(scriptHash3);
+            transactionBuilder.addOutput(data3, Math.floor(sendAmount / 2));
+            let keyPair1 = BITBOX.HDNode.toKeyPair(node1);
+            transactionBuilder.sign(0, keyPair1, buf1, transactionBuilder.hashTypes.SIGHASH_ALL, originalAmount);
+            let tx = transactionBuilder.build();
+            let hex = tx.toHex();
+            assert.equal(hex, fixture.hex);
+          });
+        });
+      });
+
+    //   describe('#Testnet', () => {
+    //     fixtures.scripts.p2sh.toMany.testnet.forEach((fixture) => {
+    //       // TODO pass in tesnet network config
+    //       it(`should create 1-to-2 P2SH transaction on testnet`, () => {
+    //         let hdnode = BITBOX.HDNode.fromXPriv(fixture.xpriv);
+    //         let transactionBuilder = new BITBOX.TransactionBuilder('testnet');
+    //         let keyPair = BITBOX.HDNode.toKeyPair(hdnode);
+    //         let txHash = fixture.txHash;
+    //         // original amount of satoshis in vin
+    //         let originalAmount = fixture.amount;
+    //         transactionBuilder.addInput(txHash, fixture.vout);
+    //         // get byte count to calculate fee. paying 1 sat/byte
+    //         let byteCount = BITBOX.BitcoinCash.getByteCount({ P2PKH: 1 }, { P2PKH: 2 });
+    //         // amount to send to receiver. It's the original amount - 1 sat/byte for tx size
+    //         let sendAmount = originalAmount - (byteCount * 15);
+    //         // add output w/ address and amount to send
+    //         transactionBuilder.addOutput(fixture.outputs[0], Math.floor(sendAmount / 2));
+    //         transactionBuilder.addOutput(fixture.outputs[1], Math.floor(sendAmount / 2));
+    //         let redeemScript
+    //         transactionBuilder.sign(0, keyPair, redeemScript, transactionBuilder.hashTypes.SIGHASH_ALL, originalAmount);
+    //         // build tx
+    //         let tx = transactionBuilder.build();
+    //         // output rawhex
+    //         let hex = tx.toHex();
+    //         assert.equal(hex, fixture.hex);
+    //       });
+    //     });
+    //   });
+    });
+
+    describe('#manyToMany', () => {
+      describe('#Mainnet', () => {
+        fixtures.scripts.p2sh.manyToMany.mainnet.forEach((fixture) => {
+          it(`should create 2-to-2 P2SH transaction on mainnet`, () => {
+            let node1 = BITBOX.HDNode.fromXPriv(fixture.xprivs[0]);
+            let node2 = BITBOX.HDNode.fromXPriv(fixture.xprivs[1]);
+            let node3 = BITBOX.HDNode.fromXPriv(fixture.xprivs[2]);
+            let node4 = BITBOX.HDNode.fromXPriv(fixture.xprivs[3]);
+            let transactionBuilder = new BITBOX.TransactionBuilder();
+            let txid = fixture.txHash;
+            let originalAmount = fixture.amount;
+            let identifier1 = BITBOX.HDNode.toIdentifier(node1);
+            let buf1 = BITBOX.Script.encode([
+              BITBOX.Script.opcodes.OP_DUP,
+              BITBOX.Script.opcodes.OP_HASH160,
+              identifier1,
+              BITBOX.Script.opcodes.OP_EQUALVERIFY,
+              BITBOX.Script.opcodes.OP_CHECKSIG
+            ]);
+            let scriptHash1 = BITBOX.Crypto.hash160(buf1);
+            let data1 = BITBOX.Script.scriptHash.output.encode(scriptHash1);
+            transactionBuilder.addInput(txid, 0, transactionBuilder.DEFAULT_SEQUENCE, data1);
+            let byteCount = BITBOX.BitcoinCash.getByteCount({ P2PKH: 5 }, { P2PKH: 5 });
+            let sendAmount = originalAmount - byteCount;
+            let identifier2 = BITBOX.HDNode.toIdentifier(node2);
+            let buf2 = BITBOX.Script.encode([
+              BITBOX.Script.opcodes.OP_DUP,
+              BITBOX.Script.opcodes.OP_HASH160,
+              identifier2,
+              BITBOX.Script.opcodes.OP_EQUALVERIFY,
+              BITBOX.Script.opcodes.OP_CHECKSIG
+            ])
+            let scriptHash2 = BITBOX.Crypto.hash160(buf2);
+            let data2 = BITBOX.Script.scriptHash.output.encode(scriptHash2);
+            transactionBuilder.addInput(txid, 1, transactionBuilder.DEFAULT_SEQUENCE, data2);
+            let identifier3 = BITBOX.HDNode.toIdentifier(node3);
+            let buf3 = BITBOX.Script.encode([
+              BITBOX.Script.opcodes.OP_DUP,
+              BITBOX.Script.opcodes.OP_HASH160,
+              identifier3,
+              BITBOX.Script.opcodes.OP_EQUALVERIFY,
+              BITBOX.Script.opcodes.OP_CHECKSIG
+            ])
+            let scriptHash3 = BITBOX.Crypto.hash160(buf3);
+            let data3 = BITBOX.Script.scriptHash.output.encode(scriptHash3);
+            transactionBuilder.addOutput(data3, Math.floor(sendAmount / 2));
+            let identifier4 = BITBOX.HDNode.toIdentifier(node4);
+            let buf4 = BITBOX.Script.encode([
+              BITBOX.Script.opcodes.OP_DUP,
+              BITBOX.Script.opcodes.OP_HASH160,
+              identifier4,
+              BITBOX.Script.opcodes.OP_EQUALVERIFY,
+              BITBOX.Script.opcodes.OP_CHECKSIG
+            ])
+            let scriptHash4 = BITBOX.Crypto.hash160(buf4);
+            let data4 = BITBOX.Script.scriptHash.output.encode(scriptHash4);
+            transactionBuilder.addOutput(data4, Math.floor(sendAmount / 2));
+            let keyPair1 = BITBOX.HDNode.toKeyPair(node1);
+            let keyPair2 = BITBOX.HDNode.toKeyPair(node2);
+            transactionBuilder.sign(0, keyPair1, buf1, transactionBuilder.hashTypes.SIGHASH_ALL, originalAmount / 2);
+            transactionBuilder.sign(1, keyPair2, buf2, transactionBuilder.hashTypes.SIGHASH_ALL, originalAmount / 2);
+            let tx = transactionBuilder.build();
+            let hex = tx.toHex();
+            assert.equal(hex, fixture.hex);
+          });
+        });
+      });
+
+    //   describe('#Testnet', () => {
+    //     fixtures.scripts.p2sh.manyToMany.testnet.forEach((fixture) => {
+    //       it(`should create 2-to-2 P2SH transaction on testnet`, () => {
+    //         let node1 = BITBOX.HDNode.fromXPriv(fixture.xprivs[0]);
+    //         let node2 = BITBOX.HDNode.fromXPriv(fixture.xprivs[1]);
+    //         let transactionBuilder = new BITBOX.TransactionBuilder('testnet');
+    //         let txHash = fixture.txHash;
+    //         let originalAmount = fixture.amounts[0] + fixture.amounts[1];
+    //         transactionBuilder.addInput(txHash, 0);
+    //         transactionBuilder.addInput(txHash, 1);
+    //         let byteCount = BITBOX.BitcoinCash.getByteCount({ P2PKH: 2 }, { P2PKH: 2 });
+    //         let sendAmount = originalAmount - (byteCount * 15);
+    //         transactionBuilder.addOutput(fixture.outputs[0], Math.floor(sendAmount / 2));
+    //         transactionBuilder.addOutput(fixture.outputs[1], Math.floor(sendAmount / 2));
+    //         let keyPair1 = BITBOX.HDNode.toKeyPair(node1);
+    //         let keyPair2 = BITBOX.HDNode.toKeyPair(node2);
+    //         let redeemScript;
+    //         transactionBuilder.sign(0, keyPair1, redeemScript, transactionBuilder.hashTypes.SIGHASH_ALL, fixture.amounts[0]);
+    //         transactionBuilder.sign(1, keyPair2, redeemScript, transactionBuilder.hashTypes.SIGHASH_ALL, fixture.amounts[1]);
+    //         let tx = transactionBuilder.build();
+    //         let hex = tx.toHex();
+    //         assert.equal(hex, fixture.hex);
+    //       });
+    //     });
+    //   });
+    });
+
+    describe('#fromMany', () => {
+      describe('#Mainnet', () => {
+        fixtures.scripts.p2sh.fromMany.mainnet.forEach((fixture) => {
+          it(`should create 2-to-1 P2SH transaction on mainnet`, () => {
+            let node1 = BITBOX.HDNode.fromXPriv(fixture.xprivs[0]);
+            let node2 = BITBOX.HDNode.fromXPriv(fixture.xprivs[1]);
+            let node3 = BITBOX.HDNode.fromXPriv(fixture.xprivs[2]);
+            let transactionBuilder = new BITBOX.TransactionBuilder();
+            let txid = fixture.txHash;
+            let originalAmount = fixture.amount;
+            let identifier1 = BITBOX.HDNode.toIdentifier(node1);
+            let buf1 = BITBOX.Script.encode([
+              BITBOX.Script.opcodes.OP_DUP,
+              BITBOX.Script.opcodes.OP_HASH160,
+              identifier1,
+              BITBOX.Script.opcodes.OP_EQUALVERIFY,
+              BITBOX.Script.opcodes.OP_CHECKSIG
+            ]);
+            let scriptHash1 = BITBOX.Crypto.hash160(buf1);
+            let data1 = BITBOX.Script.scriptHash.output.encode(scriptHash1);
+            transactionBuilder.addInput(txid, 0, transactionBuilder.DEFAULT_SEQUENCE, data1);
+            let byteCount = BITBOX.BitcoinCash.getByteCount({ P2PKH: 3 }, { P2PKH: 2 });
+            let sendAmount = originalAmount - byteCount;
+            let identifier2 = BITBOX.HDNode.toIdentifier(node2);
+            let buf2 = BITBOX.Script.encode([
+              BITBOX.Script.opcodes.OP_DUP,
+              BITBOX.Script.opcodes.OP_HASH160,
+              identifier2,
+              BITBOX.Script.opcodes.OP_EQUALVERIFY,
+              BITBOX.Script.opcodes.OP_CHECKSIG
+            ])
+            let scriptHash2 = BITBOX.Crypto.hash160(buf2);
+            let data2 = BITBOX.Script.scriptHash.output.encode(scriptHash2);
+            transactionBuilder.addInput(txid, 1, transactionBuilder.DEFAULT_SEQUENCE, data2);
+            let identifier3 = BITBOX.HDNode.toIdentifier(node3);
+            let buf3 = BITBOX.Script.encode([
+              BITBOX.Script.opcodes.OP_DUP,
+              BITBOX.Script.opcodes.OP_HASH160,
+              identifier3,
+              BITBOX.Script.opcodes.OP_EQUALVERIFY,
+              BITBOX.Script.opcodes.OP_CHECKSIG
+            ])
+            let scriptHash3 = BITBOX.Crypto.hash160(buf3);
+            let data3 = BITBOX.Script.scriptHash.output.encode(scriptHash3);
+            transactionBuilder.addOutput(data3, sendAmount);
+            let keyPair1 = BITBOX.HDNode.toKeyPair(node1);
+            let keyPair2 = BITBOX.HDNode.toKeyPair(node2);
+            transactionBuilder.sign(0, keyPair1, buf1, transactionBuilder.hashTypes.SIGHASH_ALL, originalAmount / 2);
+            transactionBuilder.sign(1, keyPair2, buf2, transactionBuilder.hashTypes.SIGHASH_ALL, originalAmount / 2);
+            let tx = transactionBuilder.build();
+            let hex = tx.toHex();
+            assert.equal(hex, fixture.hex);
+          });
+        });
+      });
+
+    //   describe('#Testnet', () => {
+    //     fixtures.scripts.p2sh.fromMany.testnet.forEach((fixture) => {
+    //       it(`should create 2-to-1 P2SH transaction on testnet`, () => {
+    //         let node1 = BITBOX.HDNode.fromXPriv(fixture.xprivs[0]);
+    //         let node2 = BITBOX.HDNode.fromXPriv(fixture.xprivs[1]);
+    //         let transactionBuilder = new BITBOX.TransactionBuilder('testnet');
+    //         let txHash = fixture.txHash;
+    //         let originalAmount = fixture.amounts[0] + fixture.amounts[1];
+    //         transactionBuilder.addInput(txHash, 0);
+    //         transactionBuilder.addInput(txHash, 1);
+    //         let byteCount = BITBOX.BitcoinCash.getByteCount({ P2PKH: 2 }, { P2PKH: 1 });
+    //         let sendAmount = originalAmount - (byteCount * 15);
+    //         transactionBuilder.addOutput(fixture.outputs[0], sendAmount);
+    //         let keyPair1 = BITBOX.HDNode.toKeyPair(node1);
+    //         let keyPair2 = BITBOX.HDNode.toKeyPair(node2);
+    //         let redeemScript;
+    //         transactionBuilder.sign(0, keyPair1, redeemScript, transactionBuilder.hashTypes.SIGHASH_ALL, fixture.amounts[0]);
+    //         transactionBuilder.sign(1, keyPair2, redeemScript, transactionBuilder.hashTypes.SIGHASH_ALL, fixture.amounts[1]);
+    //         let tx = transactionBuilder.build();
+    //         let hex = tx.toHex();
+    //         assert.equal(hex, fixture.hex);
+    //       });
+    //     });
+    //   });
+    });
+  });
+
   describe('#op_return', () => {
     describe('#Mainnet', () => {
       fixtures.nulldata.mainnet.forEach((fixture) => {
