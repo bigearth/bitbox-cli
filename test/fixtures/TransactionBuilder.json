@@ -1427,5 +1427,37 @@
         "hex": "0200000001fa9ebcdee96f09e1b5049fe222d16574e0100fa1e538f78b248bd91d26b88edc000000006a4730440220337ccd2d539e25c7b12388e7e416c8e90f4d416b502d0086e83d0ec809f473f2022002143e840c1ae49dc19fe5a5b291f3466c096e5105a26a26e11159916983d3034121026d0446d88c057cdf3b59f4442603609282672c4961c44e738ca48387d911f782ffffffff0208b9eb0b000000001976a914b0cc863e96ed2492f085f2141447d91ce3d51af788ac00000000000000000e6a0c426974636f696e204361736800000000"
       }
     ]
+  },
+  "bip68": {
+    "encode": [
+      {
+        "type": "seconds",
+        "value": 2048,
+        "result": "0x00400004"
+      },
+      {
+        "type": "blocks",
+        "value": 54,
+        "result": "0x00000036"
+      },
+      {
+        "type": "blocks",
+        "value": 200,
+        "result": "0x000000c8"
+      }
+    ],
+    "decode": [
+      {
+        "type": "seconds",
+        "value": 33553920,
+        "result": "0x03ffffff"
+
+      },
+      {
+        "type": "blocks",
+        "value": 65534,
+        "result": "0x0100fffe"
+      }
+    ]
   }
 }

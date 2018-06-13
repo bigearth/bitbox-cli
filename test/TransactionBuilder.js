@@ -1193,4 +1193,26 @@ describe('#TransactionBuilder', () => {
       });
     });
   });
+
+  describe('#bip168', () => {
+    fixtures.bip68.encode.forEach((fixture) => {
+      it(`should encode as ${fixture.result}`, () => {
+        let transactionBuilder = new BITBOX.TransactionBuilder();
+        let obj = {};
+        obj[fixture.type] = fixture.value;
+        let encode = transactionBuilder.bip68.encode(obj);
+        assert.equal(encode, fixture.result);
+      });
+    });
+
+    fixtures.bip68.decode.forEach((fixture) => {
+      it(`should decode ${fixture.result}`, () => {
+        let transactionBuilder = new BITBOX.TransactionBuilder();
+        let obj = {};
+        let decode = transactionBuilder.bip68.decode(fixture.result);
+        assert.equal(Object.keys(decode)[0], fixture.type);
+        assert.equal(decode[Object.keys(decode)[0]], fixture.value);
+      });
+    });
+  });
 });
