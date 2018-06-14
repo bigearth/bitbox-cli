@@ -5,6 +5,9 @@ import bitcoinMessage from 'bitcoinjs-message';
 import bs58 from 'bs58';
 import bip21 from 'bip21';
 import coininfo from'coininfo';
+import bip38 from 'bip38';
+import wif from 'wif';
+
 let Buffer = require('safe-buffer').Buffer
 
 class BitcoinCash {
@@ -116,6 +119,23 @@ class BitcoinCash {
     totalWeight += 10 * 4
 
     return Math.ceil(totalWeight / 4)
+  }
+
+  encryptBIP38(privKeyWIF, passphrase) {
+    let decoded = wif.decode(privKeyWIF);
+
+    return bip38.encrypt(decoded.privateKey, decoded.compressed, passphrase);
+  }
+
+  decryptBIP38(encryptedKey, passphrase, network = 'mainnet') {
+    let decryptedKey = bip38.decrypt(encryptedKey, passphrase);
+    let prefix;
+    if(network === 'testnet') {
+      prefix = 0xEF;
+    } else {
+      prefix = 0x80;
+    }
+    return wif.encode(prefix, decryptedKey.privateKey, decryptedKey.compressed) ;
   }
 }
 

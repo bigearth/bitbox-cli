@@ -348,5 +348,79 @@
         "P2SH":1
       }
     }
-  ]
+  ],
+  "bip38": {
+    "encrypt": {
+      "mainnet": [
+        {
+          "wif": "5KN7MzqK5wt2TP1fQCYyHBtDrXdJuXbUzm4A9rKAteGu3Qi5CVR",
+          "password": "TestingOneTwoThree",
+          "encryptedKey": "6PRVWUbkzzsbcVac2qwfssoUJAN1Xhrg6bNk8J7Nzm5H7kxEbn2Nh2ZoGg"
+        },
+        {
+          "wif": "L1XHKhaBAfkr2FJQn3pTfCMxz652WYfmvKj8xDCHCEDV9tWGcbYj",
+          "password": "1EBPIyj55eR8bVUov9",
+          "encryptedKey": "6PYWWnBNfNpSqEJZKcfwbrYgTTdb9PNiGjQJ8r9V6cvsZNKLfcZD8YefQc"
+        },
+        {
+          "wif": "L1phBREbhL4vb1uHHHCAse8bdGE5c7ic2PFjRxMawLzQCsiFVbvu",
+          "password": "9GKVkabAHBMyAf",
+          "encryptedKey": "6PYU2fDHRVF2194gKDGkbFbeu4mFgkWtVvg2RPd2Sp6KmZx3RCHFpgBB2G"
+        }
+      ],
+      "testnet": [
+        {
+          "wif": "cRQeGr3Wv91dUF94zy2EEP7rgwVsqNnZa3MtM7Civxdk74gNEPNn",
+          "password": "TestingOneTwoThree",
+          "encryptedKey": "6PYXFe1CdGMuVrLCvTo47JUpqcp7sEK7QxE9m4zHHkzUbgqVXVuTUAJh9T"
+        },
+        {
+          "wif": "cSx7KzdH9EcvDEireu2WYpGnXdFYpta7sJUNt5kVCJgA7kcAU8Gm",
+          "password": "1EBPIyj55eR8bVUov9",
+          "encryptedKey": "6PYUAPLwLSEjWSAfoe9NTSPkMZXnJA8j8EFJtKaeSnP18RCouutBrS2735"
+        },
+        {
+          "wif": "cRgunCa2z1gCN6nNapTwKLdo58FdgTeAiJSaXx6RZeWSabQHkQKG",
+          "password": "9GKVkabAHBMyAf",
+          "encryptedKey": "6PYTNQJ1dYhLg6X1Xqm62ceuyfxCUYvV4LfhFfzzBaTuV4cFhgS5Xe8t1Y"
+        }
+      ]
+    },
+    "decrypt": {
+      "mainnet": [
+        {
+          "wif": "5KN7MzqK5wt2TP1fQCYyHBtDrXdJuXbUzm4A9rKAteGu3Qi5CVR",
+          "password": "TestingOneTwoThree",
+          "encryptedKey": "6PRVWUbkzzsbcVac2qwfssoUJAN1Xhrg6bNk8J7Nzm5H7kxEbn2Nh2ZoGg"
+        },
+        {
+          "wif": "L1XHKhaBAfkr2FJQn3pTfCMxz652WYfmvKj8xDCHCEDV9tWGcbYj",
+          "password": "1EBPIyj55eR8bVUov9",
+          "encryptedKey": "6PYWWnBNfNpSqEJZKcfwbrYgTTdb9PNiGjQJ8r9V6cvsZNKLfcZD8YefQc"
+        },
+        {
+          "wif": "L1phBREbhL4vb1uHHHCAse8bdGE5c7ic2PFjRxMawLzQCsiFVbvu",
+          "password": "9GKVkabAHBMyAf",
+          "encryptedKey": "6PYU2fDHRVF2194gKDGkbFbeu4mFgkWtVvg2RPd2Sp6KmZx3RCHFpgBB2G"
+        }
+      ],
+      "testnet": [
+        {
+          "wif": "cRQeGr3Wv91dUF94zy2EEP7rgwVsqNnZa3MtM7Civxdk74gNEPNn",
+          "password": "TestingOneTwoThree",
+          "encryptedKey": "6PYXFe1CdGMuVrLCvTo47JUpqcp7sEK7QxE9m4zHHkzUbgqVXVuTUAJh9T"
+        },
+        {
+          "wif": "cSx7KzdH9EcvDEireu2WYpGnXdFYpta7sJUNt5kVCJgA7kcAU8Gm",
+          "password": "1EBPIyj55eR8bVUov9",
+          "encryptedKey": "6PYUAPLwLSEjWSAfoe9NTSPkMZXnJA8j8EFJtKaeSnP18RCouutBrS2735"
+        },
+        {
+          "wif": "cRgunCa2z1gCN6nNapTwKLdo58FdgTeAiJSaXx6RZeWSabQHkQKG",
+          "password": "9GKVkabAHBMyAf",
+          "encryptedKey": "6PYTNQJ1dYhLg6X1Xqm62ceuyfxCUYvV4LfhFfzzBaTuV4cFhgS5Xe8t1Y"
+        }
+      ]
+    }
+  }
 }
