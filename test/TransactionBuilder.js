@@ -1211,7 +1211,7 @@ describe('#TransactionBuilder', () => {
         let obj = {};
         let decode = transactionBuilder.bip68.decode(fixture.result);
         assert.equal(Object.keys(decode)[0], fixture.type);
-        assert.equal(decode[Object.keys(decode)[0]], fixture.value);
+        assert.deepEqual(decode[Object.keys(decode)[0]], fixture.value);
       });
     });
   });
