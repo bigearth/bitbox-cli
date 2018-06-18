@@ -25,7 +25,7 @@ let cmd = require('node-cmd');
 // let ProgressBar = require('progress');
 
 program
-  .version('1.0.4');
+  .version('1.0.5');
 
 program
   .command('new <name>')
@@ -91,9 +91,13 @@ program
         );
 
         console.log(chalk.blue(`Scaffolding ${scaffold} app in ${name}`));
-        clone(repo, `./${name}`, [conf], () => {
-          console.log(chalk.green('All done.'), emoji.get(':white_check_mark:'));
-          console.log(chalk.blue('Now `cd` in to your new project and run `npm install && npm start`'), emoji.get(':rocket:'));
+        clone(repo, `./${name}`, [conf], (res) => {
+          if(res == "Error: 'git clone' failed with status 128") {
+            console.log(chalk.red('Must create new app in to an empty directory'));
+          } else {
+            console.log(chalk.green('All done.'), emoji.get(':white_check_mark:'));
+            console.log(chalk.blue('Now `cd` in to your new project and run `npm install && npm start`'), emoji.get(':rocket:'));
+          }
         });
         return;
       }
