@@ -25,7 +25,7 @@ let cmd = require('node-cmd');
 // let ProgressBar = require('progress');
 
 program
-  .version('1.0.5');
+  .version('1.1.0');
 
 program
   .command('new <name>')
@@ -61,15 +61,15 @@ program
         let repo;
         let conf = {};
         if(scaffold === 'node') {
-          repo = 'https://github.com/bigearth/bitbox-scaffold-node.git';
+          repo = 'https://github.com/Bitcoin-com/bitbox-scaffold-node.git';
         } else if(scaffold === 'angular') {
-          repo = 'https://github.com/bigearth/bitbox-scaffold-angular.git';
+          repo = 'https://github.com/Bitcoin-com/bitbox-scaffold-angular.git';
         } else if(scaffold === 'next') {
-          repo = 'https://github.com/bigearth/bitbox-scaffold-next.git';
+          repo = 'https://github.com/Bitcoin-com/bitbox-scaffold-next.git';
         } else if(scaffold === 'react') {
-          repo = 'https://github.com/bigearth/bitbox-scaffold-react.git';
+          repo = 'https://github.com/Bitcoin-com/bitbox-scaffold-react.git';
         } else if(scaffold === 'vue') {
-          repo = 'https://github.com/bigearth/bitbox-scaffold-vue.git';
+          repo = 'https://github.com/Bitcoin-com/bitbox-scaffold-vue.git';
         } else {
           console.log(chalk.red(`Scaffold ${scaffold} not supported`));
           process.exit(1)
