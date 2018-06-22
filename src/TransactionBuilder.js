@@ -1,6 +1,7 @@
 import Bitcoin from 'bitcoincashjs-lib';
 import bchaddr from 'bchaddrjs';
 import coininfo from'coininfo';
+import bip66 from 'bip66';
 import bip68 from 'bip68';
 
 class TransactionBuilder {
@@ -23,6 +24,7 @@ class TransactionBuilder {
       ADVANCED_TRANSACTION_MARKER: 0x00,
       ADVANCED_TRANSACTION_FLAG: 0x01
     };
+    this.bip66 = bip66;
     this.bip68 = bip68;
   }
 

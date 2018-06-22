@@ -1,6 +1,6 @@
 {
   "name": "bitbox-cli",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "BITBOX javascript sdk for Bitcoin Cash",
   "author": "Bitcoin.com",
   "main": "index.js",
@@ -30,6 +30,7 @@
     "bip21": "Bitcoin-com/bip21",
     "bip38": "^2.0.2",
     "bip39": "^2.5.0",
+    "bip66": "^1.1.5",
     "bip68": "^1.0.4",
     "bitcoin-ops": "Bitcoin-com/bitcoincash-ops",
     "bitcoincashjs-lib": "Bitcoin-com/bitcoincashjs-lib",

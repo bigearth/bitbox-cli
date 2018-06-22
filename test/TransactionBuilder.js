@@ -1194,9 +1194,39 @@ describe('#TransactionBuilder', () => {
     });
   });
 
-  describe('#bip168', () => {
+  describe('#bip66', () => {
+    fixtures.bip66.forEach((fixture) => {
+      it(`should bip66 encode as ${fixture.DER}`, () => {
+        let transactionBuilder = new BITBOX.TransactionBuilder();
+        let r = Buffer.from(fixture.r, 'hex')
+        let s = Buffer.from(fixture.s, 'hex')
+        let DER = transactionBuilder.bip66.encode(r, s)
+        assert.equal(DER.toString('hex'), fixture.DER);
+      });
+    });
+
+    fixtures.bip66.forEach((fixture) => {
+      it(`should bip66 decode ${fixture.DER}`, () => {
+        let transactionBuilder = new BITBOX.TransactionBuilder();
+        let buffer = Buffer.from(fixture.DER, 'hex')
+        let signature = transactionBuilder.bip66.decode(buffer)
+        assert.equal(signature.r.toString('hex'), fixture.r);
+        assert.equal(signature.s.toString('hex'), fixture.s);
+      });
+    });
+
+    fixtures.bip66.forEach((fixture) => {
+      it(`should bip66 check ${fixture.DER}`, () => {
+        let transactionBuilder = new BITBOX.TransactionBuilder();
+        let buffer = Buffer.from(fixture.DER, 'hex')
+        assert.equal(transactionBuilder.bip66.check(buffer), true);
+      });
+    });
+  });
+
+  describe('#bip68', () => {
     fixtures.bip68.encode.forEach((fixture) => {
-      it(`should encode as ${fixture.result}`, () => {
+      it(`should bip68 encode as ${fixture.result}`, () => {
         let transactionBuilder = new BITBOX.TransactionBuilder();
         let obj = {};
         obj[fixture.type] = fixture.value;
@@ -1206,7 +1236,7 @@ describe('#TransactionBuilder', () => {
     });
 
     fixtures.bip68.decode.forEach((fixture) => {
-      it(`should decode ${fixture.result}`, () => {
+      it(`should bip68 decode ${fixture.result}`, () => {
         let transactionBuilder = new BITBOX.TransactionBuilder();
         let obj = {};
         let decode = transactionBuilder.bip68.decode(fixture.result);
