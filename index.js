@@ -34,27 +34,19 @@ program
   .option('-e, --environment <environment>', 'environment of running BITBOX instance. Ex: production, staging. (Default: development)')
   .description(`create a new BITBOX application`)
   .action((name, options) => {
+    if(fs.existsSync(`./${name}`)) {
+      console.log(chalk.red(`Project ${name} already exists`));
+      process.exit(1);
+    }
+
     fs.readFile(os.homedir() + '/.bitboxrc', 'utf8', (err, contents) => {
       let config;
       if(contents) {
         config = ini.parse(contents);
       }
 
-      let environment;
-      if(options && options.environment) {
-        environment = options.environment;
-      } else if(config && config.new && config.new.environment) {
-        environment = config.new.environment;
-      } else {
-        environment = 'development';
-      }
-
-      let restURL;
-      if(options && options.restURL) {
-        restURL = options.restURL;
-      } else {
-        restURL = 'https://rest.bitbox.earth/v1/';
-      }
+      let environment = fetchOption('environment=development', config, options);
+      let restURL     = fetchOption('restURL=https://rest.bitbox.earth/v1/', config, options);
 
       if(options && options.scaffold) {
         let scaffold = options.scaffold.toLowerCase();
@@ -95,6 +87,7 @@ program
           if(res == "Error: 'git clone' failed with status 128") {
             console.log(chalk.red('Must create new app in to an empty directory'));
           } else {
+            fs.appendFileSync( `./${name}/.gitignore`, '.console_history');
             console.log(chalk.green('All done.'), emoji.get(':white_check_mark:'));
             console.log(chalk.blue('Now `cd` in to your new project and run `npm install && npm start`'), emoji.get(':rocket:'));
           }
@@ -145,19 +138,11 @@ program
     require('repl.history')(replServer, historyFile);
 
     fs.readFile(os.homedir() + '/.bitboxrc', 'utf8', (err, contents) => {
-      let conf;
       if(contents) {
-        conf = ini.parse(contents);
+        config = ini.parse(contents);
       }
 
-      let environment;
-      if(options && options.environment) {
-        environment = options.environment;
-      } else if(conf && conf.new && conf.new.environment) {
-        environment = conf.new.environment;
-      } else {
-        environment = 'development';
-      }
+      let environment = fetchOption('environment=development', config, options);
 
       replServer.context.BITBOX = new BITBOXCli(config.networks[environment]);
     });
@@ -229,6 +214,19 @@ program
     );
   }
 );
+
+function fetchOption(kv, config, options) {
+  let parts = kv.split('=');
+  let key = parts[0];
+  let defaultVal = parts[1];
+  if(options && options[key]) {
+    return options[key];
+  } else if(config && config.new && config.new[key]) {
+    return config.new[key];
+  } else {
+    return defaultVal;
+  }
+}
 
 program
   .parse(process.argv);
