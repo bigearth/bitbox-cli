@@ -25,7 +25,7 @@ let cmd = require('node-cmd');
 // let ProgressBar = require('progress');
 
 program
-  .version('1.1.1');
+  .version('1.1.2');
 
 program
   .command('new <name>')
@@ -39,12 +39,7 @@ program
       process.exit(1);
     }
 
-    fs.readFile(os.homedir() + '/.bitboxrc', 'utf8', (err, contents) => {
       let config;
-      if(contents) {
-        config = ini.parse(contents);
-      }
-
       let environment = fetchOption('environment=development', config, options);
       let restURL     = fetchOption('restURL=https://rest.bitbox.earth/v1/', config, options);
 
@@ -87,7 +82,6 @@ program
           if(res == "Error: 'git clone' failed with status 128") {
             console.log(chalk.red('Must create new app in to an empty directory'));
           } else {
-            fs.appendFileSync( `./${name}/.gitignore`, '.console_history');
             console.log(chalk.green('All done.'), emoji.get(':white_check_mark:'));
             console.log(chalk.blue('Now `cd` in to your new project and run `npm install && npm start`'), emoji.get(':rocket:'));
           }
@@ -114,10 +108,9 @@ program
   }
 };
 `);
-      fs.appendFileSync( `./${name}/.gitignore`, '.console_history');
+      fs.appendFileSync(`./${name}/.gitignore`, '.console_history');
       console.log(chalk.blue('All done.'), emoji.get(':white_check_mark:'));
       console.log(chalk.blue('Go get em! Remember--with great power comes great responsibility.'), emoji.get(':rocket:'));
-    });
   }
 );
 
@@ -137,15 +130,9 @@ program
     let historyFile = path.join(process.cwd(), '.console_history');
     require('repl.history')(replServer, historyFile);
 
-    fs.readFile(os.homedir() + '/.bitboxrc', 'utf8', (err, contents) => {
-      if(contents) {
-        config = ini.parse(contents);
-      }
+    let environment = fetchOption('environment=development', config, options);
 
-      let environment = fetchOption('environment=development', config, options);
-
-      replServer.context.BITBOX = new BITBOXCli(config.networks[environment]);
-    });
+    replServer.context.BITBOX = new BITBOXCli(config.networks[environment]);
   }
 );
 
