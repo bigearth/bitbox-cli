@@ -1,6 +1,6 @@
 {
   "name": "bitbox-cli",
-  "version": "1.1.2",
+  "version": "1.2.0",
   "description": "BITBOX javascript sdk for Bitcoin Cash",
   "author": "Bitcoin.com",
   "main": "index.js",
@@ -11,7 +11,7 @@
   },
   "license": "MIT",
   "engines": {
-    "node": ">=10.3.0"
+    "node": ">=10.5.0"
   },
   "bin": {
     "bitbox": "./index.js"

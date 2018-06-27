@@ -23,13 +23,31 @@ class BitcoinCash {
 
   // Translate satoshi to bits denomination
   toBits(satoshis) {
-    return parseFloat(satoshis) / 100000;
+    return parseFloat(satoshis) / 100;
+  }
+
+  // Translate satoshi to bits denomination
+  // TODO remove in 2.0
+  satsToBits(satoshis) {
+    return parseFloat(satoshis) / 100;
   }
 
   // Translate bits to satoshi denomination
-  fromBits(bits) {
-    return Math.ceil(bits * 100000);
-  }
+  // TODO remove in 2.0
+  // fromBits(bits) {
+  //   return this.toInteger(bits * 100);
+  // }
+  //
+  // // Translate bits to satoshi denomination
+  // satsFromBits(bits) {
+  //   return this.toInteger(bits * 100);
+  // }
+  //
+  // toInteger(number){
+  //   return Math.round(  // round to nearest integer
+  //     Number(number)    // type cast your input
+  //   );
+  // }
 
   // sign message
   signMessageWithPrivKey(privateKeyWIF, message) {
