@@ -46,3 +46,7 @@ Open Source / Creative Commons Listings
 * [satoshi-bitcoin](https://www.npmjs.com/package/satoshi-bitcoin) - MIT
 * [sinon](https://www.npmjs.com/package/sinon) - BSD-3-Clause
 * [touch](https://www.npmjs.com/package/touch) - ISC
+
+## Font awesome
+
+[Cube icon](https://fontawesome.com/icons/cube?style=solid) available under [CC v4.0](https://creativecommons.org/licenses/by/4.0/)
