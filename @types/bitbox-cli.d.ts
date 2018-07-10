@@ -21,7 +21,7 @@ import TransactionBuilder from './TransactionBuilder';
 import ECPair from './ECPair';
 import Script from './Script';
 
-export class BITBOXCli {
+export default class BITBOXCli {
     
   restURL:string;
   Address:string;
