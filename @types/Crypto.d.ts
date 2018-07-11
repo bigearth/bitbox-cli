@@ -14,9 +14,5 @@ export default class Crypto {
     
   static hash160(buffer:string):string;
 
-  static randomBytes(size:number): {
-    return randomBytes(size);
-  }
+  static randomBytes(size:number):string; 
 }
-
-
