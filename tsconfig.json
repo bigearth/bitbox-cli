@@ -12,11 +12,18 @@
         "strictNullChecks": true
         
     },
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "exclude": [
+        "node_modlues"
+    ],
     "include": [
         "src/**/*"
     ],
     "typeRoots": [
-        "./node_modules"
+        "./@types"
     ],
     "types": [
         "axios",
