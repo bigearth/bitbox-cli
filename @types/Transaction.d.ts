@@ -4,19 +4,12 @@ import axios from 'axios';
 export default class Transaction {
   constructor(restURL:string);
 
-  transaction() {
-    return new Bitcoin.Transaction();
-  }
-
+  transaction():Bitcoin.Transaction;
   fromHex(hex:string):string;
 
-  transactionBuilder(network:string) {
-    return new Bitcoin.TransactionBuilder(Bitcoin.networks[network]);
-  }
+  transactionBuilder(network:string):Bitcoin.TransactionBuilder;
 
-  fromTransaction(tx) {
-    return Bitcoin.TransactionBuilder.fromTransaction(tx);
-  }
+  fromTransaction(tx:Bitcoin.Transaction):Bitcoin.TransactionBuilder;
 
   details(txid:string):any;
 }

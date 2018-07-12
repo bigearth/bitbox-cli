@@ -5,66 +5,24 @@ export default class Script {
   
     opcodes: opcodes; 
     nullData: null;
+    multisig: string;
+    pubKey:string;
+    pubKeyHash:string;
+    scriptHash: string;
 
-  constructor() {
-    this.opcodes = opcodes;
-    this.nullData = Bitcoin.script.nullData;
-    this.multisig = {
-      input: {
-        encode: (signatures) => {
-          let sigs = [];
-          signatures.forEach((sig) => {
-            sigs.push(sig);
-          })
-          return Bitcoin.script.multisig.input.encode(sigs)
-        },
-        decode: Bitcoin.script.multisig.input.decode,
-        check: Bitcoin.script.multisig.input.check,
-      },
-      output: {
-        encode: (m, pubKeys) => {
-          let pks = [];
-          pubKeys.forEach((pubKey) => {
-            pks.push(pubKey);
-          })
-          return Bitcoin.script.multisig.output.encode(m, pks);
-        },
-        decode: Bitcoin.script.multisig.output.decode,
-        check: Bitcoin.script.multisig.output.check,
-      }
-    };
-    this.pubKey = Bitcoin.script.pubKey;
-    this.pubKeyHash = Bitcoin.script.pubKeyHash;
-    this.scriptHash = Bitcoin.script.scriptHash;
-  }
+  constructor();
 
-  classifyInput(script) {
-    return Bitcoin.script.classifyInput(script);
-  }
+  classifyInput(script:any):any;
 
-  classifyOutput(script) {
-    return Bitcoin.script.classifyOutput(script);
-  }
+  classifyOutput(script:any):any;
 
-  decode(scriptBuffer) {
-    return Bitcoin.script.decompile(scriptBuffer);
-  }
+  decode(scriptBuffer:any):any;
 
-  encode(scriptChunks) {
-    let arr = [];
-    scriptChunks.forEach((chunk) => {
-      arr.push(chunk);
-    });
-    return Bitcoin.script.compile(arr);
-  }
+  encode(scriptChunks:any):Buffer;
 
-  toASM(buffer) {
-    return Bitcoin.script.toASM(buffer);
-  }
+  toASM(buffer:any):any;
 
-  fromASM(asm) {
-    return Bitcoin.script.fromASM(asm);
-  }
+  fromASM(asm:any):Buffer;
 }
 
 

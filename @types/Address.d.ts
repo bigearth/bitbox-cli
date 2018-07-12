@@ -10,6 +10,7 @@ export default class Address {
     // Translate address from any address format into a specific format.
     toLegacyAddress(address: string): string;
     toCashAddress(address: string, prefix : boolean): string;
+    
     // Test for address format.
     isLegacyAddress(address:string):boolean;
     isCashAddress(address:string):boolean;

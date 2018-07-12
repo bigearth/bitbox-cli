@@ -6,26 +6,17 @@ import bip68 from 'bip68';
 
 export default class TransactionBuilder {
   
-  constructor(network:string);
-   {
-    let bitcoincash = coininfo.bitcoincash.main;
-    let bitcoincashBitcoinJSLib = bitcoincash.toBitcoinJS();
-    this.transaction = new Bitcoin.TransactionBuilder(bitcoincashBitcoinJSLib);
-    this.DEFAULT_SEQUENCE = 0xffffffff;
-    this.hashTypes = {
-      SIGHASH_ALL: 0x01,
-      SIGHASH_NONE: 0x02,
-      SIGHASH_SINGLE: 0x03,
-      SIGHASH_ANYONECANPAY: 0x80,
-      SIGHASH_BITCOINCASH_BIP143: 0x40,
-      ADVANCED_TRANSACTION_MARKER: 0x00,
-      ADVANCED_TRANSACTION_FLAG: 0x01
-    };
-    this.bip66 = bip66;
-    this.bip68 = bip68;
-  }
+  bitcoincash: coininfo.bitcoincash.main;
+  bitcoincashBitcoinJSLib: bintcoincash.toBitcoinJS;
+  transaction: Bitcoin.Transaction;
+  DEFAULT_SEQUENCE = 0xfffffff;
+  hashTypes:Enumerator;
+  bip66 = new bip66();
+  bip68 = new bip68();
 
-  addInput(txHash, vout, sequence = this.DEFAULT_SEQUENCE, prevOutScript) {
+  constructor(network:string);
+  
+  addInput(txHash, vout, sequence=string, prevOutScript) {
     this.transaction.addInput(
       txHash,
       vout,
