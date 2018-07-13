@@ -18,11 +18,11 @@ export default class Script {
 
   decode(scriptBuffer:any):any;
 
-  encode(scriptChunks:any):Buffer;
+  encode(scriptChunks:any):Bitcoin.Buffer;
 
   toASM(buffer:any):any;
 
-  fromASM(asm:any):Buffer;
+  fromASM(asm:any):Bitcoin.Buffer;
 }
 
 
