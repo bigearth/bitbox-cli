@@ -1,26 +1,29 @@
-import Bitcoin from 'bitcoincashjs-lib';
-import bchaddr from 'bchaddrjs';
-import coininfo from 'coininfo';
-import bip66 from 'bip66';
-import bip68 from 'bip68';
+import { Transaction } from './Transaction';
+import { ECPair } from './ECPair';
 
-export default class TransactionBuilder {
+declare type ECSignature = any;
+
+export declare class TransactionBuilder {
+  // bitcoincash: coininfo.bitcoincash.main;
+  // bitcoincashBitcoinJSLib: Bitcoin.toBitcoinJS;
+  transaction: Transaction;
+  DEFAULT_SEQUENCE: number;
+  hashTypes: HashTypes;
+  bip66 : any;
+  bip68 : any;
+
+  constructor(network: string);
   
-  bitcoincash: coininfo.bitcoincash.main;
-  bitcoincashBitcoinJSLib: Bitcoin.toBitcoinJS;
-  transaction: Bitcoin.Transaction;
-  DEFAULT_SEQUENCE:string;
-  hashTypes:Enumerator;
-  bip66 : bip66;
-  bip68 : bip68;
+  addInput(txHash: string|Buffer, vout: number, sequence?: number, prevOutScript?: string): void;
+  addOutput(scriptPubKey: string|Buffer, amount: number): void;
+  sign(vin: number, keyPair: ECPair, redeemScript: Buffer, hashType: number, value: number): ECSignature;
+  build(): Transaction;
+}
 
-  constructor(network:string);
-  
-  addInput(txHash:string, vout:string, sequence:string, prevOutScript:string):void;
-
-  addOutput(scriptPubKey:string, amount:number):void;
-
-  sign(vin:string, keyPair:string, redeemScript:string, hashType:Enumerator, value:any):void;
-
-  build():Bitcoin.Transaction;
+declare interface HashTypes {
+  SIGHASH_ALL: number;
+  SIGHASH_NONE: number;
+  SIGHASH_SINGLE: number;
+  SIGHASH_ANYONECANPAY: number;
+  SIGHASH_BITCOINCASH_BIP143: number;
 }

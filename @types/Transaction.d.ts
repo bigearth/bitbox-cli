@@ -1,15 +1,31 @@
-import Bitcoin from 'bitcoincashjs-lib';
-import axios from 'axios';
+import { TransactionBuilder } from './TransactionBuilder';
+export declare class Transaction {
+  constructor(restURL: string);
+  transaction(): Transaction;
+  toHex(): string;
+  fromHex(hex: string): string;
+  transactionBuilder(network: string): TransactionBuilder;
+  fromTransaction(tx: Transaction): TransactionBuilder;
+  details(txid: string| string[]): Promise<TxnDetails | TxnDetails[]>;
 
-export default class Transaction {
-  constructor(restURL:string);
+  // lower level methods
+  buildIncomplete(): Transaction;
+  hashForWitnessV0(idx: number, script: Buffer, amount: number, hashType: number): number;
+  setInputScript(idx: number, scriptSig: Buffer): void;
+}
 
-  transaction():Bitcoin.Transaction;
-  fromHex(hex:string):string;
-
-  transactionBuilder(network:string):Bitcoin.TransactionBuilder;
-
-  fromTransaction(tx:Bitcoin.Transaction):Bitcoin.TransactionBuilder;
-
-  details(txid:string):any;
+declare class TxnDetails{
+  txid: string;
+  version: number;
+  locktime: number;
+  vin: object[];
+  vout: object[];
+  blockhash: string;
+  blockheight: number;
+  confirmations: number;
+  time: number;
+  blocktime: number;
+  isCoinBase: boolean;
+  valueOut: number;
+  size: number;
 }

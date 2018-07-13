@@ -1,20 +1,15 @@
-import Bitcoin from 'bitcoincashjs-lib';
-import bchaddr from 'bchaddrjs';
-import coininfo from'coininfo';
 
-export default class ECPair {
-  static fromWIF(privateKeyWIF:string): string;
-  static toWIF(ecpair:ECPair):string; 
+declare type ECSignature = any;
 
-  static sign(ecpair:ECPair, buffer:string):string; 
-
-  static verify(ecpair:ECPair, buffer:string, signature:string):string; 
-
-  static fromPublicKey(pubkeyBuffer:string):string; 
-
-  static toPublicKey(ecpair:ECPair):string; 
-  
-  static toLegacyAddress(ecpair:ECPair):string; 
-
-  static toCashAddress(ecpair:ECPair):string; 
+export declare class ECPair {
+  constructor();
+  fromWIF(privateKeyWIF: string): ECPair;
+  toWIF(ecpair: ECPair): string; 
+  sign(sigHash: number): ECSignature;
+  sign(ecpair: ECPair, buffer: Buffer): Boolean | ECSignature; 
+  verify(ecpair: ECPair, buffer: Buffer, signature: ECSignature): boolean; 
+  fromPublicKey(pubkeyBuffer: string): ECPair; 
+  toPublicKey(ecpair: ECPair): Buffer; 
+  toLegacyAddress(ecpair: ECPair): string; 
+  toCashAddress(ecpair: ECPair): string; 
 }

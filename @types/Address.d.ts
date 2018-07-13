@@ -1,37 +1,58 @@
-import axios from "axios";
-import bchaddr from 'bchaddrjs';
-import Bitcoin from 'bitcoincashjs-lib';
-
-export default class Address {
-
+export declare class Address {
     restURL: string;
-    
     constructor(restURL: string);
-    // Translate address from any address format into a specific format.
     toLegacyAddress(address: string): string;
-    toCashAddress(address: string, prefix : boolean): string;
-    
-    // Test for address format.
-    isLegacyAddress(address:string):boolean;
-    isCashAddress(address:string):boolean;
-    // Test for address network.
-    isMainnetAddress(address:string):boolean;
-    isTestnetAddress(address:string):boolean;
-    // Test for address type.
-    isP2PKHAddress(address:string): boolean;
-    isP2SHAddress(address:string):boolean;
-    // Detect address format.
-    detectAddressFormat(address:string):string;
-    // Detect address network.
-    detectAddressNetwork(address:string):string;
-    // Detect address type.
-    detectAddressType(address:string):string;
-    fromXPub(xpub:string, path:string):string;
-    fromOutputScript(scriptPubKey:string):string;
+    toCashAddress(address: string, prefix?: boolean): string;
+    isLegacyAddress(address: string): boolean;
+    isCashAddress(address: string): boolean;
+    isMainnetAddress(address: string): boolean;
+    isTestnetAddress(address: string): boolean;
+    isP2PKHAddress(address: string): boolean;
+    isP2SHAddress(address: string): boolean;
+    detectAddressFormat(address: string): string;
+    detectAddressNetwork(address: string): string;
+    detectAddressType(address: string): string;
+    fromXPub(xpub: string, path?: string): string;
+    fromOutputScript(scriptPubKey:string): string;
+    details(address: string): Promise<AddressDetailsResult | AddressDetailsResult[]>;
+    utxo(address: string): Promise<AddressUtxoResult[]>;
+    unconfirmed(address: string): Promise<AddressUnconfirmedResult[]>;
+}
 
-    details(address:string):string;
-    utxo(address:string): string;
+export declare class AddressDetailsResult {
+    addrStr: string;
+    balance: number;
+    balanceSat: number;
+    totalReceived: number;
+    totalReceivedSat: number;
+    totalSent: number;
+    totalSentSat: number;
+    unconfirmedBalance: number;
+    unconfirmedBalanceSat: number;
+    unconfirmedTxApperances: number;
+    txApperances: number;
+    transactions: string[];
+}
 
-    unconfirmed(address:string):string;
+export declare class AddressUtxoResult {
+    address: string;
+    txid: string;
+    vout: number;
+    scriptPubKey: string;
+    amount: number;
+    satoshis: number;
+    height: number;
+    confirmations: number;
+}
 
+export declare class AddressUnconfirmedResult {
+    txid: string;
+    vout: number;
+    scriptPubKey: string;
+    amount: number;
+    satoshis: number;
+    confirmations: number;
+    ts: number;
+    legacyAddress: string;
+    cashAddress: string;
 }

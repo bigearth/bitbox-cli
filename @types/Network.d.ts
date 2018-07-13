@@ -1,24 +1,12 @@
-import axios from 'axios';
-export default class Network {
+export declare class Network {
   constructor(restURL:string);
-
-  addNode(node:string, command:string):any;
-
-  clearBanned():any;
-
-  disconnectNode(configuration:object):any; 
-
-  getAddedNodeInfo(node?:string):any;
-
-  getConnectionCount():any;
-
-  getNetTotals():any;
-
-  getNetworkInfo():any;
-
-  getPeerInfo():any;
-  
-
-  ping():any;
-  
+  //addNode(node:string, command:string):any;
+  //clearBanned():any;
+  //disconnectNode(configuration:object):any; 
+  //getAddedNodeInfo(node?:string):any;
+  getConnectionCount():Promise<number>;
+  getNetTotals():Promise<object>;
+  getNetworkInfo():Promise<object>;
+  getPeerInfo():Promise<object>;
+  ping():Promise<any>;
 }

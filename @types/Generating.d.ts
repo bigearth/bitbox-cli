@@ -1,6 +1,4 @@
-import axios from 'axios';
-export default class Generating {
+export declare class Generating {
   constructor(restURL:string);
-
-  generateToAddress(blocks:number, address:string, maxtries:number):string;
+  generateToAddress(blocks:number, address:string, maxtries:number):Promise<any[]>;
 }

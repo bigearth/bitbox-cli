@@ -1,18 +1,7 @@
-import randomBytes from 'randombytes';
-import BitcoinCash from './BitcoinCash';
-import Bitcoin from 'bitcoincashjs-lib';
-//let bc = new BitcoinCash();
-
-export default class Crypto {
-  // Utility class to wrap NodeJS's crypto module
-  // https://nodejs.org/api/crypto.html
-  static sha256(buffer:string):string;
-
-  static ripemd160(buffer:string):string;
-
-  static hash256(buffer:string):string;
-    
-  static hash160(buffer:string):string;
-
-  static randomBytes(size:number):string; 
+export declare class Crypto {
+  sha256(buffer: Buffer): Buffer;
+  ripemd160(buffer: Buffer): Buffer;
+  hash256(buffer: Buffer): Buffer;
+  hash160(buffer: Buffer): Buffer;
+  randomBytes(size: number): Buffer; 
 }
