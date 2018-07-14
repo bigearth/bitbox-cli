@@ -1,6 +1,6 @@
 import { ECPair, ECSignature } from "./ECPair";
 
-export declare class HDNode {
+export declare interface HDNode {
   fromSeed(rootSeedBuffer: Buffer, network?: string): HDNode; 
   toLegacyAddress(hdNode:HDNode):string; 
   toCashAddress(hdNode:HDNode):string; 

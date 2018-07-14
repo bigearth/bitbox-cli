@@ -1,6 +1,6 @@
-export declare class Address {
+export declare interface Address {
     restURL: string;
-    constructor(restURL: string);
+    //constructor(restURL: string);
     toLegacyAddress(address: string): string;
     toCashAddress(address: string, prefix?: boolean): string;
     isLegacyAddress(address: string): boolean;
@@ -19,7 +19,7 @@ export declare class Address {
     unconfirmed(address: string): Promise<AddressUnconfirmedResult[]>;
 }
 
-export declare class AddressDetailsResult {
+export declare interface AddressDetailsResult {
     addrStr: string;
     balance: number;
     balanceSat: number;
@@ -34,7 +34,7 @@ export declare class AddressDetailsResult {
     transactions: string[];
 }
 
-export declare class AddressUtxoResult {
+export declare interface AddressUtxoResult {
     address: string;
     txid: string;
     vout: number;
@@ -45,7 +45,7 @@ export declare class AddressUtxoResult {
     confirmations: number;
 }
 
-export declare class AddressUnconfirmedResult {
+export declare interface AddressUnconfirmedResult {
     txid: string;
     vout: number;
     scriptPubKey: string;

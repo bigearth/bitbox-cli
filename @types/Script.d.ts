@@ -1,4 +1,4 @@
-export declare class Script {
+export declare interface Script {
     opcodes: opcodes; 
     // nullData: null;
     // multisig: string;
@@ -6,7 +6,7 @@ export declare class Script {
     // pubKeyHash: string;
     scriptHash: any;
 
-  constructor();
+  //constructor();
   classifyInput(script:Buffer):any;
   classifyOutput(script:Buffer):any;
   decode(scriptBuffer:Buffer):any[];

@@ -1,4 +1,4 @@
-export declare class Mnemonic {
+export declare interface Mnemonic {
   generate(bits: number, wordlist?: string[]): string;
   fromEntropy(bytes: Buffer, wordlist?: string[]): string; 
   toEntropy(mnemonic: string, wordlist?: string[]): Buffer;

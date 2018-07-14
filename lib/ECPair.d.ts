@@ -1,8 +1,8 @@
 
 declare type ECSignature = any;
 
-export declare class ECPair {
-  constructor();
+export declare interface ECPair {
+  //constructor();
   fromWIF(privateKeyWIF: string): ECPair;
   toWIF(ecpair: ECPair): string; 
   sign(sigHash: number): ECSignature;

@@ -1,11 +1,11 @@
-import { TransactionBuilder } from './TransactionBuilder';
-export declare class Transaction {
-  constructor(restURL: string);
+import { ITransactionBuilder } from './TransactionBuilder';
+export declare interface Transaction {
+  //constructor(restURL: string);
   transaction(): Transaction;
   toHex(): string;
   fromHex(hex: string): string;
-  transactionBuilder(network: string): TransactionBuilder;
-  fromTransaction(tx: Transaction): TransactionBuilder;
+  transactionBuilder(network: string): ITransactionBuilder;
+  fromTransaction(tx: Transaction): ITransactionBuilder;
   details(txid: string| string[]): Promise<TxnDetails | TxnDetails[]>;
 
   // lower level methods
@@ -14,7 +14,7 @@ export declare class Transaction {
   setInputScript(idx: number, scriptSig: Buffer): void;
 }
 
-declare class TxnDetails{
+declare interface TxnDetails{
   txid: string;
   version: number;
   locktime: number;

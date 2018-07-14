@@ -1,9 +1,9 @@
-export declare class Util {
-  constructor(restURL:string);
+export declare interface Util {
+  //constructor(restURL:string);
   validateAddress(address: string): Promise<any>;
 }
 
-declare class AddressDetails {
+declare interface AddressDetails {
   isvalid: boolean;
   address: string;
   scriptPubKey: string;

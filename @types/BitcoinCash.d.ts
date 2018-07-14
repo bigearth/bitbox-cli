@@ -1,4 +1,4 @@
-export declare class BitcoinCash {
+export declare interface BitcoinCash {
 	toSatoshi(coins: number): number;
 	toBitcoinCash(satoshis: number): number;
 	toBits(satoshis: number): number;
@@ -14,22 +14,22 @@ export declare class BitcoinCash {
 	decryptBIP38(encryptedKey: string, passphrase: string, network?: string): string;
 }
 
-declare class EncodeBIP21Options {
+declare interface EncodeBIP21Options {
 	amount?: number;
 	label?: string;
 	message?: string;
 }
 
-declare class BIP21Object {
+declare interface BIP21Object {
 	address: string;
 	options?: EncodeBIP21Options
 }
 
-declare class ByteCountInput {
+declare interface ByteCountInput {
 	P2PKH?: number;
 }
 
-declare class ByteCountOutput {
+declare interface ByteCountOutput {
 	P2PKH?: number;
 	P2SH?: number;
 }

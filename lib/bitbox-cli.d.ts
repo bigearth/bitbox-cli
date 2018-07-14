@@ -13,11 +13,10 @@ import { Mnemonic } from './Mnemonic';
 import { Address } from './Address';
 import { HDNode } from './HDNode';
 import { Transaction } from './Transaction';
-import { TransactionBuilder } from './TransactionBuilder';
+import { ITransactionBuilder } from './TransactionBuilder';
 import { ECPair } from './ECPair';
 import { Script } from './Script';
 
-//export declare type BITBOXCli
 
 export declare interface IBITBOXCli {
 
@@ -37,7 +36,7 @@ export declare interface IBITBOXCli {
 	RawTransactions: RawTransactions;
 	Script: Script;
 	Transaction: Transaction;
-	TransactionBuilder: TransactionBuilder;
+	//TransactionBuilder: ITransactionBuilder;
 	Util: Util;
 
 }

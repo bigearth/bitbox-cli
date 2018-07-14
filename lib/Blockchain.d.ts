@@ -1,9 +1,9 @@
 import { BlockDetails } from './Block';
 
-export declare class Blockchain {
-  constructor(restURL:string);
+export declare interface Blockchain {
+  //constructor(restURL:string);
   getBestBlockHash(): Promise<string>;
-  getBlock(blockhash: string, verbose?: boolean):Promise<BlockDetails>; 
+  getBlock(blockhash: string, verbose?: boolean):Promise<BlockDetails>;
   getBlockchainInfo(): Promise<BlockchainInfo>;
   getBlockCount(): Promise<number>;
   getBlockHash(height: number): Promise<string>;
@@ -23,7 +23,7 @@ export declare class Blockchain {
   verifyTxOutProof(proof:string): Promise<string[]>;
 }
 
-declare class MempoolInfo {
+declare interface MempoolInfo {
   size: number;
   bytes: number;
   usage: number;
@@ -31,11 +31,11 @@ declare class MempoolInfo {
   mempoolminfee: number;
 }
 
-declare class BlockchainInfo {
+declare interface BlockchainInfo {
   chain: string;
   blocks: number;
   headers: number;
-  bestblockhash: string; 
+  bestblockhash: string;
   difficulty: number;
   mediantime: number;
   verificationprogress: number;
@@ -45,7 +45,7 @@ declare class BlockchainInfo {
   bip9_softforks: object;
 }
 
-declare class BlockHeader {
+declare interface BlockHeader {
   hash: string;
   confirmations: number;
   height: number;
@@ -62,14 +62,14 @@ declare class BlockHeader {
 	nextblockhash: string;
 }
 
-declare class ChainTip {
+declare interface ChainTip {
   height:number;
   hash: string;
   branchlen: number;
   status: string;
 }
 
-declare class RawMempoolTxn {
+//declare interface RawMempoolTxn {
 
     // [  {'2ae541af20db6f2b50410f418af56e349d08877d685f6cf54df54658e892db7a':
   //  { size: 237,
@@ -87,4 +87,4 @@ declare class RawMempoolTxn {
   //    ancestorfees: 714,
   //    depends:
   //     [ 'e25682caafc7000645d59f4c11d8d594b2943979b9d8fafb9f946e2b35c21b7e' ] },]
-}
+//}

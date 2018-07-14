@@ -3,7 +3,7 @@ import { ECPair } from './ECPair';
 
 declare type ECSignature = any;
 
-export declare class TransactionBuilder {
+export declare interface ITransactionBuilder {
   // bitcoincash: coininfo.bitcoincash.main;
   // bitcoincashBitcoinJSLib: Bitcoin.toBitcoinJS;
   transaction: Transaction;
@@ -12,7 +12,7 @@ export declare class TransactionBuilder {
   bip66 : any;
   bip68 : any;
 
-  constructor(network: string);
+  constructor(network?: string): ITransactionBuilder;
   
   addInput(txHash: string|Buffer, vout: number, sequence?: number, prevOutScript?: string): void;
   addOutput(scriptPubKey: string|Buffer, amount: number): void;

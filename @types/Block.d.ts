@@ -1,9 +1,9 @@
-export declare class Block {
-	constructor(restURL: string);
+export declare interface Block {
+	//constructor(restURL: string);
 	details(id: number): Promise<BlockDetails>;
 }
 
-export declare class BlockDetails {
+export declare interface BlockDetails {
 	hash: string;
 	size: number;
 	height: number;

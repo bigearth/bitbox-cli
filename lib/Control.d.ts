@@ -1,10 +1,10 @@
-export declare class Control {
-  constructor(restURL:string);
+export declare interface Control {
+  //constructor(restURL:string);
   getInfo(): Promise<NodeInfo>;
   getMemoryInfo():Promise<NodeMemoryInfo>; 
 }
 
-declare class NodeInfo {
+declare interface NodeInfo {
   version: number;
   protocolversion: number;
   blocks: number;
@@ -18,7 +18,7 @@ declare class NodeInfo {
   errors: string;
 }
 
-declare class NodeMemoryInfo {
+declare interface NodeMemoryInfo {
   locked: { 
     used: number, 
     free: number, 
