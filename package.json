@@ -7,7 +7,7 @@
   "scripts": {
     "test": "nyc mocha --timeout 15000 --require babel-core/register",
     "build": "babel src/ -d lib/",
-    "postbuild": "cp -R @types/* lib",
+    "postbuild": "cp -R typings/* lib",
     "flow": "flow"
   },
   "license": "MIT",
