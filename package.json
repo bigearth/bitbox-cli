@@ -7,6 +7,7 @@
   "scripts": {
     "test": "nyc mocha --timeout 15000 --require babel-core/register",
     "build": "babel src/ -d lib/",
+    "postbuild": "cp -R typings/* lib",
     "flow": "flow"
   },
   "license": "MIT",
@@ -60,6 +61,7 @@
     "wif": "^2.0.6"
   },
   "devDependencies": {
+    "@types/node": "^10.5.2",
     "chai": "^4.1.2",
     "flow-bin": "^0.64.0",
     "nyc": "^11.6.0",
