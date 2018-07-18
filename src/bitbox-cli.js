@@ -20,6 +20,7 @@ import Transaction from './Transaction';
 import TransactionBuilder from './TransactionBuilder';
 import ECPair from './ECPair';
 import Script from './Script';
+import Price from './Price';
 
 class BITBOXCli {
   constructor(config) {
@@ -41,6 +42,7 @@ class BITBOXCli {
     this.Mining = new Mining(this.restURL);
     this.Mnemonic = new Mnemonic();
     this.Network = new Network(this.restURL);
+    this.Price = new Price();
     this.RawTransactions = new RawTransactions(this.restURL);
     this.Script = new Script();
     this.Transaction = new Transaction(this.restURL);
