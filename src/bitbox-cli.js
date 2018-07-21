@@ -21,6 +21,7 @@ import TransactionBuilder from './TransactionBuilder';
 import ECPair from './ECPair';
 import Script from './Script';
 import Price from './Price';
+import Socket from './Socket';
 
 class BITBOXCli {
   constructor(config) {
@@ -48,6 +49,7 @@ class BITBOXCli {
     this.Transaction = new Transaction(this.restURL);
     this.TransactionBuilder = TransactionBuilder;
     this.Util = new Util(this.restURL);
+    this.Socket = Socket;
   }
 }
 
