@@ -8,26 +8,18 @@ class Socket {
   }
 
   onConnect() {
-    this.socket.emit('chat message', 'winning');
-
-    this.socket.on('chat message', (msg) => {
-      console.log('message ', msg);
-    });
+    // this.socket.emit('chat message', 'winning');
+    //
+    // this.socket.on('chat message', (msg) => {
+    //   console.log('message ', msg);
+    // });
   }
 
-  listen(foo, address) {
-    return axios.get(`${this.restURL}address/foobar/${address}`)
-    .then((response) => {
-      return response.data;
-    })
-    .catch((error) => {
-      return JSON.stringify(error.response.data.error.message);
-    });
+  listen(endpoint) {
+    this.socket.emit(endpoint);
 
-    this.socket.emit(foo, address);
-
-    this.socket.on(foo, (msg) => {
-      console.log(foo, msg);
+    this.socket.on('block', (msg) => {
+      console.log(msg);
     });
   }
   // current(currency = 'all') {
