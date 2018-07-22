@@ -1,8 +1,8 @@
 import io from 'socket.io-client';
 
 class Socket {
-  constructor() {
-    this.socket = io('http://localhost:3001');
+  constructor(restURL = 'https://rest.bitbox.earth', port = '3001') {
+    this.socket = io(`${restURL}:${port}`);
   }
 
   listen(endpoint, cb) {
