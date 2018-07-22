@@ -34,6 +34,7 @@
     "bip66": "^1.1.5",
     "bip68": "^1.0.4",
     "bitcoin-ops": "Bitcoin-com/bitcoincash-ops",
+    "bitcoin-txdecoder": "0.0.3",
     "bitcoincashjs-lib": "Bitcoin-com/bitcoincashjs-lib",
     "bitcoinjs-message": "^2.0.0",
     "bs58": "^4.0.1",

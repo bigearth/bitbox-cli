@@ -18,12 +18,6 @@ let clone = require('git-clone');
 let corsproxy = require('corsproxy');
 let cmd = require('node-cmd');
 
-// let request = require('superagent');
-// let co = require('co');
-// let prompt = require('co-prompt');
-// let fs = require('fs');
-// let ProgressBar = require('progress');
-
 program
   .version('1.3.1');
 
