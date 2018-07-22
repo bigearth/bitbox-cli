@@ -5,15 +5,15 @@ class Socket {
     this.socket = io('http://localhost:3001');
   }
 
-  listen(endpoint) {
+  listen(endpoint, cb) {
     this.socket.emit(endpoint);
 
     this.socket.on('block', (msg) => {
-      return msg;
+      return cb(msg);
     });
 
     this.socket.on('rawtx', (msg) => {
-      return msg;
+      return cb(msg);
     });
   }
 }
