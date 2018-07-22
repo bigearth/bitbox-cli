@@ -8,11 +8,11 @@ class Socket {
   listen(endpoint, cb) {
     this.socket.emit(endpoint);
 
-    this.socket.on('block', (msg) => {
+    this.socket.on('blocks', (msg) => {
       return cb(msg);
     });
 
-    this.socket.on('rawtx', (msg) => {
+    this.socket.on('transactions', (msg) => {
       return cb(msg);
     });
   }
