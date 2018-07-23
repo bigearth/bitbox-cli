@@ -20,7 +20,7 @@ import Price from './Price';
 import ISocket from './Socket';
 
 
-export declare interface IBITBOXCli {
+declare interface IBITBOXCli {
 
 	new(config?: any): IBITBOXCli
 
@@ -45,3 +45,5 @@ export declare interface IBITBOXCli {
 	Util: Util;
 	Socket: ISocket;
 }
+
+export default IBITBOXCli;
