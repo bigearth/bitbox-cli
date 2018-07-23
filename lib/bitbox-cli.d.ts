@@ -16,9 +16,13 @@ import { Transaction } from './Transaction';
 import { ITransactionBuilder } from './TransactionBuilder';
 import { ECPair } from './ECPair';
 import { Script } from './Script';
+import Price from './Price';
+import ISocket from './Socket';
 
 
-export declare interface IBITBOXCli {
+declare interface IBITBOXCli {
+
+	new(config?: any): IBITBOXCli
 
 	restURL: string;
 	Address: Address;
@@ -33,10 +37,13 @@ export declare interface IBITBOXCli {
 	HDNode: HDNode;
 	Mnemonic: Mnemonic;
 	Network: Network;
+	Price: Price;
 	RawTransactions: RawTransactions;
 	Script: Script;
 	Transaction: Transaction;
-	//TransactionBuilder: ITransactionBuilder;
+	TransactionBuilder: ITransactionBuilder;
 	Util: Util;
-
+	Socket: ISocket;
 }
+
+export default IBITBOXCli;
