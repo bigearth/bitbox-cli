@@ -4,7 +4,7 @@ export declare interface Mnemonic {
   toEntropy(mnemonic: string, wordlist?: string[]): Buffer;
   validate(mnemonic: string, wordlist?: string[]): boolean;
   toSeed(mnemonic: string, passphrase?: string): Buffer;
-  wordLists(): object;
+  wordLists(): any;
   toKeypairs(mnemonic: string, numberOfKeypairs?: number): { privateKeyWIF: string, address: string}[];
   findNearestWord(word: string, wordlist: string[]): string;
 }

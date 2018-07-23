@@ -12,11 +12,11 @@ export declare interface ITransactionBuilder {
   bip66 : any;
   bip68 : any;
 
-  constructor(network?: string): ITransactionBuilder;
+  new(network?: string): ITransactionBuilder;
   
   addInput(txHash: string|Buffer, vout: number, sequence?: number, prevOutScript?: string): void;
   addOutput(scriptPubKey: string|Buffer, amount: number): void;
-  sign(vin: number, keyPair: ECPair, redeemScript: Buffer, hashType: number, value: number): ECSignature;
+  sign(vin: number, keyPair: ECPair, redeemScript: Buffer | undefined, hashType: number, value: number): ECSignature;
   build(): Transaction;
 }
 
