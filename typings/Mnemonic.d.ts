@@ -1,3 +1,5 @@
+import {Buffer} from 'buffer';
+
 export declare interface Mnemonic {
   generate(bits: number, wordlist?: string[]): string;
   fromEntropy(bytes: Buffer, wordlist?: string[]): string; 

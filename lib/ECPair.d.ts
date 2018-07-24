@@ -1,3 +1,4 @@
+import {Buffer} from 'buffer';
 
 declare type ECSignature = any;
 

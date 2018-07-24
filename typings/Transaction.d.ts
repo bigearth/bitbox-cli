@@ -1,3 +1,5 @@
+import {Buffer} from 'buffer';
+
 import { ITransactionBuilder } from './TransactionBuilder';
 export declare interface Transaction {
   //constructor(restURL: string);

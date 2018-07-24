@@ -1,3 +1,5 @@
+import {Buffer} from 'buffer';
+
 import { Transaction } from './Transaction';
 import { ECPair } from './ECPair';
 
