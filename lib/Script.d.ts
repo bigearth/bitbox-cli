@@ -1,3 +1,5 @@
+import {Buffer} from 'buffer';
+
 export declare interface Script {
     opcodes: opcodes; 
     // nullData: null;

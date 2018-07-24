@@ -1,11 +1,13 @@
-import { ITransactionBuilder } from './TransactionBuilder';
+import {Buffer} from 'buffer';
+
+import { TransactionBuilder } from './TransactionBuilder';
 export declare interface Transaction {
   //constructor(restURL: string);
   transaction(): Transaction;
   toHex(): string;
   fromHex(hex: string): string;
-  transactionBuilder(network: string): ITransactionBuilder;
-  fromTransaction(tx: Transaction): ITransactionBuilder;
+  transactionBuilder(network: string): TransactionBuilder;
+  fromTransaction(tx: Transaction): TransactionBuilder;
   details(txid: string| string[]): Promise<TxnDetails | TxnDetails[]>;
 
   // lower level methods

@@ -13,16 +13,16 @@ import { Mnemonic } from './Mnemonic';
 import { Address } from './Address';
 import { HDNode } from './HDNode';
 import { Transaction } from './Transaction';
-import { ITransactionBuilder } from './TransactionBuilder';
+import { TransactionBuilder } from './TransactionBuilder';
 import { ECPair } from './ECPair';
 import { Script } from './Script';
 import Price from './Price';
-import ISocket from './Socket';
+import Socket from './Socket';
 
 
-declare interface IBITBOXCli {
+declare class BITBOXCli {
 
-	new(config?: any): IBITBOXCli
+	constructor(config?: any);
 
 	restURL: string;
 	Address: Address;
@@ -41,9 +41,9 @@ declare interface IBITBOXCli {
 	RawTransactions: RawTransactions;
 	Script: Script;
 	Transaction: Transaction;
-	TransactionBuilder: ITransactionBuilder;
+	TransactionBuilder: TransactionBuilder;
 	Util: Util;
-	Socket: ISocket;
+	Socket: Socket;
 }
 
-export default IBITBOXCli;
+export default BITBOXCli;

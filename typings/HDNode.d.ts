@@ -1,3 +1,5 @@
+import {Buffer} from 'buffer';
+
 import { ECPair, ECSignature } from "./ECPair";
 
 export declare interface HDNode {
