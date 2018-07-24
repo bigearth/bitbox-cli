@@ -1,6 +1,6 @@
-declare interface ISocket {
-    new(restURL: string): ISocket
+declare interface Socket {
+    new(restURL?: string): Socket
     listen(endpoint: string, cb: any): void;
 }
 
-export default ISocket;
+export default Socket;
