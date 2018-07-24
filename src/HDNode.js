@@ -1,7 +1,7 @@
 import Bitcoin from 'bitcoincashjs-lib';
 import bchaddr from 'bchaddrjs';
 import coininfo from'coininfo';
-// let bip32utils = require('bip32-utils')
+import bip32utils from 'bip32-utils';
 
 class HDNode {
   fromSeed(rootSeedBuffer, network = 'bitcoincash') {
@@ -101,10 +101,16 @@ class HDNode {
     return Bitcoin.HDNode.fromBase58(base58, network);
   }
 
-  //
-  // createChain(hdNode) {
-  //   return new bip32utils.Chain(hdNode);
-  // }
+  createAccount(hdNodes) {
+    let arr = hdNodes.map((item, index) => {
+      return new bip32utils.Chain(item.neutered())
+    });
+    return new bip32utils.Account(arr);
+  }
+
+  createChain(hdNode) {
+    return new bip32utils.Chain(hdNode);
+  }
 }
 
 export default HDNode;
