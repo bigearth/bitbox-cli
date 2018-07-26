@@ -1,16 +1,21 @@
 import io from 'socket.io-client';
 
 class Socket {
-  constructor(config) {
-    if(config.restURL) {
-      this.socket = io(`${config.restURL}`);
+  constructor(config = {}) {
+    if(typeof config === 'string') {
+      // TODO remove this check in v2.0
+      this.socket = io(`${config}`);
     } else {
-      let restURL = 'https://rest.bitbox.earth';
-      this.socket = io(`${restURL}`);
-    }
-    
-    if(config.callback) {
-      config.callback();
+      if(config.restURL) {
+        this.socket = io(`${config.restURL}`);
+      } else {
+        let restURL = 'https://rest.bitbox.earth';
+        this.socket = io(`${restURL}`);
+      }
+
+      if(config.callback) {
+        config.callback();
+      }
     }
   }
 
