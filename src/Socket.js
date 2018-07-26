@@ -1,8 +1,17 @@
 import io from 'socket.io-client';
 
 class Socket {
-  constructor(restURL = 'https://rest.bitbox.earth') {
-    this.socket = io(`${restURL}`);
+  constructor(config) {
+    if(config.restURL) {
+      this.socket = io(`${config.restURL}`);
+    } else {
+      let restURL = 'https://rest.bitbox.earth';
+      this.socket = io(`${restURL}`);
+    }
+    
+    if(config.callback) {
+      config.callback();
+    }
   }
 
   listen(endpoint, cb) {
