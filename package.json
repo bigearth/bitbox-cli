@@ -17,7 +17,7 @@
   "bin": {
     "bitbox": "./index.js"
   },
-  "homepage": "https://www.bitbox.earth",
+  "homepage": "https://developer.bitcoin.com/bitbox.html",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Bitcoin-com/bitbox-javascript-sdk.git"
