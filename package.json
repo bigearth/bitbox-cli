@@ -17,6 +17,11 @@
   "bin": {
     "bitbox": "./index.js"
   },
+  "homepage": "https://www.bitbox.earth",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Bitcoin-com/bitbox-javascript-sdk.git"
+  },
   "dependencies": {
     "assert": "^1.4.1",
     "axios": "^0.17.1",
