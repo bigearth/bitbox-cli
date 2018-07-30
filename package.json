@@ -1,11 +1,11 @@
 {
   "name": "bitbox-cli",
-  "version": "1.4.7",
+  "version": "1.4.8",
   "description": "BITBOX javascript sdk for Bitcoin Cash",
   "author": "Gabriel Cardona @ Bitcoin.com",
   "main": "index.js",
   "scripts": {
-    "test": "nyc mocha --timeout 15000 --require babel-core/register",
+    "test": "nyc mocha --timeout 30000 --require babel-core/register",
     "build": "babel src/ -d lib/",
     "postbuild": "cp -R typings/* lib",
     "flow": "flow"
