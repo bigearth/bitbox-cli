@@ -22,13 +22,15 @@ class Socket {
   listen(endpoint, cb) {
     this.socket.emit(endpoint);
 
-    this.socket.on('blocks', (msg) => {
-      return cb(msg);
-    });
-
-    this.socket.on('transactions', (msg) => {
-      return cb(msg);
-    });
+    if(endpoint === 'blocks') {
+      this.socket.on('blocks', (msg) => {
+        return cb(msg);
+      });
+    } else if(endpoint === 'transactions') {
+      this.socket.on('transactions', (msg) => {
+        return cb(msg);
+      });
+    }
   }
 }
 
