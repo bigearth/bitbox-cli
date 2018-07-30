@@ -9,7 +9,7 @@ class Socket {
       if(config.restURL) {
         this.socket = io(`${config.restURL}`);
       } else {
-        let restURL = 'https://rest.bitbox.earth';
+        let restURL = 'https://rest.bitcoin.com';
         this.socket = io(`${restURL}`);
       }
 

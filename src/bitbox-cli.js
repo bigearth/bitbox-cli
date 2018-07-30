@@ -28,7 +28,7 @@ class BITBOXCli {
     if(config && config.restURL && config.restURL !== '') {
       this.restURL = config.restURL;
     } else {
-      this.restURL = 'https://rest.bitbox.earth/v1/';
+      this.restURL = 'https://rest.bitcoin.com/v1/';
     }
 
     this.Address = new Address(this.restURL);
