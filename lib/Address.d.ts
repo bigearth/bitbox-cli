@@ -35,7 +35,6 @@ export declare interface AddressDetailsResult {
 }
 
 export declare interface AddressUtxoResult {
-    address: string;
     txid: string;
     vout: number;
     scriptPubKey: string;
@@ -43,6 +42,8 @@ export declare interface AddressUtxoResult {
     satoshis: number;
     height: number;
     confirmations: number;
+    legacyAddress: string;
+    cashAddress: string;
 }
 
 export declare interface AddressUnconfirmedResult {

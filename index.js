@@ -19,11 +19,11 @@ let corsproxy = require('corsproxy');
 let cmd = require('node-cmd');
 
 program
-  .version('1.4.9');
+  .version('1.5.0');
 
 program
   .command('new <name>')
-  .option('-s, --scaffold <scaffold>', 'The framework to use. Options include react, angular, vuejs, nextjs and node.')
+  .option('-s, --scaffold <scaffold>', 'The framework to use. Options include react, angular, vuejs, nextjs, node and websockets.')
   .option('-r, --restURL <restURL>', 'The rest URL to use. default: https://rest.bitcoin.com/v1/')
   .option('-e, --environment <environment>', 'environment of running BITBOX instance. Ex: production, staging. (Default: development)')
   .description(`create a new BITBOX application`)
@@ -51,6 +51,8 @@ program
           repo = 'https://github.com/Bitcoin-com/bitbox-scaffold-react.git';
         } else if(scaffold === 'vue') {
           repo = 'https://github.com/Bitcoin-com/bitbox-scaffold-vue.git';
+        } else if(scaffold === 'websockets') {
+          repo = 'https://github.com/Bitcoin-com/bitbox-scaffold-websockets.git';
         } else {
           console.log(chalk.red(`Scaffold ${scaffold} not supported`));
           process.exit(1)
