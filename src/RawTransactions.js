@@ -75,6 +75,9 @@ class RawTransactions {
     // Result:
     // "hex"             (string) The transaction hash in hex
     //
+    if(typeof hex !== 'string') {
+      hex = JSON.stringify(hex);
+    }
 
     return axios.post(`${this.restURL}rawtransactions/sendRawTransaction/${hex}?allowhighfees=${allowhighfees}`)
     .then((response) => {
