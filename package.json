@@ -1,6 +1,6 @@
 {
   "name": "bitbox-cli",
-  "version": "1.5.5",
+  "version": "1.5.6",
   "description": "BITBOX javascript sdk for Bitcoin Cash",
   "author": "Gabriel Cardona @ Bitcoin.com",
   "main": "index.js",
@@ -34,7 +34,7 @@
     "bchaddrjs": "^0.2.1",
     "bigi": "^1.4.2",
     "bip21": "Bitcoin-com/bip21",
-    "bip32-utils": "Bitcoin-com/bip32-utils#0.12.0",
+    "bip32-utils": "Bitcoin-com/bip32-utils#0.12.1",
     "bip38": "^2.0.2",
     "bip39": "^2.5.0",
     "bip66": "^1.1.5",
