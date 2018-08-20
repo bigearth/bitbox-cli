@@ -27,7 +27,6 @@ Open Source / Creative Commons Listings
 * [chalk](https://www.npmjs.com/package/chalk) - MIT
 * [clear](https://www.npmjs.com/package/clear) - none
 * [commander](https://www.npmjs.com/package/commander) - MIT
-* [corsproxy](https://www.npmjs.com/package/corsproxy) - MIT
 * [cp-file](https://www.npmjs.com/package/cp-file) - MIT
 * [ecurve](https://www.npmjs.com/package/ecurve) - MIT
 * [figlet](https://www.npmjs.com/package/figlet) - MIT
