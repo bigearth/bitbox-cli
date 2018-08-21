@@ -94,6 +94,9 @@ class Blockchain {
     //
     // Result:
     // "hash"         (string) The block hash
+    if(typeof height !== 'string') {
+      height = JSON.stringify(height);
+    }
     return axios.get(`${this.restURL}blockchain/getBlockHash/${height}`)
     .then((response) => {
       return response.data;
@@ -132,6 +135,9 @@ class Blockchain {
     //
     // Result (for verbose=false):
     // "data"             (string) A string that is serialized, hex-encoded data for block 'hash'.
+    if(typeof hash !== 'string') {
+      hash = JSON.stringify(hash);
+    }
     return axios.get(`${this.restURL}blockchain/getBlockHeader/${hash}?verbose=${verbose}`)
     .then((response) => {
       return response.data;
@@ -225,6 +231,9 @@ class Blockchain {
     //        ... ]
     //   }, ...
     // }
+    if(typeof txid !== 'string') {
+      txid = JSON.stringify(txid);
+    }
     return axios.get(`${this.restURL}blockchain/getMempoolAncestors/${txid}?verbose=${verbose}`)
     .then((response) => {
       return response.data;
@@ -268,6 +277,9 @@ class Blockchain {
     //        ... ]
     //   }, ...
     // }
+    if(typeof txid !== 'string') {
+      txid = JSON.stringify(txid);
+    }
 
     return axios.get(`${this.restURL}blockchain/getMempoolDescendants/${txid}?verbose=${verbose}`)
     .then((response) => {
@@ -303,6 +315,9 @@ class Blockchain {
     //         "transactionid",    (string) parent transaction id
     //        ... ]
     // }
+    if(typeof txid !== 'string') {
+      txid = JSON.stringify(txid);
+    }
 
     return axios.get(`${this.restURL}blockchain/getMempoolEntry/${txid}`)
     .then((response) => {
