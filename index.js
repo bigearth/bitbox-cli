@@ -18,7 +18,7 @@ let clone = require('git-clone');
 let cmd = require('node-cmd');
 
 program
-  .version('1.5.10');
+  .version('1.5.11');
 
 program
   .command('new <name>')

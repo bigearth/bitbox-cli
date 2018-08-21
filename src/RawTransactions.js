@@ -10,6 +10,9 @@ class RawTransactions {
     // Parameter #1—serialized transaction in hex
 
     // Result—the decoded transaction
+    if(typeof hex !== 'string') {
+      hex = JSON.stringify(hex);
+    }
 
     return axios.get(`${this.restURL}rawtransactions/decodeRawTransaction/${hex}`)
     .then((response) => {
@@ -20,15 +23,17 @@ class RawTransactions {
     });
   }
 
-  decodeScript(hex) {
+  decodeScript(script) {
     // decodes a hex-encoded P2SH redeem script.
 
     // Parameter #1—a hex-encoded redeem script
 
     // Result—the decoded script
-    // console.log('decode script called *****', redeemScript)
+    if(typeof script !== 'string') {
+      script = JSON.stringify(script);
+    }
 
-    return axios.get(`${this.restURL}rawtransactions/decodeScript/${hex}`)
+    return axios.get(`${this.restURL}rawtransactions/decodeScript/${script}`)
     .then((response) => {
       return response.data;
     })
@@ -53,6 +58,10 @@ class RawTransactions {
     //
     // Result (if verbose is not set or set to false):
     // "data"      (string) The serialized, hex-encoded data for 'txid'
+
+    if(typeof txid !== 'string') {
+      txid = JSON.stringify(txid);
+    }
 
     return axios.get(`${this.restURL}rawtransactions/getRawTransaction/${txid}?verbose=${verbose}`)
     .then((response) => {
