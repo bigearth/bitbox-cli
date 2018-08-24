@@ -28,6 +28,13 @@ class Address {
     return bytes.hash.toString('hex');
   }
 
+  // Converts RIPEMD-160 hash to Legacy Address
+  toLegacyAddressFromHash160(ripemd160, network = Bitcoin.networks.bitcoin.pubKeyHash) {
+    let buffer = Buffer(ripemd160, 'hex');
+    let legacyAddress = Bitcoin.address.toBase58Check(buffer, network);
+    return legacyAddress;
+  }
+
   // Test for address format.
   isLegacyAddress(address) {
     return bchaddr.isLegacyAddress(address);

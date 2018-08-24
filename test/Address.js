@@ -154,13 +154,45 @@ describe('#addressConversion', () => {
       );
     });
 
+    it('should build mainnet legacy base58check address from hash160', () => {
+      assert.deepEqual(
+        fixtures.hash160MainnetP2PKH.map(hash160 => BITBOX.Address.toLegacyAddressFromHash160(hash160)),
+        fixtures.legacyMainnetP2PKH
+      );
+    })
+
     describe('errors', () => {
       it('should fail when called with an invalid address', () => {
         assert.throws(() => {
           BITBOX.Address.toHash160()
         }, BITBOX.BitcoinCash.InvalidAddressError)
         assert.throws(() => {
+          BITBOX.Address.toLegacyAddressFromHash160()
+        }, BITBOX.BitcoinCash.InvalidAddressError)
+        assert.throws(() => {
           BITBOX.Address.toHash160('some invalid address')
+        }, BITBOX.BitcoinCash.InvalidAddressError)
+        assert.throws(() => {
+          BITBOX.Address.toLegacyAddressFromHash160('some invalid address')
+        }, BITBOX.BitcoinCash.InvalidAddressError)
+      })
+    });
+  });
+  describe('#toLegacyAddressFromHash160', () => {
+    it('should build mainnet legacy base58check address from hash160', () => {
+      assert.deepEqual(
+        fixtures.hash160MainnetP2PKH.map(hash160 => BITBOX.Address.toLegacyAddressFromHash160(hash160)),
+        fixtures.legacyMainnetP2PKH
+      );
+    })
+
+    describe('errors', () => {
+      it('should fail when called with an invalid address', () => {
+        assert.throws(() => {
+          BITBOX.Address.toLegacyAddressFromHash160()
+        }, BITBOX.BitcoinCash.InvalidAddressError)
+        assert.throws(() => {
+          BITBOX.Address.toLegacyAddressFromHash160('some invalid address')
         }, BITBOX.BitcoinCash.InvalidAddressError)
       })
     });
