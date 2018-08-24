@@ -1,7 +1,6 @@
 import axios from 'axios';
 import bchaddr from 'bchaddrjs';
 import Bitcoin from 'bitcoincashjs-lib';
-import bs58 from 'bs58';
 
 
 class Address {
@@ -25,9 +24,8 @@ class Address {
   // Converts address to RIPEMD-160 hash
   toHash160(address) {
     let legacyAddress = bchaddr.toLegacyAddress(address);
-    let bytes = bs58.decode(legacyAddress);
-    let strippedBytes = bytes.slice(1,21);
-    return strippedBytes.toString('hex');
+    let bytes = Bitcoin.address.fromBase58Check(legacyAddress);
+    return bytes.hash.toString('hex');
   }
 
   // Test for address format.
