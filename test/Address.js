@@ -53,6 +53,12 @@ let CASHADDR_ADDRESSES_NO_PREFIX = CASHADDR_ADDRESSES.map((address) => {
   return parts[1];
 })
 
+let RIPEMD_160_HASHES = flatten([
+  fixtures.hash160MainnetP2PKH,
+  fixtures.hash160MainnetP2SH,
+  fixtures.hash160TestnetP2PKH
+]);
+
 let P2PKH_ADDRESSES = flatten([
   fixtures.legacyMainnetP2PKH,
   fixtures.legacyTestnetP2PKH,
@@ -129,6 +135,32 @@ describe('#addressConversion', () => {
         }, BITBOX.BitcoinCash.InvalidAddressError)
         assert.throws(() => {
           BITBOX.BitcoinCash.Addresst.toCashAddress('some invalid address')
+        }, BITBOX.BitcoinCash.InvalidAddressError)
+      })
+    });
+  });
+  describe('#toHash160', () => {
+    it('should convert legacy base58check address to hash160', () => {
+      assert.deepEqual(
+        LEGACY_ADDRESSES.map(BITBOX.Address.toHash160),
+        RIPEMD_160_HASHES
+      );
+    })
+
+    it('should convert cashaddr address to hash160', () => {
+      assert.deepEqual(
+        CASHADDR_ADDRESSES.map(BITBOX.Address.toHash160),
+        RIPEMD_160_HASHES
+      );
+    });
+
+    describe('errors', () => {
+      it('should fail when called with an invalid address', () => {
+        assert.throws(() => {
+          BITBOX.Address.toHash160()
+        }, BITBOX.BitcoinCash.InvalidAddressError)
+        assert.throws(() => {
+          BITBOX.Address.toHash160('some invalid address')
         }, BITBOX.BitcoinCash.InvalidAddressError)
       })
     });
