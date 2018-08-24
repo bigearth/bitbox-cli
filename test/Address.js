@@ -125,10 +125,10 @@ describe('#addressConversion', () => {
     describe('errors', () => {
       it('should fail when called with an invalid address', () => {
         assert.throws(() => {
-          BITBOX.BitcoinCash.Addresst.oCashAddress()
+          BITBOX.BitcoinCash.Address.toCashAddress()
         }, BITBOX.BitcoinCash.InvalidAddressError)
         assert.throws(() => {
-          BITBOX.BitcoinCash.Addresst.toCashAddress('some invalid address')
+          BITBOX.BitcoinCash.Address.toCashAddress('some invalid address')
         }, BITBOX.BitcoinCash.InvalidAddressError)
       })
     });
