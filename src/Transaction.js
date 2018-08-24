@@ -22,18 +22,17 @@ class Transaction {
     return Bitcoin.TransactionBuilder.fromTransaction(tx);
   }
 
-  details(txid) {
+  async details(txid) {
     if(typeof txid !== 'string') {
       txid = JSON.stringify(txid);
     }
 
-    return axios.get(`${this.restURL}transaction/details/${txid}`)
-    .then((response) => {
+    try {
+      let response = await axios.get(`${this.restURL}transaction/details/${txid}`)
       return response.data;
-    })
-    .catch((error) => {
+    } catch (error) {
       return JSON.stringify(error.response.data.error.message);
-    });
+    }
   }
 }
 

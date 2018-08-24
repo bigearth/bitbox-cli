@@ -1,17 +1,16 @@
 import axios from 'axios';
 class Price {
-  current(currency = 'all') {
-    return axios.get(`https://www.blocktrail.com/BCC/json/blockchain/price`)
-    .then((response) => {
+  async current(currency = 'all') {
+    try {
+      let response = await axios.get(`https://www.blocktrail.com/BCC/json/blockchain/price`)
       if(currency === 'all') {
         return response.data;
       } else {
         return response.data[currency.toUpperCase()];
       }
-    })
-    .catch((error) => {
+    } catch (error) {
       return JSON.stringify(error.response.data.error.message);
-    });
+    }
   }
 }
 

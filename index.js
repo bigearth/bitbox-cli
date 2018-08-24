@@ -18,7 +18,7 @@ let clone = require('git-clone');
 let cmd = require('node-cmd');
 
 program
-  .version('1.5.12');
+  .version('1.6.0');
 
 program
   .command('new <name>')
@@ -34,7 +34,7 @@ program
 
       let config;
       let environment = fetchOption('environment=development', config, options);
-      let restURL     = fetchOption('restURL=https://rest.bitcoin.com/v1/', config, options);
+      let restURL     = fetchOption('restURL=https://trest.bitcoin.com/v1/', config, options);
 
       if(options && options.scaffold) {
         let scaffold = options.scaffold.toLowerCase();

@@ -4,7 +4,7 @@ class Util {
     this.restURL = restURL;
   }
 
-  validateAddress(address) {
+  async validateAddress(address) {
     // Return information about the given bitcoin address.
     //
     // Arguments:
@@ -25,13 +25,12 @@ class Util {
     //   "hdkeypath" : "keypath"       (string, optional) The HD keypath if the key is HD and available
     //   "hdmasterkeyid" : "<hash160>" (string, optional) The Hash160 of the HD master pubkey
     // }
-    return axios.get(`${this.restURL}util/validateAddress/${address}`)
-    .then((response) => {
+    try {
+      let response = await axios.get(`${this.restURL}util/validateAddress/${address}`)
       return response.data;
-    })
-    .catch((error) => {
+    } catch (error) {
       return JSON.stringify(error.response.data.error.message);
-    });
+    }
   }
 }
 

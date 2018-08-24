@@ -4,7 +4,7 @@ class Network {
     this.restURL = restURL;
   }
 
-  addNode(node, command){
+  async addNode(node, command){
     // Attempts add or remove a node from the addnode list.
     // Or try a connection to a node once.
     //
@@ -13,16 +13,15 @@ class Network {
     // 2. "command"  (string, required) 'add' to add a node to the list, 'remove' to remove a node from the list, 'onetry' to try a connection to the node once
     //
 
-    return axios.post(`${this.restURL}network/addNode/${node}/${command}`)
-    .then((response) => {
+    try {
+      let response = await axios.post(`${this.restURL}network/addNode/${node}/${command}`)
       return response.data;
-    })
-    .catch((error) => {
+    } catch (error) {
       return JSON.stringify(error.response.data.error.message);
-    });
+    }
   }
 
-  clearBanned() {
+  async clearBanned() {
     //The clearbanned RPC clears list of banned nodes.
 
     // Parameters: none
@@ -30,16 +29,15 @@ class Network {
     // Result—null on success
     // JSON null when the list was cleared
 
-    return axios.post(`${this.restURL}clearBanned`)
-    .then((response) => {
+    try {
+      let response = await axios.post(`${this.restURL}clearBanned`)
       return response.data;
-    })
-    .catch((error) => {
+    } catch (error) {
       return JSON.stringify(error.response.data.error.message);
-    });
+    }
   }
 
-  disconnectNode(configuration) {
+  async disconnectNode(configuration) {
     // Immediately disconnects from the specified peer node.
     //
     // Strictly one out of 'configuration.address' and 'configuration.nodeid' can be provided to identify the node.
@@ -51,16 +49,15 @@ class Network {
     // Properties
     // 1. "address"     (string, optional) The IP address/port of the node
     // 2. "nodeid"      (number, optional) The node ID (see getpeerinfo for node IDs)
-    return axios.post(`${this.restURL}disconnectNode/${configuration}`)
-    .then((response) => {
+    try {
+      let response = await axios.post(`${this.restURL}disconnectNode/${configuration}`)
       return response.data;
-    })
-    .catch((error) => {
+    } catch (error) {
       return JSON.stringify(error.response.data.error.message);
-    });
+    }
   }
 
-  getAddedNodeInfo(node) {
+  async getAddedNodeInfo(node) {
     // Returns information about the given added node, or all added nodes
     // (note that onetry addnodes are not listed here)
     //
@@ -86,31 +83,29 @@ class Network {
       path = `${path}?node=${node}`;
     }
 
-    return axios.get(path)
-    .then((response) => {
+    try {
+      let response = await axios.get(path)
       return response.data;
-    })
-    .catch((error) => {
+    } catch (error) {
       return JSON.stringify(error.response.data.error.message);
-    });
+    }
   }
 
-  getConnectionCount() {
+  async getConnectionCount() {
     // Returns the number of connections to other nodes.
     //
     // Result:
     // n          (numeric) The connection count
 
-    return axios.get(`${this.restURL}network/getConnectionCount`)
-    .then((response) => {
+    try {
+      let response = await axios.get(`${this.restURL}network/getConnectionCount`)
       return response.data;
-    })
-    .catch((error) => {
+    } catch (error) {
       return JSON.stringify(error.response.data.error.message);
-    });
+    }
   }
 
-  getNetTotals() {
+  async getNetTotals() {
     // Returns information about network traffic, including bytes in, bytes out, and current time.
     //
     // Result:
@@ -129,16 +124,15 @@ class Network {
     //   }
     // }
 
-    return axios.get(`${this.restURL}network/getNetTotals`)
-    .then((response) => {
+    try {
+      let response = await axios.get(`${this.restURL}network/getNetTotals`)
       return response.data;
-    })
-    .catch((error) => {
+    } catch (error) {
       return JSON.stringify(error.response.data.error.message);
-    });
+    }
   }
 
-  getNetworkInfo() {
+  async getNetworkInfo() {
     // Returns an object containing various state info regarding P2P networking.
     //
     // Result:
@@ -174,16 +168,15 @@ class Network {
     //   "warnings": "..."                    (string) any network warnings
     // }
 
-    return axios.get(`${this.restURL}network/getNetworkInfo`)
-    .then((response) => {
+    try {
+      let response = await axios.get(`${this.restURL}network/getNetworkInfo`)
       return response.data;
-    })
-    .catch((error) => {
+    } catch (error) {
       return JSON.stringify(error.response.data.error.message);
-    });
+    }
   }
 
-  getPeerInfo() {
+  async getPeerInfo() {
     // Returns data about each connected network node as a json array of objects.
     //
     // Result:
@@ -228,13 +221,12 @@ class Network {
     //   ,...
     // ]
 
-    return axios.get(`${this.restURL}network/getPeerInfo`)
-    .then((response) => {
+    try {
+      let response = await axios.get(`${this.restURL}network/getPeerInfo`)
       return response.data;
-    })
-    .catch((error) => {
+    } catch (error) {
       return JSON.stringify(error.response.data.error.message);
-    });
+    }
   }
   //
   // listBanned() {
@@ -248,18 +240,17 @@ class Network {
   //   });
   // }
 
-  ping() {
+  async ping() {
     // Requests that a ping be sent to all other nodes, to measure ping time.
     // Results provided in getpeerinfo, pingtime and pingwait fields are decimal seconds.
     // Ping command is handled in queue with all other commands, so it measures processing backlog, not just network ping.
 
-    return axios.get(`${this.restURL}network/ping`)
-    .then((response) => {
+    try {
+      let response = await axios.get(`${this.restURL}network/ping`)
       return response.data;
-    })
-    .catch((error) => {
+    } catch (error) {
       return JSON.stringify(error.response.data.error.message);
-    });
+    }
   }
   //
   // setBan(subnet, command, bantime, absolute) {

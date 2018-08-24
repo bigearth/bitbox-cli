@@ -4,7 +4,7 @@ class Control {
     this.restURL = restURL;
   }
 
-  getInfo() {
+  async getInfo() {
     // DEPRECATED. Returns an object containing various state info.
     //
     // Result:
@@ -27,16 +27,15 @@ class Control {
     //   "errors": "..."           (string) any error messages
     // }
 
-    return axios.get(`${this.restURL}control/getInfo`)
-    .then((response) => {
+    try {
+      let response = await axios.get(`${this.restURL}control/getInfo`)
       return response.data;
-    })
-    .catch((error) => {
+    } catch (error) {
       return JSON.stringify(error.response.data.error.message);
-    });
+    }
   }
 
-  getMemoryInfo() {
+  async getMemoryInfo() {
 
     // Returns an object containing information about memory usage.
     //
@@ -53,13 +52,12 @@ class Control {
     // }
     //
 
-    return axios.get(`${this.restURL}control/getMemoryInfo`)
-    .then((response) => {
+    try {
+      let response = await axios.get(`${this.restURL}control/getMemoryInfo`)
       return response.data;
-    })
-    .catch((error) => {
+    } catch (error) {
       return JSON.stringify(error.response.data.error.message);
-    });
+    }
   }
   //
   // stop() {

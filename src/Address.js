@@ -90,43 +90,43 @@ class Address {
     return bchaddr.toCashAddress(Bitcoin.address.fromOutputScript(scriptPubKey));
   }
 
-  details(address) {
+  async details(address) {
     if(typeof address !== 'string') {
       address = JSON.stringify(address);
     }
-    return axios.get(`${this.restURL}address/details/${address}`)
-    .then((response) => {
+
+    try {
+      let response = await axios.get(`${this.restURL}address/details/${address}`)
       return response.data;
-    })
-    .catch((error) => {
+    } catch (error) {
       return JSON.stringify(error.response.data.error.message);
-    });
+    }
   }
 
-  utxo(address) {
+  async utxo(address) {
     if(typeof address !== 'string') {
       address = JSON.stringify(address);
     }
-    return axios.get(`${this.restURL}address/utxo/${address}`)
-    .then((response) => {
+
+    try {
+      let response = await axios.get(`${this.restURL}address/utxo/${address}`)
       return response.data;
-    })
-    .catch((error) => {
+    } catch (error) {
       return JSON.stringify(error.response.data.error.message);
-    });
+    }
   }
 
-  unconfirmed(address) {
+  async unconfirmed(address) {
     if(typeof address !== 'string') {
       address = JSON.stringify(address);
     }
-    return axios.get(`${this.restURL}address/unconfirmed/${address}`)
-    .then((response) => {
+
+    try {
+      let response = await axios.get(`${this.restURL}address/unconfirmed/${address}`)
       return response.data;
-    })
-    .catch((error) => {
+    } catch (error) {
       return JSON.stringify(error.response.data.error.message);
-    });
+    }
   }
 }
 

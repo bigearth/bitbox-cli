@@ -4,21 +4,20 @@ class Blockchain {
     this.restURL = restURL;
   }
 
-  getBestBlockHash() {
+  async getBestBlockHash() {
     // Returns the hash of the best (tip) block in the longest blockchain.
     //
     // Result:
     // "hex"      (string) the block hash hex encoded
-    return axios.get(`${this.restURL}blockchain/getBestBlockHash`)
-    .then((response) => {
+    try {
+      let response = await axios.get(`${this.restURL}blockchain/getBestBlockHash`)
       return response.data;
-    })
-    .catch((error) => {
+    } catch (error) {
       return JSON.stringify(error.response.data.error.message);
-    });
+    }
   }
 
-  getBlock(blockhash, verbose = true) {
+  async getBlock(blockhash, verbose = true) {
     // If verbose is false, returns a string that is serialized, hex-encoded data for block 'hash'.
     // If verbose is true, returns an Object with information about block <hash>.
     //
@@ -52,41 +51,38 @@ class Blockchain {
     // Result (for verbose=false):
     // "data"             (string) A string that is serialized, hex-encoded data for block 'hash'.
 
-    return axios.get(`${this.restURL}blockchain/getBlock/${blockhash}?verbose=${verbose}`)
-    .then((response) => {
+    try {
+      let response = await axios.get(`${this.restURL}blockchain/getBlock/${blockhash}?verbose=${verbose}`)
       return response.data;
-    })
-    .catch((error) => {
+    } catch (error) {
       return JSON.stringify(error.response.data.error.message);
-    });
+    }
   }
 
-  getBlockchainInfo() {
+  async getBlockchainInfo() {
     // Returns an object containing various state info regarding blockchain processing.
-    return axios.get(`${this.restURL}blockchain/getBlockchainInfo`)
-    .then((response) => {
+    try {
+      let response = await axios.get(`${this.restURL}blockchain/getBlockchainInfo`)
       return response.data;
-    })
-    .catch((error) => {
+    } catch (error) {
       return JSON.stringify(error.response.data.error.message);
-    });
+    }
   }
 
-  getBlockCount() {
+  async getBlockCount() {
     // Returns the number of blocks in the longest blockchain.
     //
     // Result:
     // n    (numeric) The current block count
-    return axios.get(`${this.restURL}blockchain/getBlockCount`)
-    .then((response) => {
+    try {
+      let response = await axios.get(`${this.restURL}blockchain/getBlockCount`)
       return response.data;
-    })
-    .catch((error) => {
+    } catch (error) {
       return JSON.stringify(error.response.data.error.message);
-    });
+    }
   }
 
-  getBlockHash(height = 1) {
+  async getBlockHash(height = 1) {
     // Returns hash of block in best-block-chain at height provided.
     //
     // Arguments:
@@ -97,16 +93,15 @@ class Blockchain {
     if(typeof height !== 'string') {
       height = JSON.stringify(height);
     }
-    return axios.get(`${this.restURL}blockchain/getBlockHash/${height}`)
-    .then((response) => {
+    try {
+      let response = await axios.get(`${this.restURL}blockchain/getBlockHash/${height}`)
       return response.data;
-    })
-    .catch((error) => {
+    } catch (error) {
       return JSON.stringify(error.response.data.error.message);
-    });
+    }
   }
 
-  getBlockHeader(hash, verbose = true) {
+  async getBlockHeader(hash, verbose = true) {
 
     // If verbose is false, returns a string that is serialized, hex-encoded data for blockheader 'hash'.
     // If verbose is true, returns an Object with information about blockheader <hash>.
@@ -138,16 +133,15 @@ class Blockchain {
     if(typeof hash !== 'string') {
       hash = JSON.stringify(hash);
     }
-    return axios.get(`${this.restURL}blockchain/getBlockHeader/${hash}?verbose=${verbose}`)
-    .then((response) => {
+    try {
+      let response = await axios.get(`${this.restURL}blockchain/getBlockHeader/${hash}?verbose=${verbose}`)
       return response.data;
-    })
-    .catch((error) => {
+    } catch (error) {
       return JSON.stringify(error.response.data.error.message);
-    });
+    }
   }
 
-  getChainTips() {
+  async getChainTips() {
     // Return information about all known tips in the block tree, including the main chain as well as orphaned branches.
     //
     // Result:
@@ -172,32 +166,30 @@ class Blockchain {
     // 4.  "valid-fork"            This branch is not part of the active chain, but is fully validated
     // 5.  "active"                This is the tip of the active main chain, which is certainly valid
 
-    return axios.get(`${this.restURL}blockchain/getChainTips`)
-    .then((response) => {
+    try {
+      let response = await axios.get(`${this.restURL}blockchain/getChainTips`)
       return response.data;
-    })
-    .catch((error) => {
+    } catch (error) {
       return JSON.stringify(error.response.data.error.message);
-    });
+    }
   }
 
-  getDifficulty() {
+  async getDifficulty() {
 
     // Returns the proof-of-work difficulty as a multiple of the minimum difficulty.
     //
     // Result:
     // n.nnn       (numeric) the proof-of-work difficulty as a multiple of the minimum difficulty.
 
-    return axios.get(`${this.restURL}blockchain/getDifficulty`)
-    .then((response) => {
+    try {
+      let response = await axios.get(`${this.restURL}blockchain/getDifficulty`)
       return response.data;
-    })
-    .catch((error) => {
+    } catch (error) {
       return JSON.stringify(error.response.data.error.message);
-    });
+    }
   }
 
-  getMempoolAncestors(txid, verbose = false) {
+  async getMempoolAncestors(txid, verbose = false) {
     // If txid is in the mempool, returns all in-mempool ancestors.
     //
     // Arguments:
@@ -234,16 +226,15 @@ class Blockchain {
     if(typeof txid !== 'string') {
       txid = JSON.stringify(txid);
     }
-    return axios.get(`${this.restURL}blockchain/getMempoolAncestors/${txid}?verbose=${verbose}`)
-    .then((response) => {
+    try {
+      let response = await axios.get(`${this.restURL}blockchain/getMempoolAncestors/${txid}?verbose=${verbose}`)
       return response.data;
-    })
-    .catch((error) => {
+    } catch (error) {
       return JSON.stringify(error.response.data.error.message);
-    });
+    }
   }
 
-  getMempoolDescendants(txid, verbose = false) {
+  async getMempoolDescendants(txid, verbose = false) {
     // If txid is in the mempool, returns all in-mempool descendants.
     //
     // Arguments:
@@ -281,16 +272,15 @@ class Blockchain {
       txid = JSON.stringify(txid);
     }
 
-    return axios.get(`${this.restURL}blockchain/getMempoolDescendants/${txid}?verbose=${verbose}`)
-    .then((response) => {
+    try {
+      let response = await axios.get(`${this.restURL}blockchain/getMempoolDescendants/${txid}?verbose=${verbose}`)
       return response.data;
-    })
-    .catch((error) => {
+    } catch (error) {
       return JSON.stringify(error.response.data.error.message);
-    });
+    }
   }
 
-  getMempoolEntry(txid) {
+  async getMempoolEntry(txid) {
     // Returns mempool data for given transaction
     //
     // Arguments:
@@ -319,16 +309,15 @@ class Blockchain {
       txid = JSON.stringify(txid);
     }
 
-    return axios.get(`${this.restURL}blockchain/getMempoolEntry/${txid}`)
-    .then((response) => {
+    try {
+      let response = await axios.get(`${this.restURL}blockchain/getMempoolEntry/${txid}`)
       return response.data;
-    })
-    .catch((error) => {
+    } catch (error) {
       return JSON.stringify(error.response.data.error.message);
-    });
+    }
   }
 
-  getMempoolInfo() {
+  async getMempoolInfo() {
     // Returns details on the active state of the TX memory pool.
     //
     // Result:
@@ -340,16 +329,15 @@ class Blockchain {
     //   "mempoolminfee": xxxxx       (numeric) Minimum fee for tx to be accepted
     // }
 
-    return axios.get(`${this.restURL}blockchain/getMempoolInfo`)
-    .then((response) => {
+    try {
+      let response = await axios.get(`${this.restURL}blockchain/getMempoolInfo`)
       return response.data;
-    })
-    .catch((error) => {
+    } catch (error) {
       return JSON.stringify(error.response.data.error.message);
-    });
+    }
   }
 
-  getRawMempool(verbose = false) {
+  async getRawMempool(verbose = false) {
     // Returns all transaction ids in memory pool as a json array of string transaction ids.
     //
     // Arguments:
@@ -382,16 +370,15 @@ class Blockchain {
     //        ... ]
     //   }, ...
     // }
-    return axios.get(`${this.restURL}blockchain/getRawMempool?vebose=${verbose}`)
-    .then((response) => {
+    try {
+      let response = await axios.get(`${this.restURL}blockchain/getRawMempool?vebose=${verbose}`)
       return response.data;
-    })
-    .catch((error) => {
+    } catch (error) {
       return JSON.stringify(error.response.data.error.message);
-    });
+    }
   }
 
-  getTxOut(txid, n, include_mempool = true) {
+  async getTxOut(txid, n, include_mempool = true) {
     // Returns details about an unspent transaction output.
     //
     // Arguments:
@@ -418,16 +405,15 @@ class Blockchain {
     // }
     //
 
-    return axios.get(`${this.restURL}blockchain/getTxOut/${txid}/n?include_mempool=${include_mempool}`)
-    .then((response) => {
+    try {
+      let response = await axios.get(`${this.restURL}blockchain/getTxOut/${txid}/n?include_mempool=${include_mempool}`)
       return response.data;
-    })
-    .catch((error) => {
+    } catch (error) {
       return JSON.stringify(error.response.data.error.message);
-    });
+    }
   }
 
-  getTxOutProof(txids, blockhash) {
+  async getTxOutProof(txids, blockhash) {
     let path = `${this.restURL}blockchain/getTxOutProof/${txids}`;
     if(blockhash) {
       path = `${path}?blockhash=${blockhash}`
@@ -449,16 +435,15 @@ class Blockchain {
     //
     // Result:
     // "data"           (string) A string that is a serialized, hex-encoded data for the proof.
-    return axios.get(path)
-    .then((response) => {
+    try {
+      let response = await axios.get(path)
       return response.data;
-    })
-    .catch((error) => {
+    } catch (error) {
       return JSON.stringify(error.response.data.error.message);
-    });
+    }
   }
 
-  preciousBlock(blockhash) {
+  async preciousBlock(blockhash) {
     // Treats a block as if it were received before others with the same work.
     //
     // A later preciousblock call can override the effect of an earlier one.
@@ -468,32 +453,30 @@ class Blockchain {
     // Arguments:
     // 1. "blockhash"   (string, required) the hash of the block to mark as precious
 
-    return axios.get(`${this.restURL}blockchain/preciousBlock/${blockhash}`)
-    .then((response) => {
+    try {
+      let response = await axios.get(`${this.restURL}blockchain/preciousBlock/${blockhash}`)
       return response.data;
-    })
-    .catch((error) => {
+    } catch (error) {
       return JSON.stringify(error.response.data.error.message);
-    });
+    }
   }
 
-  pruneBlockchain(height) {
+  async pruneBlockchain(height) {
     // Arguments:
     // 1. "height"       (numeric, required) The block height to prune up to. May be set to a discrete height, or a unix timestamp
     //                   to prune blocks whose block time is at least 2 hours older than the provided timestamp.
     //
     // Result:
     // n    (numeric) Height of the last block pruned.
-    return axios.post(`${this.restURL}blockchain/pruneBlockchain/${height}`)
-    .then((response) => {
+    try {
+      let response = await axios.post(`${this.restURL}blockchain/pruneBlockchain/${height}`)
       return response.data;
-    })
-    .catch((error) => {
+    } catch (error) {
       return JSON.stringify(error.response.data.error.message);
-    });
+    }
   }
 
-  verifyChain(checklevel = 3, nblocks = 6) {
+  async verifyChain(checklevel = 3, nblocks = 6) {
     // Verifies blockchain database.
     //
     // Arguments:
@@ -502,16 +485,15 @@ class Blockchain {
     //
     // Result:
     // true|false       (boolean) Verified or not
-    return axios.get(`${this.restURL}blockchain/verifyChain?checklevel=${checklevel}&nblocks=${nblocks}`)
-    .then((response) => {
+    try {
+      let response = await axios.get(`${this.restURL}blockchain/verifyChain?checklevel=${checklevel}&nblocks=${nblocks}`)
       return response.data;
-    })
-    .catch((error) => {
+    } catch (error) {
       return JSON.stringify(error.response.data.error.message);
-    });
+    }
   }
 
-  verifyTxOutProof(proof) {
+  async verifyTxOutProof(proof) {
     // Verifies that a proof points to a transaction in a block, returning the transaction it commits to
     // and throwing an RPC error if the block is not in our best chain
     //
@@ -521,13 +503,12 @@ class Blockchain {
     // Result:
     // ["txid"]      (array, strings) The txid(s) which the proof commits to, or empty array if the proof is invalid
 
-    return axios.get(`${this.restURL}blockchain/verifyTxOutProof/proof`)
-    .then((response) => {
+    try {
+      let response = await axios.get(`${this.restURL}blockchain/verifyTxOutProof/proof`)
       return response.data;
-    })
-    .catch((error) => {
+    } catch (error) {
       return JSON.stringify(error.response.data.error.message);
-    });
+    }
   }
 }
 

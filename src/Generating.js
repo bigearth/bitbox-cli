@@ -4,7 +4,7 @@ class Generating {
     this.restURL = restURL;
   }
 
-  generateToAddress(blocks, address, maxtries = 1000000) {
+  async generateToAddress(blocks, address, maxtries = 1000000) {
 
     // Mine blocks immediately to a specified address (before the RPC call returns)
     //
@@ -16,13 +16,12 @@ class Generating {
     // Result:
     // [ blockhashes ]     (array) hashes of blocks generated
     //
-    return axios.post(`${this.restURL}generating/generateToAddress/${blocks}/${address}?maxtries=${maxtries}`)
-    .then((response) => {
+    try {
+      let response = await axios.post(`${this.restURL}generating/generateToAddress/${blocks}/${address}?maxtries=${maxtries}`)
       return response.data;
-    })
-    .catch((error) => {
+    } catch (error) {
       return JSON.stringify(error.response.data.error.message);
-    });
+    }
   }
 }
 

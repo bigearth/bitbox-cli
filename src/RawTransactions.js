@@ -4,7 +4,7 @@ class RawTransactions {
     this.restURL = restURL;
   }
 
-  decodeRawTransaction(hex) {
+  async decodeRawTransaction(hex) {
     // decodes a serialized transaction hex string into a JSON object describing the transaction.
 
     // Parameter #1—serialized transaction in hex
@@ -14,16 +14,15 @@ class RawTransactions {
       hex = JSON.stringify(hex);
     }
 
-    return axios.get(`${this.restURL}rawtransactions/decodeRawTransaction/${hex}`)
-    .then((response) => {
+    try {
+      let response = await axios.get(`${this.restURL}rawtransactions/decodeRawTransaction/${hex}`)
       return response.data;
-    })
-    .catch((error) => {
+    } catch (error) {
       return JSON.stringify(error.response.data.error.message);
-    });
+    }
   }
 
-  decodeScript(script) {
+  async decodeScript(script) {
     // decodes a hex-encoded P2SH redeem script.
 
     // Parameter #1—a hex-encoded redeem script
@@ -33,16 +32,15 @@ class RawTransactions {
       script = JSON.stringify(script);
     }
 
-    return axios.get(`${this.restURL}rawtransactions/decodeScript/${script}`)
-    .then((response) => {
+    try {
+      let response = await axios.get(`${this.restURL}rawtransactions/decodeScript/${script}`)
       return response.data;
-    })
-    .catch((error) => {
+    } catch (error) {
       return JSON.stringify(error.response.data.error.message);
-    });
+    }
   }
 
-  getRawTransaction(txid, verbose = false) {
+  async getRawTransaction(txid, verbose = false) {
     // NOTE: By default this function only works for mempool transactions. If the -txindex option is
     // enabled, it also works for blockchain transactions.
     // DEPRECATED: for now, it also works for transactions with unspent outputs.
@@ -63,16 +61,15 @@ class RawTransactions {
       txid = JSON.stringify(txid);
     }
 
-    return axios.get(`${this.restURL}rawtransactions/getRawTransaction/${txid}?verbose=${verbose}`)
-    .then((response) => {
+    try {
+      let response = await axios.get(`${this.restURL}rawtransactions/getRawTransaction/${txid}?verbose=${verbose}`)
       return response.data;
-    })
-    .catch((error) => {
+    } catch (error) {
       return JSON.stringify(error.response.data.error.message);
-    });
+    }
   }
 
-  sendRawTransaction(hex, allowhighfees = false) {
+  async sendRawTransaction(hex, allowhighfees = false) {
     // Submits raw transaction (serialized, hex-encoded) to local node and network.
     //
     // Also see createrawtransaction and signrawtransaction calls.
@@ -88,13 +85,12 @@ class RawTransactions {
       hex = JSON.stringify(hex);
     }
 
-    return axios.post(`${this.restURL}rawtransactions/sendRawTransaction/${hex}?allowhighfees=${allowhighfees}`)
-    .then((response) => {
+    try {
+      let response = await axios.post(`${this.restURL}rawtransactions/sendRawTransaction/${hex}?allowhighfees=${allowhighfees}`)
       return response.data;
-    })
-    .catch((error) => {
+    } catch (error) {
       return JSON.stringify(error.response.data.error.message);
-    });
+    }
   }
 }
 

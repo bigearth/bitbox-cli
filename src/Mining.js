@@ -4,7 +4,7 @@ class Mining {
     this.restURL = restURL;
   }
 
-  getBlockTemplate(template_request) {
+  async getBlockTemplate(template_request) {
 
     // If the request parameters include a 'mode' key, that is used to explicitly select between the default 'template' request or a 'proposal'.
     // It returns data needed to construct a block to work on.
@@ -28,16 +28,15 @@ class Mining {
     //        ]
     //      }
 
-    return axios.get(`${this.restURL}mining/getBlockTemplate/${template_request}`)
-    .then((response) => {
+    try {
+      let response = await axios.get(`${this.restURL}mining/getBlockTemplate/${template_request}`)
       return response.data;
-    })
-    .catch((error) => {
-      return JSON.stringify(error.response.data.message);
-    });
+    } catch (error) {
+      return JSON.stringify(error.response.data.error.message);
+    }
   }
 
-  getMiningInfo() {
+  async getMiningInfo() {
     // Returns a json object containing mining-related information.
     // Result:
     // {
@@ -51,16 +50,15 @@ class Mining {
     //   "chain": "xxxx",           (string) current network name as defined in BIP70 (main, test, regtest)
     // }
 
-    return axios.get(`${this.restURL}mining/getMiningInfo`)
-    .then((response) => {
+    try {
+      let response = await axios.get(`${this.restURL}mining/getMiningInfo`)
       return response.data;
-    })
-    .catch((error) => {
+    } catch (error) {
       return JSON.stringify(error.response.data.error.message);
-    });
+    }
   }
 
-  getNetworkHashps(nblocks = 120, height = 1) {
+  async getNetworkHashps(nblocks = 120, height = 1) {
     // Returns the estimated network hashes per second based on the last n blocks.
     // Pass in [blocks] to override # of blocks, -1 specifies since last difficulty change.
     // Pass in [height] to estimate the network speed at the time when a certain block was found.
@@ -71,16 +69,15 @@ class Mining {
     //
     // Result:
     // x             (numeric) Hashes per second estimated
-    return axios.get(`${this.restURL}mining/getNetworkHashps?nblocks=${nblocks}&height=${height}`)
-    .then((response) => {
+    try {
+      let response = await axios.get(`${this.restURL}mining/getNetworkHashps?nblocks=${nblocks}&height=${height}`)
       return response.data;
-    })
-    .catch((error) => {
+    } catch (error) {
       return JSON.stringify(error.response.data.error.message);
-    });
+    }
   }
 
-  submitBlock(hex, parameters) {
+  async submitBlock(hex, parameters) {
     // Attempts to submit new block to network.
     // The 'jsonparametersobject' parameter is currently ignored.
     // See https://en.bitcoin.it/wiki/BIP_0022 for full specification.
@@ -96,13 +93,12 @@ class Mining {
     if(parameters) {
       path = `${path}?parameters=${parameters}`;
     }
-    return axios.post(path)
-    .then((response) => {
+    try {
+      let response = await axios.post(path)
       return response.data;
-    })
-    .catch((error) => {
+    } catch (error) {
       return JSON.stringify(error.response.data.error.message);
-    });
+    }
   }
 }
 
