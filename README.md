@@ -48,3 +48,5 @@ Open Source / Creative Commons Listings
 ## Font awesome
 
 [Cube icon](https://fontawesome.com/icons/cube?style=solid) available under [CC v4.0](https://creativecommons.org/licenses/by/4.0/)
+
+[More info](https://developer.bitcoin.com/bitbox.html)
