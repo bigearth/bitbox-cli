@@ -21,18 +21,24 @@ class Address {
     }
   }
 
-  // Converts address to RIPEMD-160 hash
+  // Converts any address format to hash160
   toHash160(address) {
     let legacyAddress = bchaddr.toLegacyAddress(address);
     let bytes = Bitcoin.address.fromBase58Check(legacyAddress);
     return bytes.hash.toString('hex');
   }
 
-  // Converts RIPEMD-160 hash to Legacy Address
-  toLegacyAddressFromHash160(ripemd160, network = Bitcoin.networks.bitcoin.pubKeyHash) {
-    let buffer = Buffer(ripemd160, 'hex');
+  // Converts hash160 to Legacy Address
+  hash160ToLegacy(hash160, network = Bitcoin.networks.bitcoin.pubKeyHash) {
+    let buffer = Buffer(hash160, 'hex');
     let legacyAddress = Bitcoin.address.toBase58Check(buffer, network);
     return legacyAddress;
+  }
+
+  // Converts hash160 to Cash Address
+  hash160ToCash(hash160, network = Bitcoin.networks.bitcoin.pubKeyHash) {
+    let legacyAddress = this.hash160ToLegacy(hash160, network);
+    return this.toCashAddress(legacyAddress);
   }
 
   // Test for address format.
