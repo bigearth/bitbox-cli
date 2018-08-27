@@ -5,6 +5,7 @@ let BITBOXCli = require('./../lib/bitbox-cli').default;
 let BITBOX = new BITBOXCli();
 let axios = require('axios');
 let sinon = require('sinon');
+let Bitcoin = require('bitcoincashjs-lib');
 
 function flatten (arrays) {
   return [].concat.apply([], arrays)
@@ -52,6 +53,12 @@ let CASHADDR_ADDRESSES_NO_PREFIX = CASHADDR_ADDRESSES.map((address) => {
   let parts = address.split(':');
   return parts[1];
 })
+
+let HASH160_HASHES = flatten([
+  fixtures.hash160MainnetP2PKH,
+  fixtures.hash160MainnetP2SH,
+  fixtures.hash160TestnetP2PKH
+]);
 
 let P2PKH_ADDRESSES = flatten([
   fixtures.legacyMainnetP2PKH,
@@ -129,6 +136,92 @@ describe('#addressConversion', () => {
         }, BITBOX.BitcoinCash.InvalidAddressError)
         assert.throws(() => {
           BITBOX.BitcoinCash.Address.toCashAddress('some invalid address')
+        }, BITBOX.BitcoinCash.InvalidAddressError)
+      })
+    });
+  });
+  describe('#toHash160', () => {
+    it('should convert legacy base58check address to hash160', () => {
+      assert.deepEqual(
+        LEGACY_ADDRESSES.map(BITBOX.Address.toHash160),
+        HASH160_HASHES
+      );
+    })
+
+    it('should convert cashaddr address to hash160', () => {
+      assert.deepEqual(
+        CASHADDR_ADDRESSES.map(BITBOX.Address.toHash160),
+        HASH160_HASHES
+      );
+    });
+
+    describe('errors', () => {
+      it('should fail when called with an invalid address', () => {
+        assert.throws(() => {
+          BITBOX.Address.toHash160()
+        }, BITBOX.BitcoinCash.InvalidAddressError)
+        assert.throws(() => {
+          BITBOX.Address.toHash160('some invalid address')
+        }, BITBOX.BitcoinCash.InvalidAddressError)
+      })
+    });
+  });
+  describe('#fromHash160', () => {
+    it('should convert hash160 to mainnet P2PKH legacy base58check address', () => {
+      assert.deepEqual(
+        fixtures.hash160MainnetP2PKH.map(hash160 => BITBOX.Address.hash160ToLegacy(hash160)),
+        fixtures.legacyMainnetP2PKH
+      );
+    })
+
+    it('should convert hash160 to mainnet P2SH legacy base58check address', () => {
+      assert.deepEqual(
+        fixtures.hash160MainnetP2SH.map(hash160 => BITBOX.Address.hash160ToLegacy(hash160, Bitcoin.networks.bitcoin.scriptHash)),
+        fixtures.legacyMainnetP2SH
+      );
+    })
+
+    it('should convert hash160 to testnet P2PKH legacy base58check address', () => {
+      assert.deepEqual(
+        fixtures.hash160TestnetP2PKH.map(hash160 => BITBOX.Address.hash160ToLegacy(hash160, Bitcoin.networks.testnet.pubKeyHash)),
+        fixtures.legacyTestnetP2PKH
+      );
+    })
+
+    it('should convert hash160 to mainnet P2PKH cash address', () => {
+      assert.deepEqual(
+        fixtures.hash160MainnetP2PKH.map(hash160 => BITBOX.Address.hash160ToCash(hash160)),
+        fixtures.cashaddrMainnetP2PKH
+      );
+    })
+
+    it('should convert hash160 to mainnet P2SH cash address', () => {
+      assert.deepEqual(
+        fixtures.hash160MainnetP2SH.map(hash160 => BITBOX.Address.hash160ToCash(hash160, Bitcoin.networks.bitcoin.scriptHash)),
+        fixtures.cashaddrMainnetP2SH
+      );
+    })
+
+    it('should convert hash160 to testnet P2PKH cash address', () => {
+      assert.deepEqual(
+        fixtures.hash160TestnetP2PKH.map(hash160 => BITBOX.Address.hash160ToCash(hash160, Bitcoin.networks.testnet.pubKeyHash)),
+        fixtures.cashaddrTestnetP2PKH
+      );
+    })
+
+    describe('errors', () => {
+      it('should fail when called with an invalid address', () => {
+        assert.throws(() => {
+          BITBOX.Address.hash160ToLegacy()
+        }, BITBOX.BitcoinCash.InvalidAddressError)
+        assert.throws(() => {
+          BITBOX.Address.hash160ToLegacy('some invalid address')
+        }, BITBOX.BitcoinCash.InvalidAddressError)
+        assert.throws(() => {
+          BITBOX.Address.hash160ToCash()
+        }, BITBOX.BitcoinCash.InvalidAddressError)
+        assert.throws(() => {
+          BITBOX.Address.hash160ToCash('some invalid address')
         }, BITBOX.BitcoinCash.InvalidAddressError)
       })
     });
