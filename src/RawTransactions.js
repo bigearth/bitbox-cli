@@ -5,11 +5,6 @@ class RawTransactions {
   }
 
   async decodeRawTransaction(hex) {
-    // decodes a serialized transaction hex string into a JSON object describing the transaction.
-
-    // Parameter #1—serialized transaction in hex
-
-    // Result—the decoded transaction
     if(typeof hex !== 'string') {
       hex = JSON.stringify(hex);
     }
@@ -18,16 +13,11 @@ class RawTransactions {
       let response = await axios.get(`${this.restURL}rawtransactions/decodeRawTransaction/${hex}`)
       return response.data;
     } catch (error) {
-      return JSON.stringify(error.response.data.error.message);
+      throw error.response.data;
     }
   }
 
   async decodeScript(script) {
-    // decodes a hex-encoded P2SH redeem script.
-
-    // Parameter #1—a hex-encoded redeem script
-
-    // Result—the decoded script
     if(typeof script !== 'string') {
       script = JSON.stringify(script);
     }
@@ -36,27 +26,11 @@ class RawTransactions {
       let response = await axios.get(`${this.restURL}rawtransactions/decodeScript/${script}`)
       return response.data;
     } catch (error) {
-      return JSON.stringify(error.response.data.error.message);
+      throw error.response.data;
     }
   }
 
   async getRawTransaction(txid, verbose = false) {
-    // NOTE: By default this function only works for mempool transactions. If the -txindex option is
-    // enabled, it also works for blockchain transactions.
-    // DEPRECATED: for now, it also works for transactions with unspent outputs.
-    //
-    // Return the raw transaction data.
-    //
-    // If verbose is 'true', returns an Object with information about 'txid'.
-    // If verbose is 'false' or omitted, returns a string that is serialized, hex-encoded data for 'txid'.
-    //
-    // Arguments:
-    // 1. "txid"      (string, required) The transaction id
-    // 2. verbose       (bool, optional, default=false) If false, return a string, otherwise return a json object
-    //
-    // Result (if verbose is not set or set to false):
-    // "data"      (string) The serialized, hex-encoded data for 'txid'
-
     if(typeof txid !== 'string') {
       txid = JSON.stringify(txid);
     }
@@ -65,22 +39,11 @@ class RawTransactions {
       let response = await axios.get(`${this.restURL}rawtransactions/getRawTransaction/${txid}?verbose=${verbose}`)
       return response.data;
     } catch (error) {
-      return JSON.stringify(error.response.data.error.message);
+      throw error.response.data;
     }
   }
 
   async sendRawTransaction(hex, allowhighfees = false) {
-    // Submits raw transaction (serialized, hex-encoded) to local node and network.
-    //
-    // Also see createrawtransaction and signrawtransaction calls.
-    //
-    // Arguments:
-    // 1. "hexstring"    (string, required) The hex string of the raw transaction)
-    // 2. allowhighfees    (boolean, optional, default=false) Allow high fees
-    //
-    // Result:
-    // "hex"             (string) The transaction hash in hex
-    //
     if(typeof hex !== 'string') {
       hex = JSON.stringify(hex);
     }
@@ -89,7 +52,7 @@ class RawTransactions {
       let response = await axios.post(`${this.restURL}rawtransactions/sendRawTransaction/${hex}?allowhighfees=${allowhighfees}`)
       return response.data;
     } catch (error) {
-      return JSON.stringify(error.response.data.error.message);
+      throw error.response.data;
     }
   }
 }

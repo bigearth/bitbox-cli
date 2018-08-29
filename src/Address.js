@@ -119,7 +119,7 @@ class Address {
       let response = await axios.get(`${this.restURL}address/details/${address}`)
       return response.data;
     } catch (error) {
-      return JSON.stringify(error.response.data.error.message);
+      throw error.response.data;
     }
   }
 
@@ -132,7 +132,7 @@ class Address {
       let response = await axios.get(`${this.restURL}address/utxo/${address}`)
       return response.data;
     } catch (error) {
-      return JSON.stringify(error.response.data.error.message);
+      throw error.response.data;
     }
   }
 
@@ -145,7 +145,7 @@ class Address {
       let response = await axios.get(`${this.restURL}address/unconfirmed/${address}`)
       return response.data;
     } catch (error) {
-      return JSON.stringify(error.response.data.error.message);
+      throw error.response.data;
     }
   }
 }

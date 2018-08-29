@@ -9,7 +9,7 @@ class Price {
         return response.data[currency.toUpperCase()];
       }
     } catch (error) {
-      return JSON.stringify(error.response.data.error.message);
+      throw error.response.data;
     }
   }
 }
