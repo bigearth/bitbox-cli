@@ -36,7 +36,7 @@ class Blockchain {
       let response = await axios.get(`${this.restURL}blockchain/getBlockCount`)
       return response.data;
     } catch (error) {
-      throw error.response.data.message;
+      throw error.response.data;
     }
   }
 
@@ -48,7 +48,7 @@ class Blockchain {
       let response = await axios.get(`${this.restURL}blockchain/getBlockHash/${height}`)
       return response.data;
     } catch (error) {
-      throw error.response.data.message;
+      throw error.response.data;
     }
   }
 
@@ -60,7 +60,7 @@ class Blockchain {
       let response = await axios.get(`${this.restURL}blockchain/getBlockHeader/${hash}?verbose=${verbose}`)
       return response.data;
     } catch (error) {
-      throw error.response.data.message;
+      throw error.response.data;
     }
   }
 
@@ -69,7 +69,7 @@ class Blockchain {
       let response = await axios.get(`${this.restURL}blockchain/getChainTips`)
       return response.data;
     } catch (error) {
-      throw error.response.data.message;
+      throw error.response.data;
     }
   }
 
@@ -78,7 +78,7 @@ class Blockchain {
       let response = await axios.get(`${this.restURL}blockchain/getDifficulty`)
       return response.data;
     } catch (error) {
-      throw error.response.data.message;
+      throw error.response.data;
     }
   }
 
@@ -90,7 +90,7 @@ class Blockchain {
       let response = await axios.get(`${this.restURL}blockchain/getMempoolAncestors/${txid}?verbose=${verbose}`)
       return response.data;
     } catch (error) {
-      throw error.response.data.message;
+      throw error.response.data;
     }
   }
 
@@ -103,7 +103,7 @@ class Blockchain {
       let response = await axios.get(`${this.restURL}blockchain/getMempoolDescendants/${txid}?verbose=${verbose}`)
       return response.data;
     } catch (error) {
-      throw error.response.data.message;
+      throw error.response.data;
     }
   }
 
@@ -116,7 +116,7 @@ class Blockchain {
       let response = await axios.get(`${this.restURL}blockchain/getMempoolEntry/${txid}`)
       return response.data;
     } catch (error) {
-      throw error.response.data.message;
+      throw error.response.data;
     }
   }
 
@@ -125,7 +125,7 @@ class Blockchain {
       let response = await axios.get(`${this.restURL}blockchain/getMempoolInfo`)
       return response.data;
     } catch (error) {
-      throw error.response.data.message;
+      throw error.response.data;
     }
   }
 
@@ -134,7 +134,7 @@ class Blockchain {
       let response = await axios.get(`${this.restURL}blockchain/getRawMempool?vebose=${verbose}`)
       return response.data;
     } catch (error) {
-      throw error.response.data.message;
+      throw error.response.data;
     }
   }
 
@@ -143,7 +143,7 @@ class Blockchain {
       let response = await axios.get(`${this.restURL}blockchain/getTxOut/${txid}/n?include_mempool=${include_mempool}`)
       return response.data;
     } catch (error) {
-      throw error.response.data.message;
+      throw error.response.data;
     }
   }
 
@@ -156,7 +156,7 @@ class Blockchain {
       let response = await axios.get(path)
       return response.data;
     } catch (error) {
-      throw error.response.data.message;
+      throw error.response.data;
     }
   }
 
@@ -165,7 +165,7 @@ class Blockchain {
       let response = await axios.get(`${this.restURL}blockchain/preciousBlock/${blockhash}`)
       return response.data;
     } catch (error) {
-      throw error.response.data.message;
+      throw error.response.data;
     }
   }
 
@@ -174,7 +174,7 @@ class Blockchain {
       let response = await axios.post(`${this.restURL}blockchain/pruneBlockchain/${height}`)
       return response.data;
     } catch (error) {
-      throw error.response.data.message;
+      throw error.response.data;
     }
   }
 
@@ -183,7 +183,7 @@ class Blockchain {
       let response = await axios.get(`${this.restURL}blockchain/verifyChain?checklevel=${checklevel}&nblocks=${nblocks}`)
       return response.data;
     } catch (error) {
-      throw error.response.data.message;
+      throw error.response.data;
     }
   }
 
@@ -192,7 +192,7 @@ class Blockchain {
       let response = await axios.get(`${this.restURL}blockchain/verifyTxOutProof/proof`)
       return response.data;
     } catch (error) {
-      throw error.response.data.message;
+      throw error.response.data;
     }
   }
 }
