@@ -13,7 +13,7 @@ export declare interface Address {
     detectAddressNetwork(address: string): string;
     detectAddressType(address: string): string;
     fromXPub(xpub: string, path?: string): string;
-    fromOutputScript(scriptPubKey:string): string;
+    fromOutputScript(scriptPubKey:string, network?: string): string;
     details(address: string): Promise<AddressDetailsResult | AddressDetailsResult[]>;
     utxo(address: string): Promise<AddressUtxoResult[]>;
     unconfirmed(address: string): Promise<AddressUnconfirmedResult[]>;
