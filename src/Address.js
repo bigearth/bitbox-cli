@@ -106,8 +106,12 @@ class Address {
     return this.toCashAddress(address.getAddress());
   }
 
-  fromOutputScript(scriptPubKey) {
-    return bchaddr.toCashAddress(Bitcoin.address.fromOutputScript(scriptPubKey));
+  fromOutputScript(scriptPubKey, network = 'bitcoincash') {
+    let netParam
+    if (network !== 'bitcoincash') {
+      netParam = Bitcoin.networks.testnet
+    }
+    return bchaddr.toCashAddress(Bitcoin.address.fromOutputScript(scriptPubKey, netParam));
   }
 
   async details(address) {
