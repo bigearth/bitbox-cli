@@ -1,6 +1,6 @@
 {
   "name": "bitbox-cli",
-  "version": "1.6.5",
+  "version": "1.6.6",
   "description": "BITBOX javascript sdk for Bitcoin Cash",
   "author": "Gabriel Cardona @ Bitcoin.com",
   "main": "index.js",
