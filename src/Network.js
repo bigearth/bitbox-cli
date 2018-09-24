@@ -1,83 +1,90 @@
-import axios from 'axios';
+"use strict"
+import axios from "axios"
 class Network {
   constructor(restURL) {
-    this.restURL = restURL;
+    this.restURL = restURL
   }
 
-  async addNode(node, command){
+  async addNode(node, command) {
     try {
-      let response = await axios.post(`${this.restURL}network/addNode/${node}/${command}`)
-      return response.data;
+      let response = await axios.post(
+        `${this.restURL}network/addNode/${node}/${command}`
+      )
+      return response.data
     } catch (error) {
-      throw error.response.data;
+      throw error.response.data
     }
   }
 
   async clearBanned() {
     try {
       let response = await axios.post(`${this.restURL}clearBanned`)
-      return response.data;
+      return response.data
     } catch (error) {
-      throw error.response.data;
+      throw error.response.data
     }
   }
 
   async disconnectNode(configuration) {
     try {
-      let response = await axios.post(`${this.restURL}disconnectNode/${configuration}`)
-      return response.data;
+      let response = await axios.post(
+        `${this.restURL}disconnectNode/${configuration}`
+      )
+      return response.data
     } catch (error) {
-      throw error.response.data;
+      throw error.response.data
     }
   }
 
   async getAddedNodeInfo(node) {
-    let path = `${this.restURL}network/getAddedNodeInfo`;
-    if(node) {
-      path = `${path}?node=${node}`;
+    let path = `${this.restURL}network/getAddedNodeInfo`
+    if (node) {
+      path = `${path}?node=${node}`
     }
 
     try {
       let response = await axios.get(path)
-      return response.data;
+      return response.data
     } catch (error) {
-      throw error.response.data;
+      throw error.response.data
     }
   }
 
   async getConnectionCount() {
     try {
-      let response = await axios.get(`${this.restURL}network/getConnectionCount`)
-      return response.data;
+      let response = await axios.get(
+        `${this.restURL}network/getConnectionCount`
+      )
+      return response.data
     } catch (error) {
-      throw error.response.data;
+      throw error.response.data
     }
   }
 
   async getNetTotals() {
     try {
       let response = await axios.get(`${this.restURL}network/getNetTotals`)
-      return response.data;
+      return response.data
     } catch (error) {
-      throw error.response.data;
+      throw error.response.data
     }
   }
 
   async getNetworkInfo() {
     try {
       let response = await axios.get(`${this.restURL}network/getNetworkInfo`)
-      return response.data;
+      return response.data
     } catch (error) {
-      throw error.response.data;
+      throw error.response.data
     }
   }
 
   async getPeerInfo() {
     try {
       let response = await axios.get(`${this.restURL}network/getPeerInfo`)
-      return response.data;
+      return response.data
     } catch (error) {
-      throw error.response.data;
+      throw error.response.data
     }
   }
   //
@@ -95,9 +102,9 @@ class Network {
   async ping() {
     try {
       let response = await axios.get(`${this.restURL}network/ping`)
-      return response.data;
+      return response.data
     } catch (error) {
-      throw error.response.data;
+      throw error.response.data
     }
   }
   //
@@ -135,4 +142,4 @@ class Network {
   // }
 }
 
-export default Network;
+export default Network

@@ -1,24 +1,25 @@
-import axios from 'axios';
+"use strict"
+import axios from "axios"
 class Control {
   constructor(restURL) {
-    this.restURL = restURL;
+    this.restURL = restURL
   }
 
   async getInfo() {
     try {
       let response = await axios.get(`${this.restURL}control/getInfo`)
-      return response.data;
+      return response.data
     } catch (error) {
-      throw error.response.data;
+      throw error.response.data
     }
   }
 
   async getMemoryInfo() {
     try {
       let response = await axios.get(`${this.restURL}control/getMemoryInfo`)
-      return response.data;
+      return response.data
     } catch (error) {
-      throw error.response.data;
+      throw error.response.data
     }
   }
   //
@@ -34,4 +35,4 @@ class Control {
   // }
 }
 
-export default Control;
+export default Control

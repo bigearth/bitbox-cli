@@ -1,38 +1,37 @@
-// let fixtures = require('./fixtures/BitcoinCash.json')
-let chai = require('chai');
-let assert = require('assert');
-let axios = require('axios');
-let BITBOXCli = require('./../lib/bitbox-cli').default;
-let BITBOX = new BITBOXCli();
-let sinon = require('sinon');
+"use strict"
+const chai = require("chai")
+const assert = require("assert")
+const axios = require("axios")
+const BITBOXCli = require("./../lib/bitbox-cli").default
+const BITBOX = new BITBOXCli()
+const sinon = require("sinon")
 
-describe('#Util', () => {
-  describe('#validateAddress', () => {
-    let sandbox;
-    beforeEach(() => sandbox = sinon.sandbox.create());
-    afterEach(() => sandbox.restore());
+describe("#Util", () => {
+  describe("#validateAddress", () => {
+    let sandbox
+    beforeEach(() => (sandbox = sinon.sandbox.create()))
+    afterEach(() => sandbox.restore())
 
-    it('should validate address', (done) => {
-      let data = {
+    it("should validate address", done => {
+      const data = {
         isvalid: true,
-        address: 'bitcoincash:qpz7qtkuyhrsz4qmnnrvf8gz9zd0u9v7eqsewyk4w5',
-        scriptPubKey: '76a91445e02edc25c701541b9cc6c49d02289afe159ec888ac',
+        address: "bitcoincash:qpz7qtkuyhrsz4qmnnrvf8gz9zd0u9v7eqsewyk4w5",
+        scriptPubKey: "76a91445e02edc25c701541b9cc6c49d02289afe159ec888ac",
         ismine: false,
         iswatchonly: false,
         isscript: false
-      };
+      }
 
-      const resolved = new Promise((r) => r({ data: data }));
-      sandbox.stub(axios, 'get').returns(resolved);
+      const resolved = new Promise(r => r({ data: data }))
+      sandbox.stub(axios, "get").returns(resolved)
 
-      BITBOX.Util.validateAddress('bitcoincash:qpz7qtkuyhrsz4qmnnrvf8gz9zd0u9v7eqsewyk4w5')
-      .then((result) => {
-        assert.deepEqual(
-          data,
-          result
-        );
-      })
-      .then(done, done);
-    });
-  });
-});
+      BITBOX.Util.validateAddress(
+        "bitcoincash:qpz7qtkuyhrsz4qmnnrvf8gz9zd0u9v7eqsewyk4w5"
+      )
+        .then(result => {
+          assert.deepEqual(data, result)
+        })
+        .then(done, done)
+    })
+  })
+})

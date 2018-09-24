@@ -1,37 +1,38 @@
-import io from 'socket.io-client';
+"use strict"
+import io from "socket.io-client"
 
 class Socket {
   constructor(config = {}) {
-    if(typeof config === 'string') {
+    if (typeof config === "string") {
       // TODO remove this check in v2.0
-      this.socket = io(`${config}`);
+      this.socket = io(`${config}`)
     } else {
-      if(config.restURL) {
-        this.socket = io(`${config.restURL}`);
+      if (config.restURL) {
+        this.socket = io(`${config.restURL}`)
       } else {
-        let restURL = 'https://rest.bitcoin.com';
-        this.socket = io(`${restURL}`);
+        let restURL = "https://rest.bitcoin.com"
+        this.socket = io(`${restURL}`)
       }
 
-      if(config.callback) {
-        config.callback();
+      if (config.callback) {
+        config.callback()
       }
     }
   }
 
   listen(endpoint, cb) {
-    this.socket.emit(endpoint);
+    this.socket.emit(endpoint)
 
-    if(endpoint === 'blocks') {
-      this.socket.on('blocks', (msg) => {
-        return cb(msg);
-      });
-    } else if(endpoint === 'transactions') {
-      this.socket.on('transactions', (msg) => {
-        return cb(msg);
-      });
+    if (endpoint === "blocks") {
+      this.socket.on("blocks", msg => {
+        return cb(msg)
+      })
+    } else if (endpoint === "transactions") {
+      this.socket.on("transactions", msg => {
+        return cb(msg)
+      })
     }
   }
 }
 
-export default Socket;
+export default Socket

@@ -1,17 +1,18 @@
-import axios from 'axios';
+"use strict"
+import axios from "axios"
 class Block {
   constructor(restURL) {
-    this.restURL = restURL;
+    this.restURL = restURL
   }
 
   async details(id) {
     try {
       let response = await axios.get(`${this.restURL}block/details/${id}`)
-      return response.data;
+      return response.data
     } catch (error) {
-      throw error.response.data;
+      throw error.response.data
     }
   }
 }
 
-export default Block;
+export default Block

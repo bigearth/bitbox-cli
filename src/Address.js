@@ -1,155 +1,165 @@
-import axios from 'axios';
-import bchaddr from 'bchaddrjs';
-import Bitcoin from 'bitcoincashjs-lib';
+"use strict"
+import axios from "axios"
+import bchaddr from "bchaddrjs"
+import Bitcoin from "bitcoincashjs-lib"
 
 class Address {
   constructor(restURL) {
-    this.restURL = restURL;
+    this.restURL = restURL
   }
 
   // Translate address from any address format into a specific format.
   toLegacyAddress(address) {
-    return bchaddr.toLegacyAddress(address);
+    return bchaddr.toLegacyAddress(address)
   }
 
   toCashAddress(address, prefix = true) {
-    if(prefix) {
-      return bchaddr.toCashAddress(address);
+    if (prefix) {
+      return bchaddr.toCashAddress(address)
     } else {
-      return bchaddr.toCashAddress(address).split(':')[1];
+      return bchaddr.toCashAddress(address).split(":")[1]
     }
   }
 
   // Converts any address format to hash160
   toHash160(address) {
-    let legacyAddress = bchaddr.toLegacyAddress(address);
-    let bytes = Bitcoin.address.fromBase58Check(legacyAddress);
-    return bytes.hash.toString('hex');
+    let legacyAddress = bchaddr.toLegacyAddress(address)
+    let bytes = Bitcoin.address.fromBase58Check(legacyAddress)
+    return bytes.hash.toString("hex")
   }
 
   // Converts hash160 to Legacy Address
   hash160ToLegacy(hash160, network = Bitcoin.networks.bitcoin.pubKeyHash) {
-    let buffer = Buffer(hash160, 'hex');
-    let legacyAddress = Bitcoin.address.toBase58Check(buffer, network);
-    return legacyAddress;
+    let buffer = Buffer(hash160, "hex")
+    let legacyAddress = Bitcoin.address.toBase58Check(buffer, network)
+    return legacyAddress
   }
 
   // Converts hash160 to Cash Address
   hash160ToCash(hash160, network = Bitcoin.networks.bitcoin.pubKeyHash) {
-    let legacyAddress = this.hash160ToLegacy(hash160, network);
-    return this.toCashAddress(legacyAddress);
+    let legacyAddress = this.hash160ToLegacy(hash160, network)
+    return this.toCashAddress(legacyAddress)
   }
 
   // Test for address format.
   isLegacyAddress(address) {
-    return bchaddr.isLegacyAddress(address);
+    return bchaddr.isLegacyAddress(address)
   }
 
   isCashAddress(address) {
-    return bchaddr.isCashAddress(address);
+    return bchaddr.isCashAddress(address)
   }
 
   // Test for address network.
   isMainnetAddress(address) {
-    if(address[0] === 'x') {
+    if (address[0] === "x") {
       return true
-    } else if(address[0] === 't') {
+    } else if (address[0] === "t") {
       return false
     } else {
-      return bchaddr.isMainnetAddress(address);
+      return bchaddr.isMainnetAddress(address)
     }
   }
 
   isTestnetAddress(address) {
-    if(address[0] === 'x') {
+    if (address[0] === "x") {
       return false
-    } else if(address[0] === 't') {
+    } else if (address[0] === "t") {
       return true
     } else {
-      return bchaddr.isTestnetAddress(address);
+      return bchaddr.isTestnetAddress(address)
     }
   }
 
   // Test for address type.
   isP2PKHAddress(address) {
-    return bchaddr.isP2PKHAddress(address);
+    return bchaddr.isP2PKHAddress(address)
   }
 
   isP2SHAddress(address) {
-    return bchaddr.isP2SHAddress(address);
+    return bchaddr.isP2SHAddress(address)
   }
 
   // Detect address format.
   detectAddressFormat(address) {
-    return bchaddr.detectAddressFormat(address);
+    return bchaddr.detectAddressFormat(address)
   }
 
   // Detect address network.
   detectAddressNetwork(address) {
-    if(address[0] === 'x') {
-      return 'mainnet'
-    } else if(address[0] === 't') {
-      return 'testnet'
+    if (address[0] === "x") {
+      return "mainnet"
+    } else if (address[0] === "t") {
+      return "testnet"
     } else {
-      return bchaddr.detectAddressNetwork(address);
+      return bchaddr.detectAddressNetwork(address)
     }
   }
 
   // Detect address type.
   detectAddressType(address) {
-    return bchaddr.detectAddressType(address);
+    return bchaddr.detectAddressType(address)
   }
 
   fromXPub(xpub, path = "0/0") {
-    let HDNode = Bitcoin.HDNode.fromBase58(xpub, Bitcoin.networks[this.detectAddressNetwork(xpub)]);
-    let address = HDNode.derivePath(path);
-    return this.toCashAddress(address.getAddress());
+    let HDNode = Bitcoin.HDNode.fromBase58(
+      xpub,
+      Bitcoin.networks[this.detectAddressNetwork(xpub)]
+    )
+    let address = HDNode.derivePath(path)
+    return this.toCashAddress(address.getAddress())
   }
 
-  fromOutputScript(scriptPubKey, network = 'bitcoincash') {
+  fromOutputScript(scriptPubKey, network = "bitcoincash") {
     let netParam
-    if (network !== 'bitcoincash') {
+    if (network !== "bitcoincash") {
       netParam = Bitcoin.networks.testnet
     }
-    return bchaddr.toCashAddress(Bitcoin.address.fromOutputScript(scriptPubKey, netParam));
+    return bchaddr.toCashAddress(
+      Bitcoin.address.fromOutputScript(scriptPubKey, netParam)
+    )
   }
 
   async details(address) {
-    if(typeof address !== 'string') {
-      address = JSON.stringify(address);
+    if (typeof address !== "string") {
+      address = JSON.stringify(address)
     }
 
     try {
-      let response = await axios.get(`${this.restURL}address/details/${address}`)
-      return response.data;
+      let response = await axios.get(
+        `${this.restURL}address/details/${address}`
+      )
+      return response.data
     } catch (error) {
-      throw error.response.data;
+      throw error.response.data
     }
   }
 
   async utxo(address) {
-    if(typeof address !== 'string') {
-      address = JSON.stringify(address);
+    if (typeof address !== "string") {
+      address = JSON.stringify(address)
     }
 
     try {
       let response = await axios.get(`${this.restURL}address/utxo/${address}`)
-      return response.data;
+      return response.data
     } catch (error) {
-      throw error.response.data;
+      throw error.response.data
     }
   }
 
   async unconfirmed(address) {
-    if(typeof address !== 'string') {
-      address = JSON.stringify(address);
+    if (typeof address !== "string") {
+      address = JSON.stringify(address)
     }
 
     try {
-      let response = await axios.get(`${this.restURL}address/unconfirmed/${address}`)
-      return response.data;
+      let response = await axios.get(
+        `${this.restURL}address/unconfirmed/${address}`
+      )
+      return response.data
     } catch (error) {
-      throw error.response.data;
+      throw error.response.data
     }
   }
 }

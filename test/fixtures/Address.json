@@ -170,5 +170,6 @@
         "bchtest:qrd88na4869phkr0h44kzfakwc52w2jwmqjl6vlynn"
       ]
     }
-  ]
+  ],
+  "p2shMainnet": ["bitcoincash:pz0qcslrqn7hr44hsszwl4lw5r6udkg6zqncnufkrl"]
 }

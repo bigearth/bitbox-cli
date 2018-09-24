@@ -1,48 +1,55 @@
-import axios from 'axios';
+"use strict"
+import axios from "axios"
 class Mining {
   constructor(restURL) {
-    this.restURL = restURL;
+    this.restURL = restURL
   }
 
   async getBlockTemplate(template_request) {
     try {
-      let response = await axios.get(`${this.restURL}mining/getBlockTemplate/${template_request}`)
-      return response.data;
+      let response = await axios.get(
+        `${this.restURL}mining/getBlockTemplate/${template_request}`
+      )
+      return response.data
     } catch (error) {
-      throw error.response.data;
+      throw error.response.data
     }
   }
 
   async getMiningInfo() {
     try {
       let response = await axios.get(`${this.restURL}mining/getMiningInfo`)
-      return response.data;
+      return response.data
     } catch (error) {
-      throw error.response.data;
+      throw error.response.data
     }
   }
 
   async getNetworkHashps(nblocks = 120, height = 1) {
     try {
-      let response = await axios.get(`${this.restURL}mining/getNetworkHashps?nblocks=${nblocks}&height=${height}`)
-      return response.data;
+      let response = await axios.get(
+        `${
+          this.restURL
+        }mining/getNetworkHashps?nblocks=${nblocks}&height=${height}`
+      )
+      return response.data
     } catch (error) {
-      throw error.response.data;
+      throw error.response.data
     }
   }
 
   async submitBlock(hex, parameters) {
-    let path = `${this.restURL}mining/submitBlock/${hex}`;
-    if(parameters) {
-      path = `${path}?parameters=${parameters}`;
+    let path = `${this.restURL}mining/submitBlock/${hex}`
+    if (parameters) {
+      path = `${path}?parameters=${parameters}`
     }
     try {
       let response = await axios.post(path)
-      return response.data;
+      return response.data
     } catch (error) {
-      throw error.response.data;
+      throw error.response.data
     }
   }
 }
 
-export default Mining;
+export default Mining
