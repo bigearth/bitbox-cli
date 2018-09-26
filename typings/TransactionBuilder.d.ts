@@ -8,7 +8,7 @@ declare type ECSignature = any;
 export declare interface TransactionBuilder {
   // bitcoincash: coininfo.bitcoincash.main;
   // bitcoincashBitcoinJSLib: Bitcoin.toBitcoinJS;
-  transaction: Transaction;
+  transaction: any;
   DEFAULT_SEQUENCE: number;
   hashTypes: HashTypes;
   bip66 : any;
