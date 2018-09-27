@@ -1,22 +1,18 @@
 /*
-  Create an HDNode wallet using Bitbox. The mnemonic from this wallet
-  will be used in future examples.
+  Check the balance of the root address of an HD node wallet generated
+  with the create-wallet example.
 */
 
 "use strict"
 
-const BITBOXCli = require("bitbox-cli/lib/bitbox-cli").default
-//const BITBOX = new BITBOXCli({ restURL: "https://trest.bitcoin.com/v1/" })
-const BITBOX = new BITBOXCli({ restURL: "http://localhost:3000/v1/" })
-const WH = require("wormholecash/lib/Wormhole").default
-const Wormhole = new WH({
-  restURL: `https://wormholecash-staging.herokuapp.com/v1/`
-})
+// Instantiate BITBOX.
+const bitboxLib = "../../../../lib/bitbox-cli"
+const BITBOXCli = require(bitboxLib).default
+const BITBOX = new BITBOXCli({ restURL: "https://trest.bitcoin.com/v1/" })
 
 // Open the wallet generated with create-wallet.
-let walletInfo
 try {
-  walletInfo = require(`../create-wallet/wallet.json`)
+  var walletInfo = require(`../create-wallet/wallet.json`)
 } catch (err) {
   console.log(
     `Could not open wallet.json. Generate a wallet with create-wallet first.`
@@ -24,6 +20,7 @@ try {
   process.exit(0)
 }
 
+// Get the balance of the wallet.
 async function getBalance() {
   try {
     // first get BCH balance
@@ -31,15 +28,6 @@ async function getBalance() {
 
     console.log(`BCH Balance information:`)
     console.log(balance)
-
-    // get token balances
-    const tokens = await Wormhole.DataRetrieval.balancesForAddress(
-      walletInfo.cashAddress
-    )
-
-    console.log(``)
-    console.log(`Wormhole Token information:`)
-    console.log(JSON.stringify(tokens, null, 2))
   } catch (err) {
     console.error(`Error in getBalance: `, err)
     throw err

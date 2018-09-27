@@ -12,8 +12,13 @@
     "url": "git+https://github.com/Bitcoin-com/bitbox-javascript-sdk.git"
   },
   "keywords": [
-    "wormholecash",
-    "example"
+    "bitbox",
+    "example",
+    "bch",
+    "bitcoin",
+    "bitcoin cash",
+    "bitcoin.com",
+    "javascript"
   ],
   "author": "Chris Troutner <chris.troutner@gmail.com>",
   "license": "MIT",
