@@ -1,7 +1,7 @@
 {
   "name": "send-bch",
   "version": "1.0.0",
-  "description": "Create an HDNode wallet",
+  "description": "Send some tBCH to another address.",
   "main": "send-bch.js",
   "scripts": {
     "test": "echo no tests yet",
@@ -9,16 +9,21 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Bitcoin-com/wormholecash.git"
+    "url": "git+https://github.com/Bitcoin-com/bitbox-javascript-sdk.git"
   },
   "keywords": [
-    "wormholecash",
-    "example"
+    "bitbox",
+    "example",
+    "bch",
+    "bitcoin",
+    "bitcoin cash",
+    "bitcoin.com",
+    "javascript"
   ],
   "author": "Chris Troutner <chris.troutner@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Bitcoin-com/wormholecash/issues"
+    "url": "https://github.com/Bitcoin-com/bitbox-javascript-sdk/issues"
   },
-  "homepage": "https://github.com/Bitcoin-com/wormholecash#readme"
+  "homepage": "https://github.com/Bitcoin-com/bitbox-javascript-sdk/blob/master/README.md"
 }

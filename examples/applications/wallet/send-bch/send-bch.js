@@ -4,17 +4,18 @@
 
 "use strict"
 
-const BITBOXCli = require("bitbox-cli/lib/bitbox-cli").default
-//const BITBOX = new BITBOXCli({ restURL: "https://trest.bitcoin.com/v1/" })
-const BITBOX = new BITBOXCli({ restURL: "http://localhost:3000/v1/" })
+// Instantiate BITBOX.
+const bitboxLib = "../../../../lib/bitbox-cli"
+const BITBOXCli = require(bitboxLib).default
+const BITBOX = new BITBOXCli({ restURL: "https://trest.bitcoin.com/v1/" })
+//const BITBOX = new BITBOXCli({ restURL: "htts://localhost:3000/v1/" })
 
 // Replace the address below with the address you want to send the BCH to.
-const RECV_ADDR = `bchtest:qr45kxqda7yw8atztvkc4ckqnrlhmp0kvsep4p345q`
+const RECV_ADDR = `bchtest:qpytyr39fsr80emqh2ukftkpdqvdddcnfg9s6wjtfa`
 
 // Open the wallet generated with create-wallet.
-let walletInfo
 try {
-  walletInfo = require(`../create-wallet/wallet.json`)
+  var walletInfo = require(`../create-wallet/wallet.json`)
 } catch (err) {
   console.log(
     `Could not open wallet.json. Generate a wallet with create-wallet first.`
@@ -26,10 +27,12 @@ const SEND_ADDR = walletInfo.cashAddress
 const SEND_MNEMONIC = walletInfo.mnemonic
 
 async function sendBch() {
+  // Get the balance of the sending address.
   const balance = await getBCHBalance(SEND_ADDR, false)
   console.log(`balance: ${JSON.stringify(balance, null, 2)}`)
   console.log(`Balance of sending address ${SEND_ADDR} is ${balance} BCH.`)
 
+  // Exit if the balance is zero.
   if (balance <= 0.0) {
     console.log(`Balance of sending address is zero. Exiting.`)
     process.exit(0)
@@ -49,7 +52,7 @@ async function sendBch() {
   // instance of transaction builder
   const transactionBuilder = new BITBOX.TransactionBuilder("testnet")
 
-  const satoshisToSend = 1000
+  const satoshisToSend = 1000 // <--- This is where you set the amount to send.
   const originalAmount = utxo[0].satoshis
   const vout = utxo[0].vout
   const txid = utxo[0].txid
@@ -57,14 +60,15 @@ async function sendBch() {
   // add input with txid and index of vout
   transactionBuilder.addInput(txid, vout)
 
-  // get byte count to calculate fee. paying 1 sat/byte
+  // get byte count to calculate fee. paying 1.2 sat/byte
   const byteCount = BITBOX.BitcoinCash.getByteCount({ P2PKH: 1 }, { P2PKH: 2 })
   console.log(`byteCount: ${byteCount}`)
   const satoshisPerByte = 1.2
   const txFee = Math.floor(satoshisPerByte * byteCount)
   console.log(`txFee: ${txFee}`)
 
-  // amount to send back to the sending address. It's the original amount - 1 sat/byte for tx size
+  // amount to send back to the sending address.
+  // It's the original amount - 1 sat/byte for tx size
   const remainder = originalAmount - satoshisToSend - txFee
 
   // add output w/ address and amount to send
@@ -91,10 +95,8 @@ async function sendBch() {
   const tx = transactionBuilder.build()
   // output rawhex
   const hex = tx.toHex()
-  //console.log(`Transaction raw hex: `);
-  //console.log(`${hex}`);
 
-  // sendRawTransaction to running BCH node
+  // Broadcast transation to the network
   const broadcast = await BITBOX.RawTransactions.sendRawTransaction(hex)
   console.log(`Transaction ID: ${broadcast}`)
 }
