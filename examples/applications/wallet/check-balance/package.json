@@ -1,0 +1,24 @@
+{
+  "name": "check-balance",
+  "version": "1.0.0",
+  "description": "Create an HDNode wallet",
+  "main": "create-wallet.js",
+  "scripts": {
+    "test": "echo no tests yet",
+    "start": "node check-balance.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Bitcoin-com/wormholecash.git"
+  },
+  "keywords": [
+    "wormholecash",
+    "example"
+  ],
+  "author": "Chris Troutner <chris.troutner@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Bitcoin-com/wormholecash/issues"
+  },
+  "homepage": "https://github.com/Bitcoin-com/wormholecash#readme"
+}
