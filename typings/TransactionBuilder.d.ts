@@ -20,7 +20,7 @@ export declare interface TransactionBuilder {
   addInputScript(vout: number, script: Buffer): void;
   addOutput(scriptPubKey: string|Buffer, amount: number): void;
   sign(vin: number, keyPair: ECPair, redeemScript: Buffer | undefined, hashType: number, value: number): ECSignature;
-  build(): Transaction;
+  build(): any;
 }
 
 declare interface HashTypes {
