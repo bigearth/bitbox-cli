@@ -18,8 +18,8 @@ export declare interface Address {
     fromXPub(xpub: string, path?: string): string;
     fromOutputScript(scriptPubKey:string, network?: string): string;
     details(address: string | string[]): Promise<AddressDetailsResult | AddressDetailsResult[]>;
-    utxo(address: string): Promise<AddressUtxoResult[]>;
-    unconfirmed(address: string): Promise<AddressUnconfirmedResult[]>;
+    utxo(address: string | string[]): Promise<AddressUtxoResult[]>;
+    unconfirmed(address: string | string[]): Promise<AddressUnconfirmedResult[]>;
 }
 
 export declare interface AddressDetailsResult {
