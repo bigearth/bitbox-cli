@@ -3,17 +3,11 @@ import {Buffer} from 'buffer';
 import { TransactionBuilder } from './TransactionBuilder';
 export declare interface Transaction {
   //constructor(restURL: string);
-  transaction(): Transaction;
-  toHex(): string;
-  fromHex(hex: string): string;
-  transactionBuilder(network: string): TransactionBuilder;
-  fromTransaction(tx: Transaction): TransactionBuilder;
+  transaction(): any;
+  fromHex(hex: string): any;
+  transactionBuilder(network: string): any;
+  fromTransaction(tx: any): any;
   details(txid: string| string[]): Promise<TxnDetails | TxnDetails[]>;
-
-  // lower level methods
-  buildIncomplete(): Transaction;
-  hashForWitnessV0(idx: number, script: Buffer, amount: number, hashType: number): number;
-  setInputScript(idx: number, scriptSig: Buffer): void;
 }
 
 declare interface TxnDetails{

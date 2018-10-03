@@ -3,6 +3,9 @@ export declare interface Address {
     //constructor(restURL: string);
     toLegacyAddress(address: string): string;
     toCashAddress(address: string, prefix?: boolean): string;
+    toHash160(address: string): string;
+    hash160ToLegacy(hash160: string): string;
+    hash160ToCash(hash160: string): string;
     isLegacyAddress(address: string): boolean;
     isCashAddress(address: string): boolean;
     isMainnetAddress(address: string): boolean;
@@ -14,13 +17,12 @@ export declare interface Address {
     detectAddressType(address: string): string;
     fromXPub(xpub: string, path?: string): string;
     fromOutputScript(scriptPubKey:string, network?: string): string;
-    details(address: string): Promise<AddressDetailsResult | AddressDetailsResult[]>;
-    utxo(address: string): Promise<AddressUtxoResult[]>;
-    unconfirmed(address: string): Promise<AddressUnconfirmedResult[]>;
+    details(address: string | string[]): Promise<AddressDetailsResult | AddressDetailsResult[]>;
+    utxo(address: string | string[]): Promise<AddressUtxoResult[]>;
+    unconfirmed(address: string | string[]): Promise<AddressUnconfirmedResult[]>;
 }
 
 export declare interface AddressDetailsResult {
-    addrStr: string;
     balance: number;
     balanceSat: number;
     totalReceived: number;
@@ -32,6 +34,8 @@ export declare interface AddressDetailsResult {
     unconfirmedTxApperances: number;
     txApperances: number;
     transactions: string[];
+    legacyAddress: string;
+    cashAddress: string;
 }
 
 export declare interface AddressUtxoResult {
