@@ -116,7 +116,8 @@ class Address {
       )
       return response.data
     } catch (error) {
-      throw error.response.data
+      if (error.response && error.response.data) throw error.response.data
+      else throw error
     }
   }
 
@@ -127,7 +128,8 @@ class Address {
       const response = await axios.get(`${this.restURL}address/utxo/${address}`)
       return response.data
     } catch (error) {
-      throw error.response.data
+      if (error.response && error.response.data) throw error.response.data
+      else throw error
     }
   }
 
@@ -140,7 +142,8 @@ class Address {
       )
       return response.data
     } catch (error) {
-      throw error.response.data
+      if (error.response && error.response.data) throw error.response.data
+      else throw error
     }
   }
 }

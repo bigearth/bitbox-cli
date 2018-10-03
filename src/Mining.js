@@ -11,7 +11,8 @@ class Mining {
       )
       return response.data
     } catch (error) {
-      throw error.response.data
+      if (error.response && error.response.data) throw error.response.data
+      else throw error
     }
   }
 
@@ -20,7 +21,8 @@ class Mining {
       const response = await axios.get(`${this.restURL}mining/getMiningInfo`)
       return response.data
     } catch (error) {
-      throw error.response.data
+      if (error.response && error.response.data) throw error.response.data
+      else throw error
     }
   }
 
@@ -33,7 +35,8 @@ class Mining {
       )
       return response.data
     } catch (error) {
-      throw error.response.data
+      if (error.response && error.response.data) throw error.response.data
+      else throw error
     }
   }
 
@@ -45,7 +48,8 @@ class Mining {
       const response = await axios.post(path)
       return response.data
     } catch (error) {
-      throw error.response.data
+      if (error.response && error.response.data) throw error.response.data
+      else throw error
     }
   }
 }

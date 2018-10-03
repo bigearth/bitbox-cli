@@ -9,7 +9,8 @@ class Block {
       const response = await axios.get(`${this.restURL}block/details/${id}`)
       return response.data
     } catch (error) {
-      throw error.response.data
+      if (error.response && error.response.data) throw error.response.data
+      else throw error
     }
   }
 }

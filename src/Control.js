@@ -9,7 +9,8 @@ class Control {
       const response = await axios.get(`${this.restURL}control/getInfo`)
       return response.data
     } catch (error) {
-      throw error.response.data
+      if (error.response && error.response.data) throw error.response.data
+      else throw error
     }
   }
 
@@ -18,7 +19,8 @@ class Control {
       const response = await axios.get(`${this.restURL}control/getMemoryInfo`)
       return response.data
     } catch (error) {
-      throw error.response.data
+      if (error.response && error.response.data) throw error.response.data
+      else throw error
     }
   }
   //

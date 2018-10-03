@@ -13,7 +13,8 @@ class RawTransactions {
       )
       return response.data
     } catch (error) {
-      throw error.response.data
+      if (error.response && error.response.data) throw error.response.data
+      else throw error
     }
   }
 
@@ -26,7 +27,8 @@ class RawTransactions {
       )
       return response.data
     } catch (error) {
-      throw error.response.data
+      if (error.response && error.response.data) throw error.response.data
+      else throw error
     }
   }
 
@@ -41,7 +43,8 @@ class RawTransactions {
       )
       return response.data
     } catch (error) {
-      throw error.response.data
+      if (error.response && error.response.data) throw error.response.data
+      else throw error
     }
   }
 
@@ -56,7 +59,8 @@ class RawTransactions {
       )
       return response.data
     } catch (error) {
-      throw error.response.data
+      if (error.response && error.response.data) throw error.response.data
+      else throw error
     }
   }
 }

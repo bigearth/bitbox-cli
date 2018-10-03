@@ -9,7 +9,8 @@ class Price {
 
       return response.data[currency.toUpperCase()]
     } catch (error) {
-      throw error.response.data
+      if (error.response && error.response.data) throw error.response.data
+      else throw error
     }
   }
 }

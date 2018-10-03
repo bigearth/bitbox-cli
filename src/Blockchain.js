@@ -11,7 +11,8 @@ class Blockchain {
       )
       return response.data
     } catch (error) {
-      throw error.response.data
+      if (error.response && error.response.data) throw error.response.data
+      else throw error
     }
   }
 
@@ -22,7 +23,8 @@ class Blockchain {
       )
       return response.data
     } catch (error) {
-      throw error.response.data
+      if (error.response && error.response.data) throw error.response.data
+      else throw error
     }
   }
 
@@ -33,7 +35,8 @@ class Blockchain {
       )
       return response.data
     } catch (error) {
-      throw error.response.data
+      if (error.response && error.response.data) throw error.response.data
+      else throw error
     }
   }
 
@@ -44,7 +47,8 @@ class Blockchain {
       )
       return response.data
     } catch (error) {
-      throw error.response.data
+      if (error.response && error.response.data) throw error.response.data
+      else throw error
     }
   }
 
@@ -57,7 +61,8 @@ class Blockchain {
       )
       return response.data
     } catch (error) {
-      throw error.response.data
+      if (error.response && error.response.data) throw error.response.data
+      else throw error
     }
   }
 
@@ -70,7 +75,8 @@ class Blockchain {
       )
       return response.data
     } catch (error) {
-      throw error.response.data
+      if (error.response && error.response.data) throw error.response.data
+      else throw error
     }
   }
 
@@ -79,7 +85,8 @@ class Blockchain {
       const response = await axios.get(`${this.restURL}blockchain/getChainTips`)
       return response.data
     } catch (error) {
-      throw error.response.data
+      if (error.response && error.response.data) throw error.response.data
+      else throw error
     }
   }
 
@@ -90,7 +97,8 @@ class Blockchain {
       )
       return response.data
     } catch (error) {
-      throw error.response.data
+      if (error.response && error.response.data) throw error.response.data
+      else throw error
     }
   }
 
@@ -105,7 +113,8 @@ class Blockchain {
       )
       return response.data
     } catch (error) {
-      throw error.response.data
+      if (error.response && error.response.data) throw error.response.data
+      else throw error
     }
   }
 
@@ -120,7 +129,8 @@ class Blockchain {
       )
       return response.data
     } catch (error) {
-      throw error.response.data
+      if (error.response && error.response.data) throw error.response.data
+      else throw error
     }
   }
 
@@ -133,7 +143,8 @@ class Blockchain {
       )
       return response.data
     } catch (error) {
-      throw error.response.data
+      if (error.response && error.response.data) throw error.response.data
+      else throw error
     }
   }
 
@@ -144,7 +155,8 @@ class Blockchain {
       )
       return response.data
     } catch (error) {
-      throw error.response.data
+      if (error.response && error.response.data) throw error.response.data
+      else throw error
     }
   }
 
@@ -155,7 +167,8 @@ class Blockchain {
       )
       return response.data
     } catch (error) {
-      throw error.response.data
+      if (error.response && error.response.data) throw error.response.data
+      else throw error
     }
   }
 
@@ -168,7 +181,8 @@ class Blockchain {
       )
       return response.data
     } catch (error) {
-      throw error.response.data
+      if (error.response && error.response.data) throw error.response.data
+      else throw error
     }
   }
 
@@ -180,7 +194,8 @@ class Blockchain {
       const response = await axios.get(path)
       return response.data
     } catch (error) {
-      throw error.response.data
+      if (error.response && error.response.data) throw error.response.data
+      else throw error
     }
   }
 
@@ -191,7 +206,8 @@ class Blockchain {
       )
       return response.data
     } catch (error) {
-      throw error.response.data
+      if (error.response && error.response.data) throw error.response.data
+      else throw error
     }
   }
 
@@ -202,7 +218,8 @@ class Blockchain {
       )
       return response.data
     } catch (error) {
-      throw error.response.data
+      if (error.response && error.response.data) throw error.response.data
+      else throw error
     }
   }
 
@@ -215,7 +232,8 @@ class Blockchain {
       )
       return response.data
     } catch (error) {
-      throw error.response.data
+      if (error.response && error.response.data) throw error.response.data
+      else throw error
     }
   }
 
@@ -226,7 +244,8 @@ class Blockchain {
       )
       return response.data
     } catch (error) {
-      throw error.response.data
+      if (error.response && error.response.data) throw error.response.data
+      else throw error
     }
   }
 }

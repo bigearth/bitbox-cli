@@ -11,7 +11,8 @@ class Network {
       )
       return response.data
     } catch (error) {
-      throw error.response.data
+      if (error.response && error.response.data) throw error.response.data
+      else throw error
     }
   }
 
@@ -20,7 +21,8 @@ class Network {
       const response = await axios.post(`${this.restURL}clearBanned`)
       return response.data
     } catch (error) {
-      throw error.response.data
+      if (error.response && error.response.data) throw error.response.data
+      else throw error
     }
   }
 
@@ -31,7 +33,8 @@ class Network {
       )
       return response.data
     } catch (error) {
-      throw error.response.data
+      if (error.response && error.response.data) throw error.response.data
+      else throw error
     }
   }
 
@@ -43,7 +46,8 @@ class Network {
       const response = await axios.get(path)
       return response.data
     } catch (error) {
-      throw error.response.data
+      if (error.response && error.response.data) throw error.response.data
+      else throw error
     }
   }
 
@@ -54,7 +58,8 @@ class Network {
       )
       return response.data
     } catch (error) {
-      throw error.response.data
+      if (error.response && error.response.data) throw error.response.data
+      else throw error
     }
   }
 
@@ -63,7 +68,8 @@ class Network {
       const response = await axios.get(`${this.restURL}network/getNetTotals`)
       return response.data
     } catch (error) {
-      throw error.response.data
+      if (error.response && error.response.data) throw error.response.data
+      else throw error
     }
   }
 
@@ -72,7 +78,8 @@ class Network {
       const response = await axios.get(`${this.restURL}network/getNetworkInfo`)
       return response.data
     } catch (error) {
-      throw error.response.data
+      if (error.response && error.response.data) throw error.response.data
+      else throw error
     }
   }
 
@@ -81,7 +88,8 @@ class Network {
       const response = await axios.get(`${this.restURL}network/getPeerInfo`)
       return response.data
     } catch (error) {
-      throw error.response.data
+      if (error.response && error.response.data) throw error.response.data
+      else throw error
     }
   }
   //
@@ -101,7 +109,8 @@ class Network {
       const response = await axios.get(`${this.restURL}network/ping`)
       return response.data
     } catch (error) {
-      throw error.response.data
+      if (error.response && error.response.data) throw error.response.data
+      else throw error
     }
   }
   //
