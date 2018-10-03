@@ -17,7 +17,7 @@ const BITBOXCli = require("./lib/bitbox-cli").default
 const clone = require("git-clone")
 const cmd = require("node-cmd")
 
-program.version("1.7.0", "-v, --version")
+program.version("1.8.0", "-v, --version")
 
 program
   .command("new <name>")
@@ -86,7 +86,7 @@ program
 
       console.log(chalk.blue(`Scaffolding ${scaffold} app in ${name}`))
       clone(repo, `./${name}`, [conf], res => {
-        if (res == "Error: 'git clone' failed with status 128") {
+        if (res === "Error: 'git clone' failed with status 128") {
           console.log(chalk.red("Must create new app in to an empty directory"))
         } else {
           console.log(chalk.green("All done."), emoji.get(":white_check_mark:"))
