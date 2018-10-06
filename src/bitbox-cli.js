@@ -30,7 +30,7 @@ class BITBOXCli {
     else this.restURL = "https://rest.bitcoin.com/v1/"
 
     this.Address = new Address(this.restURL)
-    this.BitcoinCash = new BitcoinCash()
+    this.BitcoinCash = new BitcoinCash(this.Address)
     this.Block = new Block(this.restURL)
     this.Blockchain = new Blockchain(this.restURL)
     this.Control = new Control(this.restURL)
