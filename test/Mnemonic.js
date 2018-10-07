@@ -302,6 +302,28 @@ describe("#Mnemonic", () => {
             keypair.privateKeyWIF,
             fixtures.toKeypairs[i].output[j].privateKeyWIF
           )
+          // assert.equal(
+          //   keypair.address,
+          //   fixtures.toKeypairs[i].output[j].address
+          // )
+        })
+      })
+
+      const regtestKeypairs = BITBOX.Mnemonic.toKeypairs(
+        fixture.mnemonic,
+        5,
+        true
+      )
+      regtestKeypairs.forEach((keypair, j) => {
+        it(`Generate keypair from mnemonic`, () => {
+          assert.equal(
+            keypair.privateKeyWIF,
+            fixtures.toKeypairs[i].output[j].privateKeyWIF
+          )
+          // assert.equal(
+          //   keypair.address,
+          //   fixtures.toKeypairs[i].output[j].regtestAddress
+          // )
         })
       })
     })

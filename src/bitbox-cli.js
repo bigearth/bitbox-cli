@@ -40,7 +40,7 @@ class BITBOXCli {
     this.Generating = new Generating(this.restURL)
     this.HDNode = new HDNode(this.Address)
     this.Mining = new Mining(this.restURL)
-    this.Mnemonic = new Mnemonic()
+    this.Mnemonic = new Mnemonic(this.Address)
     this.Network = new Network(this.restURL)
     this.Price = new Price()
     this.RawTransactions = new RawTransactions(this.restURL)
