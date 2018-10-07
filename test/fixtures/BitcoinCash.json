@@ -297,6 +297,56 @@
         },
         "url": "bitcoincash:qphgz6ut3uu9xu8sly2zj7n5jkg5eyes5vjv3juf0x?amount=20.3&label=Foobar"
       }
+    ],
+    "valid_regtest": [
+      {
+        "address": "1C6hRmfzvWst5WA7bFRCVAqHt5gE2g7Qar",
+        "options": {
+          "amount": 12.5,
+          "label": "coinbase donation",
+          "message": "and ya don't stop"
+        },
+        "url": "bchreg:qpum6dwnqmmysdggrprse8ccjq7ldcrfqg94ewelh7?amount=12.5&label=coinbase%20donation&message=and%20ya%20don%27t%20stop"
+      },
+      {
+        "address": "1Azo2JBz2JswboeY9xSMcp14BAfhjnD9SK",
+        "options": {
+          "label": "Foobar"
+        },
+        "url": "bchreg:qpk6wsngptx0y2pd7hadar5m0gq629l80y59284j0h?label=Foobar"
+      },
+      {
+        "address": "bchreg:qrdsfshx7yzfjl9sfj2khuja5crcu4vaxqa9cxhxs2",
+        "options": {
+          "amount": 1,
+          "label": "test"
+        },
+        "url": "bchreg:qrdsfshx7yzfjl9sfj2khuja5crcu4vaxqa9cxhxs2?amount=1&label=test"
+      },
+      {
+        "address": "bchreg:qzc5fxdm6lnwzgeju4jaemngtxkkkgt78uxag2hkxw",
+        "options": {
+          "amount": 3,
+          "label": "hhhhhhh"
+        },
+        "url": "bchreg:qzc5fxdm6lnwzgeju4jaemngtxkkkgt78uxag2hkxw?amount=3&label=hhhhhhh"
+      },
+      {
+        "address": "qzw6tfrh8p0jh834uf9rhg77pjg5rgnt3qsptj5ctt",
+        "options": {
+          "amount": 23,
+          "label": "no prefix"
+        },
+        "url": "bchreg:qzw6tfrh8p0jh834uf9rhg77pjg5rgnt3qsptj5ctt?amount=23&label=no%20prefix"
+      },
+      {
+        "address": "qphgz6ut3uu9xu8sly2zj7n5jkg5eyes5vvzr5adtu",
+        "options": {
+          "amount": 20.3,
+          "label": "Foobar"
+        },
+        "url": "bchreg:qphgz6ut3uu9xu8sly2zj7n5jkg5eyes5vvzr5adtu?amount=20.3&label=Foobar"
+      }
     ]
   },
   "getByteCount": [
