@@ -14,7 +14,6 @@ Open Source / Creative Commons Listings
 * [assert](https://www.npmjs.com/package/assert) - MIT
 * [axios](https://github.com/axios/axios) - MIT
 * [babel](https://babeljs.io/docs/setup/) - MIT
-* [bchaddrjs](https://github.com/bitcoincashjs/bchaddrjs/blob/master/LICENSE) - mit
 * [bigi](https://www.npmjs.com/package/bigi) - none
 * [bip21](https://github.com/bigearth/bip21) - ISC
 * [bip39](https://github.com/bitcoinjs/bip39/blob/master/LICENSE) - ISC
@@ -23,6 +22,7 @@ Open Source / Creative Commons Listings
 * [bitcoinjs-message](https://github.com/bitcoinjs/bitcoinjs-message) - MIT
 * [bs58](https://www.npmjs.com/package/bs58) - MIT
 * [buffer](https://www.npmjs.com/package/buffer) - MIT
+* [cashaddrjs](https://github.com/bitcoincashjs/cashaddrjs/blob/master/LICENSE) - MIT
 * [chai](https://www.npmjs.com/package/chai) - MIT
 * [chalk](https://www.npmjs.com/package/chalk) - MIT
 * [clear](https://www.npmjs.com/package/clear) - none
