@@ -502,6 +502,43 @@ describe("#TransactionBuilder", () => {
           })
         })
       })
+
+      describe("#RegTest", () => {
+        fixtures.scripts.p2pkh.toOne.regtest.forEach(fixture => {
+          it(`should create 1-to-1 P2PKH transaction on regtest`, () => {
+            const hdnode = BITBOX.HDNode.fromXPriv(fixture.xpriv)
+            const transactionBuilder = new BITBOX.TransactionBuilder("regtest")
+            const keyPair = BITBOX.HDNode.toKeyPair(hdnode)
+            const txHash = fixture.txHash
+            // original amount of satoshis in vin
+            const originalAmount = fixture.amount
+            transactionBuilder.addInput(txHash, fixture.vout)
+            // get byte count to calculate fee. paying 1 sat/byte
+            const byteCount = BITBOX.BitcoinCash.getByteCount(
+              { P2PKH: 1 },
+              { P2PKH: 1 }
+            )
+            // amount to send to receiver. It's the original amount - 1 sat/byte for tx size
+            const sendAmount = originalAmount - byteCount * 15
+            // add output w/ address and amount to send
+            let redeemScript
+            transactionBuilder.addOutput(fixture.outputs[0], sendAmount)
+            transactionBuilder.sign(
+              0,
+              keyPair,
+              redeemScript,
+              transactionBuilder.hashTypes.SIGHASH_ALL,
+              originalAmount
+            )
+
+            // build tx
+            const tx = transactionBuilder.build()
+            // output rawhex
+            const hex = tx.toHex()
+            assert.equal(hex, fixture.hex)
+          })
+        })
+      })
     })
 
     describe("#toMany", () => {
@@ -554,6 +591,50 @@ describe("#TransactionBuilder", () => {
           it(`should create 1-to-2 P2PKH transaction on testnet`, () => {
             const hdnode = BITBOX.HDNode.fromXPriv(fixture.xpriv)
             const transactionBuilder = new BITBOX.TransactionBuilder("testnet")
+            const keyPair = BITBOX.HDNode.toKeyPair(hdnode)
+            const txHash = fixture.txHash
+            // original amount of satoshis in vin
+            const originalAmount = fixture.amount
+            transactionBuilder.addInput(txHash, fixture.vout)
+            // get byte count to calculate fee. paying 1 sat/byte
+            const byteCount = BITBOX.BitcoinCash.getByteCount(
+              { P2PKH: 1 },
+              { P2PKH: 2 }
+            )
+            // amount to send to receiver. It's the original amount - 1 sat/byte for tx size
+            const sendAmount = originalAmount - byteCount * 15
+            // add output w/ address and amount to send
+            transactionBuilder.addOutput(
+              fixture.outputs[0],
+              Math.floor(sendAmount / 2)
+            )
+            transactionBuilder.addOutput(
+              fixture.outputs[1],
+              Math.floor(sendAmount / 2)
+            )
+            let redeemScript
+            transactionBuilder.sign(
+              0,
+              keyPair,
+              redeemScript,
+              transactionBuilder.hashTypes.SIGHASH_ALL,
+              originalAmount
+            )
+            // build tx
+            const tx = transactionBuilder.build()
+            // output rawhex
+            const hex = tx.toHex()
+            assert.equal(hex, fixture.hex)
+          })
+        })
+      })
+
+      describe("#RegTest", () => {
+        fixtures.scripts.p2pkh.toMany.regtest.forEach(fixture => {
+          // TODO pass in tesnet network config
+          it(`should create 1-to-2 P2PKH transaction on regtest`, () => {
+            const hdnode = BITBOX.HDNode.fromXPriv(fixture.xpriv)
+            const transactionBuilder = new BITBOX.TransactionBuilder("regtest")
             const keyPair = BITBOX.HDNode.toKeyPair(hdnode)
             const txHash = fixture.txHash
             // original amount of satoshis in vin
@@ -687,6 +768,53 @@ describe("#TransactionBuilder", () => {
           })
         })
       })
+
+      describe("#RegTest", () => {
+        fixtures.scripts.p2pkh.manyToMany.regtest.forEach(fixture => {
+          it(`should create 2-to-2 P2PKH transaction on regtest`, () => {
+            const node1 = BITBOX.HDNode.fromXPriv(fixture.xprivs[0])
+            const node2 = BITBOX.HDNode.fromXPriv(fixture.xprivs[1])
+            const transactionBuilder = new BITBOX.TransactionBuilder("regtest")
+            const txHash = fixture.txHash
+            const originalAmount = fixture.amounts[0] + fixture.amounts[1]
+            transactionBuilder.addInput(txHash, 0)
+            transactionBuilder.addInput(txHash, 1)
+            const byteCount = BITBOX.BitcoinCash.getByteCount(
+              { P2PKH: 2 },
+              { P2PKH: 2 }
+            )
+            const sendAmount = originalAmount - byteCount * 15
+            transactionBuilder.addOutput(
+              fixture.outputs[0],
+              Math.floor(sendAmount / 2)
+            )
+            transactionBuilder.addOutput(
+              fixture.outputs[1],
+              Math.floor(sendAmount / 2)
+            )
+            const keyPair1 = BITBOX.HDNode.toKeyPair(node1)
+            const keyPair2 = BITBOX.HDNode.toKeyPair(node2)
+            let redeemScript
+            transactionBuilder.sign(
+              0,
+              keyPair1,
+              redeemScript,
+              transactionBuilder.hashTypes.SIGHASH_ALL,
+              fixture.amounts[0]
+            )
+            transactionBuilder.sign(
+              1,
+              keyPair2,
+              redeemScript,
+              transactionBuilder.hashTypes.SIGHASH_ALL,
+              fixture.amounts[1]
+            )
+            const tx = transactionBuilder.build()
+            const hex = tx.toHex()
+            assert.equal(hex, fixture.hex)
+          })
+        })
+      })
     })
 
     describe("#fromMany", () => {
@@ -769,6 +897,46 @@ describe("#TransactionBuilder", () => {
           })
         })
       })
+
+      describe("#RegTest", () => {
+        fixtures.scripts.p2pkh.fromMany.regtest.forEach(fixture => {
+          it(`should create 2-to-1 P2PKH transaction on regtest`, () => {
+            const node1 = BITBOX.HDNode.fromXPriv(fixture.xprivs[0])
+            const node2 = BITBOX.HDNode.fromXPriv(fixture.xprivs[1])
+            const transactionBuilder = new BITBOX.TransactionBuilder("regtest")
+            const txHash = fixture.txHash
+            const originalAmount = fixture.amounts[0] + fixture.amounts[1]
+            transactionBuilder.addInput(txHash, 0)
+            transactionBuilder.addInput(txHash, 1)
+            const byteCount = BITBOX.BitcoinCash.getByteCount(
+              { P2PKH: 2 },
+              { P2PKH: 1 }
+            )
+            const sendAmount = originalAmount - byteCount * 15
+            transactionBuilder.addOutput(fixture.outputs[0], sendAmount)
+            const keyPair1 = BITBOX.HDNode.toKeyPair(node1)
+            const keyPair2 = BITBOX.HDNode.toKeyPair(node2)
+            let redeemScript
+            transactionBuilder.sign(
+              0,
+              keyPair1,
+              redeemScript,
+              transactionBuilder.hashTypes.SIGHASH_ALL,
+              fixture.amounts[0]
+            )
+            transactionBuilder.sign(
+              1,
+              keyPair2,
+              redeemScript,
+              transactionBuilder.hashTypes.SIGHASH_ALL,
+              fixture.amounts[1]
+            )
+            const tx = transactionBuilder.build()
+            const hex = tx.toHex()
+            assert.equal(hex, fixture.hex)
+          })
+        })
+      })
     })
   })
 
@@ -813,6 +981,41 @@ describe("#TransactionBuilder", () => {
         it(`should create transaction w/ OP_RETURN output on testnet`, () => {
           const node = BITBOX.HDNode.fromXPriv(fixture.xpriv)
           const transactionBuilder = new BITBOX.TransactionBuilder("testnet")
+          const txHash = fixture.txHash
+          const originalAmount = fixture.amount
+          transactionBuilder.addInput(txHash, 0)
+          const byteCount = BITBOX.BitcoinCash.getByteCount(
+            { P2PKH: 1 },
+            { P2PKH: 5 }
+          )
+          const sendAmount = originalAmount - byteCount
+          transactionBuilder.addOutput(fixture.output, sendAmount)
+          const data = fixture.data
+          const buf = BITBOX.Script.nullData.output.encode(
+            Buffer.from(data, "ascii")
+          )
+          transactionBuilder.addOutput(buf, 0)
+          const keyPair = BITBOX.HDNode.toKeyPair(node)
+          let redeemScript
+          transactionBuilder.sign(
+            0,
+            keyPair,
+            redeemScript,
+            transactionBuilder.hashTypes.SIGHASH_ALL,
+            fixture.amount
+          )
+          const tx = transactionBuilder.build()
+          const hex = tx.toHex()
+          assert.equal(hex, fixture.hex)
+        })
+      })
+    })
+
+    describe("#RegTest", () => {
+      fixtures.nulldata.regtest.forEach(fixture => {
+        it(`should create transaction w/ OP_RETURN output on regtest`, () => {
+          const node = BITBOX.HDNode.fromXPriv(fixture.xpriv)
+          const transactionBuilder = new BITBOX.TransactionBuilder("regtest")
           const txHash = fixture.txHash
           const originalAmount = fixture.amount
           transactionBuilder.addInput(txHash, 0)
@@ -1678,6 +1881,41 @@ describe("#TransactionBuilder", () => {
         it(`should create transaction w/ OP_RETURN output on testnet`, () => {
           const node = BITBOX.HDNode.fromXPriv(fixture.xpriv)
           const transactionBuilder = new BITBOX.TransactionBuilder("testnet")
+          const txHash = fixture.txHash
+          const originalAmount = fixture.amount
+          transactionBuilder.addInput(txHash, 0)
+          const byteCount = BITBOX.BitcoinCash.getByteCount(
+            { P2PKH: 1 },
+            { P2PKH: 5 }
+          )
+          const sendAmount = originalAmount - byteCount
+          transactionBuilder.addOutput(fixture.output, sendAmount)
+          const data = fixture.data
+          const buf = BITBOX.Script.nullData.output.encode(
+            Buffer.from(data, "ascii")
+          )
+          transactionBuilder.addOutput(buf, 0)
+          const keyPair = BITBOX.HDNode.toKeyPair(node)
+          let redeemScript
+          transactionBuilder.sign(
+            0,
+            keyPair,
+            redeemScript,
+            transactionBuilder.hashTypes.SIGHASH_ALL,
+            fixture.amount
+          )
+          const tx = transactionBuilder.build()
+          const hex = tx.toHex()
+          assert.equal(hex, fixture.hex)
+        })
+      })
+    })
+
+    describe("#RegTest", () => {
+      fixtures.nulldata.regtest.forEach(fixture => {
+        it(`should create transaction w/ OP_RETURN output on regtest`, () => {
+          const node = BITBOX.HDNode.fromXPriv(fixture.xpriv)
+          const transactionBuilder = new BITBOX.TransactionBuilder("regtest")
           const txHash = fixture.txHash
           const originalAmount = fixture.amount
           transactionBuilder.addInput(txHash, 0)

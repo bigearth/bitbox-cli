@@ -1,10 +1,13 @@
 import Bitcoin from "bitcoincashjs-lib"
-import bchaddr from "bchaddrjs"
 import coininfo from "coininfo"
 import bip66 from "bip66"
 import bip68 from "bip68"
 
 class TransactionBuilder {
+  static setAddress(address) {
+    TransactionBuilder._address = address
+  }
+
   constructor(network = "bitcoincash") {
     let bitcoincash
     if (network === "bitcoincash") bitcoincash = coininfo.bitcoincash.main
@@ -40,7 +43,10 @@ class TransactionBuilder {
 
   addOutput(scriptPubKey, amount) {
     try {
-      this.transaction.addOutput(bchaddr.toLegacyAddress(scriptPubKey), amount)
+      this.transaction.addOutput(
+        TransactionBuilder._address.toLegacyAddress(scriptPubKey),
+        amount
+      )
     } catch (error) {
       this.transaction.addOutput(scriptPubKey, amount)
     }

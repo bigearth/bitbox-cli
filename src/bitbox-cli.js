@@ -47,6 +47,7 @@ class BITBOXCli {
     this.Script = new Script()
     this.Transaction = new Transaction(this.restURL)
     this.TransactionBuilder = TransactionBuilder
+    this.TransactionBuilder.setAddress(this.Address)
     this.Util = new Util(this.restURL)
     this.Socket = Socket
   }
