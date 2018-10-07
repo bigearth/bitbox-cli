@@ -7,7 +7,7 @@ export declare interface HDNode {
   toLegacyAddress():string; 
   toLegacyAddress(hdNode:HDNode):string; 
   toCashAddress():string; 
-  toCashAddress(hdNode:HDNode):string; 
+  toCashAddress(hdNode:HDNode, regtest?: boolean):string; 
   toWIF(): string; 
   toWIF(hdNode:HDNode): string; 
   toXPub():string; 

@@ -36,8 +36,9 @@ class BITBOXCli {
     this.Control = new Control(this.restURL)
     this.Crypto = Crypto
     this.ECPair = ECPair
+    this.ECPair.setAddress(this.Address)
     this.Generating = new Generating(this.restURL)
-    this.HDNode = new HDNode()
+    this.HDNode = new HDNode(this.Address)
     this.Mining = new Mining(this.restURL)
     this.Mnemonic = new Mnemonic()
     this.Network = new Network(this.restURL)

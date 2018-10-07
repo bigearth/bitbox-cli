@@ -24,6 +24,14 @@ describe("#ECPair", () => {
         const cashAddr = BITBOX.ECPair.fromWIF(fixture.privateKeyWIF)
         assert.equal(BITBOX.HDNode.toCashAddress(cashAddr), fixture.cashAddr)
       })
+
+      it(`should get ${fixture.regtestAddr} cash address`, () => {
+        const cashAddr = BITBOX.ECPair.fromWIF(fixture.privateKeyWIF)
+        assert.equal(
+          BITBOX.HDNode.toCashAddress(cashAddr, true),
+          fixture.regtestAddr
+        )
+      })
     })
   })
 
@@ -58,6 +66,16 @@ describe("#ECPair", () => {
           Buffer.from(fixture.pubkeyHex, "hex")
         )
         assert.equal(BITBOX.HDNode.toCashAddress(ecpair), fixture.cashAddr)
+      })
+
+      it(`should get ${fixture.regtestAddr} cash address`, () => {
+        const ecpair = BITBOX.ECPair.fromPublicKey(
+          Buffer.from(fixture.pubkeyHex, "hex")
+        )
+        assert.equal(
+          BITBOX.HDNode.toCashAddress(ecpair, true),
+          fixture.regtestAddr
+        )
       })
     })
   })
@@ -94,6 +112,16 @@ describe("#ECPair", () => {
         const ecpair = BITBOX.ECPair.fromWIF(fixture.privateKeyWIF)
         const cashAddr = BITBOX.ECPair.toCashAddress(ecpair)
         assert.equal(cashAddr, fixture.cashAddr)
+      })
+    })
+
+    fixtures.toCashAddress.forEach(fixture => {
+      it(`should create regtest cash address ${
+        fixture.regtestAddr
+      } from an ECPair`, () => {
+        const ecpair = BITBOX.ECPair.fromWIF(fixture.privateKeyWIF)
+        const regtestAddr = BITBOX.ECPair.toCashAddress(ecpair, true)
+        assert.equal(regtestAddr, fixture.regtestAddr)
       })
     })
   })
