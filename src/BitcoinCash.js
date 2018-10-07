@@ -1,5 +1,4 @@
 import Bitcoin from "bitcoincashjs-lib"
-import bchaddr from "bchaddrjs"
 import sb from "satoshi-bitcoin"
 import bitcoinMessage from "bitcoinjs-message"
 import bs58 from "bs58"
@@ -11,6 +10,10 @@ import wif from "wif"
 const Buffer = require("safe-buffer").Buffer
 
 class BitcoinCash {
+  constructor(address) {
+    this._address = address
+  }
+
   // Translate coins to satoshi value
   toSatoshi(coins) {
     return sb.toSatoshi(coins)
@@ -71,7 +74,7 @@ class BitcoinCash {
   verifyMessage(address, signature, message) {
     return bitcoinMessage.verify(
       message,
-      bchaddr.toLegacyAddress(address),
+      this._address.toLegacyAddress(address),
       signature
     )
   }
@@ -87,8 +90,11 @@ class BitcoinCash {
   }
 
   // encode bip21 url
-  encodeBIP21(address, options) {
-    return bip21.encode(bchaddr.toCashAddress(address), options)
+  encodeBIP21(address, options, regtest = false) {
+    return bip21.encode(
+      this._address.toCashAddress(address, true, regtest),
+      options
+    )
   }
 
   // decode bip21 url

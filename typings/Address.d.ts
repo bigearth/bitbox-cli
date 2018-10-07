@@ -2,14 +2,15 @@ export declare interface Address {
     restURL: string;
     //constructor(restURL: string);
     toLegacyAddress(address: string): string;
-    toCashAddress(address: string, prefix?: boolean): string;
+    toCashAddress(address: string, prefix?: boolean, regtest?: boolean): string;
     toHash160(address: string): string;
-    hash160ToLegacy(hash160: string): string;
-    hash160ToCash(hash160: string): string;
+    hash160ToLegacy(hash160: string, network?: number): string;
+    hash160ToCash(hash160: string, network?: number, regtest?: boolean): string;
     isLegacyAddress(address: string): boolean;
     isCashAddress(address: string): boolean;
     isMainnetAddress(address: string): boolean;
     isTestnetAddress(address: string): boolean;
+    isRegTestAddress(address: string): boolean;
     isP2PKHAddress(address: string): boolean;
     isP2SHAddress(address: string): boolean;
     detectAddressFormat(address: string): string;

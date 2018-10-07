@@ -226,6 +226,16 @@ describe("#BitcoinCash", () => {
           assert.equal(url, bip21.url)
         })
       })
+      fixtures.bip21.valid_regtest.forEach((bip21, i) => {
+        it(`encode ${bip21.address} as url`, () => {
+          const url = BITBOX.BitcoinCash.encodeBIP21(
+            bip21.address,
+            bip21.options,
+            true
+          )
+          assert.equal(url, bip21.url)
+        })
+      })
     })
 
     describe("#decodeBIP21", () => {
@@ -240,6 +250,17 @@ describe("#BitcoinCash", () => {
           )
         })
       })
+      // fixtures.bip21.valid_regtest.forEach((bip21, i) => {
+      //   it(`decodes ${bip21.url}`, () => {
+      //     const decoded = BITBOX.BitcoinCash.decodeBIP21(bip21.url)
+      //     assert.equal(decoded.options.amount, bip21.options.amount)
+      //     assert.equal(decoded.options.label, bip21.options.label)
+      //     assert.equal(
+      //       BITBOX.Address.toCashAddress(decoded.address, true, true),
+      //       BITBOX.Address.toCashAddress(bip21.address, true, true)
+      //     )
+      //   })
+      // })
     })
   })
 

@@ -114,6 +114,14 @@ describe("#HDNode", () => {
         const addy = BITBOX.HDNode.toCashAddress(childHDNode)
         assert.equal(addy, fixture.address)
       })
+
+      it(`should get address ${fixture.regtestAddress} from HDNode`, () => {
+        const rootSeedBuffer = BITBOX.Mnemonic.toSeed(fixture.mnemonic)
+        const hdNode = BITBOX.HDNode.fromSeed(rootSeedBuffer)
+        const childHDNode = BITBOX.HDNode.derivePath(hdNode, "0")
+        const addr = BITBOX.HDNode.toCashAddress(childHDNode, true)
+        assert.equal(addr, fixture.regtestAddress)
+      })
     })
   })
 
@@ -195,6 +203,13 @@ describe("#HDNode", () => {
         assert.equal(BITBOX.HDNode.toCashAddress(hdNode), fixture.cashaddress)
       })
 
+      it(`should export regtest cashaddress ${fixture.regtestaddress}`, () => {
+        assert.equal(
+          BITBOX.HDNode.toCashAddress(hdNode, true),
+          fixture.regtestaddress
+        )
+      })
+
       it(`should export privateKeyWIF ${fixture.privateKeyWIF}`, () => {
         assert.equal(BITBOX.HDNode.toWIF(hdNode), fixture.privateKeyWIF)
       })
@@ -218,6 +233,13 @@ describe("#HDNode", () => {
 
       it(`should export cashaddress ${fixture.cashaddress}`, () => {
         assert.equal(BITBOX.HDNode.toCashAddress(hdNode), fixture.cashaddress)
+      })
+
+      it(`should export regtest cashaddress ${fixture.regtestaddress}`, () => {
+        assert.equal(
+          BITBOX.HDNode.toCashAddress(hdNode, true),
+          fixture.regtestaddress
+        )
       })
     })
   })

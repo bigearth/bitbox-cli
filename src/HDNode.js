@@ -1,9 +1,12 @@
 import Bitcoin from "bitcoincashjs-lib"
-import bchaddr from "bchaddrjs"
 import coininfo from "coininfo"
 import bip32utils from "bip32-utils"
 
 class HDNode {
+  constructor(address) {
+    this._address = address
+  }
+
   fromSeed(rootSeedBuffer, network = "bitcoincash") {
     let bitcoincash
     if (network === "bitcoincash") bitcoincash = coininfo.bitcoincash.main
@@ -20,8 +23,8 @@ class HDNode {
     return hdNode.getAddress()
   }
 
-  toCashAddress(hdNode) {
-    return bchaddr.toCashAddress(hdNode.getAddress())
+  toCashAddress(hdNode, regtest = false) {
+    return this._address.toCashAddress(hdNode.getAddress(), true, regtest)
   }
 
   toWIF(hdNode) {

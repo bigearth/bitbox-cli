@@ -71,6 +71,18 @@
     "bchtest:qpuxsqzgq3j0a58tnmwpgcrwwyrkenalevaeknklfg",
     "bchtest:qpgrlg0yqmdf4y8q980e57tx6v7vrvds2ug89n8w8q"
   ],
+  "cashaddrRegTestP2PKH": [
+    "bchreg:qq24rpar9qas3vc9r8d4p0prhwaf7jmx2usk9rgkku",
+    "bchreg:qpzj67wmlsq8uttddddapjjawyusureca5lq7ymw4p",
+    "bchreg:qztg9c4u3ldhg68mqgzrple6ae92hwnfe5pxq96p2t",
+    "bchreg:qrem2cg43ksmvlampheur8gfgdhhk57myg7kv9a6fl",
+    "bchreg:qp4jf3n740kffkladul96xnq5dtrflg4x55g4g8ef9",
+    "bchreg:qrlqxnzuu6hvvg9qer0m093ywkjnu7wm7ymwgasnp7",
+    "bchreg:qr44nfr9egxt7h7lxdktf9kajds9fwdxxck9mlyea5",
+    "bchreg:qpklfd26u70ta4j7p4twxv2k5apx95p0qqj83e2ent",
+    "bchreg:qpuxsqzgq3j0a58tnmwpgcrwwyrkenalev89qj4v2w",
+    "bchreg:qpgrlg0yqmdf4y8q980e57tx6v7vrvds2ujmnjyayx"
+  ],
   "hash160MainnetP2PKH": [
     "573d93b475be4f1925f3b74ed951201b0147eac1",
     "c6a872e524a03b7d400c425d7b974a35c78f4634",

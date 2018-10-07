@@ -30,22 +30,24 @@ class BITBOXCli {
     else this.restURL = "https://rest.bitcoin.com/v1/"
 
     this.Address = new Address(this.restURL)
-    this.BitcoinCash = new BitcoinCash()
+    this.BitcoinCash = new BitcoinCash(this.Address)
     this.Block = new Block(this.restURL)
     this.Blockchain = new Blockchain(this.restURL)
     this.Control = new Control(this.restURL)
     this.Crypto = Crypto
     this.ECPair = ECPair
+    this.ECPair.setAddress(this.Address)
     this.Generating = new Generating(this.restURL)
-    this.HDNode = new HDNode()
+    this.HDNode = new HDNode(this.Address)
     this.Mining = new Mining(this.restURL)
-    this.Mnemonic = new Mnemonic()
+    this.Mnemonic = new Mnemonic(this.Address)
     this.Network = new Network(this.restURL)
     this.Price = new Price()
     this.RawTransactions = new RawTransactions(this.restURL)
     this.Script = new Script()
     this.Transaction = new Transaction(this.restURL)
     this.TransactionBuilder = TransactionBuilder
+    this.TransactionBuilder.setAddress(this.Address)
     this.Util = new Util(this.restURL)
     this.Socket = Socket
   }

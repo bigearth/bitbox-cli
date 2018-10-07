@@ -524,6 +524,58 @@
               "bchtest:qz9glwj836l6xtf0r3fhm6895d4ed3rhy5s907urel"
             ]
           }
+        ],
+        "regtest": [
+          {
+            "xpriv": "tprv8jwG6YA1fGe7Ut879xQ9NMTwK9oWx4huSvQuix8bEorixxkhkSJd55B7mfQAQeALoEpWWQ5GW2qCmBjAnnyTCyMXoJYUGuQLQLPN367M98Y",
+            "txHash": "adcda2424f8768bdf3d5064e9a71a61d6d80b22bcc12f5eae0372822aac4c293",
+            "hex": "020000000193c2c4aa222837e0eaf512cc2bb2806d1da6719a4e06d5f3bd68874f42a2cdad000000006b483045022100dce87e98844fe01c7f0bffeb3ec6dbd92cada2751570653abb5db5bb1c40eeec02202eeac6d4f79f4774b40c121c6b99b8f431357a17dc8bae39003a16a8246a2bae4121037e04aa55787df424b4f1160aa64c65f64b2daa69e53d16c75b9a40708b01651dffffffff0140a0eb0b000000001976a9143cb6602d5ab7dc5c283f34c361fe9ce152f5c46888ac00000000",
+            "amount": 199994240,
+            "vout": 0,
+            "outputs": [
+              "bchreg:qq7tvcpdt2machpg8u6vxc07nns49awydq85ujk0dc"
+            ]
+          },
+          {
+            "xpriv": "tprv8jwG6YA1fGe7Zw1EnkCEfsm4DosKKHtczdcH2n2H6b7NgnyoHqcQLQHt9d384GG14MJyQ3Jifij1tgkkVCJn4x926i5vZbFhtjkyewCFBYD",
+            "txHash": "0ed1f82a7581f694fa77e9bdcb36a6e67e95ff75bb141e1df78e1f3de7109af4",
+            "hex": "0200000001f49a10e73d1f8ef71d1e14bb75ff957ee6a636cbbde977fa94f681752af8d10e000000006a4730440221009e36bba2b64d1aaf6fe509e27cffdeab3c5f5b4bd464c014e0abb0cfa8594880021f3f8111b1f19894f902b592ba967e55b98568dea4c5e14e1f9260bfc988ed9c412103b230a14bfbdaacb71b2005314de971fa58b14edb6a8dd7bfbd3fdd2ba41be329ffffffff010095eb0b000000001976a91481a5df1328bc195ee8affe9cf497bbdb79957bb588ac00000000",
+            "amount": 199991360,
+            "vout": 0,
+            "outputs": [
+              "bchreg:qzq6thcn9z7pjhhg4llfeayhh0dhn9tmk5rfn084kv"
+            ]
+          },
+          {
+            "xpriv": "tprv8jwG6YA1fGe7bymmgt3fveCX9Ja97PYm6zuVAzxkqMwD2W9RMH7QeqmJjjcYds7oqe6TnEqVvDjxSB5JJW2gTijE9HtptT8UHskamocUgrA",
+            "txHash": "62c0967f5fedbde7b5d485b8a98cf64c6f59c49b52667407e1e4f08f8868e80a",
+            "hex": "02000000010ae868888ff0e4e1077466529bc4596f4cf68ca9b885d4b5e7bded5f7f96c062000000006b483045022100810a26ea991a98f3bc38764095b00be6f86795a6b165117726f1401f2714757b02207d6ee4551f4dc7e053cc29abd63b24bbb6ef150024b656fde0289bec52053633412102193e4ead30e7008945e5c98589668762814624ed97a6fdbe89b5cb9cef90ec76ffffffff01c089eb0b000000001976a914305166fda99a88d62955a21adc6d5515c88b194f88ac00000000",
+            "amount": 199988480,
+            "vout": 0,
+            "outputs": [
+              "bchreg:qqc9zeha4xdg343f2k3p4hrd252u3zcefurwxvh6g9"
+            ]
+          },
+          {
+            "xpriv": "tprv8jwG6YA1fGe7cffn1viCuHyewctT4zxe6tBKvHJavt5AMgTUJTSbZyiYwXwaq1bXSzP2k6WmBTewtLdXqG7hmNWCsUgrGz9XEp9iBaZcjz2",
+            "txHash": "8095f9aacd64c3119ed07b1152e0aaaa2d9a2da8886e442b6e43ee0c5474cdc0",
+            "hex": "0200000001c0cd74540cee436e2b446e88a82d9a2daaaae052117bd09e11c364cdaaf99580000000006b4830450221008226da5999b699f941b120824e6f2f0eac1cfd1ee0265758996a1351c5e0f800022002a8125bacee157b482fff4e4412d2926a5cdb8ba154f1de14aac68858403c7a41210355cfbd19413917309ac59f1dfe4bd7ea9ea86628ed54872a9c70eb20d453e518ffffffff01807eeb0b000000001976a9145c529406c0577109811a9e4305900c283783b5ff88ac00000000",
+            "amount": 199985600,
+            "vout": 0,
+            "outputs": [
+              "bchreg:qpw999qxcpthzzvpr20yxpvsps5r0qa4lusgdzjysj"
+            ]
+          },
+          {
+            "xpriv": "tprv8jwG6YA1fGe7fLkrKHuZWCM8uy911tAZKrqM8RRaF6aJUku9Vw9uYCYtRdAoLG6cyfBcfyVrXBAqaXUxFZZXPRxqiszMj5U9zTGL52PZxPD",
+            "txHash": "10b55f91a2dd91ad28bffb32b8967f5dcfd4f1d93f6bf2fafd089f5899b341fd",
+            "hex": "0200000001fd41b399589f08fdfaf26b3fd9f1d4cf5d7f96b832fbbf28ad91dda2915fb510000000006b483045022100b289038c20d65b2e2403df6bcc5d3ab56ecae10d2b04e75aa98e4a1418f670f40220079d059ec3546bfd6baa1355bd7f65cb38a997439d99afb1e7ab21c7506a15ec412103ee46afc68bb38a9a5598950e51e4466a8b33573e8605126b0779040d740f88f0ffffffff014073eb0b000000001976a9148a8fba478ebfa32d2f1c537de8e5a36b96c4772588ac00000000",
+            "amount": 199982720,
+            "vout": 0,
+            "outputs": [
+              "bchreg:qz9glwj836l6xtf0r3fhm6895d4ed3rhy52eells6e"
+            ]
+          }
         ]
       },
       "toMany": {
@@ -639,6 +691,59 @@
               "bchtest:qpz0xzyv5wj8d7wcc8fp0nly04wlp6p6wqjgrw9ah8",
               "bchtest:qrld2c0xn8zpm8knvyn9lx2zuh8rhkawsyat9mtkg4"
             ]
+          }
+        ],
+        "regtest": [
+          {
+            "xpriv": "tprv8jwG6YA1fGe7jgUsatzgsqH941oUDZs9FejN6rVRZcMaL4nPoShBwD6LNFThDNNg1zpVe1k4zHeK82KJMU4iJMCeEbinn86QuFd5eXutaUL",
+            "txHash": "4edb662b14424d7bbbbe4b9fd1533d49690aefb2a15af8fa0704eab1ce41210b",
+            "hex": "02000000010b2141ceb1ea0407faf85aa1b2ef0a69493d53d19f4bbebb7b4d42142b66db4e000000006b483045022100bf8c2e6b8d3bcbfbaa64a5e9c2cbe5ce71471f87ff1d9f6a0bcec1c58c4a8a2102201504868d60e6f75ccda4c3fe899df0094d878fe8ca5ec55893da5f61517b49a04121029cc6fa90d901a5474249facbb32b187a1de63e853c43b272752109abdef19728ffffffff0201b3f505000000001976a914b3a223ad62ca6c8669a69a508216cd374612cb5688ac01b3f505000000001976a914b4e71aaf9bf4afd806d0560b17995c873ef61e9e88ac00000000",
+            "amount": 199979840,
+            "vout": 0,
+            "outputs": [
+              "bchreg:qze6ygadvt9xepnf56d9pqske5m5vykt2cyscdju70",
+              "bchreg:qz6wwx40n062lkqx6ptqk9uetjrnaas7ncppy9sc0f"
+            ]
+          },
+          {
+            "xpriv": "tprv8jwG6YA1fGe7vmRFrLKrsa216JHN44gEbnqUDThD1YtcFfVnb4a68bN6vdr3SqTPh1PX4CBgRoHcK8Ub4HCCei1q8c8HdstHsY93fxvQaEz",
+            "txHash": "7bc7e2f13ee5aab5c561dadde8ccdaa9968a75af074605c8d9a07545d3c03c8b",
+            "hex": "02000000018b3cc0d34575a0d9c8054607af758a96a9dacce8ddda61c5b5aae53ef1e2c77b000000006b483045022100d01c1c4039bd57bd18bd6d1185f7ca68477f6f347c977f740464685d80ae8b0402202de873b559814282a8a54b032c3bfc4cd7aa3a6e556356be1e78e999a5f478e94121028495390a7537738c2b0b1709eeba8bc74cc21279a35a45d0a7ff5a31d0416be2ffffffff027797f505000000001976a91417995bdbdd04ffa5d6fcf475d147d71fb7fb9d2088ac7797f505000000001976a91438b9d2974d586b062af9fe25b5fb8a2a87e3b27888ac00000000",
+            "amount": 199965740,
+            "vout": 0,
+            "outputs": [
+              "bchreg:qqtejk7mm5z0lfwkln68t5286u0m07uayqdy443vvd",
+              "bchreg:qqutn55hf4vxkp32l8lztd0m3g4g0caj0qlel2j0dj"            ]
+          },
+          {
+            "xpriv": "tprv8jwG6YA1fGe8AkaYjYBgP4uCdBzEc1KNJTEmjaf7bwyysea4qt275maGXt9ergfGz7JeUULZok9UNKT5uuPMoseGJzYJUJgac2pqS7FLhgP",
+            "txHash": "84f8380b4f4166e332a9aba700b7c616061ac77f85593245470ef0657c000f92",
+            "hex": "0200000001920f007c65f00e47453259857fc71a0616c6b700a7aba932e366414f0b38f884010000006b483045022100b342eaa7f357a19fc24918b772b73c13e2060db4fcde690eb5df526e6341b9a2022030b36ec3f862e03081af98f0d64dabba0ecde8605f70c4ef08a93b60af662739412102547aa38203e296e558c0ab77fff7b2f12669e7e39fe1511993ce2038eebf0fbeffffffff0261daf505000000001976a914b65a6f84ba3b239f4258192562c3b99ec576e28688ac61daf505000000001976a914fe64266e2cdee4ed1f9708a71d9e6883451e067088ac00000000",
+            "amount": 200000000,
+            "vout": 1,
+            "outputs": [
+              "bchreg:qzm95muyhgaj886ztqvj2ckrhx0v2ahzscdcnyd8e7",
+              "bchreg:qrlxgfnw9n0wfmgljuy2w8v7dzp528sxwqw7rzk9zj"            ]
+          },
+          {
+            "xpriv": "tprv8jwG6YA1fGe8M9RrTT7WZc4NJshwsfEW8RKp8b2oCNNNLa5YJfPPJhDgXHFQJQsyrioTeQi4D1Xdh28rA5c1FYSpe5QpD39QdYeReUFErSV",
+            "txHash": "ab6c8f1b141f5a169afb2abe44d91d0eaa2b294e3df8326c3ffeeba62c7fcad0",
+            "hex": "0200000001d0ca7f2ca6ebfe3f6c32f83d4e292baa0e1dd944be2afb9a165a1f141b8f6cab000000006b483045022100f975e3114ff17c7b4ca5ad19c268b89135f1664163acd68a7f1fc516e2f554e102200bdeb773f5f1d466f22e476ae35e2ac8e810c4bdca7f8f477519c4d889224e4341210223c633d50fb10af9de12f9ef3aecc39ebc26a76e57fa510c3455e5cd1da827d9ffffffff02d7bef505000000001976a914a1612a990756144cd374bc77395b38ce3a4e4afc88acd7bef505000000001976a914d324c14c2fedd81ee2ce94cf4ef896f4b303391088ac00000000",
+            "amount": 199985900,
+            "vout": 0,
+            "outputs": [
+              "bchreg:qzskz25eqatpgnxnwj78ww2m8r8r5nj2ls8e66qkc6",
+              "bchreg:qrfjfs2v9lkas8hze62v7nhcjm6txqeezqxk4g7uuf"            ]
+          },
+          {
+            "xpriv": "tprv8jwG6YA1fGe8aEi5iXr42XpRDHANmSKvjkGQDhUEn4E3vFKU6uyxmzmDvH4XRDkykP56gr37YshRMJ6Q4ZPqmG3UD9bMvVPkv5oyEUZKoE3",
+            "txHash": "83d388b50f42e4dd4bc0dd6629c912e5a1ee2e78b3d8851bdab841112efe04ca",
+            "hex": "0200000001ca04fe2e1141b8da1b85d8b3782eeea1e512c92966ddc04bdde4420fb588d383000000006a473044022024c944f77c00cf8cca8641cf9e0b3cad498f04c2919e0067832a1031c64caa8a02204d7cc3e0181f56dd72039219d2eb139728a77172d1a2010379f0c00e97d443574121037c5b346363b720a74c5fd732ba2002f16682744fb0d728a24826ed83c2f6f633ffffffff024da3f505000000001976a91444f3088ca3a476f9d8c1d217cfe47d5df0e83a7088ac4da3f505000000001976a914fed561e699c41d9ed361265f9942e5ce3bdbae8188ac00000000",
+            "amount": 199971800,
+            "vout": 0,
+            "outputs": [
+              "bchreg:qpz0xzyv5wj8d7wcc8fp0nly04wlp6p6wqg540xw5p",
+              "bchreg:qrld2c0xn8zpm8knvyn9lx2zuh8rhkawsy8hn6g9tn"            ]
           }
         ]
       },
@@ -806,6 +911,88 @@
               "bchtest:qzdk7py96h020e6wv63zql2ld5dfp73uzgl9hqe9lw"
             ]
           }
+        ],
+        "regtest": [
+          {
+            "xprivs": [
+              "tprv8jwG6YA1fGe7kqL9HPxnBAJtzwzRmUq5qYAgA37BWw2PCFn3Tr56qikGoMpXxdPJ8vD7JokXN4rmLuygZMQ5nRTFUSodZtsD735UTDn99ff",
+              "tprv8jwG6YA1fGe7phE5EFsL5bSMK2EG4UvxHZb69tuajqGqmUas2R4JCA3G9gHeHGt8w71MVDEH7G1pYnqE2GhECtRFDYWpEovnnnnqdRhvS5e"
+            ],
+            "txHash": "a0367edacec483e77e2401ed73e035d4fe65b8c456b66175280701cd486af271",
+            "hex": "020000000271f26a48cd0107287561b656c4b865fed435e073ed01247ee783c4ceda7e36a0000000006a47304402207ff1867ad6e9b7dc7a1d3968113e20965c0ff77ad739e12b17e5dce7fe76e57502202e656dc0f57c3e7884228fe6c0f6161de74842fe2dc4b40296d0e49e118c778a412103206d484ae9751634d0a059acfbee14de2967f9da04159ac8fdd6fa8f1cb486f7ffffffff71f26a48cd0107287561b656c4b865fed435e073ed01247ee783c4ceda7e36a0010000006b483045022100b9115cf9024e5d61a17e6002fb5f9a71c9ecc1f50604c266638bda197579511d0220035b31d1a51a72136c1813e3a90a1e785f94650dc78bd0f0e9f8bbd4422e82d541210318a9bba01a9b343b3469af1ecd27815bdb6797c0eb21b1734a0d0f47290f44faffffffff020ca8f505000000001976a91439890e01e03442581056f0e3f606083cb552f66488ac0ca8f505000000001976a91443802909a4a51575217b553bb5b2670631fdc3cb88ac00000000",
+            "amounts": [
+              99988225,
+              99988225
+            ],
+            "outputs": [
+              "bchreg:qqucjrspuq6yykqs2mcw8asxpq7t25hkvs9tlywwcn",
+              "bchreg:qppcq2gf5jj32afp0d2nhddjvurrrlwrevpdgvew0d"
+            ]
+          },
+          {
+            "xprivs": [
+              "tprv8jwG6YA1fGe81FvYckTjBt9uYG7XAmBMo59BRnytSBDUcTwTuRk2xidoA75t3b8rBEBnDxc2yV9nG4FiE9eedcwdFfzEg9Jaifqva5AXeQo",
+              "tprv8jwG6YA1fGe822yK9p2ojos9qESLKr3VXUFHca2jwv5Q32vBqMaMsXgH9S4iXQJVMTq4pPEFT7SWKv4Tx2fP45ktk7CXJaDSQYDCyWZo57T"
+            ],
+            "txHash": "860cdbf1c532dcb8b5c1e0a663f826400c55f7ccd7377e4d3bad9fcaa144e204",
+            "hex": "020000000204e244a1ca9fad3b4d7e37d7ccf7550c4026f863a6e0c1b5b8dc32c5f1db0c86000000006b483045022100cb3c583edc2a4023bcd3bdc1504f8a1584730a86eb3f1e947478cdb06914f9a10220553feed668967a194008d68da28010cf6dab0b9d0bc195d28fdc71f54abd44544121031b276c55b432444553e2739eaf77a98fbd21fb6b1597fea52dfa2a4692350972ffffffff04e244a1ca9fad3b4d7e37d7ccf7550c4026f863a6e0c1b5b8dc32c5f1db0c86010000006a473044022050e8437b4bc64890a1420ad74c0b51bc1d6bf2cc7e889d0e062c9ba41d50205402204b129553250cf13aa0269a048ad3e70fbde3747cd62efbad9d899f31121a795e412103fc35b3829b5fa081121470caa84cb9f4893f3ae542432ae1b1d05443d31f48d6ffffffff02828cf505000000001976a91431bcd80a099174adbd2355f03a3a9d1f39f60cb688ac828cf505000000001976a91405dd4318185a8726ee26bd344a535d7b61af082088ac00000000",
+            "amounts": [
+              99981175,
+              99981175
+            ],
+            "outputs": [
+              "bchreg:qqcmekq2pxghftdayd2lqw36n50nnasvkcl4mu5rll",
+              "bchreg:qqza6sccrpdgwfhwy67ngjjnt4akrtcgyqkrzyar5g"
+            ]
+          },
+          {
+            "xprivs": [
+              "tprv8jwG6YA1fGe8E31BpkuCMurbLYKyuiaozJkMSqF2pS5UzygRQDh1Wb6uLWA6v9oQPNPHUi3VrxeT766HcJ5ApnDgU51REx1XA5s1f2vVnsN",
+              "tprv8jwG6YA1fGe8Fnr2eFwWmFMqK6t2YnEbXNLAS44iHmfaubrj7VQ6o1WnqLEG8CD7Q4ghoJbce9W8U2nG7WntiDX3Enk2y3SJuKuJubukkYY"
+            ],
+            "txHash": "d0e96087e7b5e684de362792a7e7a1d88b8647568fe372e4f45160eb4b927a67",
+            "hex": "0200000002677a924beb6051f4e472e38f5647868bd8a1e7a7922736de84e6b5e78760e9d0000000006b483045022100f3a9e17a8b9e2062c51376a9781015da460857165b183b33cad3fc611d28705f022016418087ac42ecfac3b411fbdc39e9a2aa24061e368769b1a782500fbacab9fd412103bf3e95bf65f053d883ed590a8bb3839e4028ffcba86a26d3e8c6ae12af3ed461ffffffff677a924beb6051f4e472e38f5647868bd8a1e7a7922736de84e6b5e78760e9d0010000006b483045022100dd9a7b17336da13c89aa35b5a8c78ad2cf5d62c82d89a9ac9a55a984827864cd02202baaf9b9dbd35da72720559e97b24e31ed54b7a76d120d42f3934d4322f50a08412103ba2abd8d0a84d0ed16c07569581aeebc1619661627527c48a6a7778d529e5cf7ffffffff026ccff505000000001976a914fe64266e2cdee4ed1f9708a71d9e6883451e067088ac6ccff505000000001976a9145ff601b23938962a743651a2bc682fdbae08171088ac00000000",
+            "amounts": [
+              99998305,
+              99998305
+            ],
+            "outputs": [
+              "bchreg:qrlxgfnw9n0wfmgljuy2w8v7dzp528sxwqw7rzk9zj",
+              "bchreg:qp0lvqdj8yufv2n5xeg690rg9ld6uzqhzqy6u6mp8p"
+            ]
+          },
+          {
+            "xprivs": [
+              "tprv8jwG6YA1fGe8QJVJJ4sFfteUDybajahxa8NhkPgazaUFyEZ66C3WT99KnCuSpd9tbroDRqeD6oBTrjLFm8JMzcUSexbS2NAB8CrGzXS5CCj",
+              "tprv8jwG6YA1fGe8SiGV9L54byiMzUwms12gLrY8c7MRA6movJxrcnUHSmMqo5G27nET3ecF3ZhGMtXDDCWabhudscgnaxy5iVm1davE9JZ99sX"
+            ],
+            "txHash": "be6545f91b961d7b317d23f0b74f433bf4cae002317ebe9721a5b2e938a1887e",
+            "hex": "02000000027e88a138e9b2a52197be7e3102e0caf43b434fb7f0237d317b1d961bf94565be000000006a473044022016b8d887dcf44f95242a9b6bc5b85a35c71de80c3a5238261aa7c46010a92ce302205ae014669368148d070d3492e954fec156107248e468161c1ad05289a8c0d7454121020a2b22cd2eb901dfd79f12c5e4789223e88f5fadb560dd9a695d4228104a06ecffffffff7e88a138e9b2a52197be7e3102e0caf43b434fb7f0237d317b1d961bf94565be010000006a473044022052fc4bb44921e65ea9b4c57a495e3e10f0c43e69dc355d684bba5d6f8ca903920220642067e7a047964be39f6d4cc35aacf1041c7cf56a9fe1f352cefe97043d872b41210353183b2da1e76e1722a9ec5583ac22a75f6f79a8cfe9606a02ace3072e81ebb3ffffffff02e2b3f505000000001976a9145df278d466856014987fa0f921b5ee28622ac51d88ace2b3f505000000001976a914f9cfec9585d99d929a39644e34b9fc27ddbf65bf88ac00000000",
+            "amounts": [
+              99991255,
+              99991255
+            ],
+            "outputs": [
+              "bchreg:qpwly7x5v6zkq9yc07s0jgd4ac5xy2k9r5x0k6h9y5",
+              "bchreg:qruulmy4shvemy5689jyud9elsnam0m9hu9hxau5rs"
+            ]
+          },
+          {
+            "xprivs": [
+              "tprv8jwG6YA1fGe8ajHkiGHL6oh97Thw7zBQSWhc5AHyFbLgEr5PnY6akBLpj4hvWcJRUzTD39bLqy4wzT5G8vsXAJBMX21GPTxWeuycvdPnaST",
+              "tprv8jwG6YA1fGe8dDLRhAmXv5rYxM3G7o8B7wEdKWMrBgCk2A2u8Q2mmhBEX2Xz7YVNUfS44CDuKZkQ552C1ybshigst6G1YvroBN2TrksrFec"
+            ],
+            "txHash": "bfc8eb9070d97f34f5b923a07036b1559b5260f5daa0adacb944c235103e68c2",
+            "hex": "0200000002c2683e1035c244b9acada0daf560529b55b13670a023b9f5347fd97090ebc8bf000000006a473044022073daa422f4825fea6a0d14e3b3574d35eb2ae8acd24a44cacc179e7fcef3d92d0220261e5ca416e98e0bdab9727ecc1fb2af0e14ffd7e1839546fe2af31a48be5784412102611ad099d44f5c6e1c765f36557287da7e190db591ce1b5a59439edb493511b9ffffffffc2683e1035c244b9acada0daf560529b55b13670a023b9f5347fd97090ebc8bf010000006b48304502210094ce1d26331f37f4679e2b3dc7cfb098e383dd54315371522feecd7162db184c02203fb3810d8252e6e208ebb347d58fba97408611dba507058ad0ec7e71d5fa2304412102b1746ad583eb093774063036a847250ac9c424edf1498cae7e7a0bad20df9640ffffffff025898f505000000001976a91495a5bddee9ad7fc612ea237f326c5ac77e751f8888ac5898f505000000001976a9149b6f0485d5dea7e74e66a2207d5f6d1a90fa3c1288ac00000000",
+            "amounts": [
+              99984205,
+              99984205
+            ],
+            "outputs": [
+              "bchreg:qz26t0w7axkhl3sjag3h7vnvttrhuagl3q5dznjkdq",
+              "bchreg:qzdk7py96h020e6wv63zql2ld5dfp73uzg9epp6kug"
+            ]
+          }
         ]
       },
       "fromMany": {
@@ -960,6 +1147,83 @@
             ],
             "outputs": [
               "bchtest:qzz29p3dccmrrwmptgtgqamectz6vexpturce5juax"
+            ]
+          }
+        ],
+        "regtest": [
+          {
+            "xprivs": [
+              "tprv8jwG6YA1fGe7r2bbsoGrUt7gSo8auZgv6aSaS59FVjZjRiJkK1SYqPGY3vr9gMEXvfKNzRNjW6VjMRpt3GVwXXF6gT8SgNfdSMarW2mU5JC",
+              "tprv8jwG6YA1fGe7u7wh93Si5YXPWAm6mZD4MMqEmdPiYzgWUCC3BDJ6Sg8XR14Rw4QmyBFu5fSF7ksjDU3Xk94KAjSY6P3f372X5uk9T3iSugg"
+            ],
+            "txHash": "812391dbaf4dc6b39dcbbb85a613a183aea48fb994212449bdbd4dd1b74b3518",
+            "hex": "020000000218354bb7d14dbdbd49242194b98fa4ae83a113a685bbcb9db3c64dafdb912381000000006a473044022058c446eec373bb5cae046e12a57cbf5f0b85f7c5a022b88ca17e77f72c2f8d7b022049cfdcb56bf6291db71c5fcbe82812f1e1a98c5e083c405b855b9532eb055f85412103dbd4cae70953a0c34550d59120bc8aa6ed6c01adf833c1d9d3118247f6175084ffffffff18354bb7d14dbdbd49242194b98fa4ae83a113a685bbcb9db3c64dafdb912381010000006a473044022045df2a8ccca97dedeb22bf74fc890bc6a2d2998147621b78a208938bf43a2fc4022077b4b5b21a04d27629535e7a44d3e96bf6d10bf84a20d68c1fccdaca41eb5fc8412103b744479db3b9b26ae110236568fdaff6637bb0e7a874154bf3060468fc5de09dffffffff012c3ceb0b000000001976a91456f61499e2617482f2a63e8aceae5e8cc4c16b5a88ac00000000",
+            "amounts": [
+              99985420,
+              99985420
+            ],
+            "outputs": [
+              "bchreg:qpt0v9yeufshfqhj5clg4n4wt6xvfstttg5n5z6sx4"
+            ]
+          },
+          {
+            "xprivs": [
+              "tprv8jwG6YA1fGe85moRDL8ZmSRmsHDxgdje16KyYvnc2N4wzTpXoQQVgygVwUYzEGWeMNTuMZCRGAiReSGNdFm2R5mEmfvTEPpdiqYWWLNmdSk",
+              "tprv8jwG6YA1fGe86yJEbtnWSGSLZQ9Ep7cRptNFLYChBAfDqnR9EA12hN4eum2wTDd3rgVFrVW97M4yPSHDzEQ2KE3PwnuSvVt87ZQMLoA5zyj"
+            ],
+            "txHash": "29aa7fe4cb2ab3a0ab3e8d3d98ef6acd95be66e6c0a2709d58c4991b57fb6a8d",
+            "hex": "02000000028d6afb571b99c4589d70a2c0e666be95cd6aef983d8d3eaba0b32acbe47faa29000000006b483045022100960f60296536abf61573aa012a91492874a52bfab4ab220ba67011616f309e7002206f48e6d34ff2a91e76b329dff9dc5766a1e9a04030a9529d334b521e459bdc054121023f30c27ee820b656ef9c4286f657b1a3353f9bea94b3fde7446181e080217777ffffffff8d6afb571b99c4589d70a2c0e666be95cd6aef983d8d3eaba0b32acbe47faa29010000006b483045022100a02e8bc1bf5df3a45d79d16aadc1e0256fcc44355896d35179471a71be0934bc0220253d2d57428e05570829bbf18f7d3fb7120a34046797673457edead77749a606412103aa369a3edc60b06b099b20fc624ff5213a44212911e7b89b561ecd2e8089cbd2ffffffff011805eb0b000000001976a914cf0abb634cfdb82c73544f625697eb464b008b0288ac00000000",
+            "amounts": [
+              99978370,
+              99978370
+            ],
+            "outputs": [
+              "bchreg:qr8s4wmrfn7mstrn238ky45hadrykqytqg3g07krgt"
+            ]
+          },
+          {
+            "xprivs": [
+              "tprv8jwG6YA1fGe8Fnr2eFwWmFMqK6t2YnEbXNLAS44iHmfaubrj7VQ6o1WnqLEG8CD7Q4ghoJbce9W8U2nG7WntiDX3Enk2y3SJuKuJubukkYY",
+              "tprv8jwG6YA1fGe8HbFCHAmLcKgz7Ft8c3LBGACiohF5AdFR6PQLHGfxgyESph9FLm8p7zM4wahBjFCEkgAtSQEyjNCuy8yE8jwpZxfCe1KSwjG"
+            ],
+            "txHash": "017232691d2d6d1c6c366943d536a1d1818101a6289a9f544c49fa54dd00c2e1",
+            "hex": "0200000002e1c200dd54fa494c549f9a28a6018181d1a136d54369366c1c6d2d1d69327201000000006b483045022100bb85f1b6a241a1c594c7686589e62438b2a9d25de106b4a9bb241f05beaed76e02204dd2e495462a448adf73197bfea811d7f76fde1657a988dfaba588ad2b964260412103ba2abd8d0a84d0ed16c07569581aeebc1619661627527c48a6a7778d529e5cf7ffffffffe1c200dd54fa494c549f9a28a6018181d1a136d54369366c1c6d2d1d69327201010000006a47304402202e7f45406b0225cffa0d9de135a9233b98accc9ea2601f3b980bcd030d2dfdc802205c3b32c93bc5321e0040a01b2062a31037f2235ce37e9883f17e0919d1b3ad5841210300251d96a333cb1712a6ce2491670ccf156ba51d56265d23b3f1ca88dc0911d1ffffffff01ec8aeb0b000000001976a914fe7325733cb8a245f39300b3c01eb218f54f8cc188ac00000000",
+            "amounts": [
+              99995500,
+              99995500
+            ],
+            "outputs": [
+              "bchreg:qrl8xftn8ju2y30njvqt8sq7kgv02nuvcymle9tr0k"
+            ]
+          },
+          {
+            "xprivs": [
+              "tprv8jwG6YA1fGe8TDaPJgNPpGg4Lw4ui6ypX9MBJGwgrQEfSifG7sA3L5kX4mif1ToufcMQFfRKavBew5rw9HKcHjjbZBE3zYJFbrAR6QvxZZK",
+              "tprv8jwG6YA1fGe8WP5MiS2b8JrrqMTcttJ11FMBv9Z8UAzkj3G2NHcxyJsbmjPQ6sX5NLtcVBgcmPFP7mjNZewNZ7A2v6HeofXS6nPvVKXHkoD"
+            ],
+            "txHash": "d39387deba6166d99e3fe35a54d715bfccae883c303575e97d555b7c57d1975c",
+            "hex": "02000000025c97d1577c5b557de97535303c88aeccbf15d7545ae33f9ed96661bade8793d3000000006a47304402206f49ad053ed79c0e7cbeeb0463889e9e51da503bebd6615108455e2e5e23e86e0220510041031e44eb466fbea0ffd5ccc3e749a01e7135d014b0e7050d5d74e9a620412102338993f9038fbff3c595d8a5eca8f36c5c7c1f837f60a2aec1e9bd3f06acbb2dffffffff5c97d1577c5b557de97535303c88aeccbf15d7545ae33f9ed96661bade8793d3010000006a47304402202b47efa8d290ef8bab184ed297a08aecfe772dd1fc889a91664d6127fe32f6b702204f6f83351f81df5703a9fa64c1ba2e1fb418d3944eee025408d6d30ea2907d9d412102101fd2a369bf6ef3e3ae69bd0e3a86f4c9d5670dae8588792ec0dc23a7bed47dffffffff01d853eb0b000000001976a9144156292b93d85702651e163326b0f6374031cb6888ac00000000",
+            "amounts": [
+              99988450,
+              99988450
+            ],
+            "outputs": [
+              "bchreg:qpq4v2ftj0v9wqn9rctrxf4s7cm5qvwtdqn2nmkwk7"
+            ]
+          },
+          {
+            "xprivs": [
+              "tprv8jwG6YA1fGe8fvc31CxrmL81j3Le2iGmkm6HkpC2Mw8ZYKAQMCd5y2UZ8rMFossHwwPVfL28Cjizd2fweeQmPeWtnirBEbZLFZ3LutsE6Q5",
+              "tprv8jwG6YA1fGe8icVTQp2n5nWJKSLCErHXqGRy6fcby9h1QUN9Nxy6Agxg8atUL687XtwV8bJvotdjVLaZ6rMwea2k9Em2Hk418LkFK79FKgj"
+            ],
+            "txHash": "89b1b44fca675b0a8740c7493af3a67be3824985d37ffd52798fccbcc12fb0af",
+            "hex": "0200000002afb02fc1bccc8f7952fd7fd3854982e37ba6f33a49c740870a5b67ca4fb4b189000000006a47304402203689aab908c142791d5e7c84ab5b5e4cc3332bf921292216464326d489729bb702200f3d31fe6c77482946d7d84571c6a05b78e6ed01813a0c4ac50bd57f01f5ebf4412102747da20b143a15a33c9d7165815f79ede81881044e23066d2fc803d43a21deb2ffffffffafb02fc1bccc8f7952fd7fd3854982e37ba6f33a49c740870a5b67ca4fb4b189010000006b483045022100c574a287502e7f782a244156445b7130bbc7934e5f784a55b3535f83576c667602200f9c636dce7e7414ce0dac5a652ddc9f4ebeb48144cd01f860b2ea8d984b4e134121032bfc541ed6be30e1e02b5f3827a81c4b59426611b697fd202d40cbd65d6e53deffffffff01c41ceb0b000000001976a91484a2862dc63631bb615a16807779c2c5a664c15f88ac00000000",
+            "amounts": [
+              99981400,
+              99981400
+            ],
+            "outputs": [
+              "bchreg:qzz29p3dccmrrwmptgtgqamectz6vexptuey04307q"
             ]
           }
         ]
@@ -1423,6 +1687,53 @@
         "data": "Bitcoin Cash",
         "amount": 199998032,
         "output": "bchtest:qzcvep37jmkjfyhsshepg9z8myww84g67ucq8qt6qh",
+        "script": "OP_RETURN 426974636f696e2043617368",
+        "hex": "0200000001fa9ebcdee96f09e1b5049fe222d16574e0100fa1e538f78b248bd91d26b88edc000000006a4730440220337ccd2d539e25c7b12388e7e416c8e90f4d416b502d0086e83d0ec809f473f2022002143e840c1ae49dc19fe5a5b291f3466c096e5105a26a26e11159916983d3034121026d0446d88c057cdf3b59f4442603609282672c4961c44e738ca48387d911f782ffffffff0208b9eb0b000000001976a914b0cc863e96ed2492f085f2141447d91ce3d51af788ac00000000000000000e6a0c426974636f696e204361736800000000"
+      }
+    ],
+    "regtest": [
+      {
+        "xpriv": "tprv8kNvR1z7HT4RJ72z5HGtpPVVrTMY9uVFJh9sbDw62CBU2iKbCUkqjHUSjpT3drDVEWsqrTJqW4C2EEMnb2RueNo6MWtPdPmRnGdx97XZijS",
+        "txHash": "126d9e84a51b64ca1d88b47f42fdada0ac7fee543e49feffef01114f9f61111e",
+        "data": "Satoshi Nakamoto",
+        "amount": 199999344,
+        "output": "bchreg:qzcvep37jmkjfyhsshepg9z8myww84g67uzu3pgfr3",
+        "script": "OP_RETURN 5361746f736869204e616b616d6f746f",
+        "hex": "02000000011e11619f4f1101effffe493e54ee7faca0adfd427fb4881dca641ba5849e6d12000000006a4730440220094fcec3637c1b7473818198558b5b6dcee0026034119927b12c11943d7d894d0220489ed60a6b01d7d4c6146ae36d6dc81a329391d6796c2b851b99ac934f96b4af4121026d0446d88c057cdf3b59f4442603609282672c4961c44e738ca48387d911f782ffffffff0228beeb0b000000001976a914b0cc863e96ed2492f085f2141447d91ce3d51af788ac0000000000000000126a105361746f736869204e616b616d6f746f00000000"
+      },
+      {
+        "xpriv": "tprv8kNvR1z7HT4RJ72z5HGtpPVVrTMY9uVFJh9sbDw62CBU2iKbCUkqjHUSjpT3drDVEWsqrTJqW4C2EEMnb2RueNo6MWtPdPmRnGdx97XZijS",
+        "txHash": "0655231b5a008ef23bfaa16ec7b08ae178e81f033834babce84fd4114ea2b226",
+        "data": "BCHForEveryone",
+        "amount": 199999016,
+        "output": "bchreg:qzcvep37jmkjfyhsshepg9z8myww84g67uzu3pgfr3",
+        "script": "OP_RETURN 424348466f7245766572796f6e65",
+        "hex": "020000000126b2a24e11d44fe8bcba3438031fe878e18ab0c76ea1fa3bf28e005a1b235506000000006a47304402204d972c018376836ba0b40a0f93b5d93beb2ce9be24d1eff12a9c44eb33e6f2f3022062cf5abf201312f720d8e22eb48ca021da0364edd755f6991a7a6e90f24cd3804121026d0446d88c057cdf3b59f4442603609282672c4961c44e738ca48387d911f782ffffffff02e0bceb0b000000001976a914b0cc863e96ed2492f085f2141447d91ce3d51af788ac0000000000000000106a0e424348466f7245766572796f6e6500000000"
+      },
+      {
+        "xpriv": "tprv8kNvR1z7HT4RJ72z5HGtpPVVrTMY9uVFJh9sbDw62CBU2iKbCUkqjHUSjpT3drDVEWsqrTJqW4C2EEMnb2RueNo6MWtPdPmRnGdx97XZijS",
+        "txHash": "6b95aa8764096fb531ae235acbd281935fc7f4fc055992b7060fb36ff3cce8d6",
+        "data": "chancellor on brink of second bailout for banks",
+        "amount": 199998688,
+        "output": "bchreg:qzcvep37jmkjfyhsshepg9z8myww84g67uzu3pgfr3",
+        "script": "OP_RETURN 6368616e63656c6c6f72206f6e206272696e6b206f66207365636f6e64206261696c6f757420666f722062616e6b73",
+        "hex": "0200000001d6e8ccf36fb30f06b7925905fcf4c75f9381d2cb5a23ae31b56f096487aa956b000000006a473044022006b7dd030c3eb56ba6993e7f770e7ddb8732132aede642e61af98669f2500c62022029308c95c25a56df4aa7a3eead08d16470d8b827749d747811e2b0581273b28e4121026d0446d88c057cdf3b59f4442603609282672c4961c44e738ca48387d911f782ffffffff0298bbeb0b000000001976a914b0cc863e96ed2492f085f2141447d91ce3d51af788ac0000000000000000316a2f6368616e63656c6c6f72206f6e206272696e6b206f66207365636f6e64206261696c6f757420666f722062616e6b7300000000"
+      },
+      {
+        "xpriv": "tprv8kNvR1z7HT4RJ72z5HGtpPVVrTMY9uVFJh9sbDw62CBU2iKbCUkqjHUSjpT3drDVEWsqrTJqW4C2EEMnb2RueNo6MWtPdPmRnGdx97XZijS",
+        "txHash": "86c1fc1dbbdcb9d42ef174f31a79520547f9da1beec4aed9184fc62ef0ecce9e",
+        "data": "Tokenize all the things",
+        "amount": 199998360,
+        "output": "bchreg:qzcvep37jmkjfyhsshepg9z8myww84g67uzu3pgfr3",
+        "script": "OP_RETURN 546f6b656e697a6520616c6c20746865207468696e6773",
+        "hex": "02000000019eceecf02ec64f18d9aec4ee1bdaf9470552791af374f12ed4b9dcbb1dfcc186000000006b483045022100ae630f40cb0d508115f723df49ea2b5c49f141e5623ad5030a7221109db7b86f02201aa411112dcc0a558c342ee539cfc6d9c7e49c1542957bbf52dbe5421d6de7554121026d0446d88c057cdf3b59f4442603609282672c4961c44e738ca48387d911f782ffffffff0250baeb0b000000001976a914b0cc863e96ed2492f085f2141447d91ce3d51af788ac0000000000000000196a17546f6b656e697a6520616c6c20746865207468696e677300000000"
+      },
+      {
+        "xpriv": "tprv8kNvR1z7HT4RJ72z5HGtpPVVrTMY9uVFJh9sbDw62CBU2iKbCUkqjHUSjpT3drDVEWsqrTJqW4C2EEMnb2RueNo6MWtPdPmRnGdx97XZijS",
+        "txHash": "dc8eb8261dd98b248bf738e5a10f10e07465d122e29f04b5e1096fe9debc9efa",
+        "data": "Bitcoin Cash",
+        "amount": 199998032,
+        "output": "bchreg:qzcvep37jmkjfyhsshepg9z8myww84g67uzu3pgfr3",
         "script": "OP_RETURN 426974636f696e2043617368",
         "hex": "0200000001fa9ebcdee96f09e1b5049fe222d16574e0100fa1e538f78b248bd91d26b88edc000000006a4730440220337ccd2d539e25c7b12388e7e416c8e90f4d416b502d0086e83d0ec809f473f2022002143e840c1ae49dc19fe5a5b291f3466c096e5105a26a26e11159916983d3034121026d0446d88c057cdf3b59f4442603609282672c4961c44e738ca48387d911f782ffffffff0208b9eb0b000000001976a914b0cc863e96ed2492f085f2141447d91ce3d51af788ac00000000000000000e6a0c426974636f696e204361736800000000"
       }

@@ -3,10 +3,13 @@ import Crypto from "./Crypto"
 import BIP39 from "bip39"
 import randomBytes from "randombytes"
 import Bitcoin from "bitcoincashjs-lib"
-import bchaddr from "bchaddrjs"
 const Buffer = require("safe-buffer").Buffer
 
 class Mnemonic {
+  constructor(address) {
+    this._address = address
+  }
+
   generate(bits = 128, wordlist) {
     return BIP39.generateMnemonic(bits, randomBytes, wordlist)
   }
@@ -50,7 +53,7 @@ class Mnemonic {
     return BIP39.wordlists
   }
 
-  toKeypairs(mnemonic, numberOfKeypairs = 1) {
+  toKeypairs(mnemonic, numberOfKeypairs = 1, regtest = false) {
     const rootSeedBuffer = this.toSeed(mnemonic, "")
     const hdNode = Bitcoin.HDNode.fromSeedBuffer(rootSeedBuffer)
     const HDPath = `44'/145'/0'/0/`
@@ -61,7 +64,11 @@ class Mnemonic {
       const childHDNode = hdNode.derivePath(`${HDPath}${i}`)
       accounts.push({
         privateKeyWIF: childHDNode.keyPair.toWIF(),
-        address: bchaddr.toCashAddress(childHDNode.getAddress())
+        address: this._address.toCashAddress(
+          childHDNode.getAddress(),
+          true,
+          regtest
+        )
       })
     }
     return accounts

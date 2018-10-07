@@ -1,8 +1,11 @@
 import Bitcoin from "bitcoincashjs-lib"
-import bchaddr from "bchaddrjs"
 import coininfo from "coininfo"
 
 class ECPair {
+  static setAddress(address) {
+    ECPair._address = address
+  }
+
   static fromWIF(privateKeyWIF) {
     let network
     if (privateKeyWIF[0] === "L" || privateKeyWIF[0] === "K")
@@ -42,8 +45,8 @@ class ECPair {
     return ecpair.getAddress()
   }
 
-  static toCashAddress(ecpair) {
-    return bchaddr.toCashAddress(ecpair.getAddress())
+  static toCashAddress(ecpair, regtest = false) {
+    return ECPair._address.toCashAddress(ecpair.getAddress(), true, regtest)
   }
 }
 

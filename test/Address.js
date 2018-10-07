@@ -52,6 +52,13 @@ const CASHADDR_ADDRESSES_NO_PREFIX = CASHADDR_ADDRESSES.map(address => {
   return parts[1]
 })
 
+const REGTEST_ADDRESSES = fixtures.cashaddrRegTestP2PKH
+
+const REGTEST_ADDRESSES_NO_PREFIX = REGTEST_ADDRESSES.map(address => {
+  const parts = address.split(":")
+  return parts[1]
+})
+
 const HASH160_HASHES = flatten([
   fixtures.hash160MainnetP2PKH,
   fixtures.hash160MainnetP2SH,
@@ -62,7 +69,8 @@ const P2PKH_ADDRESSES = flatten([
   fixtures.legacyMainnetP2PKH,
   fixtures.legacyTestnetP2PKH,
   fixtures.cashaddrMainnetP2PKH,
-  fixtures.cashaddrTestnetP2PKH
+  fixtures.cashaddrTestnetP2PKH,
+  fixtures.cashaddrRegTestP2PKH
 ])
 
 const P2SH_ADDRESSES = flatten([
@@ -74,15 +82,28 @@ describe("#addressConversion", () => {
   describe("#toLegacyAddress", () => {
     it("should translate legacy address format to itself correctly", () => {
       assert.deepEqual(
-        LEGACY_ADDRESSES.map(BITBOX.Address.toLegacyAddress),
+        LEGACY_ADDRESSES.map(address =>
+          BITBOX.Address.toLegacyAddress(address)
+        ),
         LEGACY_ADDRESSES
       )
     })
 
     it("should convert cashaddr address to legacy base58Check", () => {
       assert.deepEqual(
-        CASHADDR_ADDRESSES.map(BITBOX.Address.toLegacyAddress),
+        CASHADDR_ADDRESSES.map(address =>
+          BITBOX.Address.toLegacyAddress(address)
+        ),
         LEGACY_ADDRESSES
+      )
+    })
+
+    it("should convert cashaddr regtest address to legacy base58Check", () => {
+      assert.deepEqual(
+        REGTEST_ADDRESSES.map(address =>
+          BITBOX.Address.toLegacyAddress(address)
+        ),
+        fixtures.legacyTestnetP2PKH
       )
     })
 
@@ -108,12 +129,30 @@ describe("#addressConversion", () => {
       )
     })
 
+    it("should convert legacy base58Check address to regtest cashaddr", () => {
+      assert.deepEqual(
+        fixtures.legacyTestnetP2PKH.map(address =>
+          BITBOX.Address.toCashAddress(address, true, true)
+        ),
+        REGTEST_ADDRESSES
+      )
+    })
+
     it("should translate cashaddr address format to itself correctly", () => {
       assert.deepEqual(
         CASHADDR_ADDRESSES.map(address =>
           BITBOX.Address.toCashAddress(address, true)
         ),
         CASHADDR_ADDRESSES
+      )
+    })
+
+    it("should translate regtest cashaddr address format to itself correctly", () => {
+      assert.deepEqual(
+        REGTEST_ADDRESSES.map(address =>
+          BITBOX.Address.toCashAddress(address, true, true)
+        ),
+        REGTEST_ADDRESSES
       )
     })
 
@@ -126,9 +165,25 @@ describe("#addressConversion", () => {
       )
     })
 
-    it("should translate no-prefix cashaddr address format to itself correctly", () => {
+    it("should translate no-prefix regtest cashaddr address format to itself correctly", () => {
+      assert.deepEqual(
+        REGTEST_ADDRESSES_NO_PREFIX.map(address =>
+          BITBOX.Address.toCashAddress(address, true, true)
+        ),
+        REGTEST_ADDRESSES
+      )
+    })
+
+    it("should translate cashaddr address format to itself of no-prefix correctly", () => {
       CASHADDR_ADDRESSES.forEach(address => {
         const noPrefix = BITBOX.Address.toCashAddress(address, false)
+        assert.equal(address.split(":")[1], noPrefix)
+      })
+    })
+
+    it("should translate regtest cashaddr address format to itself of no-prefix correctly", () => {
+      REGTEST_ADDRESSES.forEach(address => {
+        const noPrefix = BITBOX.Address.toCashAddress(address, false, true)
         assert.equal(address.split(":")[1], noPrefix)
       })
     })
@@ -147,15 +202,22 @@ describe("#addressConversion", () => {
   describe("#toHash160", () => {
     it("should convert legacy base58check address to hash160", () => {
       assert.deepEqual(
-        LEGACY_ADDRESSES.map(BITBOX.Address.toHash160),
+        LEGACY_ADDRESSES.map(address => BITBOX.Address.toHash160(address)),
         HASH160_HASHES
       )
     })
 
     it("should convert cashaddr address to hash160", () => {
       assert.deepEqual(
-        CASHADDR_ADDRESSES.map(BITBOX.Address.toHash160),
+        CASHADDR_ADDRESSES.map(address => BITBOX.Address.toHash160(address)),
         HASH160_HASHES
+      )
+    })
+
+    it("should convert　regtest cashaddr address to hash160", () => {
+      assert.deepEqual(
+        REGTEST_ADDRESSES.map(address => BITBOX.Address.toHash160(address)),
+        fixtures.hash160TestnetP2PKH
       )
     })
 
@@ -237,6 +299,19 @@ describe("#addressConversion", () => {
       )
     })
 
+    it("should convert hash160 to regtest P2PKH cash address", () => {
+      assert.deepEqual(
+        fixtures.hash160TestnetP2PKH.map(hash160 =>
+          BITBOX.Address.hash160ToCash(
+            hash160,
+            Bitcoin.networks.testnet.pubKeyHash,
+            true
+          )
+        ),
+        REGTEST_ADDRESSES
+      )
+    })
+
     describe("errors", () => {
       it("should fail when called with an invalid address", () => {
         assert.throws(() => {
@@ -273,6 +348,13 @@ describe("address format detection", () => {
           assert.equal(isBase58Check, false)
         })
       })
+
+      REGTEST_ADDRESSES.forEach(address => {
+        it(`should detect ${address} is not a legacy address`, () => {
+          const isBase58Check = BITBOX.Address.isLegacyAddress(address)
+          assert.equal(isBase58Check, false)
+        })
+      })
     })
 
     describe("errors", () => {
@@ -290,6 +372,13 @@ describe("address format detection", () => {
   describe("#isCashAddress", () => {
     describe("is cashaddr", () => {
       CASHADDR_ADDRESSES.forEach(address => {
+        it(`should detect ${address} is a cashaddr address`, () => {
+          const isCashaddr = BITBOX.Address.isCashAddress(address)
+          assert.equal(isCashaddr, true)
+        })
+      })
+
+      REGTEST_ADDRESSES.forEach(address => {
         it(`should detect ${address} is a cashaddr address`, () => {
           const isCashaddr = BITBOX.Address.isCashAddress(address)
           assert.equal(isCashaddr, true)
@@ -337,6 +426,13 @@ describe("network detection", () => {
           assert.equal(isMainnet, false)
         })
       })
+
+      REGTEST_ADDRESSES.forEach(address => {
+        it(`should detect ${address} is not a mainnet address`, () => {
+          const isMainnet = BITBOX.Address.isMainnetAddress(address)
+          assert.equal(isMainnet, false)
+        })
+      })
     })
 
     describe("errors", () => {
@@ -368,6 +464,13 @@ describe("network detection", () => {
           assert.equal(isTestnet, false)
         })
       })
+
+      REGTEST_ADDRESSES.forEach(address => {
+        it(`should detect ${address} is not a testnet address`, () => {
+          const isTestnet = BITBOX.Address.isTestnetAddress(address)
+          assert.equal(isTestnet, false)
+        })
+      })
     })
 
     describe("errors", () => {
@@ -377,6 +480,44 @@ describe("network detection", () => {
         }, BITBOX.BitcoinCash.InvalidAddressError)
         assert.throws(() => {
           BITBOX.Address.isTestnetAddress("some invalid address")
+        }, BITBOX.BitcoinCash.InvalidAddressError)
+      })
+    })
+  })
+
+  describe("#isRegTestAddress", () => {
+    describe("is testnet", () => {
+      REGTEST_ADDRESSES.forEach(address => {
+        it(`should detect ${address} is a regtest address`, () => {
+          const isRegTest = BITBOX.Address.isRegTestAddress(address)
+          assert.equal(isRegTest, true)
+        })
+      })
+    })
+
+    describe("is not testnet", () => {
+      MAINNET_ADDRESSES.forEach(address => {
+        it(`should detect ${address} is not a regtest address`, () => {
+          const isRegTest = BITBOX.Address.isRegTestAddress(address)
+          assert.equal(isRegTest, false)
+        })
+      })
+
+      TESTNET_ADDRESSES.forEach(address => {
+        it(`should detect ${address} is not a regtest address`, () => {
+          const isRegTest = BITBOX.Address.isRegTestAddress(address)
+          assert.equal(isRegTest, false)
+        })
+      })
+    })
+
+    describe("errors", () => {
+      it("should fail when called with an invalid address", () => {
+        assert.throws(() => {
+          BITBOX.Address.isRegTestAddress()
+        }, BITBOX.BitcoinCash.InvalidAddressError)
+        assert.throws(() => {
+          BITBOX.Address.isRegTestAddress("some invalid address")
         }, BITBOX.BitcoinCash.InvalidAddressError)
       })
     })
@@ -450,62 +591,158 @@ describe("address type detection", () => {
 describe("cashaddr prefix detection", () => {
   it("should return the same result for detectAddressFormat", () => {
     assert.deepEqual(
-      CASHADDR_ADDRESSES_NO_PREFIX.map(BITBOX.Address.detectAddressFormat),
-      CASHADDR_ADDRESSES.map(BITBOX.Address.detectAddressFormat)
+      CASHADDR_ADDRESSES_NO_PREFIX.map(address =>
+        BITBOX.Address.detectAddressFormat(address)
+      ),
+      CASHADDR_ADDRESSES.map(address =>
+        BITBOX.Address.detectAddressFormat(address)
+      )
+    )
+    assert.deepEqual(
+      REGTEST_ADDRESSES_NO_PREFIX.map(address =>
+        BITBOX.Address.detectAddressFormat(address)
+      ),
+      REGTEST_ADDRESSES.map(address =>
+        BITBOX.Address.detectAddressFormat(address)
+      )
     )
   })
   it("should return the same result for detectAddressNetwork", () => {
     assert.deepEqual(
-      CASHADDR_ADDRESSES_NO_PREFIX.map(BITBOX.Address.detectAddressNetwork),
-      CASHADDR_ADDRESSES.map(BITBOX.Address.detectAddressNetwork)
+      CASHADDR_ADDRESSES_NO_PREFIX.map(address =>
+        BITBOX.Address.detectAddressNetwork(address)
+      ),
+      CASHADDR_ADDRESSES.map(address =>
+        BITBOX.Address.detectAddressNetwork(address)
+      )
+    )
+    assert.deepEqual(
+      REGTEST_ADDRESSES_NO_PREFIX.map(address =>
+        BITBOX.Address.detectAddressNetwork(address)
+      ),
+      REGTEST_ADDRESSES.map(address =>
+        BITBOX.Address.detectAddressNetwork(address)
+      )
     )
   })
   it("should return the same result for detectAddressType", () => {
     assert.deepEqual(
-      CASHADDR_ADDRESSES_NO_PREFIX.map(BITBOX.Address.detectAddressType),
-      CASHADDR_ADDRESSES.map(BITBOX.Address.detectAddressType)
+      CASHADDR_ADDRESSES_NO_PREFIX.map(address =>
+        BITBOX.Address.detectAddressType(address)
+      ),
+      CASHADDR_ADDRESSES.map(address =>
+        BITBOX.Address.detectAddressType(address)
+      )
+    )
+    assert.deepEqual(
+      REGTEST_ADDRESSES_NO_PREFIX.map(address =>
+        BITBOX.Address.detectAddressType(address)
+      ),
+      REGTEST_ADDRESSES.map(address =>
+        BITBOX.Address.detectAddressType(address)
+      )
     )
   })
   it("should return the same result for toLegacyAddress", () => {
     assert.deepEqual(
-      CASHADDR_ADDRESSES_NO_PREFIX.map(BITBOX.Address.toLegacyAddress),
-      CASHADDR_ADDRESSES.map(BITBOX.Address.toLegacyAddress)
+      CASHADDR_ADDRESSES_NO_PREFIX.map(address =>
+        BITBOX.Address.toLegacyAddress(address)
+      ),
+      CASHADDR_ADDRESSES.map(address => BITBOX.Address.toLegacyAddress(address))
+    )
+    assert.deepEqual(
+      REGTEST_ADDRESSES_NO_PREFIX.map(address =>
+        BITBOX.Address.toLegacyAddress(address)
+      ),
+      REGTEST_ADDRESSES.map(address => BITBOX.Address.toLegacyAddress(address))
     )
   })
   it("should return the same result for isLegacyAddress", () => {
     assert.deepEqual(
-      CASHADDR_ADDRESSES_NO_PREFIX.map(BITBOX.Address.isLegacyAddress),
-      CASHADDR_ADDRESSES.map(BITBOX.Address.isLegacyAddress)
+      CASHADDR_ADDRESSES_NO_PREFIX.map(address =>
+        BITBOX.Address.isLegacyAddress(address)
+      ),
+      CASHADDR_ADDRESSES.map(address => BITBOX.Address.isLegacyAddress(address))
+    )
+    assert.deepEqual(
+      REGTEST_ADDRESSES_NO_PREFIX.map(address =>
+        BITBOX.Address.isLegacyAddress(address)
+      ),
+      REGTEST_ADDRESSES.map(address => BITBOX.Address.isLegacyAddress(address))
     )
   })
   it("should return the same result for isCashAddress", () => {
     assert.deepEqual(
-      CASHADDR_ADDRESSES_NO_PREFIX.map(BITBOX.Address.isCashAddress),
-      CASHADDR_ADDRESSES.map(BITBOX.Address.isCashAddress)
+      CASHADDR_ADDRESSES_NO_PREFIX.map(address =>
+        BITBOX.Address.isCashAddress(address)
+      ),
+      CASHADDR_ADDRESSES.map(address => BITBOX.Address.isCashAddress(address))
+    )
+    assert.deepEqual(
+      REGTEST_ADDRESSES_NO_PREFIX.map(address =>
+        BITBOX.Address.isCashAddress(address)
+      ),
+      REGTEST_ADDRESSES.map(address => BITBOX.Address.isCashAddress(address))
     )
   })
   it("should return the same result for isMainnetAddress", () => {
     assert.deepEqual(
-      CASHADDR_ADDRESSES_NO_PREFIX.map(BITBOX.Address.isMainnetAddress),
-      CASHADDR_ADDRESSES.map(BITBOX.Address.isMainnetAddress)
+      CASHADDR_ADDRESSES_NO_PREFIX.map(address =>
+        BITBOX.Address.isMainnetAddress(address)
+      ),
+      CASHADDR_ADDRESSES.map(address =>
+        BITBOX.Address.isMainnetAddress(address)
+      )
+    )
+    assert.deepEqual(
+      REGTEST_ADDRESSES_NO_PREFIX.map(address =>
+        BITBOX.Address.isMainnetAddress(address)
+      ),
+      REGTEST_ADDRESSES.map(address => BITBOX.Address.isMainnetAddress(address))
     )
   })
   it("should return the same result for isTestnetAddress", () => {
     assert.deepEqual(
-      CASHADDR_ADDRESSES_NO_PREFIX.map(BITBOX.Address.isTestnetAddress),
-      CASHADDR_ADDRESSES.map(BITBOX.Address.isTestnetAddress)
+      CASHADDR_ADDRESSES_NO_PREFIX.map(address =>
+        BITBOX.Address.isTestnetAddress(address)
+      ),
+      CASHADDR_ADDRESSES.map(address =>
+        BITBOX.Address.isTestnetAddress(address)
+      )
+    )
+    assert.deepEqual(
+      REGTEST_ADDRESSES_NO_PREFIX.map(address =>
+        BITBOX.Address.isTestnetAddress(address)
+      ),
+      REGTEST_ADDRESSES.map(address => BITBOX.Address.isTestnetAddress(address))
     )
   })
   it("should return the same result for isP2PKHAddress", () => {
     assert.deepEqual(
-      CASHADDR_ADDRESSES_NO_PREFIX.map(BITBOX.Address.isP2PKHAddress),
-      CASHADDR_ADDRESSES.map(BITBOX.Address.isP2PKHAddress)
+      CASHADDR_ADDRESSES_NO_PREFIX.map(address =>
+        BITBOX.Address.isP2PKHAddress(address)
+      ),
+      CASHADDR_ADDRESSES.map(address => BITBOX.Address.isP2PKHAddress(address))
+    )
+    assert.deepEqual(
+      REGTEST_ADDRESSES_NO_PREFIX.map(address =>
+        BITBOX.Address.isP2PKHAddress(address)
+      ),
+      REGTEST_ADDRESSES.map(address => BITBOX.Address.isP2PKHAddress(address))
     )
   })
   it("should return the same result for isP2SHAddress", () => {
     assert.deepEqual(
-      CASHADDR_ADDRESSES_NO_PREFIX.map(BITBOX.Address.isP2SHAddress),
-      CASHADDR_ADDRESSES.map(BITBOX.Address.isP2SHAddress)
+      CASHADDR_ADDRESSES_NO_PREFIX.map(address =>
+        BITBOX.Address.isP2SHAddress(address)
+      ),
+      CASHADDR_ADDRESSES.map(address => BITBOX.Address.isP2SHAddress(address))
+    )
+    assert.deepEqual(
+      REGTEST_ADDRESSES_NO_PREFIX.map(address =>
+        BITBOX.Address.isP2SHAddress(address)
+      ),
+      REGTEST_ADDRESSES.map(address => BITBOX.Address.isP2SHAddress(address))
     )
   })
 })
@@ -519,6 +756,13 @@ describe("#detectAddressFormat", () => {
   })
 
   CASHADDR_ADDRESSES.forEach(address => {
+    it(`should detect ${address} is a legacy cashaddr address`, () => {
+      const isCashaddr = BITBOX.Address.detectAddressFormat(address)
+      assert.equal(isCashaddr, "cashaddr")
+    })
+  })
+
+  REGTEST_ADDRESSES.forEach(address => {
     it(`should detect ${address} is a legacy cashaddr address`, () => {
       const isCashaddr = BITBOX.Address.detectAddressFormat(address)
       assert.equal(isCashaddr, "cashaddr")
@@ -549,6 +793,13 @@ describe("#detectAddressNetwork", () => {
     it(`should detect ${address} is a testnet address`, () => {
       const isTestnet = BITBOX.Address.detectAddressNetwork(address)
       assert.equal(isTestnet, "testnet")
+    })
+  })
+
+  REGTEST_ADDRESSES.forEach(address => {
+    it(`should detect ${address} is a testnet address`, () => {
+      const isTestnet = BITBOX.Address.detectAddressNetwork(address)
+      assert.equal(isTestnet, "regtest")
     })
   })
 
