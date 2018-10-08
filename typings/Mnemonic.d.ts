@@ -7,6 +7,6 @@ export declare interface Mnemonic {
   validate(mnemonic: string, wordlist?: string[]): boolean;
   toSeed(mnemonic: string, passphrase?: string): Buffer;
   wordLists(): any;
-  toKeypairs(mnemonic: string, numberOfKeypairs?: number, rgetest?: boolean): { privateKeyWIF: string, address: string}[];
+  toKeypairs(mnemonic: string, numberOfKeypairs?: number, regtest?: boolean): { privateKeyWIF: string, address: string}[];
   findNearestWord(word: string, wordlist: string[]): string;
 }
