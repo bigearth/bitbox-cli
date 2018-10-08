@@ -17,7 +17,7 @@ const BITBOXCli = require("./lib/bitbox-cli").default
 const clone = require("git-clone")
 const cmd = require("node-cmd")
 
-program.version("1.8.0", "-v, --version")
+program.version("1.8.1", "-v, --version")
 
 program
   .command("new <name>")
