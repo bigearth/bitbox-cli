@@ -2,8 +2,8 @@
 const fixtures = require("./fixtures/ECPair.json")
 const chai = require("chai")
 const assert = require("assert")
-const BITBOXCli = require("./../lib/bitbox-sdk").default
-const BITBOX = new BITBOXCli()
+const BITBOXSDK = require("./../lib/bitbox-sdk").default
+const BITBOX = new BITBOXSDK()
 const script = BITBOX.Script
 const Buffer = require("safe-buffer").Buffer
 

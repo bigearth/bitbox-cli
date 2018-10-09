@@ -2,8 +2,8 @@
 const fixtures = require("./fixtures/Mnemonic.json")
 const chai = require("chai")
 const assert = require("assert")
-const BITBOXCli = require("./../lib/bitbox-sdk").default
-const BITBOX = new BITBOXCli()
+const BITBOXSDK = require("./../lib/bitbox-sdk").default
+const BITBOX = new BITBOXSDK()
 const Buffer = require("safe-buffer").Buffer
 
 describe("#Mnemonic", () => {

@@ -6,9 +6,9 @@
 
 // Instantiate BITBOX.
 const bitboxLib = "../../../../lib/bitbox-sdk"
-const BITBOXCli = require(bitboxLib).default
-//const BITBOX = new BITBOXCli({ restURL: "https://trest.bitcoin.com/v1/" })
-const BITBOX = new BITBOXCli({ restURL: "htts://localhost:3000/v1/" })
+const BITBOXSDK = require(bitboxLib).default
+//const BITBOX = new BITBOXSDK({ restURL: "https://trest.bitcoin.com/v1/" })
+const BITBOX = new BITBOXSDK({ restURL: "htts://localhost:3000/v1/" })
 
 // Replace the address below with the address you want to send the BCH to.
 const RECV_ADDR = `bchtest:qpytyr39fsr80emqh2ukftkpdqvdddcnfg9s6wjtfa`

@@ -13,7 +13,7 @@ const touch = require("touch")
 const emoji = require("node-emoji")
 const repl = require("repl")
 const ini = require("ini")
-const BITBOXCli = require("./lib/bitbox-sdk").default
+const BITBOXSDK = require("./lib/bitbox-sdk").default
 const clone = require("git-clone")
 const cmd = require("node-cmd")
 
@@ -158,7 +158,7 @@ program
 
     const environment = fetchOption("environment=development", config, options)
 
-    replServer.context.BITBOX = new BITBOXCli(config.networks[environment])
+    replServer.context.BITBOX = new BITBOXSDK(config.networks[environment])
   })
 
 function fetchOption(kv, config, options) {

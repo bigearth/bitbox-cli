@@ -20,7 +20,7 @@ import Price from './Price';
 import Socket from './Socket';
 
 
-declare class BITBOXCli {
+declare class BITBOXSDK {
 
 	constructor(config?: any);
 
@@ -46,4 +46,4 @@ declare class BITBOXCli {
 	Socket: Socket;
 }
 
-export default BITBOXCli;
+export default BITBOXSDK;

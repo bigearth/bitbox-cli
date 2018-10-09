@@ -23,7 +23,7 @@ import Script from "./Script"
 import Price from "./Price"
 import Socket from "./Socket"
 
-class BITBOXCli {
+class BITBOXSDK {
   constructor(config) {
     if (config && config.restURL && config.restURL !== "")
       this.restURL = config.restURL
@@ -53,4 +53,4 @@ class BITBOXCli {
   }
 }
 
-export default BITBOXCli
+export default BITBOXSDK
