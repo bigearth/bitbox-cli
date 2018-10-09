@@ -2,7 +2,7 @@
 const chai = require("chai")
 const assert = require("assert")
 const axios = require("axios")
-const BITBOXCli = require("./../lib/bitbox-cli").default
+const BITBOXCli = require("./../lib/bitbox-sdk").default
 const BITBOX = new BITBOXCli()
 const sinon = require("sinon")
 

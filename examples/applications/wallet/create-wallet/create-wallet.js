@@ -6,7 +6,7 @@
 "use strict"
 
 // Instantiate BITBOX.
-const bitboxLib = "../../../../lib/bitbox-cli"
+const bitboxLib = "../../../../lib/bitbox-sdk"
 const BITBOXCli = require(bitboxLib).default
 const BITBOX = new BITBOXCli({ restURL: "https://trest.bitcoin.com/v1/" })
 

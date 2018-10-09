@@ -13,7 +13,7 @@ const touch = require("touch")
 const emoji = require("node-emoji")
 const repl = require("repl")
 const ini = require("ini")
-const BITBOXCli = require("./lib/bitbox-cli").default
+const BITBOXCli = require("./lib/bitbox-sdk").default
 const clone = require("git-clone")
 const cmd = require("node-cmd")
 

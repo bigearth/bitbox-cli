@@ -1,7 +1,7 @@
 "use strict"
 const chai = require("chai")
 const assert = require("assert")
-const BITBOXCli = require("./../lib/bitbox-cli").default
+const BITBOXCli = require("./../lib/bitbox-sdk").default
 const BITBOX = new BITBOXCli()
 const axios = require("axios")
 const sinon = require("sinon")

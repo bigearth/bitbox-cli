@@ -1,7 +1,7 @@
 {
-  "name": "bitbox-cli",
+  "name": "bitbox-sdk",
   "version": "1.8.1",
-  "description": "BITBOX javascript sdk for Bitcoin Cash",
+  "description": "BITBOX Javascript SDK for Bitcoin Cash",
   "author": "Gabriel Cardona @ Bitcoin.com",
   "main": "index.js",
   "scripts": {
@@ -17,7 +17,7 @@
   "bin": {
     "bitbox": "./index.js"
   },
-  "homepage": "https://developer.bitcoin.com/bitbox.html",
+  "homepage": "https://developer.bitcoin.com/bitbox",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Bitcoin-com/bitbox-javascript-sdk.git"
