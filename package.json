@@ -1,6 +1,6 @@
 {
   "name": "bitbox-sdk",
-  "version": "1.8.1",
+  "version": "1.8.2",
   "description": "BITBOX Javascript SDK for Bitcoin Cash",
   "author": "Gabriel Cardona @ Bitcoin.com",
   "main": "index.js",
