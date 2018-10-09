@@ -1,6 +1,4 @@
-# `bitbox-sdk`
-
-## Command line tool for https://developer.bitcoin.com/bitbox
+# BITBOX SDK
 
 `bitbox-sdk` is a utility for creating great [Bitcoin Cash](https://www.bitcoincash.org) applications. If can be used from the command line or from within client/server apps.
 
