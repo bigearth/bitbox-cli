@@ -2,12 +2,17 @@ import axios from "axios"
 class Price {
   async current(currency = "all") {
     try {
-      const response = await axios.get(
-        `https://www.blocktrail.com/BCC/json/blockchain/price`
-      )
-      if (currency === "all") return response.data
+      if (currency === "all") {
+        const response = await axios.get(
+          `https://www.blocktrail.com/BCC/json/blockchain/price`
+        )
+        return response.data
+      }
 
-      return response.data[currency.toUpperCase()]
+      const response = await axios.get(
+        `https://index-api.bitcoin.com/api/v0/cash/price/${currency}`
+      )
+      return response.data.price / 100.0
     } catch (error) {
       if (error.response && error.response.data) throw error.response.data
       else throw error
