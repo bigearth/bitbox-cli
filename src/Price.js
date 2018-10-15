@@ -1,5 +1,6 @@
 import axios from "axios"
 class Price {
+  // TODO: v3: Default currency to usd, always call index.bitcoin.com
   async current(currency = "all") {
     try {
       if (currency === "all") {
