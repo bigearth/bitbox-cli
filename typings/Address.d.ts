@@ -18,9 +18,9 @@ export declare interface Address {
     detectAddressType(address: string): string;
     fromXPub(xpub: string, path?: string): string;
     fromOutputScript(scriptPubKey:string, network?: string): string;
-    details(address: string | string[]): Promise<AddressDetailsResult | AddressDetailsResult[]>;
-    utxo(address: string | string[]): Promise<AddressUtxoResult[]>;
-    unconfirmed(address: string | string[]): Promise<AddressUnconfirmedResult[]>;
+    details(address: string[]): Promise<AddressDetailsResult[]>;
+    utxo(address: string[]): Promise<AddressUtxoResult[][]>;
+    unconfirmed(address: string[]): Promise<AddressUnconfirmedResult[][]>;
 }
 
 export declare interface AddressDetailsResult {
