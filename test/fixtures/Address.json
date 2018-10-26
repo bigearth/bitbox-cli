@@ -71,6 +71,54 @@
     "bchtest:qpuxsqzgq3j0a58tnmwpgcrwwyrkenalevaeknklfg",
     "bchtest:qpgrlg0yqmdf4y8q980e57tx6v7vrvds2ug89n8w8q"
   ],
+  "cashaddrRegTestP2PKH": [
+    "bchreg:qq24rpar9qas3vc9r8d4p0prhwaf7jmx2usk9rgkku",
+    "bchreg:qpzj67wmlsq8uttddddapjjawyusureca5lq7ymw4p",
+    "bchreg:qztg9c4u3ldhg68mqgzrple6ae92hwnfe5pxq96p2t",
+    "bchreg:qrem2cg43ksmvlampheur8gfgdhhk57myg7kv9a6fl",
+    "bchreg:qp4jf3n740kffkladul96xnq5dtrflg4x55g4g8ef9",
+    "bchreg:qrlqxnzuu6hvvg9qer0m093ywkjnu7wm7ymwgasnp7",
+    "bchreg:qr44nfr9egxt7h7lxdktf9kajds9fwdxxck9mlyea5",
+    "bchreg:qpklfd26u70ta4j7p4twxv2k5apx95p0qqj83e2ent",
+    "bchreg:qpuxsqzgq3j0a58tnmwpgcrwwyrkenalev89qj4v2w",
+    "bchreg:qpgrlg0yqmdf4y8q980e57tx6v7vrvds2ujmnjyayx"
+  ],
+  "hash160MainnetP2PKH": [
+    "573d93b475be4f1925f3b74ed951201b0147eac1",
+    "c6a872e524a03b7d400c425d7b974a35c78f4634",
+    "6c9456d8b14aeb409086a6ce817d4e7b74cc830c",
+    "428df38e23fc879a25819427995c3e6355b12d33",
+    "c9239ab0f3130c1f5596de6ef6c502727022caad",
+    "0cd440a628cd567915cf6963102392ac574d9a2d",
+    "f1c426f508cc2f9c02074445dfc45f31ab5400c2",
+    "22a22aeffc964232a6b59fe42c83c7d8a3381480",
+    "cce6fee93513534133fbd073fb34c62140f08782",
+    "a85a67d277620ab1cad3af3d0b02d19feaeb45fa"
+  ],
+  "hash160MainnetP2SH": [
+    "7dc85da64d1d93ef01ef62e0221c02f512e3942f",
+    "61c0d3b62301fa3aba01730134a9304c5f3fb809",
+    "c531daf34e8408743afeb55e905c51b99d7b99aa",
+    "6fbd9de114ffa0cedb176c28f6fd491bb65dc2c4",
+    "b411aa88d6f9f0bed9814d3dc1bd7f2a34d6aaec",
+    "8a0ce890399ff29c59425fd28fb9a8b33b16840d",
+    "81b93ac72a8b25817eee3d014b9d72e0ed9aebe5",
+    "656566b3157d3a3ee141c5a9ae974cb3d912b821",
+    "f9b7afcb0605f275ca6c5ebd8651964a051be276",
+    "8fd3c7df5aecc95a087ca5bdf3e0626c8080786a"
+  ],
+  "hash160TestnetP2PKH": [
+    "155187a3283b08b30519db50bc23bbba9f4b6657",
+    "452d79dbfc007e2d6d6b5bd0ca5d71390e0f38ed",
+    "9682e2bc8fdb7468fb020430ff3aee4aabba69cd",
+    "f3b561158da1b67fbb0df3c19d09436f7b53db22",
+    "6b24c67eabec94dbfd6f3e5d1a60a35634fd1535",
+    "fe034c5ce6aec620a0c8dfb7962475a53e79dbf1",
+    "eb59a465ca0cbf5fdf336cb496dd936054b9a636",
+    "6df4b55ae79ebed65e0d56e33156a74262d02f00",
+    "786800480464fed0eb9edc14606e71076ccfbfcb",
+    "503fa1e406da9a90e029df9a7966d33cc1b1b057"
+  ],
   "mainnetXPub": [
     {
       "xpub": "xpub6CVcpZVmPNjuniVYu1mLnLjDBfxWpx7LS25uxwRm5BLbXMCJmRaQgAxuqZDoYDeidJUh5QUatLJPWpeCkEK648hExyKFezqxJz4CMfEoYAc",
@@ -134,5 +182,6 @@
         "bchtest:qrd88na4869phkr0h44kzfakwc52w2jwmqjl6vlynn"
       ]
     }
-  ]
+  ],
+  "p2shMainnet": ["bitcoincash:pz0qcslrqn7hr44hsszwl4lw5r6udkg6zqncnufkrl"]
 }

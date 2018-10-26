@@ -1,282 +1,284 @@
-// let fixtures = require('./fixtures/BitcoinCash.json')
-let chai = require('chai');
-let assert = require('assert');
-let axios = require('axios');
-let BITBOXCli = require('./../lib/bitbox-cli').default;
-let BITBOX = new BITBOXCli();
-let sinon = require('sinon');
+"use strict"
+const chai = require("chai")
+const assert = require("assert")
+const axios = require("axios")
+const BITBOXSDK = require("./../lib/bitbox-sdk").default
+const BITBOX = new BITBOXSDK()
+const sinon = require("sinon")
 
-describe('#Blockchain', () => {
-  describe('#getBestBlockHash', () => {
-    let sandbox;
-    beforeEach(() => sandbox = sinon.sandbox.create());
-    afterEach(() => sandbox.restore());
+describe("#Blockchain", () => {
+  describe("#getBestBlockHash", () => {
+    let sandbox
+    beforeEach(() => (sandbox = sinon.sandbox.create()))
+    afterEach(() => sandbox.restore())
 
-    it('should get best block hash', (done) => {
-      const resolved = new Promise((r) => r({ data: '0000000000000000005f1f550d3d8b142b684277016ebd00fa29c668606ae52d' }));
-      sandbox.stub(axios, 'get').returns(resolved);
+    it("should get best block hash", done => {
+      const resolved = new Promise(r =>
+        r({
+          data:
+            "0000000000000000005f1f550d3d8b142b684277016ebd00fa29c668606ae52d"
+        })
+      )
+      sandbox.stub(axios, "get").returns(resolved)
 
       BITBOX.Blockchain.getBestBlockHash()
-        .then((result) => {
-          let hash = '0000000000000000005f1f550d3d8b142b684277016ebd00fa29c668606ae52d';
-          assert.equal(hash, result);
+        .then(result => {
+          const hash =
+            "0000000000000000005f1f550d3d8b142b684277016ebd00fa29c668606ae52d"
+          assert.equal(hash, result)
         })
-        .then(done, done);
-    });
-  });
+        .then(done, done)
+    })
+  })
 
-  describe('#getBlock', () => {
-    let sandbox;
-    beforeEach(() => sandbox = sinon.sandbox.create());
-    afterEach(() => sandbox.restore());
-    let data = {
-      hash: '00000000c937983704a73af28acdec37b049d214adbda81d7e2a3dd146f6ed09',
+  describe("#getBlock", () => {
+    let sandbox
+    beforeEach(() => (sandbox = sinon.sandbox.create()))
+    afterEach(() => sandbox.restore())
+    const data = {
+      hash: "00000000c937983704a73af28acdec37b049d214adbda81d7e2a3dd146f6ed09",
       confirmations: 526807,
       size: 216,
       height: 1000,
       version: 1,
-      versionHex: '00000001',
-      merkleroot: 'fe28050b93faea61fa88c4c630f0e1f0a1c24d0082dd0e10d369e13212128f33',
-      tx:
-       [ 'fe28050b93faea61fa88c4c630f0e1f0a1c24d0082dd0e10d369e13212128f33' ],
+      versionHex: "00000001",
+      merkleroot:
+        "fe28050b93faea61fa88c4c630f0e1f0a1c24d0082dd0e10d369e13212128f33",
+      tx: ["fe28050b93faea61fa88c4c630f0e1f0a1c24d0082dd0e10d369e13212128f33"],
       time: 1232346882,
       mediantime: 1232344831,
       nonce: 2595206198,
-      bits: '1d00ffff',
+      bits: "1d00ffff",
       difficulty: 1,
-      chainwork: '000000000000000000000000000000000000000000000000000003e903e903e9',
-      previousblockhash: '0000000008e647742775a230787d66fdf92c46a48c896bfbc85cdc8acc67e87d',
-      nextblockhash: '00000000a2887344f8db859e372e7e4bc26b23b9de340f725afbf2edb265b4c6'
-    };
+      chainwork:
+        "000000000000000000000000000000000000000000000000000003e903e903e9",
+      previousblockhash:
+        "0000000008e647742775a230787d66fdf92c46a48c896bfbc85cdc8acc67e87d",
+      nextblockhash:
+        "00000000a2887344f8db859e372e7e4bc26b23b9de340f725afbf2edb265b4c6"
+    }
 
-    it('should get block by hash', (done) => {
-      const resolved = new Promise((r) => r({ data: data }));
-      sandbox.stub(axios, 'get').returns(resolved);
+    it("should get block by hash", done => {
+      const resolved = new Promise(r => r({ data: data }))
+      sandbox.stub(axios, "get").returns(resolved)
 
-      BITBOX.Blockchain.getBlock("00000000c937983704a73af28acdec37b049d214adbda81d7e2a3dd146f6ed09")
-        .then((result) => {
-          assert.deepEqual(
-            data,
-            result
-          );
+      BITBOX.Blockchain.getBlock(
+        "00000000c937983704a73af28acdec37b049d214adbda81d7e2a3dd146f6ed09"
+      )
+        .then(result => {
+          assert.deepEqual(data, result)
         })
-        .then(done, done);
-    });
-  });
+        .then(done, done)
+    })
+  })
 
-  describe('#getBlockchainInfo', () => {
-    let sandbox;
-    beforeEach(() => sandbox = sinon.sandbox.create());
-    afterEach(() => sandbox.restore());
-    let data = {
-      chain: 'main',
+  describe("#getBlockchainInfo", () => {
+    let sandbox
+    beforeEach(() => (sandbox = sinon.sandbox.create()))
+    afterEach(() => sandbox.restore())
+    const data = {
+      chain: "main",
       blocks: 527810,
       headers: 527810,
-      bestblockhash: '000000000000000001d127592d091d4c45062504663c9acab27a1b16c028e3c0',
+      bestblockhash:
+        "000000000000000001d127592d091d4c45062504663c9acab27a1b16c028e3c0",
       difficulty: 576023394804.6666,
       mediantime: 1524878499,
       verificationprogress: 0.9999990106793685,
-      chainwork: '00000000000000000000000000000000000000000096da5b040913fa09249b4e',
+      chainwork:
+        "00000000000000000000000000000000000000000096da5b040913fa09249b4e",
       pruned: false,
-      softforks:
-       [ { id: 'bip34', version: 2, reject: [Object] },
-         { id: 'bip66', version: 3, reject: [Object] },
-         { id: 'bip65', version: 4, reject: [Object] } ],
-      bip9_softforks:
-       { csv:
-          { status: 'active',
-            startTime: 1462060800,
-            timeout: 1493596800,
-            since: 419328
-          }
+      softforks: [
+        { id: "bip34", version: 2, reject: [Object] },
+        { id: "bip66", version: 3, reject: [Object] },
+        { id: "bip65", version: 4, reject: [Object] }
+      ],
+      bip9_softforks: {
+        csv: {
+          status: "active",
+          startTime: 1462060800,
+          timeout: 1493596800,
+          since: 419328
+        }
       }
-    };
+    }
 
-    it('should get blockchain info', (done) => {
-      const resolved = new Promise((r) => r({ data: data }));
-      sandbox.stub(axios, 'get').returns(resolved);
+    it("should get blockchain info", done => {
+      const resolved = new Promise(r => r({ data: data }))
+      sandbox.stub(axios, "get").returns(resolved)
 
       BITBOX.Blockchain.getBlockchainInfo()
-        .then((result) => {
-          assert.deepEqual(
-            data,
-            result
-          );
+        .then(result => {
+          assert.deepEqual(data, result)
         })
-        .then(done, done);
-    });
-  });
+        .then(done, done)
+    })
+  })
 
-  describe('#getBlockCount', () => {
-    let sandbox;
-    beforeEach(() => sandbox = sinon.sandbox.create());
-    afterEach(() => sandbox.restore());
-    let data = 527810;
+  describe("#getBlockCount", () => {
+    let sandbox
+    beforeEach(() => (sandbox = sinon.sandbox.create()))
+    afterEach(() => sandbox.restore())
+    const data = 527810
 
-    it('should get block count', (done) => {
-      const resolved = new Promise((r) => r({ data: data }));
-      sandbox.stub(axios, 'get').returns(resolved);
+    it("should get block count", done => {
+      const resolved = new Promise(r => r({ data: data }))
+      sandbox.stub(axios, "get").returns(resolved)
 
       BITBOX.Blockchain.getBlockCount()
-        .then((result) => {
-          assert.deepEqual(
-            data,
-            result
-          );
+        .then(result => {
+          assert.deepEqual(data, result)
         })
-        .then(done, done);
-    });
-  });
+        .then(done, done)
+    })
+  })
 
-  describe('#getBlockHash', () => {
-    let sandbox;
-    beforeEach(() => sandbox = sinon.sandbox.create());
-    afterEach(() => sandbox.restore());
-    let data = '000000000000000001d127592d091d4c45062504663c9acab27a1b16c028e3c0';
+  describe("#getBlockHash", () => {
+    let sandbox
+    beforeEach(() => (sandbox = sinon.sandbox.create()))
+    afterEach(() => sandbox.restore())
+    const data =
+      "000000000000000001d127592d091d4c45062504663c9acab27a1b16c028e3c0"
 
-    it('should get block hash by height', (done) => {
-      const resolved = new Promise((r) => r({ data: data }));
-      sandbox.stub(axios, 'get').returns(resolved);
+    it("should get block hash by height", done => {
+      const resolved = new Promise(r => r({ data: data }))
+      sandbox.stub(axios, "get").returns(resolved)
 
       BITBOX.Blockchain.getBlockHash(527810)
-        .then((result) => {
-          assert.deepEqual(
-            data,
-            result
-          );
+        .then(result => {
+          assert.deepEqual(data, result)
         })
-        .then(done, done);
-    });
-  });
+        .then(done, done)
+    })
+  })
 
-  describe('#getBlockHeader', () => {
-    let sandbox;
-    beforeEach(() => sandbox = sinon.sandbox.create());
-    afterEach(() => sandbox.restore());
-    let data = {
-      hash: '000000000000000001d127592d091d4c45062504663c9acab27a1b16c028e3c0',
+  describe("#getBlockHeader", () => {
+    let sandbox
+    beforeEach(() => (sandbox = sinon.sandbox.create()))
+    afterEach(() => sandbox.restore())
+    const data = {
+      hash: "000000000000000001d127592d091d4c45062504663c9acab27a1b16c028e3c0",
       confirmations: 1,
       height: 527810,
       version: 536870912,
-      versionHex: '20000000',
-      merkleroot: '9298432bbebe4638456aa19cb7ef91639da87668a285d88d0ecd6080424d223b',
+      versionHex: "20000000",
+      merkleroot:
+        "9298432bbebe4638456aa19cb7ef91639da87668a285d88d0ecd6080424d223b",
       time: 1524881438,
       mediantime: 1524878499,
       nonce: 3326843941,
-      bits: '1801e8a5',
+      bits: "1801e8a5",
       difficulty: 576023394804.6666,
-      chainwork: '00000000000000000000000000000000000000000096da5b040913fa09249b4e',
-      previousblockhash: '000000000000000000b33251708bc7a7b4540e61880d8c376e8e2db6a19a4789'
-    };
+      chainwork:
+        "00000000000000000000000000000000000000000096da5b040913fa09249b4e",
+      previousblockhash:
+        "000000000000000000b33251708bc7a7b4540e61880d8c376e8e2db6a19a4789"
+    }
 
-    it('should get block header by hash', (done) => {
-      const resolved = new Promise((r) => r({ data: data }));
-      sandbox.stub(axios, 'get').returns(resolved);
+    it("should get block header by hash", done => {
+      const resolved = new Promise(r => r({ data: data }))
+      sandbox.stub(axios, "get").returns(resolved)
 
-      BITBOX.Blockchain.getBlockHeader('000000000000000001d127592d091d4c45062504663c9acab27a1b16c028e3c0', true)
-        .then((result) => {
-          assert.deepEqual(
-            data,
-            result
-          );
+      BITBOX.Blockchain.getBlockHeader(
+        "000000000000000001d127592d091d4c45062504663c9acab27a1b16c028e3c0",
+        true
+      )
+        .then(result => {
+          assert.deepEqual(data, result)
         })
-        .then(done, done);
-    });
-  });
+        .then(done, done)
+    })
+  })
 
-  describe('#getDifficulty', () => {
-    let sandbox;
-    beforeEach(() => sandbox = sinon.sandbox.create());
-    afterEach(() => sandbox.restore());
-    let data = '577528469277.1339';
+  describe("#getDifficulty", () => {
+    let sandbox
+    beforeEach(() => (sandbox = sinon.sandbox.create()))
+    afterEach(() => sandbox.restore())
+    const data = "577528469277.1339"
 
-    it('should get difficulty', (done) => {
-      const resolved = new Promise((r) => r({ data: data }));
-      sandbox.stub(axios, 'get').returns(resolved);
+    it("should get difficulty", done => {
+      const resolved = new Promise(r => r({ data: data }))
+      sandbox.stub(axios, "get").returns(resolved)
 
       BITBOX.Blockchain.getDifficulty()
-        .then((result) => {
-          assert.deepEqual(
-            data,
-            result
-          );
+        .then(result => {
+          assert.deepEqual(data, result)
         })
-        .then(done, done);
-    });
-  });
+        .then(done, done)
+    })
+  })
 
-  describe('#getMempoolAncestors', () => {
-    let sandbox;
-    beforeEach(() => sandbox = sinon.sandbox.create());
-    afterEach(() => sandbox.restore());
-    let data = "Transaction not in mempool";
+  describe("#getMempoolAncestors", () => {
+    let sandbox
+    beforeEach(() => (sandbox = sinon.sandbox.create()))
+    afterEach(() => sandbox.restore())
+    const data = "Transaction not in mempool"
 
-    it('should get mempool ancestors', (done) => {
-      const resolved = new Promise((r) => r({ data: data }));
-      sandbox.stub(axios, 'get').returns(resolved);
+    it("should get mempool ancestors", done => {
+      const resolved = new Promise(r => r({ data: data }))
+      sandbox.stub(axios, "get").returns(resolved)
 
-      BITBOX.Blockchain.getMempoolAncestors('daf58932cb91619304dd4cbd03c7202e89ad7d6cbd6e2209e5f64ce3b6ed7c88', true)
-        .then((result) => {
-          assert.deepEqual(
-            data,
-            result
-          );
+      BITBOX.Blockchain.getMempoolAncestors(
+        "daf58932cb91619304dd4cbd03c7202e89ad7d6cbd6e2209e5f64ce3b6ed7c88",
+        true
+      )
+        .then(result => {
+          assert.deepEqual(data, result)
         })
-        .then(done, done);
-    });
-  });
+        .then(done, done)
+    })
+  })
 
-  describe('#getMempoolDescendants', () => {
-    let sandbox;
-    beforeEach(() => sandbox = sinon.sandbox.create());
-    afterEach(() => sandbox.restore());
-    let data = {
+  describe("#getMempoolDescendants", () => {
+    let sandbox
+    beforeEach(() => (sandbox = sinon.sandbox.create()))
+    afterEach(() => sandbox.restore())
+    const data = {
       result: "Transaction not in mempool"
-    };
+    }
 
-    it('should get mempool descendants', (done) => {
-      const resolved = new Promise((r) => r({ data: data }));
-      sandbox.stub(axios, 'get').returns(resolved);
+    it("should get mempool descendants", done => {
+      const resolved = new Promise(r => r({ data: data }))
+      sandbox.stub(axios, "get").returns(resolved)
 
-      BITBOX.Blockchain.getMempoolDescendants('daf58932cb91619304dd4cbd03c7202e89ad7d6cbd6e2209e5f64ce3b6ed7c88', true)
-        .then((result) => {
-          assert.deepEqual(
-            data,
-            result
-          );
+      BITBOX.Blockchain.getMempoolDescendants(
+        "daf58932cb91619304dd4cbd03c7202e89ad7d6cbd6e2209e5f64ce3b6ed7c88",
+        true
+      )
+        .then(result => {
+          assert.deepEqual(data, result)
         })
-        .then(done, done);
-    });
-  });
+        .then(done, done)
+    })
+  })
 
-  describe('#getMempoolEntry', () => {
-    let sandbox;
-    beforeEach(() => sandbox = sinon.sandbox.create());
-    afterEach(() => sandbox.restore());
-    let data = {
+  describe("#getMempoolEntry", () => {
+    let sandbox
+    beforeEach(() => (sandbox = sinon.sandbox.create()))
+    afterEach(() => sandbox.restore())
+    const data = {
       result: "Transaction not in mempool"
-    };
+    }
 
-    it('should get mempool entry', (done) => {
-      const resolved = new Promise((r) => r({ data: data }));
-      sandbox.stub(axios, 'get').returns(resolved);
+    it("should get mempool entry", done => {
+      const resolved = new Promise(r => r({ data: data }))
+      sandbox.stub(axios, "get").returns(resolved)
 
-      BITBOX.Blockchain.getMempoolEntry('daf58932cb91619304dd4cbd03c7202e89ad7d6cbd6e2209e5f64ce3b6ed7c88')
-        .then((result) => {
-          assert.deepEqual(
-            data,
-            result
-          );
+      BITBOX.Blockchain.getMempoolEntry(
+        "daf58932cb91619304dd4cbd03c7202e89ad7d6cbd6e2209e5f64ce3b6ed7c88"
+      )
+        .then(result => {
+          assert.deepEqual(data, result)
         })
-        .then(done, done);
-    });
-  });
+        .then(done, done)
+    })
+  })
 
-  describe('#getMempoolInfo', () => {
-    let sandbox;
-    beforeEach(() => sandbox = sinon.sandbox.create());
-    afterEach(() => sandbox.restore());
-    let data = {
+  describe("#getMempoolInfo", () => {
+    let sandbox
+    beforeEach(() => (sandbox = sinon.sandbox.create()))
+    afterEach(() => sandbox.restore())
+    const data = {
       result: {
         size: 317,
         bytes: 208583,
@@ -284,173 +286,158 @@ describe('#Blockchain', () => {
         maxmempool: 300000000,
         mempoolminfee: 0
       }
-    };
+    }
 
-    it('should get mempool info', (done) => {
-      const resolved = new Promise((r) => r({ data: data }));
-      sandbox.stub(axios, 'get').returns(resolved);
+    it("should get mempool info", done => {
+      const resolved = new Promise(r => r({ data: data }))
+      sandbox.stub(axios, "get").returns(resolved)
 
       BITBOX.Blockchain.getMempoolInfo()
-        .then((result) => {
-          assert.deepEqual(
-            data,
-            result
-          );
+        .then(result => {
+          assert.deepEqual(data, result)
         })
-        .then(done, done);
-    });
-  });
+        .then(done, done)
+    })
+  })
 
-  describe('#getRawMempool', () => {
-    let sandbox;
-    beforeEach(() => sandbox = sinon.sandbox.create());
-    afterEach(() => sandbox.restore());
-    let data = {
+  describe("#getRawMempool", () => {
+    let sandbox
+    beforeEach(() => (sandbox = sinon.sandbox.create()))
+    afterEach(() => sandbox.restore())
+    const data = {
       result: {
         transactions: [
           {
-           txid: 'ab36d68dd0a618592fe34e4a898e8beeeb4049133547dbb16f9338384084af96',
-           size: 191,
-           fee: 0.00047703,
-           modifiedfee: 0.00047703,
-           time: 1524883317,
-           height: 527811,
-           startingpriority: 5287822727.272727,
-           currentpriority: 5287822727.272727,
-           descendantcount: 1,
-           descendantsize: 191,
-           descendantfees: 47703,
-           ancestorcount: 1,
-           ancestorsize: 191,
-           ancestorfees: 47703,
-           depends: []
-        }]
+            txid:
+              "ab36d68dd0a618592fe34e4a898e8beeeb4049133547dbb16f9338384084af96",
+            size: 191,
+            fee: 0.00047703,
+            modifiedfee: 0.00047703,
+            time: 1524883317,
+            height: 527811,
+            startingpriority: 5287822727.272727,
+            currentpriority: 5287822727.272727,
+            descendantcount: 1,
+            descendantsize: 191,
+            descendantfees: 47703,
+            ancestorcount: 1,
+            ancestorsize: 191,
+            ancestorfees: 47703,
+            depends: []
+          }
+        ]
       }
-    };
+    }
 
-    it('should get mempool info', (done) => {
-      const resolved = new Promise((r) => r({ data: data }));
-      sandbox.stub(axios, 'get').returns(resolved);
+    it("should get mempool info", done => {
+      const resolved = new Promise(r => r({ data: data }))
+      sandbox.stub(axios, "get").returns(resolved)
 
       BITBOX.Blockchain.getRawMempool()
-        .then((result) => {
-          assert.deepEqual(
-            data,
-            result
-          );
+        .then(result => {
+          assert.deepEqual(data, result)
         })
-        .then(done, done);
-    });
-  });
+        .then(done, done)
+    })
+  })
 
-  describe('#getTxOut', () => {
+  describe("#getTxOut", () => {
     // TODO finish this test
-    let sandbox;
-    beforeEach(() => sandbox = sinon.sandbox.create());
-    afterEach(() => sandbox.restore());
-    let data = {
-      result: { }
-    };
+    let sandbox
+    beforeEach(() => (sandbox = sinon.sandbox.create()))
+    afterEach(() => sandbox.restore())
+    const data = {
+      result: {}
+    }
 
-    it('should get TODO', (done) => {
-      const resolved = new Promise((r) => r({ data: data }));
-      sandbox.stub(axios, 'get').returns(resolved);
+    it("should get TODO", done => {
+      const resolved = new Promise(r => r({ data: data }))
+      sandbox.stub(axios, "get").returns(resolved)
 
-      BITBOX.Blockchain.getTxOut('daf58932cb91619304dd4cbd03c7202e89ad7d6cbd6e2209e5f64ce3b6ed7c88', 0, true)
-        .then((result) => {
-          assert.deepEqual(
-            data,
-            result
-          );
+      BITBOX.Blockchain.getTxOut(
+        "daf58932cb91619304dd4cbd03c7202e89ad7d6cbd6e2209e5f64ce3b6ed7c88",
+        0,
+        true
+      )
+        .then(result => {
+          assert.deepEqual(data, result)
         })
-        .then(done, done);
-    });
-  });
+        .then(done, done)
+    })
+  })
 
-  describe('#preciousBlock', () => {
+  describe("#preciousBlock", () => {
     // TODO finish this test
-    let sandbox;
-    beforeEach(() => sandbox = sinon.sandbox.create());
-    afterEach(() => sandbox.restore());
-    let data = {
-      result: { }
-    };
+    let sandbox
+    beforeEach(() => (sandbox = sinon.sandbox.create()))
+    afterEach(() => sandbox.restore())
+    const data = {
+      result: {}
+    }
 
-    it('should get TODO', (done) => {
-      const resolved = new Promise((r) => r({ data: data }));
-      sandbox.stub(axios, 'get').returns(resolved);
+    it("should get TODO", done => {
+      const resolved = new Promise(r => r({ data: data }))
+      sandbox.stub(axios, "get").returns(resolved)
 
       BITBOX.Blockchain.preciousBlock()
-        .then((result) => {
-          assert.deepEqual(
-            data,
-            result
-          );
+        .then(result => {
+          assert.deepEqual(data, result)
         })
-        .then(done, done);
-    });
-  });
+        .then(done, done)
+    })
+  })
 
-  describe('#pruneBlockchain', () => {
-    let sandbox;
-    beforeEach(() => sandbox = sinon.sandbox.create());
-    afterEach(() => sandbox.restore());
-    let data = "Cannot prune blocks because node is not in prune mode.";
+  describe("#pruneBlockchain", () => {
+    let sandbox
+    beforeEach(() => (sandbox = sinon.sandbox.create()))
+    afterEach(() => sandbox.restore())
+    const data = "Cannot prune blocks because node is not in prune mode."
 
-    it('should prune blockchain', (done) => {
-      const resolved = new Promise((r) => r({ data: data }));
-      sandbox.stub(axios, 'post').returns(resolved);
+    it("should prune blockchain", done => {
+      const resolved = new Promise(r => r({ data: data }))
+      sandbox.stub(axios, "post").returns(resolved)
 
       BITBOX.Blockchain.pruneBlockchain(507)
-        .then((result) => {
-          assert.deepEqual(
-            data,
-            result
-          );
+        .then(result => {
+          assert.deepEqual(data, result)
         })
-        .then(done, done);
-    });
-  });
+        .then(done, done)
+    })
+  })
 
-  describe('#verifyChain', () => {
-    let sandbox;
-    beforeEach(() => sandbox = sinon.sandbox.create());
-    afterEach(() => sandbox.restore());
-    let data = true;
+  describe("#verifyChain", () => {
+    let sandbox
+    beforeEach(() => (sandbox = sinon.sandbox.create()))
+    afterEach(() => sandbox.restore())
+    const data = true
 
-    it('should verify blockchain', (done) => {
-      const resolved = new Promise((r) => r({ data: data }));
-      sandbox.stub(axios, 'get').returns(resolved);
+    it("should verify blockchain", done => {
+      const resolved = new Promise(r => r({ data: data }))
+      sandbox.stub(axios, "get").returns(resolved)
 
       BITBOX.Blockchain.verifyChain(3, 6)
-        .then((result) => {
-          assert.deepEqual(
-            data,
-            result
-          );
+        .then(result => {
+          assert.deepEqual(data, result)
         })
-        .then(done, done);
-    });
-  });
+        .then(done, done)
+    })
+  })
 
-  describe('#verifyTxOutProof', () => {
-    let sandbox;
-    beforeEach(() => sandbox = sinon.sandbox.create());
-    afterEach(() => sandbox.restore());
-    let data =  "proof must be hexadecimal string (not '')";
+  describe("#verifyTxOutProof", () => {
+    let sandbox
+    beforeEach(() => (sandbox = sinon.sandbox.create()))
+    afterEach(() => sandbox.restore())
+    const data = "proof must be hexadecimal string (not '')"
 
-    it('should verify utxo proof', (done) => {
-      const resolved = new Promise((r) => r({ data: data }));
-      sandbox.stub(axios, 'get').returns(resolved);
+    it("should verify utxo proof", done => {
+      const resolved = new Promise(r => r({ data: data }))
+      sandbox.stub(axios, "get").returns(resolved)
 
       BITBOX.Blockchain.verifyTxOutProof(3, 6)
-        .then((result) => {
-          assert.deepEqual(
-            data,
-            result
-          );
+        .then(result => {
+          assert.deepEqual(data, result)
         })
-        .then(done, done);
-    });
-  });
-});
+        .then(done, done)
+    })
+  })
+})

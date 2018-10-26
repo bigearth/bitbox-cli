@@ -19,5 +19,5 @@ export declare interface ECPair {
   toLegacyAddress(): string; 
   toLegacyAddress(ecpair: ECPair): string; 
   toCashAddress(): string; 
-  toCashAddress(ecpair: ECPair): string; 
+  toCashAddress(ecpair: ECPair, regtest?: boolean): string; 
 }
