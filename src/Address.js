@@ -94,6 +94,10 @@ class Address {
       return this._decodeCashAddress(address)
     } catch (error) {}
 
+    try {
+      return this._encodeAddressFromHash160(address)
+    } catch (error) {}
+
     throw new Error(`Unsupported address format : ${address}`)
   }
 
@@ -154,6 +158,18 @@ class Address {
     throw new Error(`Invalid format : ${address}`)
   }
 
+  _encodeAddressFromHash160(address) {
+    try {
+      return {
+        legacyAddress: this.hash160ToLegacy(address),
+        cashAddress: this.hash160ToCash(address),
+        format: "hash160"
+      }
+    } catch (error) {}
+
+    throw new Error(`Invalid format : ${address}`)
+  }
+
   // Test for address format.
   isLegacyAddress(address) {
     return this.detectAddressFormat(address) === "legacy"
@@ -161,6 +177,10 @@ class Address {
 
   isCashAddress(address) {
     return this.detectAddressFormat(address) === "cashaddr"
+  }
+
+  isHash160(address) {
+    return this.detectAddressFormat(address) === "hash160"
   }
 
   // Test for address network.

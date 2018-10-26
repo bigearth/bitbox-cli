@@ -406,6 +406,49 @@ describe("address format detection", () => {
       });
     });
   });
+  describe("#isHash160", () => {
+    describe("is hash160", () => {
+      HASH160_HASHES.forEach(address => {
+        it(`should detect ${address} is a hash160 hash`, () => {
+          const isHash160 = BITBOX.Address.isHash160(address);
+          assert.equal(isHash160, true);
+        });
+      });
+    });
+    describe("is not hash160", () => {
+      LEGACY_ADDRESSES.forEach(address => {
+        it(`should detect ${address} is not a hash160 hash`, () => {
+          const isHash160 = BITBOX.Address.isHash160(address);
+          assert.equal(isHash160, false);
+        });
+      });
+
+      CASHADDR_ADDRESSES.forEach(address => {
+        it(`should detect ${address} is not a hash160 hash`, () => {
+          const isHash160 = BITBOX.Address.isHash160(address);
+          assert.equal(isHash160, false);
+        });
+      });
+
+      REGTEST_ADDRESSES.forEach(address => {
+        it(`should detect ${address} is not a legacy address`, () => {
+          const isHash160 = BITBOX.Address.isHash160(address);
+          assert.equal(isHash160, false);
+        });
+      });
+    });
+
+    describe("errors", () => {
+      it("should fail when called with an invalid address", () => {
+        assert.throws(() => {
+          BITBOX.Address.isHash160();
+        }, BITBOX.BitcoinCash.InvalidAddressError);
+        assert.throws(() => {
+          BITBOX.Address.isHash160("some invalid address");
+        }, BITBOX.BitcoinCash.InvalidAddressError);
+      });
+    });
+  });
 });
 
 describe("network detection", () => {
