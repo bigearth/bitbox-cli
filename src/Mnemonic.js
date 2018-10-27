@@ -1,9 +1,8 @@
-import Crypto from "./Crypto"
-
 import BIP39 from "bip39"
 import randomBytes from "randombytes"
 import Bitcoin from "bitcoincashjs-lib"
 const Buffer = require("safe-buffer").Buffer
+const wif = require("wif")
 
 class Mnemonic {
   constructor(address) {
@@ -62,8 +61,16 @@ class Mnemonic {
 
     for (let i = 0; i < numberOfKeypairs; i++) {
       const childHDNode = hdNode.derivePath(`${HDPath}${i}`)
+
+      let prefix = 128
+      if (regtest === true) prefix = 239
+
       accounts.push({
-        privateKeyWIF: childHDNode.keyPair.toWIF(),
+        privateKeyWIF: wif.encode(
+          prefix,
+          childHDNode.keyPair.d.toBuffer(32),
+          true
+        ),
         address: this._address.toCashAddress(
           childHDNode.getAddress(),
           true,

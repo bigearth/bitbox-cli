@@ -1,4 +1,3 @@
-"use strict"
 const fixtures = require("./fixtures/Mnemonic.json")
 const chai = require("chai")
 const assert = require("assert")
@@ -318,7 +317,7 @@ describe("#Mnemonic", () => {
         it(`Generate keypair from mnemonic`, () => {
           assert.equal(
             keypair.privateKeyWIF,
-            fixtures.toKeypairs[i].output[j].privateKeyWIF
+            fixtures.toKeypairs[i].output[j].privateKeyWIFRegTest
           )
           // assert.equal(
           //   keypair.address,
