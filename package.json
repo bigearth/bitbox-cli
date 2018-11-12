@@ -66,6 +66,7 @@
     "socket.io": "^2.1.1",
     "socket.io-client": "^2.1.1",
     "touch": "^3.1.0",
+    "web3bch.js": "github:web3bch/web3bch.js#master",
     "wif": "^2.0.6"
   },
   "devDependencies": {
