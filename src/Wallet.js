@@ -1,72 +1,72 @@
-import Web3bch from "web3bch.js"
+import BCHWalletBridge from "bch-wallet-bridge.js"
 
 class Wallet {
   constructor(walletProvider) {
-    this.web3bch = new Web3bch(walletProvider)
+    this.bchWalletBridge = new BCHWalletBridge(walletProvider)
   }
 
   setWalletProvider(walletProvider) {
-    this.web3bch.walletProvider = walletProvider
+    this.bchWalletBridge.walletProvider = walletProvider
   }
 
   getAddress(changeType, index, dAppId) {
-    return this.web3bch.getAddress(changeType, index, dAppId)
+    return this.bchWalletBridge.getAddress(changeType, index, dAppId)
   }
 
   getAddressIndex(changeType, dAppId) {
-    return this.web3bch.getAddressIndex(changeType, dAppId)
+    return this.bchWalletBridge.getAddressIndex(changeType, dAppId)
   }
 
   getAddresses(changeType, startIndex, size, dAppId) {
-    return this.web3bch.getAddresses(changeType, startIndex, size, dAppId)
+    return this.bchWalletBridge.getAddresses(changeType, startIndex, size, dAppId)
   }
 
   getRedeemScript(p2shAddress, dAppId) {
-    return this.web3bch.getRedeemScript(p2shAddress, dAppId)
+    return this.bchWalletBridge.getRedeemScript(p2shAddress, dAppId)
   }
 
   getRedeemScripts(dAppId) {
-    return this.web3bch.getRedeemScripts(dAppId)
+    return this.bchWalletBridge.getRedeemScripts(dAppId)
   }
 
   addRedeemScript(redeemScript, dAppId) {
-    return this.web3bch.addRedeemScript(redeemScript, dAppId)
+    return this.bchWalletBridge.addRedeemScript(redeemScript, dAppId)
   }
 
   getUtxos(dAppId) {
-    return this.web3bch.getUtxos(dAppId)
+    return this.bchWalletBridge.getUtxos(dAppId)
   }
 
   getBalance(dAppId) {
-    return this.web3bch.getBalance(dAppId)
+    return this.bchWalletBridge.getBalance(dAppId)
   }
 
   sign(address, dataToSign) {
-    return this.web3bch.sign(address, dataToSign)
+    return this.bchWalletBridge.sign(address, dataToSign)
   }
 
   buildTransaction(outputs, dAppId) {
-    return this.web3bch.buildTransaction(outputs, dAppId)
+    return this.bchWalletBridge.buildTransaction(outputs, dAppId)
   }
 
   getProtocolVersion() {
-    return this.web3bch.getProtocolVersion()
+    return this.bchWalletBridge.getProtocolVersion()
   }
 
   getNetwork() {
-    return this.web3bch.getNetwork()
+    return this.bchWalletBridge.getNetwork()
   }
 
   getFeePerByte() {
-    return this.web3bch.getFeePerByte()
+    return this.bchWalletBridge.getFeePerByte()
   }
 
   getDefaultDAppId() {
-    return this.web3bch.getDefaultDAppId()
+    return this.bchWalletBridge.getDefaultDAppId()
   }
 
   setDefaultDAppId(dAppId) {
-    return this.web3bch.setDefaultDAppId(dAppId)
+    return this.bchWalletBridge.setDefaultDAppId(dAppId)
   }
 }
 

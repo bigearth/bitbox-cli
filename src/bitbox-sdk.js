@@ -47,7 +47,7 @@ class BITBOXSDK {
     this.TransactionBuilder.setAddress(this.Address)
     this.Util = new Util(this.restURL)
     this.Socket = Socket
-    this.Web3bch = Wallet
+    this.Wallet = Wallet
   }
 }
 
