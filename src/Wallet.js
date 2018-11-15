@@ -1,8 +1,7 @@
-import BCHWalletBridge from "bch-wallet-bridge.js"
-
+// import BCHWalletBridge from "bch-wallet-bridge.js"
 class Wallet {
   constructor(walletProvider) {
-    this.bchWalletBridge = new BCHWalletBridge(walletProvider)
+    // this.bchWalletBridge = new BCHWalletBridge(walletProvider)
   }
 
   setWalletProvider(walletProvider) {
@@ -18,7 +17,12 @@ class Wallet {
   }
 
   getAddresses(changeType, startIndex, size, dAppId) {
-    return this.bchWalletBridge.getAddresses(changeType, startIndex, size, dAppId)
+    return this.bchWalletBridge.getAddresses(
+      changeType,
+      startIndex,
+      size,
+      dAppId
+    )
   }
 
   getRedeemScript(p2shAddress, dAppId) {

@@ -17,7 +17,7 @@ const BITBOXSDK = require("./lib/bitbox-sdk").default
 const clone = require("git-clone")
 const cmd = require("node-cmd")
 
-program.version("2.2.0 ", "-v, --version")
+program.version("2.2.1 ", "-v, --version")
 
 program
   .command("new <name>")
@@ -27,7 +27,7 @@ program
   )
   .option(
     "-r, --restURL <restURL>",
-    "The rest URL to use. default: https://rest.bitcoin.com/v1/"
+    "The rest URL to use. default: https://trest.bitcoin.com/v1/"
   )
   .option(
     "-e, --environment <environment>",
