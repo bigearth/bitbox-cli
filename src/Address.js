@@ -305,6 +305,20 @@ class Address {
       else throw error
     }
   }
+
+  async transactions(address) {
+    if (typeof address !== "string") address = JSON.stringify(address)
+
+    try {
+      const response = await axios.get(
+        `${this.restURL}address/transactions/${address}`
+      )
+      return response.data
+    } catch (error) {
+      if (error.response && error.response.data) throw error.response.data
+      else throw error
+    }
+  }
 }
 
 export default Address
