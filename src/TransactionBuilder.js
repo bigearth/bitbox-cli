@@ -1,7 +1,7 @@
 import Bitcoin from "bitcoincashjs-lib"
 import coininfo from "coininfo"
 import bip66 from "bip66"
-import bip68 from "bip68"
+import bip68 from "bc-bip68"
 
 class TransactionBuilder {
   static setAddress(address) {
