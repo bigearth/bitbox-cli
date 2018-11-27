@@ -1,6 +1,6 @@
 {
   "name": "bitbox-sdk",
-  "version": "2.2.2",
+  "version": "2.2.3",
   "description": "BITBOX Javascript SDK for Bitcoin Cash",
   "author": "Gabriel Cardona @ Bitcoin.com",
   "main": "index.js",
@@ -81,7 +81,6 @@
     "kubernetes-client": "^6.1.0",
     "mocha": "^3.5.3",
     "node-mocks-http": "^1.7.0",
-    "nodemon": "^1.8.1",
     "nyc": "^11.6.0",
     "prettier": "^1.14.2",
     "sinon": "^4.5.0",
