@@ -28,7 +28,6 @@ Open Source / Creative Commons Listings
 - [cp-file](https://www.npmjs.com/package/cp-file) - MIT
 - [ecurve](https://www.npmjs.com/package/ecurve) - MIT
 - [figlet](https://www.npmjs.com/package/figlet) - MIT
-- [flow-bin](https://www.npmjs.com/package/flow-bin) - MIT
 - [git-clone](https://www.npmjs.com/package/git-clone) - ICS
 - [ini](https://www.npmjs.com/package/ini) - ICS
 - [mkdirp](https://www.npmjs.com/package/mkdirp) - MIT

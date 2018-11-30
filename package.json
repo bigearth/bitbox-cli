@@ -1,14 +1,13 @@
 {
   "name": "bitbox-sdk",
-  "version": "2.2.5",
+  "version": "2.2.6",
   "description": "BITBOX Javascript SDK for Bitcoin Cash",
   "author": "Gabriel Cardona @ Bitcoin.com",
   "main": "index.js",
   "scripts": {
     "test": "nyc mocha --timeout 30000 --require babel-core/register",
     "build": "babel src/ -d lib/",
-    "postbuild": "cp -R typings/* lib",
-    "flow": "flow"
+    "postbuild": "cp -R typings/* lib"
   },
   "license": "MIT",
   "engines": {
@@ -28,8 +27,6 @@
     "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.6.1",
     "babel-preset-es2015": "^6.24.1",
-    "babel-preset-flow": "^6.23.0",
-    "babel-preset-react": "^6.24.1",
     "babel-register": "^6.26.0",
     "bigi": "^1.4.2",
     "bip21": "Bitcoin-com/bip21",
@@ -69,20 +66,16 @@
     "wif": "^2.0.6"
   },
   "devDependencies": {
-    "@types/node": "^10.5.2",
     "chai": "^4.1.2",
     "coveralls": "^3.0.2",
     "eslint": "^5.5.0",
     "eslint-config-prettier": "^3.0.1",
     "eslint-plugin-node": "7.0.1",
     "eslint-plugin-prettier": "^2.6.2",
-    "flow-bin": "^0.64.0",
-    "kubernetes-client": "^6.1.0",
     "mocha": "^5.0.1",
     "node-mocks-http": "^1.7.0",
     "nyc": "^11.6.0",
     "prettier": "^1.14.2",
-    "sinon": "^4.5.0",
-    "supertest": "^2.0.0"
+    "sinon": "^4.5.0"
   }
 }
