@@ -49,23 +49,26 @@ class RawTransactions {
   }
 
   async sendRawTransaction(hex, allowhighfees = false) {
-    if (typeof hex !== "string") hex = JSON.stringify(hex)
+    //if (typeof hex !== "string") hex = JSON.stringify(hex)
 
     try {
       const response = await axios.post(
         `${
           this.restURL
-        }rawtransactions/sendRawTransaction/${hex}?allowhighfees=${allowhighfees}`
+        }rawtransactions/sendRawTransaction/${hex}?allowhighfees=${allowhighfees}`,
+        {
+          hex: hex
+        }
       )
-      
-      if (response.data == '66: insufficient priority') {
+
+      if (response.data === "66: insufficient priority") {
         console.warn(
-          `WARN: Insufficient Priority! This is likely due to a fee that is too low, or insufficient funds. 
+          `WARN: Insufficient Priority! This is likely due to a fee that is too low, or insufficient funds.
           Please ensure that there is BCH in the given wallet. If you are running on the testnet, get some
           BCH from the testnet faucet at https://developer.bitcoin.com/faucets/bch`
         )
       }
-      
+
       return response.data
     } catch (error) {
       if (error.response && error.response.data) throw error.response.data

@@ -3,10 +3,12 @@
   with the create-wallet example.
 */
 
+"use strict"
+
 // Instantiate BITBOX.
 const bitboxLib = "../../../../lib/bitbox-sdk"
 const BITBOXSDK = require(bitboxLib).default
-const BITBOX = new BITBOXSDK({ restURL: "https://trest.bitcoin.com/v1/" })
+const BITBOX = new BITBOXSDK({ restURL: "https://trest.bitcoin.com/v2/" })
 
 // Open the wallet generated with create-wallet.
 try {
@@ -22,7 +24,7 @@ try {
 async function getBalance() {
   try {
     // first get BCH balance
-    const balance = await BITBOX.Address.details([walletInfo.cashAddress])
+    const balance = await BITBOX.Address.details(walletInfo.cashAddress)
 
     console.log(`BCH Balance information:`)
     console.log(balance)
