@@ -8,15 +8,14 @@
 // Instantiate BITBOX.
 const bitboxLib = "../../../lib/bitbox-sdk"
 const BITBOXSDK = require(bitboxLib).default
-//const BITBOX = new BITBOXSDK({ restURL: "https://trest.bitcoin.com/v1/" })
-const BITBOX = new BITBOXSDK({ restURL: "htts://localhost:3000/v1/" })
+const BITBOX = new BITBOXSDK({ restURL: "https://trest.bitcoin.com/v2/" })
 
-const ADDR = `mqKgHerAkpvKpSyFawhEKVWZpDPmxHZuLG`
+const ADDR = `bchtest:qr45kxqda7yw8atztvkc4ckqnrlhmp0kvsep4p345q`
 
 async function addressDetails() {
   try {
     // first get BCH balance
-    const balance = await BITBOX.Address.details([ADDR])
+    const balance = await BITBOX.Address.details(ADDR)
 
     console.log(`BCH Balance information:`)
     console.log(balance)

@@ -13,8 +13,8 @@ Prior to running these examples, you need to setup this code repository. In the
 root directory run these commands:
 ```
 npm install
-npm build
-npm postbuild
+npm run build
+npm run postbuild
 ```
 
 ## Running Examples
