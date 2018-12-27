@@ -1,8 +1,7 @@
-"use strict"
 const fixtures = require("./fixtures/Script.json")
 const chai = require("chai")
 const assert = require("assert")
-const BITBOXSDK = require("./../lib/bitbox-sdk").default
+const BITBOXSDK = require("../../lib/bitbox-sdk").default
 const BITBOX = new BITBOXSDK()
 const Buffer = require("safe-buffer").Buffer
 
@@ -316,11 +315,10 @@ describe("#Script", () => {
     describe("#multisigInputTemplate", () => {
       fixtures.multisigInputTemplate.forEach(fixture => {
         it(`should encode multisig input`, () => {
-          const signatures = fixture.signatures.map(
-            signature =>
-              signature
-                ? Buffer.from(signature, "hex")
-                : BITBOX.Script.opcodes.OP_0
+          const signatures = fixture.signatures.map(signature =>
+            signature
+              ? Buffer.from(signature, "hex")
+              : BITBOX.Script.opcodes.OP_0
           )
 
           const buf = BITBOX.Script.multisig.input.encode(signatures)
@@ -335,11 +333,10 @@ describe("#Script", () => {
         })
 
         it(`should confirm correctly formatted multisig input`, () => {
-          const signatures = fixture.signatures.map(
-            signature =>
-              signature
-                ? Buffer.from(signature, "hex")
-                : BITBOX.Script.opcodes.OP_0
+          const signatures = fixture.signatures.map(signature =>
+            signature
+              ? Buffer.from(signature, "hex")
+              : BITBOX.Script.opcodes.OP_0
           )
 
           const buf = BITBOX.Script.multisig.input.encode(signatures)
