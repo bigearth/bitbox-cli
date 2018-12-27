@@ -17,12 +17,22 @@ util.inspect.defaultOptions = {
   depth: 3
 }
 
-describe(`#block`, () => {
-  describe(`#details`, () => {
-    it(`should GET block details`, async () => {
-      const block = 500000
+describe(`#blockchain`, () => {
+  describe(`#getBestBlockHash`, () => {
+    it(`should GET best block hash`, async () => {
+      const result = await BITBOX.Blockchain.getBestBlockHash()
+      //console.log(`result: ${util.inspect(result)}`)
 
-      const result = await BITBOX.Block.details(block)
+      assert.isString(result)
+    })
+  })
+
+  describe(`#getBlock`, () => {
+    it(`should GET best block`, async () => {
+      const hash =
+        "00000000000000000308b4bbb26ae1a9197ffcac424f53625830249249857459"
+
+      const result = await BITBOX.Blockchain.getBlock(hash)
       //console.log(`result: ${util.inspect(result)}`)
 
       assert.hasAllKeys(result, [
@@ -39,10 +49,8 @@ describe(`#block`, () => {
         "chainwork",
         "confirmations",
         "previousblockhash",
-        "nextblockhash",
-        "reward",
-        "isMainChain",
-        "poolInfo"
+        "mediantime",
+        "versionHex"
       ])
     })
   })
