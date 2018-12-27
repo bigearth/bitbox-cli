@@ -8,8 +8,8 @@
   ],
   "main": "index.js",
   "scripts": {
-    "test": "nyc mocha --timeout 30000 --require babel-core/register test/unit",
     "test:integration": "mocha --timeout 30000 --require babel-core/register test/integration",
+    "coverage": "nyc report --reporter=text-lcov | coveralls",
     "build": "babel src/ -d lib/",
     "postbuild": "cp -R typings/* lib"
   },
@@ -80,6 +80,7 @@
     "node-mocks-http": "^1.7.0",
     "nyc": "^11.6.0",
     "prettier": "^1.14.2",
+    "semantic-release": "^15.13.1",
     "sinon": "^4.5.0"
   }
 }
