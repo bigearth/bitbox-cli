@@ -80,6 +80,7 @@
     "node-mocks-http": "^1.7.0",
     "nyc": "^11.6.0",
     "prettier": "^1.14.2",
+    "semantic-release": "^15.13.1",
     "sinon": "^4.5.0"
   }
 }
