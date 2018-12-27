@@ -3,9 +3,13 @@
   "version": "2.2.6",
   "description": "BITBOX Javascript SDK for Bitcoin Cash",
   "author": "Gabriel Cardona @ Bitcoin.com",
+  "contributors": [
+    "Chris Troutner <chris.troutner@gmail.com>"
+  ],
   "main": "index.js",
   "scripts": {
     "test": "nyc mocha --timeout 30000 --require babel-core/register",
+    "coverage": "nyc report --reporter=text-lcov | coveralls",
     "build": "babel src/ -d lib/",
     "postbuild": "cp -R typings/* lib"
   },
