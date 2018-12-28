@@ -26,33 +26,4 @@ describe(`#blockchain`, () => {
       assert.isString(result)
     })
   })
-
-  describe(`#getBlock`, () => {
-    it(`should GET best block`, async () => {
-      const hash =
-        "00000000000000000308b4bbb26ae1a9197ffcac424f53625830249249857459"
-
-      const result = await BITBOX.Blockchain.getBlock(hash)
-      //console.log(`result: ${util.inspect(result)}`)
-
-      assert.hasAllKeys(result, [
-        "hash",
-        "size",
-        "height",
-        "version",
-        "merkleroot",
-        "tx",
-        "time",
-        "nonce",
-        "bits",
-        "difficulty",
-        "chainwork",
-        "confirmations",
-        "previousblockhash",
-        "mediantime",
-        "versionHex",
-        "nextblockhash"
-      ])
-    })
-  })
 })
