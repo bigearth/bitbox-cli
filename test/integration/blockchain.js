@@ -50,7 +50,8 @@ describe(`#blockchain`, () => {
         "confirmations",
         "previousblockhash",
         "mediantime",
-        "versionHex"
+        "versionHex",
+        "nextblockhash"
       ])
     })
   })

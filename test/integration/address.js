@@ -27,7 +27,7 @@ describe(`#address`, () => {
       const addr = "bitcoincash:qrdka2205f4hyukutc2g0s6lykperc8nsu5u2ddpqf"
 
       const result = await BITBOX.Address.details(addr)
-      // console.log(`result: ${util.inspect(result)}`)
+      //console.log(`result: ${util.inspect(result)}`)
 
       assert.hasAllKeys(result, [
         "balance",
@@ -42,7 +42,10 @@ describe(`#address`, () => {
         "txApperances",
         "transactions",
         "legacyAddress",
-        "cashAddress"
+        "cashAddress",
+        "addrStr",
+        "currentPage",
+        "pagesTotal"
       ])
       assert.isArray(result.transactions)
     })
@@ -55,17 +58,17 @@ describe(`#address`, () => {
       const result = await BITBOX.Address.utxo(addr)
       //console.log(`result: ${util.inspect(result)}`)
 
-      assert.isArray(result)
-      assert.hasAllKeys(result[0], [
+      assert.hasAllKeys(result, ["utxos", "legacyAddress", "cashAddress"])
+      assert.isArray(result.utxos)
+      assert.hasAllKeys(result.utxos[0], [
+        "address",
         "txid",
         "vout",
         "scriptPubKey",
         "amount",
         "satoshis",
         "height",
-        "confirmations",
-        "legacyAddress",
-        "cashAddress"
+        "confirmations"
       ])
     })
   })
@@ -77,7 +80,8 @@ describe(`#address`, () => {
       const result = await BITBOX.Address.unconfirmed(addr)
       //console.log(`result: ${util.inspect(result)}`)
 
-      assert.isArray(result)
+      assert.hasAllKeys(result, ["utxos", "legacyAddress", "cashAddress"])
+      assert.isArray(result.utxos)
     })
   })
 
@@ -88,7 +92,13 @@ describe(`#address`, () => {
       const result = await BITBOX.Address.transactions(addr)
       //console.log(`result: ${util.inspect(result)}`)
 
-      assert.hasAllKeys(result, ["txs", "pagesTotal"])
+      assert.hasAllKeys(result, [
+        "txs",
+        "pagesTotal",
+        "cashAddress",
+        "currentPage",
+        "legacyAddress"
+      ])
       assert.isArray(result.txs)
       assert.hasAllKeys(result.txs[0], [
         "txid",

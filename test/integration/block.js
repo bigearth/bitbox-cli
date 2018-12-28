@@ -22,7 +22,7 @@ describe(`#block`, () => {
     it(`should GET block details`, async () => {
       const block = 500000
 
-      const result = await BITBOX.Block.details(block)
+      const result = await BITBOX.Block.detailsByHeight(block)
       //console.log(`result: ${util.inspect(result)}`)
 
       assert.hasAllKeys(result, [
