@@ -44,6 +44,10 @@ class TransactionBuilder {
     }
   }
 
+  setLockTime(locktime) {
+    this.transaction.setLockTime(locktime);
+  }
+
   sign(vin, keyPair, redeemScript, hashType = this.hashTypes.SIGHASH_ALL, value) {
     let witnessScript;
 
