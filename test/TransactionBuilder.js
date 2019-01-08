@@ -1998,4 +1998,39 @@ describe("#TransactionBuilder", () => {
       })
     })
   })
+
+  describe("#LockTime", () => {
+    describe("#Mainnet", () => {
+      fixtures.locktime.mainnet.forEach(fixture => {
+        it(`should create transaction with nLockTime on mainnet`, () => {
+          const node = BITBOX.HDNode.fromXPriv(fixture.xpriv)
+          const transactionBuilder = new BITBOX.TransactionBuilder()
+
+          const txHash = fixture.txHash
+          const originalAmount = fixture.amount
+          transactionBuilder.addInput(txHash, 0, 1)
+          const byteCount = BITBOX.BitcoinCash.getByteCount(
+            { P2PKH: 1 },
+            { P2PKH: 1 }
+          )
+          const sendAmount = originalAmount - byteCount
+          transactionBuilder.addOutput(fixture.output, sendAmount)
+          const lockTime = fixture.lockTime
+          transactionBuilder.setLockTime(lockTime)
+          const keyPair = BITBOX.HDNode.toKeyPair(node)
+          let redeemScript
+          transactionBuilder.sign(
+            0,
+            keyPair,
+            redeemScript,
+            transactionBuilder.hashTypes.SIGHASH_ALL,
+            fixture.amount
+          )
+          const tx = transactionBuilder.build()
+          const hex = tx.toHex()
+          assert.equal(hex, fixture.hex)
+        })
+      })
+    })
+  })
 })
