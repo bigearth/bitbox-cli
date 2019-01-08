@@ -19,6 +19,7 @@ export declare interface TransactionBuilder {
   addInput(txHash: string|Buffer, vout: number, sequence?: number, prevOutScript?: string): void;
   addInputScript(vout: number, script: Buffer): void;
   addOutput(scriptPubKey: string|Buffer, amount: number): void;
+  setLockTime(locktime: number): void;
   sign(vin: number, keyPair: ECPair, redeemScript: Buffer | undefined, hashType: number, value: number): ECSignature;
   build(): any;
 }

@@ -52,6 +52,10 @@ class TransactionBuilder {
     }
   }
 
+  setLockTime(locktime) {
+    this.transaction.setLockTime(locktime);
+  }
+
   sign(
     vin,
     keyPair,
