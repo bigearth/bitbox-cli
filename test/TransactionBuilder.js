@@ -2008,13 +2008,13 @@ describe("#TransactionBuilder", () => {
 
           const txHash = fixture.txHash
           const originalAmount = fixture.amount
-          transactionBuilder.addInput(txHash, 0)
+          transactionBuilder.addInput(txHash, 0, 1)
           const byteCount = BITBOX.BitcoinCash.getByteCount(
             { P2PKH: 1 },
             { P2PKH: 1 }
           )
           const sendAmount = originalAmount - byteCount
-          transactionBuilder.addOutput(fixture.output, sendAmount, 1)
+          transactionBuilder.addOutput(fixture.output, sendAmount)
           const lockTime = fixture.lockTime
           transactionBuilder.setLockTime(lockTime)
           const keyPair = BITBOX.HDNode.toKeyPair(node)
