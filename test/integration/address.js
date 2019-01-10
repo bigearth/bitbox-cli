@@ -9,9 +9,9 @@
 
 const chai = require("chai")
 const assert = chai.assert
-const BITBOXSDK = require("../../lib/bitbox-sdk").default
+const BITBOXSDK = require("../../src/bitbox-sdk").default
 const BITBOX = new BITBOXSDK()
-const axios = require("axios")
+//const axios = require("axios")
 
 // Inspect utility used for debugging.
 const util = require("util")
@@ -23,7 +23,7 @@ util.inspect.defaultOptions = {
 
 describe(`#address`, () => {
   describe(`#details`, () => {
-    it(`should GET address details`, async () => {
+    it(`should GET address details for a single address`, async () => {
       const addr = "bitcoincash:qrdka2205f4hyukutc2g0s6lykperc8nsu5u2ddpqf"
 
       const result = await BITBOX.Address.details(addr)
@@ -43,11 +43,55 @@ describe(`#address`, () => {
         "transactions",
         "legacyAddress",
         "cashAddress",
-        "addrStr",
         "currentPage",
         "pagesTotal"
       ])
       assert.isArray(result.transactions)
+    })
+
+    it(`should GET address details for an array of addresses`, async () => {
+      const addr = [
+        "bitcoincash:qrdka2205f4hyukutc2g0s6lykperc8nsu5u2ddpqf",
+        "bitcoincash:qpdh9s677ya8tnx7zdhfrn8qfyvy22wj4qa7nwqa5v"
+      ]
+
+      const result = await BITBOX.Address.details(addr)
+      //console.log(`result: ${util.inspect(result)}`)
+
+      assert.isArray(result)
+      assert.hasAllKeys(result[0], [
+        "balance",
+        "balanceSat",
+        "totalReceived",
+        "totalReceivedSat",
+        "totalSent",
+        "totalSentSat",
+        "unconfirmedBalance",
+        "unconfirmedBalanceSat",
+        "unconfirmedTxApperances",
+        "txApperances",
+        "transactions",
+        "legacyAddress",
+        "cashAddress",
+        "currentPage",
+        "pagesTotal"
+      ])
+      assert.isArray(result[0].transactions)
+    })
+
+    it(`should throw an error for inproper input`, async () => {
+      try {
+        const addr = 12345
+
+        await BITBOX.Address.details(addr)
+        assert.equal(true, false, "Unexpected result!")
+      } catch (err) {
+        //console.log(`err: `, err)
+        assert.include(
+          err.message,
+          `Input address must be a string or array of strings`
+        )
+      }
     })
   })
 
