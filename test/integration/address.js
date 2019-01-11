@@ -115,6 +115,45 @@ describe(`#address`, () => {
         "confirmations"
       ])
     })
+
+    it(`should GET utxo details for an array of addresses`, async () => {
+      const addr = [
+        "bitcoincash:qrdka2205f4hyukutc2g0s6lykperc8nsu5u2ddpqf",
+        "bitcoincash:qpdh9s677ya8tnx7zdhfrn8qfyvy22wj4qa7nwqa5v"
+      ]
+
+      const result = await BITBOX.Address.utxo(addr)
+      //console.log(`result: ${util.inspect(result)}`)
+
+      assert.isArray(result)
+      assert.hasAllKeys(result[0], ["utxos", "legacyAddress", "cashAddress"])
+      assert.isArray(result[0].utxos)
+      assert.hasAllKeys(result[0].utxos[0], [
+        "address",
+        "txid",
+        "vout",
+        "scriptPubKey",
+        "amount",
+        "satoshis",
+        "height",
+        "confirmations"
+      ])
+    })
+
+    it(`should throw an error for inproper input`, async () => {
+      try {
+        const addr = 12345
+
+        await BITBOX.Address.utxo(addr)
+        assert.equal(true, false, "Unexpected result!")
+      } catch (err) {
+        //console.log(`err: `, err)
+        assert.include(
+          err.message,
+          `Input address must be a string or array of strings`
+        )
+      }
+    })
   })
 
   describe(`#unconfirmed`, () => {

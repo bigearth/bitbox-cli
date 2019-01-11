@@ -298,11 +298,27 @@ class Address {
   }
 
   async utxo(address) {
-    if (typeof address !== "string") address = JSON.stringify(address)
+    //if (typeof address !== "string") address = JSON.stringify(address)
 
     try {
-      const response = await axios.get(`${this.restURL}address/utxo/${address}`)
-      return response.data
+      // Handle single address.
+      if(typeof address === "string") {
+        const response = await axios.get(`${this.restURL}address/utxo/${address}`)
+        return response.data
+      } else if(Array.isArray(address)) {
+        const options = {
+          method: "POST",
+          url: `${this.restURL}address/utxo`,
+          data: {
+            addresses: address
+          }
+        }
+        const response = await axios(options)
+
+        return response.data
+      }
+
+      throw new Error(`Input address must be a string or array of strings.`)
     } catch (error) {
       if (error.response && error.response.data) throw error.response.data
       else throw error
