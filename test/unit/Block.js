@@ -11,7 +11,7 @@ describe("#Block", () => {
     beforeEach(() => (sandbox = sinon.sandbox.create()))
     afterEach(() => sandbox.restore())
 
-    it("should get block details", done => {
+    it("should get block details", async () => {
       const data = {
         hash:
           "000000001c6aeec19265e9cc3ded8ba5ef5e63fae7747f30bf9c02c7bc8883f0",
@@ -41,13 +41,17 @@ describe("#Block", () => {
       const resolved = new Promise(r => r({ data: data }))
       sandbox.stub(axios, "get").returns(resolved)
 
-      BITBOX.Block.details(
+      const result = await BITBOX.Block.detailsByHash(
         "000000001c6aeec19265e9cc3ded8ba5ef5e63fae7747f30bf9c02c7bc8883f0"
       )
+
+      assert.deepEqual(result, data)
+      /*
         .then(result => {
           assert.deepEqual(data, result)
         })
         .then(done, done)
+      */
     })
   })
 })
