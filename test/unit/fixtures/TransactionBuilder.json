@@ -1817,5 +1817,25 @@
         "result": "0x0100fffe"
       }
     ]
+  },
+  "locktime": {
+    "mainnet": [
+      {
+        "xpriv": "xprvA3oFxxSXJZ5bcURHc3Mk6bdF8fiqtyruYJkUAZjcAjPdhd4jogpKZNZRhqLMFYu4VyJmcetjDxaW34igaNfGYRvSNZQBdM7VkABsLnNP5Dd",
+        "txHash": "021eb6dcbfa33979ccb45fcf59c1c9e3805505d50418c2108c9d83fdaf6393f3",
+        "lockTime": 500000,
+        "amount": 8821,
+        "output": "bitcoincash:qzvpzzj8yylqy6amtk7xs9pfksdx3dc0nu3k8eqax5",
+        "hex": "0200000001f39363affd839d8c10c21804d5055580e3c9c159cf5fb4cc7939a3bfdcb61e02000000006a4730440220588a14faadd7f4c38ef63a87578e5484b57415acbbeafe692cae36384c3fde9c02201d6e52c3d7010faaca3d9ca89a1091a63aaf5ebbdbb9d5c822fa62f4380bd87341210351cedb293c6aef49e3e5fa4bb554a6a4833fc83702eb4e027a09e018392777000100000001b5210000000000001976a91498110a47213e026bbb5dbc681429b41a68b70f9f88ac20a10700"
+      },
+      {
+        "xpriv": "xprvA3oFxxSXJZ5bcURHc3Mk6bdF8fiqtyruYJkUAZjcAjPdhd4jogpKZNZRhqLMFYu4VyJmcetjDxaW34igaNfGYRvSNZQBdM7VkABsLnNP5Dd",
+        "txHash": "24c196f28b5ad1c08c2b68e4dd3294fa307354267f028600c3001a0dea6e175f",
+        "lockTime": 600000,
+        "amount": 8493,
+        "output": "bitcoincash:qzvpzzj8yylqy6amtk7xs9pfksdx3dc0nu3k8eqax5",
+        "hex": "02000000015f176eea0d1a00c30086027f26547330fa9432dde4682b8cc0d15a8bf296c124000000006a473044022050e94b156df6dee0af24593a60f7be5ea29986f8d7ac19d64da6b75dd311a9af022028a07ddd56d3ddc85bf0aaec5bc7b088e1ffdf5f63048d25c5e90a41e21dd51e41210351cedb293c6aef49e3e5fa4bb554a6a4833fc83702eb4e027a09e0183927770001000000016d200000000000001976a91498110a47213e026bbb5dbc681429b41a68b70f9f88acc0270900"
+      }
+    ]
   }
 }
