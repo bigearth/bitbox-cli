@@ -79,7 +79,7 @@ describe(`#address`, () => {
       assert.isArray(result[0].transactions)
     })
 
-    it(`should throw an error for inproper input`, async () => {
+    it(`should throw an error for improper input`, async () => {
       try {
         const addr = 12345
 
@@ -140,7 +140,7 @@ describe(`#address`, () => {
       ])
     })
 
-    it(`should throw an error for inproper input`, async () => {
+    it(`should throw an error for improper input`, async () => {
       try {
         const addr = 12345
 
@@ -166,6 +166,35 @@ describe(`#address`, () => {
       assert.hasAllKeys(result, ["utxos", "legacyAddress", "cashAddress"])
       assert.isArray(result.utxos)
     })
+
+    it(`should GET unconfirmed details on multiple addresses`, async () => {
+      const addr = [
+        "bitcoincash:qrdka2205f4hyukutc2g0s6lykperc8nsu5u2ddpqf",
+        "bitcoincash:qrdka2205f4hyukutc2g0s6lykperc8nsu5u2ddpqf"
+      ]
+
+      const result = await BITBOX.Address.unconfirmed(addr)
+      //console.log(`result: ${util.inspect(result)}`)
+
+      assert.isArray(result)
+      assert.hasAllKeys(result[0], ["utxos", "legacyAddress", "cashAddress"])
+      assert.isArray(result[0].utxos)
+    })
+
+    it(`should throw an error for improper input`, async () => {
+      try {
+        const addr = 12345
+
+        await BITBOX.Address.details(addr)
+        assert.equal(true, false, "Unexpected result!")
+      } catch (err) {
+        //console.log(`err: `, err)
+        assert.include(
+          err.message,
+          `Input address must be a string or array of strings`
+        )
+      }
+    })
   })
 
   describe(`#transactions`, () => {
@@ -184,6 +213,42 @@ describe(`#address`, () => {
       ])
       assert.isArray(result.txs)
       assert.hasAllKeys(result.txs[0], [
+        "txid",
+        "version",
+        "locktime",
+        "vin",
+        "vout",
+        "blockhash",
+        "blockheight",
+        "confirmations",
+        "time",
+        "blocktime",
+        "valueOut",
+        "size",
+        "valueIn",
+        "fees"
+      ])
+    })
+
+    it(`should get transactions on multiple addresses`, async () => {
+      const addr = [
+        "bitcoincash:qrdka2205f4hyukutc2g0s6lykperc8nsu5u2ddpqf",
+        "bitcoincash:qrdka2205f4hyukutc2g0s6lykperc8nsu5u2ddpqf"
+      ]
+
+      const result = await BITBOX.Address.transactions(addr)
+      //console.log(`result: ${util.inspect(result)}`)
+
+      assert.isArray(result)
+      assert.hasAllKeys(result[0], [
+        "txs",
+        "pagesTotal",
+        "cashAddress",
+        "currentPage",
+        "legacyAddress"
+      ])
+      assert.isArray(result[0].txs)
+      assert.hasAllKeys(result[0].txs[0], [
         "txid",
         "version",
         "locktime",

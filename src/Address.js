@@ -298,14 +298,14 @@ class Address {
   }
 
   async utxo(address) {
-    //if (typeof address !== "string") address = JSON.stringify(address)
-
     try {
       // Handle single address.
-      if(typeof address === "string") {
-        const response = await axios.get(`${this.restURL}address/utxo/${address}`)
+      if (typeof address === "string") {
+        const response = await axios.get(
+          `${this.restURL}address/utxo/${address}`
+        )
         return response.data
-      } else if(Array.isArray(address)) {
+      } else if (Array.isArray(address)) {
         const options = {
           method: "POST",
           url: `${this.restURL}address/utxo`,
@@ -326,6 +326,34 @@ class Address {
   }
 
   async unconfirmed(address) {
+    try {
+      // Handle single address.
+      if (typeof address === "string") {
+        const response = await axios.get(
+          `${this.restURL}address/unconfirmed/${address}`
+        )
+        return response.data
+
+        // Handle an array of addresses
+      } else if (Array.isArray(address)) {
+        const options = {
+          method: "POST",
+          url: `${this.restURL}address/unconfirmed`,
+          data: {
+            addresses: address
+          }
+        }
+        const response = await axios(options)
+
+        return response.data
+      }
+
+      throw new Error(`Input address must be a string or array of strings.`)
+    } catch (err) {
+      if (error.response && error.response.data) throw error.response.data
+      else throw error
+    }
+    /*
     if (typeof address !== "string") address = JSON.stringify(address)
 
     try {
@@ -337,9 +365,39 @@ class Address {
       if (error.response && error.response.data) throw error.response.data
       else throw error
     }
+    */
   }
 
   async transactions(address) {
+    try {
+      // Handle single address.
+      if (typeof address === "string") {
+        const response = await axios.get(
+          `${this.restURL}address/transactions/${address}`
+        )
+        return response.data
+
+        // Handle an array of addresses
+      } else if (Array.isArray(address)) {
+        const options = {
+          method: "POST",
+          url: `${this.restURL}address/transactions`,
+          data: {
+            addresses: address
+          }
+        }
+        const response = await axios(options)
+
+        return response.data
+      }
+
+      throw new Error(`Input address must be a string or array of strings.`)
+    } catch (err) {
+      if (error.response && error.response.data) throw error.response.data
+      else throw error
+    }
+
+    /*
     if (typeof address !== "string") address = JSON.stringify(address)
 
     try {
@@ -351,6 +409,7 @@ class Address {
       if (error.response && error.response.data) throw error.response.data
       else throw error
     }
+    */
   }
 }
 
