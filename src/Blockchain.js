@@ -1,3 +1,8 @@
+/*
+  TODO
+  - Add blockhash functionality back into getTxOutProof
+*/
+
 import axios from "axios"
 class Blockchain {
   constructor(restURL) {
@@ -202,13 +207,31 @@ class Blockchain {
     }
   }
 
-  async getTxOutProof(txids, blockhash) {
-    let path = `${this.restURL}blockchain/getTxOutProof/${txids}`
-    if (blockhash) path = `${path}?blockhash=${blockhash}`
-
+  async getTxOutProof(txids) {
     try {
-      const response = await axios.get(path)
-      return response.data
+      // Single txid.
+      if (typeof txids === "string") {
+        const path = `${this.restURL}blockchain/getTxOutProof/${txids}`
+        //if (blockhash) path = `${path}?blockhash=${blockhash}`
+
+        const response = await axios.get(path)
+        return response.data
+
+        // Array of txids.
+      } else if (Array.isArray(txids)) {
+        const options = {
+          method: "POST",
+          url: `${this.restURL}blockchain/getTxOutProof`,
+          data: {
+            txids: txids
+          }
+        }
+        const response = await axios(options)
+
+        return response.data
+      }
+
+      throw new Error(`Input must be a string or array of strings.`)
     } catch (error) {
       if (error.response && error.response.data) throw error.response.data
       else throw error
@@ -255,10 +278,28 @@ class Blockchain {
 
   async verifyTxOutProof(proof) {
     try {
+      // Single block
+      if (typeof proof === "string") {
       const response = await axios.get(
-        `${this.restURL}blockchain/verifyTxOutProof/proof`
+        `${this.restURL}blockchain/verifyTxOutProof/${proof}`
       )
       return response.data
+
+      // Array of hashes.
+    } else if (Array.isArray(proof)) {
+      const options = {
+        method: "POST",
+        url: `${this.restURL}block/detailsByHash`,
+        data: {
+          hashes: hash
+        }
+      }
+      const response = await axios(options)
+
+      return response.data
+    }
+
+    throw new Error(`Input must be a string or array of strings.`)
     } catch (error) {
       if (error.response && error.response.data) throw error.response.data
       else throw error

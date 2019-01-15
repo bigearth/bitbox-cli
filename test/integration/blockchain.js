@@ -81,7 +81,7 @@ describe(`#blockchain`, () => {
       ])
     })
     */
-    
+
     it(`should throw an error if txid is not in mempool`, async () => {
       try {
         const txid =
@@ -95,6 +95,31 @@ describe(`#blockchain`, () => {
         assert.hasAnyKeys(err, ["error"])
         assert.include(err.error, `Transaction not in mempool`)
       }
+    })
+  })
+
+  describe(`#getTxOutProof`, () => {
+    it(`should get single tx out proof`, async () => {
+      const txid =
+        "03f69502ca32e7927fd4f38c1d3f950bff650c1eea3d09a70e9df5a9d7f989f7"
+
+      const result = await BITBOX.Blockchain.getTxOutProof(txid)
+      //console.log(`result: ${util.inspect(result)}`)
+
+      assert.isString(result)
+    })
+
+    it(`should get an array of tx out proofs`, async () => {
+      const txid = [
+        "03f69502ca32e7927fd4f38c1d3f950bff650c1eea3d09a70e9df5a9d7f989f7",
+        "03f69502ca32e7927fd4f38c1d3f950bff650c1eea3d09a70e9df5a9d7f989f7"
+      ]
+
+      const result = await BITBOX.Blockchain.getTxOutProof(txid)
+      //console.log(`result: ${util.inspect(result)}`)
+
+      assert.isArray(result)
+      assert.isString(result[0])
     })
   })
 })
