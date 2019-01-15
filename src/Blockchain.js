@@ -135,13 +135,29 @@ class Blockchain {
   }
 
   async getMempoolEntry(txid) {
-    if (typeof txid !== "string") txid = JSON.stringify(txid)
+    //if (typeof txid !== "string") txid = JSON.stringify(txid)
 
     try {
-      const response = await axios.get(
-        `${this.restURL}blockchain/getMempoolEntry/${txid}`
-      )
-      return response.data
+      if (typeof txid === "string") {
+        const response = await axios.get(
+          `${this.restURL}blockchain/getMempoolEntry/${txid}`
+        )
+
+        return response.data
+      } else if (Array.isArray(txid)) {
+        const options = {
+          method: "POST",
+          url: `${this.restURL}blockchain/getMempoolEntry`,
+          data: {
+            txids: txid
+          }
+        }
+        const response = await axios(options)
+
+        return response.data
+      }
+
+      throw new Error(`Input must be a string or array of strings.`)
     } catch (error) {
       if (error.response && error.response.data) throw error.response.data
       else throw error
