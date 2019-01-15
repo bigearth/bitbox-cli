@@ -349,23 +349,10 @@ class Address {
       }
 
       throw new Error(`Input address must be a string or array of strings.`)
-    } catch (err) {
-      if (error.response && error.response.data) throw error.response.data
-      else throw error
-    }
-    /*
-    if (typeof address !== "string") address = JSON.stringify(address)
-
-    try {
-      const response = await axios.get(
-        `${this.restURL}address/unconfirmed/${address}`
-      )
-      return response.data
     } catch (error) {
       if (error.response && error.response.data) throw error.response.data
       else throw error
     }
-    */
   }
 
   async transactions(address) {
@@ -392,24 +379,10 @@ class Address {
       }
 
       throw new Error(`Input address must be a string or array of strings.`)
-    } catch (err) {
-      if (error.response && error.response.data) throw error.response.data
-      else throw error
-    }
-
-    /*
-    if (typeof address !== "string") address = JSON.stringify(address)
-
-    try {
-      const response = await axios.get(
-        `${this.restURL}address/transactions/${address}`
-      )
-      return response.data
     } catch (error) {
       if (error.response && error.response.data) throw error.response.data
       else throw error
     }
-    */
   }
 }
 

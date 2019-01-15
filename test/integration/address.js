@@ -185,7 +185,7 @@ describe(`#address`, () => {
       try {
         const addr = 12345
 
-        await BITBOX.Address.details(addr)
+        await BITBOX.Address.unconfirmed(addr)
         assert.equal(true, false, "Unexpected result!")
       } catch (err) {
         //console.log(`err: `, err)
@@ -265,5 +265,22 @@ describe(`#address`, () => {
         "fees"
       ])
     })
+
+    it(`should throw an error for improper input`, async () => {
+      try {
+        const addr = 12345
+
+        await BITBOX.Address.transactions(addr)
+        assert.equal(true, false, "Unexpected result!")
+      } catch (err) {
+        //console.log(`err: `, err)
+        assert.include(
+          err.message,
+          `Input address must be a string or array of strings`
+        )
+      }
+    })
   })
+
+
 })
