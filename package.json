@@ -8,6 +8,7 @@
   ],
   "main": "index.js",
   "scripts": {
+    "test": "mocha --timeout 30000 --require babel-core/register test/unit",
     "test:integration": "mocha --timeout 30000 --require babel-core/register test/integration",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "build": "babel src/ -d lib/",
