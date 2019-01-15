@@ -280,26 +280,26 @@ class Blockchain {
     try {
       // Single block
       if (typeof proof === "string") {
-      const response = await axios.get(
-        `${this.restURL}blockchain/verifyTxOutProof/${proof}`
-      )
-      return response.data
+        const response = await axios.get(
+          `${this.restURL}blockchain/verifyTxOutProof/${proof}`
+        )
+        return response.data
 
-      // Array of hashes.
-    } else if (Array.isArray(proof)) {
-      const options = {
-        method: "POST",
-        url: `${this.restURL}block/detailsByHash`,
-        data: {
-          hashes: hash
+        // Array of hashes.
+      } else if (Array.isArray(proof)) {
+        const options = {
+          method: "POST",
+          url: `${this.restURL}blockchain/verifyTxOutProof`,
+          data: {
+            proofs: proof
+          }
         }
+        const response = await axios(options)
+
+        return response.data
       }
-      const response = await axios(options)
 
-      return response.data
-    }
-
-    throw new Error(`Input must be a string or array of strings.`)
+      throw new Error(`Input must be a string or array of strings.`)
     } catch (error) {
       if (error.response && error.response.data) throw error.response.data
       else throw error
