@@ -100,7 +100,7 @@ describe(`#address`, () => {
       const addr = "bitcoincash:qrdka2205f4hyukutc2g0s6lykperc8nsu5u2ddpqf"
 
       const result = await BITBOX.Address.utxo(addr)
-      //console.log(`result: ${util.inspect(result)}`)
+      //console.log(`result: ${JSON.stringify(result, null, 2)}`)
 
       assert.hasAllKeys(result, ["utxos", "legacyAddress", "cashAddress"])
       assert.isArray(result.utxos)
@@ -123,7 +123,7 @@ describe(`#address`, () => {
       ]
 
       const result = await BITBOX.Address.utxo(addr)
-      //console.log(`result: ${util.inspect(result)}`)
+      //console.log(`result: ${JSON.stringify(result, null, 2)}`)
 
       assert.isArray(result)
       assert.hasAllKeys(result[0], ["utxos", "legacyAddress", "cashAddress"])
@@ -158,10 +158,10 @@ describe(`#address`, () => {
 
   describe(`#unconfirmed`, () => {
     it(`should GET unconfirmed details on a single address`, async () => {
-      const addr = "bitcoincash:qrdka2205f4hyukutc2g0s6lykperc8nsu5u2ddpqf"
+      const addr = "bitcoincash:qz7teqlcltdhqjn2an8nspu7g2x6g3d3rcq8nk4nzs"
 
       const result = await BITBOX.Address.unconfirmed(addr)
-      //console.log(`result: ${util.inspect(result)}`)
+      //console.log(`result: ${JSON.stringify(result, null, 2)}`)
 
       assert.hasAllKeys(result, ["utxos", "legacyAddress", "cashAddress"])
       assert.isArray(result.utxos)
@@ -169,12 +169,12 @@ describe(`#address`, () => {
 
     it(`should GET unconfirmed details on multiple addresses`, async () => {
       const addr = [
-        "bitcoincash:qrdka2205f4hyukutc2g0s6lykperc8nsu5u2ddpqf",
-        "bitcoincash:qrdka2205f4hyukutc2g0s6lykperc8nsu5u2ddpqf"
+        "bitcoincash:qz7teqlcltdhqjn2an8nspu7g2x6g3d3rcq8nk4nzs",
+        "bitcoincash:qqcp8fw06dmjd2gnfanpwytj7q93w408nv7usdqgsk"
       ]
 
       const result = await BITBOX.Address.unconfirmed(addr)
-      //console.log(`result: ${util.inspect(result)}`)
+      //console.log(`result: ${JSON.stringify(result, null, 2)}`)
 
       assert.isArray(result)
       assert.hasAllKeys(result[0], ["utxos", "legacyAddress", "cashAddress"])
@@ -199,10 +199,10 @@ describe(`#address`, () => {
 
   describe(`#transactions`, () => {
     it(`should GET transactions for a single address`, async () => {
-      const addr = "bitcoincash:qrdka2205f4hyukutc2g0s6lykperc8nsu5u2ddpqf"
+      const addr = "bitcoincash:qz7teqlcltdhqjn2an8nspu7g2x6g3d3rcq8nk4nzs"
 
       const result = await BITBOX.Address.transactions(addr)
-      //console.log(`result: ${util.inspect(result)}`)
+      //console.log(`result: ${JSON.stringify(result, null, 2)}`)
 
       assert.hasAllKeys(result, [
         "txs",
@@ -212,14 +212,12 @@ describe(`#address`, () => {
         "legacyAddress"
       ])
       assert.isArray(result.txs)
-      assert.hasAllKeys(result.txs[0], [
+      assert.hasAnyKeys(result.txs[0], [
         "txid",
         "version",
         "locktime",
         "vin",
         "vout",
-        "blockhash",
-        "blockheight",
         "confirmations",
         "time",
         "blocktime",
@@ -232,12 +230,12 @@ describe(`#address`, () => {
 
     it(`should get transactions on multiple addresses`, async () => {
       const addr = [
-        "bitcoincash:qrdka2205f4hyukutc2g0s6lykperc8nsu5u2ddpqf",
-        "bitcoincash:qrdka2205f4hyukutc2g0s6lykperc8nsu5u2ddpqf"
+        "bitcoincash:qz7teqlcltdhqjn2an8nspu7g2x6g3d3rcq8nk4nzs",
+        "bitcoincash:qqcp8fw06dmjd2gnfanpwytj7q93w408nv7usdqgsk"
       ]
 
       const result = await BITBOX.Address.transactions(addr)
-      //console.log(`result: ${util.inspect(result)}`)
+      //console.log(`result: ${JSON.stringify(result, null, 2)}`)
 
       assert.isArray(result)
       assert.hasAllKeys(result[0], [
@@ -248,14 +246,12 @@ describe(`#address`, () => {
         "legacyAddress"
       ])
       assert.isArray(result[0].txs)
-      assert.hasAllKeys(result[0].txs[0], [
+      assert.hasAnyKeys(result[0].txs[0], [
         "txid",
         "version",
         "locktime",
         "vin",
         "vout",
-        "blockhash",
-        "blockheight",
         "confirmations",
         "time",
         "blocktime",
@@ -281,6 +277,4 @@ describe(`#address`, () => {
       }
     })
   })
-
-
 })

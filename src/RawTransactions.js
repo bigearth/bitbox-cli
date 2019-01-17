@@ -23,7 +23,6 @@ class RawTransactions {
             hexes: hex
           }
         }
-        //console.log(`options: ${JSON.stringify(options, null, 2)}`)
         const response = await axios(options)
 
         return response.data
