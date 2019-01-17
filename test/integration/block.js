@@ -22,7 +22,7 @@ describe(`#block`, () => {
       const block = 500000
 
       const result = await BITBOX.Block.detailsByHeight(block)
-      //console.log(`result: ${util.inspect(result)}`)
+      //console.log(`result: ${JSON.stringify(result, null, 2)}`)
 
       assert.hasAllKeys(result, [
         "hash",
@@ -49,7 +49,7 @@ describe(`#block`, () => {
       const blocks = [500000, 500001]
 
       const result = await BITBOX.Block.detailsByHeight(blocks)
-      //console.log(`result: ${util.inspect(result)}`)
+      //console.log(`result: ${JSON.stringify(result, null, 2)}`)
 
       assert.isArray(result)
       assert.hasAllKeys(result[0], [
