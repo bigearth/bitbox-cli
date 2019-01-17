@@ -5,13 +5,30 @@ class RawTransactions {
   }
 
   async decodeRawTransaction(hex) {
-    if (typeof hex !== "string") hex = JSON.stringify(hex)
-
     try {
-      const response = await axios.get(
-        `${this.restURL}rawtransactions/decodeRawTransaction/${hex}`
-      )
-      return response.data
+      // Single hex
+      if (typeof hex === "string") {
+        const response = await axios.get(
+          `${this.restURL}rawtransactions/decodeRawTransaction/${hex}`
+        )
+
+        return response.data
+
+        // Array of hexes
+      } else if (Array.isArray(hex)) {
+        const options = {
+          method: "POST",
+          url: `${this.restURL}rawtransactions/decodeRawTransaction`,
+          data: {
+            hexes: hex
+          }
+        }
+        const response = await axios(options)
+
+        return response.data
+      }
+
+      throw new Error(`Input must be a string or array of strings.`)
     } catch (error) {
       if (error.response && error.response.data) throw error.response.data
       else throw error
@@ -33,15 +50,30 @@ class RawTransactions {
   }
 
   async getRawTransaction(txid, verbose = false) {
-    if (typeof txid !== "string") txid = JSON.stringify(txid)
-
     try {
-      const response = await axios.get(
-        `${
-          this.restURL
-        }rawtransactions/getRawTransaction/${txid}?verbose=${verbose}`
-      )
-      return response.data
+      if (typeof txid === "string") {
+        const response = await axios.get(
+          `${
+            this.restURL
+          }rawtransactions/getRawTransaction/${txid}?verbose=${verbose}`
+        )
+
+        return response.data
+      } else if (Array.isArray(txid)) {
+        const options = {
+          method: "POST",
+          url: `${this.restURL}rawtransactions/getRawTransaction`,
+          data: {
+            txids: txid,
+            verbose: verbose
+          }
+        }
+        const response = await axios(options)
+
+        return response.data
+      }
+
+      throw new Error(`Input must be a string or array of strings.`)
     } catch (error) {
       if (error.response && error.response.data) throw error.response.data
       else throw error
