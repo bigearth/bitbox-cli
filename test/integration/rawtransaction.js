@@ -78,4 +78,98 @@ describe("#rawtransaction", () => {
       }
     })
   })
+
+  describe("#getRawTransaction", () => {
+    it("should decode a single txid, with concise output", async () => {
+      const txid =
+        "23213453b4642a73b4fc30d3112d72549ca153a8707255b14373b59e43558de1"
+      const verbose = false
+
+      const result = await BITBOX.RawTransactions.getRawTransaction(
+        txid,
+        verbose
+      )
+      //console.log(`result: ${JSON.stringify(result, null, 2)}`)
+
+      assert.isString(result)
+    })
+
+    it("should decode a single txid, with verbose output", async () => {
+      const txid =
+        "23213453b4642a73b4fc30d3112d72549ca153a8707255b14373b59e43558de1"
+      const verbose = true
+
+      const result = await BITBOX.RawTransactions.getRawTransaction(
+        txid,
+        verbose
+      )
+      //console.log(`result: ${JSON.stringify(result, null, 2)}`)
+
+      assert.hasAnyKeys(result, [
+        "hex",
+        "txid",
+        "hash",
+        "size",
+        "version",
+        "locktime",
+        "vin",
+        "vout",
+        "blockhash",
+        "confirmations",
+        "time",
+        "blocktime"
+      ])
+      assert.isArray(result.vin)
+      assert.isArray(result.vout)
+    })
+
+    it("should decode an array of txids, with a concise output", async () => {
+      const txid = [
+        "23213453b4642a73b4fc30d3112d72549ca153a8707255b14373b59e43558de1",
+        "b25d24fbb42d84812ed2cb55797f10fdec41afc7906ab563d1ec8c8676a2037f"
+      ]
+      const verbose = false
+
+      const result = await BITBOX.RawTransactions.getRawTransaction(
+        txid,
+        verbose
+      )
+      //console.log(`result: ${JSON.stringify(result, null, 2)}`)
+
+      assert.isArray(result)
+      assert.isString(result[0])
+    })
+
+    it("should decode an array of txids, with a verbose output", async () => {
+      const txid = [
+        "23213453b4642a73b4fc30d3112d72549ca153a8707255b14373b59e43558de1",
+        "b25d24fbb42d84812ed2cb55797f10fdec41afc7906ab563d1ec8c8676a2037f"
+      ]
+      const verbose = true
+
+      const result = await BITBOX.RawTransactions.getRawTransaction(
+        txid,
+        verbose
+      )
+      //console.log(`result: ${JSON.stringify(result, null, 2)}`)
+
+      assert.isArray(result)
+      assert.hasAnyKeys(result[0], [
+        "hex",
+        "txid",
+        "hash",
+        "size",
+        "version",
+        "locktime",
+        "vin",
+        "vout",
+        "blockhash",
+        "confirmations",
+        "time",
+        "blocktime"
+      ])
+      assert.isArray(result[0].vin)
+      assert.isArray(result[0].vout)
+    })
+  })
 })
