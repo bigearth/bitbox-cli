@@ -432,7 +432,7 @@ describe("#Blockchain", () => {
       const resolved = new Promise(r => r({ data: data }))
       sandbox.stub(axios, "get").returns(resolved)
 
-      BITBOX.Blockchain.verifyTxOutProof(3, 6)
+      BITBOX.Blockchain.verifyTxOutProof("3") 
         .then(result => {
           assert.deepEqual(data, result)
         })

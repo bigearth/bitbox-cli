@@ -84,7 +84,7 @@ describe("#Block", () => {
       const resolved = new Promise(r => r({ data: data }))
       sandbox.stub(axios, "get").returns(resolved)
 
-      const result = await BITBOX.Block.detailsByHeight("507")
+      const result = await BITBOX.Block.detailsByHeight(500007)
 
       assert.deepEqual(result, data)
     })
