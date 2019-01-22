@@ -31,6 +31,70 @@ describe(`#blockchain`, () => {
     })
   })
 
+  describe("#getBlockHeader", () => {
+    it(`should GET block header for a single hash`, async () => {
+      const hash = "000000000000000005e14d3f9fdfb70745308706615cfa9edca4f4558332b201"
+
+        const result = await BITBOX.Blockchain.getBlockHeader(hash)
+
+      assert.hasAllKeys(result, [
+        "hash",
+        "confirmations",
+        "height",
+        "version",
+        "versionHex",
+        "merkleroot",
+        "time",
+        "mediantime",
+        "nonce",
+        "bits",
+        "difficulty",
+        "chainwork",
+        "previousblockhash",
+        "nextblockhash"
+      ])
+    })
+
+    it(`should GET block headers for an array of hashes`, async () => {
+      const hash = [ "000000000000000005e14d3f9fdfb70745308706615cfa9edca4f4558332b201", "00000000000000000568f0a96bf4348847bc84e455cbfec389f27311037a20f3"
+      ]
+
+      const result = await BITBOX.Blockchain.getBlockHeader(hash)
+
+      assert.isArray(result)
+      assert.hasAllKeys(result[0], [
+        "hash",
+        "confirmations",
+        "height",
+        "version",
+        "versionHex",
+        "merkleroot",
+        "time",
+        "mediantime",
+        "nonce",
+        "bits",
+        "difficulty",
+        "chainwork",
+        "previousblockhash",
+        "nextblockhash"
+      ])
+    })
+
+    it(`should throw an error for improper input`, async () => {
+      try {
+        const hash = 12345
+
+        await BITBOX.Blockchain.getBlockHeader(hash)
+        assert.equal(true, false, "Unexpected result!")
+      } catch (err) {
+        assert.include(
+          err.message,
+          `Input hash must be a string or array of strings`
+        )
+      }
+    })
+  })
+
   describe("#getMempoolEntry", () => {
     /*
     // To run this test, the txid must be unconfirmed.
