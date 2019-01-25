@@ -72,13 +72,31 @@ class Blockchain {
   }
 
   async getBlockHeader(hash, verbose = true) {
-    if (typeof hash !== "string") hash = JSON.stringify(hash)
-
     try {
-      const response = await axios.get(
-        `${this.restURL}blockchain/getBlockHeader/${hash}?verbose=${verbose}`
-      )
-      return response.data
+      // Handle single hash.
+      if (typeof hash === "string") {
+        const response = await axios.get(
+          `${this.restURL}blockchain/getBlockHeader/${hash}?verbose=${verbose}`
+        )
+
+        return response.data
+
+        // Handle array of hashes.
+      } else if (Array.isArray(hash)) {
+        const options = {
+          method: "POST",
+          url: `${this.restURL}blockchain/getBlockHeader`,
+          data: {
+            hashes: hash,
+            verbose: verbose
+          }
+        }
+        const response = await axios(options)
+
+        return response.data
+      }
+
+      throw new Error(`Input hash must be a string or array of strings.`)
     } catch (error) {
       if (error.response && error.response.data) throw error.response.data
       else throw error
