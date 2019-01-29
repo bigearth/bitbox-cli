@@ -14,7 +14,7 @@ class Util {
         return response.data
 
         // Array of blocks.
-      } else if (Array.isArray(id)) {
+      } else if (Array.isArray(address)) {
         const options = {
           method: "POST",
           url: `${this.restURL}util/validateAddress`,
