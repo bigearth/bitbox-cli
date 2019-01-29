@@ -24,7 +24,8 @@ class BITBOXSDK {
   constructor(config) {
     if (config && config.restURL && config.restURL !== "")
       this.restURL = config.restURL
-    else this.restURL = "https://rest.btctest.net/v2/"
+    else this.restURL = "https://rest.bitcoin.com/v2/"
+    //else this.restURL = "https://rest.btctest.net/v2/"
     //else this.restURL = "http://localhost:3000/v2/"
 
     this.Address = new Address(this.restURL)
