@@ -8,15 +8,14 @@
 // Instantiate BITBOX.
 const bitboxLib = "../../../lib/bitbox-sdk"
 const BITBOXSDK = require(bitboxLib).default
-//const BITBOX = new BITBOXSDK({ restURL: "https://trest.bitcoin.com/v1/" })
-const BITBOX = new BITBOXSDK({ restURL: "htts://localhost:3000/v1/" })
+const BITBOX = new BITBOXSDK({ restURL: "https://trest.bitcoin.com/v2/" })
 
-const ADDR = `mqKgHerAkpvKpSyFawhEKVWZpDPmxHZuLG`
+const ADDR = `bchtest:qr45kxqda7yw8atztvkc4ckqnrlhmp0kvsep4p345q`
 
 async function getUtxos() {
   try {
     // first get BCH balance
-    const utxos = await BITBOX.Address.utxo([ADDR])
+    const utxos = await BITBOX.Address.utxo(ADDR)
 
     console.log(`UTXO information for address ${ADDR}:`)
     console.log(utxos)

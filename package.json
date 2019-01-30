@@ -1,6 +1,6 @@
 {
   "name": "bitbox-sdk",
-  "version": "2.3.0",
+  "version": "3.0.0",
   "description": "BITBOX Javascript SDK for Bitcoin Cash",
   "author": "Gabriel Cardona @ Bitcoin.com",
   "contributors": [
@@ -8,7 +8,8 @@
   ],
   "main": "index.js",
   "scripts": {
-    "test": "nyc mocha --timeout 30000 --require babel-core/register",
+    "test": "mocha --timeout 30000 --require babel-core/register test/unit",
+    "test:integration": "mocha --timeout 30000 --require babel-core/register test/integration",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "build": "babel src/ -d lib/",
     "postbuild": "cp -R typings/* lib"

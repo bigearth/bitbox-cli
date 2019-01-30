@@ -1,3 +1,8 @@
+/*
+  TODO
+  - Add blockhash functionality back into getTxOutProof
+*/
+
 import axios from "axios"
 class Blockchain {
   constructor(restURL) {
@@ -67,13 +72,31 @@ class Blockchain {
   }
 
   async getBlockHeader(hash, verbose = true) {
-    if (typeof hash !== "string") hash = JSON.stringify(hash)
-
     try {
-      const response = await axios.get(
-        `${this.restURL}blockchain/getBlockHeader/${hash}?verbose=${verbose}`
-      )
-      return response.data
+      // Handle single hash.
+      if (typeof hash === "string") {
+        const response = await axios.get(
+          `${this.restURL}blockchain/getBlockHeader/${hash}?verbose=${verbose}`
+        )
+
+        return response.data
+
+        // Handle array of hashes.
+      } else if (Array.isArray(hash)) {
+        const options = {
+          method: "POST",
+          url: `${this.restURL}blockchain/getBlockHeader`,
+          data: {
+            hashes: hash,
+            verbose: verbose
+          }
+        }
+        const response = await axios(options)
+
+        return response.data
+      }
+
+      throw new Error(`Input hash must be a string or array of strings.`)
     } catch (error) {
       if (error.response && error.response.data) throw error.response.data
       else throw error
@@ -135,13 +158,29 @@ class Blockchain {
   }
 
   async getMempoolEntry(txid) {
-    if (typeof txid !== "string") txid = JSON.stringify(txid)
+    //if (typeof txid !== "string") txid = JSON.stringify(txid)
 
     try {
-      const response = await axios.get(
-        `${this.restURL}blockchain/getMempoolEntry/${txid}`
-      )
-      return response.data
+      if (typeof txid === "string") {
+        const response = await axios.get(
+          `${this.restURL}blockchain/getMempoolEntry/${txid}`
+        )
+
+        return response.data
+      } else if (Array.isArray(txid)) {
+        const options = {
+          method: "POST",
+          url: `${this.restURL}blockchain/getMempoolEntry`,
+          data: {
+            txids: txid
+          }
+        }
+        const response = await axios(options)
+
+        return response.data
+      }
+
+      throw new Error(`Input must be a string or array of strings.`)
     } catch (error) {
       if (error.response && error.response.data) throw error.response.data
       else throw error
@@ -186,13 +225,31 @@ class Blockchain {
     }
   }
 
-  async getTxOutProof(txids, blockhash) {
-    let path = `${this.restURL}blockchain/getTxOutProof/${txids}`
-    if (blockhash) path = `${path}?blockhash=${blockhash}`
-
+  async getTxOutProof(txids) {
     try {
-      const response = await axios.get(path)
-      return response.data
+      // Single txid.
+      if (typeof txids === "string") {
+        const path = `${this.restURL}blockchain/getTxOutProof/${txids}`
+        //if (blockhash) path = `${path}?blockhash=${blockhash}`
+
+        const response = await axios.get(path)
+        return response.data
+
+        // Array of txids.
+      } else if (Array.isArray(txids)) {
+        const options = {
+          method: "POST",
+          url: `${this.restURL}blockchain/getTxOutProof`,
+          data: {
+            txids: txids
+          }
+        }
+        const response = await axios(options)
+
+        return response.data
+      }
+
+      throw new Error(`Input must be a string or array of strings.`)
     } catch (error) {
       if (error.response && error.response.data) throw error.response.data
       else throw error
@@ -239,10 +296,28 @@ class Blockchain {
 
   async verifyTxOutProof(proof) {
     try {
-      const response = await axios.get(
-        `${this.restURL}blockchain/verifyTxOutProof/proof`
-      )
-      return response.data
+      // Single block
+      if (typeof proof === "string") {
+        const response = await axios.get(
+          `${this.restURL}blockchain/verifyTxOutProof/${proof}`
+        )
+        return response.data
+
+        // Array of hashes.
+      } else if (Array.isArray(proof)) {
+        const options = {
+          method: "POST",
+          url: `${this.restURL}blockchain/verifyTxOutProof`,
+          data: {
+            proofs: proof
+          }
+        }
+        const response = await axios(options)
+
+        return response.data
+      }
+
+      throw new Error(`Input must be a string or array of strings.`)
     } catch (error) {
       if (error.response && error.response.data) throw error.response.data
       else throw error

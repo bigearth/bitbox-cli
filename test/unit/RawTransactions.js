@@ -1,8 +1,7 @@
-"use strict"
 const chai = require("chai")
 const assert = require("assert")
 const axios = require("axios")
-const BITBOXSDK = require("./../lib/bitbox-sdk").default
+const BITBOXSDK = require("../../lib/bitbox-sdk").default
 const BITBOX = new BITBOXSDK()
 
 const sinon = require("sinon")
@@ -31,7 +30,7 @@ describe("#RawTransactions", () => {
 
       BITBOX.RawTransactions.decodeRawTransaction(["02000000000000000000"])
         .then(result => {
-          assert.deepEqual(data, result)
+          assert.deepEqual(data, result[0])
         })
         .then(done, done)
     })
@@ -78,7 +77,7 @@ describe("#RawTransactions", () => {
         "808d617eccaad4f1397fe07a06ec5ed15a0821cf22a3e0931c0c92aef9e572b6"
       ])
         .then(result => {
-          assert.deepEqual(data, result)
+          assert.deepEqual(data, result[0])
         })
         .then(done, done)
     })

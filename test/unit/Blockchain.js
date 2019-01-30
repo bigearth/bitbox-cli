@@ -1,8 +1,7 @@
-"use strict"
 const chai = require("chai")
 const assert = require("assert")
 const axios = require("axios")
-const BITBOXSDK = require("./../lib/bitbox-sdk").default
+const BITBOXSDK = require("../../lib/bitbox-sdk").default
 const BITBOX = new BITBOXSDK()
 const sinon = require("sinon")
 
@@ -433,7 +432,7 @@ describe("#Blockchain", () => {
       const resolved = new Promise(r => r({ data: data }))
       sandbox.stub(axios, "get").returns(resolved)
 
-      BITBOX.Blockchain.verifyTxOutProof(3, 6)
+      BITBOX.Blockchain.verifyTxOutProof("3") 
         .then(result => {
           assert.deepEqual(data, result)
         })

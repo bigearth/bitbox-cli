@@ -267,13 +267,30 @@ class Address {
   }
 
   async details(address) {
-    if (typeof address !== "string") address = JSON.stringify(address)
-
     try {
-      const response = await axios.get(
-        `${this.restURL}address/details/${address}`
-      )
-      return response.data
+      // Handle single address.
+      if (typeof address === "string") {
+        const response = await axios.get(
+          `${this.restURL}address/details/${address}`
+        )
+
+        return response.data
+
+        // Handle array of addresses.
+      } else if (Array.isArray(address)) {
+        const options = {
+          method: "POST",
+          url: `${this.restURL}address/details`,
+          data: {
+            addresses: address
+          }
+        }
+        const response = await axios(options)
+
+        return response.data
+      }
+
+      throw new Error(`Input address must be a string or array of strings.`)
     } catch (error) {
       if (error.response && error.response.data) throw error.response.data
       else throw error
@@ -281,11 +298,27 @@ class Address {
   }
 
   async utxo(address) {
-    if (typeof address !== "string") address = JSON.stringify(address)
-
     try {
-      const response = await axios.get(`${this.restURL}address/utxo/${address}`)
-      return response.data
+      // Handle single address.
+      if (typeof address === "string") {
+        const response = await axios.get(
+          `${this.restURL}address/utxo/${address}`
+        )
+        return response.data
+      } else if (Array.isArray(address)) {
+        const options = {
+          method: "POST",
+          url: `${this.restURL}address/utxo`,
+          data: {
+            addresses: address
+          }
+        }
+        const response = await axios(options)
+
+        return response.data
+      }
+
+      throw new Error(`Input address must be a string or array of strings.`)
     } catch (error) {
       if (error.response && error.response.data) throw error.response.data
       else throw error
@@ -293,13 +326,29 @@ class Address {
   }
 
   async unconfirmed(address) {
-    if (typeof address !== "string") address = JSON.stringify(address)
-
     try {
-      const response = await axios.get(
-        `${this.restURL}address/unconfirmed/${address}`
-      )
-      return response.data
+      // Handle single address.
+      if (typeof address === "string") {
+        const response = await axios.get(
+          `${this.restURL}address/unconfirmed/${address}`
+        )
+        return response.data
+
+        // Handle an array of addresses
+      } else if (Array.isArray(address)) {
+        const options = {
+          method: "POST",
+          url: `${this.restURL}address/unconfirmed`,
+          data: {
+            addresses: address
+          }
+        }
+        const response = await axios(options)
+
+        return response.data
+      }
+
+      throw new Error(`Input address must be a string or array of strings.`)
     } catch (error) {
       if (error.response && error.response.data) throw error.response.data
       else throw error
@@ -307,13 +356,29 @@ class Address {
   }
 
   async transactions(address) {
-    if (typeof address !== "string") address = JSON.stringify(address)
-
     try {
-      const response = await axios.get(
-        `${this.restURL}address/transactions/${address}`
-      )
-      return response.data
+      // Handle single address.
+      if (typeof address === "string") {
+        const response = await axios.get(
+          `${this.restURL}address/transactions/${address}`
+        )
+        return response.data
+
+        // Handle an array of addresses
+      } else if (Array.isArray(address)) {
+        const options = {
+          method: "POST",
+          url: `${this.restURL}address/transactions`,
+          data: {
+            addresses: address
+          }
+        }
+        const response = await axios(options)
+
+        return response.data
+      }
+
+      throw new Error(`Input address must be a string or array of strings.`)
     } catch (error) {
       if (error.response && error.response.data) throw error.response.data
       else throw error
