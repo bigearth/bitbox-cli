@@ -85,11 +85,9 @@ class RawTransactions {
 
     try {
       const response = await axios.post(
-        `${
-          this.restURL
-        }rawtransactions/sendRawTransaction/${hex}?allowhighfees=${allowhighfees}`,
+        `${this.restURL}rawtransactions/sendRawTransaction`,
         {
-          hex: hex
+          hexes: [hex]
         }
       )
 
