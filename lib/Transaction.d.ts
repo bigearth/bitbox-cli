@@ -7,7 +7,7 @@ export declare interface Transaction {
   fromHex(hex: string): any;
   transactionBuilder(network: string): any;
   fromTransaction(tx: any): any;
-  details(txid: string| string[]): Promise<TxnDetails | TxnDetails[]>;
+  details(txids: string[]): Promise<TxnDetails[]>;
 }
 
 declare interface TxnDetails{
