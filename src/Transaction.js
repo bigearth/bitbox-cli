@@ -23,13 +23,27 @@ class Transaction {
   }
 
   async details(txid) {
-    if (typeof txid !== "string") txid = JSON.stringify(txid)
-
     try {
-      const response = await axios.get(
-        `${this.restURL}transaction/details/${txid}`
-      )
-      return response.data
+      // Handle single address.
+      if (typeof txid === "string") {
+        const response = await axios.get(
+          `${this.restURL}transaction/details/${txid}`
+        )
+        return response.data
+      } else if (Array.isArray(txid)) {
+        const options = {
+          method: "POST",
+          url: `${this.restURL}transaction/details`,
+          data: {
+            txids: txid
+          }
+        }
+        const response = await axios(options)
+
+        return response.data
+      }
+
+      throw new Error(`Input txid must be a string or array of strings.`)
     } catch (error) {
       if (error.response && error.response.data) throw error.response.data
       else throw error
