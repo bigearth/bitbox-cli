@@ -16,7 +16,7 @@
   },
   "license": "MIT",
   "engines": {
-    "node": ">=8.11.0"
+    "node": ">=10.15.1"
   },
   "bin": {
     "bitbox": "./index.js"
