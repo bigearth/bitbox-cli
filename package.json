@@ -1,6 +1,6 @@
 {
   "name": "bitbox-sdk",
-  "version": "3.0.0",
+  "version": "3.0.2",
   "description": "BITBOX Javascript SDK for Bitcoin Cash",
   "author": "Gabriel Cardona @ Bitcoin.com",
   "contributors": [
@@ -16,7 +16,7 @@
   },
   "license": "MIT",
   "engines": {
-    "node": ">=8.11.0"
+    "node": ">=10.15.1"
   },
   "bin": {
     "bitbox": "./index.js"
