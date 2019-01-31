@@ -1,4 +1,4 @@
-export declare interface Address {
+export interface Address {
     restURL: string;
     //constructor(restURL: string);
     toLegacyAddress(address: string): string;
@@ -19,11 +19,11 @@ export declare interface Address {
     fromXPub(xpub: string, path?: string): string;
     fromOutputScript(scriptPubKey:string, network?: string): string;
     details(address: string[]): Promise<AddressDetailsResult[]>;
-    utxo(address: string[]): Promise<AddressUtxoResult[][]>;
+    utxo(address: string[]): Promise<AddressUtxoResult[]>;
     unconfirmed(address: string[]): Promise<AddressUnconfirmedResult[][]>;
 }
 
-export declare interface AddressDetailsResult {
+export interface AddressDetailsResult {
     balance: number;
     balanceSat: number;
     totalReceived: number;
@@ -39,19 +39,22 @@ export declare interface AddressDetailsResult {
     cashAddress: string;
 }
 
-export declare interface AddressUtxoResult {
-    txid: string;
-    vout: number;
-    scriptPubKey: string;
-    amount: number;
-    satoshis: number;
-    height: number;
-    confirmations: number;
+export interface AddressUtxoResult {
     legacyAddress: string;
     cashAddress: string;
+    scriptPubKey: string;
+    utxos: 
+    [{
+        txid: string;
+        vout: number;
+        amount: number;
+        satoshis: number;
+        height: number;
+        confirmations: number;
+    }]
 }
 
-export declare interface AddressUnconfirmedResult {
+export interface AddressUnconfirmedResult {
     txid: string;
     vout: number;
     scriptPubKey: string;
