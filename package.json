@@ -1,6 +1,6 @@
 {
   "name": "bitbox-sdk",
-  "version": "3.0.5",
+  "version": "3.0.6",
   "description": "BITBOX Javascript SDK for Bitcoin Cash",
   "author": "Gabriel Cardona @ Bitcoin.com",
   "contributors": [
@@ -41,7 +41,7 @@
     "bip66": "^1.1.5",
     "bc-bip68": "^1.0.5",
     "bitcoincash-ops": "Bitcoin-com/bitcoincash-ops#2.0.0",
-    "bitcoincashjs-lib": "Bitcoin-com/bitcoincashjs-lib#3.4.0",
+    "bitcoincashjs-lib": "Bitcoin-com/bitcoincashjs-lib#3.4.1",
     "bitcoinjs-message": "^2.0.0",
     "bs58": "^4.0.1",
     "buffer": "^5.1.0",
