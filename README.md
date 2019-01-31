@@ -15,7 +15,7 @@ Open Source / Creative Commons Listings
 - [bigi](https://www.npmjs.com/package/bigi) - none
 - [bip21](https://github.com/bigearth/bip21) - ISC
 - [bip39](https://github.com/bitcoinjs/bip39/blob/master/LICENSE) - ISC
-- [bitcoin-ops](https://github.com/bigearth/bitcoin-ops) - MIT
+- [bitcoincash-ops](https://github.com/bitcoin-com/bitcoincash-ops) - MIT
 - [bitcoinjs-lib](https://github.com/bigearth/bitcoinjs-lib) - MIT
 - [bitcoinjs-message](https://github.com/bitcoinjs/bitcoinjs-message) - MIT
 - [bs58](https://www.npmjs.com/package/bs58) - MIT

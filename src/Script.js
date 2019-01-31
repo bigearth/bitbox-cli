@@ -1,5 +1,5 @@
 import Bitcoin from "bitcoincashjs-lib"
-import opcodes from "bitcoin-ops"
+import opcodes from "bitcoincash-ops"
 
 class Script {
   constructor() {
