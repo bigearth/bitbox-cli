@@ -81,8 +81,6 @@ class RawTransactions {
   }
 
   async sendRawTransaction(hex, allowhighfees = false) {
-    //if (typeof hex !== "string") hex = JSON.stringify(hex)
-
     try {
       // Single tx hex.
       if (typeof hex === "string") {
@@ -102,6 +100,8 @@ class RawTransactions {
         }
 
         return response.data
+
+        // Array input
       } else if (Array.isArray(hex)) {
         const options = {
           method: "POST",

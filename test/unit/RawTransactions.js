@@ -1,3 +1,10 @@
+/*
+  TODO:
+  -Replace old unit tests mocking axios with the more generalized nock library.
+   See the sendRawTransaction test for an example.
+  -Create a mocking library of data to compare unit and integration tests.
+*/
+
 const chai = require("chai")
 const assert = require("assert")
 const axios = require("axios")
@@ -5,6 +12,11 @@ const BITBOXSDK = require("../../lib/bitbox-sdk").default
 const BITBOX = new BITBOXSDK()
 
 const sinon = require("sinon")
+const nock = require("nock") // HTTP mocking
+
+// Used for debugging
+const util = require("util")
+util.inspect.defaultOptions = { depth: 1 }
 
 describe("#RawTransactions", () => {
   describe("#decodeRawTransaction", () => {
@@ -88,19 +100,32 @@ describe("#RawTransactions", () => {
     beforeEach(() => (sandbox = sinon.sandbox.create()))
     afterEach(() => sandbox.restore())
 
-    it("should send raw transaction", done => {
+    it("should send single raw transaction", async () => {
       const data = "Error: transaction already in block chain"
 
       const resolved = new Promise(r => r({ data: data }))
       sandbox.stub(axios, "post").returns(resolved)
 
-      BITBOX.RawTransactions.sendRawTransaction([
+      const result = await BITBOX.RawTransactions.sendRawTransaction(
+        "020000000160d663961c63c7f0a07f22ec07b8f55b3935bfdbed8b1d8454916e8932fbf109010000006b4830450221008479fab4cfdcb111833d250a43f98ac26d43272b7a29cb1b9a0491eae5c44b3502203448b17253632395c29a7d62058bbfe93efb20fc8636ba6837002d464195aec04121029123258f7cdcd45b864066bcaa9b71f24d5ed1fa1dd36eaf107d8432b5014658ffffffff016d180000000000001976a91479d3297d1823149f4ec61df31d19f2fad5390c0288ac00000000"
+      )
+
+      assert.equal(data, result)
+    })
+
+    it("should send an array of raw transactions", async () => {
+      const data = "Error: transaction already in block chain"
+
+      // Mock the http call to rest.bitcoin.com
+      nock(`${BITBOX.RawTransactions.restURL}`)
+        .post(uri => uri.includes(`/`))
+        .reply(200, { data: data })
+
+      const result = await BITBOX.RawTransactions.sendRawTransaction([
         "020000000160d663961c63c7f0a07f22ec07b8f55b3935bfdbed8b1d8454916e8932fbf109010000006b4830450221008479fab4cfdcb111833d250a43f98ac26d43272b7a29cb1b9a0491eae5c44b3502203448b17253632395c29a7d62058bbfe93efb20fc8636ba6837002d464195aec04121029123258f7cdcd45b864066bcaa9b71f24d5ed1fa1dd36eaf107d8432b5014658ffffffff016d180000000000001976a91479d3297d1823149f4ec61df31d19f2fad5390c0288ac00000000"
       ])
-        .then(result => {
-          assert.equal(data, result)
-        })
-        .then(done, done)
+
+      assert.equal(data, result.data)
     })
   })
 })
