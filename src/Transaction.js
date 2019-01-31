@@ -30,6 +30,8 @@ class Transaction {
           `${this.restURL}transaction/details/${txid}`
         )
         return response.data
+
+        // Array of addresses
       } else if (Array.isArray(txid)) {
         const options = {
           method: "POST",
