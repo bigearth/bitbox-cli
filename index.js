@@ -1,24 +1,19 @@
 #!/usr/bin/env node
-"use strict"
 require("babel-register")
 const path = require("path")
 const program = require("commander")
 const chalk = require("chalk")
 const mkdirp = require("mkdirp")
-const cpFile = require("cp-file")
 const figlet = require("figlet")
 const clear = require("clear")
 const fs = require("fs")
-const os = require("os")
 const touch = require("touch")
 const emoji = require("node-emoji")
 const repl = require("repl")
-const ini = require("ini")
 const BITBOXSDK = require("./lib/bitbox-sdk").default
 const clone = require("git-clone")
-const cmd = require("node-cmd")
 
-program.version("3.0.4 ", "-v, --version")
+program.version("3.0.5 ", "-v, --version")
 
 program
   .command("new <name>")
