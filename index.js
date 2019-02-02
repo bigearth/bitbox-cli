@@ -13,7 +13,7 @@ const repl = require("repl")
 const BITBOXSDK = require("./lib/bitbox-sdk").default
 const clone = require("git-clone")
 
-program.version("3.0.7 ", "-v, --version")
+program.version("3.0.8 ", "-v, --version")
 
 program
   .command("new <name>")
@@ -23,7 +23,7 @@ program
   )
   .option(
     "-r, --restURL <restURL>",
-    "The rest URL to use. default: https://trest.bitcoin.com/v1/"
+    "The rest URL to use. default: https://trest.bitcoin.com/v2/"
   )
   .option(
     "-e, --environment <environment>",
@@ -39,7 +39,7 @@ program
     let config
     const environment = fetchOption("environment=development", config, options)
     const restURL = fetchOption(
-      "restURL=https://trest.bitcoin.com/v1/",
+      "restURL=https://trest.bitcoin.com/v2/",
       config,
       options
     )
@@ -113,7 +113,7 @@ program
     fs.writeFileSync(
       `./${name}/bitbox.js`,
       `exports.config = {
-  networks: {
+  environments: {
     ${environment}: {
       restURL: "${restURL}"
     }
@@ -154,7 +154,7 @@ program
 
     const environment = fetchOption("environment=development", config, options)
 
-    replServer.context.BITBOX = new BITBOXSDK(config.networks[environment])
+    replServer.context.BITBOX = new BITBOXSDK(config.environments[environment])
   })
 
 function fetchOption(kv, config, options) {
