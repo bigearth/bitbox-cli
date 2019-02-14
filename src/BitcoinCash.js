@@ -54,9 +54,9 @@ class BitcoinCash {
 
   // sign message
   signMessageWithPrivKey(privateKeyWIF, message) {
-    const network = privateKeyWIF.charAt(0) === "c" ? "testnet" : "bitcoincash"
+    const network = privateKeyWIF.charAt(0) === "c" ? "testnet" : "mainnet"
     let bitcoincash
-    if (network === "bitcoincash") bitcoincash = coininfo.bitcoincash.main
+    if (network === "mainnet") bitcoincash = coininfo.bitcoincash.main
     else bitcoincash = coininfo.bitcoincash.test
 
     const bitcoincashBitcoinJSLib = bitcoincash.toBitcoinJS()

@@ -9,11 +9,11 @@ class ECPair {
   static fromWIF(privateKeyWIF) {
     let network
     if (privateKeyWIF[0] === "L" || privateKeyWIF[0] === "K")
-      network = "bitcoincash"
+      network = "mainnet"
     else if (privateKeyWIF[0] === "c") network = "testnet"
 
     let bitcoincash
-    if (network === "bitcoincash") bitcoincash = coininfo.bitcoincash.main
+    if (network === "mainnet") bitcoincash = coininfo.bitcoincash.main
     else bitcoincash = coininfo.bitcoincash.test
 
     const bitcoincashBitcoinJSLib = bitcoincash.toBitcoinJS()

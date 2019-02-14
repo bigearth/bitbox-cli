@@ -7,7 +7,7 @@ const Buffer = require("safe-buffer").Buffer
 
 describe("#TransactionBuilder", () => {
   describe("#hashTypes", () => {
-    const transactionBuilder = new BITBOX.TransactionBuilder("bitcoincash")
+    const transactionBuilder = new BITBOX.TransactionBuilder("mainnet")
     fixtures.hashTypes.forEach(fixture => {
       it(`should match hash type`, () => {
         assert.equal(

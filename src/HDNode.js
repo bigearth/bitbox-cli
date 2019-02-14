@@ -7,9 +7,10 @@ class HDNode {
     this._address = address
   }
 
-  fromSeed(rootSeedBuffer, network = "bitcoincash") {
+  fromSeed(rootSeedBuffer, network = "mainnet") {
     let bitcoincash
-    if (network === "bitcoincash") bitcoincash = coininfo.bitcoincash.main
+    if (network === "bitcoincash" || network === "mainnet")
+      bitcoincash = coininfo.bitcoincash.main
     else bitcoincash = coininfo.bitcoincash.test
 
     const bitcoincashBitcoinJSLib = bitcoincash.toBitcoinJS()

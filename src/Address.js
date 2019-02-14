@@ -253,9 +253,10 @@ class Address {
     return this.toCashAddress(address.getAddress())
   }
 
-  fromOutputScript(scriptPubKey, network = "bitcoincash") {
+  fromOutputScript(scriptPubKey, network = "mainnet") {
     let netParam
-    if (network !== "bitcoincash") netParam = Bitcoin.networks.testnet
+    if (network !== "bitcoincash" && network !== "mainnet")
+      netParam = Bitcoin.networks.testnet
 
     const regtest = network === "bchreg"
 

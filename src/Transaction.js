@@ -6,22 +6,6 @@ class Transaction {
     this.restURL = restURL
   }
 
-  transaction() {
-    return new Bitcoin.Transaction()
-  }
-
-  fromHex(hex) {
-    return Bitcoin.Transaction.fromHex(hex)
-  }
-
-  transactionBuilder(network = "bitcoin") {
-    return new Bitcoin.TransactionBuilder(Bitcoin.networks[network])
-  }
-
-  fromTransaction(tx) {
-    return Bitcoin.TransactionBuilder.fromTransaction(tx)
-  }
-
   async details(txid) {
     try {
       // Handle single address.

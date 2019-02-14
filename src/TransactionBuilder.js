@@ -8,9 +8,10 @@ class TransactionBuilder {
     TransactionBuilder._address = address
   }
 
-  constructor(network = "bitcoincash") {
+  constructor(network = "mainnet") {
     let bitcoincash
-    if (network === "bitcoincash") bitcoincash = coininfo.bitcoincash.main
+    if (network === "bitcoincash" || network === "mainnet")
+      bitcoincash = coininfo.bitcoincash.main
     else bitcoincash = coininfo.bitcoincash.test
 
     const bitcoincashBitcoinJSLib = bitcoincash.toBitcoinJS()
@@ -53,7 +54,7 @@ class TransactionBuilder {
   }
 
   setLockTime(locktime) {
-    this.transaction.setLockTime(locktime);
+    this.transaction.setLockTime(locktime)
   }
 
   sign(
