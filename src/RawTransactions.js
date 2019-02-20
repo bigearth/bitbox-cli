@@ -100,11 +100,8 @@ class RawTransactions {
     try {
       // Single tx hex.
       if (typeof hex === "string") {
-        const response = await axios.post(
-          `${this.restURL}rawtransactions/sendRawTransaction`,
-          {
-            hexes: [hex]
-          }
+        const response = await axios.get(
+          `${this.restURL}rawtransactions/sendRawTransaction/${hex}`
         )
 
         if (response.data === "66: insufficient priority") {
