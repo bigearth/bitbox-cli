@@ -102,13 +102,16 @@ describe(`#address`, () => {
       const result = await BITBOX.Address.utxo(addr)
       //console.log(`result: ${JSON.stringify(result, null, 2)}`)
 
-      assert.hasAllKeys(result, ["utxos", "legacyAddress", "cashAddress"])
+      assert.hasAllKeys(result, [
+        "utxos",
+        "legacyAddress",
+        "cashAddress",
+        "scriptPubKey"
+      ])
       assert.isArray(result.utxos)
-      assert.hasAllKeys(result.utxos[0], [
-        "address",
+      assert.hasAnyKeys(result.utxos[0], [
         "txid",
         "vout",
-        "scriptPubKey",
         "amount",
         "satoshis",
         "height",
@@ -126,13 +129,16 @@ describe(`#address`, () => {
       //console.log(`result: ${JSON.stringify(result, null, 2)}`)
 
       assert.isArray(result)
-      assert.hasAllKeys(result[0], ["utxos", "legacyAddress", "cashAddress"])
+      assert.hasAllKeys(result[0], [
+        "utxos",
+        "legacyAddress",
+        "cashAddress",
+        "scriptPubKey"
+      ])
       assert.isArray(result[0].utxos)
-      assert.hasAllKeys(result[0].utxos[0], [
-        "address",
+      assert.hasAnyKeys(result[0].utxos[0], [
         "txid",
         "vout",
-        "scriptPubKey",
         "amount",
         "satoshis",
         "height",
