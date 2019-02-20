@@ -172,4 +172,46 @@ describe("#rawtransaction", () => {
       assert.isArray(result[0].vout)
     })
   })
+
+  describe("#decodeScript", () => {
+    it("should decode script for a single hex", async () => {
+      const hex =
+        "4830450221009a51e00ec3524a7389592bc27bea4af5104a59510f5f0cfafa64bbd5c164ca2e02206c2a8bbb47eabdeed52f17d7df668d521600286406930426e3a9415fe10ed592012102e6e1423f7abde8b70bca3e78a7d030e5efabd3eb35c19302542b5fe7879c1a16"
+
+      const result = await BITBOX.RawTransactions.decodeScript(hex)
+      //console.log(`result ${JSON.stringify(result, null, 2)}`)
+
+      assert.hasAllKeys(result, ["asm", "type", "p2sh"])
+    })
+
+    // CT 2/20/19 - Waiting for this PR to be merged complete the test:
+    // https://github.com/Bitcoin-com/rest.bitcoin.com/pull/312
+    /*
+    it("should decode an array of tx hexes", async () => {
+      const hexes = [
+        "4830450221009a51e00ec3524a7389592bc27bea4af5104a59510f5f0cfafa64bbd5c164ca2e02206c2a8bbb47eabdeed52f17d7df668d521600286406930426e3a9415fe10ed592012102e6e1423f7abde8b70bca3e78a7d030e5efabd3eb35c19302542b5fe7879c1a16",
+        "4830450221009a51e00ec3524a7389592bc27bea4af5104a59510f5f0cfafa64bbd5c164ca2e02206c2a8bbb47eabdeed52f17d7df668d521600286406930426e3a9415fe10ed592012102e6e1423f7abde8b70bca3e78a7d030e5efabd3eb35c19302542b5fe7879c1a16"
+      ]
+
+      const result = await BITBOX.RawTransactions.decodeScript(hexes)
+      console.log(`result ${JSON.stringify(result, null, 2)}`)
+    })
+*/
+    /*
+    it(`should throw an error for improper single input`, async () => {
+      try {
+        const addr = 12345
+
+        await BITBOX.RawTransactions.decodeRawTransaction(addr)
+        assert.equal(true, false, "Unexpected result!")
+      } catch (err) {
+        //console.log(`err: `, err)
+        assert.include(
+          err.message,
+          `Input must be a string or array of strings.`
+        )
+      }
+    })
+*/
+  })
 })

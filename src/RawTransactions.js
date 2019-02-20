@@ -36,13 +36,29 @@ class RawTransactions {
   }
 
   async decodeScript(script) {
-    if (typeof script !== "string") script = JSON.stringify(script)
+    //if (typeof script !== "string") script = JSON.stringify(script)
 
     try {
-      const response = await axios.get(
-        `${this.restURL}rawtransactions/decodeScript/${script}`
-      )
-      return response.data
+      if (typeof script === "string") {
+        const response = await axios.get(
+          `${this.restURL}rawtransactions/decodeScript/${script}`
+        )
+
+        return response.data
+      } else if (Array.isArray(script)) {
+        const options = {
+          method: "POST",
+          url: `${this.restURL}rawtransactions/decodeScript`,
+          data: {
+            hexes: script
+          }
+        }
+        const response = await axios(options)
+
+        return response.data
+      }
+
+      throw new Error(`Input must be a string or array of strings.`)
     } catch (error) {
       if (error.response && error.response.data) throw error.response.data
       else throw error
