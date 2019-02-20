@@ -1046,7 +1046,7 @@ describe("#TransactionBuilder", () => {
     })
   })
 
-  describe("#P2PMS", () => {
+  describe("#P2MS", () => {
     describe("#toOne", () => {
       describe("#Mainnet", () => {
         fixtures.scripts.p2ms.toOne.mainnet.forEach(fixture => {
