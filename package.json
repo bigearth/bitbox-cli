@@ -7,6 +7,7 @@
     "Chris Troutner <chris.troutner@gmail.com>"
   ],
   "main": "index.js",
+  "types": "./typings/bitbox-sdk.d.ts",
   "scripts": {
     "test": "mocha --timeout 30000 --require babel-core/register test/unit",
     "test:integration": "mocha --timeout 30000 --require babel-core/register test/integration",
