@@ -20,8 +20,8 @@ const SATOSHIS_TO_SEND = 1000
 // Instantiate BITBOX.
 const bitboxLib = "../../../lib/bitbox-sdk"
 const BITBOXSDK = require(bitboxLib).default
-//const BITBOX = new BITBOXSDK({ restURL: "https://trest.bitcoin.com/v2/" })
-const BITBOX = new BITBOXSDK({ restURL: "http://localhost:3000/v2/" })
+const BITBOX = new BITBOXSDK({ restURL: "https://trest.bitcoin.com/v2/" })
+//const BITBOX = new BITBOXSDK({ restURL: "http://localhost:3000/v2/" })
 
 const util = require("util")
 
@@ -51,6 +51,7 @@ async function testSend() {
       hex2
     ])
     console.log(`Transaction IDs: ${JSON.stringify(broadcast, null, 2)}`)
+    console.log(`Should return an array of TXID strings.`)
   } catch (err) {
     console.log(`Error in testSend: `, err)
   }
