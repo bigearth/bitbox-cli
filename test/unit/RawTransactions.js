@@ -69,12 +69,6 @@ describe("#RawTransactions", () => {
       //console.log(`result: ${util.inspect(result)}`)
 
       assert.deepEqual(data, result)
-      /*
-        .then(result => {
-          assert.deepEqual(data, result)
-        })
-        .then(done, done)
-      */
     })
   })
 
