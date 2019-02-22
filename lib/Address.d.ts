@@ -17,7 +17,7 @@ export interface Address {
     detectAddressNetwork(address: string): string;
     detectAddressType(address: string): string;
     fromXPub(xpub: string, path?: string): string;
-    fromOutputScript(scriptPubKey:string, network?: string): string;
+    fromOutputScript(scriptPubKey:Buffer, network?: string): string;
     details(address: string[]): Promise<AddressDetailsResult[]>;
     utxo(address: string[]): Promise<AddressUtxoResult[]>;
     unconfirmed(address: string[]): Promise<AddressUnconfirmedResult[][]>;
