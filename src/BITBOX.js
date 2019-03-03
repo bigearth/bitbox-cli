@@ -20,7 +20,7 @@ import Price from "./Price"
 import Socket from "./Socket"
 import Wallet from "./Wallet"
 
-class BITBOXSDK {
+class BITBOX {
   constructor(config) {
     if (config && config.restURL && config.restURL !== "")
       this.restURL = config.restURL
@@ -51,4 +51,4 @@ class BITBOXSDK {
   }
 }
 
-export default BITBOXSDK
+module.exports = BITBOX

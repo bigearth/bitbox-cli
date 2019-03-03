@@ -1,7 +1,7 @@
 const fixtures = require("./fixtures/HDNode.json")
 const chai = require("chai")
 const assert = require("assert")
-const BITBOXSDK = require("../../lib/bitbox-sdk").default
+const BITBOXSDK = require("../../lib/BITBOX")
 const BITBOX = new BITBOXSDK()
 const Buffer = require("safe-buffer").Buffer
 

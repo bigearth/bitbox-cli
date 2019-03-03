@@ -18,8 +18,8 @@ const RECV_ADDR2 = `bchtest:qz6yw0kqgfkknfy6jh2jvlfnkzmre3lt2u0pgcckdk`
 const SATOSHIS_TO_SEND = 1000
 
 // Instantiate BITBOX.
-const bitboxLib = "../../../lib/bitbox-sdk"
-const BITBOXSDK = require(bitboxLib).default
+const bitboxLib = "../../../lib/BITBOX"
+const BITBOXSDK = require(bitboxLib)
 const BITBOX = new BITBOXSDK({ restURL: "https://trest.bitcoin.com/v2/" })
 //const BITBOX = new BITBOXSDK({ restURL: "http://localhost:3000/v2/" })
 

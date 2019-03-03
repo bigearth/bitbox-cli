@@ -3,8 +3,8 @@
 */
 
 // Instantiate BITBOX.
-const bitboxLib = "../../../../lib/bitbox-sdk"
-const BITBOXSDK = require(bitboxLib).default
+const bitboxLib = "../../../../lib/BITBOX"
+const BITBOXSDK = require(bitboxLib)
 const BITBOX = new BITBOXSDK({ restURL: "https://trest.bitcoin.com/v2/" })
 
 // Replace the address below with the address you want to send the BCH to.

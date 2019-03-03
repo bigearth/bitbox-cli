@@ -1,13 +1,13 @@
 {
   "name": "bitbox-sdk",
-  "version": "4.0.1",
-  "description": "BITBOX Javascript SDK for Bitcoin Cash",
+  "version": "5.0.0",
+  "description": "BITBOX SDK for Bitcoin Cash",
   "author": "Gabriel Cardona <gabriel@bitcoin.com>",
   "contributors": [
     "Chris Troutner <chris.troutner@gmail.com>"
   ],
-  "main": "index.js",
-  "types": "./typings/bitbox-sdk.d.ts",
+  "main": "lib/BITBOX",
+  "types": "./typings/BITBOX.d.ts",
   "scripts": {
     "test": "mocha --timeout 30000 --require babel-core/register test/unit",
     "test:integration": "mocha --timeout 30000 --require babel-core/register test/integration",
