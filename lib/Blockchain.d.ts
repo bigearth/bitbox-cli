@@ -15,7 +15,7 @@ export declare interface Blockchain {
   getMempoolEntry(txid:string): Promise<any>;
   getMempoolInfo(): Promise<MempoolInfo>;
   getRawMempool(verbose?:boolean): Promise<any>;
-  getTxOut(txid:string, n:number, include_mempool?: boolean): Promise<any>;
+  getTxOut(txid:string, n:number, include_mempool?: boolean): Promise<TxOut|null>;
   getTxOutProof(txids:string, blockhash:string): Promise<string>;
   preciousBlock(blockhash:string): Promise<any>;
   pruneBlockchain(height:number): Promise<number>;
@@ -23,7 +23,7 @@ export declare interface Blockchain {
   verifyTxOutProof(proof:string): Promise<string[]>;
 }
 
-declare interface MempoolInfo {
+export interface MempoolInfo {
   size: number;
   bytes: number;
   usage: number;
@@ -31,7 +31,7 @@ declare interface MempoolInfo {
   mempoolminfee: number;
 }
 
-declare interface BlockchainInfo {
+export interface BlockchainInfo {
   chain: string;
   blocks: number;
   headers: number;
@@ -45,7 +45,7 @@ declare interface BlockchainInfo {
   bip9_softforks: object;
 }
 
-declare interface BlockHeader {
+export interface BlockHeader {
   hash: string;
   confirmations: number;
   height: number;
@@ -62,14 +62,29 @@ declare interface BlockHeader {
 	nextblockhash: string;
 }
 
-declare interface ChainTip {
+export interface ChainTip {
   height:number;
   hash: string;
   branchlen: number;
   status: string;
 }
 
-//declare interface RawMempoolTxn {
+export interface TxOut {
+  bestblock: string,      
+  confirmations: number,  
+  value: number,          
+  scriptPubKey: {         
+      asm: string,     
+      hex: string,      
+      reqSigs: number,
+      type: string,
+      addresses: string[]
+  },
+  version: number,
+  coinbase: boolean
+}
+
+//export interface RawMempoolTxn {
 
     // [  {'2ae541af20db6f2b50410f418af56e349d08877d685f6cf54df54658e892db7a':
   //  { size: 237,
