@@ -3,10 +3,18 @@
   with the create-wallet example.
 */
 
+// Set NETWORK to either testnet or mainnet
+const NETWORK = `testnet`
+
 // Instantiate BITBOX.
 const bitboxLib = "../../../../lib/BITBOX"
 const BITBOXSDK = require(bitboxLib)
-const BITBOX = new BITBOXSDK({ restURL: "https://trest.bitcoin.com/v2/" })
+
+// Instantiate SLP based on the network.
+let BITBOX
+if (NETWORK === `mainnet`)
+  BITBOX = new BITBOXSDK({ restURL: `https://rest.bitcoin.com/v2/` })
+else BITBOX = new BITBOXSDK({ restURL: `https://trest.bitcoin.com/v2/` })
 
 // Open the wallet generated with create-wallet.
 try {
