@@ -75,9 +75,9 @@ describe(`#block`, () => {
 
     it(`should throw an error for improper single input`, async () => {
       try {
-        const addr = "asdf"
+        const blocks = "asdf"
 
-        await BITBOX.Block.detailsByHeight(addr)
+        await BITBOX.Block.detailsByHeight(blocks)
         assert.equal(true, false, "Unexpected result!")
       } catch (err) {
         //console.log(`err: `, err)
@@ -85,6 +85,21 @@ describe(`#block`, () => {
           err.message,
           `Input must be a number or array of numbers.`
         )
+      }
+    })
+
+    it(`should throw error on array size rate limit`, async () => {
+      try {
+        const blocks = []
+        for (let i = 0; i < 25; i++) blocks.push(500000)
+
+        const result = await BITBOX.Block.detailsByHeight(blocks)
+
+        console.log(`result: ${util.inspect(result)}`)
+        assert.equal(true, false, "Unexpected result!")
+      } catch (err) {
+        assert.hasAnyKeys(err, ["error"])
+        assert.include(err.error, "Array too large")
       }
     })
   })
@@ -161,6 +176,25 @@ describe(`#block`, () => {
           err.message,
           `Input must be a string or array of strings`
         )
+      }
+    })
+
+    it(`should throw error on array size rate limit`, async () => {
+      try {
+        const data = []
+        for (let i = 0; i < 25; i++) {
+          data.push(
+            "000000000000000005e14d3f9fdfb70745308706615cfa9edca4f4558332b201"
+          )
+        }
+
+        const result = await BITBOX.Block.detailsByHash(data)
+
+        console.log(`result: ${util.inspect(result)}`)
+        assert.equal(true, false, "Unexpected result!")
+      } catch (err) {
+        assert.hasAnyKeys(err, ["error"])
+        assert.include(err.error, "Array too large")
       }
     })
   })

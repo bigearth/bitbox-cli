@@ -33,9 +33,10 @@ describe(`#blockchain`, () => {
 
   describe("#getBlockHeader", () => {
     it(`should GET block header for a single hash`, async () => {
-      const hash = "000000000000000005e14d3f9fdfb70745308706615cfa9edca4f4558332b201"
+      const hash =
+        "000000000000000005e14d3f9fdfb70745308706615cfa9edca4f4558332b201"
 
-        const result = await BITBOX.Blockchain.getBlockHeader(hash)
+      const result = await BITBOX.Blockchain.getBlockHeader(hash)
 
       assert.hasAllKeys(result, [
         "hash",
@@ -56,7 +57,9 @@ describe(`#blockchain`, () => {
     })
 
     it(`should GET block headers for an array of hashes`, async () => {
-      const hash = [ "000000000000000005e14d3f9fdfb70745308706615cfa9edca4f4558332b201", "00000000000000000568f0a96bf4348847bc84e455cbfec389f27311037a20f3"
+      const hash = [
+        "000000000000000005e14d3f9fdfb70745308706615cfa9edca4f4558332b201",
+        "00000000000000000568f0a96bf4348847bc84e455cbfec389f27311037a20f3"
       ]
 
       const result = await BITBOX.Blockchain.getBlockHeader(hash)
@@ -91,6 +94,25 @@ describe(`#blockchain`, () => {
           err.message,
           `Input hash must be a string or array of strings`
         )
+      }
+    })
+
+    it(`should throw error on array size rate limit`, async () => {
+      try {
+        const data = []
+        for (let i = 0; i < 25; i++) {
+          data.push(
+            "000000000000000005e14d3f9fdfb70745308706615cfa9edca4f4558332b201"
+          )
+        }
+
+        const result = await BITBOX.Blockchain.getBlockHeader(data)
+
+        console.log(`result: ${util.inspect(result)}`)
+        assert.equal(true, false, "Unexpected result!")
+      } catch (err) {
+        assert.hasAnyKeys(err, ["error"])
+        assert.include(err.error, "Array too large")
       }
     })
   })
@@ -256,6 +278,21 @@ describe(`#blockchain`, () => {
           err.message,
           `Input must be a string or array of strings`
         )
+      }
+    })
+
+    it(`should throw error on array size rate limit`, async () => {
+      try {
+        const data = []
+        for (let i = 0; i < 25; i++) data.push(mockTxOutProof)
+
+        const result = await BITBOX.Blockchain.verifyTxOutProof(data)
+
+        console.log(`result: ${util.inspect(result)}`)
+        assert.equal(true, false, "Unexpected result!")
+      } catch (err) {
+        assert.hasAnyKeys(err, ["error"])
+        assert.include(err.error, "Array too large")
       }
     })
   })

@@ -55,7 +55,7 @@ describe(`#util`, () => {
       assert.equal(result.isvalid, true)
     })
 
-    it(`should GET block details for an array of blocks`, async () => {
+    it(`should validate an array of addresses`, async () => {
       const address = [
         `bitcoincash:qp4k8fjtgunhdr7yq30ha4peuwupzan2vcnwrmpy0z`,
         `bitcoincash:qp4k8fjtgunhdr7yq30ha4peuwupzan2vcnwrmpy0z`
@@ -87,6 +87,22 @@ describe(`#util`, () => {
           err.message,
           `Input must be a string or array of strings.`
         )
+      }
+    })
+
+    it(`should throw error on array size rate limit`, async () => {
+      try {
+        const dataMock = `bitcoincash:qp4k8fjtgunhdr7yq30ha4peuwupzan2vcnwrmpy0z`
+        const data = []
+        for (let i = 0; i < 25; i++) data.push(dataMock)
+
+        const result = await BITBOX.Util.validateAddress(data)
+
+        console.log(`result: ${util.inspect(result)}`)
+        assert.equal(true, false, "Unexpected result!")
+      } catch (err) {
+        assert.hasAnyKeys(err, ["error"])
+        assert.include(err.error, "Array too large")
       }
     })
   })
