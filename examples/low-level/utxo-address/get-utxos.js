@@ -26,12 +26,14 @@ try {
   process.exit(0)
 }
 
+const ADDR = walletInfo.cashAddress
+
 async function getUtxos() {
   try {
     // first get BCH balance
-    const utxos = await BITBOX.Address.utxo(walletInfo.cashAddress)
+    const utxos = await BITBOX.Address.utxo(ADDR)
 
-    console.log(`UTXO information for address ${walletInfo.cashAddress}:`)
+    console.log(`UTXO information for address ${ADDR}:`)
     console.log(utxos)
   } catch (err) {
     console.error(`Error in getUtxos: `, err)
