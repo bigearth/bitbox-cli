@@ -73,6 +73,14 @@ async function consolidateDust() {
     const txFee = Math.ceil(satoshisPerByte * byteCount)
     console.log(`txFee: ${txFee}`)
 
+    // Exit if the transaction costs too much to send.
+    if (sendAmount - txFee < 0) {
+      console.log(
+        `Transaction fee costs more combined dust. Can't send transaction.`
+      )
+      return
+    }
+
     // add output w/ address and amount to send
     transactionBuilder.addOutput(SEND_ADDR, sendAmount - txFee)
 
@@ -102,8 +110,8 @@ async function consolidateDust() {
     console.log(` `)
 
     // Broadcast transation to the network
-    //const broadcast = await BITBOX.RawTransactions.sendRawTransaction([hex])
-    //console.log(`Transaction ID: ${broadcast}`)
+    const broadcast = await BITBOX.RawTransactions.sendRawTransaction([hex])
+    console.log(`Transaction ID: ${broadcast}`)
   } catch (err) {
     console.log(`error: `, err)
   }
