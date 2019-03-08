@@ -4,6 +4,9 @@
 
 // Set NETWORK to either testnet or mainnet
 const NETWORK = `testnet`
+// Replace the address below with the address you want to send the BCH to.
+const RECV_ADDR = ``
+const SATOSHIS_TO_SEND = 1000
 
 // Instantiate BITBOX.
 const bitboxLib = "../../../../lib/BITBOX"
@@ -14,11 +17,6 @@ let BITBOX
 if (NETWORK === `mainnet`)
   BITBOX = new BITBOXSDK({ restURL: `https://rest.bitcoin.com/v2/` })
 else BITBOX = new BITBOXSDK({ restURL: `https://trest.bitcoin.com/v2/` })
-
-// Replace the address below with the address you want to send the BCH to.
-const RECV_ADDR = `bchtest:qpul5py3vm8k8auh6ryz2cdkdm8sl6sj4stl2sx0ja`
-
-const SATOSHIS_TO_SEND = 1000
 
 // Open the wallet generated with create-wallet.
 try {
