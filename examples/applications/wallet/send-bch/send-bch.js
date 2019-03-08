@@ -112,8 +112,10 @@ async function sendBch() {
     console.log(` `)
 
     // Broadcast transation to the network
-    const broadcast = await BITBOX.RawTransactions.sendRawTransaction([hex])
-    console.log(`Transaction ID: ${broadcast}`)
+    const txidStr = await BITBOX.RawTransactions.sendRawTransaction([hex])
+    console.log(`Transaction ID: ${txidStr}`)
+    console.log(`Check the status of your transaction on this block explorer:`)
+    console.log(`https://explorer.bitcoin.com/tbch/tx/${txidStr}`)
   } catch (err) {
     console.log(`error: `, err)
   }

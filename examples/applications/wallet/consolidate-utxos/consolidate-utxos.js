@@ -1,6 +1,5 @@
 /*
-  Consolidate all UTXOs of size 546 sats or smaller into
-  a single UTXO.
+  Consolidate all UTXOs in an address into a single UTXO
 */
 
 // Set NETWORK to either testnet or mainnet
@@ -36,7 +35,6 @@ async function consolidateDust() {
       var transactionBuilder = new BITBOX.TransactionBuilder()
     else var transactionBuilder = new BITBOX.TransactionBuilder("testnet")
 
-    const dust = 546
     let sendAmount = 0
     const inputs = []
 
@@ -46,20 +44,12 @@ async function consolidateDust() {
     for (let i = 0; i < u.utxos.length; i++) {
       const thisUtxo = u.utxos[i]
 
-      // If the UTXO is dust...
-      if (thisUtxo.satoshis <= dust) {
-        inputs.push(thisUtxo)
+      inputs.push(thisUtxo)
 
-        sendAmount += thisUtxo.satoshis
+      sendAmount += thisUtxo.satoshis
 
-        // ..Add the utxo as an input to the transaction.
-        transactionBuilder.addInput(thisUtxo.txid, thisUtxo.vout)
-      }
-    }
-
-    if (inputs.length === 0) {
-      console.log(`No dust found in the wallet address.`)
-      return
+      // ..Add the utxo as an input to the transaction.
+      transactionBuilder.addInput(thisUtxo.txid, thisUtxo.vout)
     }
 
     // get byte count to calculate fee. paying 1.2 sat/byte
@@ -76,7 +66,7 @@ async function consolidateDust() {
     // Exit if the transaction costs too much to send.
     if (sendAmount - txFee < 0) {
       console.log(
-        `Transaction fee costs more combined dust. Can't send transaction.`
+        `Transaction fee costs more combined UTXOs. Can't send transaction.`
       )
       return
     }
@@ -106,12 +96,14 @@ async function consolidateDust() {
     const tx = transactionBuilder.build()
     // output rawhex
     const hex = tx.toHex()
-    console.log(`TX hex: ${hex}`)
+    //console.log(`TX hex: ${hex}`)
     console.log(` `)
 
     // Broadcast transation to the network
-    const broadcast = await BITBOX.RawTransactions.sendRawTransaction([hex])
-    console.log(`Transaction ID: ${broadcast}`)
+    const txid = await BITBOX.RawTransactions.sendRawTransaction([hex])
+    console.log(`Transaction ID: ${txid}`)
+    console.log(`Check the status of your transaction on this block explorer:`)
+    console.log(`https://explorer.bitcoin.com/tbch/tx/${txid}`)
   } catch (err) {
     console.log(`error: `, err)
   }
