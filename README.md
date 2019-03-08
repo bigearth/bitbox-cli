@@ -5,7 +5,9 @@
 Extensive documentation available at:
 
 - [General docs](https://developer.bitcoin.com)
-- [BITBOX API](https://developer.bitcoin.com/bitbox)
+- [BITBOX Introduction](https://developer.bitcoin.com/bitbox)
+- [BITBOX API Reference](https://developer.bitcoin.com/bitbox/docs/getting-started)
+- [BITBOX Examples](./examples)
 
 Open Source / Creative Commons Listings
 
