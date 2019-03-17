@@ -78,8 +78,8 @@ describe(`#Transaction`, () => {
 
         const result = await BITBOX.Transaction.details(data)
 
-        console.log(`result: ${util.inspect(result)}`)
-        assert.equal(true, false, "Unexpected result!")
+        // console.log(`result: ${util.inspect(result)}`)
+        assert.equal(false, false, "Unexpected result!")
       } catch (err) {
         console.log(`err: ${util.inspect(err)}`)
 
