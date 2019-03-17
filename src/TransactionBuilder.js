@@ -42,6 +42,14 @@ class TransactionBuilder {
     this.p2shInput = true
   }
 
+  addInputScripts(scripts) {
+    this.tx = this.transaction.buildIncomplete()
+    scripts.forEach(script => {
+      this.tx.setInputScript(script.vout, script.script)
+    })
+    this.p2shInput = true
+  }
+
   addOutput(scriptPubKey, amount) {
     try {
       this.transaction.addOutput(
