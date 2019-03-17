@@ -2,15 +2,21 @@
   Send 1000 satoshis to RECV_ADDR.
 */
 
+// Set NETWORK to either testnet or mainnet
+const NETWORK = `testnet`
+// Replace the address below with the address you want to send the BCH to.
+const RECV_ADDR = ``
+const SATOSHIS_TO_SEND = 1000
+
 // Instantiate BITBOX.
 const bitboxLib = "../../../../lib/BITBOX"
 const BITBOXSDK = require(bitboxLib)
-const BITBOX = new BITBOXSDK({ restURL: "https://trest.bitcoin.com/v2/" })
 
-// Replace the address below with the address you want to send the BCH to.
-const RECV_ADDR = `bchtest:qr45kxqda7yw8atztvkc4ckqnrlhmp0kvsep4p345q`
-
-const SATOSHIS_TO_SEND = 1000
+// Instantiate SLP based on the network.
+let BITBOX
+if (NETWORK === `mainnet`)
+  BITBOX = new BITBOXSDK({ restURL: `https://rest.bitcoin.com/v2/` })
+else BITBOX = new BITBOXSDK({ restURL: `https://trest.bitcoin.com/v2/` })
 
 // Open the wallet generated with create-wallet.
 try {
@@ -52,7 +58,9 @@ async function sendBch() {
     console.log(`utxo: ${JSON.stringify(utxo, null, 2)}`)
 
     // instance of transaction builder
-    const transactionBuilder = new BITBOX.TransactionBuilder("testnet")
+    if (NETWORK === `mainnet`)
+      var transactionBuilder = new BITBOX.TransactionBuilder()
+    else var transactionBuilder = new BITBOX.TransactionBuilder("testnet")
 
     const satoshisToSend = SATOSHIS_TO_SEND
     const originalAmount = utxo.satoshis
@@ -104,8 +112,10 @@ async function sendBch() {
     console.log(` `)
 
     // Broadcast transation to the network
-    const broadcast = await BITBOX.RawTransactions.sendRawTransaction([hex])
-    console.log(`Transaction ID: ${broadcast}`)
+    const txidStr = await BITBOX.RawTransactions.sendRawTransaction([hex])
+    console.log(`Transaction ID: ${txidStr}`)
+    console.log(`Check the status of your transaction on this block explorer:`)
+    console.log(`https://explorer.bitcoin.com/tbch/tx/${txidStr}`)
   } catch (err) {
     console.log(`error: `, err)
   }
