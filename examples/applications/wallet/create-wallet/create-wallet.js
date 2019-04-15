@@ -57,6 +57,7 @@ for (let i = 0; i < 10; i++) {
   if (i === 0) {
     outObj.cashAddress = BITBOX.HDNode.toCashAddress(childNode)
     outObj.legacyAddress = BITBOX.HDNode.toLegacyAddress(childNode)
+    outObj.WIF = BITBOX.HDNode.toWIF(childNode)
   }
 }
 
