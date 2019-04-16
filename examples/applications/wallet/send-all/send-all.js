@@ -119,7 +119,9 @@ function changeAddrFromMnemonic(mnemonic) {
   const rootSeed = BITBOX.Mnemonic.toSeed(mnemonic)
 
   // master HDNode
-  const masterHDNode = BITBOX.HDNode.fromSeed(rootSeed, "testnet")
+  let masterHDNode
+  if (NETWORK === `mainnet`) masterHDNode = BITBOX.HDNode.fromSeed(rootSeed)
+  else masterHDNode = BITBOX.HDNode.fromSeed(rootSeed, "testnet")
 
   // HDNode of BIP44 account
   const account = BITBOX.HDNode.derivePath(masterHDNode, "m/44'/145'/0'")
