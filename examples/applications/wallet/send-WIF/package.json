@@ -1,11 +1,11 @@
 {
-  "name": "send-bch",
+  "name": "send-wif",
   "version": "1.0.0",
-  "description": "Send some tBCH to another address.",
-  "main": "send-bch.js",
+  "description": "Send some tBCH to another address using WIF as input.",
+  "main": "send-wif.js",
   "scripts": {
     "test": "echo no tests yet",
-    "start": "node send-bch.js"
+    "start": "node send-wif.js"
   },
   "repository": {
     "type": "git",

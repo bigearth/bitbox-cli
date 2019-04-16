@@ -1,11 +1,13 @@
 /*
+  Same as send-bch example, except this uses a WIF instead of a mnemonic to
+  sign the transaction.
   Send 1000 satoshis to RECV_ADDR.
 */
 
 // Set NETWORK to either testnet or mainnet
 const NETWORK = `testnet`
 // Replace the address below with the address you want to send the BCH to.
-const RECV_ADDR = ``
+let RECV_ADDR = ``
 const SATOSHIS_TO_SEND = 1000
 
 // Instantiate BITBOX.
@@ -29,10 +31,13 @@ try {
 }
 
 const SEND_ADDR = walletInfo.cashAddress
-const SEND_MNEMONIC = walletInfo.mnemonic
+const SEND_WIF = walletInfo.WIF
 
 async function sendBch() {
   try {
+    // Send the money back to yourself if the users hasn't specified a destination.
+    if (RECV_ADDR === "") RECV_ADDR = SEND_ADDR
+
     // Get the balance of the sending address.
     const balance = await getBCHBalance(SEND_ADDR, false)
     console.log(`balance: ${JSON.stringify(balance, null, 2)}`)
@@ -88,17 +93,13 @@ async function sendBch() {
     transactionBuilder.addOutput(RECV_ADDR, satoshisToSend)
     transactionBuilder.addOutput(SEND_ADDR, remainder)
 
-    // Generate a change address from a Mnemonic of a private key.
-    const change = changeAddrFromMnemonic(SEND_MNEMONIC)
-
-    // Generate a keypair from the change address.
-    const keyPair = BITBOX.HDNode.toKeyPair(change)
+    const ecPair = BITBOX.ECPair.fromWIF(SEND_WIF)
 
     // Sign the transaction with the HD node.
     let redeemScript
     transactionBuilder.sign(
       0,
-      keyPair,
+      ecPair,
       redeemScript,
       transactionBuilder.hashTypes.SIGHASH_ALL,
       originalAmount
@@ -121,23 +122,6 @@ async function sendBch() {
   }
 }
 sendBch()
-
-// Generate a change address from a Mnemonic of a private key.
-function changeAddrFromMnemonic(mnemonic) {
-  // root seed buffer
-  const rootSeed = BITBOX.Mnemonic.toSeed(mnemonic)
-
-  // master HDNode
-  const masterHDNode = BITBOX.HDNode.fromSeed(rootSeed, "testnet")
-
-  // HDNode of BIP44 account
-  const account = BITBOX.HDNode.derivePath(masterHDNode, "m/44'/145'/0'")
-
-  // derive the first external change address HDNode which is going to spend utxo
-  const change = BITBOX.HDNode.derivePath(account, "0/0")
-
-  return change
-}
 
 // Get the balance in BCH of a BCH address.
 async function getBCHBalance(addr, verbose) {
