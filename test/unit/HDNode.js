@@ -292,7 +292,6 @@ describe("#HDNode", () => {
     fixtures.verify.forEach(fixture => {
       it(`should verify signed 32 byte hash buffer`, () => {
         const hdnode1 = BITBOX.HDNode.fromXPriv(fixture.privateKeyWIF1)
-        const hdnode2 = BITBOX.HDNode.fromXPriv(fixture.privateKeyWIF2)
         const buf = Buffer.from(BITBOX.Crypto.sha256(fixture.data), "hex")
         const signature = BITBOX.HDNode.sign(hdnode1, buf)
         const verify = BITBOX.HDNode.verify(hdnode1, buf, signature)
