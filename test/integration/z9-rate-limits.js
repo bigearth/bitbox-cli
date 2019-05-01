@@ -28,7 +28,7 @@ describe("#rate-limits", () => {
 
       const temp = await Promise.all(promises)
 
-      console.log(`temp: ${util.inspect(temp)}`)
+      // console.log(`temp: ${util.inspect(temp)}`)
       assert.equal(true, false, "Unexpected result!")
     } catch (err) {
       // Expected error response
@@ -39,7 +39,7 @@ describe("#rate-limits", () => {
         // Handle other types of error response.
       } else {
         console.log(`Unexpected error:`)
-        console.log(`err: ${util.inspect(err)}`)
+        // console.log(`err: ${util.inspect(err)}`)
         assert.equal(true, false, "Unexpected error")
       }
     }
