@@ -35,7 +35,7 @@
     "no-useless-computed-key": ["error"],
     "no-useless-rename": ["error"],
     "no-var": ["off"],
-    "prefer-spread": ["error"],
+    "prefer-spread": ["off"],
     "prefer-template": ["error"],
     "rest-spread-spacing": ["error", "never"],
     "prefer-const": ["warn", { "destructuring": "all" }],

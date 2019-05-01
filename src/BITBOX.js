@@ -7,7 +7,6 @@ import Blockchain from "./Blockchain"
 import Control from "./Control"
 import Generating from "./Generating"
 import Mining from "./Mining"
-import Network from "./Network"
 import RawTransactions from "./RawTransactions"
 import Mnemonic from "./Mnemonic"
 import Address from "./Address"
@@ -38,7 +37,6 @@ class BITBOX {
     this.HDNode = new HDNode(this.Address)
     this.Mining = new Mining(this.restURL)
     this.Mnemonic = new Mnemonic(this.Address)
-    this.Network = new Network(this.restURL)
     this.Price = new Price()
     this.RawTransactions = new RawTransactions(this.restURL)
     this.Script = new Script()

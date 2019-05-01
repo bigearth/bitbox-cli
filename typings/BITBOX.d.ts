@@ -7,7 +7,6 @@ import { Blockchain } from "./Blockchain"
 import { Control } from "./Control"
 import { Generating } from "./Generating"
 import { Mining } from "./Mining"
-import { Network } from "./Network"
 import { RawTransactions } from "./RawTransactions"
 import { Mnemonic } from "./Mnemonic"
 import { Address } from "./Address"
@@ -34,7 +33,6 @@ declare class BITBOXSDK {
   ECPair: ECPair
   HDNode: HDNode
   Mnemonic: Mnemonic
-  Network: Network
   Price: Price
   RawTransactions: RawTransactions
   Script: Script
