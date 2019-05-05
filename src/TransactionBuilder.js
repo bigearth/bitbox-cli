@@ -26,6 +26,10 @@ class TransactionBuilder {
       ADVANCED_TRANSACTION_MARKER: 0x00,
       ADVANCED_TRANSACTION_FLAG: 0x01
     }
+    this.signatureAlgorithms = {
+      ECDSA: Bitcoin.ECSignature.ECDSA,
+      SCHNORR: Bitcoin.ECSignature.SCHNORR
+    }
     this.bip66 = bip66
     this.bip68 = bip68
     this.p2shInput = false
@@ -70,7 +74,8 @@ class TransactionBuilder {
     keyPair,
     redeemScript,
     hashType = this.hashTypes.SIGHASH_ALL,
-    value
+    value,
+    signatureAlgorithm
   ) {
     let witnessScript
 
@@ -80,7 +85,8 @@ class TransactionBuilder {
       redeemScript,
       hashType,
       value,
-      witnessScript
+      witnessScript,
+      signatureAlgorithm
     )
   }
 
