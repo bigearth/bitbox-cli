@@ -1,6 +1,6 @@
 {
   "name": "bitbox-sdk",
-  "version": "5.1.3",
+  "version": "6.0.0",
   "description": "BITBOX SDK for Bitcoin Cash",
   "author": "Gabriel Cardona <gabriel@bitcoin.com>",
   "contributors": [
@@ -34,13 +34,15 @@
     "babel-preset-env": "^1.6.1",
     "babel-preset-es2015": "^6.24.1",
     "babel-register": "^6.26.0",
+    "bc-bip68": "^1.0.5",
+    "bch-wallet-bridge.js": "github:web3bch/bch-wallet-bridge.js#master",
     "bigi": "^1.4.2",
+    "bip-schnorr": "^0.3.0",
     "bip21": "Bitcoin-com/bip21",
     "bip32-utils": "Bitcoin-com/bip32-utils#0.13.1",
     "bip38": "^2.0.2",
     "bip39": "^2.5.0",
     "bip66": "^1.1.5",
-    "bc-bip68": "^1.0.5",
     "bitcoincash-ops": "Bitcoin-com/bitcoincash-ops#2.0.0",
     "bitcoincashjs-lib": "Bitcoin-com/bitcoincashjs-lib#3.4.4",
     "bitcoinjs-message": "^2.0.0",
@@ -67,7 +69,6 @@
     "socket.io": "^2.1.1",
     "socket.io-client": "^2.1.1",
     "touch": "^3.1.0",
-    "bch-wallet-bridge.js": "github:web3bch/bch-wallet-bridge.js#master",
     "wif": "^2.0.6"
   },
   "devDependencies": {

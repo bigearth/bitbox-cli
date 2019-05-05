@@ -18,6 +18,7 @@ import Script from "./Script"
 import Price from "./Price"
 import Socket from "./Socket"
 import Wallet from "./Wallet"
+import Schnorr from "./Schnorr"
 
 class BITBOX {
   constructor(config) {
@@ -46,6 +47,7 @@ class BITBOX {
     this.Util = new Util(this.restURL)
     this.Socket = Socket
     this.Wallet = Wallet
+    this.Schnorr = new Schnorr(this.restURL)
   }
 }
 
