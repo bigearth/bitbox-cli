@@ -25,7 +25,7 @@ class Schnorr {
     return schnorr.muSig.computeEll(publicKeys)
   }
 
-  pubKeyCombine(publicKeys, publicKeyHash) {
+  publicKeyCombine(publicKeys, publicKeyHash) {
     return schnorr.muSig.pubKeyCombine(publicKeys, publicKeyHash)
   }
 
@@ -53,10 +53,17 @@ class Schnorr {
     )
   }
 
-  partialSigVerify(session, partialSig, nonceCombined, idx, pubKey, nonce) {
+  partialSignatureVerify(
+    session,
+    partialSignature,
+    nonceCombined,
+    idx,
+    pubKey,
+    nonce
+  ) {
     return schnorr.muSig.partialSigVerify(
       session,
-      partialSig,
+      partialSignature,
       nonceCombined,
       idx,
       pubKey,
@@ -64,8 +71,8 @@ class Schnorr {
     )
   }
 
-  partialSigCombine(nonceCombined, partialSigs) {
-    return schnorr.muSig.partialSigCombine(nonceCombined, partialSigs)
+  partialSignaturesCombine(nonceCombined, partialSignatures) {
+    return schnorr.muSig.partialSigCombine(nonceCombined, partialSignatures)
   }
 
   bufferToInt(buffer) {
