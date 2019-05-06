@@ -11,6 +11,7 @@ export declare interface TransactionBuilder {
   transaction: any
   DEFAULT_SEQUENCE: number
   hashTypes: HashTypes
+  signatureAlgorithms: SignatureAlgorithms
   bip66: any
   bip68: any
 
@@ -30,9 +31,15 @@ export declare interface TransactionBuilder {
     keyPair: ECPair,
     redeemScript: Buffer | undefined,
     hashType: number,
-    value: number
+    value: number,
+    signatureAlgorithm: number
   ): ECSignature
   build(): any
+}
+
+declare interface SignatureAlgorithms {
+  ECDSA: number
+  SCHNORR: number
 }
 
 declare interface HashTypes {
