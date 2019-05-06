@@ -32,7 +32,7 @@ export declare interface TransactionBuilder {
     redeemScript: Buffer | undefined,
     hashType: number,
     value: number,
-    signatureAlgorithm: number
+    signatureAlgorithm?: number
   ): ECSignature
   build(): any
 }
