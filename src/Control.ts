@@ -2,7 +2,7 @@ import * as axios from "axios"
 
 export class Control {
   restURL: string
-  constructor(restURL) {
+  constructor(restURL: string) {
     this.restURL = restURL
   }
 

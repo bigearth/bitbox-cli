@@ -12,6 +12,7 @@ export class TransactionBuilder {
   bip68: any
   p2shInput: any
   tx: any
+  static _address: any
 
   static setAddress(address: string): void {
     TransactionBuilder._address = address
@@ -54,21 +55,21 @@ export class TransactionBuilder {
     this.transaction.addInput(txHash, vout, sequence, prevOutScript)
   }
 
-  addInputScript(vout, script) {
+  addInputScript(vout: number, script: any): void {
     this.tx = this.transaction.buildIncomplete()
     this.tx.setInputScript(vout, script)
     this.p2shInput = true
   }
 
-  addInputScripts(scripts) {
+  addInputScripts(scripts: any): void {
     this.tx = this.transaction.buildIncomplete()
-    scripts.forEach(script => {
+    scripts.forEach((script: any) => {
       this.tx.setInputScript(script.vout, script.script)
     })
     this.p2shInput = true
   }
 
-  addOutput(scriptPubKey, amount) {
+  addOutput(scriptPubKey: string, amount: number): void {
     try {
       this.transaction.addOutput(
         TransactionBuilder._address.toLegacyAddress(scriptPubKey),
@@ -79,7 +80,7 @@ export class TransactionBuilder {
     }
   }
 
-  setLockTime(locktime) {
+  setLockTime(locktime: number): void {
     this.transaction.setLockTime(locktime)
   }
 

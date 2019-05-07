@@ -5,7 +5,7 @@ import * as coininfo from "coininfo"
 
 export class Address {
   restURL: string
-  constructor(restURL) {
+  constructor(restURL: string) {
     this.restURL = restURL
   }
 

@@ -2,7 +2,7 @@ import * as Bitcoin from "bitcoincashjs-lib"
 import * as coininfo from "coininfo"
 
 export class ECPair {
-  static setAddress(address) {
+  static setAddress(address: any) {
     ECPair._address = address
   }
 

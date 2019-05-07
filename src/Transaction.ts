@@ -3,11 +3,11 @@ import * as axios from "axios"
 
 export class Transaction {
   restURL: string
-  constructor(restURL) {
+  constructor(restURL: string) {
     this.restURL = restURL
   }
 
-  async details(txid) {
+  async details(txid: string) {
     try {
       // Handle single address.
       if (typeof txid === "string") {

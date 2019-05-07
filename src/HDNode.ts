@@ -4,7 +4,7 @@ import * as bip32utils from "bip32-utils"
 
 export class HDNode {
   _address: string
-  constructor(address) {
+  constructor(address: any) {
     this._address = address
   }
 

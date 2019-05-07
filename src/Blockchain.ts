@@ -7,7 +7,7 @@ import * as axios from "axios"
 
 export class Blockchain {
   restURL: string
-  constructor(restURL) {
+  constructor(restURL: string) {
     this.restURL = restURL
   }
 

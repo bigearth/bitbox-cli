@@ -1,7 +1,7 @@
 import * as axios from "axios"
 
 export class Price {
-  async current(currency = "usd") {
+  async current(currency: string = "usd"): Promise<any> {
     try {
       const response = await axios.get(
         `https://index-api.bitcoin.com/api/v0/cash/price/${currency.toLowerCase()}`
