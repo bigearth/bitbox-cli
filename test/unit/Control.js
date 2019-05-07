@@ -1,6 +1,6 @@
 const assert = require("assert")
 const axios = require("axios")
-const BITBOXSDK = require("../../lib/BITBOX")
+const BITBOXSDK = require("../../lib/BITBOX").BITBOX
 const BITBOX = new BITBOXSDK()
 const sinon = require("sinon")
 

@@ -6,14 +6,12 @@
   "contributors": [
     "Chris Troutner <chris.troutner@gmail.com>"
   ],
-  "main": "lib/BITBOX",
   "types": "./typings/BITBOX.d.ts",
   "scripts": {
-    "test": "mocha --timeout 30000 --require babel-core/register test/unit",
-    "test:integration": "mocha --timeout 30000 --require babel-core/register test/integration",
+    "test": "TEST=unit nyc --reporter=text mocha --require babel-core/register --timeout 30000 test/unit",
+    "test:integration": "TEST=integration nyc --reporter=text mocha --require babel-core/register --timeout 10000 test/integration",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
-    "build": "babel src/ -d lib/",
-    "postbuild": "cp -R typings/* lib"
+    "build": "node ./node_modules/gulp/bin/gulp.js build && ./node_modules/typescript/bin/tsc"
   },
   "license": "MIT",
   "engines": {
@@ -28,6 +26,7 @@
     "url": "git+https://github.com/Bitcoin-com/bitbox-javascript-sdk.git"
   },
   "dependencies": {
+    "@types/node": "^10.11.7",
     "assert": "^1.4.1",
     "axios": "^0.17.1",
     "babel-cli": "^6.26.0",
@@ -78,12 +77,14 @@
     "eslint-config-prettier": "^3.0.1",
     "eslint-plugin-node": "7.0.1",
     "eslint-plugin-prettier": "^2.6.2",
+    "gulp": "^4.0.0",
     "mocha": "^5.0.1",
     "nock": "^10.0.6",
     "node-mocks-http": "^1.7.0",
     "nyc": "^13.3.0",
     "prettier": "^1.14.2",
     "semantic-release": "^15.13.3",
-    "sinon": "^4.5.0"
+    "sinon": "^4.5.0",
+    "typescript": "^3.1.4"
   }
 }

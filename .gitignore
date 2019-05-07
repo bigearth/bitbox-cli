@@ -3,3 +3,4 @@ node_modules/*
 wallet-info.txt
 wallet.json
 
+package-lock.json
