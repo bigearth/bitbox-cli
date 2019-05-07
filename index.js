@@ -13,7 +13,7 @@ const repl = require("repl")
 const BITBOX = require("./lib/BITBOX").BITBOX
 const clone = require("git-clone")
 
-program.version("6.1.1 ", "-v, --version")
+program.version("6.1.2 ", "-v, --version")
 
 program
   .command("new <name>")
@@ -170,4 +170,6 @@ function fetchOption(kv, config, options) {
 program.parse(process.argv)
 
 // print help if no command given
-if (!process.argv.slice(2).length) program.outputHelp()
+// if (!process.argv.slice(2).length) program.outputHelp()
+
+module.exports = BITBOX

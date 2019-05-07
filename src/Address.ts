@@ -4,6 +4,7 @@ import * as cashaddr from "cashaddrjs"
 import * as coininfo from "coininfo"
 
 export class Address {
+  restURL: string
   constructor(restURL) {
     this.restURL = restURL
   }
