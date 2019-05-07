@@ -2,11 +2,11 @@ import * as axios from "axios"
 
 export class Util {
   restURL: string
-  constructor(restURL) {
+  constructor(restURL: string) {
     this.restURL = restURL
   }
 
-  async validateAddress(address) {
+  async validateAddress(address: string): Promise<any> {
     try {
       // Single block
       if (typeof address === "string") {

@@ -13,12 +13,12 @@ export class TransactionBuilder {
   p2shInput: any
   tx: any
 
-  static setAddress(address) {
+  static setAddress(address: string): void {
     TransactionBuilder._address = address
   }
 
-  constructor(network = "mainnet") {
-    let bitcoincash
+  constructor(network: string = "mainnet") {
+    let bitcoincash: any
     if (network === "bitcoincash" || network === "mainnet")
       bitcoincash = coininfo.bitcoincash.main
     else bitcoincash = coininfo.bitcoincash.test
@@ -45,7 +45,12 @@ export class TransactionBuilder {
     this.tx
   }
 
-  addInput(txHash, vout, sequence = this.DEFAULT_SEQUENCE, prevOutScript) {
+  addInput(
+    txHash: string,
+    vout: number,
+    sequence: number = this.DEFAULT_SEQUENCE,
+    prevOutScript: string
+  ) {
     this.transaction.addInput(txHash, vout, sequence, prevOutScript)
   }
 
@@ -79,13 +84,13 @@ export class TransactionBuilder {
   }
 
   sign(
-    vin,
-    keyPair,
-    redeemScript,
-    hashType = this.hashTypes.SIGHASH_ALL,
-    value,
-    signatureAlgorithm
-  ) {
+    vin: number,
+    keyPair: any,
+    redeemScript: any,
+    hashType: number = this.hashTypes.SIGHASH_ALL,
+    value: number,
+    signatureAlgorithm: number
+  ): void {
     let witnessScript
 
     this.transaction.sign(
