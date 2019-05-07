@@ -1,4 +1,5 @@
 import * as axios from "axios"
+
 export class Price {
   async current(currency = "usd") {
     try {

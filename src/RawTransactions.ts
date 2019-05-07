@@ -1,6 +1,7 @@
 import * as axios from "axios"
 
 export class RawTransactions {
+  restURL: string
   constructor(restURL) {
     this.restURL = restURL
   }

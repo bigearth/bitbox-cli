@@ -71,6 +71,6 @@ export class BITBOX {
     this.Util = new Util(restURL)
     this.Socket = Socket
     this.Wallet = Wallet
-    this.Schnorr = new Schnorr(restURL)
+    this.Schnorr = new Schnorr()
   }
 }

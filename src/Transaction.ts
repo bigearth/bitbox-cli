@@ -2,6 +2,7 @@ import * as Bitcoin from "bitcoincashjs-lib"
 import * as axios from "axios"
 
 export class Transaction {
+  restURL: string
   constructor(restURL) {
     this.restURL = restURL
   }

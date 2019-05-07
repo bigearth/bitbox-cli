@@ -1,10 +1,6 @@
 import * as schnorr from "bip-schnorr"
 
 export class Schnorr {
-  constructor(restURL) {
-    this.restURL = restURL
-  }
-
   sign(privateKey, message) {
     return schnorr.sign(privateKey, message)
   }
