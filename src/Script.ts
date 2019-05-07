@@ -2,6 +2,12 @@ import * as Bitcoin from "bitcoincashjs-lib"
 import * as opcodes from "bitcoincash-ops"
 
 export class Script {
+  opcodes: any
+  nullData: any
+  multisig: any
+  pubKey: any
+  pubKeyHash: any
+  scriptHash: any
   constructor() {
     this.opcodes = opcodes
     this.nullData = Bitcoin.script.nullData

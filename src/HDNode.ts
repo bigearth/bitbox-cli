@@ -3,6 +3,7 @@ import * as coininfo from "coininfo"
 import * as bip32utils from "bip32-utils"
 
 export class HDNode {
+  _address: string
   constructor(address) {
     this._address = address
   }

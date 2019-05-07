@@ -5,6 +5,7 @@ const Buffer = require("safe-buffer").Buffer
 const wif = require("wif")
 
 export class Mnemonic {
+  _address: string
   constructor(address) {
     this._address = address
   }

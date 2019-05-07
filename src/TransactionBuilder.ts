@@ -4,6 +4,15 @@ import * as bip66 from "bip66"
 import * as bip68 from "bc-bip68"
 
 export class TransactionBuilder {
+  transaction: any
+  DEFAULT_SEQUENCE: any
+  hashTypes: any
+  signatureAlgorithms: any
+  bip66: any
+  bip68: any
+  p2shInput: any
+  tx: any
+
   static setAddress(address) {
     TransactionBuilder._address = address
   }

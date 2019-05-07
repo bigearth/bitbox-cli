@@ -1,6 +1,7 @@
 import * as io from "socket.io-client"
 
 export class Socket {
+  socket: any
   constructor(config = {}) {
     if (typeof config === "string") {
       // TODO remove this check in v2.0

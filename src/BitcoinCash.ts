@@ -10,6 +10,7 @@ import * as wif from "wif"
 const Buffer = require("safe-buffer").Buffer
 
 export class BitcoinCash {
+  _address: string
   constructor(address) {
     this._address = address
   }
