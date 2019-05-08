@@ -1,4 +1,4 @@
-import * as axios from "axios"
+import axios from "axios"
 
 export class Control {
   restURL: string
@@ -8,7 +8,7 @@ export class Control {
 
   async getInfo() {
     try {
-      const response = await axios.get(`${this.restURL}control/getInfo`)
+      const response: any = await axios.get(`${this.restURL}control/getInfo`)
       return response.data
     } catch (error) {
       if (error.response && error.response.data) throw error.response.data
@@ -18,7 +18,7 @@ export class Control {
 
   async getMemoryInfo() {
     try {
-      const response = await axios.get(`${this.restURL}control/getMemoryInfo`)
+      const response: any = await axios.get(`${this.restURL}control/getMemoryInfo`)
       return response.data
     } catch (error) {
       if (error.response && error.response.data) throw error.response.data

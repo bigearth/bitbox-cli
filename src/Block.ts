@@ -1,4 +1,4 @@
-import * as axios from "axios"
+import axios from "axios"
 
 export class Block {
   restURL: string
@@ -10,7 +10,7 @@ export class Block {
     try {
       // Single block
       if (typeof id === "number") {
-        const response = await axios.get(
+        const response: any = await axios.get(
           `${this.restURL}block/detailsByHeight/${id}`
         )
         return response.data
@@ -40,7 +40,7 @@ export class Block {
     try {
       // Single block
       if (typeof hash === "string") {
-        const response = await axios.get(
+        const response: any = await axios.get(
           `${this.restURL}block/detailsByHash/${hash}`
         )
         return response.data

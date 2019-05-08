@@ -1,4 +1,4 @@
-import * as axios from "axios"
+import axios from "axios"
 
 export class RawTransactions {
   restURL: string
@@ -10,7 +10,7 @@ export class RawTransactions {
     try {
       // Single hex
       if (typeof hex === "string") {
-        const response = await axios.get(
+        const response: any = await axios.get(
           `${this.restURL}rawtransactions/decodeRawTransaction/${hex}`
         )
 
@@ -42,7 +42,7 @@ export class RawTransactions {
 
     try {
       if (typeof script === "string") {
-        const response = await axios.get(
+        const response: any = await axios.get(
           `${this.restURL}rawtransactions/decodeScript/${script}`
         )
 
@@ -73,7 +73,7 @@ export class RawTransactions {
   ): Promise<any> {
     try {
       if (typeof txid === "string") {
-        const response = await axios.get(
+        const response: any = await axios.get(
           `${
             this.restURL
           }rawtransactions/getRawTransaction/${txid}?verbose=${verbose}`
@@ -108,7 +108,7 @@ export class RawTransactions {
     try {
       // Single tx hex.
       if (typeof hex === "string") {
-        const response = await axios.get(
+        const response: any = await axios.get(
           `${this.restURL}rawtransactions/sendRawTransaction/${hex}`
         )
 

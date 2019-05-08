@@ -115,9 +115,9 @@ export class Mnemonic {
  * @return Object the final object.
  */
 
-const _extend = function(dst) {
-  const sources = Array.prototype.slice.call(arguments, 1)
-  for (let i = 0; i < sources.length; ++i) {
+const _extend: any = function(dst: any): any {
+  const sources: any = Array.prototype.slice.call(arguments, 1)
+  for (let i: number = 0; i < sources.length; ++i) {
     const src = sources[i]
     for (const p in src) if (src.hasOwnProperty(p)) dst[p] = src[p]
   }
@@ -128,7 +128,7 @@ const _extend = function(dst) {
  * Defer execution of given function.
  * @param  {Function} func
  */
-const _defer = function(func) {
+const _defer: any = function(func: any): any {
   if (typeof setImmediate === "function") return setImmediate(func)
 
   return setTimeout(func, 0)
@@ -137,7 +137,7 @@ const _defer = function(func) {
 /**
  * Based on the algorithm at http://en.wikipedia.org/wiki/Levenshtein_distance.
  */
-var Levenshtein = {
+var Levenshtein: any = {
   /**
    * Calculate levenshtein distance of the two strings.
    *
@@ -145,14 +145,14 @@ var Levenshtein = {
    * @param str2 String the second string.
    * @return Integer the levenshtein distance (0 and above).
    */
-  get: function(str1, str2) {
+  get: function(str1: any, str2: any) {
     // base cases
     if (str1 === str2) return 0
     if (str1.length === 0) return str2.length
     if (str2.length === 0) return str1.length
 
     // two rows
-    let prevRow = new Array(str2.length + 1),
+    let prevRow: any[] = new Array(str2.length + 1),
       curCol,
       nextCol,
       i,
@@ -199,7 +199,7 @@ var Levenshtein = {
    * @param [options] Object additional options.
    * @param [options.progress] Function progress callback with signature: function(percentComplete)
    */
-  getAsync: function(str1, str2, cb, options) {
+  getAsync: function(str1: any, str2: any, cb: any, options: any) {
     options = _extend(
       {},
       {
@@ -214,14 +214,14 @@ var Levenshtein = {
     if (str2.length === 0) return cb(null, str1.length)
 
     // two rows
-    let prevRow = new Array(str2.length + 1),
-      curCol,
-      nextCol,
-      i,
-      j,
-      tmp,
-      startTime,
-      currentTime
+    const prevRow: any[] = new Array(str2.length + 1)
+    let curCol: any
+    let nextCol: any
+    let i: any
+    let j: any
+    let tmp: any
+    let startTime: any
+    let currentTime: any
 
     // initialise previous row
     for (i = 0; i < prevRow.length; ++i) prevRow[i] = i

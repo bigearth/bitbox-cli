@@ -1,4 +1,4 @@
-import * as axios from "axios"
+import axios from "axios"
 
 export class Generating {
   restURL: string
@@ -6,9 +6,13 @@ export class Generating {
     this.restURL = restURL
   }
 
-  async generateToAddress(blocks, address, maxtries = 1000000) {
+  async generateToAddress(
+    blocks: any,
+    address: any,
+    maxtries: number = 1000000
+  ): Promise<any> {
     try {
-      const response = await axios.post(
+      const response: any = await axios.post(
         `${
           this.restURL
         }generating/generateToAddress/${blocks}/${address}?maxtries=${maxtries}`

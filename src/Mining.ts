@@ -1,4 +1,4 @@
-import * as axios from "axios"
+import axios from "axios"
 
 export class Mining {
   restURL: string
@@ -6,9 +6,9 @@ export class Mining {
     this.restURL = restURL
   }
 
-  async getBlockTemplate(template_request) {
+  async getBlockTemplate(template_request: any): Promise<any> {
     try {
-      const response = await axios.get(
+      const response: any = await axios.get(
         `${this.restURL}mining/getBlockTemplate/${template_request}`
       )
       return response.data
@@ -18,9 +18,11 @@ export class Mining {
     }
   }
 
-  async getMiningInfo() {
+  async getMiningInfo(): Promise<any> {
     try {
-      const response = await axios.get(`${this.restURL}mining/getMiningInfo`)
+      const response: any = await axios.get(
+        `${this.restURL}mining/getMiningInfo`
+      )
       return response.data
     } catch (error) {
       if (error.response && error.response.data) throw error.response.data
@@ -28,9 +30,12 @@ export class Mining {
     }
   }
 
-  async getNetworkHashps(nblocks = 120, height = 1) {
+  async getNetworkHashps(
+    nblocks: number = 120,
+    height: number = 1
+  ): Promise<any> {
     try {
-      const response = await axios.get(
+      const response: any = await axios.get(
         `${
           this.restURL
         }mining/getNetworkHashps?nblocks=${nblocks}&height=${height}`
@@ -42,12 +47,12 @@ export class Mining {
     }
   }
 
-  async submitBlock(hex, parameters) {
-    let path = `${this.restURL}mining/submitBlock/${hex}`
+  async submitBlock(hex: string, parameters: any): Promise<any> {
+    let path: string = `${this.restURL}mining/submitBlock/${hex}`
     if (parameters) path = `${path}?parameters=${parameters}`
 
     try {
-      const response = await axios.post(path)
+      const response: any = await axios.post(path)
       return response.data
     } catch (error) {
       if (error.response && error.response.data) throw error.response.data

@@ -1,5 +1,5 @@
 import * as Bitcoin from "bitcoincashjs-lib"
-import * as axios from "axios"
+import axios from "axios"
 
 export class Transaction {
   restURL: string
@@ -11,7 +11,7 @@ export class Transaction {
     try {
       // Handle single address.
       if (typeof txid === "string") {
-        const response = await axios.get(
+        const response: any = await axios.get(
           `${this.restURL}transaction/details/${txid}`
         )
         return response.data

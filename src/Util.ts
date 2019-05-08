@@ -1,4 +1,4 @@
-import * as axios from "axios"
+import axios from "axios"
 
 export class Util {
   restURL: string
@@ -10,7 +10,7 @@ export class Util {
     try {
       // Single block
       if (typeof address === "string") {
-        const response = await axios.get(
+        const response: any = await axios.get(
           `${this.restURL}util/validateAddress/${address}`
         )
         return response.data

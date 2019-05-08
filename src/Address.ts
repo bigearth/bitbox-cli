@@ -1,4 +1,4 @@
-import * as axios from "axios"
+import axios from "axios"
 import * as Bitcoin from "bitcoincashjs-lib"
 import * as cashaddr from "cashaddrjs"
 import * as coininfo from "coininfo"
@@ -272,7 +272,7 @@ export class Address {
     try {
       // Handle single address.
       if (typeof address === "string") {
-        const response = await axios.get(
+        const response: any = await axios.get(
           `${this.restURL}address/details/${address}`
         )
 
@@ -303,7 +303,7 @@ export class Address {
     try {
       // Handle single address.
       if (typeof address === "string") {
-        const response = await axios.get(
+        const response: any = await axios.get(
           `${this.restURL}address/utxo/${address}`
         )
         return response.data
@@ -331,7 +331,7 @@ export class Address {
     try {
       // Handle single address.
       if (typeof address === "string") {
-        const response = await axios.get(
+        const response: any = await axios.get(
           `${this.restURL}address/unconfirmed/${address}`
         )
         return response.data
@@ -361,7 +361,7 @@ export class Address {
     try {
       // Handle single address.
       if (typeof address === "string") {
-        const response = await axios.get(
+        const response: any = await axios.get(
           `${this.restURL}address/transactions/${address}`
         )
         return response.data
