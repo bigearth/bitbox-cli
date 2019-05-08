@@ -2,17 +2,17 @@ import * as Bitcoin from "bitcoincashjs-lib"
 import * as coininfo from "coininfo"
 
 export class ECPair {
-  static setAddress(address: any) {
+  static setAddress(address: any): void {
     ECPair._address = address
   }
 
-  static fromWIF(privateKeyWIF) {
-    let network
+  static fromWIF(privateKeyWIF: string): any {
+    let network: string
     if (privateKeyWIF[0] === "L" || privateKeyWIF[0] === "K")
       network = "mainnet"
     else if (privateKeyWIF[0] === "c") network = "testnet"
 
-    let bitcoincash
+    let bitcoincash: any
     if (network === "mainnet") bitcoincash = coininfo.bitcoincash.main
     else bitcoincash = coininfo.bitcoincash.test
 
@@ -21,31 +21,31 @@ export class ECPair {
     return Bitcoin.ECPair.fromWIF(privateKeyWIF, bitcoincashBitcoinJSLib)
   }
 
-  static toWIF(ecpair) {
+  static toWIF(ecpair: any): string {
     return ecpair.toWIF()
   }
 
-  static sign(ecpair, buffer) {
+  static sign(ecpair: any, buffer: any): any {
     return ecpair.sign(buffer)
   }
 
-  static verify(ecpair, buffer, signature) {
+  static verify(ecpair: any, buffer: any, signature: any): any {
     return ecpair.verify(buffer, signature)
   }
 
-  static fromPublicKey(pubkeyBuffer) {
+  static fromPublicKey(pubkeyBuffer: any): any {
     return Bitcoin.ECPair.fromPublicKeyBuffer(pubkeyBuffer)
   }
 
-  static toPublicKey(ecpair) {
+  static toPublicKey(ecpair: any): any {
     return ecpair.getPublicKeyBuffer()
   }
 
-  static toLegacyAddress(ecpair) {
+  static toLegacyAddress(ecpair: any): string {
     return ecpair.getAddress()
   }
 
-  static toCashAddress(ecpair, regtest = false) {
+  static toCashAddress(ecpair: any, regtest: boolean = false): string {
     return ECPair._address.toCashAddress(ecpair.getAddress(), true, regtest)
   }
 }
