@@ -1,5 +1,5 @@
 import * as Bitcoin from "bitcoincashjs-lib"
-import * as opcodes from "bitcoincash-ops"
+const opcodes = require("bitcoincash-ops")
 
 export class Script {
   opcodes: any
