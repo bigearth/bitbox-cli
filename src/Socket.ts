@@ -18,10 +18,10 @@ export class Socket {
     }
   }
 
-  listen(endpoint, cb) {
+  listen(endpoint: any, cb: any): void {
     this.socket.emit(endpoint)
 
-    if (endpoint === "blocks") this.socket.on("blocks", msg => cb(msg))
+    if (endpoint === "blocks") this.socket.on("blocks", (msg: any) => cb(msg))
     else if (endpoint === "transactions")
       this.socket.on("transactions", msg => cb(msg))
   }

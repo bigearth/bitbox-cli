@@ -6,7 +6,7 @@ export class RawTransactions {
     this.restURL = restURL
   }
 
-  async decodeRawTransaction(hex) {
+  async decodeRawTransaction(hex: string): Promise<any> {
     try {
       // Single hex
       if (typeof hex === "string") {
@@ -37,7 +37,7 @@ export class RawTransactions {
     }
   }
 
-  async decodeScript(script) {
+  async decodeScript(script: string | string[]): Promise<any> {
     //if (typeof script !== "string") script = JSON.stringify(script)
 
     try {
@@ -67,7 +67,10 @@ export class RawTransactions {
     }
   }
 
-  async getRawTransaction(txid, verbose = false) {
+  async getRawTransaction(
+    txid: string,
+    verbose: boolean = false
+  ): Promise<any> {
     try {
       if (typeof txid === "string") {
         const response = await axios.get(

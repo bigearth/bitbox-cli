@@ -8,8 +8,8 @@ export class HDNode {
     this._address = address
   }
 
-  fromSeed(rootSeedBuffer, network = "mainnet") {
-    let bitcoincash
+  fromSeed(rootSeedBuffer: any, network: string = "mainnet"): any {
+    let bitcoincash: any
     if (network === "bitcoincash" || network === "mainnet")
       bitcoincash = coininfo.bitcoincash.main
     else bitcoincash = coininfo.bitcoincash.test
@@ -21,36 +21,36 @@ export class HDNode {
     )
   }
 
-  toLegacyAddress(hdNode) {
+  toLegacyAddress(hdNode: any): string {
     return hdNode.getAddress()
   }
 
-  toCashAddress(hdNode, regtest = false) {
+  toCashAddress(hdNode: any, regtest: boolean = false): string {
     return this._address.toCashAddress(hdNode.getAddress(), true, regtest)
   }
 
-  toWIF(hdNode) {
+  toWIF(hdNode: any): string {
     return hdNode.keyPair.toWIF()
   }
 
-  toXPub(hdNode) {
+  toXPub(hdNode: any): string {
     return hdNode.neutered().toBase58()
   }
 
-  toXPriv(hdNode) {
+  toXPriv(hdNode: any): string {
     return hdNode.toBase58()
   }
 
-  toKeyPair(hdNode) {
+  toKeyPair(hdNode: any): any {
     return hdNode.keyPair
   }
 
-  toPublicKey(hdNode) {
+  toPublicKey(hdNode: any): any {
     return hdNode.getPublicKeyBuffer()
   }
 
-  fromXPriv(xpriv) {
-    let bitcoincash
+  fromXPriv(xpriv: string): any {
+    let bitcoincash: any
     if (xpriv[0] === "x") bitcoincash = coininfo.bitcoincash.main
     else if (xpriv[0] === "t") bitcoincash = coininfo.bitcoincash.test
 
@@ -58,8 +58,8 @@ export class HDNode {
     return Bitcoin.HDNode.fromBase58(xpriv, bitcoincashBitcoinJSLib)
   }
 
-  fromXPub(xpub) {
-    let bitcoincash
+  fromXPub(xpub: string): any {
+    let bitcoincash: any
     if (xpub[0] === "x") bitcoincash = coininfo.bitcoincash.main
     else if (xpub[0] === "t") bitcoincash = coininfo.bitcoincash.test
 
@@ -67,50 +67,50 @@ export class HDNode {
     return Bitcoin.HDNode.fromBase58(xpub, bitcoincashBitcoinJSLib)
   }
 
-  derivePath(hdnode, path) {
+  derivePath(hdnode: any, path: string): any {
     return hdnode.derivePath(path)
   }
 
-  derive(hdnode, path) {
+  derive(hdnode: any, path: string): any {
     return hdnode.derive(path)
   }
 
-  deriveHardened(hdnode, path) {
+  deriveHardened(hdnode: any, path: string): any {
     return hdnode.deriveHardened(path)
   }
 
-  sign(hdnode, buffer) {
+  sign(hdnode: any, buffer: any): any {
     return hdnode.sign(buffer)
   }
 
-  verify(hdnode, buffer, signature) {
+  verify(hdnode: any, buffer: any, signature: any): any {
     return hdnode.verify(buffer, signature)
   }
 
-  isPublic(hdnode) {
+  isPublic(hdnode: any): any {
     return hdnode.isNeutered()
   }
 
-  isPrivate(hdnode) {
+  isPrivate(hdnode: any): any {
     return !hdnode.isNeutered()
   }
 
-  toIdentifier(hdnode) {
+  toIdentifier(hdnode: any): any {
     return hdnode.getIdentifier()
   }
 
-  fromBase58(base58, network) {
+  fromBase58(base58: any, network: any): any {
     return Bitcoin.HDNode.fromBase58(base58, network)
   }
 
-  createAccount(hdNodes) {
+  createAccount(hdNodes: any): any {
     const arr = hdNodes.map(
       (item, index) => new bip32utils.Chain(item.neutered())
     )
     return new bip32utils.Account(arr)
   }
 
-  createChain(hdNode) {
+  createChain(hdNode: any): any {
     return new bip32utils.Chain(hdNode)
   }
 }
