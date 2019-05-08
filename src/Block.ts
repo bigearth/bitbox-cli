@@ -6,7 +6,7 @@ export class Block {
     this.restURL = restURL
   }
 
-  async detailsByHeight(id) {
+  async detailsByHeight(id: number | number[]): Promise<any> {
     try {
       // Single block
       if (typeof id === "number") {
@@ -36,7 +36,7 @@ export class Block {
     }
   }
 
-  async detailsByHash(hash) {
+  async detailsByHash(hash: string | string[]): Promise<any> {
     try {
       // Single block
       if (typeof hash === "string") {

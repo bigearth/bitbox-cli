@@ -16,23 +16,23 @@ export class BitcoinCash {
   }
 
   // Translate coins to satoshi value
-  toSatoshi(coins) {
+  toSatoshi(coins: number): number {
     return sb.toSatoshi(coins)
   }
 
   // Translate satoshi to coin value
-  toBitcoinCash(satoshis) {
+  toBitcoinCash(satoshis: number): number {
     return sb.toBitcoin(satoshis)
   }
 
   // Translate satoshi to bits denomination
-  toBits(satoshis) {
+  toBits(satoshis: number): number {
     return parseFloat(satoshis) / 100
   }
 
   // Translate satoshi to bits denomination
   // TODO remove in 2.0
-  satsToBits(satoshis) {
+  satsToBits(satoshis: number): number {
     return parseFloat(satoshis) / 100
   }
 
@@ -54,25 +54,26 @@ export class BitcoinCash {
   // }
 
   // sign message
-  signMessageWithPrivKey(privateKeyWIF, message) {
-    const network = privateKeyWIF.charAt(0) === "c" ? "testnet" : "mainnet"
-    let bitcoincash
+  signMessageWithPrivKey(privateKeyWIF: string, message: string): string {
+    const network: string =
+      privateKeyWIF.charAt(0) === "c" ? "testnet" : "mainnet"
+    let bitcoincash: any
     if (network === "mainnet") bitcoincash = coininfo.bitcoincash.main
     else bitcoincash = coininfo.bitcoincash.test
 
-    const bitcoincashBitcoinJSLib = bitcoincash.toBitcoinJS()
-    const keyPair = Bitcoin.ECPair.fromWIF(
+    const bitcoincashBitcoinJSLib: any = bitcoincash.toBitcoinJS()
+    const keyPair: any = Bitcoin.ECPair.fromWIF(
       privateKeyWIF,
       bitcoincashBitcoinJSLib
     )
-    const privateKey = keyPair.d.toBuffer(32)
+    const privateKey: any = keyPair.d.toBuffer(32)
     return bitcoinMessage
       .sign(message, privateKey, keyPair.compressed)
       .toString("base64")
   }
 
   // verify message
-  verifyMessage(address, signature, message) {
+  verifyMessage(address: string, signature: string, message: string): boolean {
     return bitcoinMessage.verify(
       message,
       this._address.toLegacyAddress(address),
@@ -81,17 +82,17 @@ export class BitcoinCash {
   }
 
   // encode base58Check
-  encodeBase58Check(hex) {
+  encodeBase58Check(hex: string): string {
     return bs58.encode(Buffer.from(hex, "hex"))
   }
 
   // decode base58Check
-  decodeBase58Check(address) {
+  decodeBase58Check(address: string): string {
     return bs58.decode(address).toString("hex")
   }
 
   // encode bip21 url
-  encodeBIP21(address, options, regtest = false) {
+  encodeBIP21(address: string, options: any, regtest: boolean = false): string {
     return bip21.encode(
       this._address.toCashAddress(address, true, regtest),
       options
@@ -99,16 +100,16 @@ export class BitcoinCash {
   }
 
   // decode bip21 url
-  decodeBIP21(url) {
+  decodeBIP21(url: string): any {
     return bip21.decode(url)
   }
 
-  getByteCount(inputs, outputs) {
+  getByteCount(inputs: any, outputs: any): number {
     // from https://github.com/bitcoinjs/bitcoinjs-lib/issues/921#issuecomment-354394004
-    let totalWeight = 0
-    let hasWitness = false
+    let totalWeight: number = 0
+    let hasWitness: boolean = false
     // assumes compressed pubkeys in all cases.
-    const types = {
+    const types: any = {
       inputs: {
         "MULTISIG-P2SH": 49 * 4,
         "MULTISIG-P2WSH": 6 + 41 * 4,
@@ -155,15 +156,19 @@ export class BitcoinCash {
     return Math.ceil(totalWeight / 4)
   }
 
-  encryptBIP38(privKeyWIF, passphrase) {
-    const decoded = wif.decode(privKeyWIF)
+  encryptBIP38(privKeyWIF: string, passphrase: string): string {
+    const decoded: any = wif.decode(privKeyWIF)
 
     return bip38.encrypt(decoded.privateKey, decoded.compressed, passphrase)
   }
 
-  decryptBIP38(encryptedKey, passphrase, network = "mainnet") {
-    const decryptedKey = bip38.decrypt(encryptedKey, passphrase)
-    let prefix
+  decryptBIP38(
+    encryptedKey: string,
+    passphrase: string,
+    network: string = "mainnet"
+  ): string {
+    const decryptedKey: any = bip38.decrypt(encryptedKey, passphrase)
+    let prefix: any
     if (network === "testnet") prefix = 0xef
     else prefix = 0x80
 
