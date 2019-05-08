@@ -4,3 +4,4 @@ wallet-info.txt
 wallet.json
 
 package-lock.json
+lib/*
