@@ -10,10 +10,10 @@ export class Address {
   }
 
   // Translate address from any address format into a specific format.
-  toLegacyAddress(address) {
+  toLegacyAddress(address: string): string {
     const { prefix, type, hash } = this._decode(address)
 
-    let bitcoincash
+    let bitcoincash: any
     switch (prefix) {
       case "bitcoincash":
         bitcoincash = coininfo.bitcoincash.main
@@ -28,7 +28,7 @@ export class Address {
         throw `unsupported prefix : ${prefix}`
     }
 
-    let version
+    let version: any
     switch (type) {
       case "P2PKH":
         version = bitcoincash.versions.public
@@ -40,19 +40,23 @@ export class Address {
         throw `unsupported address type : ${type}`
     }
 
-    const hashBuf = Buffer.from(hash)
+    const hashBuf: any = Buffer.from(hash)
 
     return Bitcoin.address.toBase58Check(hashBuf, version)
   }
 
-  toCashAddress(address, prefix = true, regtest = false) {
+  toCashAddress(
+    address: string,
+    prefix: boolean = true,
+    regtest: boolean = false
+  ): string {
     const decoded = this._decode(address)
 
-    let prefixString
+    let prefixString: string
     if (regtest) prefixString = "bchreg"
     else prefixString = decoded.prefix
 
-    const cashAddress = cashaddr.encode(
+    const cashAddress: string = cashaddr.encode(
       prefixString,
       decoded.type,
       decoded.hash
@@ -63,14 +67,17 @@ export class Address {
   }
 
   // Converts any address format to hash160
-  toHash160(address) {
+  toHash160(address: string): string {
     const legacyAddress = this.toLegacyAddress(address)
     const bytes = Bitcoin.address.fromBase58Check(legacyAddress)
     return bytes.hash.toString("hex")
   }
 
   // Converts hash160 to Legacy Address
-  hash160ToLegacy(hash160, network = Bitcoin.networks.bitcoin.pubKeyHash) {
+  hash160ToLegacy(
+    hash160: any,
+    network: any = Bitcoin.networks.bitcoin.pubKeyHash
+  ): string {
     const buffer = Buffer.from(hash160, "hex")
     const legacyAddress = Bitcoin.address.toBase58Check(buffer, network)
     return legacyAddress
@@ -78,15 +85,15 @@ export class Address {
 
   // Converts hash160 to Cash Address
   hash160ToCash(
-    hash160,
-    network = Bitcoin.networks.bitcoin.pubKeyHash,
-    regtest = false
-  ) {
+    hash160: any,
+    network: any = Bitcoin.networks.bitcoin.pubKeyHash,
+    regtest: boolean = false
+  ): string {
     const legacyAddress = this.hash160ToLegacy(hash160, network)
     return this.toCashAddress(legacyAddress, true, regtest)
   }
 
-  _decode(address) {
+  _decode(address: string): any {
     try {
       return this._decodeLegacyAddress(address)
     } catch (error) {}
@@ -102,7 +109,7 @@ export class Address {
     throw new Error(`Unsupported address format : ${address}`)
   }
 
-  _decodeLegacyAddress(address) {
+  _decodeLegacyAddress(address: any): any {
     const { version, hash } = Bitcoin.address.fromBase58Check(address)
     const info = coininfo.bitcoincash
 
@@ -140,17 +147,17 @@ export class Address {
     }
   }
 
-  _decodeCashAddress(address) {
+  _decodeCashAddress(address: string): any {
     if (address.indexOf(":") !== -1) {
       const decoded = cashaddr.decode(address)
       decoded.format = "cashaddr"
       return decoded
     }
 
-    const prefixes = ["bitcoincash", "bchtest", "bchreg"]
-    for (let i = 0; i < prefixes.length; ++i) {
+    const prefixes: string[] = ["bitcoincash", "bchtest", "bchreg"]
+    for (let i: number = 0; i < prefixes.length; ++i) {
       try {
-        const decoded = cashaddr.decode(`${prefixes[i]}:${address}`)
+        const decoded: any = cashaddr.decode(`${prefixes[i]}:${address}`)
         decoded.format = "cashaddr"
         return decoded
       } catch (error) {}
@@ -159,7 +166,7 @@ export class Address {
     throw new Error(`Invalid format : ${address}`)
   }
 
-  _encodeAddressFromHash160(address) {
+  _encodeAddressFromHash160(address: string): any {
     try {
       return {
         legacyAddress: this.hash160ToLegacy(address),
@@ -172,55 +179,55 @@ export class Address {
   }
 
   // Test for address format.
-  isLegacyAddress(address) {
+  isLegacyAddress(address: string): boolean {
     return this.detectAddressFormat(address) === "legacy"
   }
 
-  isCashAddress(address) {
+  isCashAddress(address: string): boolean {
     return this.detectAddressFormat(address) === "cashaddr"
   }
 
-  isHash160(address) {
+  isHash160(address: string): boolean {
     return this.detectAddressFormat(address) === "hash160"
   }
 
   // Test for address network.
-  isMainnetAddress(address) {
+  isMainnetAddress(address: string): boolean {
     if (address[0] === "x") return true
     else if (address[0] === "t") return false
 
     return this.detectAddressNetwork(address) === "mainnet"
   }
 
-  isTestnetAddress(address) {
+  isTestnetAddress(address: string): boolean {
     if (address[0] === "x") return false
     else if (address[0] === "t") return true
 
     return this.detectAddressNetwork(address) === "testnet"
   }
 
-  isRegTestAddress(address) {
+  isRegTestAddress(address: string): boolean {
     return this.detectAddressNetwork(address) === "regtest"
   }
 
   // Test for address type.
-  isP2PKHAddress(address) {
+  isP2PKHAddress(address: string): boolean {
     return this.detectAddressType(address) === "p2pkh"
   }
 
-  isP2SHAddress(address) {
+  isP2SHAddress(address: string): boolean {
     return this.detectAddressType(address) === "p2sh"
   }
 
   // Detect address format.
-  detectAddressFormat(address) {
-    const decoded = this._decode(address)
+  detectAddressFormat(address: string): string {
+    const decoded: any = this._decode(address)
 
     return decoded.format
   }
 
   // Detect address network.
-  detectAddressNetwork(address) {
+  detectAddressNetwork(address: string): string {
     if (address[0] === "x") return "mainnet"
     else if (address[0] === "t") return "testnet"
 
@@ -239,27 +246,27 @@ export class Address {
   }
 
   // Detect address type.
-  detectAddressType(address) {
-    const decoded = this._decode(address)
+  detectAddressType(address: string): string {
+    const decoded: any = this._decode(address)
 
     return decoded.type.toLowerCase()
   }
 
-  fromXPub(xpub, path = "0/0") {
-    const HDNode = Bitcoin.HDNode.fromBase58(
+  fromXPub(xpub: string, path: string = "0/0"): string {
+    const HDNode: any = Bitcoin.HDNode.fromBase58(
       xpub,
       Bitcoin.networks[this.detectAddressNetwork(xpub)]
     )
-    const address = HDNode.derivePath(path)
+    const address: any = HDNode.derivePath(path)
     return this.toCashAddress(address.getAddress())
   }
 
-  fromOutputScript(scriptPubKey, network = "mainnet") {
-    let netParam
+  fromOutputScript(scriptPubKey: any, network: string = "mainnet"): string {
+    let netParam: any
     if (network !== "bitcoincash" && network !== "mainnet")
       netParam = Bitcoin.networks.testnet
 
-    const regtest = network === "bchreg"
+    const regtest: boolean = network === "bchreg"
 
     return this.toCashAddress(
       Bitcoin.address.fromOutputScript(scriptPubKey, netParam),
@@ -268,7 +275,7 @@ export class Address {
     )
   }
 
-  async details(address) {
+  async details(address: string | string[]): Promise<any> {
     try {
       // Handle single address.
       if (typeof address === "string") {
@@ -280,14 +287,14 @@ export class Address {
 
         // Handle array of addresses.
       } else if (Array.isArray(address)) {
-        const options = {
+        const options: any = {
           method: "POST",
           url: `${this.restURL}address/details`,
           data: {
             addresses: address
           }
         }
-        const response = await axios(options)
+        const response: any = await axios(options)
 
         return response.data
       }
@@ -299,7 +306,7 @@ export class Address {
     }
   }
 
-  async utxo(address) {
+  async utxo(address: string | string[]): Promise<any> {
     try {
       // Handle single address.
       if (typeof address === "string") {
@@ -308,14 +315,14 @@ export class Address {
         )
         return response.data
       } else if (Array.isArray(address)) {
-        const options = {
+        const options: any = {
           method: "POST",
           url: `${this.restURL}address/utxo`,
           data: {
             addresses: address
           }
         }
-        const response = await axios(options)
+        const response: any = await axios(options)
 
         return response.data
       }
@@ -327,7 +334,7 @@ export class Address {
     }
   }
 
-  async unconfirmed(address) {
+  async unconfirmed(address: string | string[]) {
     try {
       // Handle single address.
       if (typeof address === "string") {
@@ -338,14 +345,14 @@ export class Address {
 
         // Handle an array of addresses
       } else if (Array.isArray(address)) {
-        const options = {
+        const options: any = {
           method: "POST",
           url: `${this.restURL}address/unconfirmed`,
           data: {
             addresses: address
           }
         }
-        const response = await axios(options)
+        const response: any = await axios(options)
 
         return response.data
       }
@@ -357,7 +364,7 @@ export class Address {
     }
   }
 
-  async transactions(address) {
+  async transactions(address: string | string[]) {
     try {
       // Handle single address.
       if (typeof address === "string") {
@@ -368,14 +375,14 @@ export class Address {
 
         // Handle an array of addresses
       } else if (Array.isArray(address)) {
-        const options = {
+        const options: any = {
           method: "POST",
           url: `${this.restURL}address/transactions`,
           data: {
             addresses: address
           }
         }
-        const response = await axios(options)
+        const response: any = await axios(options)
 
         return response.data
       }

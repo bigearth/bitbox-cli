@@ -59,7 +59,7 @@ export class Blockchain {
     }
   }
 
-  async getBlockHash(height: number = 1): Promise<any> {
+  async getBlockHash(height: any = 1): Promise<any> {
     if (typeof height !== "string") height = JSON.stringify(height)
 
     try {
