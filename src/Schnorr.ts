@@ -64,7 +64,7 @@ export class Schnorr {
   partialSignatureVerify(
     session: any,
     partialSignature: any,
-    nonceCombined,
+    nonceCombined: any,
     idx: any,
     pubKey: any,
     nonce: any

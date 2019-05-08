@@ -23,6 +23,6 @@ export class Socket {
 
     if (endpoint === "blocks") this.socket.on("blocks", (msg: any) => cb(msg))
     else if (endpoint === "transactions")
-      this.socket.on("transactions", msg => cb(msg))
+      this.socket.on("transactions", (msg: any) => cb(msg))
   }
 }

@@ -10,19 +10,19 @@ export class Mnemonic {
     this._address = address
   }
 
-  generate(bits = 128, wordlist) {
+  generate(bits: number = 128, wordlist: string[]): string {
     return BIP39.generateMnemonic(bits, randomBytes, wordlist)
   }
 
-  fromEntropy(bytes, wordlist) {
+  fromEntropy(bytes: number, wordlist: string[]): string {
     return BIP39.entropyToMnemonic(bytes, wordlist)
   }
 
-  toEntropy(mnemonic, wordlist) {
+  toEntropy(mnemonic: string, wordlist: string[]): any {
     return Buffer.from(BIP39.mnemonicToEntropy(mnemonic, wordlist), "hex")
   }
 
-  validate(mnemonic, wordlist) {
+  validate(mnemonic: string, wordlist: string[]): string {
     // Preprocess the words
     const words = mnemonic.split(" ")
     // Detect blank phrase
@@ -45,20 +45,24 @@ export class Mnemonic {
     return "Valid mnemonic"
   }
 
-  toSeed(mnemonic, password = "") {
+  toSeed(mnemonic: string, password: string = ""): any {
     return BIP39.mnemonicToSeed(mnemonic, password)
   }
 
-  wordLists() {
+  wordLists(): string[] {
     return BIP39.wordlists
   }
 
-  toKeypairs(mnemonic, numberOfKeypairs = 1, regtest = false) {
-    const rootSeedBuffer = this.toSeed(mnemonic, "")
-    const hdNode = Bitcoin.HDNode.fromSeedBuffer(rootSeedBuffer)
-    const HDPath = `44'/145'/0'/0/`
+  toKeypairs(
+    mnemonic: string,
+    numberOfKeypairs: number = 1,
+    regtest: boolean = false
+  ): any {
+    const rootSeedBuffer: any = this.toSeed(mnemonic, "")
+    const hdNode: any = Bitcoin.HDNode.fromSeedBuffer(rootSeedBuffer)
+    const HDPath: string = `44'/145'/0'/0/`
 
-    const accounts = []
+    const accounts: any[] = []
 
     for (let i = 0; i < numberOfKeypairs; i++) {
       const childHDNode = hdNode.derivePath(`${HDPath}${i}`)
@@ -82,14 +86,14 @@ export class Mnemonic {
     return accounts
   }
 
-  findNearestWord(word, wordlist) {
-    let minDistance = 99
-    let closestWord = wordlist[0]
-    for (let i = 0; i < wordlist.length; i++) {
-      const comparedTo = wordlist[i]
+  findNearestWord(word: string, wordlist: string[]): string {
+    let minDistance: number = 99
+    let closestWord: string = wordlist[0]
+    for (let i: number = 0; i < wordlist.length; i++) {
+      const comparedTo: any = wordlist[i]
       if (comparedTo.indexOf(word) == 0) return comparedTo
 
-      const distance = Levenshtein.get(word, comparedTo)
+      const distance: any = Levenshtein.get(word, comparedTo)
       if (distance < minDistance) {
         closestWord = comparedTo
         minDistance = distance

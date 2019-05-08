@@ -14,7 +14,7 @@ export class Script {
     this.multisig = {
       input: {
         encode: (signatures: any) => {
-          const sigs = []
+          const sigs: any[] = []
           signatures.forEach((sig: any) => {
             sigs.push(sig)
           })
@@ -25,8 +25,8 @@ export class Script {
       },
       output: {
         encode: (m: any, pubKeys: any) => {
-          const pks = []
-          pubKeys.forEach(pubKey => {
+          const pks: any[] = []
+          pubKeys.forEach((pubKey: any) => {
             pks.push(pubKey)
           })
           return Bitcoin.script.multisig.output.encode(m, pks)
@@ -53,8 +53,8 @@ export class Script {
   }
 
   encode(scriptChunks: any): any {
-    const arr = []
-    scriptChunks.forEach(chunk => {
+    const arr: any[] = []
+    scriptChunks.forEach((chunk: any) => {
       arr.push(chunk)
     })
     return Bitcoin.script.compile(arr)

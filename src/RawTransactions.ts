@@ -101,7 +101,10 @@ export class RawTransactions {
     }
   }
 
-  async sendRawTransaction(hex, allowhighfees = false) {
+  async sendRawTransaction(
+    hex: string | string[],
+    allowhighfees: boolean = false
+  ): Promise<any> {
     try {
       // Single tx hex.
       if (typeof hex === "string") {
