@@ -3,7 +3,7 @@ import * as coininfo from "coininfo"
 import * as bip32utils from "bip32-utils"
 
 export class HDNode {
-  _address: string
+  _address: any
   constructor(address: any) {
     this._address = address
   }
@@ -105,7 +105,7 @@ export class HDNode {
 
   createAccount(hdNodes: any): any {
     const arr = hdNodes.map(
-      (item, index) => new bip32utils.Chain(item.neutered())
+      (item: any, index: number) => new bip32utils.Chain(item.neutered())
     )
     return new bip32utils.Account(arr)
   }

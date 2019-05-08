@@ -6,12 +6,12 @@
 import axios from "axios"
 
 export class Blockchain {
-  restURL: string
+  restURL: any
   constructor(restURL: string) {
     this.restURL = restURL
   }
 
-  async getBestBlockHash() {
+  async getBestBlockHash(): Promise<any> {
     try {
       const response: any = await axios.get(
         `${this.restURL}blockchain/getBestBlockHash`
@@ -23,7 +23,7 @@ export class Blockchain {
     }
   }
 
-  async getBlock(blockhash, verbose = true) {
+  async getBlock(blockhash: string, verbose: boolean = true): Promise<any> {
     try {
       const response: any = await axios.get(
         `${this.restURL}blockchain/getBlock/${blockhash}?verbose=${verbose}`
@@ -35,7 +35,7 @@ export class Blockchain {
     }
   }
 
-  async getBlockchainInfo() {
+  async getBlockchainInfo(): Promise<any> {
     try {
       const response: any = await axios.get(
         `${this.restURL}blockchain/getBlockchainInfo`
@@ -47,7 +47,7 @@ export class Blockchain {
     }
   }
 
-  async getBlockCount() {
+  async getBlockCount(): Promise<any> {
     try {
       const response: any = await axios.get(
         `${this.restURL}blockchain/getBlockCount`
@@ -59,7 +59,7 @@ export class Blockchain {
     }
   }
 
-  async getBlockHash(height = 1) {
+  async getBlockHash(height: number = 1): Promise<any> {
     if (typeof height !== "string") height = JSON.stringify(height)
 
     try {
@@ -73,7 +73,10 @@ export class Blockchain {
     }
   }
 
-  async getBlockHeader(hash, verbose = true) {
+  async getBlockHeader(
+    hash: string | string[],
+    verbose: boolean = true
+  ): Promise<any> {
     try {
       // Handle single hash.
       if (typeof hash === "string") {
@@ -105,9 +108,11 @@ export class Blockchain {
     }
   }
 
-  async getChainTips() {
+  async getChainTips(): Promise<any> {
     try {
-      const response: any = await axios.get(`${this.restURL}blockchain/getChainTips`)
+      const response: any = await axios.get(
+        `${this.restURL}blockchain/getChainTips`
+      )
       return response.data
     } catch (error) {
       if (error.response && error.response.data) throw error.response.data
@@ -115,7 +120,7 @@ export class Blockchain {
     }
   }
 
-  async getDifficulty() {
+  async getDifficulty(): Promise<any> {
     try {
       const response: any = await axios.get(
         `${this.restURL}blockchain/getDifficulty`
@@ -127,7 +132,10 @@ export class Blockchain {
     }
   }
 
-  async getMempoolAncestors(txid, verbose = false) {
+  async getMempoolAncestors(
+    txid: string,
+    verbose: boolean = false
+  ): Promise<any> {
     if (typeof txid !== "string") txid = JSON.stringify(txid)
 
     try {
@@ -143,7 +151,10 @@ export class Blockchain {
     }
   }
 
-  async getMempoolDescendants(txid, verbose = false) {
+  async getMempoolDescendants(
+    txid: string,
+    verbose: boolean = false
+  ): Promise<any> {
     if (typeof txid !== "string") txid = JSON.stringify(txid)
 
     try {
@@ -159,7 +170,7 @@ export class Blockchain {
     }
   }
 
-  async getMempoolEntry(txid) {
+  async getMempoolEntry(txid: string): Promise<any> {
     //if (typeof txid !== "string") txid = JSON.stringify(txid)
 
     try {
@@ -189,7 +200,7 @@ export class Blockchain {
     }
   }
 
-  async getMempoolInfo() {
+  async getMempoolInfo(): Promise<any> {
     try {
       const response: any = await axios.get(
         `${this.restURL}blockchain/getMempoolInfo`
@@ -201,7 +212,7 @@ export class Blockchain {
     }
   }
 
-  async getRawMempool(verbose = false) {
+  async getRawMempool(verbose: boolean = false): Promise<any> {
     try {
       const response: any = await axios.get(
         `${this.restURL}blockchain/getRawMempool?vebose=${verbose}`
@@ -213,7 +224,11 @@ export class Blockchain {
     }
   }
 
-  async getTxOut(txid, n, include_mempool = true) {
+  async getTxOut(
+    txid: string,
+    n: any,
+    include_mempool: boolean = true
+  ): Promise<any> {
     try {
       const response: any = await axios.get(
         `${
@@ -227,7 +242,7 @@ export class Blockchain {
     }
   }
 
-  async getTxOutProof(txids) {
+  async getTxOutProof(txids: string | string[]): Promise<any> {
     try {
       // Single txid.
       if (typeof txids === "string") {
@@ -258,7 +273,7 @@ export class Blockchain {
     }
   }
 
-  async preciousBlock(blockhash) {
+  async preciousBlock(blockhash: string): Promise<any> {
     try {
       const response: any = await axios.get(
         `${this.restURL}blockchain/preciousBlock/${blockhash}`
@@ -270,7 +285,7 @@ export class Blockchain {
     }
   }
 
-  async pruneBlockchain(height) {
+  async pruneBlockchain(height: number): Promise<any> {
     try {
       const response = await axios.post(
         `${this.restURL}blockchain/pruneBlockchain/${height}`
@@ -282,7 +297,7 @@ export class Blockchain {
     }
   }
 
-  async verifyChain(checklevel = 3, nblocks = 6) {
+  async verifyChain(checklevel: number = 3, nblocks: number = 6): Promise<any> {
     try {
       const response: any = await axios.get(
         `${
@@ -296,7 +311,7 @@ export class Blockchain {
     }
   }
 
-  async verifyTxOutProof(proof) {
+  async verifyTxOutProof(proof: any | any[]): Promise<any> {
     try {
       // Single block
       if (typeof proof === "string") {
