@@ -13,9 +13,9 @@ export class Script {
     this.nullData = Bitcoin.script.nullData
     this.multisig = {
       input: {
-        encode: signatures => {
+        encode: (signatures: any) => {
           const sigs = []
-          signatures.forEach(sig => {
+          signatures.forEach((sig: any) => {
             sigs.push(sig)
           })
           return Bitcoin.script.multisig.input.encode(sigs)
@@ -24,7 +24,7 @@ export class Script {
         check: Bitcoin.script.multisig.input.check
       },
       output: {
-        encode: (m, pubKeys) => {
+        encode: (m: any, pubKeys: any) => {
           const pks = []
           pubKeys.forEach(pubKey => {
             pks.push(pubKey)
@@ -40,19 +40,19 @@ export class Script {
     this.scriptHash = Bitcoin.script.scriptHash
   }
 
-  classifyInput(script) {
+  classifyInput(script: any): string {
     return Bitcoin.script.classifyInput(script)
   }
 
-  classifyOutput(script) {
+  classifyOutput(script: any): string {
     return Bitcoin.script.classifyOutput(script)
   }
 
-  decode(scriptBuffer) {
+  decode(scriptBuffer: any): any[] {
     return Bitcoin.script.decompile(scriptBuffer)
   }
 
-  encode(scriptChunks) {
+  encode(scriptChunks: any): any {
     const arr = []
     scriptChunks.forEach(chunk => {
       arr.push(chunk)
@@ -60,11 +60,11 @@ export class Script {
     return Bitcoin.script.compile(arr)
   }
 
-  toASM(buffer) {
+  toASM(buffer: any): any {
     return Bitcoin.script.toASM(buffer)
   }
 
-  fromASM(asm) {
+  fromASM(asm: any): any {
     return Bitcoin.script.fromASM(asm)
   }
 }
