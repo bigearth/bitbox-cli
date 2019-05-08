@@ -26,13 +26,13 @@ export class BitcoinCash {
   }
 
   // Translate satoshi to bits denomination
-  toBits(satoshis: number): number {
+  toBits(satoshis: any): any {
     return parseFloat(satoshis) / 100
   }
 
   // Translate satoshi to bits denomination
   // TODO remove in 2.0
-  satsToBits(satoshis: number): number {
+  satsToBits(satoshis: any): any {
     return parseFloat(satoshis) / 100
   }
 

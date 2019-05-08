@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "outDir": "./lib/",
-    "noImplicitAny": true,
+    "noImplicitAny": false,
     "baseUrl": ".",
     "module": "commonjs",
     "target": "es5",
