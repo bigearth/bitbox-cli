@@ -1,6 +1,14 @@
 import axios from "axios"
 
-export class Mining {
+export interface Mining {
+  restURL: string
+  getBlockTemplate(template_request: any): Promise<any>
+  getMiningInfo(): Promise<any>
+  getNetworkHashps(nblocks: number, height: number): Promise<any>
+  submitBlock(hex: string, parameters: any): Promise<any>
+}
+
+export class Mining implements Mining {
   restURL: string
   constructor(restURL: string) {
     this.restURL = restURL

@@ -1,12 +1,18 @@
 import axios from "axios"
 
-export class Control {
+export interface Control {
+  restURL: string
+  getInfo(): Promise<any>
+  getMemoryInfo(): Promise<any>
+}
+
+export class Control implements Control {
   restURL: string
   constructor(restURL: string) {
     this.restURL = restURL
   }
 
-  async getInfo() {
+  async getInfo(): Promise<any> {
     try {
       const response: any = await axios.get(`${this.restURL}control/getInfo`)
       return response.data
@@ -16,9 +22,11 @@ export class Control {
     }
   }
 
-  async getMemoryInfo() {
+  async getMemoryInfo(): Promise<any> {
     try {
-      const response: any = await axios.get(`${this.restURL}control/getMemoryInfo`)
+      const response: any = await axios.get(
+        `${this.restURL}control/getMemoryInfo`
+      )
       return response.data
     } catch (error) {
       if (error.response && error.response.data) throw error.response.data

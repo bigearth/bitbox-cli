@@ -2,7 +2,32 @@ const Bitcoin = require("bitcoincashjs-lib")
 const coininfo = require("coininfo")
 const bip32utils = require("bip32-utils")
 
-export class HDNode {
+export interface HDNode {
+  _address: any
+  fromSeed(rootSeedBuffer: any, network: string): any
+  toLegacyAddress(hdNode: any): string
+  toCashAddress(hdNode: any, regtest: boolean): string
+  toWIF(hdNode: any): string
+  toXPub(hdNode: any): string
+  toXPriv(hdNode: any): string
+  toKeyPair(hdNode: any): any
+  toPublicKey(hdNode: any): any
+  fromXPriv(xpriv: string): any
+  fromXPub(xpub: string): any
+  derivePath(hdnode: any, path: string): any
+  derive(hdnode: any, path: string): any
+  deriveHardened(hdnode: any, path: string): any
+  sign(hdnode: any, buffer: any): any
+  verify(hdnode: any, buffer: any, signature: any): any
+  isPublic(hdnode: any): any
+  isPrivate(hdnode: any): any
+  toIdentifier(hdnode: any): any
+  fromBase58(base58: any, network: any): any
+  createAccount(hdNodes: any): any
+  createChain(hdNode: any): any
+}
+
+export class HDNode implements HDNode {
   _address: any
   constructor(address: any) {
     this._address = address

@@ -5,8 +5,31 @@
 
 import axios from "axios"
 
-export class Blockchain {
-  restURL: any
+export interface Blockchain {
+  restURL: string
+  getBestBlockHash(): Promise<any>
+  getBlock(blockhash: string, verbose: boolean): Promise<any>
+  getBlockchainInfo(): Promise<any>
+  getBlockCount(): Promise<any>
+  getBlockHash(height: any): Promise<any>
+  getBlockHeader(hash: string | string[], verbose: boolean): Promise<any>
+  getChainTips(): Promise<any>
+  getDifficulty(): Promise<any>
+  getMempoolAncestors(txid: string, verbose: boolean): Promise<any>
+  getMempoolDescendants(txid: string, verbose: boolean): Promise<any>
+  getMempoolEntry(txid: string): Promise<any>
+  getMempoolInfo(): Promise<any>
+  getRawMempool(verbose: boolean): Promise<any>
+  getTxOut(txid: string, n: any, include_mempool: boolean): Promise<any>
+  getTxOutProof(txids: string | string[]): Promise<any>
+  preciousBlock(blockhash: string): Promise<any>
+  pruneBlockchain(height: number): Promise<any>
+  verifyChain(checklevel: number, nblocks: number): Promise<any>
+  verifyTxOutProof(proof: any | any[]): Promise<any>
+}
+
+export class Blockchain implements Blockchain {
+  restURL: string
   constructor(restURL: string) {
     this.restURL = restURL
   }

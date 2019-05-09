@@ -1,7 +1,15 @@
 const randomBytes = require("randomBytes")
 const Bitcoin = require("bitcoincashjs-lib")
 
-export class Crypto {
+export interface Crypto {
+  sha256(buffer: any): any
+  ripemd160(buffer: any): any
+  hash256(buffer: any): any
+  hash160(buffer: any): any
+  randomBytes(size: number): any
+}
+
+export class Crypto implements Crypto {
   static sha256(buffer: any): any {
     return Bitcoin.crypto.sha256(buffer)
   }

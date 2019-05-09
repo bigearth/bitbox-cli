@@ -1,7 +1,20 @@
 const Bitcoin = require("bitcoincashjs-lib")
 const coininfo = require("coininfo")
 
-export class ECPair {
+export interface ECPair {
+  _address: any
+  setAddress(address: any): void
+  fromWIF(privateKeyWIF: string): any
+  toWIF(ecpair: any): string
+  sign(ecpair: any, buffer: any): any
+  verify(ecpair: any, buffer: any, signature: any): any
+  fromPublicKey(pubkeyBuffer: any): any
+  toPublicKey(ecpair: any): any
+  toLegacyAddress(ecpair: any): string
+  toCashAddress(ecpair: any, regtest: boolean): string
+}
+
+export class ECPair implements ECPair {
   static _address: any
   static setAddress(address: any): void {
     ECPair._address = address
