@@ -1,4 +1,4 @@
-import * as io from "socket.io-client"
+const io = require("socket.io-client")
 
 export class Socket {
   socket: any

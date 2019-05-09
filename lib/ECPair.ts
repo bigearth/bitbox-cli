@@ -1,5 +1,5 @@
-import * as Bitcoin from "bitcoincashjs-lib"
-import * as coininfo from "coininfo"
+const Bitcoin = require("bitcoincashjs-lib")
+const coininfo = require("coininfo")
 
 export class ECPair {
   static _address: any

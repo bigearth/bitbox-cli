@@ -1,6 +1,6 @@
-import * as BIP39 from "bip39"
-import * as randomBytes from "randombytes"
-import * as Bitcoin from "bitcoincashjs-lib"
+const BIP39 = require("bip39")
+const randomBytes = require("randomBytes")
+const Bitcoin = require("bitcoincashjs-lib")
 const Buffer = require("safe-buffer").Buffer
 const wif = require("wif")
 

@@ -1,7 +1,7 @@
 import axios from "axios"
-import * as Bitcoin from "bitcoincashjs-lib"
-import * as cashaddr from "cashaddrjs"
-import * as coininfo from "coininfo"
+const Bitcoin = require("bitcoincashjs-lib")
+const cashaddr = require("cashaddrjs")
+const coininfo = require("coininfo")
 
 export class Address {
   restURL: string

@@ -1,7 +1,7 @@
-import * as Bitcoin from "bitcoincashjs-lib"
-import * as coininfo from "coininfo"
-import * as bip66 from "bip66"
-import * as bip68 from "bc-bip68"
+const Bitcoin = require("bitcoincashjs-lib")
+const coininfo = require("coininfo")
+const bip66 = require("bip66")
+const bip68 = require("bc-bip68")
 
 export class TransactionBuilder {
   transaction: any

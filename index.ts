@@ -30,7 +30,7 @@ program
     "environment of running BITBOX instance. Ex: production, staging. (Default: development)"
   )
   .description(`create a new BITBOX application`)
-  .action((name, options) => {
+  .action((name: any, options: any) => {
     if (fs.existsSync(`./${name}`)) {
       console.log(chalk.red(`Project ${name} already exists`))
       process.exit(1)
@@ -81,7 +81,7 @@ program
       )
 
       console.log(chalk.blue(`Scaffolding ${scaffold} app in ${name}`))
-      clone(repo, `./${name}`, [conf], res => {
+      clone(repo, `./${name}`, [conf], (res: any) => {
         if (res === "Error: 'git clone' failed with status 128") {
           console.log(chalk.red("Must create new app in to an empty directory"))
         } else {
@@ -99,16 +99,16 @@ program
 
     console.log(chalk.green(`Creating ${name}/ directory`))
     console.log(chalk.green(`Creating src/ directory: ./${name}/src`))
-    mkdirp(`./${name}/src`, err => {})
+    mkdirp(`./${name}/src`, (err: any) => {})
 
     console.log(chalk.green(`Creating tests/ directory: ./${name}/tests`))
-    mkdirp(`./${name}/tests`, err => {})
+    mkdirp(`./${name}/tests`, (err: any) => {})
 
     console.log(
       chalk.green(`Creating bitbox.js configuration file: ./${name}/bitbox.js`)
     )
 
-    mkdirp(`./${name}`, err => {})
+    mkdirp(`./${name}`, (err: any) => {})
     touch(`./${name}/bitbox.js`)
     fs.writeFileSync(
       `./${name}/bitbox.js`,
@@ -138,7 +138,7 @@ program
     "environment of running BITBOX instance. Ex: production, staging. (Default: development)"
   )
   .description("Run a console with Bitcoin Cash RPC commands available")
-  .action(options => {
+  .action((options: any) => {
     let config
     try {
       config = require(`${process.cwd()}/bitbox.js`).config
@@ -157,7 +157,7 @@ program
     replServer.context.BITBOX = new BITBOX(config.environments[environment])
   })
 
-function fetchOption(kv, config, options) {
+function fetchOption(kv: any, config: any, options: any) {
   const parts = kv.split("=")
   const key = parts[0]
   const defaultVal = parts[1]

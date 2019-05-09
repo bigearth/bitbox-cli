@@ -1,5 +1,5 @@
-import * as randomBytes from "randombytes"
-import * as Bitcoin from "bitcoincashjs-lib"
+const randomBytes = require("randomBytes")
+const Bitcoin = require("bitcoincashjs-lib")
 
 export class Crypto {
   static sha256(buffer: any): any {

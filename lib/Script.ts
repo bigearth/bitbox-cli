@@ -1,4 +1,4 @@
-import * as Bitcoin from "bitcoincashjs-lib"
+const Bitcoin = require("bitcoincashjs-lib")
 const opcodes = require("bitcoincash-ops")
 
 export class Script {

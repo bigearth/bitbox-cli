@@ -1,4 +1,4 @@
-import * as Bitcoin from "bitcoincashjs-lib"
+const Bitcoin = require("bitcoincashjs-lib")
 import axios from "axios"
 
 export class Transaction {

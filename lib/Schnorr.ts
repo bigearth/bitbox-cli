@@ -1,4 +1,4 @@
-import * as schnorr from "bip-schnorr"
+const schnorr = require("bip-schnorr")
 
 export class Schnorr {
   sign(privateKey: any, message: any): any {

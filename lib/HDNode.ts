@@ -1,6 +1,6 @@
-import * as Bitcoin from "bitcoincashjs-lib"
-import * as coininfo from "coininfo"
-import * as bip32utils from "bip32-utils"
+const Bitcoin = require("bitcoincashjs-lib")
+const coininfo = require("coininfo")
+const bip32utils = require("bip32-utils")
 
 export class HDNode {
   _address: any
