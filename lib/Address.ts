@@ -22,10 +22,61 @@ export interface Address {
   detectAddressType(address: string): string
   fromXPub(xpub: string, path: string): string
   fromOutputScript(scriptPubKey: any, network: string): string
-  details(address: string | string[]): Promise<any>
-  utxo(address: string | string[]): Promise<any>
-  unconfirmed(address: string | string[]): Promise<any>
+  details(
+    address: string | string[]
+  ): Promise<AddressDetailsResult | AddressDetailsResult[]>
+  utxo(
+    address: string | string[]
+  ): Promise<AddressUtxoResult | AddressUtxoResult[]>
+  unconfirmed(
+    address: string | string[]
+  ): Promise<AddressUnconfirmedResult | AddressUnconfirmedResult[]>
+  // TODO add interface for AddressTransactionsResult
   transactions(address: string | string[]): Promise<any>
+}
+
+export interface AddressDetailsResult {
+  balance: number
+  balanceSat: number
+  totalReceived: number
+  totalReceivedSat: number
+  totalSent: number
+  totalSentSat: number
+  unconfirmedBalance: number
+  unconfirmedBalanceSat: number
+  unconfirmedTxApperances: number
+  txApperances: number
+  transactions: string[]
+  legacyAddress: string
+  cashAddress: string
+}
+
+export interface AddressUtxoResult {
+  legacyAddress: string
+  cashAddress: string
+  scriptPubKey: string
+  utxos: [
+    {
+      txid: string
+      vout: number
+      amount: number
+      satoshis: number
+      height: number
+      confirmations: number
+    }
+  ]
+}
+
+export interface AddressUnconfirmedResult {
+  txid: string
+  vout: number
+  scriptPubKey: string
+  amount: number
+  satoshis: number
+  confirmations: number
+  ts: number
+  legacyAddress: string
+  cashAddress: string
 }
 
 export class Address implements Address {
@@ -300,7 +351,9 @@ export class Address implements Address {
     )
   }
 
-  async details(address: string | string[]): Promise<any> {
+  async details(
+    address: string | string[]
+  ): Promise<AddressDetailsResult | AddressDetailsResult[]> {
     try {
       // Handle single address.
       if (typeof address === "string") {
@@ -308,7 +361,7 @@ export class Address implements Address {
           `${this.restURL}address/details/${address}`
         )
 
-        return response.data
+        return <AddressDetailsResult>response.data
 
         // Handle array of addresses.
       } else if (Array.isArray(address)) {
@@ -321,7 +374,7 @@ export class Address implements Address {
         }
         const response: any = await axios(options)
 
-        return response.data
+        return <AddressDetailsResult>response.data
       }
 
       throw new Error(`Input address must be a string or array of strings.`)
@@ -331,7 +384,9 @@ export class Address implements Address {
     }
   }
 
-  async utxo(address: string | string[]): Promise<any> {
+  async utxo(
+    address: string | string[]
+  ): Promise<AddressUtxoResult | AddressUtxoResult[]> {
     try {
       // Handle single address.
       if (typeof address === "string") {
@@ -359,7 +414,9 @@ export class Address implements Address {
     }
   }
 
-  async unconfirmed(address: string | string[]) {
+  async unconfirmed(
+    address: string | string[]
+  ): Promise<AddressUnconfirmedResult | AddressUnconfirmedResult[]> {
     try {
       // Handle single address.
       if (typeof address === "string") {
@@ -389,7 +446,7 @@ export class Address implements Address {
     }
   }
 
-  async transactions(address: string | string[]) {
+  async transactions(address: string | string[]): Promise<any> {
     try {
       // Handle single address.
       if (typeof address === "string") {

@@ -4,28 +4,93 @@
 */
 
 import axios from "axios"
+import { BlockDetails } from "./Block"
 
 export interface Blockchain {
   restURL: string
   getBestBlockHash(): Promise<any>
-  getBlock(blockhash: string, verbose: boolean): Promise<any>
-  getBlockchainInfo(): Promise<any>
+  getBlock(blockhash: string, verbose: boolean): Promise<BlockDetails>
+  getBlockchainInfo(): Promise<BlockchainInfo>
   getBlockCount(): Promise<any>
   getBlockHash(height: any): Promise<any>
-  getBlockHeader(hash: string | string[], verbose: boolean): Promise<any>
-  getChainTips(): Promise<any>
+  getBlockHeader(
+    hash: string | string[],
+    verbose?: boolean
+  ): Promise<BlockHeader>
+  getChainTips(): Promise<ChainTip[]>
   getDifficulty(): Promise<any>
   getMempoolAncestors(txid: string, verbose: boolean): Promise<any>
   getMempoolDescendants(txid: string, verbose: boolean): Promise<any>
   getMempoolEntry(txid: string): Promise<any>
-  getMempoolInfo(): Promise<any>
+  getMempoolInfo(): Promise<MempoolInfo>
   getRawMempool(verbose: boolean): Promise<any>
-  getTxOut(txid: string, n: any, include_mempool: boolean): Promise<any>
+  getTxOut(txid: string, n: any, include_mempool?: boolean): Promise<any>
   getTxOutProof(txids: string | string[]): Promise<any>
   preciousBlock(blockhash: string): Promise<any>
   pruneBlockchain(height: number): Promise<any>
   verifyChain(checklevel: number, nblocks: number): Promise<any>
   verifyTxOutProof(proof: any | any[]): Promise<any>
+}
+
+export interface MempoolInfo {
+  size: number
+  bytes: number
+  usage: number
+  maxmempool: number
+  mempoolminfee: number
+}
+
+export interface BlockchainInfo {
+  chain: string
+  blocks: number
+  headers: number
+  bestblockhash: string
+  difficulty: number
+  mediantime: number
+  verificationprogress: number
+  chainwork: string
+  pruned: boolean
+  softforks: object[]
+  bip9_softforks: object
+}
+
+export interface BlockHeader {
+  hash: string
+  confirmations: number
+  height: number
+  version: number
+  versionHex: string
+  merkleroot: string
+  time: number
+  mediantime: number
+  nonce: number
+  bits: string
+  difficulty: number
+  chainwork: string
+  previousblockhash: string
+  nextblockhash: string
+}
+
+export interface ChainTip {
+  height: number
+  hash: string
+  branchlen: number
+  status: string
+}
+
+export interface TxOut {
+  bestblock: string
+  confirmations: number
+  value: number
+  scriptPubKey: {
+    asm: string
+    hex: string
+    reqSigs: number
+    type: string
+    addresses: string[]
+  }
+  version: number
+  coinbase: boolean
 }
 
 export class Blockchain implements Blockchain {
@@ -46,7 +111,10 @@ export class Blockchain implements Blockchain {
     }
   }
 
-  async getBlock(blockhash: string, verbose: boolean = true): Promise<any> {
+  async getBlock(
+    blockhash: string,
+    verbose: boolean = true
+  ): Promise<BlockDetails> {
     try {
       const response: any = await axios.get(
         `${this.restURL}blockchain/getBlock/${blockhash}?verbose=${verbose}`
@@ -58,7 +126,7 @@ export class Blockchain implements Blockchain {
     }
   }
 
-  async getBlockchainInfo(): Promise<any> {
+  async getBlockchainInfo(): Promise<BlockchainInfo> {
     try {
       const response: any = await axios.get(
         `${this.restURL}blockchain/getBlockchainInfo`
@@ -99,7 +167,7 @@ export class Blockchain implements Blockchain {
   async getBlockHeader(
     hash: string | string[],
     verbose: boolean = true
-  ): Promise<any> {
+  ): Promise<BlockHeader> {
     try {
       // Handle single hash.
       if (typeof hash === "string") {
@@ -131,7 +199,7 @@ export class Blockchain implements Blockchain {
     }
   }
 
-  async getChainTips(): Promise<any> {
+  async getChainTips(): Promise<ChainTip[]> {
     try {
       const response: any = await axios.get(
         `${this.restURL}blockchain/getChainTips`
@@ -223,7 +291,7 @@ export class Blockchain implements Blockchain {
     }
   }
 
-  async getMempoolInfo(): Promise<any> {
+  async getMempoolInfo(): Promise<MempoolInfo> {
     try {
       const response: any = await axios.get(
         `${this.restURL}blockchain/getMempoolInfo`
@@ -251,7 +319,7 @@ export class Blockchain implements Blockchain {
     txid: string,
     n: any,
     include_mempool: boolean = true
-  ): Promise<any> {
+  ): Promise<TxOut | null> {
     try {
       const response: any = await axios.get(
         `${

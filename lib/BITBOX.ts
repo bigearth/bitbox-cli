@@ -23,7 +23,30 @@ import { Socket } from "./Socket"
 import { Wallet } from "./Wallet"
 import { Schnorr } from "./Schnorr"
 
-export class BITBOX {
+export interface BITBOX {
+  Address: any
+  BitcoinCash: any
+  Block: any
+  Blockchain: any
+  Control: any
+  Crypto: any
+  ECPair: any
+  Generating: any
+  HDNode: any
+  Mining: any
+  Mnemonic: any
+  Price: any
+  RawTransactions: any
+  Script: any
+  Transaction: any
+  TransactionBuilder: any
+  Util: any
+  Socket: any
+  Wallet: any
+  Schnorr: any
+}
+
+export class BITBOX implements BITBOX {
   Address: any
   BitcoinCash: any
   Block: any

@@ -19,15 +19,42 @@ export interface BitcoinCash {
   verifyMessage(address: string, signature: string, message: string): boolean
   encodeBase58Check(hex: string): string
   decodeBase58Check(address: string): string
-  encodeBIP21(address: string, options: any, regtest: boolean): string
-  decodeBIP21(url: string): any
-  getByteCount(inputs: any, outputs: any): number
+  encodeBIP21(
+    address: string,
+    options: EncodeBIP21Options,
+    regtest?: boolean
+  ): string
+  decodeBIP21(url: string): BIP21Object
+  getByteCount(
+    inputs: ByteCountInput | object,
+    outputs: ByteCountOutput
+  ): number
   encryptBIP38(privKeyWIF: string, passphrase: string): string
   decryptBIP38(
     encryptedKey: string,
     passphrase: string,
     network: string
   ): string
+}
+
+export interface EncodeBIP21Options {
+  amount?: number
+  label?: string
+  message?: string
+}
+
+export interface BIP21Object {
+  address: string
+  options?: EncodeBIP21Options
+}
+
+export interface ByteCountInput {
+  P2PKH?: number
+}
+
+export interface ByteCountOutput {
+  P2PKH?: number
+  P2SH?: number
 }
 
 export class BitcoinCash implements BitcoinCash {
@@ -113,7 +140,11 @@ export class BitcoinCash implements BitcoinCash {
   }
 
   // encode bip21 url
-  encodeBIP21(address: string, options: any, regtest: boolean = false): string {
+  encodeBIP21(
+    address: string,
+    options: EncodeBIP21Options,
+    regtest: boolean = false
+  ): string {
     return bip21.encode(
       this._address.toCashAddress(address, true, regtest),
       options
@@ -121,11 +152,14 @@ export class BitcoinCash implements BitcoinCash {
   }
 
   // decode bip21 url
-  decodeBIP21(url: string): any {
+  decodeBIP21(url: string): BIP21Object {
     return bip21.decode(url)
   }
 
-  getByteCount(inputs: any, outputs: any): number {
+  getByteCount(
+    inputs: ByteCountInput | object,
+    outputs: ByteCountOutput
+  ): number {
     // from https://github.com/bitcoinjs/bitcoinjs-lib/issues/921#issuecomment-354394004
     let totalWeight: number = 0
     let hasWitness: boolean = false

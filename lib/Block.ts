@@ -2,8 +2,29 @@ import axios from "axios"
 
 export interface Block {
   restURL: string
-  detailsByHeight(id: number | number[]): Promise<any>
-  detailsByHash(hash: string | string[]): Promise<any>
+  detailsByHeight(id: number | number[]): Promise<BlockDetails | BlockDetails[]>
+  detailsByHash(hash: string | string[]): Promise<BlockDetails | BlockDetails[]>
+}
+
+export interface BlockDetails {
+  hash: string
+  size: number
+  height: number
+  version: number
+  merkleroot: string
+  tx: string[]
+  time: number
+  mediantime?: number
+  nonce: number
+  bits: string
+  difficulty: number
+  chainwork: string
+  confirmations: number
+  previousblockhash: string
+  nextblockhash: string
+  reward: number
+  isMainChain: boolean
+  poolInfo: object
 }
 
 export class Block implements Block {
@@ -12,7 +33,9 @@ export class Block implements Block {
     this.restURL = restURL
   }
 
-  async detailsByHeight(id: number | number[]): Promise<any> {
+  async detailsByHeight(
+    id: number | number[]
+  ): Promise<BlockDetails | BlockDetails[]> {
     try {
       // Single block
       if (typeof id === "number") {
@@ -42,7 +65,9 @@ export class Block implements Block {
     }
   }
 
-  async detailsByHash(hash: string | string[]): Promise<any> {
+  async detailsByHash(
+    hash: string | string[]
+  ): Promise<BlockDetails | BlockDetails[]> {
     try {
       // Single block
       if (typeof hash === "string") {
