@@ -5,10 +5,10 @@ const coininfo = require("coininfo")
 
 export interface Address {
   toLegacyAddress(address: string): string
-  toCashAddress(address: string, prefix: boolean, regtest: boolean): string
+  toCashAddress(address: string, prefix?: boolean, regtest?: boolean): string
   toHash160(address: string): string
-  hash160ToLegacy(hash160: any, network: any): string
-  hash160ToCash(hash160: any, network: any, regtest: boolean): string
+  hash160ToLegacy(hash160: any, network?: any): string
+  hash160ToCash(hash160: any, network?: any, regtest?: boolean): string
   isLegacyAddress(address: string): boolean
   isCashAddress(address: string): boolean
   isHash160(address: string): boolean
@@ -20,8 +20,8 @@ export interface Address {
   detectAddressFormat(address: string): string
   detectAddressNetwork(address: string): string
   detectAddressType(address: string): string
-  fromXPub(xpub: string, path: string): string
-  fromOutputScript(scriptPubKey: any, network: string): string
+  fromXPub(xpub: string, path?: string): string
+  fromOutputScript(scriptPubKey: any, network?: string): string
   details(
     address: string | string[]
   ): Promise<AddressDetailsResult | AddressDetailsResult[]>

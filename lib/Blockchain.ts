@@ -8,28 +8,32 @@ import { BlockDetails } from "./Block"
 
 export interface Blockchain {
   restURL: string
-  getBestBlockHash(): Promise<any>
-  getBlock(blockhash: string, verbose: boolean): Promise<BlockDetails>
+  getBestBlockHash(): Promise<string>
+  getBlock(blockhash: string, verbose?: boolean): Promise<BlockDetails>
   getBlockchainInfo(): Promise<BlockchainInfo>
-  getBlockCount(): Promise<any>
-  getBlockHash(height: any): Promise<any>
+  getBlockCount(): Promise<number>
+  getBlockHash(height?: number): Promise<string>
   getBlockHeader(
     hash: string | string[],
     verbose?: boolean
   ): Promise<BlockHeader>
   getChainTips(): Promise<ChainTip[]>
-  getDifficulty(): Promise<any>
-  getMempoolAncestors(txid: string, verbose: boolean): Promise<any>
-  getMempoolDescendants(txid: string, verbose: boolean): Promise<any>
+  getDifficulty(): Promise<number>
+  getMempoolAncestors(txid: string, verbose?: boolean): Promise<any>
+  getMempoolDescendants(txid: string, verbose?: boolean): Promise<any>
   getMempoolEntry(txid: string): Promise<any>
   getMempoolInfo(): Promise<MempoolInfo>
-  getRawMempool(verbose: boolean): Promise<any>
-  getTxOut(txid: string, n: any, include_mempool?: boolean): Promise<any>
-  getTxOutProof(txids: string | string[]): Promise<any>
+  getRawMempool(verbose?: boolean): Promise<any>
+  getTxOut(
+    txid: string,
+    n: any,
+    include_mempool?: boolean
+  ): Promise<TxOut | null>
+  getTxOutProof(txids: string | string[]): Promise<string>
   preciousBlock(blockhash: string): Promise<any>
-  pruneBlockchain(height: number): Promise<any>
-  verifyChain(checklevel: number, nblocks: number): Promise<any>
-  verifyTxOutProof(proof: any | any[]): Promise<any>
+  pruneBlockchain(height: number): Promise<number>
+  verifyChain(checklevel?: number, nblocks?: number): Promise<boolean>
+  verifyTxOutProof(proof: any | any[]): Promise<string[]>
 }
 
 export interface MempoolInfo {
@@ -99,7 +103,7 @@ export class Blockchain implements Blockchain {
     this.restURL = restURL
   }
 
-  async getBestBlockHash(): Promise<any> {
+  async getBestBlockHash(): Promise<string> {
     try {
       const response: any = await axios.get(
         `${this.restURL}blockchain/getBestBlockHash`
@@ -138,7 +142,7 @@ export class Blockchain implements Blockchain {
     }
   }
 
-  async getBlockCount(): Promise<any> {
+  async getBlockCount(): Promise<number> {
     try {
       const response: any = await axios.get(
         `${this.restURL}blockchain/getBlockCount`
@@ -150,7 +154,7 @@ export class Blockchain implements Blockchain {
     }
   }
 
-  async getBlockHash(height: any = 1): Promise<any> {
+  async getBlockHash(height: any = 1): Promise<string> {
     if (typeof height !== "string") height = JSON.stringify(height)
 
     try {
@@ -211,7 +215,7 @@ export class Blockchain implements Blockchain {
     }
   }
 
-  async getDifficulty(): Promise<any> {
+  async getDifficulty(): Promise<number> {
     try {
       const response: any = await axios.get(
         `${this.restURL}blockchain/getDifficulty`
@@ -333,7 +337,7 @@ export class Blockchain implements Blockchain {
     }
   }
 
-  async getTxOutProof(txids: string | string[]): Promise<any> {
+  async getTxOutProof(txids: string | string[]): Promise<string> {
     try {
       // Single txid.
       if (typeof txids === "string") {
@@ -376,7 +380,7 @@ export class Blockchain implements Blockchain {
     }
   }
 
-  async pruneBlockchain(height: number): Promise<any> {
+  async pruneBlockchain(height: number): Promise<number> {
     try {
       const response = await axios.post(
         `${this.restURL}blockchain/pruneBlockchain/${height}`
@@ -388,7 +392,10 @@ export class Blockchain implements Blockchain {
     }
   }
 
-  async verifyChain(checklevel: number = 3, nblocks: number = 6): Promise<any> {
+  async verifyChain(
+    checklevel: number = 3,
+    nblocks: number = 6
+  ): Promise<boolean> {
     try {
       const response: any = await axios.get(
         `${
@@ -402,7 +409,7 @@ export class Blockchain implements Blockchain {
     }
   }
 
-  async verifyTxOutProof(proof: any | any[]): Promise<any> {
+  async verifyTxOutProof(proof: any | any[]): Promise<string[]> {
     try {
       // Single block
       if (typeof proof === "string") {
