@@ -1,6 +1,17 @@
 import axios from "axios"
 
-export class RawTransactions {
+export interface RawTransactions {
+  restURL: string
+  decodeRawTransaction(hex: string): Promise<any>
+  decodeScript(script: string | string[]): Promise<any>
+  getRawTransaction(txid: string, verbose: boolean): Promise<any>
+  sendRawTransaction(
+    hex: string | string[],
+    allowhighfees: boolean
+  ): Promise<any>
+}
+
+export class RawTransactions implements RawTransactions {
   restURL: string
   constructor(restURL: string) {
     this.restURL = restURL

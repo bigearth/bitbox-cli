@@ -1,13 +1,18 @@
 const Bitcoin = require("bitcoincashjs-lib")
 import axios from "axios"
 
-export class Transaction {
+export interface Transaction {
+  restURL: string
+  details(txid: string): Promise<any>
+}
+
+export class Transaction implements Transaction {
   restURL: string
   constructor(restURL: string) {
     this.restURL = restURL
   }
 
-  async details(txid: string) {
+  async details(txid: string): Promise<any> {
     try {
       // Handle single address.
       if (typeof txid === "string") {

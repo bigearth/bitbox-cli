@@ -1,6 +1,11 @@
 const io = require("socket.io-client")
 
-export class Socket {
+export interface Socket {
+  socket: any
+  listen(endpoint: any, cb: any): void
+}
+
+export class Socket implements Socket {
   socket: any
   constructor(config: any = {}) {
     if (typeof config === "string") {

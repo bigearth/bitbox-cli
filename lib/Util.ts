@@ -1,6 +1,11 @@
 import axios from "axios"
 
-export class Util {
+export interface Util {
+  restURL: string
+  validateAddress(address: string): Promise<any>
+}
+
+export class Util implements Util {
   restURL: string
   constructor(restURL: string) {
     this.restURL = restURL

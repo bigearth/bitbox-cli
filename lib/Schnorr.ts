@@ -1,6 +1,44 @@
 const schnorr = require("bip-schnorr")
 
-export class Schnorr {
+export interface Schnorr {
+  sign(privateKey: any, message: any): any
+  verify(publicKey: any, message: any, signatureToVerify: any): any
+  batchVerify(publicKeys: any, messages: any, signaturesToVerify: any): any
+  nonInteractive(privateKeys: any, message: any): any
+  computeEll(publicKeys: any): any
+  publicKeyCombine(publicKeys: any, publicKeyHash: any): any
+  sessionInitialize(
+    sessionId: any,
+    privateKey: any,
+    message: any,
+    pubKeyCombined: any,
+    ell: any,
+    idx: any
+  ): any
+  sessionNonceCombine(session: any, nonces: any): any
+  partialSign(
+    session: any,
+    message: any,
+    nonceCombined: any,
+    pubKeyCombined: any
+  ): any
+  partialSignatureVerify(
+    session: any,
+    partialSignature: any,
+    nonceCombined: any,
+    idx: any,
+    pubKey: any,
+    nonce: any
+  ): any
+  partialSignaturesCombine(nonceCombined: any, partialSignatures: any): any
+  bufferToInt(buffer: any): any
+  intToBuffer(bigInteger: any): any
+  hash(buffer: any): any
+  pointToBuffer(point: any): any
+  pubKeyToPoint(publicKey: any): any
+}
+
+export class Schnorr implements Schnorr {
   sign(privateKey: any, message: any): any {
     return schnorr.sign(privateKey, message)
   }

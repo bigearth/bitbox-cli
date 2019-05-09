@@ -1,13 +1,29 @@
 const Bitcoin = require("bitcoincashjs-lib")
 const opcodes = require("bitcoincash-ops")
 
-export class Script {
+export interface Script {
   opcodes: any
   nullData: any
   multisig: any
   pubKey: any
   pubKeyHash: any
   scriptHash: any
+  classifyInput(script: any): string
+  classifyOutput(script: any): string
+  decode(scriptBuffer: any): any[]
+  encode(scriptChunks: any): any
+  toASM(buffer: any): any
+  fromASM(asm: any): any
+}
+
+export class Script implements Script {
+  opcodes: any
+  nullData: any
+  multisig: any
+  pubKey: any
+  pubKeyHash: any
+  scriptHash: any
+
   constructor() {
     this.opcodes = opcodes
     this.nullData = Bitcoin.script.nullData
