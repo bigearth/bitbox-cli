@@ -13,6 +13,7 @@ services:
   - docker
 
 before_install:
+  - npm run build
   #- ./install-mongo
   #- npm install -g mocha
 
