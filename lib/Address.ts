@@ -23,6 +23,7 @@ export interface Address {
   detectAddressNetwork(address: string): string
   detectAddressType(address: string): string
   fromXPub(xpub: string, path?: string): string
+  fromXPriv(xpriv: string, path?: string): string
   fromOutputScript(scriptPubKey: any, network?: string): string
   details(
     address: string | string[]
@@ -344,9 +345,25 @@ export class Address implements Address {
   }
 
   fromXPub(xpub: string, path: string = "0/0"): string {
+    let bitcoincash: any
+    if (xpub[0] === "x") bitcoincash = coininfo.bitcoincash.main
+    else if (xpub[0] === "t") bitcoincash = coininfo.bitcoincash.test
+
+    const bitcoincashBitcoinJSLib = bitcoincash.toBitcoinJS()
+    const HDNode: any = Bitcoin.HDNode.fromBase58(xpub, bitcoincashBitcoinJSLib)
+    const address: any = HDNode.derivePath(path)
+    return this.toCashAddress(address.getAddress())
+  }
+
+  fromXPriv(xpriv: string, path: string = "0'/0"): string {
+    let bitcoincash: any
+    if (xpriv[0] === "x") bitcoincash = coininfo.bitcoincash.main
+    else if (xpriv[0] === "t") bitcoincash = coininfo.bitcoincash.test
+
+    const bitcoincashBitcoinJSLib = bitcoincash.toBitcoinJS()
     const HDNode: any = Bitcoin.HDNode.fromBase58(
-      xpub,
-      Bitcoin.networks[this.detectAddressNetwork(xpub)]
+      xpriv,
+      bitcoincashBitcoinJSLib
     )
     const address: any = HDNode.derivePath(path)
     return this.toCashAddress(address.getAddress())

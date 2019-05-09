@@ -11,6 +11,7 @@ function flatten(arrays) {
 }
 
 const XPUBS = flatten([fixtures.mainnetXPub, fixtures.testnetXPub])
+const XPRIVS = flatten([fixtures.mainnetXPriv, fixtures.testnetXPriv])
 
 const LEGACY_ADDRESSES = flatten([
   fixtures.legacyMainnetP2PKH,
@@ -920,6 +921,16 @@ describe("#fromXPub", () => {
         xpub.xpub
       }`, () => {
         assert.equal(BITBOX.Address.fromXPub(xpub.xpub, `0/${j}`), address)
+      })
+    })
+  })
+})
+
+describe("#fromXPriv", () => {
+  XPRIVS.forEach((xpriv, i) => {
+    xpriv.addresses.forEach((address, j) => {
+      it(`generate hardened address ${j} for ${xpriv.xpriv}`, () => {
+        assert.equal(BITBOX.Address.fromXPriv(xpriv.xpriv, `0'/${j}`), address)
       })
     })
   })
