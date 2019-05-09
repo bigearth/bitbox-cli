@@ -2,8 +2,33 @@ import axios from "axios"
 
 export interface Control {
   restURL: string
-  getInfo(): Promise<any>
-  getMemoryInfo(): Promise<any>
+  getInfo(): Promise<NodeInfo>
+  getMemoryInfo(): Promise<NodeMemoryInfo>
+}
+
+export interface NodeInfo {
+  version: number
+  protocolversion: number
+  blocks: number
+  timeoffset: number
+  connections: number
+  proxy: string
+  difficulty: number
+  testnet: boolean
+  paytxfee: number
+  relayfee: number
+  errors: string
+}
+
+export interface NodeMemoryInfo {
+  locked: {
+    used: number
+    free: number
+    total: number
+    locked: number
+    chunks_used: number
+    chunks_free: number
+  }
 }
 
 export class Control implements Control {
@@ -12,7 +37,7 @@ export class Control implements Control {
     this.restURL = restURL
   }
 
-  async getInfo(): Promise<any> {
+  async getInfo(): Promise<NodeInfo> {
     try {
       const response: any = await axios.get(`${this.restURL}control/getInfo`)
       return response.data
@@ -22,7 +47,7 @@ export class Control implements Control {
     }
   }
 
-  async getMemoryInfo(): Promise<any> {
+  async getMemoryInfo(): Promise<NodeMemoryInfo> {
     try {
       const response: any = await axios.get(
         `${this.restURL}control/getMemoryInfo`

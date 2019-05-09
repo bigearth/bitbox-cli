@@ -1,17 +1,27 @@
 const Bitcoin = require("bitcoincashjs-lib")
 const coininfo = require("coininfo")
+import { Buffer } from "buffer"
+declare type ECSignature = any
 
 export interface ECPair {
   _address: any
-  setAddress(address: any): void
-  fromWIF(privateKeyWIF: string): any
-  toWIF(ecpair: any): string
-  sign(ecpair: any, buffer: any): any
-  verify(ecpair: any, buffer: any, signature: any): any
-  fromPublicKey(pubkeyBuffer: any): any
-  toPublicKey(ecpair: any): any
-  toLegacyAddress(ecpair: any): string
-  toCashAddress(ecpair: any, regtest: boolean): string
+  fromWIF(privateKeyWIF: string): ECPair
+  toWIF(ecpair?: ECPair): string
+  sign(sigHash: number): ECSignature
+  sign(ecpair: ECPair, sigHash: number): ECSignature
+  sign(buffer: Buffer): Boolean | ECSignature
+  sign(ecpair: ECPair, buffer: Buffer): Boolean | ECSignature
+  verify(buffer: Buffer, signature: ECSignature): boolean
+  verify(ecpair: ECPair, buffer: Buffer, signature: ECSignature): boolean
+  fromPublicKey(pubkeyBuffer: string): ECPair
+  toPublicKey(): Buffer
+  toPublicKey(ecpair: ECPair): Buffer
+  toLegacyAddress(): string
+  toLegacyAddress(ecpair: ECPair): string
+  toCashAddress(): string
+  toCashAddress(ecpair: ECPair, regtest?: boolean): string
+  getPublicKeyBuffer(): any
+  getAddress(): string
 }
 
 export class ECPair implements ECPair {
@@ -35,31 +45,31 @@ export class ECPair implements ECPair {
     return Bitcoin.ECPair.fromWIF(privateKeyWIF, bitcoincashBitcoinJSLib)
   }
 
-  static toWIF(ecpair: any): string {
+  static toWIF(ecpair: ECPair): string {
     return ecpair.toWIF()
   }
 
-  static sign(ecpair: any, buffer: any): any {
+  static sign(ecpair: ECPair, buffer: Buffer): ECSignature {
     return ecpair.sign(buffer)
   }
 
-  static verify(ecpair: any, buffer: any, signature: any): any {
+  static verify(ecpair: ECPair, buffer: Buffer, signature: ECSignature): any {
     return ecpair.verify(buffer, signature)
   }
 
-  static fromPublicKey(pubkeyBuffer: any): any {
+  static fromPublicKey(pubkeyBuffer: Buffer): any {
     return Bitcoin.ECPair.fromPublicKeyBuffer(pubkeyBuffer)
   }
 
-  static toPublicKey(ecpair: any): any {
+  static toPublicKey(ecpair: ECPair): Buffer {
     return ecpair.getPublicKeyBuffer()
   }
 
-  static toLegacyAddress(ecpair: any): string {
+  static toLegacyAddress(ecpair: ECPair): string {
     return ecpair.getAddress()
   }
 
-  static toCashAddress(ecpair: any, regtest: boolean = false): string {
+  static toCashAddress(ecpair: ECPair, regtest: boolean = false): string {
     return ECPair._address.toCashAddress(ecpair.getAddress(), true, regtest)
   }
 }
