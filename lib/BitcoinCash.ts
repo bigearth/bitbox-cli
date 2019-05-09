@@ -156,10 +156,7 @@ export class BitcoinCash implements BitcoinCash {
     return bip21.decode(url)
   }
 
-  getByteCount(
-    inputs: ByteCountInput | object,
-    outputs: ByteCountOutput
-  ): number {
+  getByteCount(inputs: any, outputs: any): number {
     // from https://github.com/bitcoinjs/bitcoinjs-lib/issues/921#issuecomment-354394004
     let totalWeight: number = 0
     let hasWitness: boolean = false
