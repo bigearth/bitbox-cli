@@ -13,8 +13,8 @@ export interface BitcoinCash {
   _address: any
   toSatoshi(coins: number): number
   toBitcoinCash(satoshis: number): number
-  toBits(satoshis: any): any
-  satsToBits(satoshis: any): any
+  toBits(satoshis: number): number
+  satsToBits(satoshis: number): number
   signMessageWithPrivKey(privateKeyWIF: string, message: string): string
   verifyMessage(address: string, signature: string, message: string): boolean
   encodeBase58Check(hex: string): string
@@ -74,13 +74,13 @@ export class BitcoinCash implements BitcoinCash {
   }
 
   // Translate satoshi to bits denomination
-  toBits(satoshis: any): any {
+  toBits(satoshis: number): number {
     return parseFloat(satoshis) / 100
   }
 
   // Translate satoshi to bits denomination
   // TODO remove in 2.0
-  satsToBits(satoshis: any): any {
+  satsToBits(satoshis: number): number {
     return parseFloat(satoshis) / 100
   }
 
