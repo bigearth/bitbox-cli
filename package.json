@@ -19,6 +19,7 @@
   "bin": {
     "bitbox": "./index.js"
   },
+  "main": "lib/BITBOX.js",
   "homepage": "https://developer.bitcoin.com/bitbox",
   "repository": {
     "type": "git",
