@@ -12,7 +12,7 @@ sudo: required
 services:
   - docker
 
-before_install:
+before_script:
   - npm install -g tsc
   - npm run build
   #- ./install-mongo
