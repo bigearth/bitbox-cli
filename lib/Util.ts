@@ -2,7 +2,19 @@ import axios from "axios"
 
 export interface Util {
   restURL: string
-  validateAddress(address: string): Promise<any>
+  validateAddress(address: string): Promise<AddressDetails | AddressDetails[]>
+}
+
+export interface AddressDetails {
+  isvalid: boolean
+  address: string
+  scriptPubKey: string
+  ismine: boolean
+  iswatchonly: boolean
+  isscript: boolean
+  pubkey: string
+  iscompressed: boolean
+  account: string
 }
 
 export class Util implements Util {
@@ -11,7 +23,9 @@ export class Util implements Util {
     this.restURL = restURL
   }
 
-  async validateAddress(address: string): Promise<any> {
+  async validateAddress(
+    address: string
+  ): Promise<AddressDetails | AddressDetails[]> {
     try {
       // Single block
       if (typeof address === "string") {

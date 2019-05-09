@@ -3,11 +3,18 @@ const coininfo = require("coininfo")
 const bip66 = require("bip66")
 const bip68 = require("bc-bip68")
 
+import { Buffer } from "buffer"
+
+import { Transaction } from "./Transaction"
+import { ECPair } from "./ECPair"
+
+declare type ECSignature = any
+
 export interface TransactionBuilder {
   transaction: any
   DEFAULT_SEQUENCE: any
-  hashTypes: any
-  signatureAlgorithms: any
+  hashTypes: HashTypes
+  signatureAlgorithms: SignatureAlgorithms
   bip66: any
   bip68: any
   p2shInput: any
@@ -35,11 +42,26 @@ export interface TransactionBuilder {
   build(): any
 }
 
+declare interface SignatureAlgorithms {
+  ECDSA: number
+  SCHNORR: number
+}
+
+declare interface HashTypes {
+  SIGHASH_ALL: number
+  SIGHASH_NONE: number
+  SIGHASH_SINGLE: number
+  SIGHASH_ANYONECANPAY: number
+  SIGHASH_BITCOINCASH_BIP143: number
+  ADVANCED_TRANSACTION_MARKER: number
+  ADVANCED_TRANSACTION_FLAG: number
+}
+
 export class TransactionBuilder implements TransactionBuilder {
   transaction: any
   DEFAULT_SEQUENCE: any
-  hashTypes: any
-  signatureAlgorithms: any
+  hashTypes: HashTypes
+  signatureAlgorithms: SignatureAlgorithms
   bip66: any
   bip68: any
   p2shInput: any
