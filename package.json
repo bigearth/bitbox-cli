@@ -10,7 +10,7 @@
     "test": "TEST=unit nyc --reporter=text mocha --require babel-core/register --timeout 30000 test/unit",
     "test:integration": "TEST=integration nyc --reporter=text mocha --require babel-core/register --timeout 10000 test/integration",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
-    "build": "tsc && mkdirp dist && browserify index.js --standalone slpjs > dist/slpjs.js && uglifyjs dist/slpjs.js > dist/slpjs.min.js"
+    "build": "tsc"
   },
   "license": "MIT",
   "engines": {
