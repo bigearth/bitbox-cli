@@ -9,7 +9,28 @@ const wif = require("wif")
 
 const Buffer = require("safe-buffer").Buffer
 
-export class BitcoinCash {
+export interface BitcoinCash {
+  _address: any
+  toSatoshi(coins: number): number
+  toBitcoinCash(satoshis: number): number
+  toBits(satoshis: any): any
+  satsToBits(satoshis: any): any
+  signMessageWithPrivKey(privateKeyWIF: string, message: string): string
+  verifyMessage(address: string, signature: string, message: string): boolean
+  encodeBase58Check(hex: string): string
+  decodeBase58Check(address: string): string
+  encodeBIP21(address: string, options: any, regtest: boolean): string
+  decodeBIP21(url: string): any
+  getByteCount(inputs: any, outputs: any): number
+  encryptBIP38(privKeyWIF: string, passphrase: string): string
+  decryptBIP38(
+    encryptedKey: string,
+    passphrase: string,
+    network: string
+  ): string
+}
+
+export class BitcoinCash implements BitcoinCash {
   _address: any
   constructor(address: any) {
     this._address = address

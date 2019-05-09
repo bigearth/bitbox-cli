@@ -1,6 +1,12 @@
 import axios from "axios"
 
-export class Block {
+export interface Block {
+  restURL: string
+  detailsByHeight(id: number | number[]): Promise<any>
+  detailsByHash(hash: string | string[]): Promise<any>
+}
+
+export class Block implements Block {
   restURL: string
   constructor(restURL: string) {
     this.restURL = restURL
