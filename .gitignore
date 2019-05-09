@@ -8,6 +8,7 @@ package-lock.json
 # production
 /dist
 
-*.js
+lib/**/*.js
 index.js
-*.js.map
+index.js.map
+lib/**/*.js.map

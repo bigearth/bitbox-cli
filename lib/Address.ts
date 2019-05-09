@@ -6,12 +6,14 @@ const coininfo = require("coininfo")
 export interface Address {
   toLegacyAddress(address: string): string
   toCashAddress(address: string, prefix?: boolean, regtest?: boolean): string
-  toHash160(address: string): string
+  legacyToHash160(address: string): string
+  cashToHash160(address: string): string
+  // regtestToHash160(address: string): string
+  isHash160(address: string): boolean
   hash160ToLegacy(hash160: any, network?: any): string
   hash160ToCash(hash160: any, network?: any, regtest?: boolean): string
   isLegacyAddress(address: string): boolean
   isCashAddress(address: string): boolean
-  isHash160(address: string): boolean
   isMainnetAddress(address: string): boolean
   isTestnetAddress(address: string): boolean
   isRegTestAddress(address: string): boolean
@@ -142,12 +144,25 @@ export class Address implements Address {
     return cashAddress.split(":")[1]
   }
 
-  // Converts any address format to hash160
-  toHash160(address: string): string {
+  // Converts legacy address format to hash160
+  legacyToHash160(address: string): string {
+    const bytes = Bitcoin.address.fromBase58Check(address)
+    return bytes.hash.toString("hex")
+  }
+
+  // Converts cash address format to hash160
+  cashToHash160(address: string): string {
     const legacyAddress = this.toLegacyAddress(address)
     const bytes = Bitcoin.address.fromBase58Check(legacyAddress)
     return bytes.hash.toString("hex")
   }
+
+  // Converts regtest address format to hash160
+  // regtestToHash160(address: string): string {
+  //   const legacyAddress = this.toLegacyAddress(address)
+  //   const bytes = Bitcoin.address.fromBase58Check(legacyAddress)
+  //   return bytes.hash.toString("hex")
+  // }
 
   // Converts hash160 to Legacy Address
   hash160ToLegacy(
