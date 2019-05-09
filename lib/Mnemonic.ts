@@ -1,18 +1,22 @@
 const BIP39 = require("bip39")
 const randomBytes = require("randomBytes")
 const Bitcoin = require("bitcoincashjs-lib")
-const Buffer = require("safe-buffer").Buffer
+import { Buffer } from "buffer"
 const wif = require("wif")
 
 export interface Mnemonic {
   _address: any
   generate(bits: number, wordlist: string[]): string
-  fromEntropy(bytes: number, wordlist: string[]): string
-  toEntropy(mnemonic: string, wordlist: string[]): any
+  fromEntropy(bytes: Buffer, wordlist: string[]): string
+  toEntropy(mnemonic: string, wordlist: string[]): Buffer
   validate(mnemonic: string, wordlist: string[]): string
-  toSeed(mnemonic: string, password: string): any
+  toSeed(mnemonic: string, password: string): Buffer
   wordLists(): string[]
-  toKeypairs(mnemonic: string, numberOfKeypairs: number, regtest: boolean): any
+  toKeypairs(
+    mnemonic: string,
+    numberOfKeypairs?: number,
+    regtest?: boolean
+  ): { privateKeyWIF: string; address: string }[]
   findNearestWord(word: string, wordlist: string[]): string
 }
 
@@ -26,11 +30,11 @@ export class Mnemonic implements Mnemonic {
     return BIP39.generateMnemonic(bits, randomBytes, wordlist)
   }
 
-  fromEntropy(bytes: number, wordlist: string[]): string {
+  fromEntropy(bytes: Buffer, wordlist: string[]): string {
     return BIP39.entropyToMnemonic(bytes, wordlist)
   }
 
-  toEntropy(mnemonic: string, wordlist: string[]): any {
+  toEntropy(mnemonic: string, wordlist: string[]): Buffer {
     return Buffer.from(BIP39.mnemonicToEntropy(mnemonic, wordlist), "hex")
   }
 
@@ -57,7 +61,7 @@ export class Mnemonic implements Mnemonic {
     return "Valid mnemonic"
   }
 
-  toSeed(mnemonic: string, password: string = ""): any {
+  toSeed(mnemonic: string, password: string = ""): Buffer {
     return BIP39.mnemonicToSeed(mnemonic, password)
   }
 

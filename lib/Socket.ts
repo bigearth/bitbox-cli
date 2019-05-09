@@ -23,7 +23,7 @@ export class Socket implements Socket {
     }
   }
 
-  listen(endpoint: any, cb: any): void {
+  listen(endpoint: string, cb: any): void {
     this.socket.emit(endpoint)
 
     if (endpoint === "blocks") this.socket.on("blocks", (msg: any) => cb(msg))

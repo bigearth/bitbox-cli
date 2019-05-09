@@ -3,7 +3,23 @@ import axios from "axios"
 
 export interface Transaction {
   restURL: string
-  details(txid: string): Promise<any>
+  details(txid: string): Promise<TxnDetails | TxnDetails[]>
+}
+
+export interface TxnDetails {
+  txid: string
+  version: number
+  locktime: number
+  vin: object[]
+  vout: object[]
+  blockhash: string
+  blockheight: number
+  confirmations: number
+  time: number
+  blocktime: number
+  isCoinBase: boolean
+  valueOut: number
+  size: number
 }
 
 export class Transaction implements Transaction {
@@ -12,7 +28,7 @@ export class Transaction implements Transaction {
     this.restURL = restURL
   }
 
-  async details(txid: string): Promise<any> {
+  async details(txid: string): Promise<TxnDetails | TxnDetails[]> {
     try {
       // Handle single address.
       if (typeof txid === "string") {

@@ -1,7 +1,7 @@
 import axios from "axios"
 
 export interface Price {
-  current(currency: string): Promise<any>
+  current(currency?: string): Promise<any>
 }
 
 export class Price implements Price {

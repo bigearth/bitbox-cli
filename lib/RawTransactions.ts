@@ -4,11 +4,40 @@ export interface RawTransactions {
   restURL: string
   decodeRawTransaction(hex: string): Promise<any>
   decodeScript(script: string | string[]): Promise<any>
-  getRawTransaction(txid: string, verbose: boolean): Promise<any>
+  getRawTransaction(
+    txid: string,
+    verbose?: boolean
+  ): Promise<any | VerboseRawTransaction[]>
   sendRawTransaction(
     hex: string | string[],
-    allowhighfees: boolean
+    allowhighfees?: boolean
   ): Promise<any>
+}
+
+export interface VerboseRawTransaction {
+  hex: string
+  txid: string
+  size: number
+  version: number
+  locktime: number
+  vin: [{ coinbase: string; sequence: number }]
+  vout: [
+    {
+      value: number
+      n: number
+      scriptPubKey: {
+        asm: string
+        hex: string
+        reqSigs: number
+        type: string
+        addresses: string[]
+      }
+    }
+  ]
+  blockhash: string
+  confirmations: number
+  time: number
+  blocktime: number
 }
 
 export class RawTransactions implements RawTransactions {
@@ -81,7 +110,7 @@ export class RawTransactions implements RawTransactions {
   async getRawTransaction(
     txid: string,
     verbose: boolean = false
-  ): Promise<any> {
+  ): Promise<any | VerboseRawTransaction[]> {
     try {
       if (typeof txid === "string") {
         const response: any = await axios.get(

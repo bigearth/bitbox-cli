@@ -2,7 +2,11 @@ import axios from "axios"
 
 export interface Generating {
   restURL: string
-  generateToAddress(blocks: any, address: any, maxtries: number): Promise<any>
+  generateToAddress(
+    blocks: number,
+    address: string,
+    maxtries?: number
+  ): Promise<any[]>
 }
 
 export class Generating implements Generating {
@@ -12,10 +16,10 @@ export class Generating implements Generating {
   }
 
   async generateToAddress(
-    blocks: any,
-    address: any,
+    blocks: number,
+    address: string,
     maxtries: number = 1000000
-  ): Promise<any> {
+  ): Promise<any[]> {
     try {
       const response: any = await axios.post(
         `${

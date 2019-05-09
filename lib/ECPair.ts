@@ -1,7 +1,7 @@
 const Bitcoin = require("bitcoincashjs-lib")
 const coininfo = require("coininfo")
 import { Buffer } from "buffer"
-declare type ECSignature = any
+export type ECSignature = any
 
 export interface ECPair {
   _address: any
