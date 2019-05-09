@@ -8,7 +8,7 @@ export class ECPair {
   }
 
   static fromWIF(privateKeyWIF: string): any {
-    let network: string
+    let network: string = "mainnet"
     if (privateKeyWIF[0] === "L" || privateKeyWIF[0] === "K")
       network = "mainnet"
     else if (privateKeyWIF[0] === "c") network = "testnet"

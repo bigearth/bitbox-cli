@@ -4,4 +4,10 @@ wallet-info.txt
 wallet.json
 
 package-lock.json
-lib/*
+
+# production
+/dist
+
+*.js
+index.js
+*.js.map

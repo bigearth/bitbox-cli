@@ -1,14 +1,14 @@
 {
   "compilerOptions": {
-    "outDir": "./lib/",
     "noImplicitAny": false,
-    "baseUrl": ".",
     "module": "commonjs",
+    "strict": true,
     "target": "es5",
-    "allowJs": true,
-    "lib": ["es2015", "es2015.symbol", "dom"],
-    "typeRoots": ["node_modules/@types/"]
+    "downlevelIteration": true,
+    "moduleResolution": "node",
+    "lib": ["es2017"],
+    "sourceMap": true
   },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules", "test/**/*"]
+  "include": ["./lib", "./test"],
+  "files": ["index.ts"]
 }
