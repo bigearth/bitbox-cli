@@ -155,7 +155,7 @@ export class Blockchain implements Blockchain {
   }
 
   async getBlockHash(height: number = 1): Promise<string> {
-    if (typeof height !== "string") height = JSON.stringify(height)
+    // if (typeof height !== "string") height = JSON.stringify(height)
 
     try {
       const response: any = await axios.get(

@@ -24,8 +24,8 @@ export interface TransactionBuilder {
   addInput(
     txHash: string,
     vout: number,
-    sequence: number,
-    prevOutScript: string
+    sequence?: number,
+    prevOutScript?: string
   ): void
   addInputScript(vout: number, script: any): void
   addInputScripts(scripts: any): void
@@ -33,11 +33,11 @@ export interface TransactionBuilder {
   setLockTime(locktime: number): void
   sign(
     vin: number,
-    keyPair: any,
-    redeemScript: any,
+    keyPair: ECPair,
+    redeemScript: Buffer,
     hashType: number,
     value: number,
-    signatureAlgorithm: number
+    signatureAlgorithm?: number
   ): void
   build(): any
 }
@@ -140,8 +140,8 @@ export class TransactionBuilder implements TransactionBuilder {
 
   sign(
     vin: number,
-    keyPair: any,
-    redeemScript: any,
+    keyPair: ECPair,
+    redeemScript: Buffer,
     hashType: number = this.hashTypes.SIGHASH_ALL,
     value: number,
     signatureAlgorithm: number
