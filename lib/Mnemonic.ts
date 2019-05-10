@@ -1,5 +1,5 @@
 const BIP39 = require("bip39")
-const randomBytes = require("randomBytes")
+const randomBytes = require("randombytes")
 const Bitcoin = require("bitcoincashjs-lib")
 import { Buffer } from "buffer"
 const wif = require("wif")
