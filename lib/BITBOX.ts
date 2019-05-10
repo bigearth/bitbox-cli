@@ -24,74 +24,75 @@ import { Wallet } from "./Wallet"
 import { Schnorr } from "./Schnorr"
 
 export interface BITBOX {
-  Address: any
-  BitcoinCash: any
-  Block: any
-  Blockchain: any
-  Control: any
-  Crypto: any
+  restURL: string
+  Address: Address
+  BitcoinCash: BitcoinCash
+  Block: Block
+  Blockchain: Blockchain
+  Control: Control
+  Crypto: Crypto
   ECPair: any
-  Generating: any
-  HDNode: any
-  Mining: any
-  Mnemonic: any
-  Price: any
-  RawTransactions: any
-  Script: any
-  Transaction: any
+  Generating: Generating
+  HDNode: HDNode
+  Mining: Mining
+  Mnemonic: Mnemonic
+  Price: Price
+  RawTransactions: RawTransactions
+  Script: Script
+  Transaction: Transaction
   TransactionBuilder: any
-  Util: any
+  Util: Util
   Socket: any
-  Wallet: any
-  Schnorr: any
+  Wallet: Wallet
+  Schnorr: Schnorr
 }
 
 export class BITBOX implements BITBOX {
-  Address: any
-  BitcoinCash: any
-  Block: any
-  Blockchain: any
-  Control: any
-  Crypto: any
+  restURL: string
+  Address: Address
+  BitcoinCash: BitcoinCash
+  Block: Block
+  Blockchain: Blockchain
+  Control: Control
+  Crypto: Crypto
   ECPair: any
-  Generating: any
-  HDNode: any
-  Mining: any
-  Mnemonic: any
-  Price: any
-  RawTransactions: any
-  Script: any
-  Transaction: any
+  Generating: Generating
+  HDNode: HDNode
+  Mining: Mining
+  Mnemonic: Mnemonic
+  Price: Price
+  RawTransactions: RawTransactions
+  Script: Script
+  Transaction: Transaction
   TransactionBuilder: any
-  Util: any
+  Util: Util
   Socket: any
-  Wallet: any
-  Schnorr: any
+  Wallet: Wallet
+  Schnorr: Schnorr
   constructor(config: IConfig = {}) {
-    let restURL: string
     if (config && config.restURL && config.restURL !== "")
-      restURL = config.restURL
-    else restURL = "https://rest.bitcoin.com/v2/"
+      this.restURL = config.restURL
+    else this.restURL = "https://rest.bitcoin.com/v2/"
 
-    this.Address = new Address(restURL)
+    this.Address = new Address(this.restURL)
     this.BitcoinCash = new BitcoinCash(this.Address)
-    this.Block = new Block(restURL)
-    this.Blockchain = new Blockchain(restURL)
-    this.Control = new Control(restURL)
+    this.Block = new Block(this.restURL)
+    this.Blockchain = new Blockchain(this.restURL)
+    this.Control = new Control(this.restURL)
     this.Crypto = Crypto
     this.ECPair = ECPair
     this.ECPair.setAddress(this.Address)
-    this.Generating = new Generating(restURL)
+    this.Generating = new Generating(this.restURL)
     this.HDNode = new HDNode(this.Address)
-    this.Mining = new Mining(restURL)
+    this.Mining = new Mining(this.restURL)
     this.Mnemonic = new Mnemonic(this.Address)
     this.Price = new Price()
-    this.RawTransactions = new RawTransactions(restURL)
+    this.RawTransactions = new RawTransactions(this.restURL)
     this.Script = new Script()
-    this.Transaction = new Transaction(restURL)
+    this.Transaction = new Transaction(this.restURL)
     this.TransactionBuilder = TransactionBuilder
     this.TransactionBuilder.setAddress(this.Address)
-    this.Util = new Util(restURL)
+    this.Util = new Util(this.restURL)
     this.Socket = Socket
     this.Wallet = Wallet
     this.Schnorr = new Schnorr()
