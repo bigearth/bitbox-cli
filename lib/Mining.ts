@@ -4,7 +4,7 @@ export interface Mining {
   restURL: string
   getBlockTemplate(template_request: any): Promise<any>
   getMiningInfo(): Promise<any>
-  getNetworkHashps(nblocks?: number, height?: number): Promise<any>
+  getNetworkHashps(nblocks?: number, height?: number): Promise<number>
   submitBlock(hex: string, parameters: any): Promise<any>
 }
 
@@ -41,7 +41,7 @@ export class Mining implements Mining {
   async getNetworkHashps(
     nblocks: number = 120,
     height: number = 1
-  ): Promise<any> {
+  ): Promise<number> {
     try {
       const response: any = await axios.get(
         `${
