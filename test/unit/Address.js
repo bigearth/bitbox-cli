@@ -1,6 +1,6 @@
 const fixtures = require("./fixtures/Address.json")
 const assert = require("assert")
-const BITBOXSDK = require("../../lib/BITBOX")
+const BITBOXSDK = require("../../lib/BITBOX").BITBOX
 const BITBOX = new BITBOXSDK()
 const axios = require("axios")
 const sinon = require("sinon")
@@ -11,6 +11,7 @@ function flatten(arrays) {
 }
 
 const XPUBS = flatten([fixtures.mainnetXPub, fixtures.testnetXPub])
+const XPRIVS = flatten([fixtures.mainnetXPriv, fixtures.testnetXPriv])
 
 const LEGACY_ADDRESSES = flatten([
   fixtures.legacyMainnetP2PKH,
@@ -197,39 +198,69 @@ describe("#addressConversion", () => {
       })
     })
   })
-  describe("#toHash160", () => {
+  describe("#legacyToHash160", () => {
     it("should convert legacy base58check address to hash160", () => {
       assert.deepEqual(
-        LEGACY_ADDRESSES.map(address => BITBOX.Address.toHash160(address)),
+        LEGACY_ADDRESSES.map(address =>
+          BITBOX.Address.legacyToHash160(address)
+        ),
         HASH160_HASHES
-      )
-    })
-
-    it("should convert cashaddr address to hash160", () => {
-      assert.deepEqual(
-        CASHADDR_ADDRESSES.map(address => BITBOX.Address.toHash160(address)),
-        HASH160_HASHES
-      )
-    })
-
-    it("should convert　regtest cashaddr address to hash160", () => {
-      assert.deepEqual(
-        REGTEST_ADDRESSES.map(address => BITBOX.Address.toHash160(address)),
-        fixtures.hash160TestnetP2PKH
       )
     })
 
     describe("errors", () => {
       it("should fail when called with an invalid address", () => {
         assert.throws(() => {
-          BITBOX.Address.toHash160()
+          BITBOX.Address.legacyToHash160()
         }, BITBOX.BitcoinCash.InvalidAddressError)
         assert.throws(() => {
-          BITBOX.Address.toHash160("some invalid address")
+          BITBOX.Address.legacyToHash160("some invalid address")
         }, BITBOX.BitcoinCash.InvalidAddressError)
       })
     })
   })
+  describe("#cashToHash160", () => {
+    it("should convert cashaddr address to hash160", () => {
+      assert.deepEqual(
+        CASHADDR_ADDRESSES.map(address =>
+          BITBOX.Address.cashToHash160(address)
+        ),
+        HASH160_HASHES
+      )
+    })
+
+    describe("errors", () => {
+      it("should fail when called with an invalid address", () => {
+        assert.throws(() => {
+          BITBOX.Address.cashToHash160()
+        }, BITBOX.BitcoinCash.InvalidAddressError)
+        assert.throws(() => {
+          BITBOX.Address.cashToHash160("some invalid address")
+        }, BITBOX.BitcoinCash.InvalidAddressError)
+      })
+    })
+  })
+  // describe("#regtestToHash160", () => {
+  //   it("should convert regtest address to hash160", () => {
+  //     assert.deepEqual(
+  //       REGTEST_ADDRESSES.map(address =>
+  //         BITBOX.Address.regtestToHash160(address)
+  //       ),
+  //       fixtures.hash160TestnetP2PKH
+  //     )
+  //   })
+  //
+  //   describe("errors", () => {
+  //     it("should fail when called with an invalid address", () => {
+  //       assert.throws(() => {
+  //         BITBOX.Address.regtestToHash160()
+  //       }, BITBOX.BitcoinCash.InvalidAddressError)
+  //       assert.throws(() => {
+  //         BITBOX.Address.regtestToHash160("some invalid address")
+  //       }, BITBOX.BitcoinCash.InvalidAddressError)
+  //     })
+  //   })
+  // })
   describe("#fromHash160", () => {
     it("should convert hash160 to mainnet P2PKH legacy base58check address", () => {
       assert.deepEqual(
@@ -890,6 +921,16 @@ describe("#fromXPub", () => {
         xpub.xpub
       }`, () => {
         assert.equal(BITBOX.Address.fromXPub(xpub.xpub, `0/${j}`), address)
+      })
+    })
+  })
+})
+
+describe("#fromXPriv", () => {
+  XPRIVS.forEach((xpriv, i) => {
+    xpriv.addresses.forEach((address, j) => {
+      it(`generate hardened address ${j} for ${xpriv.xpriv}`, () => {
+        assert.equal(BITBOX.Address.fromXPriv(xpriv.xpriv, `0'/${j}`), address)
       })
     })
   })

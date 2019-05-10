@@ -1,6 +1,6 @@
 const fixtures = require("./fixtures/Mnemonic.json")
 const assert = require("assert")
-const BITBOXSDK = require("../../lib/BITBOX")
+const BITBOXSDK = require("../../lib/BITBOX").BITBOX
 const BITBOX = new BITBOXSDK()
 
 describe("#Mnemonic", () => {

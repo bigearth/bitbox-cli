@@ -1,19 +1,16 @@
 {
   "name": "bitbox-sdk",
-  "version": "6.1.1",
+  "version": "7.0.0",
   "description": "BITBOX SDK for Bitcoin Cash",
   "author": "Gabriel Cardona <gabriel@bitcoin.com>",
   "contributors": [
     "Chris Troutner <chris.troutner@gmail.com>"
   ],
-  "main": "lib/BITBOX",
-  "types": "./typings/BITBOX.d.ts",
   "scripts": {
-    "test": "mocha --timeout 30000 --require babel-core/register test/unit",
-    "test:integration": "mocha --timeout 30000 --require babel-core/register test/integration",
+    "test": "TEST=unit nyc --reporter=text mocha --require babel-core/register --timeout 30000 test/unit",
+    "test:integration": "TEST=integration nyc --reporter=text mocha --require babel-core/register --timeout 10000 test/integration",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
-    "build": "babel src/ -d lib/",
-    "postbuild": "cp -R typings/* lib"
+    "build": "tsc"
   },
   "license": "MIT",
   "engines": {
@@ -22,12 +19,19 @@
   "bin": {
     "bitbox": "./index.js"
   },
+  "main": "lib/BITBOX.js",
+  "files": [
+    "index.ts",
+    "lib/",
+    "dist/"
+  ],
   "homepage": "https://developer.bitcoin.com/bitbox",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Bitcoin-com/bitbox-javascript-sdk.git"
   },
   "dependencies": {
+    "@types/node": "^10.11.7",
     "assert": "^1.4.1",
     "axios": "^0.17.1",
     "babel-cli": "^6.26.0",
@@ -46,6 +50,7 @@
     "bitcoincash-ops": "Bitcoin-com/bitcoincash-ops#2.0.0",
     "bitcoincashjs-lib": "Bitcoin-com/bitcoincashjs-lib#v4.0.0",
     "bitcoinjs-message": "^2.0.0",
+    "browserify": "^16.2.2",
     "bs58": "^4.0.1",
     "buffer": "^5.1.0",
     "cashaddrjs": "^0.2.9",
@@ -84,6 +89,7 @@
     "nyc": "^13.3.0",
     "prettier": "^1.14.2",
     "semantic-release": "^15.13.3",
-    "sinon": "^4.5.0"
+    "sinon": "^4.5.0",
+    "typescript": "^3.4.5"
   }
 }

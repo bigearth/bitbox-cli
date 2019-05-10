@@ -1,6 +1,6 @@
 const fixtures = require("./fixtures/Crypto.json")
 const assert = require("assert")
-const BITBOXSDK = require("../../lib/BITBOX")
+const BITBOXSDK = require("../../lib/BITBOX").BITBOX
 const BITBOX = new BITBOXSDK()
 const Buffer = require("safe-buffer").Buffer
 

@@ -1,6 +1,6 @@
 const fixtures = require("./fixtures/BitcoinCash.json")
 const assert = require("assert")
-const BITBOXSDK = require("../../lib/BITBOX")
+const BITBOXSDK = require("../../lib/BITBOX").BITBOX
 const BITBOX = new BITBOXSDK()
 
 // TODO
@@ -82,42 +82,6 @@ describe("#BitcoinCash", () => {
         })
       })
     })
-
-    describe("#satsToBits", () => {
-      fixtures.conversion.satsToBits.bch.forEach(bch => {
-        it(`should convert ${bch[0]} BCH to ${bch[1]} bits`, () => {
-          assert.equal(
-            BITBOX.BitcoinCash.satsToBits(BITBOX.BitcoinCash.toSatoshi(bch[0])),
-            bch[1]
-          )
-        })
-      })
-
-      fixtures.conversion.satsToBits.strings.forEach(bch => {
-        it(`should convert "${bch[0]}" BCH as a string to ${
-          bch[1]
-        } bits`, () => {
-          assert.equal(
-            BITBOX.BitcoinCash.satsToBits(BITBOX.BitcoinCash.toSatoshi(bch[0])),
-            bch[1]
-          )
-        })
-      })
-    })
-    //
-    // describe('#satsFromBits', () => {
-    //   fixtures.conversion.satsFromBits.bch.forEach((bch) => {
-    //     it(`should convert ${bch[1]} bits to ${bch[0]} satoshis`, () => {
-    //       assert.equal(BITBOX.BitcoinCash.satsFromBits(bch[1]), bch[0]);
-    //     });
-    //   });
-    //
-    //   fixtures.conversion.satsFromBits.strings.forEach((bch) => {
-    //     it(`should convert "${bch[1]}" bits as a string to ${bch[0]} satoshis`, () => {
-    //       assert.equal(BITBOX.BitcoinCash.satsFromBits(bch[1]), bch[0]);
-    //     });
-    //   });
-    // });
   })
 
   describe("sign and verify messages", () => {

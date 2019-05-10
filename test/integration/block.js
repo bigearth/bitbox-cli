@@ -5,7 +5,7 @@
 
 const chai = require("chai")
 const assert = chai.assert
-const BITBOXSDK = require("../../src/BITBOX")
+const BITBOXSDK = require("../../lib/BITBOX").BITBOX
 const BITBOX = new BITBOXSDK()
 
 // Inspect utility used for debugging.
