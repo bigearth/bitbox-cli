@@ -13,7 +13,7 @@ const repl = require("repl")
 const BITBOXSDK = require("./lib/BITBOX")
 const clone = require("git-clone")
 
-program.version("7.0.7 ", "-v, --version")
+program.version("7.0.8 ", "-v, --version")
 
 program
   .command("new <name>")
