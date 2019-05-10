@@ -21,7 +21,6 @@
   },
   "main": "lib/BITBOX.js",
   "files": [
-    "index.ts",
     "lib/",
     "dist/"
   ],
