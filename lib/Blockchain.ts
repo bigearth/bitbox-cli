@@ -21,7 +21,7 @@ export interface Blockchain {
   getDifficulty(): Promise<number>
   getMempoolAncestors(txid: string, verbose?: boolean): Promise<any>
   getMempoolDescendants(txid: string, verbose?: boolean): Promise<any>
-  getMempoolEntry(txid: string): Promise<any>
+  getMempoolEntry(txid: string | string[]): Promise<any>
   getMempoolInfo(): Promise<MempoolInfo>
   getRawMempool(verbose?: boolean): Promise<any>
   getTxOut(
@@ -29,7 +29,7 @@ export interface Blockchain {
     n: any,
     include_mempool?: boolean
   ): Promise<TxOut | null>
-  getTxOutProof(txids: string | string[]): Promise<string>
+  getTxOutProof(txids: string | string[]): Promise<string | string[]>
   preciousBlock(blockhash: string): Promise<any>
   pruneBlockchain(height: number): Promise<number>
   verifyChain(checklevel?: number, nblocks?: number): Promise<boolean>
@@ -154,7 +154,7 @@ export class Blockchain implements Blockchain {
     }
   }
 
-  async getBlockHash(height: any = 1): Promise<string> {
+  async getBlockHash(height: number = 1): Promise<string> {
     if (typeof height !== "string") height = JSON.stringify(height)
 
     try {
@@ -227,6 +227,7 @@ export class Blockchain implements Blockchain {
     }
   }
 
+  // TODO: add back to REST
   async getMempoolAncestors(
     txid: string,
     verbose: boolean = false
@@ -246,6 +247,7 @@ export class Blockchain implements Blockchain {
     }
   }
 
+  // TODO: add back to REST
   async getMempoolDescendants(
     txid: string,
     verbose: boolean = false
@@ -265,7 +267,7 @@ export class Blockchain implements Blockchain {
     }
   }
 
-  async getMempoolEntry(txid: string): Promise<any> {
+  async getMempoolEntry(txid: string | string[]): Promise<any> {
     //if (typeof txid !== "string") txid = JSON.stringify(txid)
 
     try {
@@ -308,6 +310,7 @@ export class Blockchain implements Blockchain {
   }
 
   async getRawMempool(verbose: boolean = false): Promise<any> {
+    // TODO fix verbose
     try {
       const response: any = await axios.get(
         `${this.restURL}blockchain/getRawMempool?vebose=${verbose}`
@@ -324,6 +327,7 @@ export class Blockchain implements Blockchain {
     n: any,
     include_mempool: boolean = true
   ): Promise<TxOut | null> {
+    // TODO confirm this works
     try {
       const response: any = await axios.get(
         `${
@@ -337,7 +341,7 @@ export class Blockchain implements Blockchain {
     }
   }
 
-  async getTxOutProof(txids: string | string[]): Promise<string> {
+  async getTxOutProof(txids: string | string[]): Promise<string | string[]> {
     try {
       // Single txid.
       if (typeof txids === "string") {
@@ -369,6 +373,7 @@ export class Blockchain implements Blockchain {
   }
 
   async preciousBlock(blockhash: string): Promise<any> {
+    // TODO bring this back to REST
     try {
       const response: any = await axios.get(
         `${this.restURL}blockchain/preciousBlock/${blockhash}`
@@ -381,6 +386,7 @@ export class Blockchain implements Blockchain {
   }
 
   async pruneBlockchain(height: number): Promise<number> {
+    // TODO bring this back to REST
     try {
       const response = await axios.post(
         `${this.restURL}blockchain/pruneBlockchain/${height}`
