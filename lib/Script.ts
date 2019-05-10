@@ -104,9 +104,10 @@ export interface opcodes {
   OP_TUCK: 125
 
   OP_CAT: 126
-  //"OP_SUBSTR": 127, -- replaced w/ OP_SPLIT see below
-  //"OP_LEFT": 128, -- replaced w/ OP_SPLIT see below
-  //"OP_RIGHT": 129, -- replaced w/ OP_SPLIT see below
+
+  OP_SPLIT: 127
+  OP_NUM2BIN: 128
+  OP_BIN2NUM: 129
   OP_SIZE: 130
 
   OP_INVERT: 131
@@ -174,18 +175,12 @@ export interface opcodes {
   OP_NOP8: 183
   OP_NOP9: 184
   OP_NOP10: 185
+  OP_CHECKDATASIG: 186
+  OP_CHECKDATASIGVERIFY: 187
 
   OP_PUBKEYHASH: 253
   OP_PUBKEY: 254
   OP_INVALIDOPCODE: 255
-
-  // May 2018 added opcodes
-  OP_SPLIT: 127
-  OP_NUM2BIN: 128
-  OP_BIN2NUM: 129
-
-  // Nov 2018 enabled opcodes
-  // TBD
 }
 
 export class Script implements Script {

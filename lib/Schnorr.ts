@@ -1,36 +1,44 @@
 const schnorr = require("bip-schnorr")
+import { Buffer } from "buffer"
 
 export interface Schnorr {
-  sign(privateKey: any, message: any): any
-  verify(publicKey: any, message: any, signatureToVerify: any): any
-  batchVerify(publicKeys: any, messages: any, signaturesToVerify: any): any
-  nonInteractive(privateKeys: any, message: any): any
-  computeEll(publicKeys: any): any
-  publicKeyCombine(publicKeys: any, publicKeyHash: any): any
+  sign(privateKey: any, message: Buffer): Buffer
+  verify(publicKey: Buffer, message: Buffer, signatureToVerify: Buffer): void
+  batchVerify(
+    publicKeys: Buffer[],
+    messages: Buffer[],
+    signaturesToVerify: Buffer[]
+  ): void
+  nonInteractive(privateKeys: any, message: Buffer): Buffer
+  computeEll(publicKeys: any): Buffer
+  publicKeyCombine(publicKeys: Buffer[], publicKeyHash: Buffer): Buffer
   sessionInitialize(
-    sessionId: any,
+    sessionId: Buffer,
     privateKey: any,
-    message: any,
-    pubKeyCombined: any,
-    ell: any,
-    idx: any
+    message: Buffer,
+    pubKeyCombined: Buffer,
+    ell: Buffer,
+    idx: number
   ): any
-  sessionNonceCombine(session: any, nonces: any): any
+  sessionNonceCombine(session: any, nonces: Buffer[]): Buffer
   partialSign(
     session: any,
-    message: any,
-    nonceCombined: any,
-    pubKeyCombined: any
-  ): any
+    message: Buffer,
+    nonceCombined: Buffer,
+    pubKeyCombined: Buffer
+  ): void
   partialSignatureVerify(
     session: any,
     partialSignature: any,
-    nonceCombined: any,
+    nonceCombined: Buffer,
     idx: any,
-    pubKey: any,
-    nonce: any
-  ): any
-  partialSignaturesCombine(nonceCombined: any, partialSignatures: any): any
+    pubKey: Buffer,
+    nonce: Buffer
+  ): void
+  partialSignaturesCombine(
+    nonceCombined: Buffer,
+    partialSignatures: any
+  ): Buffer
   bufferToInt(buffer: any): any
   intToBuffer(bigInteger: any): any
   hash(buffer: any): any
@@ -39,37 +47,41 @@ export interface Schnorr {
 }
 
 export class Schnorr implements Schnorr {
-  sign(privateKey: any, message: any): any {
+  sign(privateKey: any, message: Buffer): Buffer {
     return schnorr.sign(privateKey, message)
   }
 
-  verify(publicKey: any, message: any, signatureToVerify: any): any {
+  verify(publicKey: Buffer, message: Buffer, signatureToVerify: Buffer): void {
     return schnorr.verify(publicKey, message, signatureToVerify)
   }
 
-  batchVerify(publicKeys: any, messages: any, signaturesToVerify: any): any {
+  batchVerify(
+    publicKeys: Buffer[],
+    messages: Buffer[],
+    signaturesToVerify: Buffer[]
+  ): void {
     return schnorr.batchVerify(publicKeys, messages, signaturesToVerify)
   }
 
-  nonInteractive(privateKeys: any, message: any): any {
+  nonInteractive(privateKeys: any, message: Buffer): Buffer {
     return schnorr.muSig.nonInteractive(privateKeys, message)
   }
 
-  computeEll(publicKeys: any): any {
+  computeEll(publicKeys: any): Buffer {
     return schnorr.muSig.computeEll(publicKeys)
   }
 
-  publicKeyCombine(publicKeys: any, publicKeyHash: any): any {
+  publicKeyCombine(publicKeys: Buffer[], publicKeyHash: Buffer): Buffer {
     return schnorr.muSig.pubKeyCombine(publicKeys, publicKeyHash)
   }
 
   sessionInitialize(
-    sessionId: any,
+    sessionId: Buffer,
     privateKey: any,
-    message: any,
-    pubKeyCombined: any,
-    ell: any,
-    idx: any
+    message: Buffer,
+    pubKeyCombined: Buffer,
+    ell: Buffer,
+    idx: number
   ): any {
     return schnorr.muSig.sessionInitialize(
       sessionId,
@@ -81,16 +93,16 @@ export class Schnorr implements Schnorr {
     )
   }
 
-  sessionNonceCombine(session: any, nonces: any): any {
+  sessionNonceCombine(session: any, nonces: Buffer[]): Buffer {
     return schnorr.muSig.sessionNonceCombine(session, nonces)
   }
 
   partialSign(
     session: any,
-    message: any,
-    nonceCombined: any,
-    pubKeyCombined: any
-  ): any {
+    message: Buffer,
+    nonceCombined: Buffer,
+    pubKeyCombined: Buffer
+  ): void {
     return schnorr.muSig.partialSign(
       session,
       message,
@@ -102,11 +114,11 @@ export class Schnorr implements Schnorr {
   partialSignatureVerify(
     session: any,
     partialSignature: any,
-    nonceCombined: any,
-    idx: any,
-    pubKey: any,
-    nonce: any
-  ): any {
+    nonceCombined: Buffer,
+    idx: number,
+    pubKey: Buffer,
+    nonce: Buffer
+  ): void {
     return schnorr.muSig.partialSigVerify(
       session,
       partialSignature,
@@ -117,7 +129,10 @@ export class Schnorr implements Schnorr {
     )
   }
 
-  partialSignaturesCombine(nonceCombined: any, partialSignatures: any): any {
+  partialSignaturesCombine(
+    nonceCombined: Buffer,
+    partialSignatures: any
+  ): Buffer {
     return schnorr.muSig.partialSigCombine(nonceCombined, partialSignatures)
   }
 
