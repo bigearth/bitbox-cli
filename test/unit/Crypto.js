@@ -15,10 +15,10 @@ describe("#Crypto", () => {
         assert.equal(sha1Hash, fixture.hash)
       })
 
-      it(`should create 64 character SHA256Hash hex encoded`, () => {
+      it(`should create 40 character SHA1 Hash hex encoded`, () => {
         const data = Buffer.from(fixture.hex, "hex")
-        const sha256Hash = bitbox.Crypto.sha256(data).toString("hex")
-        assert.equal(sha256Hash.length, 64)
+        const sha1Hash = bitbox.Crypto.sha1(data).toString("hex")
+        assert.equal(sha1Hash.length, 40)
       })
     })
   })
