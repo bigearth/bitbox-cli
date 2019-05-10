@@ -2,16 +2,16 @@ import axios from "axios"
 
 export interface RawTransactions {
   restURL: string
-  decodeRawTransaction(hex: string): Promise<any>
-  decodeScript(script: string | string[]): Promise<any>
+  decodeRawTransaction(hex: string | string[]): Promise<any | any[]>
+  decodeScript(script: string | string[]): Promise<any | any[]>
   getRawTransaction(
-    txid: string,
+    txid: string | string,
     verbose?: boolean
-  ): Promise<any | VerboseRawTransaction[]>
+  ): Promise<any | VerboseRawTransaction | VerboseRawTransaction[]>
   sendRawTransaction(
     hex: string | string[],
     allowhighfees?: boolean
-  ): Promise<any>
+  ): Promise<any | any[]>
 }
 
 export interface VerboseRawTransaction {
@@ -46,7 +46,7 @@ export class RawTransactions implements RawTransactions {
     this.restURL = restURL
   }
 
-  async decodeRawTransaction(hex: string): Promise<any> {
+  async decodeRawTransaction(hex: string | string[]): Promise<any | any[]> {
     try {
       // Single hex
       if (typeof hex === "string") {
@@ -77,7 +77,7 @@ export class RawTransactions implements RawTransactions {
     }
   }
 
-  async decodeScript(script: string | string[]): Promise<any> {
+  async decodeScript(script: string | string[]): Promise<any | any[]> {
     //if (typeof script !== "string") script = JSON.stringify(script)
 
     try {
@@ -108,9 +108,9 @@ export class RawTransactions implements RawTransactions {
   }
 
   async getRawTransaction(
-    txid: string,
+    txid: string | string[],
     verbose: boolean = false
-  ): Promise<any | VerboseRawTransaction[]> {
+  ): Promise<any | VerboseRawTransaction | VerboseRawTransaction[]> {
     try {
       if (typeof txid === "string") {
         const response: any = await axios.get(
@@ -144,7 +144,7 @@ export class RawTransactions implements RawTransactions {
   async sendRawTransaction(
     hex: string | string[],
     allowhighfees: boolean = false
-  ): Promise<any> {
+  ): Promise<any | any[]> {
     try {
       // Single tx hex.
       if (typeof hex === "string") {

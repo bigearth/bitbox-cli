@@ -6,12 +6,12 @@ const wif = require("wif")
 
 export interface Mnemonic {
   _address: any
-  generate(bits: number, wordlist: string[]): string
+  generate(bits?: number, wordlist?: string[]): string
   fromEntropy(bytes: Buffer, wordlist: string[]): string
   toEntropy(mnemonic: string, wordlist: string[]): Buffer
   validate(mnemonic: string, wordlist: string[]): string
   toSeed(mnemonic: string, password: string): Buffer
-  wordLists(): string[]
+  wordLists(): any
   toKeypairs(
     mnemonic: string,
     numberOfKeypairs?: number,
@@ -65,7 +65,7 @@ export class Mnemonic implements Mnemonic {
     return BIP39.mnemonicToSeed(mnemonic, password)
   }
 
-  wordLists(): string[] {
+  wordLists(): any {
     return BIP39.wordlists
   }
 
