@@ -1,6 +1,6 @@
 {
   "name": "bitbox-sdk",
-  "version": "7.0.12",
+  "version": "7.0.13",
   "description": "BITBOX SDK for Bitcoin Cash",
   "author": "Gabriel Cardona <gabriel@bitcoin.com>",
   "contributors": [
