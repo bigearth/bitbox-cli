@@ -3,6 +3,7 @@ const Bitcoin = require("bitcoincashjs-lib")
 import { Buffer } from "buffer"
 
 export interface Crypto {
+  sha1(buffer: Buffer): Buffer
   sha256(buffer: Buffer): Buffer
   ripemd160(buffer: Buffer): Buffer
   hash256(buffer: Buffer): Buffer
@@ -11,6 +12,10 @@ export interface Crypto {
 }
 
 export class Crypto implements Crypto {
+  static sha1(buffer: Buffer): Buffer {
+    return Bitcoin.crypto.sha1(buffer)
+  }
+
   static sha256(buffer: Buffer): Buffer {
     return Bitcoin.crypto.sha256(buffer)
   }

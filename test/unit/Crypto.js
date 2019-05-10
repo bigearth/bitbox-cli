@@ -5,9 +5,27 @@ const bitbox = new BITBOX()
 const Buffer = require("safe-buffer").Buffer
 
 describe("#Crypto", () => {
+  describe("#sha1", () => {
+    fixtures.sha1.forEach(fixture => {
+      it(`should create SHA1 Hash hex encoded ${fixture.hash} from ${
+        fixture.hex
+      }`, () => {
+        const data = Buffer.from(fixture.hex, "hex")
+        const sha1Hash = bitbox.Crypto.sha1(data).toString("hex")
+        assert.equal(sha1Hash, fixture.hash)
+      })
+
+      it(`should create 64 character SHA256Hash hex encoded`, () => {
+        const data = Buffer.from(fixture.hex, "hex")
+        const sha256Hash = bitbox.Crypto.sha256(data).toString("hex")
+        assert.equal(sha256Hash.length, 64)
+      })
+    })
+  })
+
   describe("#sha256", () => {
     fixtures.sha256.forEach(fixture => {
-      it(`should create SHA256Hash hex encoded ${fixture.hash} from ${
+      it(`should create SHA256 Hash hex encoded ${fixture.hash} from ${
         fixture.hex
       }`, () => {
         const data = Buffer.from(fixture.hex, "hex")
@@ -25,7 +43,7 @@ describe("#Crypto", () => {
 
   describe("#ripemd160", () => {
     fixtures.ripemd160.forEach(fixture => {
-      it(`should create RIPEMD160Hash hex encoded ${fixture.hash} from ${
+      it(`should create RIPEMD160 Hash hex encoded ${fixture.hash} from ${
         fixture.hex
       }`, () => {
         const data = Buffer.from(fixture.hex, "hex")

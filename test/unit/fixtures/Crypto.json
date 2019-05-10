@@ -1,4 +1,26 @@
 {
+  "sha1": [
+    {
+      "hash": "c0357a32ed1f6a03be92dd094476f7f1a2e214ec",
+      "hex": "0101010101010101"
+    },
+    {
+      "hash": "98eeed798ee958d1653edf2d857d4aeaba971932",
+      "hex": "031ad329b3117e1d1e2974406868e575d48cff88e8128ba0eedb10da053785033b"
+    },
+    {
+      "hash": "26b0780a683a1e098e9cb8cfa1b0924228250097",
+      "hex": "03123464075c7a5fa6b8680afa2c962a02e7bf071c6b2395b0ac711d462cac9354"
+    },
+    {
+      "hash": "a7f2850b1724e2c17d005d8fa54c9b35780fa579",
+      "hex": "03ea9277ebf3d6edd26847fb109494def7d458f05e6e4fba381c094ce703c62248"
+    },
+    {
+      "hash": "c8678dc140c8d611cf96f0d500b05d8254544a33",
+      "hex": "020379254cc10ef94976192ab42cab25f65ba4438e4b2b4610debd145d2bdb8d53"
+    }
+  ],
   "sha256": [
     {
       "hash": "04abc8821a06e5a30937967d11ad10221cb5ac3b5273e434f1284ee87129a061",
