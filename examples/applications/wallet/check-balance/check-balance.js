@@ -6,7 +6,7 @@
 // Set NETWORK to either testnet or mainnet
 const NETWORK = `testnet`
 
-// Instantiate BITBOX.
+// Instantiate bitbox.
 const bitboxLib = "../../../../lib/BITBOX"
 const BITBOXSDK = require(bitboxLib)
 
@@ -30,7 +30,7 @@ try {
 async function getBalance() {
   try {
     // first get BCH balance
-    const balance = await BITBOX.Address.details(walletInfo.cashAddress)
+    const balance = await bitbox.Address.details(walletInfo.cashAddress)
 
     console.log(`BCH Balance information:`)
     console.log(balance)

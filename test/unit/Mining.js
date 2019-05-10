@@ -1,7 +1,7 @@
 const assert = require("assert")
 const axios = require("axios")
-const bitbox = require("../../lib/BITBOX").BITBOX
-const BITBOX = new bitbox()
+const BITBOX = require("../../lib/BITBOX").BITBOX
+const bitbox = new BITBOX()
 const sinon = require("sinon")
 
 describe("#Mining", () => {
@@ -26,7 +26,7 @@ describe("#Mining", () => {
       const resolved = new Promise(r => r({ data: data }))
       sandbox.stub(axios, "get").returns(resolved)
 
-      BITBOX.Mining.getBlockTemplate("")
+      bitbox.Mining.getBlockTemplate("")
         .then(result => {
           assert.deepEqual(data, result)
         })
@@ -55,7 +55,7 @@ describe("#Mining", () => {
       const resolved = new Promise(r => r({ data: data }))
       sandbox.stub(axios, "get").returns(resolved)
 
-      BITBOX.Mining.getMiningInfo()
+      bitbox.Mining.getMiningInfo()
         .then(result => {
           assert.deepEqual(data, result)
         })
@@ -74,7 +74,7 @@ describe("#Mining", () => {
       const resolved = new Promise(r => r({ data: data }))
       sandbox.stub(axios, "get").returns(resolved)
 
-      BITBOX.Mining.getNetworkHashps()
+      bitbox.Mining.getNetworkHashps()
         .then(result => {
           assert.equal(data, result)
         })
@@ -94,7 +94,7 @@ describe("#Mining", () => {
       const resolved = new Promise(r => r({ data: data }))
       sandbox.stub(axios, "post").returns(resolved)
 
-      BITBOX.Mining.submitBlock()
+      bitbox.Mining.submitBlock()
         .then(result => {
           assert.deepEqual(data, result)
         })

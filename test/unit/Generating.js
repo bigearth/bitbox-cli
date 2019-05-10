@@ -1,7 +1,7 @@
 const assert = require("assert")
 const axios = require("axios")
-const bitbox = require("../../lib/BITBOX").BITBOX
-const BITBOX = new bitbox()
+const BITBOX = require("../../lib/BITBOX").BITBOX
+const bitbox = new BITBOX()
 const sinon = require("sinon")
 
 describe("#Generating", () => {
@@ -15,7 +15,7 @@ describe("#Generating", () => {
       const resolved = new Promise(r => r({ data: data }))
       sandbox.stub(axios, "post").returns(resolved)
 
-      BITBOX.Generating.generateToAddress(
+      bitbox.Generating.generateToAddress(
         1,
         "bitcoincash:qrdka2205f4hyukutc2g0s6lykperc8nsu5u2ddpqf"
       )

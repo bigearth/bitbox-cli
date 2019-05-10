@@ -1,7 +1,7 @@
 const assert = require("assert")
 const axios = require("axios")
-const bitbox = require("../../lib/BITBOX").BITBOX
-const BITBOX = new bitbox()
+const BITBOX = require("../../lib/BITBOX").BITBOX
+const bitbox = new BITBOX()
 const sinon = require("sinon")
 
 describe("#Control", () => {
@@ -27,7 +27,7 @@ describe("#Control", () => {
       const resolved = new Promise(r => r({ data: data }))
       sandbox.stub(axios, "get").returns(resolved)
 
-      BITBOX.Control.getInfo()
+      bitbox.Control.getInfo()
         .then(result => {
           assert.deepEqual(data, result)
         })
@@ -54,7 +54,7 @@ describe("#Control", () => {
       const resolved = new Promise(r => r({ data: data }))
       sandbox.stub(axios, "get").returns(resolved)
 
-      BITBOX.Control.getMemoryInfo()
+      bitbox.Control.getMemoryInfo()
         .then(result => {
           assert.deepEqual(data, result)
         })

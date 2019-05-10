@@ -2,7 +2,7 @@ This directory contains a series of small example apps that illustrate how to
 code up common use cases for a Bitcoin Cash application.
 
 The `low-level` directory
-contains low-level applications exercising a single feature of BITBOX. Think of
+contains low-level applications exercising a single feature of bitbox. Think of
 these examples like lego blocks that can be used to build a bigger app.
 
 The `applications` directory contains example applications like wallets, voting,

@@ -10,10 +10,10 @@ const fs = require("fs")
 const touch = require("touch")
 const emoji = require("node-emoji")
 const repl = require("repl")
-const bitbox = require("./lib/BITBOX").BITBOX
+const BITBOX = require("./lib/BITBOX").BITBOX
 const clone = require("git-clone")
 
-program.version("7.0.14 ", "-v, --version")
+program.version("7.0.15 ", "-v, --version")
 
 program
   .command("new <name>")
@@ -154,7 +154,7 @@ program
 
     const environment = fetchOption("environment=development", config, options)
 
-    replServer.context.BITBOX = new bitbox(config.environments[environment])
+    replServer.context.bitbox = new BITBOX(config.environments[environment])
   })
 
 function fetchOption(kv: any, config: any, options: any) {
@@ -172,4 +172,4 @@ program.parse(process.argv)
 // print help if no command given
 // if (!process.argv.slice(2).length) program.outputHelp()
 
-module.exports = bitbox
+module.exports = BITBOX

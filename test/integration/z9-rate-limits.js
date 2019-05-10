@@ -6,8 +6,8 @@
 
 const chai = require("chai")
 const assert = chai.assert
-const bitbox = require("../../lib/BITBOX").BITBOX
-const BITBOX = new bitbox()
+const BITBOX = require("../../lib/BITBOX").BITBOX
+const bitbox = new BITBOX()
 
 // Inspect utility used for debugging.
 const util = require("util")
@@ -22,7 +22,7 @@ describe("#rate-limits", () => {
     try {
       const promises = []
       for (let i = 0; i < 300; i++) {
-        const promise = BITBOX.Control.getInfo()
+        const promise = bitbox.Control.getInfo()
         promises.push(promise)
       }
 

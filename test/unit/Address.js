@@ -1,7 +1,7 @@
 const fixtures = require("./fixtures/Address.json")
 const assert = require("assert")
-const bitbox = require("../../lib/BITBOX").BITBOX
-const BITBOX = new bitbox()
+const BITBOX = require("../../lib/BITBOX").BITBOX
+const bitbox = new BITBOX()
 const axios = require("axios")
 const sinon = require("sinon")
 const Bitcoin = require("bitcoincashjs-lib")
@@ -82,7 +82,7 @@ describe("#addressConversion", () => {
     it("should translate legacy address format to itself correctly", () => {
       assert.deepEqual(
         LEGACY_ADDRESSES.map(address =>
-          BITBOX.Address.toLegacyAddress(address)
+          bitbox.Address.toLegacyAddress(address)
         ),
         LEGACY_ADDRESSES
       )
@@ -91,7 +91,7 @@ describe("#addressConversion", () => {
     it("should convert cashaddr address to legacy base58Check", () => {
       assert.deepEqual(
         CASHADDR_ADDRESSES.map(address =>
-          BITBOX.Address.toLegacyAddress(address)
+          bitbox.Address.toLegacyAddress(address)
         ),
         LEGACY_ADDRESSES
       )
@@ -100,7 +100,7 @@ describe("#addressConversion", () => {
     it("should convert cashaddr regtest address to legacy base58Check", () => {
       assert.deepEqual(
         REGTEST_ADDRESSES.map(address =>
-          BITBOX.Address.toLegacyAddress(address)
+          bitbox.Address.toLegacyAddress(address)
         ),
         fixtures.legacyTestnetP2PKH
       )
@@ -109,11 +109,11 @@ describe("#addressConversion", () => {
     describe("errors", () => {
       it("should fail when called with an invalid address", () => {
         assert.throws(() => {
-          BITBOX.Address.toLegacyAddress()
-        }, BITBOX.BitcoinCash.InvalidAddressError)
+          bitbox.Address.toLegacyAddress()
+        }, bitbox.BitcoinCash.InvalidAddressError)
         assert.throws(() => {
-          BITBOX.Address.toLegacyAddress("some invalid address")
-        }, BITBOX.BitcoinCash.InvalidAddressError)
+          bitbox.Address.toLegacyAddress("some invalid address")
+        }, bitbox.BitcoinCash.InvalidAddressError)
       })
     })
   })
@@ -122,7 +122,7 @@ describe("#addressConversion", () => {
     it("should convert legacy base58Check address to cashaddr", () => {
       assert.deepEqual(
         LEGACY_ADDRESSES.map(address =>
-          BITBOX.Address.toCashAddress(address, true)
+          bitbox.Address.toCashAddress(address, true)
         ),
         CASHADDR_ADDRESSES
       )
@@ -131,7 +131,7 @@ describe("#addressConversion", () => {
     it("should convert legacy base58Check address to regtest cashaddr", () => {
       assert.deepEqual(
         fixtures.legacyTestnetP2PKH.map(address =>
-          BITBOX.Address.toCashAddress(address, true, true)
+          bitbox.Address.toCashAddress(address, true, true)
         ),
         REGTEST_ADDRESSES
       )
@@ -140,7 +140,7 @@ describe("#addressConversion", () => {
     it("should translate cashaddr address format to itself correctly", () => {
       assert.deepEqual(
         CASHADDR_ADDRESSES.map(address =>
-          BITBOX.Address.toCashAddress(address, true)
+          bitbox.Address.toCashAddress(address, true)
         ),
         CASHADDR_ADDRESSES
       )
@@ -149,7 +149,7 @@ describe("#addressConversion", () => {
     it("should translate regtest cashaddr address format to itself correctly", () => {
       assert.deepEqual(
         REGTEST_ADDRESSES.map(address =>
-          BITBOX.Address.toCashAddress(address, true, true)
+          bitbox.Address.toCashAddress(address, true, true)
         ),
         REGTEST_ADDRESSES
       )
@@ -158,7 +158,7 @@ describe("#addressConversion", () => {
     it("should translate no-prefix cashaddr address format to itself correctly", () => {
       assert.deepEqual(
         CASHADDR_ADDRESSES_NO_PREFIX.map(address =>
-          BITBOX.Address.toCashAddress(address, true)
+          bitbox.Address.toCashAddress(address, true)
         ),
         CASHADDR_ADDRESSES
       )
@@ -167,7 +167,7 @@ describe("#addressConversion", () => {
     it("should translate no-prefix regtest cashaddr address format to itself correctly", () => {
       assert.deepEqual(
         REGTEST_ADDRESSES_NO_PREFIX.map(address =>
-          BITBOX.Address.toCashAddress(address, true, true)
+          bitbox.Address.toCashAddress(address, true, true)
         ),
         REGTEST_ADDRESSES
       )
@@ -175,14 +175,14 @@ describe("#addressConversion", () => {
 
     it("should translate cashaddr address format to itself of no-prefix correctly", () => {
       CASHADDR_ADDRESSES.forEach(address => {
-        const noPrefix = BITBOX.Address.toCashAddress(address, false)
+        const noPrefix = bitbox.Address.toCashAddress(address, false)
         assert.equal(address.split(":")[1], noPrefix)
       })
     })
 
     it("should translate regtest cashaddr address format to itself of no-prefix correctly", () => {
       REGTEST_ADDRESSES.forEach(address => {
-        const noPrefix = BITBOX.Address.toCashAddress(address, false, true)
+        const noPrefix = bitbox.Address.toCashAddress(address, false, true)
         assert.equal(address.split(":")[1], noPrefix)
       })
     })
@@ -190,11 +190,11 @@ describe("#addressConversion", () => {
     describe("errors", () => {
       it("should fail when called with an invalid address", () => {
         assert.throws(() => {
-          BITBOX.BitcoinCash.Address.toCashAddress()
-        }, BITBOX.BitcoinCash.InvalidAddressError)
+          bitbox.BitcoinCash.Address.toCashAddress()
+        }, bitbox.BitcoinCash.InvalidAddressError)
         assert.throws(() => {
-          BITBOX.BitcoinCash.Address.toCashAddress("some invalid address")
-        }, BITBOX.BitcoinCash.InvalidAddressError)
+          bitbox.BitcoinCash.Address.toCashAddress("some invalid address")
+        }, bitbox.BitcoinCash.InvalidAddressError)
       })
     })
   })
@@ -202,7 +202,7 @@ describe("#addressConversion", () => {
     it("should convert legacy base58check address to hash160", () => {
       assert.deepEqual(
         LEGACY_ADDRESSES.map(address =>
-          BITBOX.Address.legacyToHash160(address)
+          bitbox.Address.legacyToHash160(address)
         ),
         HASH160_HASHES
       )
@@ -211,11 +211,11 @@ describe("#addressConversion", () => {
     describe("errors", () => {
       it("should fail when called with an invalid address", () => {
         assert.throws(() => {
-          BITBOX.Address.legacyToHash160()
-        }, BITBOX.BitcoinCash.InvalidAddressError)
+          bitbox.Address.legacyToHash160()
+        }, bitbox.BitcoinCash.InvalidAddressError)
         assert.throws(() => {
-          BITBOX.Address.legacyToHash160("some invalid address")
-        }, BITBOX.BitcoinCash.InvalidAddressError)
+          bitbox.Address.legacyToHash160("some invalid address")
+        }, bitbox.BitcoinCash.InvalidAddressError)
       })
     })
   })
@@ -223,7 +223,7 @@ describe("#addressConversion", () => {
     it("should convert cashaddr address to hash160", () => {
       assert.deepEqual(
         CASHADDR_ADDRESSES.map(address =>
-          BITBOX.Address.cashToHash160(address)
+          bitbox.Address.cashToHash160(address)
         ),
         HASH160_HASHES
       )
@@ -232,11 +232,11 @@ describe("#addressConversion", () => {
     describe("errors", () => {
       it("should fail when called with an invalid address", () => {
         assert.throws(() => {
-          BITBOX.Address.cashToHash160()
-        }, BITBOX.BitcoinCash.InvalidAddressError)
+          bitbox.Address.cashToHash160()
+        }, bitbox.BitcoinCash.InvalidAddressError)
         assert.throws(() => {
-          BITBOX.Address.cashToHash160("some invalid address")
-        }, BITBOX.BitcoinCash.InvalidAddressError)
+          bitbox.Address.cashToHash160("some invalid address")
+        }, bitbox.BitcoinCash.InvalidAddressError)
       })
     })
   })
@@ -244,7 +244,7 @@ describe("#addressConversion", () => {
   //   it("should convert regtest address to hash160", () => {
   //     assert.deepEqual(
   //       REGTEST_ADDRESSES.map(address =>
-  //         BITBOX.Address.regtestToHash160(address)
+  //         bitbox.Address.regtestToHash160(address)
   //       ),
   //       fixtures.hash160TestnetP2PKH
   //     )
@@ -253,11 +253,11 @@ describe("#addressConversion", () => {
   //   describe("errors", () => {
   //     it("should fail when called with an invalid address", () => {
   //       assert.throws(() => {
-  //         BITBOX.Address.regtestToHash160()
-  //       }, BITBOX.BitcoinCash.InvalidAddressError)
+  //         bitbox.Address.regtestToHash160()
+  //       }, bitbox.BitcoinCash.InvalidAddressError)
   //       assert.throws(() => {
-  //         BITBOX.Address.regtestToHash160("some invalid address")
-  //       }, BITBOX.BitcoinCash.InvalidAddressError)
+  //         bitbox.Address.regtestToHash160("some invalid address")
+  //       }, bitbox.BitcoinCash.InvalidAddressError)
   //     })
   //   })
   // })
@@ -265,7 +265,7 @@ describe("#addressConversion", () => {
     it("should convert hash160 to mainnet P2PKH legacy base58check address", () => {
       assert.deepEqual(
         fixtures.hash160MainnetP2PKH.map(hash160 =>
-          BITBOX.Address.hash160ToLegacy(hash160)
+          bitbox.Address.hash160ToLegacy(hash160)
         ),
         fixtures.legacyMainnetP2PKH
       )
@@ -274,7 +274,7 @@ describe("#addressConversion", () => {
     it("should convert hash160 to mainnet P2SH legacy base58check address", () => {
       assert.deepEqual(
         fixtures.hash160MainnetP2SH.map(hash160 =>
-          BITBOX.Address.hash160ToLegacy(
+          bitbox.Address.hash160ToLegacy(
             hash160,
             Bitcoin.networks.bitcoin.scriptHash
           )
@@ -286,7 +286,7 @@ describe("#addressConversion", () => {
     it("should convert hash160 to testnet P2PKH legacy base58check address", () => {
       assert.deepEqual(
         fixtures.hash160TestnetP2PKH.map(hash160 =>
-          BITBOX.Address.hash160ToLegacy(
+          bitbox.Address.hash160ToLegacy(
             hash160,
             Bitcoin.networks.testnet.pubKeyHash
           )
@@ -298,7 +298,7 @@ describe("#addressConversion", () => {
     it("should convert hash160 to mainnet P2PKH cash address", () => {
       assert.deepEqual(
         fixtures.hash160MainnetP2PKH.map(hash160 =>
-          BITBOX.Address.hash160ToCash(hash160)
+          bitbox.Address.hash160ToCash(hash160)
         ),
         fixtures.cashaddrMainnetP2PKH
       )
@@ -307,7 +307,7 @@ describe("#addressConversion", () => {
     it("should convert hash160 to mainnet P2SH cash address", () => {
       assert.deepEqual(
         fixtures.hash160MainnetP2SH.map(hash160 =>
-          BITBOX.Address.hash160ToCash(
+          bitbox.Address.hash160ToCash(
             hash160,
             Bitcoin.networks.bitcoin.scriptHash
           )
@@ -319,7 +319,7 @@ describe("#addressConversion", () => {
     it("should convert hash160 to testnet P2PKH cash address", () => {
       assert.deepEqual(
         fixtures.hash160TestnetP2PKH.map(hash160 =>
-          BITBOX.Address.hash160ToCash(
+          bitbox.Address.hash160ToCash(
             hash160,
             Bitcoin.networks.testnet.pubKeyHash
           )
@@ -331,7 +331,7 @@ describe("#addressConversion", () => {
     it("should convert hash160 to regtest P2PKH cash address", () => {
       assert.deepEqual(
         fixtures.hash160TestnetP2PKH.map(hash160 =>
-          BITBOX.Address.hash160ToCash(
+          bitbox.Address.hash160ToCash(
             hash160,
             Bitcoin.networks.testnet.pubKeyHash,
             true
@@ -344,17 +344,17 @@ describe("#addressConversion", () => {
     describe("errors", () => {
       it("should fail when called with an invalid address", () => {
         assert.throws(() => {
-          BITBOX.Address.hash160ToLegacy()
-        }, BITBOX.BitcoinCash.InvalidAddressError)
+          bitbox.Address.hash160ToLegacy()
+        }, bitbox.BitcoinCash.InvalidAddressError)
         assert.throws(() => {
-          BITBOX.Address.hash160ToLegacy("some invalid address")
-        }, BITBOX.BitcoinCash.InvalidAddressError)
+          bitbox.Address.hash160ToLegacy("some invalid address")
+        }, bitbox.BitcoinCash.InvalidAddressError)
         assert.throws(() => {
-          BITBOX.Address.hash160ToCash()
-        }, BITBOX.BitcoinCash.InvalidAddressError)
+          bitbox.Address.hash160ToCash()
+        }, bitbox.BitcoinCash.InvalidAddressError)
         assert.throws(() => {
-          BITBOX.Address.hash160ToCash("some invalid address")
-        }, BITBOX.BitcoinCash.InvalidAddressError)
+          bitbox.Address.hash160ToCash("some invalid address")
+        }, bitbox.BitcoinCash.InvalidAddressError)
       })
     })
   })
@@ -365,7 +365,7 @@ describe("address format detection", () => {
     describe("is legacy", () => {
       LEGACY_ADDRESSES.forEach(address => {
         it(`should detect ${address} is a legacy base58Check address`, () => {
-          const isBase58Check = BITBOX.Address.isLegacyAddress(address)
+          const isBase58Check = bitbox.Address.isLegacyAddress(address)
           assert.equal(isBase58Check, true)
         })
       })
@@ -373,14 +373,14 @@ describe("address format detection", () => {
     describe("is not legacy", () => {
       CASHADDR_ADDRESSES.forEach(address => {
         it(`should detect ${address} is not a legacy address`, () => {
-          const isBase58Check = BITBOX.Address.isLegacyAddress(address)
+          const isBase58Check = bitbox.Address.isLegacyAddress(address)
           assert.equal(isBase58Check, false)
         })
       })
 
       REGTEST_ADDRESSES.forEach(address => {
         it(`should detect ${address} is not a legacy address`, () => {
-          const isBase58Check = BITBOX.Address.isLegacyAddress(address)
+          const isBase58Check = bitbox.Address.isLegacyAddress(address)
           assert.equal(isBase58Check, false)
         })
       })
@@ -389,11 +389,11 @@ describe("address format detection", () => {
     describe("errors", () => {
       it("should fail when called with an invalid address", () => {
         assert.throws(() => {
-          BITBOX.Address.isLegacyAddress()
-        }, BITBOX.BitcoinCash.InvalidAddressError)
+          bitbox.Address.isLegacyAddress()
+        }, bitbox.BitcoinCash.InvalidAddressError)
         assert.throws(() => {
-          BITBOX.Address.isLegacyAddress("some invalid address")
-        }, BITBOX.BitcoinCash.InvalidAddressError)
+          bitbox.Address.isLegacyAddress("some invalid address")
+        }, bitbox.BitcoinCash.InvalidAddressError)
       })
     })
   })
@@ -402,14 +402,14 @@ describe("address format detection", () => {
     describe("is cashaddr", () => {
       CASHADDR_ADDRESSES.forEach(address => {
         it(`should detect ${address} is a cashaddr address`, () => {
-          const isCashaddr = BITBOX.Address.isCashAddress(address)
+          const isCashaddr = bitbox.Address.isCashAddress(address)
           assert.equal(isCashaddr, true)
         })
       })
 
       REGTEST_ADDRESSES.forEach(address => {
         it(`should detect ${address} is a cashaddr address`, () => {
-          const isCashaddr = BITBOX.Address.isCashAddress(address)
+          const isCashaddr = bitbox.Address.isCashAddress(address)
           assert.equal(isCashaddr, true)
         })
       })
@@ -418,7 +418,7 @@ describe("address format detection", () => {
     describe("is not cashaddr", () => {
       LEGACY_ADDRESSES.forEach(address => {
         it(`should detect ${address} is not a cashaddr address`, () => {
-          const isCashaddr = BITBOX.Address.isCashAddress(address)
+          const isCashaddr = bitbox.Address.isCashAddress(address)
           assert.equal(isCashaddr, false)
         })
       })
@@ -427,11 +427,11 @@ describe("address format detection", () => {
     describe("errors", () => {
       it("should fail when called with an invalid address", () => {
         assert.throws(() => {
-          BITBOX.Address.isCashAddress()
-        }, BITBOX.BitcoinCash.InvalidAddressError)
+          bitbox.Address.isCashAddress()
+        }, bitbox.BitcoinCash.InvalidAddressError)
         assert.throws(() => {
-          BITBOX.Address.isCashAddress("some invalid address")
-        }, BITBOX.BitcoinCash.InvalidAddressError)
+          bitbox.Address.isCashAddress("some invalid address")
+        }, bitbox.BitcoinCash.InvalidAddressError)
       })
     })
   })
@@ -439,7 +439,7 @@ describe("address format detection", () => {
     describe("is hash160", () => {
       HASH160_HASHES.forEach(address => {
         it(`should detect ${address} is a hash160 hash`, () => {
-          const isHash160 = BITBOX.Address.isHash160(address)
+          const isHash160 = bitbox.Address.isHash160(address)
           assert.equal(isHash160, true)
         })
       })
@@ -447,21 +447,21 @@ describe("address format detection", () => {
     describe("is not hash160", () => {
       LEGACY_ADDRESSES.forEach(address => {
         it(`should detect ${address} is not a hash160 hash`, () => {
-          const isHash160 = BITBOX.Address.isHash160(address)
+          const isHash160 = bitbox.Address.isHash160(address)
           assert.equal(isHash160, false)
         })
       })
 
       CASHADDR_ADDRESSES.forEach(address => {
         it(`should detect ${address} is not a hash160 hash`, () => {
-          const isHash160 = BITBOX.Address.isHash160(address)
+          const isHash160 = bitbox.Address.isHash160(address)
           assert.equal(isHash160, false)
         })
       })
 
       REGTEST_ADDRESSES.forEach(address => {
         it(`should detect ${address} is not a legacy address`, () => {
-          const isHash160 = BITBOX.Address.isHash160(address)
+          const isHash160 = bitbox.Address.isHash160(address)
           assert.equal(isHash160, false)
         })
       })
@@ -470,11 +470,11 @@ describe("address format detection", () => {
     describe("errors", () => {
       it("should fail when called with an invalid address", () => {
         assert.throws(() => {
-          BITBOX.Address.isHash160()
-        }, BITBOX.BitcoinCash.InvalidAddressError)
+          bitbox.Address.isHash160()
+        }, bitbox.BitcoinCash.InvalidAddressError)
         assert.throws(() => {
-          BITBOX.Address.isHash160("some invalid address")
-        }, BITBOX.BitcoinCash.InvalidAddressError)
+          bitbox.Address.isHash160("some invalid address")
+        }, bitbox.BitcoinCash.InvalidAddressError)
       })
     })
   })
@@ -485,7 +485,7 @@ describe("network detection", () => {
     describe("is mainnet", () => {
       MAINNET_ADDRESSES.forEach(address => {
         it(`should detect ${address} is a mainnet address`, () => {
-          const isMainnet = BITBOX.Address.isMainnetAddress(address)
+          const isMainnet = bitbox.Address.isMainnetAddress(address)
           assert.equal(isMainnet, true)
         })
       })
@@ -494,14 +494,14 @@ describe("network detection", () => {
     describe("is not mainnet", () => {
       TESTNET_ADDRESSES.forEach(address => {
         it(`should detect ${address} is not a mainnet address`, () => {
-          const isMainnet = BITBOX.Address.isMainnetAddress(address)
+          const isMainnet = bitbox.Address.isMainnetAddress(address)
           assert.equal(isMainnet, false)
         })
       })
 
       REGTEST_ADDRESSES.forEach(address => {
         it(`should detect ${address} is not a mainnet address`, () => {
-          const isMainnet = BITBOX.Address.isMainnetAddress(address)
+          const isMainnet = bitbox.Address.isMainnetAddress(address)
           assert.equal(isMainnet, false)
         })
       })
@@ -510,11 +510,11 @@ describe("network detection", () => {
     describe("errors", () => {
       it("should fail when called with an invalid address", () => {
         assert.throws(() => {
-          BITBOX.Address.isMainnetAddress()
-        }, BITBOX.BitcoinCash.InvalidAddressError)
+          bitbox.Address.isMainnetAddress()
+        }, bitbox.BitcoinCash.InvalidAddressError)
         assert.throws(() => {
-          BITBOX.Address.isMainnetAddress("some invalid address")
-        }, BITBOX.BitcoinCash.InvalidAddressError)
+          bitbox.Address.isMainnetAddress("some invalid address")
+        }, bitbox.BitcoinCash.InvalidAddressError)
       })
     })
   })
@@ -523,7 +523,7 @@ describe("network detection", () => {
     describe("is testnet", () => {
       TESTNET_ADDRESSES.forEach(address => {
         it(`should detect ${address} is a testnet address`, () => {
-          const isTestnet = BITBOX.Address.isTestnetAddress(address)
+          const isTestnet = bitbox.Address.isTestnetAddress(address)
           assert.equal(isTestnet, true)
         })
       })
@@ -532,14 +532,14 @@ describe("network detection", () => {
     describe("is not testnet", () => {
       MAINNET_ADDRESSES.forEach(address => {
         it(`should detect ${address} is not a testnet address`, () => {
-          const isTestnet = BITBOX.Address.isTestnetAddress(address)
+          const isTestnet = bitbox.Address.isTestnetAddress(address)
           assert.equal(isTestnet, false)
         })
       })
 
       REGTEST_ADDRESSES.forEach(address => {
         it(`should detect ${address} is not a testnet address`, () => {
-          const isTestnet = BITBOX.Address.isTestnetAddress(address)
+          const isTestnet = bitbox.Address.isTestnetAddress(address)
           assert.equal(isTestnet, false)
         })
       })
@@ -548,11 +548,11 @@ describe("network detection", () => {
     describe("errors", () => {
       it("should fail when called with an invalid address", () => {
         assert.throws(() => {
-          BITBOX.Address.isTestnetAddress()
-        }, BITBOX.BitcoinCash.InvalidAddressError)
+          bitbox.Address.isTestnetAddress()
+        }, bitbox.BitcoinCash.InvalidAddressError)
         assert.throws(() => {
-          BITBOX.Address.isTestnetAddress("some invalid address")
-        }, BITBOX.BitcoinCash.InvalidAddressError)
+          bitbox.Address.isTestnetAddress("some invalid address")
+        }, bitbox.BitcoinCash.InvalidAddressError)
       })
     })
   })
@@ -561,7 +561,7 @@ describe("network detection", () => {
     describe("is testnet", () => {
       REGTEST_ADDRESSES.forEach(address => {
         it(`should detect ${address} is a regtest address`, () => {
-          const isRegTest = BITBOX.Address.isRegTestAddress(address)
+          const isRegTest = bitbox.Address.isRegTestAddress(address)
           assert.equal(isRegTest, true)
         })
       })
@@ -570,14 +570,14 @@ describe("network detection", () => {
     describe("is not testnet", () => {
       MAINNET_ADDRESSES.forEach(address => {
         it(`should detect ${address} is not a regtest address`, () => {
-          const isRegTest = BITBOX.Address.isRegTestAddress(address)
+          const isRegTest = bitbox.Address.isRegTestAddress(address)
           assert.equal(isRegTest, false)
         })
       })
 
       TESTNET_ADDRESSES.forEach(address => {
         it(`should detect ${address} is not a regtest address`, () => {
-          const isRegTest = BITBOX.Address.isRegTestAddress(address)
+          const isRegTest = bitbox.Address.isRegTestAddress(address)
           assert.equal(isRegTest, false)
         })
       })
@@ -586,11 +586,11 @@ describe("network detection", () => {
     describe("errors", () => {
       it("should fail when called with an invalid address", () => {
         assert.throws(() => {
-          BITBOX.Address.isRegTestAddress()
-        }, BITBOX.BitcoinCash.InvalidAddressError)
+          bitbox.Address.isRegTestAddress()
+        }, bitbox.BitcoinCash.InvalidAddressError)
         assert.throws(() => {
-          BITBOX.Address.isRegTestAddress("some invalid address")
-        }, BITBOX.BitcoinCash.InvalidAddressError)
+          bitbox.Address.isRegTestAddress("some invalid address")
+        }, bitbox.BitcoinCash.InvalidAddressError)
       })
     })
   })
@@ -601,7 +601,7 @@ describe("address type detection", () => {
     describe("is P2PKH", () => {
       P2PKH_ADDRESSES.forEach(address => {
         it(`should detect ${address} is a P2PKH address`, () => {
-          const isP2PKH = BITBOX.Address.isP2PKHAddress(address)
+          const isP2PKH = bitbox.Address.isP2PKHAddress(address)
           assert.equal(isP2PKH, true)
         })
       })
@@ -610,7 +610,7 @@ describe("address type detection", () => {
     describe("is not P2PKH", () => {
       P2SH_ADDRESSES.forEach(address => {
         it(`should detect ${address} is not a P2PKH address`, () => {
-          const isP2PKH = BITBOX.Address.isP2PKHAddress(address)
+          const isP2PKH = bitbox.Address.isP2PKHAddress(address)
           assert.equal(isP2PKH, false)
         })
       })
@@ -619,11 +619,11 @@ describe("address type detection", () => {
     describe("errors", () => {
       it("should fail when called with an invalid address", () => {
         assert.throws(() => {
-          BITBOX.Address.isP2PKHAddress()
-        }, BITBOX.BitcoinCash.InvalidAddressError)
+          bitbox.Address.isP2PKHAddress()
+        }, bitbox.BitcoinCash.InvalidAddressError)
         assert.throws(() => {
-          BITBOX.Address.isP2PKHAddress("some invalid address")
-        }, BITBOX.BitcoinCash.InvalidAddressError)
+          bitbox.Address.isP2PKHAddress("some invalid address")
+        }, bitbox.BitcoinCash.InvalidAddressError)
       })
     })
   })
@@ -632,7 +632,7 @@ describe("address type detection", () => {
     describe("is P2SH", () => {
       P2SH_ADDRESSES.forEach(address => {
         it(`should detect ${address} is a P2SH address`, () => {
-          const isP2SH = BITBOX.Address.isP2SHAddress(address)
+          const isP2SH = bitbox.Address.isP2SHAddress(address)
           assert.equal(isP2SH, true)
         })
       })
@@ -641,7 +641,7 @@ describe("address type detection", () => {
     describe("is not P2SH", () => {
       P2PKH_ADDRESSES.forEach(address => {
         it(`should detect ${address} is not a P2SH address`, () => {
-          const isP2SH = BITBOX.Address.isP2SHAddress(address)
+          const isP2SH = bitbox.Address.isP2SHAddress(address)
           assert.equal(isP2SH, false)
         })
       })
@@ -650,11 +650,11 @@ describe("address type detection", () => {
     describe("errors", () => {
       it("should fail when called with an invalid address", () => {
         assert.throws(() => {
-          BITBOX.Address.isP2SHAddress()
-        }, BITBOX.BitcoinCash.InvalidAddressError)
+          bitbox.Address.isP2SHAddress()
+        }, bitbox.BitcoinCash.InvalidAddressError)
         assert.throws(() => {
-          BITBOX.Address.isP2SHAddress("some invalid address")
-        }, BITBOX.BitcoinCash.InvalidAddressError)
+          bitbox.Address.isP2SHAddress("some invalid address")
+        }, bitbox.BitcoinCash.InvalidAddressError)
       })
     })
   })
@@ -664,157 +664,157 @@ describe("cashaddr prefix detection", () => {
   it("should return the same result for detectAddressFormat", () => {
     assert.deepEqual(
       CASHADDR_ADDRESSES_NO_PREFIX.map(address =>
-        BITBOX.Address.detectAddressFormat(address)
+        bitbox.Address.detectAddressFormat(address)
       ),
       CASHADDR_ADDRESSES.map(address =>
-        BITBOX.Address.detectAddressFormat(address)
+        bitbox.Address.detectAddressFormat(address)
       )
     )
     assert.deepEqual(
       REGTEST_ADDRESSES_NO_PREFIX.map(address =>
-        BITBOX.Address.detectAddressFormat(address)
+        bitbox.Address.detectAddressFormat(address)
       ),
       REGTEST_ADDRESSES.map(address =>
-        BITBOX.Address.detectAddressFormat(address)
+        bitbox.Address.detectAddressFormat(address)
       )
     )
   })
   it("should return the same result for detectAddressNetwork", () => {
     assert.deepEqual(
       CASHADDR_ADDRESSES_NO_PREFIX.map(address =>
-        BITBOX.Address.detectAddressNetwork(address)
+        bitbox.Address.detectAddressNetwork(address)
       ),
       CASHADDR_ADDRESSES.map(address =>
-        BITBOX.Address.detectAddressNetwork(address)
+        bitbox.Address.detectAddressNetwork(address)
       )
     )
     assert.deepEqual(
       REGTEST_ADDRESSES_NO_PREFIX.map(address =>
-        BITBOX.Address.detectAddressNetwork(address)
+        bitbox.Address.detectAddressNetwork(address)
       ),
       REGTEST_ADDRESSES.map(address =>
-        BITBOX.Address.detectAddressNetwork(address)
+        bitbox.Address.detectAddressNetwork(address)
       )
     )
   })
   it("should return the same result for detectAddressType", () => {
     assert.deepEqual(
       CASHADDR_ADDRESSES_NO_PREFIX.map(address =>
-        BITBOX.Address.detectAddressType(address)
+        bitbox.Address.detectAddressType(address)
       ),
       CASHADDR_ADDRESSES.map(address =>
-        BITBOX.Address.detectAddressType(address)
+        bitbox.Address.detectAddressType(address)
       )
     )
     assert.deepEqual(
       REGTEST_ADDRESSES_NO_PREFIX.map(address =>
-        BITBOX.Address.detectAddressType(address)
+        bitbox.Address.detectAddressType(address)
       ),
       REGTEST_ADDRESSES.map(address =>
-        BITBOX.Address.detectAddressType(address)
+        bitbox.Address.detectAddressType(address)
       )
     )
   })
   it("should return the same result for toLegacyAddress", () => {
     assert.deepEqual(
       CASHADDR_ADDRESSES_NO_PREFIX.map(address =>
-        BITBOX.Address.toLegacyAddress(address)
+        bitbox.Address.toLegacyAddress(address)
       ),
-      CASHADDR_ADDRESSES.map(address => BITBOX.Address.toLegacyAddress(address))
+      CASHADDR_ADDRESSES.map(address => bitbox.Address.toLegacyAddress(address))
     )
     assert.deepEqual(
       REGTEST_ADDRESSES_NO_PREFIX.map(address =>
-        BITBOX.Address.toLegacyAddress(address)
+        bitbox.Address.toLegacyAddress(address)
       ),
-      REGTEST_ADDRESSES.map(address => BITBOX.Address.toLegacyAddress(address))
+      REGTEST_ADDRESSES.map(address => bitbox.Address.toLegacyAddress(address))
     )
   })
   it("should return the same result for isLegacyAddress", () => {
     assert.deepEqual(
       CASHADDR_ADDRESSES_NO_PREFIX.map(address =>
-        BITBOX.Address.isLegacyAddress(address)
+        bitbox.Address.isLegacyAddress(address)
       ),
-      CASHADDR_ADDRESSES.map(address => BITBOX.Address.isLegacyAddress(address))
+      CASHADDR_ADDRESSES.map(address => bitbox.Address.isLegacyAddress(address))
     )
     assert.deepEqual(
       REGTEST_ADDRESSES_NO_PREFIX.map(address =>
-        BITBOX.Address.isLegacyAddress(address)
+        bitbox.Address.isLegacyAddress(address)
       ),
-      REGTEST_ADDRESSES.map(address => BITBOX.Address.isLegacyAddress(address))
+      REGTEST_ADDRESSES.map(address => bitbox.Address.isLegacyAddress(address))
     )
   })
   it("should return the same result for isCashAddress", () => {
     assert.deepEqual(
       CASHADDR_ADDRESSES_NO_PREFIX.map(address =>
-        BITBOX.Address.isCashAddress(address)
+        bitbox.Address.isCashAddress(address)
       ),
-      CASHADDR_ADDRESSES.map(address => BITBOX.Address.isCashAddress(address))
+      CASHADDR_ADDRESSES.map(address => bitbox.Address.isCashAddress(address))
     )
     assert.deepEqual(
       REGTEST_ADDRESSES_NO_PREFIX.map(address =>
-        BITBOX.Address.isCashAddress(address)
+        bitbox.Address.isCashAddress(address)
       ),
-      REGTEST_ADDRESSES.map(address => BITBOX.Address.isCashAddress(address))
+      REGTEST_ADDRESSES.map(address => bitbox.Address.isCashAddress(address))
     )
   })
   it("should return the same result for isMainnetAddress", () => {
     assert.deepEqual(
       CASHADDR_ADDRESSES_NO_PREFIX.map(address =>
-        BITBOX.Address.isMainnetAddress(address)
+        bitbox.Address.isMainnetAddress(address)
       ),
       CASHADDR_ADDRESSES.map(address =>
-        BITBOX.Address.isMainnetAddress(address)
+        bitbox.Address.isMainnetAddress(address)
       )
     )
     assert.deepEqual(
       REGTEST_ADDRESSES_NO_PREFIX.map(address =>
-        BITBOX.Address.isMainnetAddress(address)
+        bitbox.Address.isMainnetAddress(address)
       ),
-      REGTEST_ADDRESSES.map(address => BITBOX.Address.isMainnetAddress(address))
+      REGTEST_ADDRESSES.map(address => bitbox.Address.isMainnetAddress(address))
     )
   })
   it("should return the same result for isTestnetAddress", () => {
     assert.deepEqual(
       CASHADDR_ADDRESSES_NO_PREFIX.map(address =>
-        BITBOX.Address.isTestnetAddress(address)
+        bitbox.Address.isTestnetAddress(address)
       ),
       CASHADDR_ADDRESSES.map(address =>
-        BITBOX.Address.isTestnetAddress(address)
+        bitbox.Address.isTestnetAddress(address)
       )
     )
     assert.deepEqual(
       REGTEST_ADDRESSES_NO_PREFIX.map(address =>
-        BITBOX.Address.isTestnetAddress(address)
+        bitbox.Address.isTestnetAddress(address)
       ),
-      REGTEST_ADDRESSES.map(address => BITBOX.Address.isTestnetAddress(address))
+      REGTEST_ADDRESSES.map(address => bitbox.Address.isTestnetAddress(address))
     )
   })
   it("should return the same result for isP2PKHAddress", () => {
     assert.deepEqual(
       CASHADDR_ADDRESSES_NO_PREFIX.map(address =>
-        BITBOX.Address.isP2PKHAddress(address)
+        bitbox.Address.isP2PKHAddress(address)
       ),
-      CASHADDR_ADDRESSES.map(address => BITBOX.Address.isP2PKHAddress(address))
+      CASHADDR_ADDRESSES.map(address => bitbox.Address.isP2PKHAddress(address))
     )
     assert.deepEqual(
       REGTEST_ADDRESSES_NO_PREFIX.map(address =>
-        BITBOX.Address.isP2PKHAddress(address)
+        bitbox.Address.isP2PKHAddress(address)
       ),
-      REGTEST_ADDRESSES.map(address => BITBOX.Address.isP2PKHAddress(address))
+      REGTEST_ADDRESSES.map(address => bitbox.Address.isP2PKHAddress(address))
     )
   })
   it("should return the same result for isP2SHAddress", () => {
     assert.deepEqual(
       CASHADDR_ADDRESSES_NO_PREFIX.map(address =>
-        BITBOX.Address.isP2SHAddress(address)
+        bitbox.Address.isP2SHAddress(address)
       ),
-      CASHADDR_ADDRESSES.map(address => BITBOX.Address.isP2SHAddress(address))
+      CASHADDR_ADDRESSES.map(address => bitbox.Address.isP2SHAddress(address))
     )
     assert.deepEqual(
       REGTEST_ADDRESSES_NO_PREFIX.map(address =>
-        BITBOX.Address.isP2SHAddress(address)
+        bitbox.Address.isP2SHAddress(address)
       ),
-      REGTEST_ADDRESSES.map(address => BITBOX.Address.isP2SHAddress(address))
+      REGTEST_ADDRESSES.map(address => bitbox.Address.isP2SHAddress(address))
     )
   })
 })
@@ -822,21 +822,21 @@ describe("cashaddr prefix detection", () => {
 describe("#detectAddressFormat", () => {
   LEGACY_ADDRESSES.forEach(address => {
     it(`should detect ${address} is a legacy base58Check address`, () => {
-      const isBase58Check = BITBOX.Address.detectAddressFormat(address)
+      const isBase58Check = bitbox.Address.detectAddressFormat(address)
       assert.equal(isBase58Check, "legacy")
     })
   })
 
   CASHADDR_ADDRESSES.forEach(address => {
     it(`should detect ${address} is a legacy cashaddr address`, () => {
-      const isCashaddr = BITBOX.Address.detectAddressFormat(address)
+      const isCashaddr = bitbox.Address.detectAddressFormat(address)
       assert.equal(isCashaddr, "cashaddr")
     })
   })
 
   REGTEST_ADDRESSES.forEach(address => {
     it(`should detect ${address} is a legacy cashaddr address`, () => {
-      const isCashaddr = BITBOX.Address.detectAddressFormat(address)
+      const isCashaddr = bitbox.Address.detectAddressFormat(address)
       assert.equal(isCashaddr, "cashaddr")
     })
   })
@@ -844,11 +844,11 @@ describe("#detectAddressFormat", () => {
   describe("errors", () => {
     it("should fail when called with an invalid address", () => {
       assert.throws(() => {
-        BITBOX.Address.detectAddressFormat()
-      }, BITBOX.BitcoinCash.InvalidAddressError)
+        bitbox.Address.detectAddressFormat()
+      }, bitbox.BitcoinCash.InvalidAddressError)
       assert.throws(() => {
-        BITBOX.Address.detectAddressFormat("some invalid address")
-      }, BITBOX.BitcoinCash.InvalidAddressError)
+        bitbox.Address.detectAddressFormat("some invalid address")
+      }, bitbox.BitcoinCash.InvalidAddressError)
     })
   })
 })
@@ -856,21 +856,21 @@ describe("#detectAddressFormat", () => {
 describe("#detectAddressNetwork", () => {
   MAINNET_ADDRESSES.forEach(address => {
     it(`should detect ${address} is a mainnet address`, () => {
-      const isMainnet = BITBOX.Address.detectAddressNetwork(address)
+      const isMainnet = bitbox.Address.detectAddressNetwork(address)
       assert.equal(isMainnet, "mainnet")
     })
   })
 
   TESTNET_ADDRESSES.forEach(address => {
     it(`should detect ${address} is a testnet address`, () => {
-      const isTestnet = BITBOX.Address.detectAddressNetwork(address)
+      const isTestnet = bitbox.Address.detectAddressNetwork(address)
       assert.equal(isTestnet, "testnet")
     })
   })
 
   REGTEST_ADDRESSES.forEach(address => {
     it(`should detect ${address} is a testnet address`, () => {
-      const isTestnet = BITBOX.Address.detectAddressNetwork(address)
+      const isTestnet = bitbox.Address.detectAddressNetwork(address)
       assert.equal(isTestnet, "regtest")
     })
   })
@@ -878,11 +878,11 @@ describe("#detectAddressNetwork", () => {
   describe("errors", () => {
     it("should fail when called with an invalid address", () => {
       assert.throws(() => {
-        BITBOX.Address.detectAddressNetwork()
-      }, BITBOX.BitcoinCash.InvalidAddressError)
+        bitbox.Address.detectAddressNetwork()
+      }, bitbox.BitcoinCash.InvalidAddressError)
       assert.throws(() => {
-        BITBOX.Address.detectAddressNetwork("some invalid address")
-      }, BITBOX.BitcoinCash.InvalidAddressError)
+        bitbox.Address.detectAddressNetwork("some invalid address")
+      }, bitbox.BitcoinCash.InvalidAddressError)
     })
   })
 })
@@ -890,14 +890,14 @@ describe("#detectAddressNetwork", () => {
 describe("#detectAddressType", () => {
   P2PKH_ADDRESSES.forEach(address => {
     it(`should detect ${address} is a P2PKH address`, () => {
-      const isP2PKH = BITBOX.Address.detectAddressType(address)
+      const isP2PKH = bitbox.Address.detectAddressType(address)
       assert.equal(isP2PKH, "p2pkh")
     })
   })
 
   P2SH_ADDRESSES.forEach(address => {
     it(`should detect ${address} is a P2SH address`, () => {
-      const isP2SH = BITBOX.Address.detectAddressType(address)
+      const isP2SH = bitbox.Address.detectAddressType(address)
       assert.equal(isP2SH, "p2sh")
     })
   })
@@ -905,11 +905,11 @@ describe("#detectAddressType", () => {
   describe("errors", () => {
     it("should fail when called with an invalid address", () => {
       assert.throws(() => {
-        BITBOX.Address.detectAddressType()
-      }, BITBOX.BitcoinCash.InvalidAddressError)
+        bitbox.Address.detectAddressType()
+      }, bitbox.BitcoinCash.InvalidAddressError)
       assert.throws(() => {
-        BITBOX.Address.detectAddressType("some invalid address")
-      }, BITBOX.BitcoinCash.InvalidAddressError)
+        bitbox.Address.detectAddressType("some invalid address")
+      }, bitbox.BitcoinCash.InvalidAddressError)
     })
   })
 })
@@ -920,7 +920,7 @@ describe("#fromXPub", () => {
       it(`generate public external change address ${j} for ${
         xpub.xpub
       }`, () => {
-        assert.equal(BITBOX.Address.fromXPub(xpub.xpub, `0/${j}`), address)
+        assert.equal(bitbox.Address.fromXPub(xpub.xpub, `0/${j}`), address)
       })
     })
   })
@@ -930,26 +930,26 @@ describe("#fromXPriv", () => {
   XPRIVS.forEach((xpriv, i) => {
     xpriv.addresses.forEach((address, j) => {
       it(`generate hardened address ${j} for ${xpriv.xpriv}`, () => {
-        assert.equal(BITBOX.Address.fromXPriv(xpriv.xpriv, `0'/${j}`), address)
+        assert.equal(bitbox.Address.fromXPriv(xpriv.xpriv, `0'/${j}`), address)
       })
     })
   })
 })
 
 describe("#fromOutputScript", () => {
-  const script = BITBOX.Script.encode([
+  const script = bitbox.Script.encode([
     Buffer.from("BOX", "ascii"),
-    BITBOX.Script.opcodes.OP_CAT,
+    bitbox.Script.opcodes.OP_CAT,
     Buffer.from("BITBOX", "ascii"),
-    BITBOX.Script.opcodes.OP_EQUAL
+    bitbox.Script.opcodes.OP_EQUAL
   ])
 
   // hash160 script buffer
-  const p2sh_hash160 = BITBOX.Crypto.hash160(script)
+  const p2sh_hash160 = bitbox.Crypto.hash160(script)
 
   // encode hash160 as P2SH output
-  const scriptPubKey = BITBOX.Script.scriptHash.output.encode(p2sh_hash160)
-  const p2shAddress = BITBOX.Address.fromOutputScript(scriptPubKey)
+  const scriptPubKey = bitbox.Script.scriptHash.output.encode(p2sh_hash160)
+  const p2shAddress = bitbox.Address.fromOutputScript(scriptPubKey)
   fixtures.p2shMainnet.forEach((address, i) => {
     it(`generate address from output script`, () => {
       assert.equal(p2shAddress, address)
@@ -984,7 +984,7 @@ describe("#details", () => {
     const resolved = new Promise(r => r({ data: data }))
     sandbox.stub(axios, "get").returns(resolved)
 
-    BITBOX.Address.details(
+    bitbox.Address.details(
       "bitcoincash:qrdka2205f4hyukutc2g0s6lykperc8nsu5u2ddpqf"
     )
       .then(result => {
@@ -1029,7 +1029,7 @@ describe("#utxo", () => {
     const resolved = new Promise(r => r({ data: data }))
     sandbox.stub(axios, "get").returns(resolved)
 
-    BITBOX.Address.utxo(
+    bitbox.Address.utxo(
       "bitcoincash:ppuukp49np467kyzxl0fkla34rmgcddhvc33ce2d6l"
     )
       .then(result => {
@@ -1062,7 +1062,7 @@ describe("#unconfirmed", () => {
     const resolved = new Promise(r => r({ data: data }))
     sandbox.stub(axios, "get").returns(resolved)
 
-    BITBOX.Address.unconfirmed(
+    bitbox.Address.unconfirmed(
       "bitcoincash:qzs02v05l7qs5s24srqju498qu55dwuj0cx5ehjm2c"
     )
       .then(result => {

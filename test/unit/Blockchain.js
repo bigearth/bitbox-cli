@@ -1,7 +1,7 @@
 const assert = require("assert")
 const axios = require("axios")
-const bitbox = require("../../lib/BITBOX").BITBOX
-const BITBOX = new bitbox()
+const BITBOX = require("../../lib/BITBOX").BITBOX
+const bitbox = new BITBOX()
 const sinon = require("sinon")
 
 describe("#Blockchain", () => {
@@ -19,7 +19,7 @@ describe("#Blockchain", () => {
       )
       sandbox.stub(axios, "get").returns(resolved)
 
-      BITBOX.Blockchain.getBestBlockHash()
+      bitbox.Blockchain.getBestBlockHash()
         .then(result => {
           const hash =
             "0000000000000000005f1f550d3d8b142b684277016ebd00fa29c668606ae52d"
@@ -60,7 +60,7 @@ describe("#Blockchain", () => {
       const resolved = new Promise(r => r({ data: data }))
       sandbox.stub(axios, "get").returns(resolved)
 
-      BITBOX.Blockchain.getBlock(
+      bitbox.Blockchain.getBlock(
         "00000000c937983704a73af28acdec37b049d214adbda81d7e2a3dd146f6ed09"
       )
         .then(result => {
@@ -105,7 +105,7 @@ describe("#Blockchain", () => {
       const resolved = new Promise(r => r({ data: data }))
       sandbox.stub(axios, "get").returns(resolved)
 
-      BITBOX.Blockchain.getBlockchainInfo()
+      bitbox.Blockchain.getBlockchainInfo()
         .then(result => {
           assert.deepEqual(data, result)
         })
@@ -123,7 +123,7 @@ describe("#Blockchain", () => {
       const resolved = new Promise(r => r({ data: data }))
       sandbox.stub(axios, "get").returns(resolved)
 
-      BITBOX.Blockchain.getBlockCount()
+      bitbox.Blockchain.getBlockCount()
         .then(result => {
           assert.deepEqual(data, result)
         })
@@ -142,7 +142,7 @@ describe("#Blockchain", () => {
       const resolved = new Promise(r => r({ data: data }))
       sandbox.stub(axios, "get").returns(resolved)
 
-      BITBOX.Blockchain.getBlockHash(527810)
+      bitbox.Blockchain.getBlockHash(527810)
         .then(result => {
           assert.deepEqual(data, result)
         })
@@ -177,7 +177,7 @@ describe("#Blockchain", () => {
       const resolved = new Promise(r => r({ data: data }))
       sandbox.stub(axios, "get").returns(resolved)
 
-      BITBOX.Blockchain.getBlockHeader(
+      bitbox.Blockchain.getBlockHeader(
         "000000000000000001d127592d091d4c45062504663c9acab27a1b16c028e3c0",
         true
       )
@@ -198,7 +198,7 @@ describe("#Blockchain", () => {
       const resolved = new Promise(r => r({ data: data }))
       sandbox.stub(axios, "get").returns(resolved)
 
-      BITBOX.Blockchain.getDifficulty()
+      bitbox.Blockchain.getDifficulty()
         .then(result => {
           assert.deepEqual(data, result)
         })
@@ -216,7 +216,7 @@ describe("#Blockchain", () => {
       const resolved = new Promise(r => r({ data: data }))
       sandbox.stub(axios, "get").returns(resolved)
 
-      BITBOX.Blockchain.getMempoolAncestors(
+      bitbox.Blockchain.getMempoolAncestors(
         "daf58932cb91619304dd4cbd03c7202e89ad7d6cbd6e2209e5f64ce3b6ed7c88",
         true
       )
@@ -239,7 +239,7 @@ describe("#Blockchain", () => {
       const resolved = new Promise(r => r({ data: data }))
       sandbox.stub(axios, "get").returns(resolved)
 
-      BITBOX.Blockchain.getMempoolDescendants(
+      bitbox.Blockchain.getMempoolDescendants(
         "daf58932cb91619304dd4cbd03c7202e89ad7d6cbd6e2209e5f64ce3b6ed7c88",
         true
       )
@@ -262,7 +262,7 @@ describe("#Blockchain", () => {
       const resolved = new Promise(r => r({ data: data }))
       sandbox.stub(axios, "get").returns(resolved)
 
-      BITBOX.Blockchain.getMempoolEntry(
+      bitbox.Blockchain.getMempoolEntry(
         "daf58932cb91619304dd4cbd03c7202e89ad7d6cbd6e2209e5f64ce3b6ed7c88"
       )
         .then(result => {
@@ -290,7 +290,7 @@ describe("#Blockchain", () => {
       const resolved = new Promise(r => r({ data: data }))
       sandbox.stub(axios, "get").returns(resolved)
 
-      BITBOX.Blockchain.getMempoolInfo()
+      bitbox.Blockchain.getMempoolInfo()
         .then(result => {
           assert.deepEqual(data, result)
         })
@@ -331,7 +331,7 @@ describe("#Blockchain", () => {
       const resolved = new Promise(r => r({ data: data }))
       sandbox.stub(axios, "get").returns(resolved)
 
-      BITBOX.Blockchain.getRawMempool()
+      bitbox.Blockchain.getRawMempool()
         .then(result => {
           assert.deepEqual(data, result)
         })
@@ -352,7 +352,7 @@ describe("#Blockchain", () => {
       const resolved = new Promise(r => r({ data: data }))
       sandbox.stub(axios, "get").returns(resolved)
 
-      BITBOX.Blockchain.getTxOut(
+      bitbox.Blockchain.getTxOut(
         "daf58932cb91619304dd4cbd03c7202e89ad7d6cbd6e2209e5f64ce3b6ed7c88",
         0,
         true
@@ -377,7 +377,7 @@ describe("#Blockchain", () => {
       const resolved = new Promise(r => r({ data: data }))
       sandbox.stub(axios, "get").returns(resolved)
 
-      BITBOX.Blockchain.preciousBlock()
+      bitbox.Blockchain.preciousBlock()
         .then(result => {
           assert.deepEqual(data, result)
         })
@@ -395,7 +395,7 @@ describe("#Blockchain", () => {
       const resolved = new Promise(r => r({ data: data }))
       sandbox.stub(axios, "post").returns(resolved)
 
-      BITBOX.Blockchain.pruneBlockchain(507)
+      bitbox.Blockchain.pruneBlockchain(507)
         .then(result => {
           assert.deepEqual(data, result)
         })
@@ -413,7 +413,7 @@ describe("#Blockchain", () => {
       const resolved = new Promise(r => r({ data: data }))
       sandbox.stub(axios, "get").returns(resolved)
 
-      BITBOX.Blockchain.verifyChain(3, 6)
+      bitbox.Blockchain.verifyChain(3, 6)
         .then(result => {
           assert.deepEqual(data, result)
         })
@@ -431,7 +431,7 @@ describe("#Blockchain", () => {
       const resolved = new Promise(r => r({ data: data }))
       sandbox.stub(axios, "get").returns(resolved)
 
-      BITBOX.Blockchain.verifyTxOutProof("3")
+      bitbox.Blockchain.verifyTxOutProof("3")
         .then(result => {
           assert.deepEqual(data, result)
         })
