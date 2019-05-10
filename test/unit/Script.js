@@ -1,7 +1,7 @@
 const fixtures = require("./fixtures/Script.json")
 const assert = require("assert")
-const BITBOXSDK = require("../../lib/BITBOX").BITBOX
-const BITBOX = new BITBOXSDK()
+const bitbox = require("../../lib/BITBOX").BITBOX
+const BITBOX = new bitbox()
 const Buffer = require("safe-buffer").Buffer
 
 describe("#Script", () => {

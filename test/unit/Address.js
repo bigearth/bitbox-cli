@@ -1,7 +1,7 @@
 const fixtures = require("./fixtures/Address.json")
 const assert = require("assert")
-const BITBOXSDK = require("../../lib/BITBOX").BITBOX
-const BITBOX = new BITBOXSDK()
+const bitbox = require("../../lib/BITBOX").BITBOX
+const BITBOX = new bitbox()
 const axios = require("axios")
 const sinon = require("sinon")
 const Bitcoin = require("bitcoincashjs-lib")

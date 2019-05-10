@@ -1,7 +1,7 @@
 const fixtures = require("./fixtures/BitcoinCash.json")
 const assert = require("assert")
-const BITBOXSDK = require("../../lib/BITBOX").BITBOX
-const BITBOX = new BITBOXSDK()
+const bitbox = require("../../lib/BITBOX").BITBOX
+const BITBOX = new bitbox()
 
 // TODO
 // 1. generate testnet p2sh

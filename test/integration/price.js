@@ -1,6 +1,6 @@
 const assert = require("assert")
-const BITBOXSDK = require("../../lib/BITBOX").BITBOX
-const BITBOX = new BITBOXSDK()
+const bitbox = require("../../lib/BITBOX").BITBOX
+const BITBOX = new bitbox()
 
 describe("#price", () => {
   describe("#current", () => {

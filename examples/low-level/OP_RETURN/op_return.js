@@ -5,7 +5,7 @@
 // Instantiate BITBOX.
 const bitboxLib = "../../../lib/BITBOX"
 const BITBOXSDK = require(bitboxLib)
-const BITBOX = new BITBOXSDK()
+const BITBOX = new bitbox()
 
 // Choose a transaction to parse for OP_Return
 
