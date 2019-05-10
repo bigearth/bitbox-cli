@@ -9,5 +9,5 @@ yarn-lock.json
 # production
 /dist
 
-lib/**/*.js
-lib/**/*.js.map
+#lib/**/*.js
+#lib/**/*.js.map
