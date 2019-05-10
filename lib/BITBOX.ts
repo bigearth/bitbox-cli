@@ -1,3 +1,5 @@
+/// <reference path="./interfaces/vendors.d.ts"/>
+
 // import interfaces
 import { IConfig } from "./interfaces/BITBOXInterfaces"
 

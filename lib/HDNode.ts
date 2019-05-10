@@ -1,23 +1,8 @@
 const Bitcoin = require("bitcoincashjs-lib")
 const coininfo = require("coininfo")
 const bip32utils = require("bip32-utils")
-import { Buffer } from "buffer"
 import { ECPair, ECSignature } from "./ECPair"
-
-export interface HDNodeBCL {
-  keyPair: any
-  getAddress(): any
-  isNeutered(): any
-  getIdentifier(): any
-  verify(buffer: any, signature: any): any
-  deriveHardened(path: any): any
-  sign(buffer: any): any
-  toBase58(): any
-  neutered(): any
-  getPublicKeyBuffer(): any
-  derivePath(path: any): any
-  derive(path: any): any
-}
+import * as bitcoincashjs from "bitcoincashjs-lib"
 
 export class HDNode {
   _address: any
@@ -25,7 +10,7 @@ export class HDNode {
     this._address = address
   }
 
-  fromSeed(rootSeedBuffer: any, network: string = "mainnet"): HDNodeBCL {
+  fromSeed(rootSeedBuffer: any, network: string = "mainnet"): HDNode {
     let bitcoincash: any
     if (network === "bitcoincash" || network === "mainnet")
       bitcoincash = coininfo.bitcoincash.main
@@ -38,35 +23,35 @@ export class HDNode {
     )
   }
 
-  toLegacyAddress(hdNode: HDNodeBCL): string {
+  toLegacyAddress(hdNode: bitcoincashjs.HDNode): string {
     return hdNode.getAddress()
   }
 
-  toCashAddress(hdNode: HDNodeBCL, regtest: boolean = false): string {
+  toCashAddress(hdNode: bitcoincashjs.HDNode, regtest: boolean = false): string {
     return this._address.toCashAddress(hdNode.getAddress(), true, regtest)
   }
 
-  toWIF(hdNode: HDNodeBCL): string {
+  toWIF(hdNode: bitcoincashjs.HDNode): string {
     return hdNode.keyPair.toWIF()
   }
 
-  toXPub(hdNode: HDNodeBCL): string {
+  toXPub(hdNode: bitcoincashjs.HDNode): string {
     return hdNode.neutered().toBase58()
   }
 
-  toXPriv(hdNode: HDNodeBCL): string {
+  toXPriv(hdNode: bitcoincashjs.HDNode): string {
     return hdNode.toBase58()
   }
 
-  toKeyPair(hdNode: HDNodeBCL): ECPair {
+  toKeyPair(hdNode: bitcoincashjs.HDNode): ECPair {
     return hdNode.keyPair
   }
 
-  toPublicKey(hdNode: HDNodeBCL): Buffer {
+  toPublicKey(hdNode: bitcoincashjs.HDNode): Buffer {
     return hdNode.getPublicKeyBuffer()
   }
 
-  fromXPriv(xpriv: string): HDNodeBCL {
+  fromXPriv(xpriv: string): bitcoincashjs.HDNode {
     let bitcoincash: any
     if (xpriv[0] === "x") bitcoincash = coininfo.bitcoincash.main
     else if (xpriv[0] === "t") bitcoincash = coininfo.bitcoincash.test
@@ -75,7 +60,7 @@ export class HDNode {
     return Bitcoin.HDNode.fromBase58(xpriv, bitcoincashBitcoinJSLib)
   }
 
-  fromXPub(xpub: string): HDNodeBCL {
+  fromXPub(xpub: string): bitcoincashjs.HDNode {
     let bitcoincash: any
     if (xpub[0] === "x") bitcoincash = coininfo.bitcoincash.main
     else if (xpub[0] === "t") bitcoincash = coininfo.bitcoincash.test
@@ -84,35 +69,35 @@ export class HDNode {
     return Bitcoin.HDNode.fromBase58(xpub, bitcoincashBitcoinJSLib)
   }
 
-  derivePath(hdnode: HDNodeBCL, path: string): HDNodeBCL {
+  derivePath(hdnode: bitcoincashjs.HDNode, path: string): bitcoincashjs.HDNode {
     return hdnode.derivePath(path)
   }
 
-  derive(hdnode: HDNodeBCL, path: string): HDNodeBCL {
+  derive(hdnode: bitcoincashjs.HDNode, path: string): bitcoincashjs.HDNode {
     return hdnode.derive(path)
   }
 
-  deriveHardened(hdnode: HDNodeBCL, path: string): HDNodeBCL {
+  deriveHardened(hdnode: bitcoincashjs.HDNode, path: string): bitcoincashjs.HDNode {
     return hdnode.deriveHardened(path)
   }
 
-  sign(hdnode: HDNodeBCL, buffer: Buffer): ECSignature {
+  sign(hdnode: bitcoincashjs.HDNode, buffer: Buffer): ECSignature {
     return hdnode.sign(buffer)
   }
 
-  verify(hdnode: HDNodeBCL, buffer: Buffer, signature: ECSignature): boolean {
+  verify(hdnode: bitcoincashjs.HDNode, buffer: Buffer, signature: ECSignature): boolean {
     return hdnode.verify(buffer, signature)
   }
 
-  isPublic(hdnode: HDNodeBCL): boolean {
+  isPublic(hdnode: bitcoincashjs.HDNode): boolean {
     return JSON.parse(hdnode.isNeutered())
   }
 
-  isPrivate(hdnode: HDNodeBCL): boolean {
+  isPrivate(hdnode: bitcoincashjs.HDNode): boolean {
     return !hdnode.isNeutered()
   }
 
-  toIdentifier(hdnode: HDNodeBCL): string {
+  toIdentifier(hdnode: bitcoincashjs.HDNode): string {
     return hdnode.getIdentifier()
   }
 
@@ -120,14 +105,14 @@ export class HDNode {
     return Bitcoin.HDNode.fromBase58(base58, network)
   }
 
-  createAccount(hdNodes: HDNodeBCL[]): object {
+  createAccount(hdNodes: bitcoincashjs.HDNode[]): object {
     const arr = hdNodes.map(
       (item: any, index: number) => new bip32utils.Chain(item.neutered())
     )
     return new bip32utils.Account(arr)
   }
 
-  createChain(hdNode: HDNodeBCL): object {
+  createChain(hdNode: bitcoincashjs.HDNode): object {
     return new bip32utils.Chain(hdNode)
   }
 }
