@@ -14,7 +14,7 @@ export interface ECPair {
   sign(ecpair: ECPair, buffer: Buffer): Boolean | ECSignature
   verify(buffer: Buffer, signature: ECSignature): boolean
   verify(ecpair: ECPair, buffer: Buffer, signature: ECSignature): boolean
-  fromPublicKey(pubkeyBuffer: string): ECPair
+  fromPublicKey(pubkeyBuffer: Buffer): ECPair
   toPublicKey(): Buffer
   toPublicKey(ecpair: ECPair): Buffer
   toLegacyAddress(): string

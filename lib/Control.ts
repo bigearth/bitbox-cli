@@ -48,6 +48,7 @@ export class Control implements Control {
   }
 
   async getMemoryInfo(): Promise<NodeMemoryInfo> {
+    // TODO add back to REST
     try {
       const response: any = await axios.get(
         `${this.restURL}control/getMemoryInfo`
