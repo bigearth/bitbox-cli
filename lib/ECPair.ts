@@ -6,7 +6,7 @@ export type ECSignature = any
 export interface ECPair {
   _address: any
   fromWIF(privateKeyWIF: string): ECPair
-  toWif(): string
+  toWIF(): string
   toWIF(ecpair: ECPair): string
   sign(sigHash: number): ECSignature
   sign(ecpair: ECPair, sigHash: number): ECSignature
@@ -17,12 +17,13 @@ export interface ECPair {
   fromPublicKey(pubkeyBuffer: Buffer): ECPair
   toPublicKey(): Buffer
   toPublicKey(ecpair: ECPair): Buffer
+  getPublicKeyBuffer(): Buffer
   toLegacyAddress(): string
   toLegacyAddress(ecpair: ECPair): string
   toCashAddress(): string
   toCashAddress(ecpair: ECPair, regtest?: boolean): string
+  getAddress(): string
 }
-
 export class ECPair implements ECPair {
   static _address: any
   static setAddress(address: any): void {
