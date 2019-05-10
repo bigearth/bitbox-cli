@@ -13,7 +13,7 @@ var emoji = require("node-emoji");
 var repl = require("repl");
 var BITBOX = require("./lib/BITBOX").BITBOX;
 var clone = require("git-clone");
-program.version("7.0.0 ", "-v, --version");
+program.version("7.0.1 ", "-v, --version");
 program
     .command("new <name>")
     .option("-s, --scaffold <scaffold>", "The framework to use. Options include react, angular, vuejs, nextjs, node and websockets.")
