@@ -4,9 +4,45 @@ const Bitcoin = require("bitcoincashjs-lib")
 const cashaddr = require("cashaddrjs")
 const coininfo = require("coininfo")
 
-interface bytes {
-  version: number,
+interface Hash {
   hash: Buffer
+}
+
+interface Bytes extends Hash {
+  version: number
+}
+
+interface Decoded extends Hash {
+  prefix: string
+  type: string
+  format: string
+}
+
+interface BitcoinCash {
+  hashGenesisBlock: string
+  port: number
+  portRpc: number
+  protocol: { 
+    magic: number
+  }
+  seedsDns: string[]
+  versions: {
+    bip32: { 
+      private: number 
+      public: number
+    }
+    bip44: number
+    private: number
+    public: number
+    scripthash: number
+    messagePrefix: string
+  }
+  name: string
+  per1: number
+  unit: string
+  testnet: boolean
+  toBitcoinJS: any
+  toBitcore: any
 }
 
 export class Address {
@@ -21,7 +57,7 @@ export class Address {
   toLegacyAddress(address: string): string {
     const { prefix, type, hash } = this._decode(address)
 
-    let bitcoincash: any
+    let bitcoincash: BitcoinCash
     switch (prefix) {
       case "bitcoincash":
         bitcoincash = coininfo.bitcoincash.main
@@ -36,7 +72,7 @@ export class Address {
         throw `unsupported prefix : ${prefix}`
     }
 
-    let version: any
+    let version: number
     switch (type) {
       case "P2PKH":
         version = bitcoincash.versions.public
@@ -58,7 +94,7 @@ export class Address {
     prefix: boolean = true,
     regtest: boolean = false
   ): string {
-    const decoded: any = this._decode(address)
+    const decoded: Decoded = this._decode(address)
 
     let prefixString: string
     if (regtest) prefixString = "bchreg"
@@ -76,14 +112,14 @@ export class Address {
 
   // Converts legacy address format to hash160
   legacyToHash160(address: string): string {
-    const bytes: bytes  = Bitcoin.address.fromBase58Check(address)
+    const bytes: Bytes  = Bitcoin.address.fromBase58Check(address)
     return bytes.hash.toString("hex")
   }
 
   // Converts cash address format to hash160
   cashToHash160(address: string): string {
     const legacyAddress: string = this.toLegacyAddress(address)
-    const bytes: bytes = Bitcoin.address.fromBase58Check(legacyAddress)
+    const bytes: Bytes = Bitcoin.address.fromBase58Check(legacyAddress)
     return bytes.hash.toString("hex")
   }
 
@@ -113,7 +149,7 @@ export class Address {
     return this.toCashAddress(legacyAddress, true, regtest)
   }
 
-  _decode(address: string): any {
+  _decode(address: string): Decoded {
     try {
       return this._decodeLegacyAddress(address)
     } catch (error) {}
@@ -129,9 +165,12 @@ export class Address {
     throw new Error(`Unsupported address format : ${address}`)
   }
 
-  _decodeLegacyAddress(address: any): any {
+  _decodeLegacyAddress(address: string): Decoded {
     const { version, hash } = Bitcoin.address.fromBase58Check(address)
-    const info = coininfo.bitcoincash
+    const info: {
+      main: any
+      test: any
+    } = coininfo.bitcoincash
 
     switch (version) {
       case info.main.versions.public:
@@ -167,9 +206,9 @@ export class Address {
     }
   }
 
-  _decodeCashAddress(address: string): any {
+  _decodeCashAddress(address: string): Decoded {
     if (address.indexOf(":") !== -1) {
-      const decoded = cashaddr.decode(address)
+      const decoded: Decoded = cashaddr.decode(address)
       decoded.format = "cashaddr"
       return decoded
     }
@@ -177,7 +216,7 @@ export class Address {
     const prefixes: string[] = ["bitcoincash", "bchtest", "bchreg"]
     for (let i: number = 0; i < prefixes.length; ++i) {
       try {
-        const decoded: any = cashaddr.decode(`${prefixes[i]}:${address}`)
+        const decoded: Decoded = cashaddr.decode(`${prefixes[i]}:${address}`)
         decoded.format = "cashaddr"
         return decoded
       } catch (error) {}
