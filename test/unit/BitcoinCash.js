@@ -84,6 +84,28 @@ describe("#BitcoinCash", () => {
     })
   })
 
+  describe("#satsToBits", () => {
+    fixtures.conversion.satsToBits.bch.forEach(bch => {
+      it(`should convert ${bch[0]} BCH to ${bch[1]} bits`, () => {
+        assert.equal(
+          bitbox.BitcoinCash.satsToBits(bitbox.BitcoinCash.toSatoshi(bch[0])),
+          bch[1]
+        )
+      })
+    })
+
+    fixtures.conversion.satsToBits.strings.forEach(bch => {
+      it(`should convert "${bch[0]}" BCH as a string to ${
+        bch[1]
+      } bits`, () => {
+        assert.equal(
+          bitbox.BitcoinCash.satsToBits(bitbox.BitcoinCash.toSatoshi(bch[0])),
+          bch[1]
+        )
+      })
+    })
+  })
+
   describe("sign and verify messages", () => {
     describe("#signMessageWithPrivKey", () => {
       fixtures.signatures.sign.forEach(sign => {
