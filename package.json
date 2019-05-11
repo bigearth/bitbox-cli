@@ -31,6 +31,7 @@
     "url": "git+https://github.com/Bitcoin-com/bitbox-javascript-sdk.git"
   },
   "dependencies": {
+    "@types/bigi": "^1.4.2",
     "@types/node": "^10.11.7",
     "assert": "^1.4.1",
     "axios": "^0.17.1",

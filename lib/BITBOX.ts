@@ -1,3 +1,5 @@
+/// <reference path="./interfaces/vendors.d.ts"/>
+
 // import interfaces
 import { IConfig } from "./interfaces/BITBOXInterfaces"
 
@@ -23,31 +25,8 @@ import { Socket } from "./Socket"
 import { Wallet } from "./Wallet"
 import { Schnorr } from "./Schnorr"
 
-export interface BITBOX {
-  restURL: string
-  Address: Address
-  BitcoinCash: BitcoinCash
-  Block: Block
-  Blockchain: Blockchain
-  Control: Control
-  Crypto: Crypto
-  ECPair: any
-  Generating: Generating
-  HDNode: HDNode
-  Mining: Mining
-  Mnemonic: Mnemonic
-  Price: Price
-  RawTransactions: RawTransactions
-  Script: Script
-  Transaction: Transaction
-  TransactionBuilder: any
-  Util: Util
-  Socket: any
-  Wallet: Wallet
-  Schnorr: Schnorr
-}
 
-export class BITBOX implements BITBOX {
+export class BITBOX {
   restURL: string
   Address: Address
   BitcoinCash: BitcoinCash
