@@ -4,11 +4,11 @@ wallet-info.txt
 wallet.json
 
 package-lock.json
+# yarn-lock.json
 
 # production
 /dist
-
-lib/**/*.js
 index.js
 index.js.map
+lib/**/*.js
 lib/**/*.js.map

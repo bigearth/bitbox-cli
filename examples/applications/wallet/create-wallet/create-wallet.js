@@ -1,12 +1,12 @@
 /*
-  Create an HDNode wallet using BITBOX. The mnemonic from this wallet
+  Create an HDNode wallet using bitbox. The mnemonic from this wallet
   will be used in future examples.
 */
 
 // Set NETWORK to either testnet or mainnet
 const NETWORK = `testnet`
 
-// Instantiate BITBOX.
+// Instantiate bitbox.
 const bitboxLib = "../../../../lib/BITBOX"
 const BITBOXSDK = require(bitboxLib)
 
@@ -25,9 +25,9 @@ let outStr = ""
 const outObj = {}
 
 // create 256 bit BIP39 mnemonic
-const mnemonic = BITBOX.Mnemonic.generate(
+const mnemonic = bitbox.Mnemonic.generate(
   128,
-  BITBOX.Mnemonic.wordLists()[lang]
+  bitbox.Mnemonic.wordLists()[lang]
 )
 console.log("BIP44 $BCH Wallet")
 outStr += "BIP44 $BCH Wallet\n"
@@ -36,12 +36,12 @@ outStr += `\n128 bit ${lang} BIP32 Mnemonic:\n${mnemonic}\n\n`
 outObj.mnemonic = mnemonic
 
 // root seed buffer
-const rootSeed = BITBOX.Mnemonic.toSeed(mnemonic)
+const rootSeed = bitbox.Mnemonic.toSeed(mnemonic)
 
 // master HDNode
 let masterHDNode
-if (NETWORK === `mainnet`) masterHDNode = BITBOX.HDNode.fromSeed(rootSeed)
-else masterHDNode = BITBOX.HDNode.fromSeed(rootSeed, "testnet") // Testnet
+if (NETWORK === `mainnet`) masterHDNode = bitbox.HDNode.fromSeed(rootSeed)
+else masterHDNode = bitbox.HDNode.fromSeed(rootSeed, "testnet") // Testnet
 
 // HDNode of BIP44 account
 console.log(`BIP44 Account: "m/44'/145'/0'"`)
@@ -50,14 +50,14 @@ outStr += `BIP44 Account: "m/44'/145'/0'"\n`
 // Generate the first 10 seed addresses.
 for (let i = 0; i < 10; i++) {
   const childNode = masterHDNode.derivePath(`m/44'/145'/0'/0/${i}`)
-  console.log(`m/44'/145'/0'/0/${i}: ${BITBOX.HDNode.toCashAddress(childNode)}`)
-  outStr += `m/44'/145'/0'/0/${i}: ${BITBOX.HDNode.toCashAddress(childNode)}\n`
+  console.log(`m/44'/145'/0'/0/${i}: ${bitbox.HDNode.toCashAddress(childNode)}`)
+  outStr += `m/44'/145'/0'/0/${i}: ${bitbox.HDNode.toCashAddress(childNode)}\n`
 
   // Save the first seed address for use in the .json output file.
   if (i === 0) {
-    outObj.cashAddress = BITBOX.HDNode.toCashAddress(childNode)
-    outObj.legacyAddress = BITBOX.HDNode.toLegacyAddress(childNode)
-    outObj.WIF = BITBOX.HDNode.toWIF(childNode)
+    outObj.cashAddress = bitbox.HDNode.toCashAddress(childNode)
+    outObj.legacyAddress = bitbox.HDNode.toLegacyAddress(childNode)
+    outObj.WIF = bitbox.HDNode.toWIF(childNode)
   }
 }
 

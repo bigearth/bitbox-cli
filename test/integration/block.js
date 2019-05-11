@@ -1,12 +1,12 @@
 /*
-  Integration tests for the BITBOX. Only covers calls made to
+  Integration tests for the bitbox. Only covers calls made to
   rest.bitcoin.com.
 */
 
 const chai = require("chai")
 const assert = chai.assert
-const BITBOXSDK = require("../../lib/BITBOX").BITBOX
-const BITBOX = new BITBOXSDK()
+const BITBOX = require("../../lib/BITBOX").BITBOX
+const bitbox = new BITBOX()
 
 // Inspect utility used for debugging.
 const util = require("util")
@@ -21,7 +21,7 @@ describe(`#block`, () => {
     it(`should GET block details for a given Height`, async () => {
       const block = 500000
 
-      const result = await BITBOX.Block.detailsByHeight(block)
+      const result = await bitbox.Block.detailsByHeight(block)
       //console.log(`result: ${JSON.stringify(result, null, 2)}`)
 
       assert.hasAllKeys(result, [
@@ -48,7 +48,7 @@ describe(`#block`, () => {
     it(`should GET block details for an array of blocks`, async () => {
       const blocks = [500000, 500001]
 
-      const result = await BITBOX.Block.detailsByHeight(blocks)
+      const result = await bitbox.Block.detailsByHeight(blocks)
       //console.log(`result: ${JSON.stringify(result, null, 2)}`)
 
       assert.isArray(result)
@@ -77,7 +77,7 @@ describe(`#block`, () => {
       try {
         const blocks = "asdf"
 
-        await BITBOX.Block.detailsByHeight(blocks)
+        await bitbox.Block.detailsByHeight(blocks)
         assert.equal(true, false, "Unexpected result!")
       } catch (err) {
         //console.log(`err: `, err)
@@ -93,7 +93,7 @@ describe(`#block`, () => {
         const blocks = []
         for (let i = 0; i < 25; i++) blocks.push(500000)
 
-        const result = await BITBOX.Block.detailsByHeight(blocks)
+        const result = await bitbox.Block.detailsByHeight(blocks)
 
         console.log(`result: ${util.inspect(result)}`)
         assert.equal(true, false, "Unexpected result!")
@@ -109,7 +109,7 @@ describe(`#block`, () => {
       const hash =
         "000000000000000005e14d3f9fdfb70745308706615cfa9edca4f4558332b201"
 
-      const result = await BITBOX.Block.detailsByHash(hash)
+      const result = await bitbox.Block.detailsByHash(hash)
       //console.log(`result: ${util.inspect(result)}`)
 
       assert.hasAllKeys(result, [
@@ -139,7 +139,7 @@ describe(`#block`, () => {
         "000000000000000005e14d3f9fdfb70745308706615cfa9edca4f4558332b201"
       ]
 
-      const result = await BITBOX.Block.detailsByHash(hash)
+      const result = await bitbox.Block.detailsByHash(hash)
       //console.log(`result: ${util.inspect(result)}`)
 
       assert.isArray(result)
@@ -168,7 +168,7 @@ describe(`#block`, () => {
       try {
         const hash = 12345
 
-        await BITBOX.Block.detailsByHash(hash)
+        await bitbox.Block.detailsByHash(hash)
         assert.equal(true, false, "Unexpected result!")
       } catch (err) {
         //console.log(`err: `, err)
@@ -188,7 +188,7 @@ describe(`#block`, () => {
           )
         }
 
-        const result = await BITBOX.Block.detailsByHash(data)
+        const result = await bitbox.Block.detailsByHash(data)
 
         console.log(`result: ${util.inspect(result)}`)
         assert.equal(true, false, "Unexpected result!")

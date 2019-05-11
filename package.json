@@ -1,6 +1,6 @@
 {
   "name": "bitbox-sdk",
-  "version": "7.0.0",
+  "version": "7.0.19",
   "description": "BITBOX SDK for Bitcoin Cash",
   "author": "Gabriel Cardona <gabriel@bitcoin.com>",
   "contributors": [
@@ -19,11 +19,10 @@
   "bin": {
     "bitbox": "./index.js"
   },
-  "main": "lib/BITBOX.js",
+  "main": "index.js",
   "files": [
-    "index.ts",
-    "lib/",
-    "dist/"
+    "index.js",
+    "lib/"
   ],
   "homepage": "https://developer.bitcoin.com/bitbox",
   "repository": {
@@ -32,7 +31,11 @@
   },
   "dependencies": {
     "@types/bigi": "^1.4.2",
+    "@types/figlet": "^1.2.0",
+    "@types/mkdirp": "^0.5.2",
     "@types/node": "^10.11.7",
+    "@types/node-emoji": "^1.8.1",
+    "@types/touch": "^3.1.1",
     "assert": "^1.4.1",
     "axios": "^0.17.1",
     "babel-cli": "^6.26.0",

@@ -12,7 +12,7 @@ export interface AddressDetails {
   account: string
 }
 
-export class Util implements Util {
+export class Util {
   restURL: string
   constructor(restURL: string) {
     this.restURL = restURL

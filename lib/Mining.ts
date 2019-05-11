@@ -1,6 +1,5 @@
 import axios from "axios"
 
-
 export class Mining {
   restURL: string
   constructor(restURL: string) {

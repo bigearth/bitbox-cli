@@ -1,7 +1,6 @@
 import axios from "axios"
 import { BlockDetails } from "bitcoin-com-rest";
 
-
 export class Block {
   restURL: string
   constructor(restURL: string) {

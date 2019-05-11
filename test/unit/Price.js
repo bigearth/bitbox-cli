@@ -1,7 +1,7 @@
 const chai = require("chai")
 const assert = require("assert")
-const BITBOXSDK = require("../../lib/BITBOX").BITBOX
-const BITBOX = new BITBOXSDK()
+const BITBOX = require("../../lib/BITBOX").BITBOX
+const bitbox = new BITBOX()
 const axios = require("axios")
 const sinon = require("sinon")
 
@@ -17,7 +17,7 @@ describe("#Price", () => {
         const resolved = new Promise(r => r({ data: data }))
         sandbox.stub(axios, "get").returns(resolved)
 
-        BITBOX.Price.current("usd")
+        bitbox.Price.current("usd")
           .then(result => {
             assert.deepEqual(data.price, result)
           })

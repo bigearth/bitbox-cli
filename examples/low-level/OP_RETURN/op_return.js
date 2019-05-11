@@ -2,10 +2,10 @@
   Check the outputs of a given transaction for messages in OP_Return
 */
 
-// Instantiate BITBOX.
+// Instantiate bitbox.
 const bitboxLib = "../../../lib/BITBOX"
 const BITBOXSDK = require(bitboxLib)
-const BITBOX = new BITBOXSDK()
+const bitbox = new BITBOX()
 
 // Choose a transaction to parse for OP_Return
 
@@ -16,7 +16,7 @@ function parseOP_RETURN(txid) {
   console.log(``)
 
   // Get transaction details from txid
-  BITBOX.Transaction.details(txid).then(
+  bitbox.Transaction.details(txid).then(
     tx => {
       // You may wish to log this tx info to the console to inspect and plan your parsing function
       // console.log(tx)
@@ -38,8 +38,8 @@ function parseOP_RETURN(txid) {
           // Decode the OP_Return message
           message = tx.vout[i].scriptPubKey.asm
 
-          let fromAsm = BITBOX.Script.fromASM(message)
-          let decoded = BITBOX.Script.decode(fromAsm)
+          let fromAsm = bitbox.Script.fromASM(message)
+          let decoded = bitbox.Script.decode(fromAsm)
           message = decoded[1].toString('ascii')
 
           // Add this decoded OP_Return message to an array, in case multiple outputs have OP_Return messages
@@ -61,7 +61,7 @@ function parseOP_RETURN(txid) {
       }
     },
     err => {
-      console.log('Error in BITBOX.Transaction.details(${txid}):')
+      console.log('Error in bitbox.Transaction.details(${txid}):')
       console.log(err)
     }
   ) 

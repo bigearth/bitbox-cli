@@ -6,7 +6,7 @@
 // Set NETWORK to either testnet or mainnet
 const NETWORK = `testnet`
 
-// Instantiate BITBOX.
+// Instantiate bitbox.
 const bitboxLib = "../../../lib/BITBOX"
 const BITBOXSDK = require(bitboxLib)
 
@@ -31,7 +31,7 @@ const ADDR = walletInfo.cashAddress
 async function getUtxos() {
   try {
     // first get BCH balance
-    const utxos = await BITBOX.Address.utxo(ADDR)
+    const utxos = await bitbox.Address.utxo(ADDR)
 
     console.log(`UTXO information for address ${ADDR}:`)
     console.log(utxos)

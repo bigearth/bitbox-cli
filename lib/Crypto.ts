@@ -2,6 +2,10 @@ const randomBytes = require("randombytes")
 const Bitcoin = require("bitcoincashjs-lib")
 
 export class Crypto {
+  static sha1(buffer: Buffer): Buffer {
+    return Bitcoin.crypto.sha1(buffer)
+  }
+
   static sha256(buffer: Buffer): Buffer {
     return Bitcoin.crypto.sha256(buffer)
   }

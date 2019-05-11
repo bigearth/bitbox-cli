@@ -5,7 +5,7 @@
 // Set NETWORK to either testnet or mainnet
 const NETWORK = `testnet`
 
-// Instantiate BITBOX.
+// Instantiate bitbox.
 const bitboxLib = "../../../../lib/BITBOX"
 const BITBOXSDK = require(bitboxLib)
 
@@ -32,13 +32,13 @@ async function consolidateDust() {
   try {
     // instance of transaction builder
     if (NETWORK === `mainnet`)
-      var transactionBuilder = new BITBOX.TransactionBuilder()
-    else var transactionBuilder = new BITBOX.TransactionBuilder("testnet")
+      var transactionBuilder = new bitbox.TransactionBuilder()
+    else var transactionBuilder = new bitbox.TransactionBuilder("testnet")
 
     let sendAmount = 0
     const inputs = []
 
-    const u = await BITBOX.Address.utxo(SEND_ADDR)
+    const u = await bitbox.Address.utxo(SEND_ADDR)
 
     // Loop through each UTXO assigned to this address.
     for (let i = 0; i < u.utxos.length; i++) {
@@ -53,7 +53,7 @@ async function consolidateDust() {
     }
 
     // get byte count to calculate fee. paying 1.2 sat/byte
-    const byteCount = BITBOX.BitcoinCash.getByteCount(
+    const byteCount = bitbox.BitcoinCash.getByteCount(
       { P2PKH: inputs.length },
       { P2PKH: 1 }
     )
@@ -78,7 +78,7 @@ async function consolidateDust() {
     const change = changeAddrFromMnemonic(SEND_MNEMONIC)
 
     // Generate a keypair from the change address.
-    const keyPair = BITBOX.HDNode.toKeyPair(change)
+    const keyPair = bitbox.HDNode.toKeyPair(change)
 
     // sign w/ HDNode
     let redeemScript
@@ -100,7 +100,7 @@ async function consolidateDust() {
     console.log(` `)
 
     // Broadcast transation to the network
-    const txid = await BITBOX.RawTransactions.sendRawTransaction([hex])
+    const txid = await bitbox.RawTransactions.sendRawTransaction([hex])
     console.log(`Transaction ID: ${txid}`)
     console.log(`Check the status of your transaction on this block explorer:`)
     console.log(`https://explorer.bitcoin.com/tbch/tx/${txid}`)
@@ -113,16 +113,16 @@ consolidateDust()
 // Generate a change address from a Mnemonic of a private key.
 function changeAddrFromMnemonic(mnemonic) {
   // root seed buffer
-  const rootSeed = BITBOX.Mnemonic.toSeed(mnemonic)
+  const rootSeed = bitbox.Mnemonic.toSeed(mnemonic)
 
   // master HDNode
-  const masterHDNode = BITBOX.HDNode.fromSeed(rootSeed, "testnet")
+  const masterHDNode = bitbox.HDNode.fromSeed(rootSeed, "testnet")
 
   // HDNode of BIP44 account
-  const account = BITBOX.HDNode.derivePath(masterHDNode, "m/44'/145'/0'")
+  const account = bitbox.HDNode.derivePath(masterHDNode, "m/44'/145'/0'")
 
   // derive the first external change address HDNode which is going to spend utxo
-  const change = BITBOX.HDNode.derivePath(account, "0/0")
+  const change = bitbox.HDNode.derivePath(account, "0/0")
 
   return change
 }

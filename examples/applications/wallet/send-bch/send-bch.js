@@ -8,7 +8,7 @@ const NETWORK = `testnet`
 const RECV_ADDR = ``
 const SATOSHIS_TO_SEND = 1000
 
-// Instantiate BITBOX.
+// Instantiate bitbox.
 const bitboxLib = "../../../../lib/BITBOX"
 const BITBOXSDK = require(bitboxLib)
 
@@ -44,23 +44,23 @@ async function sendBch() {
       process.exit(0)
     }
 
-    const SEND_ADDR_LEGACY = BITBOX.Address.toLegacyAddress(SEND_ADDR)
-    const RECV_ADDR_LEGACY = BITBOX.Address.toLegacyAddress(RECV_ADDR)
+    const SEND_ADDR_LEGACY = bitbox.Address.toLegacyAddress(SEND_ADDR)
+    const RECV_ADDR_LEGACY = bitbox.Address.toLegacyAddress(RECV_ADDR)
     console.log(`Sender Legacy Address: ${SEND_ADDR_LEGACY}`)
     console.log(`Receiver Legacy Address: ${RECV_ADDR_LEGACY}`)
 
     const balance2 = await getBCHBalance(RECV_ADDR, false)
     console.log(`Balance of recieving address ${RECV_ADDR} is ${balance2} BCH.`)
 
-    const u = await BITBOX.Address.utxo(SEND_ADDR)
+    const u = await bitbox.Address.utxo(SEND_ADDR)
     //console.log(`u: ${JSON.stringify(u, null, 2)}`)
     const utxo = findBiggestUtxo(u.utxos)
     console.log(`utxo: ${JSON.stringify(utxo, null, 2)}`)
 
     // instance of transaction builder
     if (NETWORK === `mainnet`)
-      var transactionBuilder = new BITBOX.TransactionBuilder()
-    else var transactionBuilder = new BITBOX.TransactionBuilder("testnet")
+      var transactionBuilder = new bitbox.TransactionBuilder()
+    else var transactionBuilder = new bitbox.TransactionBuilder("testnet")
 
     const satoshisToSend = SATOSHIS_TO_SEND
     const originalAmount = utxo.satoshis
@@ -71,7 +71,7 @@ async function sendBch() {
     transactionBuilder.addInput(txid, vout)
 
     // get byte count to calculate fee. paying 1.2 sat/byte
-    const byteCount = BITBOX.BitcoinCash.getByteCount(
+    const byteCount = bitbox.BitcoinCash.getByteCount(
       { P2PKH: 1 },
       { P2PKH: 2 }
     )
@@ -92,7 +92,7 @@ async function sendBch() {
     const change = changeAddrFromMnemonic(SEND_MNEMONIC)
 
     // Generate a keypair from the change address.
-    const keyPair = BITBOX.HDNode.toKeyPair(change)
+    const keyPair = bitbox.HDNode.toKeyPair(change)
 
     // Sign the transaction with the HD node.
     let redeemScript
@@ -112,7 +112,7 @@ async function sendBch() {
     console.log(` `)
 
     // Broadcast transation to the network
-    const txidStr = await BITBOX.RawTransactions.sendRawTransaction([hex])
+    const txidStr = await bitbox.RawTransactions.sendRawTransaction([hex])
     console.log(`Transaction ID: ${txidStr}`)
     console.log(`Check the status of your transaction on this block explorer:`)
     console.log(`https://explorer.bitcoin.com/tbch/tx/${txidStr}`)
@@ -125,18 +125,18 @@ sendBch()
 // Generate a change address from a Mnemonic of a private key.
 function changeAddrFromMnemonic(mnemonic) {
   // root seed buffer
-  const rootSeed = BITBOX.Mnemonic.toSeed(mnemonic)
+  const rootSeed = bitbox.Mnemonic.toSeed(mnemonic)
 
   // master HDNode
   let masterHDNode
-  if (NETWORK === `mainnet`) masterHDNode = BITBOX.HDNode.fromSeed(rootSeed)
-  else masterHDNode = BITBOX.HDNode.fromSeed(rootSeed, "testnet")
+  if (NETWORK === `mainnet`) masterHDNode = bitbox.HDNode.fromSeed(rootSeed)
+  else masterHDNode = bitbox.HDNode.fromSeed(rootSeed, "testnet")
 
   // HDNode of BIP44 account
-  const account = BITBOX.HDNode.derivePath(masterHDNode, "m/44'/145'/0'")
+  const account = bitbox.HDNode.derivePath(masterHDNode, "m/44'/145'/0'")
 
   // derive the first external change address HDNode which is going to spend utxo
-  const change = BITBOX.HDNode.derivePath(account, "0/0")
+  const change = bitbox.HDNode.derivePath(account, "0/0")
 
   return change
 }
@@ -144,7 +144,7 @@ function changeAddrFromMnemonic(mnemonic) {
 // Get the balance in BCH of a BCH address.
 async function getBCHBalance(addr, verbose) {
   try {
-    const result = await BITBOX.Address.details(addr)
+    const result = await bitbox.Address.details(addr)
 
     if (verbose) console.log(result)
 

@@ -2,7 +2,7 @@ const Bitcoin = require("bitcoincashjs-lib")
 import axios from "axios"
 import { TxnDetails } from "bitcoin-com-rest";
 
-export class Transaction implements Transaction {
+export class Transaction {
   restURL: string
   constructor(restURL: string) {
     this.restURL = restURL

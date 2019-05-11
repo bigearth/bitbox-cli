@@ -9,7 +9,6 @@ const wif = require("wif")
 
 const Buffer = require("safe-buffer").Buffer
 
-
 export interface EncodeBIP21Options {
   amount?: number
   label?: string
@@ -44,6 +43,15 @@ export class BitcoinCash {
   // Translate satoshi to coin value
   toBitcoinCash(satoshis: number): number {
     return sb.toBitcoin(satoshis)
+  }
+
+  toBits(satoshis: number): number {
+    return satoshis / 100
+  }
+
+  // Translate satoshi to bits denomination
+  satsToBits(satoshis: number): number {
+    return satoshis / 100
   }
 
   // sign message

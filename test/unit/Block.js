@@ -1,6 +1,6 @@
 const assert = require("assert")
-const BITBOXSDK = require("../../lib/BITBOX").BITBOX
-const BITBOX = new BITBOXSDK()
+const BITBOX = require("../../lib/BITBOX").BITBOX
+const bitbox = new BITBOX()
 const axios = require("axios")
 const sinon = require("sinon")
 
@@ -40,7 +40,7 @@ describe("#Block", () => {
       const resolved = new Promise(r => r({ data: data }))
       sandbox.stub(axios, "get").returns(resolved)
 
-      const result = await BITBOX.Block.detailsByHash(
+      const result = await bitbox.Block.detailsByHash(
         "000000001c6aeec19265e9cc3ded8ba5ef5e63fae7747f30bf9c02c7bc8883f0"
       )
 
@@ -83,7 +83,7 @@ describe("#Block", () => {
       const resolved = new Promise(r => r({ data: data }))
       sandbox.stub(axios, "get").returns(resolved)
 
-      const result = await BITBOX.Block.detailsByHeight(500007)
+      const result = await bitbox.Block.detailsByHeight(500007)
 
       assert.deepEqual(result, data)
     })

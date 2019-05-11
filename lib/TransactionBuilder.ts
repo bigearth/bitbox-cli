@@ -5,37 +5,11 @@ const coininfo = require("coininfo")
 const bip66 = require("bip66")
 const bip68 = require("bc-bip68")
 
-export interface TransactionBuilder {
-  transaction: any
-  DEFAULT_SEQUENCE: any
-  hashTypes: HashTypes
-  signatureAlgorithms: SignatureAlgorithms
-  bip66: any
-  bip68: any
-  p2shInput: any
-  tx: any
-  _address: any
-  setAddress(address: string): void
-  addInput(
-    txHash: string,
-    vout: number,
-    sequence?: number,
-    prevOutScript?: string
-  ): void
-  addInputScript(vout: number, script: any): void
-  addInputScripts(scripts: any): void
-  addOutput(scriptPubKey: string, amount: number): void
-  setLockTime(locktime: number): void
-  sign(
-    vin: number,
-    keyPair: ECPair,
-    redeemScript: Buffer,
-    hashType: number,
-    value: number,
-    signatureAlgorithm?: number
-  ): void
-  build(): any
-}
+import { Buffer } from "buffer"
+
+import { Transaction } from "./Transaction"
+
+declare type ECSignature = any
 
 declare interface SignatureAlgorithms {
   ECDSA: number
@@ -52,7 +26,7 @@ declare interface HashTypes {
   ADVANCED_TRANSACTION_FLAG: number
 }
 
-export class TransactionBuilder implements TransactionBuilder {
+export class TransactionBuilder {
   transaction: any
   DEFAULT_SEQUENCE: any
   hashTypes: HashTypes

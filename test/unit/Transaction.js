@@ -1,6 +1,6 @@
 const assert = require("assert")
-const BITBOXSDK = require("../../lib/BITBOX").BITBOX
-const BITBOX = new BITBOXSDK()
+const BITBOX = require("../../lib/BITBOX").BITBOX
+const bitbox = new BITBOX()
 const axios = require("axios")
 const sinon = require("sinon")
 
@@ -40,7 +40,7 @@ describe("#Transaction", () => {
       const resolved = new Promise(r => r({ data: data }))
       sandbox.stub(axios, "get").returns(resolved)
 
-      BITBOX.Transaction.details(
+      bitbox.Transaction.details(
         "a85fa3d831ab6b0305e7ff88d2d4941e25a810d4461635df51490653822071a8"
       )
         .then(result => {

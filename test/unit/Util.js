@@ -1,7 +1,7 @@
 const assert = require("assert")
 const axios = require("axios")
-const BITBOXSDK = require("../../lib/BITBOX").BITBOX
-const BITBOX = new BITBOXSDK()
+const BITBOX = require("../../lib/BITBOX").BITBOX
+const bitbox = new BITBOX()
 const sinon = require("sinon")
 
 describe("#Util", () => {
@@ -23,7 +23,7 @@ describe("#Util", () => {
       const resolved = new Promise(r => r({ data: data }))
       sandbox.stub(axios, "get").returns(resolved)
 
-      BITBOX.Util.validateAddress(
+      bitbox.Util.validateAddress(
         "bitcoincash:qpz7qtkuyhrsz4qmnnrvf8gz9zd0u9v7eqsewyk4w5"
       )
         .then(result => {

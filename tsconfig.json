@@ -8,6 +8,5 @@
     "lib": ["es2017"],
     "sourceMap": true
   },
-  "include": ["./lib", "./test"],
-  "files": ["index.ts"]
+  "include": ["./lib", "./test", "index.ts"]
 }

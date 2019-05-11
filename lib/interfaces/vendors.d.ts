@@ -236,4 +236,8 @@ declare module "bitcoin-com-rest" {
         legacyAddress: string
         cashAddress: string
     }
+
+  export interface Clear {
+    clear(): void
+  }
 }

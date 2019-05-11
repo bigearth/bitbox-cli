@@ -1,7 +1,7 @@
 const fixtures = require("./fixtures/BitcoinCash.json")
 const assert = require("assert")
-const BITBOXSDK = require("../../lib/BITBOX").BITBOX
-const BITBOX = new BITBOXSDK()
+const BITBOX = require("../../lib/BITBOX").BITBOX
+const bitbox = new BITBOX()
 
 // TODO
 // 1. generate testnet p2sh
@@ -26,7 +26,7 @@ describe("#BitcoinCash", () => {
         it(`should convert ${satoshi[0]} Satoshis to ${
           satoshi[1]
         } $BCH`, () => {
-          assert.equal(BITBOX.BitcoinCash.toBitcoinCash(satoshi[0]), satoshi[1])
+          assert.equal(bitbox.BitcoinCash.toBitcoinCash(satoshi[0]), satoshi[1])
         })
       })
 
@@ -34,7 +34,7 @@ describe("#BitcoinCash", () => {
         it(`should convert "${satoshi[0]}" Satoshis as a string to ${
           satoshi[1]
         } $BCH`, () => {
-          assert.equal(BITBOX.BitcoinCash.toBitcoinCash(satoshi[0]), satoshi[1])
+          assert.equal(bitbox.BitcoinCash.toBitcoinCash(satoshi[0]), satoshi[1])
         })
       })
 
@@ -42,13 +42,13 @@ describe("#BitcoinCash", () => {
         it(`converts ${bch[0]} to Bitcoin Cash, not to ${
           bch[1]
         } Satoshi`, () => {
-          assert.notEqual(BITBOX.BitcoinCash.toBitcoinCash(bch[0]), bch[1])
+          assert.notEqual(bitbox.BitcoinCash.toBitcoinCash(bch[0]), bch[1])
         })
       })
 
       fixtures.conversion.toBCH.rounding.forEach(satoshi => {
         it(`rounding ${satoshi[0]} to ${satoshi[1]} $BCH`, () => {
-          assert.equal(BITBOX.BitcoinCash.toBitcoinCash(satoshi[0]), satoshi[1])
+          assert.equal(bitbox.BitcoinCash.toBitcoinCash(satoshi[0]), satoshi[1])
         })
       })
     })
@@ -56,7 +56,7 @@ describe("#BitcoinCash", () => {
     describe("#toSatoshi", () => {
       fixtures.conversion.toSatoshi.bch.forEach(bch => {
         it(`should convert ${bch[0]} $BCH to ${bch[1]} Satoshis`, () => {
-          assert.equal(BITBOX.BitcoinCash.toSatoshi(bch[0]), bch[1])
+          assert.equal(bitbox.BitcoinCash.toSatoshi(bch[0]), bch[1])
         })
       })
 
@@ -64,7 +64,7 @@ describe("#BitcoinCash", () => {
         it(`should convert "${bch[0]}" $BCH as a string to ${
           bch[1]
         } Satoshis`, () => {
-          assert.equal(BITBOX.BitcoinCash.toSatoshi(bch[0]), bch[1])
+          assert.equal(bitbox.BitcoinCash.toSatoshi(bch[0]), bch[1])
         })
       })
 
@@ -72,14 +72,36 @@ describe("#BitcoinCash", () => {
         it(`converts ${satoshi[0]} to Satoshi, not to ${
           satoshi[1]
         } Bitcoin Cash`, () => {
-          assert.notEqual(BITBOX.BitcoinCash.toSatoshi(satoshi[0]), satoshi[1])
+          assert.notEqual(bitbox.BitcoinCash.toSatoshi(satoshi[0]), satoshi[1])
         })
       })
 
       fixtures.conversion.toSatoshi.rounding.forEach(bch => {
         it(`rounding ${bch[0]} to ${bch[1]} Satoshi`, () => {
-          assert.equal(BITBOX.BitcoinCash.toSatoshi(bch[0]), bch[1])
+          assert.equal(bitbox.BitcoinCash.toSatoshi(bch[0]), bch[1])
         })
+      })
+    })
+  })
+
+  describe("#satsToBits", () => {
+    fixtures.conversion.satsToBits.bch.forEach(bch => {
+      it(`should convert ${bch[0]} BCH to ${bch[1]} bits`, () => {
+        assert.equal(
+          bitbox.BitcoinCash.satsToBits(bitbox.BitcoinCash.toSatoshi(bch[0])),
+          bch[1]
+        )
+      })
+    })
+
+    fixtures.conversion.satsToBits.strings.forEach(bch => {
+      it(`should convert "${bch[0]}" BCH as a string to ${
+        bch[1]
+      } bits`, () => {
+        assert.equal(
+          bitbox.BitcoinCash.satsToBits(bitbox.BitcoinCash.toSatoshi(bch[0])),
+          bch[1]
+        )
       })
     })
   })
@@ -92,7 +114,7 @@ describe("#BitcoinCash", () => {
         }`, () => {
           const privateKeyWIF = sign.privateKeyWIF
           const message = sign.message
-          const signature = BITBOX.BitcoinCash.signMessageWithPrivKey(
+          const signature = bitbox.BitcoinCash.signMessageWithPrivKey(
             privateKeyWIF,
             message
           )
@@ -107,7 +129,7 @@ describe("#BitcoinCash", () => {
           sign.network
         } cashaddr address ${sign.address}`, () => {
           assert.equal(
-            BITBOX.BitcoinCash.verifyMessage(
+            bitbox.BitcoinCash.verifyMessage(
               sign.address,
               sign.signature,
               sign.message
@@ -118,12 +140,12 @@ describe("#BitcoinCash", () => {
       })
 
       fixtures.signatures.verify.forEach(sign => {
-        const legacyAddress = BITBOX.Address.toLegacyAddress(sign.address)
+        const legacyAddress = bitbox.Address.toLegacyAddress(sign.address)
         it(`should verify a valid signed message from ${
           sign.network
         } legacy address ${legacyAddress}`, () => {
           assert.equal(
-            BITBOX.BitcoinCash.verifyMessage(
+            bitbox.BitcoinCash.verifyMessage(
               legacyAddress,
               sign.signature,
               sign.message
@@ -134,12 +156,12 @@ describe("#BitcoinCash", () => {
       })
 
       fixtures.signatures.verify.forEach(sign => {
-        const legacyAddress = BITBOX.Address.toLegacyAddress(sign.address)
+        const legacyAddress = bitbox.Address.toLegacyAddress(sign.address)
         it(`should not verify an invalid signed message from ${
           sign.network
         } cashaddr address ${sign.address}`, () => {
           assert.equal(
-            BITBOX.BitcoinCash.verifyMessage(
+            bitbox.BitcoinCash.verifyMessage(
               sign.address,
               sign.signature,
               "nope"
@@ -158,7 +180,7 @@ describe("#BitcoinCash", () => {
           base58Check.base58Check
         }`, () => {
           assert.equal(
-            BITBOX.BitcoinCash.encodeBase58Check(base58Check.hex),
+            bitbox.BitcoinCash.encodeBase58Check(base58Check.hex),
             base58Check.base58Check
           )
         })
@@ -169,7 +191,7 @@ describe("#BitcoinCash", () => {
       fixtures.encodeBase58Check.forEach((base58Check, i) => {
         it(`decode ${base58Check.base58Check} as ${base58Check.hex}`, () => {
           assert.equal(
-            BITBOX.BitcoinCash.decodeBase58Check(base58Check.base58Check),
+            bitbox.BitcoinCash.decodeBase58Check(base58Check.base58Check),
             base58Check.hex
           )
         })
@@ -181,7 +203,7 @@ describe("#BitcoinCash", () => {
     describe("#encodeBIP21", () => {
       fixtures.bip21.valid.forEach((bip21, i) => {
         it(`encode ${bip21.address} as url`, () => {
-          const url = BITBOX.BitcoinCash.encodeBIP21(
+          const url = bitbox.BitcoinCash.encodeBIP21(
             bip21.address,
             bip21.options
           )
@@ -190,7 +212,7 @@ describe("#BitcoinCash", () => {
       })
       fixtures.bip21.valid_regtest.forEach((bip21, i) => {
         it(`encode ${bip21.address} as url`, () => {
-          const url = BITBOX.BitcoinCash.encodeBIP21(
+          const url = bitbox.BitcoinCash.encodeBIP21(
             bip21.address,
             bip21.options,
             true
@@ -203,23 +225,23 @@ describe("#BitcoinCash", () => {
     describe("#decodeBIP21", () => {
       fixtures.bip21.valid.forEach((bip21, i) => {
         it(`decodes ${bip21.url}`, () => {
-          const decoded = BITBOX.BitcoinCash.decodeBIP21(bip21.url)
+          const decoded = bitbox.BitcoinCash.decodeBIP21(bip21.url)
           assert.equal(decoded.options.amount, bip21.options.amount)
           assert.equal(decoded.options.label, bip21.options.label)
           assert.equal(
-            BITBOX.Address.toCashAddress(decoded.address),
-            BITBOX.Address.toCashAddress(bip21.address)
+            bitbox.Address.toCashAddress(decoded.address),
+            bitbox.Address.toCashAddress(bip21.address)
           )
         })
       })
       // fixtures.bip21.valid_regtest.forEach((bip21, i) => {
       //   it(`decodes ${bip21.url}`, () => {
-      //     const decoded = BITBOX.BitcoinCash.decodeBIP21(bip21.url)
+      //     const decoded = bitbox.BitcoinCash.decodeBIP21(bip21.url)
       //     assert.equal(decoded.options.amount, bip21.options.amount)
       //     assert.equal(decoded.options.label, bip21.options.label)
       //     assert.equal(
-      //       BITBOX.Address.toCashAddress(decoded.address, true, true),
-      //       BITBOX.Address.toCashAddress(bip21.address, true, true)
+      //       bitbox.Address.toCashAddress(decoded.address, true, true),
+      //       bitbox.Address.toCashAddress(bip21.address, true, true)
       //     )
       //   })
       // })
@@ -229,7 +251,7 @@ describe("#BitcoinCash", () => {
   describe("#getByteCount", () => {
     fixtures.getByteCount.forEach(fixture => {
       it(`get byte count`, () => {
-        const byteCount = BITBOX.BitcoinCash.getByteCount(
+        const byteCount = bitbox.BitcoinCash.getByteCount(
           fixture.inputs,
           fixture.outputs
         )
@@ -244,7 +266,7 @@ describe("#BitcoinCash", () => {
         it(`BIP 38 encrypt wif ${fixture.wif} with password ${
           fixture.password
         } on mainnet`, () => {
-          const encryptedKey = BITBOX.BitcoinCash.encryptBIP38(
+          const encryptedKey = bitbox.BitcoinCash.encryptBIP38(
             fixture.wif,
             fixture.password
           )
@@ -256,7 +278,7 @@ describe("#BitcoinCash", () => {
         it(`BIP 38 encrypt wif ${fixture.wif} with password ${
           fixture.password
         } on testnet`, () => {
-          const encryptedKey = BITBOX.BitcoinCash.encryptBIP38(
+          const encryptedKey = bitbox.BitcoinCash.encryptBIP38(
             fixture.wif,
             fixture.password
           )
@@ -270,7 +292,7 @@ describe("#BitcoinCash", () => {
         it(`BIP 38 decrypt encrypted key ${
           fixture.encryptedKey
         } on mainnet`, () => {
-          const wif = BITBOX.BitcoinCash.decryptBIP38(
+          const wif = bitbox.BitcoinCash.decryptBIP38(
             fixture.encryptedKey,
             fixture.password,
             "mainnet"
@@ -283,7 +305,7 @@ describe("#BitcoinCash", () => {
         it(`BIP 38 decrypt encrypted key ${
           fixture.encryptedKey
         } on testnet`, () => {
-          const wif = BITBOX.BitcoinCash.decryptBIP38(
+          const wif = bitbox.BitcoinCash.decryptBIP38(
             fixture.encryptedKey,
             fixture.password,
             "testnet"

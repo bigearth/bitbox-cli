@@ -25,7 +25,6 @@ import { Socket } from "./Socket"
 import { Wallet } from "./Wallet"
 import { Schnorr } from "./Schnorr"
 
-
 export class BITBOX {
   restURL: string
   Address: Address

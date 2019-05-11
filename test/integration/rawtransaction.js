@@ -1,5 +1,5 @@
 /*
-  Integration tests for the BITBOX. Only covers calls made to
+  Integration tests for the bitbox. Only covers calls made to
   rest.bitcoin.com.
 
   TODO
@@ -7,8 +7,8 @@
 
 const chai = require("chai")
 const assert = chai.assert
-const BITBOXSDK = require("../../lib/BITBOX").BITBOX
-const BITBOX = new BITBOXSDK()
+const BITBOX = require("../../lib/BITBOX").BITBOX
+const bitbox = new BITBOX()
 
 // Inspect utility used for debugging.
 const util = require("util")
@@ -24,7 +24,7 @@ describe("#rawtransaction", () => {
       const hex =
         "0200000001b9b598d7d6d72fc486b2b3a3c03c79b5bade6ec9a77ced850515ab5e64edcc21010000006b483045022100a7b1b08956abb8d6f322aa709d8583c8ea492ba0585f1a6f4f9983520af74a5a0220411aee4a9a54effab617b0508c504c31681b15f9b187179b4874257badd4139041210360cfc66fdacb650bc4c83b4e351805181ee696b7d5ab4667c57b2786f51c413dffffffff0210270000000000001976a914eb4b180def88e3f5625b2d8ae2c098ff7d85f66488ac786e9800000000001976a914eb4b180def88e3f5625b2d8ae2c098ff7d85f66488ac00000000"
 
-      const result = await BITBOX.RawTransactions.decodeRawTransaction(hex)
+      const result = await bitbox.RawTransactions.decodeRawTransaction(hex)
       //console.log(`result ${JSON.stringify(result, null, 2)}`)
 
       assert.hasAnyKeys(result, [
@@ -46,7 +46,7 @@ describe("#rawtransaction", () => {
         "0200000001b9b598d7d6d72fc486b2b3a3c03c79b5bade6ec9a77ced850515ab5e64edcc21010000006b483045022100a7b1b08956abb8d6f322aa709d8583c8ea492ba0585f1a6f4f9983520af74a5a0220411aee4a9a54effab617b0508c504c31681b15f9b187179b4874257badd4139041210360cfc66fdacb650bc4c83b4e351805181ee696b7d5ab4667c57b2786f51c413dffffffff0210270000000000001976a914eb4b180def88e3f5625b2d8ae2c098ff7d85f66488ac786e9800000000001976a914eb4b180def88e3f5625b2d8ae2c098ff7d85f66488ac00000000"
       ]
 
-      const result = await BITBOX.RawTransactions.decodeRawTransaction(hexes)
+      const result = await bitbox.RawTransactions.decodeRawTransaction(hexes)
       //console.log(`result ${JSON.stringify(result, null, 2)}`)
 
       assert.isArray(result)
@@ -67,7 +67,7 @@ describe("#rawtransaction", () => {
       try {
         const addr = 12345
 
-        await BITBOX.RawTransactions.decodeRawTransaction(addr)
+        await bitbox.RawTransactions.decodeRawTransaction(addr)
         assert.equal(true, false, "Unexpected result!")
       } catch (err) {
         //console.log(`err: `, err)
@@ -87,7 +87,7 @@ describe("#rawtransaction", () => {
           )
         }
 
-        const result = await BITBOX.RawTransactions.decodeRawTransaction(data)
+        const result = await bitbox.RawTransactions.decodeRawTransaction(data)
 
         console.log(`result: ${util.inspect(result)}`)
         assert.equal(true, false, "Unexpected result!")
@@ -104,7 +104,7 @@ describe("#rawtransaction", () => {
         "23213453b4642a73b4fc30d3112d72549ca153a8707255b14373b59e43558de1"
       const verbose = false
 
-      const result = await BITBOX.RawTransactions.getRawTransaction(
+      const result = await bitbox.RawTransactions.getRawTransaction(
         txid,
         verbose
       )
@@ -118,7 +118,7 @@ describe("#rawtransaction", () => {
         "23213453b4642a73b4fc30d3112d72549ca153a8707255b14373b59e43558de1"
       const verbose = true
 
-      const result = await BITBOX.RawTransactions.getRawTransaction(
+      const result = await bitbox.RawTransactions.getRawTransaction(
         txid,
         verbose
       )
@@ -149,7 +149,7 @@ describe("#rawtransaction", () => {
       ]
       const verbose = false
 
-      const result = await BITBOX.RawTransactions.getRawTransaction(
+      const result = await bitbox.RawTransactions.getRawTransaction(
         txid,
         verbose
       )
@@ -166,7 +166,7 @@ describe("#rawtransaction", () => {
       ]
       const verbose = true
 
-      const result = await BITBOX.RawTransactions.getRawTransaction(
+      const result = await bitbox.RawTransactions.getRawTransaction(
         txid,
         verbose
       )
@@ -198,7 +198,7 @@ describe("#rawtransaction", () => {
         const data = []
         for (let i = 0; i < 25; i++) data.push(dataMock)
 
-        const result = await BITBOX.RawTransactions.getRawTransaction(data)
+        const result = await bitbox.RawTransactions.getRawTransaction(data)
 
         console.log(`result: ${util.inspect(result)}`)
         assert.equal(true, false, "Unexpected result!")
@@ -214,7 +214,7 @@ describe("#rawtransaction", () => {
       const hex =
         "4830450221009a51e00ec3524a7389592bc27bea4af5104a59510f5f0cfafa64bbd5c164ca2e02206c2a8bbb47eabdeed52f17d7df668d521600286406930426e3a9415fe10ed592012102e6e1423f7abde8b70bca3e78a7d030e5efabd3eb35c19302542b5fe7879c1a16"
 
-      const result = await BITBOX.RawTransactions.decodeScript(hex)
+      const result = await bitbox.RawTransactions.decodeScript(hex)
       //console.log(`result ${JSON.stringify(result, null, 2)}`)
 
       assert.hasAllKeys(result, ["asm", "type", "p2sh"])
@@ -229,7 +229,7 @@ describe("#rawtransaction", () => {
         "4830450221009a51e00ec3524a7389592bc27bea4af5104a59510f5f0cfafa64bbd5c164ca2e02206c2a8bbb47eabdeed52f17d7df668d521600286406930426e3a9415fe10ed592012102e6e1423f7abde8b70bca3e78a7d030e5efabd3eb35c19302542b5fe7879c1a16"
       ]
 
-      const result = await BITBOX.RawTransactions.decodeScript(hexes)
+      const result = await bitbox.RawTransactions.decodeScript(hexes)
       console.log(`result ${JSON.stringify(result, null, 2)}`)
     })
 */
@@ -238,7 +238,7 @@ describe("#rawtransaction", () => {
       try {
         const addr = 12345
 
-        await BITBOX.RawTransactions.decodeRawTransaction(addr)
+        await bitbox.RawTransactions.decodeRawTransaction(addr)
         assert.equal(true, false, "Unexpected result!")
       } catch (err) {
         //console.log(`err: `, err)
@@ -263,7 +263,7 @@ describe("#rawtransaction", () => {
         const hex =
           "01000000013ba3edfd7a7b12b27ac72c3e67768f617fc81bc3888a51323a9fb8aa4b1e5e4a000000006a4730440220540986d1c58d6e76f8f05501c520c38ce55393d0ed7ed3c3a82c69af04221232022058ea43ed6c05fec0eccce749a63332ed4525460105346f11108b9c26df93cd72012103083dfc5a0254613941ddc91af39ff90cd711cdcde03a87b144b883b524660c39ffffffff01807c814a000000001976a914d7e7c4e0b70eaa67ceff9d2823d1bbb9f6df9a5188ac00000000"
 
-        await BITBOX.RawTransactions.sendRawTransaction(hex)
+        await bitbox.RawTransactions.sendRawTransaction(hex)
         //console.log(`result ${JSON.stringify(result, null, 2)}`)
 
         assert.equal(true, false, "Unexpected result!")
@@ -282,7 +282,7 @@ describe("#rawtransaction", () => {
           "01000000013ba3edfd7a7b12b27ac72c3e67768f617fc81bc3888a51323a9fb8aa4b1e5e4a000000006a4730440220540986d1c58d6e76f8f05501c520c38ce55393d0ed7ed3c3a82c69af04221232022058ea43ed6c05fec0eccce749a63332ed4525460105346f11108b9c26df93cd72012103083dfc5a0254613941ddc91af39ff90cd711cdcde03a87b144b883b524660c39ffffffff01807c814a000000001976a914d7e7c4e0b70eaa67ceff9d2823d1bbb9f6df9a5188ac00000000"
         ]
 
-        const result = await BITBOX.RawTransactions.sendRawTransaction(hexes)
+        const result = await bitbox.RawTransactions.sendRawTransaction(hexes)
         console.log(`result ${JSON.stringify(result, null, 2)}`)
       } catch (err) {
         // console.log(`err: ${util.inspect(err)}`)
@@ -296,7 +296,7 @@ describe("#rawtransaction", () => {
       try {
         const addr = 12345
 
-        await BITBOX.RawTransactions.sendRawTransaction(addr)
+        await bitbox.RawTransactions.sendRawTransaction(addr)
         assert.equal(true, false, "Unexpected result!")
       } catch (err) {
         //console.log(`err: `, err)
@@ -314,7 +314,7 @@ describe("#rawtransaction", () => {
         const data = []
         for (let i = 0; i < 25; i++) data.push(dataMock)
 
-        const result = await BITBOX.RawTransactions.sendRawTransaction(data)
+        const result = await bitbox.RawTransactions.sendRawTransaction(data)
 
         console.log(`result: ${util.inspect(result)}`)
         assert.equal(true, false, "Unexpected result!")
