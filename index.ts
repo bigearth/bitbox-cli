@@ -220,7 +220,7 @@ function fetchOption(kv: string, config: any, options: ConsoleOptions | NewOptio
 program.parse(process.argv)
 
 // print help if no command given
-if (!process.argv.slice(2).length) program.outputHelp()
+// if (!process.argv.slice(2).length) program.outputHelp()
 
 module.exports = {
   Address: Address,
