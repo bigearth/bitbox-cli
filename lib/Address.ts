@@ -4,11 +4,17 @@ const Bitcoin = require("bitcoincashjs-lib")
 const cashaddr = require("cashaddrjs")
 const coininfo = require("coininfo")
 
+interface bytes {
+  version: number,
+  hash: Buffer
+}
 
 export class Address {
-  restURL: string
-  constructor(restURL: string) {
-    this.restURL = restURL
+  restURL?: string
+  constructor(restURL?: string) {
+    if(restURL) {
+      this.restURL = restURL
+    }
   }
 
   // Translate address from any address format into a specific format.
@@ -42,7 +48,7 @@ export class Address {
         throw `unsupported address type : ${type}`
     }
 
-    const hashBuf: any = Buffer.from(hash)
+    const hashBuf: Buffer = Buffer.from(hash)
 
     return Bitcoin.address.toBase58Check(hashBuf, version)
   }
@@ -52,7 +58,7 @@ export class Address {
     prefix: boolean = true,
     regtest: boolean = false
   ): string {
-    const decoded = this._decode(address)
+    const decoded: any = this._decode(address)
 
     let prefixString: string
     if (regtest) prefixString = "bchreg"
@@ -70,14 +76,14 @@ export class Address {
 
   // Converts legacy address format to hash160
   legacyToHash160(address: string): string {
-    const bytes = Bitcoin.address.fromBase58Check(address)
+    const bytes: bytes  = Bitcoin.address.fromBase58Check(address)
     return bytes.hash.toString("hex")
   }
 
   // Converts cash address format to hash160
   cashToHash160(address: string): string {
-    const legacyAddress = this.toLegacyAddress(address)
-    const bytes = Bitcoin.address.fromBase58Check(legacyAddress)
+    const legacyAddress: string = this.toLegacyAddress(address)
+    const bytes: bytes = Bitcoin.address.fromBase58Check(legacyAddress)
     return bytes.hash.toString("hex")
   }
 
@@ -90,21 +96,20 @@ export class Address {
 
   // Converts hash160 to Legacy Address
   hash160ToLegacy(
-    hash160: any,
-    network: any = Bitcoin.networks.bitcoin.pubKeyHash
+    hash160: string,
+    network: number = Bitcoin.networks.bitcoin.pubKeyHash
   ): string {
-    const buffer = Buffer.from(hash160, "hex")
-    const legacyAddress = Bitcoin.address.toBase58Check(buffer, network)
-    return legacyAddress
+    const buffer: Buffer = Buffer.from(hash160, "hex")
+    return Bitcoin.address.toBase58Check(buffer, network)
   }
 
   // Converts hash160 to Cash Address
   hash160ToCash(
-    hash160: any,
-    network: any = Bitcoin.networks.bitcoin.pubKeyHash,
+    hash160: string,
+    network: number = Bitcoin.networks.bitcoin.pubKeyHash,
     regtest: boolean = false
   ): string {
-    const legacyAddress = this.hash160ToLegacy(hash160, network)
+    const legacyAddress: string = this.hash160ToLegacy(hash160, network)
     return this.toCashAddress(legacyAddress, true, regtest)
   }
 

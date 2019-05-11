@@ -1,6 +1,8 @@
 import * as BIP39 from "bip39"
 import * as randomBytes from "randombytes"
-import * as Bitcoin from "bitcoincashjs-lib"
+// TODO: convert "bitcoincashjs-lib" require to import
+const Bitcoin = require("bitcoincashjs-lib")
+// import * as Bitcoin from "bitcoincashjs-lib"
 import { Buffer } from "buffer"
 import * as wif from "wif"
 import { Address } from "./Address"
