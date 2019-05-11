@@ -24,11 +24,8 @@ describe("#BitcoinCash", () => {
 
   describe("#BitcoinCashConstructor", () => {
     it("should create instance of BitcoinCash", () => {
-      let bitcoinCash = new BitcoinCash()
-      assert.equal(
-        bitcoinCash instanceof BitcoinCash,
-        true
-      )
+      const bitcoinCash = new BitcoinCash()
+      assert.equal(bitcoinCash instanceof BitcoinCash, true)
     })
   })
 

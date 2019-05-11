@@ -8,11 +8,8 @@ const Buffer = require("safe-buffer").Buffer
 describe("#TransactionBuilder", () => {
   describe("#TransactionBuilderConstructor", () => {
     it("should create instance of TransactionBuilder", () => {
-      let transactionbuilder = new TransactionBuilder()
-      assert.equal(
-        transactionbuilder instanceof TransactionBuilder,
-        true
-      )
+      const transactionbuilder = new TransactionBuilder()
+      assert.equal(transactionbuilder instanceof TransactionBuilder, true)
     })
   })
 

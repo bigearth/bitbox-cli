@@ -4,15 +4,18 @@ const BITBOX = require("../../lib/BITBOX").BITBOX
 const bitbox = new BITBOX()
 const Control = require("../../lib/Control").Control
 const sinon = require("sinon")
+const resturl = require("../../lib/BITBOX").resturl
 
 describe("#Control", () => {
   describe("#ControlConstructor", () => {
     it("should create instance of Control", () => {
-      let control = new Control()
-      assert.equal(
-        control instanceof Control,
-        true
-      )
+      const control = new Control()
+      assert.equal(control instanceof Control, true)
+    })
+
+    it("should have a restURL property", () => {
+      const control = new Control()
+      assert.equal(control.restURL, resturl)
     })
   })
 

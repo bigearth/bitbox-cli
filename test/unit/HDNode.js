@@ -8,11 +8,8 @@ const Buffer = require("safe-buffer").Buffer
 describe("#HDNode", () => {
   describe("#HDNodeConstructor", () => {
     it("should create instance of HDNode", () => {
-      let hdnode = new HDNode()
-      assert.equal(
-        hdnode instanceof HDNode,
-        true
-      )
+      const hdnode = new HDNode()
+      assert.equal(hdnode instanceof HDNode, true)
     })
   })
 

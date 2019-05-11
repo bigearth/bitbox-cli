@@ -9,11 +9,8 @@ const sinon = require("sinon")
 describe("#Price", () => {
   describe("#PriceConstructor", () => {
     it("should create instance of Price", () => {
-      let price = new Price()
-      assert.equal(
-        price instanceof Price,
-        true
-      )
+      const price = new Price()
+      assert.equal(price instanceof Price, true)
     })
   })
 

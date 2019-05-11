@@ -7,11 +7,8 @@ const Mnemonic = require("../../lib/Mnemonic").Mnemonic
 describe("#Mnemonic", () => {
   describe("#MnemonicConstructor", () => {
     it("should create instance of Mnemonic", () => {
-      let mnemonic = new Mnemonic()
-      assert.equal(
-        mnemonic instanceof Mnemonic,
-        true
-      )
+      const mnemonic = new Mnemonic()
+      assert.equal(mnemonic instanceof Mnemonic, true)
     })
   })
 

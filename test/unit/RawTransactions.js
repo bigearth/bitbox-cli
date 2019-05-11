@@ -10,6 +10,7 @@ const axios = require("axios")
 const BITBOX = require("../../lib/BITBOX").BITBOX
 const bitbox = new BITBOX()
 const RawTransactions = require("../../lib/RawTransactions").RawTransactions
+const resturl = require("../../lib/BITBOX").resturl
 
 const sinon = require("sinon")
 const nock = require("nock") // HTTP mocking
@@ -21,11 +22,13 @@ util.inspect.defaultOptions = { depth: 1 }
 describe("#RawTransactions", () => {
   describe("#PriceConstructor", () => {
     it("should create instance of RawTransactions", () => {
-      let rawtransactions = new RawTransactions()
-      assert.equal(
-        rawtransactions instanceof RawTransactions,
-        true
-      )
+      const rawtransactions = new RawTransactions()
+      assert.equal(rawtransactions instanceof RawTransactions, true)
+    })
+
+    it("should have a restURL property", () => {
+      const rawtransactions = new RawTransactions()
+      assert.equal(rawtransactions.restURL, resturl)
     })
   })
 

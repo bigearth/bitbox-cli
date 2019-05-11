@@ -4,12 +4,18 @@ const BITBOX = require("../../lib/BITBOX").BITBOX
 const bitbox = new BITBOX()
 const Generating = require("../../lib/Generating").Generating
 const sinon = require("sinon")
+const resturl = require("../../lib/BITBOX").resturl
 
 describe("#Generating", () => {
   describe("#GeneratingConstructor", () => {
     it("should create instance of Generating", () => {
       const generating = new Generating()
       assert.equal(generating instanceof Generating, true)
+    })
+
+    it("should have a restURL property", () => {
+      const generating = new Generating()
+      assert.equal(generating.restURL, resturl)
     })
   })
 

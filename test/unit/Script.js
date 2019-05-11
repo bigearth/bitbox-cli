@@ -8,11 +8,8 @@ const Buffer = require("safe-buffer").Buffer
 describe("#Script", () => {
   describe("#ScriptConstructor", () => {
     it("should create instance of Script", () => {
-      let script = new Script()
-      assert.equal(
-        script instanceof Script,
-        true
-      )
+      const script = new Script()
+      assert.equal(script instanceof Script, true)
     })
   })
 

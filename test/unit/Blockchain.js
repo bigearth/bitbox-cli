@@ -4,17 +4,21 @@ const BITBOX = require("../../lib/BITBOX").BITBOX
 const bitbox = new BITBOX()
 const Blockchain = require("../../lib/Blockchain").Blockchain
 const sinon = require("sinon")
+const resturl = require("../../lib/BITBOX").resturl
 
 describe("#Blockchain", () => {
   describe("#BlockchainConstructor", () => {
     it("should create instance of Blockchain", () => {
-      let blockchain = new Blockchain()
-      assert.equal(
-        blockchain instanceof Blockchain,
-        true
-      )
+      const blockchain = new Blockchain()
+      assert.equal(blockchain instanceof Blockchain, true)
+    })
+
+    it("should have a restURL property", () => {
+      const blockchain = new Blockchain()
+      assert.equal(blockchain.restURL, resturl)
     })
   })
+
   describe("#getBestBlockHash", () => {
     let sandbox
     beforeEach(() => (sandbox = sinon.sandbox.create()))

@@ -4,15 +4,18 @@ const BITBOX = require("../../lib/BITBOX").BITBOX
 const bitbox = new BITBOX()
 const Mining = require("../../lib/Mining").Mining
 const sinon = require("sinon")
+const resturl = require("../../lib/BITBOX").resturl
 
 describe("#Mining", () => {
   describe("#MiningConstructor", () => {
     it("should create instance of Mining", () => {
-      let mining = new Mining()
-      assert.equal(
-        mining instanceof Mining,
-        true
-      )
+      const mining = new Mining()
+      assert.equal(mining instanceof Mining, true)
+    })
+
+    it("should have a restURL property", () => {
+      const mining = new Mining()
+      assert.equal(mining.restURL, resturl)
     })
   })
 
