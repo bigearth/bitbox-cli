@@ -8,11 +8,8 @@ const Buffer = require("safe-buffer").Buffer
 describe("#ECPair", () => {
   describe("#ECPairConstructor", () => {
     it("should create instance of ECPair", () => {
-      let ecpair = new ECPair()
-      assert.equal(
-        ecpair instanceof ECPair,
-        true
-      )
+      const ecpair = new ECPair()
+      assert.equal(ecpair instanceof ECPair, true)
     })
   })
 
@@ -149,7 +146,6 @@ describe("#ECPair", () => {
     fixtures.verify.forEach(fixture => {
       it(`should verify signed 32 byte hash buffer`, () => {
         const ecpair1 = bitbox.ECPair.fromWIF(fixture.privateKeyWIF1)
-        const ecpair2 = bitbox.ECPair.fromWIF(fixture.privateKeyWIF2)
         const buf = Buffer.from(bitbox.Crypto.sha256(fixture.data), "hex")
         const signature = bitbox.ECPair.sign(ecpair1, buf)
         const verify = bitbox.ECPair.verify(ecpair1, buf, signature)

@@ -8,11 +8,8 @@ const sinon = require("sinon")
 describe("#Generating", () => {
   describe("#GeneratingConstructor", () => {
     it("should create instance of Generating", () => {
-      let generating = new Generating()
-      assert.equal(
-        generating instanceof Generating,
-        true
-      )
+      const generating = new Generating()
+      assert.equal(generating instanceof Generating, true)
     })
   })
 
