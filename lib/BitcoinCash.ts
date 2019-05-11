@@ -57,7 +57,7 @@ export interface ByteCountOutput {
   P2SH?: number
 }
 
-export class BitcoinCash implements BitcoinCash {
+export class BitcoinCash {
   _address: any
   constructor(address: any) {
     this._address = address

@@ -6,36 +6,6 @@
 import axios from "axios"
 import { BlockDetails } from "./Block"
 
-export interface Blockchain {
-  restURL: string
-  getBestBlockHash(): Promise<string>
-  getBlock(blockhash: string, verbose?: boolean): Promise<BlockDetails>
-  getBlockchainInfo(): Promise<BlockchainInfo>
-  getBlockCount(): Promise<number>
-  getBlockHash(height?: number): Promise<string>
-  getBlockHeader(
-    hash: string | string[],
-    verbose?: boolean
-  ): Promise<BlockHeader>
-  getChainTips(): Promise<ChainTip[]>
-  getDifficulty(): Promise<number>
-  getMempoolAncestors(txid: string, verbose?: boolean): Promise<any>
-  getMempoolDescendants(txid: string, verbose?: boolean): Promise<any>
-  getMempoolEntry(txid: string | string[]): Promise<any>
-  getMempoolInfo(): Promise<MempoolInfo>
-  getRawMempool(verbose?: boolean): Promise<any>
-  getTxOut(
-    txid: string,
-    n: any,
-    include_mempool?: boolean
-  ): Promise<TxOut | null>
-  getTxOutProof(txids: string | string[]): Promise<string | string[]>
-  preciousBlock(blockhash: string): Promise<any>
-  pruneBlockchain(height: number): Promise<number>
-  verifyChain(checklevel?: number, nblocks?: number): Promise<boolean>
-  verifyTxOutProof(proof: any | any[]): Promise<string[]>
-}
-
 export interface MempoolInfo {
   size: number
   bytes: number
@@ -97,7 +67,7 @@ export interface TxOut {
   coinbase: boolean
 }
 
-export class Blockchain implements Blockchain {
+export class Blockchain {
   restURL: string
   constructor(restURL: string) {
     this.restURL = restURL

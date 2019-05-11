@@ -1,11 +1,5 @@
 import axios from "axios"
 
-export interface Control {
-  restURL: string
-  getInfo(): Promise<NodeInfo>
-  getMemoryInfo(): Promise<NodeMemoryInfo>
-}
-
 export interface NodeInfo {
   version: number
   protocolversion: number
@@ -31,7 +25,7 @@ export interface NodeMemoryInfo {
   }
 }
 
-export class Control implements Control {
+export class Control {
   restURL: string
   constructor(restURL: string) {
     this.restURL = restURL

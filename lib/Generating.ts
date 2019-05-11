@@ -1,15 +1,6 @@
 import axios from "axios"
 
-export interface Generating {
-  restURL: string
-  generateToAddress(
-    blocks: number,
-    address: string,
-    maxtries?: number
-  ): Promise<any[]>
-}
-
-export class Generating implements Generating {
+export class Generating {
   restURL: string
   constructor(restURL: string) {
     this.restURL = restURL

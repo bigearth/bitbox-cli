@@ -3,41 +3,6 @@ const Bitcoin = require("bitcoincashjs-lib")
 const cashaddr = require("cashaddrjs")
 const coininfo = require("coininfo")
 
-export interface Address {
-  toLegacyAddress(address: string): string
-  toCashAddress(address: string, prefix?: boolean, regtest?: boolean): string
-  legacyToHash160(address: string): string
-  cashToHash160(address: string): string
-  // regtestToHash160(address: string): string
-  isHash160(address: string): boolean
-  hash160ToLegacy(hash160: any, network?: any): string
-  hash160ToCash(hash160: any, network?: any, regtest?: boolean): string
-  isLegacyAddress(address: string): boolean
-  isCashAddress(address: string): boolean
-  isMainnetAddress(address: string): boolean
-  isTestnetAddress(address: string): boolean
-  isRegTestAddress(address: string): boolean
-  isP2PKHAddress(address: string): boolean
-  isP2SHAddress(address: string): boolean
-  detectAddressFormat(address: string): string
-  detectAddressNetwork(address: string): string
-  detectAddressType(address: string): string
-  fromXPub(xpub: string, path?: string): string
-  fromXPriv(xpriv: string, path?: string): string
-  fromOutputScript(scriptPubKey: any, network?: string): string
-  details(
-    address: string | string[]
-  ): Promise<AddressDetailsResult | AddressDetailsResult[]>
-  utxo(
-    address: string | string[]
-  ): Promise<AddressUtxoResult | AddressUtxoResult[]>
-  unconfirmed(
-    address: string | string[]
-  ): Promise<AddressUnconfirmedResult | AddressUnconfirmedResult[]>
-  // TODO add interface for AddressTransactionsResult
-  transactions(address: string | string[]): Promise<any>
-}
-
 export interface AddressDetailsResult {
   balance: number
   balanceSat: number
@@ -82,7 +47,7 @@ export interface AddressUnconfirmedResult {
   cashAddress: string
 }
 
-export class Address implements Address {
+export class Address {
   restURL: string
   constructor(restURL: string) {
     this.restURL = restURL
