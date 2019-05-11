@@ -9,10 +9,10 @@ import * as fs from "fs";
 import * as repl from "repl";
 import * as mkdirp from "mkdirp";
 import * as figlet from "figlet";
-import * as clear from "clear";
+let clear = require("clear")
 import * as touch from "touch";
 import * as emoji from "node-emoji";
-import clone = require("git-clone");
+let clone  = require("git-clone")
 
 import { BITBOX } from "./lib/BITBOX"
 // this.Address = new Address(this.restURL)

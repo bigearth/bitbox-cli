@@ -1,3 +1,4 @@
+/// <reference types="node" />
 declare module "bitcoincashjs-lib" {
     export interface HDNode {
         keyPair: any
@@ -237,7 +238,16 @@ declare module "bitcoin-com-rest" {
         cashAddress: string
     }
 
-  export interface Clear {
-    clear(): void
-  }
 }
+
+// declare module "clear" {
+//   namespace clear {
+//     export function clear(clear: boolean): void
+//   }
+// }
+
+// declare module "git-clone" {
+//   export function clear(clear?: boolean): void
+// }
+
+// export declare function clear(clear?: boolean): void;
