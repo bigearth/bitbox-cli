@@ -2,6 +2,7 @@ import axios from "axios"
 import { AddressDetailsResult, AddressUtxoResult, AddressUnconfirmedResult } from "bitcoin-com-rest";
 import * as bcl from "bitcoincashjs-lib"
 import { resturl } from "./BITBOX"
+// TODO: port require statements to impprt
 const Bitcoin = require("bitcoincashjs-lib")
 const cashaddr = require("cashaddrjs")
 const coininfo = require("coininfo")

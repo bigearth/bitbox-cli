@@ -10,7 +10,7 @@ import * as bcl from "bitcoincashjs-lib"
 
 export class Mnemonic {
   _address: Address
-  constructor(address: Address) {
+  constructor(address: Address = new Address()) {
     this._address = address
   }
 

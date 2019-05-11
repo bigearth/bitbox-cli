@@ -32,7 +32,7 @@ export interface ByteCountOutput {
 
 export class BitcoinCash {
   _address: Address
-  constructor(address: Address) {
+  constructor(address: Address = new Address()) {
     this._address = address
   }
 

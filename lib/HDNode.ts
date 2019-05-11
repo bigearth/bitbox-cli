@@ -6,7 +6,7 @@ import { Address } from "./Address"
 
 export class HDNode {
   _address: Address
-  constructor(address: Address) {
+  constructor(address: Address = new Address()) {
     this._address = address
   }
 
