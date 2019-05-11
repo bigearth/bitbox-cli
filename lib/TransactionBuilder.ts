@@ -1,14 +1,9 @@
+import { ECPair } from "bitcoincashjs-lib";
+
 const Bitcoin = require("bitcoincashjs-lib")
 const coininfo = require("coininfo")
 const bip66 = require("bip66")
 const bip68 = require("bc-bip68")
-
-import { Buffer } from "buffer"
-
-import { Transaction } from "./Transaction"
-import { ECPair } from "./ECPair"
-
-declare type ECSignature = any
 
 export interface TransactionBuilder {
   transaction: any

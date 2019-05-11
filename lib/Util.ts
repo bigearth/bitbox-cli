@@ -1,10 +1,5 @@
 import axios from "axios"
 
-export interface Util {
-  restURL: string
-  validateAddress(address: string): Promise<AddressDetails | AddressDetails[]>
-}
-
 export interface AddressDetails {
   isvalid: boolean
   address: string
