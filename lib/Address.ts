@@ -1,5 +1,6 @@
 import axios from "axios"
 import { AddressDetailsResult, AddressUtxoResult, AddressUnconfirmedResult } from "bitcoin-com-rest";
+import * as bcl from "bitcoincashjs-lib"
 const Bitcoin = require("bitcoincashjs-lib")
 const cashaddr = require("cashaddrjs")
 const coininfo = require("coininfo")
@@ -44,6 +45,12 @@ interface BitcoinCash {
   toBitcoinJS: any
   toBitcore: any
 }
+
+  interface DecodedHash160 {
+    legacyAddress: string
+    cashAddress: string
+    format: string
+  }
 
 export class Address {
   restURL?: string
@@ -158,8 +165,12 @@ export class Address {
       return this._decodeCashAddress(address)
     } catch (error) {}
 
+    throw new Error(`Unsupported address format : ${address}`)
+  }
+
+  _decodeHash160(address: string): DecodedHash160 {
     try {
-      return this._encodeAddressFromHash160(address)
+      return this._decodeAddressFromHash160(address)
     } catch (error) {}
 
     throw new Error(`Unsupported address format : ${address}`)
@@ -225,14 +236,21 @@ export class Address {
     throw new Error(`Invalid format : ${address}`)
   }
 
-  _encodeAddressFromHash160(address: string): any {
-    try {
+  _decodeAddressFromHash160(address: string): DecodedHash160 {
+    console.log("ADDRESS", address)
+    if (address.length === 40) {
       return {
         legacyAddress: this.hash160ToLegacy(address),
         cashAddress: this.hash160ToCash(address),
         format: "hash160"
       }
-    } catch (error) {}
+    } else if(this.isCashAddress(address) || this.isLegacyAddress(address)) {
+      return {
+        legacyAddress: this.toLegacyAddress(address),
+        cashAddress: this.toCashAddress(address),
+        format: "nonHash160"
+      }
+    }
 
     throw new Error(`Invalid format : ${address}`)
   }
@@ -247,7 +265,7 @@ export class Address {
   }
 
   isHash160(address: string): boolean {
-    return this.detectAddressFormat(address) === "hash160"
+    return this._detectHash160Format(address) === "hash160"
   }
 
   // Test for address network.
@@ -280,8 +298,13 @@ export class Address {
 
   // Detect address format.
   detectAddressFormat(address: string): string {
-    const decoded: any = this._decode(address)
+    const decoded: Decoded = this._decode(address)
+    return decoded.format
+  }
 
+  // Detect address format.
+  _detectHash160Format(address: string): string {
+    const decoded: DecodedHash160 = this._decodeHash160(address)
     return decoded.format
   }
 
@@ -290,7 +313,7 @@ export class Address {
     if (address[0] === "x") return "mainnet"
     else if (address[0] === "t") return "testnet"
 
-    const decoded = this._decode(address)
+    const decoded: Decoded = this._decode(address)
 
     switch (decoded.prefix) {
       case "bitcoincash":
@@ -306,37 +329,36 @@ export class Address {
 
   // Detect address type.
   detectAddressType(address: string): string {
-    const decoded: any = this._decode(address)
-
+    const decoded: Decoded = this._decode(address)
     return decoded.type.toLowerCase()
   }
 
   fromXPub(xpub: string, path: string = "0/0"): string {
-    let bitcoincash: any
+    let bitcoincash: BitcoinCash
     if (xpub[0] === "x") bitcoincash = coininfo.bitcoincash.main
-    else if (xpub[0] === "t") bitcoincash = coininfo.bitcoincash.test
+    else bitcoincash = coininfo.bitcoincash.test
 
-    const bitcoincashBitcoinJSLib = bitcoincash.toBitcoinJS()
-    const HDNode: any = Bitcoin.HDNode.fromBase58(xpub, bitcoincashBitcoinJSLib)
-    const address: any = HDNode.derivePath(path)
+    const bitcoincashBitcoinJSLib: any = bitcoincash.toBitcoinJS()
+    const HDNode: bcl.HDNode = Bitcoin.HDNode.fromBase58(xpub, bitcoincashBitcoinJSLib)
+    const address: bcl.HDNode = HDNode.derivePath(path)
     return this.toCashAddress(address.getAddress())
   }
 
   fromXPriv(xpriv: string, path: string = "0'/0"): string {
-    let bitcoincash: any
+    let bitcoincash: BitcoinCash
     if (xpriv[0] === "x") bitcoincash = coininfo.bitcoincash.main
-    else if (xpriv[0] === "t") bitcoincash = coininfo.bitcoincash.test
+    else bitcoincash = coininfo.bitcoincash.test
 
-    const bitcoincashBitcoinJSLib = bitcoincash.toBitcoinJS()
-    const HDNode: any = Bitcoin.HDNode.fromBase58(
+    const bitcoincashBitcoinJSLib: any = bitcoincash.toBitcoinJS()
+    const HDNode: bcl.HDNode = Bitcoin.HDNode.fromBase58(
       xpriv,
       bitcoincashBitcoinJSLib
     )
-    const address: any = HDNode.derivePath(path)
+    const address: bcl.HDNode = HDNode.derivePath(path)
     return this.toCashAddress(address.getAddress())
   }
 
-  fromOutputScript(scriptPubKey: any, network: string = "mainnet"): string {
+  fromOutputScript(scriptPubKey: Buffer, network: string = "mainnet"): string {
     let netParam: any
     if (network !== "bitcoincash" && network !== "mainnet")
       netParam = Bitcoin.networks.testnet
