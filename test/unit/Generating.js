@@ -2,9 +2,20 @@ const assert = require("assert")
 const axios = require("axios")
 const BITBOX = require("../../lib/BITBOX").BITBOX
 const bitbox = new BITBOX()
+const Generating = require("../../lib/Generating").Generating
 const sinon = require("sinon")
 
 describe("#Generating", () => {
+  describe("#GeneratingConstructor", () => {
+    it("should create instance of Generating", () => {
+      let generating = new Generating()
+      assert.equal(
+        generating instanceof Generating,
+        true
+      )
+    })
+  })
+
   describe("#generateToAddress", () => {
     let sandbox
     beforeEach(() => (sandbox = sinon.sandbox.create()))

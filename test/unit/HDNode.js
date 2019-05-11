@@ -2,9 +2,20 @@ const fixtures = require("./fixtures/HDNode.json")
 const assert = require("assert")
 const BITBOX = require("../../lib/BITBOX").BITBOX
 const bitbox = new BITBOX()
+const HDNode = require("../../lib/HDNode").HDNode
 const Buffer = require("safe-buffer").Buffer
 
 describe("#HDNode", () => {
+  describe("#HDNodeConstructor", () => {
+    it("should create instance of HDNode", () => {
+      let hdnode = new HDNode()
+      assert.equal(
+        hdnode instanceof HDNode,
+        true
+      )
+    })
+  })
+
   describe("#fromSeed", () => {
     fixtures.fromSeed.forEach(mnemonic => {
       it(`should create an HDNode from root seed buffer`, () => {

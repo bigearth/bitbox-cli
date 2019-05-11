@@ -2,9 +2,20 @@ const fixtures = require("./fixtures/ECPair.json")
 const assert = require("assert")
 const BITBOX = require("../../lib/BITBOX").BITBOX
 const bitbox = new BITBOX()
+const ECPair = require("../../lib/ECPair").ECPair
 const Buffer = require("safe-buffer").Buffer
 
 describe("#ECPair", () => {
+  describe("#ECPairConstructor", () => {
+    it("should create instance of ECPair", () => {
+      let ecpair = new ECPair()
+      assert.equal(
+        ecpair instanceof ECPair,
+        true
+      )
+    })
+  })
+
   describe("#fromWIF", () => {
     fixtures.fromWIF.forEach(fixture => {
       it(`should create ECPair from WIF ${fixture.privateKeyWIF}`, () => {

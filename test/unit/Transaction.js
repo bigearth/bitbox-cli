@@ -1,10 +1,21 @@
 const assert = require("assert")
 const BITBOX = require("../../lib/BITBOX").BITBOX
 const bitbox = new BITBOX()
+const Transaction = require("../../lib/Transaction").Transaction
 const axios = require("axios")
 const sinon = require("sinon")
 
 describe("#Transaction", () => {
+  describe("#TransactionConstructor", () => {
+    it("should create instance of Transaction", () => {
+      let transaction = new Transaction()
+      assert.equal(
+        transaction instanceof Transaction,
+        true
+      )
+    })
+  })
+
   describe("#details", () => {
     let sandbox
     beforeEach(() => (sandbox = sinon.sandbox.create()))

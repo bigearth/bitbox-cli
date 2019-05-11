@@ -1,10 +1,21 @@
 const assert = require("assert")
 const BITBOX = require("../../lib/BITBOX").BITBOX
 const bitbox = new BITBOX()
+const Block = require("../../lib/Block").Block
 const axios = require("axios")
 const sinon = require("sinon")
 
 describe("#Block", () => {
+  describe("#BlockConstructor", () => {
+    it("should create instance of Block", () => {
+      let block = new Block()
+      assert.equal(
+        block instanceof Block,
+        true
+      )
+    })
+  })
+
   describe("#detailsByHash", () => {
     let sandbox
     beforeEach(() => (sandbox = sinon.sandbox.create()))

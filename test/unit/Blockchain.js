@@ -2,9 +2,19 @@ const assert = require("assert")
 const axios = require("axios")
 const BITBOX = require("../../lib/BITBOX").BITBOX
 const bitbox = new BITBOX()
+const Blockchain = require("../../lib/Blockchain").Blockchain
 const sinon = require("sinon")
 
 describe("#Blockchain", () => {
+  describe("#BlockchainConstructor", () => {
+    it("should create instance of Blockchain", () => {
+      let blockchain = new Blockchain()
+      assert.equal(
+        blockchain instanceof Blockchain,
+        true
+      )
+    })
+  })
   describe("#getBestBlockHash", () => {
     let sandbox
     beforeEach(() => (sandbox = sinon.sandbox.create()))

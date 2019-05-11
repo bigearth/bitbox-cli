@@ -2,9 +2,20 @@ const assert = require("assert")
 const axios = require("axios")
 const BITBOX = require("../../lib/BITBOX").BITBOX
 const bitbox = new BITBOX()
+const Util = require("../../lib/Util").Util
 const sinon = require("sinon")
 
 describe("#Util", () => {
+  describe("#UtilConstructor", () => {
+    it("should create instance of Util", () => {
+      let util = new Util()
+      assert.equal(
+        util instanceof Util,
+        true
+      )
+    })
+  })
+
   describe("#validateAddress", () => {
     let sandbox
     beforeEach(() => (sandbox = sinon.sandbox.create()))

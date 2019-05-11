@@ -2,9 +2,20 @@ const assert = require("assert")
 const axios = require("axios")
 const BITBOX = require("../../lib/BITBOX").BITBOX
 const bitbox = new BITBOX()
+const Control = require("../../lib/Control").Control
 const sinon = require("sinon")
 
 describe("#Control", () => {
+  describe("#ControlConstructor", () => {
+    it("should create instance of Control", () => {
+      let control = new Control()
+      assert.equal(
+        control instanceof Control,
+        true
+      )
+    })
+  })
+
   describe("#getInfo", () => {
     let sandbox
     beforeEach(() => (sandbox = sinon.sandbox.create()))

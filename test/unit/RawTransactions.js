@@ -9,6 +9,7 @@ const assert = require("assert")
 const axios = require("axios")
 const BITBOX = require("../../lib/BITBOX").BITBOX
 const bitbox = new BITBOX()
+const RawTransactions = require("../../lib/RawTransactions").RawTransactions
 
 const sinon = require("sinon")
 const nock = require("nock") // HTTP mocking
@@ -18,6 +19,16 @@ const util = require("util")
 util.inspect.defaultOptions = { depth: 1 }
 
 describe("#RawTransactions", () => {
+  describe("#PriceConstructor", () => {
+    it("should create instance of RawTransactions", () => {
+      let rawtransactions = new RawTransactions()
+      assert.equal(
+        rawtransactions instanceof RawTransactions,
+        true
+      )
+    })
+  })
+
   describe("#decodeRawTransaction", () => {
     let sandbox
     beforeEach(() => (sandbox = sinon.sandbox.create()))

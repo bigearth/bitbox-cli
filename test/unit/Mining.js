@@ -2,9 +2,20 @@ const assert = require("assert")
 const axios = require("axios")
 const BITBOX = require("../../lib/BITBOX").BITBOX
 const bitbox = new BITBOX()
+const Mining = require("../../lib/Mining").Mining
 const sinon = require("sinon")
 
 describe("#Mining", () => {
+  describe("#MiningConstructor", () => {
+    it("should create instance of Mining", () => {
+      let mining = new Mining()
+      assert.equal(
+        mining instanceof Mining,
+        true
+      )
+    })
+  })
+
   describe("#getBlockTemplate", () => {
     let sandbox
     beforeEach(() => (sandbox = sinon.sandbox.create()))
