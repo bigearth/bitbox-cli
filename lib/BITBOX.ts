@@ -25,6 +25,8 @@ import { Socket } from "./Socket"
 import { Wallet } from "./Wallet"
 import { Schnorr } from "./Schnorr"
 
+export const resturl =  "https://rest.bitcoin.com/v2/" 
+
 export class BITBOX {
   restURL: string
   Address: Address

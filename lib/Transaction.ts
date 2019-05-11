@@ -1,10 +1,11 @@
 const Bitcoin = require("bitcoincashjs-lib")
 import axios from "axios"
 import { TxnDetails } from "bitcoin-com-rest";
+import { resturl } from "./BITBOX"
 
 export class Transaction {
   restURL: string
-  constructor(restURL: string) {
+  constructor(restURL: string = resturl) {
     this.restURL = restURL
   }
 

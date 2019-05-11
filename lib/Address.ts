@@ -1,6 +1,7 @@
 import axios from "axios"
 import { AddressDetailsResult, AddressUtxoResult, AddressUnconfirmedResult } from "bitcoin-com-rest";
 import * as bcl from "bitcoincashjs-lib"
+import { resturl } from "./BITBOX"
 const Bitcoin = require("bitcoincashjs-lib")
 const cashaddr = require("cashaddrjs")
 const coininfo = require("coininfo")
@@ -53,11 +54,9 @@ interface BitcoinCash {
   }
 
 export class Address {
-  restURL?: string
-  constructor(restURL?: string) {
-    if(restURL) {
-      this.restURL = restURL
-    }
+  restURL: string
+  constructor(restURL: string = resturl) {
+    this.restURL = restURL
   }
 
   // Translate address from any address format into a specific format.

@@ -1,9 +1,10 @@
 import axios from "axios"
 import { BlockDetails } from "bitcoin-com-rest";
+import { resturl } from "./BITBOX"
 
 export class Block {
   restURL: string
-  constructor(restURL: string) {
+  constructor(restURL: string = resturl) {
     this.restURL = restURL
   }
 

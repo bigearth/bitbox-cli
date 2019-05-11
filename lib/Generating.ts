@@ -1,8 +1,9 @@
 import axios from "axios"
+import { resturl } from "./BITBOX"
 
 export class Generating {
   restURL: string
-  constructor(restURL: string) {
+  constructor(restURL: string = resturl) {
     this.restURL = restURL
   }
 

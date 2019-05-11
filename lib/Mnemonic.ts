@@ -9,8 +9,8 @@ import { Address } from "./Address"
 import * as bcl from "bitcoincashjs-lib"
 
 export class Mnemonic {
-  _address?: Address
-  constructor(address?: Address) {
+  _address: Address
+  constructor(address: Address) {
     this._address = address
   }
 
@@ -74,20 +74,18 @@ export class Mnemonic {
       let prefix: number = 128
       if (regtest === true) prefix = 239
 
-      if(this._address) {
-        accounts.push({
-          privateKeyWIF: wif.encode(
-            prefix,
-            childHDNode.keyPair.d.toBuffer(32),
-            true
-          ),
-          address: this._address.toCashAddress(
-            childHDNode.getAddress(),
-            true,
-            regtest
-          )
-        })
-      }
+      accounts.push({
+        privateKeyWIF: wif.encode(
+          prefix,
+          childHDNode.keyPair.d.toBuffer(32),
+          true
+        ),
+        address: this._address.toCashAddress(
+          childHDNode.getAddress(),
+          true,
+          regtest
+        )
+      })
     }
     return accounts
   }

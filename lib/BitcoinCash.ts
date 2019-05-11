@@ -6,6 +6,7 @@ const bip21 = require("bip21")
 const coininfo = require("coininfo")
 const bip38 = require("bip38")
 const wif = require("wif")
+import { Address } from "./Address"
 
 const Buffer = require("safe-buffer").Buffer
 
@@ -30,8 +31,8 @@ export interface ByteCountOutput {
 }
 
 export class BitcoinCash {
-  _address: any
-  constructor(address: any) {
+  _address: Address
+  constructor(address: Address) {
     this._address = address
   }
 

@@ -1,4 +1,5 @@
 import axios from "axios"
+import { resturl } from "./BITBOX"
 
 export interface AddressDetails {
   isvalid: boolean
@@ -14,7 +15,7 @@ export interface AddressDetails {
 
 export class Util {
   restURL: string
-  constructor(restURL: string) {
+  constructor(restURL: string = resturl) {
     this.restURL = restURL
   }
 

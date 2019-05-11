@@ -1,9 +1,10 @@
 import axios from "axios"
 import { VerboseRawTransaction } from "bitcoin-com-rest";
+import { resturl } from "./BITBOX"
 
 export class RawTransactions {
   restURL: string
-  constructor(restURL: string) {
+  constructor(restURL: string = resturl) {
     this.restURL = restURL
   }
 

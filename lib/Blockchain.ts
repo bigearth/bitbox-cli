@@ -5,10 +5,11 @@
 
 import axios from "axios"
 import { BlockDetails, BlockchainInfo, BlockHeader, ChainTip, MempoolInfo, TxOut, MempoolEntryResult } from "bitcoin-com-rest";
+import { resturl } from "./BITBOX"
 
 export class Blockchain {
   restURL: string
-  constructor(restURL: string) {
+  constructor(restURL: string = resturl) {
     this.restURL = restURL
   }
 
