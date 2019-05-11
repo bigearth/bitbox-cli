@@ -237,7 +237,6 @@ export class Address {
   }
 
   _decodeAddressFromHash160(address: string): DecodedHash160 {
-    console.log("ADDRESS", address)
     if (address.length === 40) {
       return {
         legacyAddress: this.hash160ToLegacy(address),
