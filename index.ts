@@ -1,17 +1,51 @@
 #!/usr/bin/env node
+/// <reference path="./lib/interfaces/vendors.d.ts"/>
+
 require("babel-register")
-const path = require("path")
-const program = require("commander")
-const chalk = require("chalk")
-const mkdirp = require("mkdirp")
-const figlet = require("figlet")
-const clear = require("clear")
-const fs = require("fs")
-const touch = require("touch")
-const emoji = require("node-emoji")
-const repl = require("repl")
-const BITBOX = require("./lib/BITBOX").BITBOX
-const clone = require("git-clone")
+import * as path from "path"
+import * as program from "commander"
+import chalk from "chalk";
+import * as fs from "fs";
+import * as repl from "repl";
+import * as mkdirp from "mkdirp";
+import * as figlet from "figlet";
+import * as clear from "clear";
+import * as touch from "touch";
+import * as emoji from "node-emoji";
+import clone = require("git-clone");
+
+import { BITBOX } from "./lib/BITBOX"
+// this.Address = new Address(this.restURL)
+// this.BitcoinCash = new BitcoinCash(this.Address)
+// this.Block = new Block(this.restURL)
+// this.Blockchain = new Blockchain(this.restURL)
+// this.Control = new Control(this.restURL)
+// this.Crypto = Crypto
+// this.ECPair = ECPair
+// this.ECPair.setAddress(this.Address)
+// this.Generating = new Generating(this.restURL)
+// this.HDNode = new HDNode(this.Address)
+// this.Mining = new Mining(this.restURL)
+// this.Mnemonic = new Mnemonic(this.Address)
+// this.Price = new Price()
+// this.RawTransactions = new RawTransactions(this.restURL)
+// this.Script = new Script()
+// this.Transaction = new Transaction(this.restURL)
+// this.TransactionBuilder = TransactionBuilder
+// this.TransactionBuilder.setAddress(this.Address)
+// this.Util = new Util(this.restURL)
+// this.Socket = Socket
+// this.Wallet = Wallet
+// this.Schnorr = new Schnorr()
+
+interface ConsoleOptions {
+  environment: string
+}
+
+interface NewOptions extends ConsoleOptions {
+  scaffold: string
+  restURL: string
+}
 
 program.version("7.0.19 ", "-v, --version")
 
@@ -19,35 +53,41 @@ program
   .command("new <name>")
   .option(
     "-s, --scaffold <scaffold>",
-    "The framework to use. Options include react, angular, vuejs, nextjs, node and websockets."
+    "The framework to use. Options include react, angular, vuejs, nextjs, node and websockets. (Default: react)"
   )
   .option(
     "-r, --restURL <restURL>",
-    "The rest URL to use. default: https://trest.bitcoin.com/v2/"
+    "The rest URL to use. (Default: https://trest.bitcoin.com/v2/)"
   )
   .option(
     "-e, --environment <environment>",
     "environment of running BITBOX instance. Ex: production, staging. (Default: development)"
   )
   .description(`create a new BITBOX application`)
-  .action((name: any, options: any) => {
+  .action((name: string, options: NewOptions): void => {
+    // confirm project doesn't already exist
     if (fs.existsSync(`./${name}`)) {
       console.log(chalk.red(`Project ${name} already exists`))
       process.exit(1)
     }
 
-    let config
+    // pass in empty config object as it's not needed for new command
+    const config: {} = {}
+
+    // get environment option. default to development if no options.environment
     const environment = fetchOption("environment=development", config, options)
+
+    // get restURL option. default to TREST if no options.restURL
     const restURL = fetchOption(
       "restURL=https://trest.bitcoin.com/v2/",
       config,
       options
     )
 
+    // scaffold flow
     if (options && options.scaffold) {
-      let scaffold = options.scaffold.toLowerCase()
-      let repo
-      const conf = {}
+      let scaffold: string = options.scaffold.toLowerCase()
+      let repo: string = ''
       if (scaffold === "node") {
         repo = "https://github.com/Bitcoin-com/bitbox-scaffold-node.git"
       } else if (scaffold === "angular") {
@@ -65,10 +105,11 @@ program
         process.exit(1)
       }
 
-      if (options && options.repo) {
-        scaffold = "custom repo"
-        repo = options.repo.toLowerCase()
-      }
+      // TODO: Bring this back when we allow --repo flag to clone random repos
+      // if (options && options.repo) {
+      //   scaffold = "custom repo"
+      //   repo = options.repo.toLowerCase()
+      // }
 
       clear()
       console.log(
@@ -80,8 +121,10 @@ program
         )
       )
 
+      // pass in empty conf object
+      const conf: {} = {}
       console.log(chalk.blue(`Scaffolding ${scaffold} app in ${name}`))
-      clone(repo, `./${name}`, [conf], (res: any) => {
+      clone(repo, `./${name}`, [conf], (res: string): any => {
         if (res === "Error: 'git clone' failed with status 128") {
           console.log(chalk.red("Must create new app in to an empty directory"))
         } else {
@@ -138,8 +181,15 @@ program
     "environment of running BITBOX instance. Ex: production, staging. (Default: development)"
   )
   .description("Run a console with Bitcoin Cash RPC commands available")
-  .action((options: any) => {
-    let config
+  .action((options: ConsoleOptions): void => {
+    let config: {
+      environments: {
+
+      }
+    } = {
+      environments: {}
+    }
+
     try {
       config = require(`${process.cwd()}/bitbox.js`).config
     } catch (err) {
@@ -157,10 +207,10 @@ program
     replServer.context.bitbox = new BITBOX(config.environments[environment])
   })
 
-function fetchOption(kv: any, config: any, options: any) {
-  const parts = kv.split("=")
-  const key = parts[0]
-  const defaultVal = parts[1]
+function fetchOption(kv: string, config: any, options: ConsoleOptions | NewOptions): string {
+  const parts: string[] = kv.split("=")
+  const key: string = parts[0]
+  const defaultVal: string = parts[1]
   if (options && options[key]) return options[key]
   else if (config && config.new && config.new[key]) return config.new[key]
 
@@ -170,6 +220,8 @@ function fetchOption(kv: any, config: any, options: any) {
 program.parse(process.argv)
 
 // print help if no command given
-// if (!process.argv.slice(2).length) program.outputHelp()
+if (!process.argv.slice(2).length) program.outputHelp()
 
-module.exports = BITBOX
+module.exports = {
+  BITBOX: BITBOX
+}

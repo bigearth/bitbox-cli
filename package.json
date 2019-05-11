@@ -19,7 +19,7 @@
   "bin": {
     "bitbox": "./index.js"
   },
-  "main": "lib/BITBOX.js",
+  "main": "index.js",
   "files": [
     "index.js",
     "lib/"
@@ -30,7 +30,11 @@
     "url": "git+https://github.com/Bitcoin-com/bitbox-javascript-sdk.git"
   },
   "dependencies": {
+    "@types/figlet": "^1.2.0",
+    "@types/mkdirp": "^0.5.2",
     "@types/node": "^10.11.7",
+    "@types/node-emoji": "^1.8.1",
+    "@types/touch": "^3.1.1",
     "assert": "^1.4.1",
     "axios": "^0.17.1",
     "babel-cli": "^6.26.0",
