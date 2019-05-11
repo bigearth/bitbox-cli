@@ -1,19 +1,5 @@
 import axios from "axios"
 
-export interface RawTransactions {
-  restURL: string
-  decodeRawTransaction(hex: string | string[]): Promise<any | any[]>
-  decodeScript(script: string | string[]): Promise<any | any[]>
-  getRawTransaction(
-    txid: string | string,
-    verbose?: boolean
-  ): Promise<any | VerboseRawTransaction | VerboseRawTransaction[]>
-  sendRawTransaction(
-    hex: string | string[],
-    allowhighfees?: boolean
-  ): Promise<any | any[]>
-}
-
 export interface VerboseRawTransaction {
   hex: string
   txid: string
@@ -40,7 +26,7 @@ export interface VerboseRawTransaction {
   blocktime: number
 }
 
-export class RawTransactions implements RawTransactions {
+export class RawTransactions {
   restURL: string
   constructor(restURL: string) {
     this.restURL = restURL

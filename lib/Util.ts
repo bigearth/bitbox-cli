@@ -1,10 +1,5 @@
 import axios from "axios"
 
-export interface Util {
-  restURL: string
-  validateAddress(address: string): Promise<AddressDetails | AddressDetails[]>
-}
-
 export interface AddressDetails {
   isvalid: boolean
   address: string
@@ -17,7 +12,7 @@ export interface AddressDetails {
   account: string
 }
 
-export class Util implements Util {
+export class Util {
   restURL: string
   constructor(restURL: string) {
     this.restURL = restURL

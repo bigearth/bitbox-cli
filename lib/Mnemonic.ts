@@ -4,23 +4,7 @@ const Bitcoin = require("bitcoincashjs-lib")
 import { Buffer } from "buffer"
 const wif = require("wif")
 
-export interface Mnemonic {
-  _address: any
-  generate(bits?: number, wordlist?: string[]): string
-  fromEntropy(bytes: Buffer, wordlist: string[]): string
-  toEntropy(mnemonic: string, wordlist: string[]): Buffer
-  validate(mnemonic: string, wordlist: string[]): string
-  toSeed(mnemonic: string, password: string): Buffer
-  wordLists(): any
-  toKeypairs(
-    mnemonic: string,
-    numberOfKeypairs?: number,
-    regtest?: boolean
-  ): { privateKeyWIF: string; address: string }[]
-  findNearestWord(word: string, wordlist: string[]): string
-}
-
-export class Mnemonic implements Mnemonic {
+export class Mnemonic {
   _address: any
   constructor(address: any) {
     this._address = address

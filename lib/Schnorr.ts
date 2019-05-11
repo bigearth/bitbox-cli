@@ -1,52 +1,7 @@
 const schnorr = require("bip-schnorr")
 import { Buffer } from "buffer"
 
-export interface Schnorr {
-  sign(privateKey: any, message: Buffer): Buffer
-  verify(publicKey: Buffer, message: Buffer, signatureToVerify: Buffer): void
-  batchVerify(
-    publicKeys: Buffer[],
-    messages: Buffer[],
-    signaturesToVerify: Buffer[]
-  ): void
-  nonInteractive(privateKeys: any, message: Buffer): Buffer
-  computeEll(publicKeys: any): Buffer
-  publicKeyCombine(publicKeys: Buffer[], publicKeyHash: Buffer): Buffer
-  sessionInitialize(
-    sessionId: Buffer,
-    privateKey: any,
-    message: Buffer,
-    pubKeyCombined: Buffer,
-    ell: Buffer,
-    idx: number
-  ): any
-  sessionNonceCombine(session: any, nonces: Buffer[]): Buffer
-  partialSign(
-    session: any,
-    message: Buffer,
-    nonceCombined: Buffer,
-    pubKeyCombined: Buffer
-  ): void
-  partialSignatureVerify(
-    session: any,
-    partialSignature: any,
-    nonceCombined: Buffer,
-    idx: any,
-    pubKey: Buffer,
-    nonce: Buffer
-  ): void
-  partialSignaturesCombine(
-    nonceCombined: Buffer,
-    partialSignatures: any
-  ): Buffer
-  bufferToInt(buffer: any): any
-  intToBuffer(bigInteger: any): any
-  hash(buffer: any): any
-  pointToBuffer(point: any): any
-  pubKeyToPoint(publicKey: any): any
-}
-
-export class Schnorr implements Schnorr {
+export class Schnorr {
   sign(privateKey: any, message: Buffer): Buffer {
     return schnorr.sign(privateKey, message)
   }

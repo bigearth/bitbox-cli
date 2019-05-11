@@ -2,49 +2,6 @@ const Bitcoin = require("bitcoincashjs-lib")
 const opcodes = require("bitcoincash-ops")
 import { Buffer } from "buffer"
 
-export interface Script {
-  opcodes: opcodes
-  nullData: any
-  multisig: any
-  pubKey: any
-  pubKeyHash: any
-  scriptHash: any
-  classifyInput(script: Buffer): any
-  classifyOutput(script: Buffer): any
-  decode(scriptBuffer: Buffer): any[]
-  encode(scriptChunks: any[]): Buffer
-  toASM(buffer: Buffer): string
-  fromASM(asm: string): Buffer
-  encodeNullDataOutput(data: Buffer): Buffer
-  decodeNullDataOutput(output: Buffer): Buffer
-  checkNullDataOutput(ouput: Buffer): Boolean
-  encodeP2PKInput(signature: Buffer): Buffer
-  decodeP2PKInput(input: Buffer): Buffer
-  checkP2PKInput(input: Buffer): Boolean
-  encodeP2PKOutput(pubKey: Buffer): Buffer
-  decodeP2PKOutput(pubKey: Buffer): Buffer
-  checkP2PKOutput(ouput: Buffer): Boolean
-  encodeP2PKHInput(signature: Buffer, pubKey: Buffer): Buffer
-  decodeP2PKHInput(signature: Buffer): Buffer
-  checkP2PKHInput(input: Buffer): Boolean
-  encodeP2PKHOutput(signature: Buffer, pubKey: Buffer): Buffer
-  decodeP2PKHOutput(output: Buffer): Buffer
-  checkP2PKHOutput(output: Buffer): Boolean
-  encodeP2MSInput(signatures: Buffer[]): Buffer
-  decodeP2MSInput(input: Buffer): Buffer
-  checkP2MSInput(input: Buffer): Boolean
-  encodeP2MSOutput(m: number, pubKeys: Buffer[]): Buffer
-  decodeP2MSOutput(output: Buffer): Buffer
-  checkP2MSOutput(input: Buffer): Boolean
-  encodeP2SHInput(redeemScriptSig: Buffer, redeemScript: Buffer): Buffer
-  decodeP2SHInput(input: Buffer): Buffer
-  checkP2SHInput(input: Buffer): boolean
-  encodeP2SHOutput(scriptHash: Buffer): Buffer
-  decodeP2SHOutput(output: Buffer): Buffer
-  checkP2SHOutput(output: Buffer): Boolean
-  classifyInput(input: Buffer): string
-  classifyOutput(output: Buffer): string
-}
 
 export interface opcodes {
   OP_FALSE: 0
@@ -183,7 +140,7 @@ export interface opcodes {
   OP_INVALIDOPCODE: 255
 }
 
-export class Script implements Script {
+export class Script {
   opcodes: opcodes
   nullData: any
   multisig: any
