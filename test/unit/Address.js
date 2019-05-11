@@ -933,9 +933,9 @@ describe("#fromXPub", () => {
     xpub.addresses.forEach((address, j) => {
       it(`generate public external change address ${j} for ${
         xpub.xpub
-      }`, () => {
-        assert.equal(bitbox.Address.fromXPub(xpub.xpub, `0/${j}`), address)
-      })
+        }`, () => {
+          assert.equal(bitbox.Address.fromXPub(xpub.xpub, `0/${j}`), address)
+        })
     })
   })
 })

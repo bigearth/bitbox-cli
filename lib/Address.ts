@@ -25,13 +25,13 @@ interface BitcoinCash {
   hashGenesisBlock: string
   port: number
   portRpc: number
-  protocol: { 
+  protocol: {
     magic: number
   }
   seedsDns: string[]
   versions: {
-    bip32: { 
-      private: number 
+    bip32: {
+      private: number
       public: number
     }
     bip44: number
@@ -48,11 +48,11 @@ interface BitcoinCash {
   toBitcore: any
 }
 
-  interface DecodedHash160 {
-    legacyAddress: string
-    cashAddress: string
-    format: string
-  }
+interface DecodedHash160 {
+  legacyAddress: string
+  cashAddress: string
+  format: string
+}
 
 export class Address {
   restURL: string
@@ -119,7 +119,7 @@ export class Address {
 
   // Converts legacy address format to hash160
   legacyToHash160(address: string): string {
-    const bytes: Bytes  = Bitcoin.address.fromBase58Check(address)
+    const bytes: Bytes = Bitcoin.address.fromBase58Check(address)
     return bytes.hash.toString("hex")
   }
 
@@ -159,11 +159,11 @@ export class Address {
   _decode(address: string): Decoded {
     try {
       return this._decodeLegacyAddress(address)
-    } catch (error) {}
+    } catch (error) { }
 
     try {
       return this._decodeCashAddress(address)
-    } catch (error) {}
+    } catch (error) { }
 
     throw new Error(`Unsupported address format : ${address}`)
   }
@@ -171,7 +171,7 @@ export class Address {
   _decodeHash160(address: string): DecodedHash160 {
     try {
       return this._decodeAddressFromHash160(address)
-    } catch (error) {}
+    } catch (error) { }
 
     throw new Error(`Unsupported address format : ${address}`)
   }
@@ -230,7 +230,7 @@ export class Address {
         const decoded: Decoded = cashaddr.decode(`${prefixes[i]}:${address}`)
         decoded.format = "cashaddr"
         return decoded
-      } catch (error) {}
+      } catch (error) { }
     }
 
     throw new Error(`Invalid format : ${address}`)
@@ -243,7 +243,7 @@ export class Address {
         cashAddress: this.hash160ToCash(address),
         format: "hash160"
       }
-    } else if(this.isCashAddress(address) || this.isLegacyAddress(address)) {
+    } else if (this.isCashAddress(address) || this.isLegacyAddress(address)) {
       return {
         legacyAddress: this.toLegacyAddress(address),
         cashAddress: this.toCashAddress(address),

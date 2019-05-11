@@ -141,13 +141,13 @@ export class Blockchain {
   async getMempoolAncestors(
     txid: string,
     verbose: boolean = false
-  ): Promise<string[]|MempoolEntryResult[]> {
+  ): Promise<string[] | MempoolEntryResult[]> {
     if (typeof txid !== "string") txid = JSON.stringify(txid)
 
     try {
       const response: any = await axios.get(
         `${
-          this.restURL
+        this.restURL
         }blockchain/getMempoolAncestors/${txid}?verbose=${verbose}`
       )
       return response.data
@@ -161,13 +161,13 @@ export class Blockchain {
   async getMempoolDescendants(
     txid: string,
     verbose: boolean = false
-  ): Promise<string[]|MempoolEntryResult[]> {
+  ): Promise<string[] | MempoolEntryResult[]> {
     if (typeof txid !== "string") txid = JSON.stringify(txid)
 
     try {
       const response: any = await axios.get(
         `${
-          this.restURL
+        this.restURL
         }blockchain/getMempoolDescendants/${txid}?verbose=${verbose}`
       )
       return response.data
@@ -241,7 +241,7 @@ export class Blockchain {
     try {
       const response: any = await axios.get(
         `${
-          this.restURL
+        this.restURL
         }blockchain/getTxOut/${txid}/n?include_mempool=${include_mempool}`
       )
       return response.data
@@ -315,7 +315,7 @@ export class Blockchain {
     try {
       const response: any = await axios.get(
         `${
-          this.restURL
+        this.restURL
         }blockchain/verifyChain?checklevel=${checklevel}&nblocks=${nblocks}`
       )
       return response.data

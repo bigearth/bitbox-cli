@@ -2,11 +2,11 @@ const schnorr = require("bip-schnorr")
 import * as BigInteger from "bigi"
 
 export interface Session {
-    sessionId: Buffer;
-    message: Buffer;
-    pubKeyCombined: Buffer;
-    ell: Buffer;
-    idx: number;
+  sessionId: Buffer;
+  message: Buffer;
+  pubKeyCombined: Buffer;
+  ell: Buffer;
+  idx: number;
 }
 
 export class Schnorr {

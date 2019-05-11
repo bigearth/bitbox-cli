@@ -4,17 +4,17 @@
 require("babel-register")
 import * as path from "path"
 import * as program from "commander"
-import chalk from "chalk";
-import * as fs from "fs";
-import * as repl from "repl";
-import * as mkdirp from "mkdirp";
-import * as figlet from "figlet";
-import * as touch from "touch";
-import * as emoji from "node-emoji";
+import chalk from "chalk"
+import * as fs from "fs"
+import * as repl from "repl"
+import * as mkdirp from "mkdirp"
+import * as figlet from "figlet"
+import * as touch from "touch"
+import * as emoji from "node-emoji"
 
 // TODO: port to `import` statement
 let clear = require("clear")
-let clone  = require("git-clone")
+let clone = require("git-clone")
 
 import { BITBOX } from "./lib/BITBOX"
 import { Address } from "./lib/Address"
@@ -142,16 +142,16 @@ program
 
     console.log(chalk.green(`Creating ${name}/ directory`))
     console.log(chalk.green(`Creating src/ directory: ./${name}/src`))
-    mkdirp(`./${name}/src`, (err: any) => {})
+    mkdirp(`./${name}/src`, (err: any) => { })
 
     console.log(chalk.green(`Creating tests/ directory: ./${name}/tests`))
-    mkdirp(`./${name}/tests`, (err: any) => {})
+    mkdirp(`./${name}/tests`, (err: any) => { })
 
     console.log(
       chalk.green(`Creating bitbox.js configuration file: ./${name}/bitbox.js`)
     )
 
-    mkdirp(`./${name}`, (err: any) => {})
+    mkdirp(`./${name}`, (err: any) => { })
     touch(`./${name}/bitbox.js`)
     fs.writeFileSync(
       `./${name}/bitbox.js`,
@@ -184,7 +184,7 @@ program
   .action((options: ConsoleOptions): void => {
 
     // TODO: create interface for `config`
-    let config: any  = {
+    let config: any = {
       environments: {}
     }
 
