@@ -2,6 +2,7 @@ const fixtures = require("./fixtures/Crypto.json")
 const assert = require("assert")
 const BITBOX = require("../../lib/BITBOX").BITBOX
 const bitbox = new BITBOX()
+const Crypto = require("../../lib/Crypto").Control
 const Buffer = require("safe-buffer").Buffer
 
 describe("#Crypto", () => {

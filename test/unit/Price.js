@@ -2,10 +2,18 @@ const chai = require("chai")
 const assert = require("assert")
 const BITBOX = require("../../lib/BITBOX").BITBOX
 const bitbox = new BITBOX()
+const Price = require("../../lib/Price").Price
 const axios = require("axios")
 const sinon = require("sinon")
 
 describe("#Price", () => {
+  describe("#PriceConstructor", () => {
+    it("should create instance of Price", () => {
+      const price = new Price()
+      assert.equal(price instanceof Price, true)
+    })
+  })
+
   describe("#current", () => {
     describe("#single currency", () => {
       let sandbox

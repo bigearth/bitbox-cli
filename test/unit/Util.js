@@ -2,9 +2,23 @@ const assert = require("assert")
 const axios = require("axios")
 const BITBOX = require("../../lib/BITBOX").BITBOX
 const bitbox = new BITBOX()
+const Util = require("../../lib/Util").Util
 const sinon = require("sinon")
+const resturl = require("../../lib/BITBOX").resturl
 
 describe("#Util", () => {
+  describe("#UtilConstructor", () => {
+    it("should create instance of Util", () => {
+      const util = new Util()
+      assert.equal(util instanceof Util, true)
+    })
+
+    it("should have a restURL property", () => {
+      const util = new Util()
+      assert.equal(util.restURL, resturl)
+    })
+  })
+
   describe("#validateAddress", () => {
     let sandbox
     beforeEach(() => (sandbox = sinon.sandbox.create()))

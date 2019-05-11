@@ -1,10 +1,24 @@
 const assert = require("assert")
 const BITBOX = require("../../lib/BITBOX").BITBOX
 const bitbox = new BITBOX()
+const Block = require("../../lib/Block").Block
 const axios = require("axios")
 const sinon = require("sinon")
+const resturl = require("../../lib/BITBOX").resturl
 
 describe("#Block", () => {
+  describe("#BlockConstructor", () => {
+    it("should create instance of Block", () => {
+      const block = new Block()
+      assert.equal(block instanceof Block, true)
+    })
+  })
+
+  it("should have a restURL property", () => {
+    const block = new Block()
+    assert.equal(block.restURL, resturl)
+  })
+
   describe("#detailsByHash", () => {
     let sandbox
     beforeEach(() => (sandbox = sinon.sandbox.create()))

@@ -4,102 +4,12 @@
 */
 
 import axios from "axios"
-import { BlockDetails } from "./Block"
+import { BlockDetails, BlockchainInfo, BlockHeader, ChainTip, MempoolInfo, TxOut, MempoolEntryResult } from "bitcoin-com-rest";
+import { resturl } from "./BITBOX"
 
-export interface Blockchain {
+export class Blockchain {
   restURL: string
-  getBestBlockHash(): Promise<string>
-  getBlock(blockhash: string, verbose?: boolean): Promise<BlockDetails>
-  getBlockchainInfo(): Promise<BlockchainInfo>
-  getBlockCount(): Promise<number>
-  getBlockHash(height?: number): Promise<string>
-  getBlockHeader(
-    hash: string | string[],
-    verbose?: boolean
-  ): Promise<BlockHeader>
-  getChainTips(): Promise<ChainTip[]>
-  getDifficulty(): Promise<number>
-  getMempoolAncestors(txid: string, verbose?: boolean): Promise<any>
-  getMempoolDescendants(txid: string, verbose?: boolean): Promise<any>
-  getMempoolEntry(txid: string | string[]): Promise<any>
-  getMempoolInfo(): Promise<MempoolInfo>
-  getRawMempool(verbose?: boolean): Promise<any>
-  getTxOut(
-    txid: string,
-    n: any,
-    include_mempool?: boolean
-  ): Promise<TxOut | null>
-  getTxOutProof(txids: string | string[]): Promise<string | string[]>
-  preciousBlock(blockhash: string): Promise<any>
-  pruneBlockchain(height: number): Promise<number>
-  verifyChain(checklevel?: number, nblocks?: number): Promise<boolean>
-  verifyTxOutProof(proof: any | any[]): Promise<string[]>
-}
-
-export interface MempoolInfo {
-  size: number
-  bytes: number
-  usage: number
-  maxmempool: number
-  mempoolminfee: number
-}
-
-export interface BlockchainInfo {
-  chain: string
-  blocks: number
-  headers: number
-  bestblockhash: string
-  difficulty: number
-  mediantime: number
-  verificationprogress: number
-  chainwork: string
-  pruned: boolean
-  softforks: object[]
-  bip9_softforks: object
-}
-
-export interface BlockHeader {
-  hash: string
-  confirmations: number
-  height: number
-  version: number
-  versionHex: string
-  merkleroot: string
-  time: number
-  mediantime: number
-  nonce: number
-  bits: string
-  difficulty: number
-  chainwork: string
-  previousblockhash: string
-  nextblockhash: string
-}
-
-export interface ChainTip {
-  height: number
-  hash: string
-  branchlen: number
-  status: string
-}
-
-export interface TxOut {
-  bestblock: string
-  confirmations: number
-  value: number
-  scriptPubKey: {
-    asm: string
-    hex: string
-    reqSigs: number
-    type: string
-    addresses: string[]
-  }
-  version: number
-  coinbase: boolean
-}
-
-export class Blockchain implements Blockchain {
-  restURL: string
-  constructor(restURL: string) {
+  constructor(restURL: string = resturl) {
     this.restURL = restURL
   }
 
@@ -231,7 +141,7 @@ export class Blockchain implements Blockchain {
   async getMempoolAncestors(
     txid: string,
     verbose: boolean = false
-  ): Promise<any> {
+  ): Promise<string[]|MempoolEntryResult[]> {
     if (typeof txid !== "string") txid = JSON.stringify(txid)
 
     try {
@@ -251,7 +161,7 @@ export class Blockchain implements Blockchain {
   async getMempoolDescendants(
     txid: string,
     verbose: boolean = false
-  ): Promise<any> {
+  ): Promise<string[]|MempoolEntryResult[]> {
     if (typeof txid !== "string") txid = JSON.stringify(txid)
 
     try {
@@ -267,7 +177,7 @@ export class Blockchain implements Blockchain {
     }
   }
 
-  async getMempoolEntry(txid: string | string[]): Promise<any> {
+  async getMempoolEntry(txid: string | string[]): Promise<MempoolEntryResult> {
     //if (typeof txid !== "string") txid = JSON.stringify(txid)
 
     try {
@@ -309,7 +219,7 @@ export class Blockchain implements Blockchain {
     }
   }
 
-  async getRawMempool(verbose: boolean = false): Promise<any> {
+  async getRawMempool(verbose: boolean = false): Promise<string[]> {
     // TODO fix verbose
     try {
       const response: any = await axios.get(

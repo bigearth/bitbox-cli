@@ -1,10 +1,6 @@
 import axios from "axios"
 
-export interface Price {
-  current(currency?: string): Promise<number>
-}
-
-export class Price implements Price {
+export class Price {
   async current(currency: string = "usd"): Promise<number> {
     try {
       const response: any = await axios.get(

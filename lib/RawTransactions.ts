@@ -1,48 +1,10 @@
 import axios from "axios"
+import { VerboseRawTransaction } from "bitcoin-com-rest";
+import { resturl } from "./BITBOX"
 
-export interface RawTransactions {
+export class RawTransactions {
   restURL: string
-  decodeRawTransaction(hex: string | string[]): Promise<any | any[]>
-  decodeScript(script: string | string[]): Promise<any | any[]>
-  getRawTransaction(
-    txid: string | string,
-    verbose?: boolean
-  ): Promise<any | VerboseRawTransaction | VerboseRawTransaction[]>
-  sendRawTransaction(
-    hex: string | string[],
-    allowhighfees?: boolean
-  ): Promise<any | any[]>
-}
-
-export interface VerboseRawTransaction {
-  hex: string
-  txid: string
-  size: number
-  version: number
-  locktime: number
-  vin: [{ coinbase: string; sequence: number }]
-  vout: [
-    {
-      value: number
-      n: number
-      scriptPubKey: {
-        asm: string
-        hex: string
-        reqSigs: number
-        type: string
-        addresses: string[]
-      }
-    }
-  ]
-  blockhash: string
-  confirmations: number
-  time: number
-  blocktime: number
-}
-
-export class RawTransactions implements RawTransactions {
-  restURL: string
-  constructor(restURL: string) {
+  constructor(restURL: string = resturl) {
     this.restURL = restURL
   }
 
@@ -110,7 +72,7 @@ export class RawTransactions implements RawTransactions {
   async getRawTransaction(
     txid: string | string[],
     verbose: boolean = false
-  ): Promise<any | VerboseRawTransaction | VerboseRawTransaction[]> {
+  ): Promise<string | string[] | VerboseRawTransaction | VerboseRawTransaction[]> {
     try {
       if (typeof txid === "string") {
         const response: any = await axios.get(

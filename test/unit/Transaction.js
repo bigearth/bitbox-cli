@@ -1,10 +1,24 @@
 const assert = require("assert")
 const BITBOX = require("../../lib/BITBOX").BITBOX
 const bitbox = new BITBOX()
+const Transaction = require("../../lib/Transaction").Transaction
 const axios = require("axios")
 const sinon = require("sinon")
+const resturl = require("../../lib/BITBOX").resturl
 
 describe("#Transaction", () => {
+  describe("#TransactionConstructor", () => {
+    it("should create instance of Transaction", () => {
+      const transaction = new Transaction()
+      assert.equal(transaction instanceof Transaction, true)
+    })
+
+    it("should have a restURL property", () => {
+      const transaction = new Transaction()
+      assert.equal(transaction.restURL, resturl)
+    })
+  })
+
   describe("#details", () => {
     let sandbox
     beforeEach(() => (sandbox = sinon.sandbox.create()))

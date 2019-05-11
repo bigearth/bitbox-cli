@@ -2,9 +2,23 @@ const assert = require("assert")
 const axios = require("axios")
 const BITBOX = require("../../lib/BITBOX").BITBOX
 const bitbox = new BITBOX()
+const Mining = require("../../lib/Mining").Mining
 const sinon = require("sinon")
+const resturl = require("../../lib/BITBOX").resturl
 
 describe("#Mining", () => {
+  describe("#MiningConstructor", () => {
+    it("should create instance of Mining", () => {
+      const mining = new Mining()
+      assert.equal(mining instanceof Mining, true)
+    })
+
+    it("should have a restURL property", () => {
+      const mining = new Mining()
+      assert.equal(mining.restURL, resturl)
+    })
+  })
+
   describe("#getBlockTemplate", () => {
     let sandbox
     beforeEach(() => (sandbox = sinon.sandbox.create()))

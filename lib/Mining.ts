@@ -1,16 +1,9 @@
 import axios from "axios"
+import { resturl } from "./BITBOX"
 
-export interface Mining {
+export class Mining {
   restURL: string
-  getBlockTemplate(template_request: any): Promise<any>
-  getMiningInfo(): Promise<any>
-  getNetworkHashps(nblocks?: number, height?: number): Promise<number>
-  submitBlock(hex: string, parameters: any): Promise<any>
-}
-
-export class Mining implements Mining {
-  restURL: string
-  constructor(restURL: string) {
+  constructor(restURL: string = resturl) {
     this.restURL = restURL
   }
 

@@ -2,9 +2,11 @@ const fixtures = require("./fixtures/Address.json")
 const assert = require("assert")
 const BITBOX = require("../../lib/BITBOX").BITBOX
 const bitbox = new BITBOX()
+const Address = require("../../lib/Address").Address
 const axios = require("axios")
 const sinon = require("sinon")
 const Bitcoin = require("bitcoincashjs-lib")
+const resturl = require("../../lib/BITBOX").resturl
 
 function flatten(arrays) {
   return [].concat.apply([], arrays)
@@ -76,6 +78,18 @@ const P2SH_ADDRESSES = flatten([
   fixtures.legacyMainnetP2SH,
   fixtures.cashaddrMainnetP2SH
 ])
+
+describe("#AddressConstructor", () => {
+  it("should create instance of Address", () => {
+    const address = new Address()
+    assert.equal(address instanceof Address, true)
+  })
+
+  it("should have a restURL property", () => {
+    const address = new Address()
+    assert.equal(address.restURL, resturl)
+  })
+})
 
 describe("#addressConversion", () => {
   describe("#toLegacyAddress", () => {

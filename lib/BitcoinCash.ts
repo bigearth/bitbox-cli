@@ -6,36 +6,9 @@ const bip21 = require("bip21")
 const coininfo = require("coininfo")
 const bip38 = require("bip38")
 const wif = require("wif")
+import { Address } from "./Address"
 
 const Buffer = require("safe-buffer").Buffer
-
-export interface BitcoinCash {
-  _address: any
-  toSatoshi(coins: number): number
-  toBitcoinCash(satoshis: number): number
-  toBits(satoshis: number): number 
-  satsToBits(satoshis: number): number 
-  signMessageWithPrivKey(privateKeyWIF: string, message: string): string
-  verifyMessage(address: string, signature: string, message: string): boolean
-  encodeBase58Check(hex: string): string
-  decodeBase58Check(address: string): string
-  encodeBIP21(
-    address: string,
-    options: EncodeBIP21Options,
-    regtest?: boolean
-  ): string
-  decodeBIP21(url: string): BIP21Object
-  getByteCount(
-    inputs: ByteCountInput | object,
-    outputs: ByteCountOutput
-  ): number
-  encryptBIP38(privKeyWIF: string, passphrase: string): string
-  decryptBIP38(
-    encryptedKey: string,
-    passphrase: string,
-    network: string
-  ): string
-}
 
 export interface EncodeBIP21Options {
   amount?: number
@@ -57,9 +30,9 @@ export interface ByteCountOutput {
   P2SH?: number
 }
 
-export class BitcoinCash implements BitcoinCash {
-  _address: any
-  constructor(address: any) {
+export class BitcoinCash {
+  _address: Address
+  constructor(address: Address = new Address()) {
     this._address = address
   }
 

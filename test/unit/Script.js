@@ -2,9 +2,17 @@ const fixtures = require("./fixtures/Script.json")
 const assert = require("assert")
 const BITBOX = require("../../lib/BITBOX").BITBOX
 const bitbox = new BITBOX()
+const Script = require("../../lib/Script").Script
 const Buffer = require("safe-buffer").Buffer
 
 describe("#Script", () => {
+  describe("#ScriptConstructor", () => {
+    it("should create instance of Script", () => {
+      const script = new Script()
+      assert.equal(script instanceof Script, true)
+    })
+  })
+
   describe("#decode", () => {
     describe("P2PKH scriptSig", () => {
       fixtures.decodeScriptSig.forEach(fixture => {

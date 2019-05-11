@@ -1,9 +1,5 @@
 import axios from "axios"
-
-export interface Util {
-  restURL: string
-  validateAddress(address: string): Promise<AddressDetails | AddressDetails[]>
-}
+import { resturl } from "./BITBOX"
 
 export interface AddressDetails {
   isvalid: boolean
@@ -17,9 +13,9 @@ export interface AddressDetails {
   account: string
 }
 
-export class Util implements Util {
+export class Util {
   restURL: string
-  constructor(restURL: string) {
+  constructor(restURL: string = resturl) {
     this.restURL = restURL
   }
 

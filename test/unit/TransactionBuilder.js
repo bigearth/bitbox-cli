@@ -2,9 +2,17 @@ const fixtures = require("./fixtures/TransactionBuilder.json")
 const assert = require("assert")
 const BITBOX = require("../../lib/BITBOX").BITBOX
 const bitbox = new BITBOX()
+const TransactionBuilder = require("../../lib/TransactionBuilder").TransactionBuilder
 const Buffer = require("safe-buffer").Buffer
 
 describe("#TransactionBuilder", () => {
+  describe("#TransactionBuilderConstructor", () => {
+    it("should create instance of TransactionBuilder", () => {
+      const transactionbuilder = new TransactionBuilder()
+      assert.equal(transactionbuilder instanceof TransactionBuilder, true)
+    })
+  })
+
   describe("#hashTypes", () => {
     const transactionBuilder = new bitbox.TransactionBuilder("mainnet")
     fixtures.hashTypes.forEach(fixture => {

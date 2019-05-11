@@ -1,39 +1,10 @@
 import axios from "axios"
+import { NodeInfo, NodeMemoryInfo } from "bitcoin-com-rest";
+import { resturl } from "./BITBOX"
 
-export interface Control {
+export class Control {
   restURL: string
-  getInfo(): Promise<NodeInfo>
-  getMemoryInfo(): Promise<NodeMemoryInfo>
-}
-
-export interface NodeInfo {
-  version: number
-  protocolversion: number
-  blocks: number
-  timeoffset: number
-  connections: number
-  proxy: string
-  difficulty: number
-  testnet: boolean
-  paytxfee: number
-  relayfee: number
-  errors: string
-}
-
-export interface NodeMemoryInfo {
-  locked: {
-    used: number
-    free: number
-    total: number
-    locked: number
-    chunks_used: number
-    chunks_free: number
-  }
-}
-
-export class Control implements Control {
-  restURL: string
-  constructor(restURL: string) {
+  constructor(restURL: string = resturl) {
     this.restURL = restURL
   }
 

@@ -1,35 +1,10 @@
 import axios from "axios"
+import { BlockDetails } from "bitcoin-com-rest";
+import { resturl } from "./BITBOX"
 
-export interface Block {
+export class Block {
   restURL: string
-  detailsByHeight(id: number | number[]): Promise<BlockDetails | BlockDetails[]>
-  detailsByHash(hash: string | string[]): Promise<BlockDetails | BlockDetails[]>
-}
-
-export interface BlockDetails {
-  hash: string
-  size: number
-  height: number
-  version: number
-  merkleroot: string
-  tx: string[]
-  time: number
-  mediantime?: number
-  nonce: number
-  bits: string
-  difficulty: number
-  chainwork: string
-  confirmations: number
-  previousblockhash: string
-  nextblockhash: string
-  reward: number
-  isMainChain: boolean
-  poolInfo: object
-}
-
-export class Block implements Block {
-  restURL: string
-  constructor(restURL: string) {
+  constructor(restURL: string = resturl) {
     this.restURL = restURL
   }
 

@@ -1,90 +1,62 @@
 import axios from "axios"
+import { AddressDetailsResult, AddressUtxoResult, AddressUnconfirmedResult } from "bitcoin-com-rest";
+import * as bcl from "bitcoincashjs-lib"
+import { resturl } from "./BITBOX"
+// TODO: port require statements to impprt
 const Bitcoin = require("bitcoincashjs-lib")
 const cashaddr = require("cashaddrjs")
 const coininfo = require("coininfo")
 
-export interface Address {
-  toLegacyAddress(address: string): string
-  toCashAddress(address: string, prefix?: boolean, regtest?: boolean): string
-  legacyToHash160(address: string): string
-  cashToHash160(address: string): string
-  // regtestToHash160(address: string): string
-  isHash160(address: string): boolean
-  hash160ToLegacy(hash160: any, network?: any): string
-  hash160ToCash(hash160: any, network?: any, regtest?: boolean): string
-  isLegacyAddress(address: string): boolean
-  isCashAddress(address: string): boolean
-  isMainnetAddress(address: string): boolean
-  isTestnetAddress(address: string): boolean
-  isRegTestAddress(address: string): boolean
-  isP2PKHAddress(address: string): boolean
-  isP2SHAddress(address: string): boolean
-  detectAddressFormat(address: string): string
-  detectAddressNetwork(address: string): string
-  detectAddressType(address: string): string
-  fromXPub(xpub: string, path?: string): string
-  fromXPriv(xpriv: string, path?: string): string
-  fromOutputScript(scriptPubKey: any, network?: string): string
-  details(
-    address: string | string[]
-  ): Promise<AddressDetailsResult | AddressDetailsResult[]>
-  utxo(
-    address: string | string[]
-  ): Promise<AddressUtxoResult | AddressUtxoResult[]>
-  unconfirmed(
-    address: string | string[]
-  ): Promise<AddressUnconfirmedResult | AddressUnconfirmedResult[]>
-  // TODO add interface for AddressTransactionsResult
-  transactions(address: string | string[]): Promise<any>
+interface Hash {
+  hash: Buffer
 }
 
-export interface AddressDetailsResult {
-  balance: number
-  balanceSat: number
-  totalReceived: number
-  totalReceivedSat: number
-  totalSent: number
-  totalSentSat: number
-  unconfirmedBalance: number
-  unconfirmedBalanceSat: number
-  unconfirmedTxApperances: number
-  txApperances: number
-  transactions: string[]
-  legacyAddress: string
-  cashAddress: string
+interface Bytes extends Hash {
+  version: number
 }
 
-export interface AddressUtxoResult {
-  legacyAddress: string
-  cashAddress: string
-  scriptPubKey: string
-  utxos: [
-    {
-      txid: string
-      vout: number
-      amount: number
-      satoshis: number
-      height: number
-      confirmations: number
+interface Decoded extends Hash {
+  prefix: string
+  type: string
+  format: string
+}
+
+interface BitcoinCash {
+  hashGenesisBlock: string
+  port: number
+  portRpc: number
+  protocol: { 
+    magic: number
+  }
+  seedsDns: string[]
+  versions: {
+    bip32: { 
+      private: number 
+      public: number
     }
-  ]
+    bip44: number
+    private: number
+    public: number
+    scripthash: number
+    messagePrefix: string
+  }
+  name: string
+  per1: number
+  unit: string
+  testnet: boolean
+  toBitcoinJS: any
+  toBitcore: any
 }
 
-export interface AddressUnconfirmedResult {
-  txid: string
-  vout: number
-  scriptPubKey: string
-  amount: number
-  satoshis: number
-  confirmations: number
-  ts: number
-  legacyAddress: string
-  cashAddress: string
-}
+  interface DecodedHash160 {
+    legacyAddress: string
+    cashAddress: string
+    format: string
+  }
 
-export class Address implements Address {
+export class Address {
   restURL: string
-  constructor(restURL: string) {
+  constructor(restURL: string = resturl) {
     this.restURL = restURL
   }
 
@@ -92,7 +64,7 @@ export class Address implements Address {
   toLegacyAddress(address: string): string {
     const { prefix, type, hash } = this._decode(address)
 
-    let bitcoincash: any
+    let bitcoincash: BitcoinCash
     switch (prefix) {
       case "bitcoincash":
         bitcoincash = coininfo.bitcoincash.main
@@ -107,7 +79,7 @@ export class Address implements Address {
         throw `unsupported prefix : ${prefix}`
     }
 
-    let version: any
+    let version: number
     switch (type) {
       case "P2PKH":
         version = bitcoincash.versions.public
@@ -119,7 +91,7 @@ export class Address implements Address {
         throw `unsupported address type : ${type}`
     }
 
-    const hashBuf: any = Buffer.from(hash)
+    const hashBuf: Buffer = Buffer.from(hash)
 
     return Bitcoin.address.toBase58Check(hashBuf, version)
   }
@@ -129,7 +101,7 @@ export class Address implements Address {
     prefix: boolean = true,
     regtest: boolean = false
   ): string {
-    const decoded = this._decode(address)
+    const decoded: Decoded = this._decode(address)
 
     let prefixString: string
     if (regtest) prefixString = "bchreg"
@@ -147,14 +119,14 @@ export class Address implements Address {
 
   // Converts legacy address format to hash160
   legacyToHash160(address: string): string {
-    const bytes = Bitcoin.address.fromBase58Check(address)
+    const bytes: Bytes  = Bitcoin.address.fromBase58Check(address)
     return bytes.hash.toString("hex")
   }
 
   // Converts cash address format to hash160
   cashToHash160(address: string): string {
-    const legacyAddress = this.toLegacyAddress(address)
-    const bytes = Bitcoin.address.fromBase58Check(legacyAddress)
+    const legacyAddress: string = this.toLegacyAddress(address)
+    const bytes: Bytes = Bitcoin.address.fromBase58Check(legacyAddress)
     return bytes.hash.toString("hex")
   }
 
@@ -167,25 +139,24 @@ export class Address implements Address {
 
   // Converts hash160 to Legacy Address
   hash160ToLegacy(
-    hash160: any,
-    network: any = Bitcoin.networks.bitcoin.pubKeyHash
+    hash160: string,
+    network: number = Bitcoin.networks.bitcoin.pubKeyHash
   ): string {
-    const buffer = Buffer.from(hash160, "hex")
-    const legacyAddress = Bitcoin.address.toBase58Check(buffer, network)
-    return legacyAddress
+    const buffer: Buffer = Buffer.from(hash160, "hex")
+    return Bitcoin.address.toBase58Check(buffer, network)
   }
 
   // Converts hash160 to Cash Address
   hash160ToCash(
-    hash160: any,
-    network: any = Bitcoin.networks.bitcoin.pubKeyHash,
+    hash160: string,
+    network: number = Bitcoin.networks.bitcoin.pubKeyHash,
     regtest: boolean = false
   ): string {
-    const legacyAddress = this.hash160ToLegacy(hash160, network)
+    const legacyAddress: string = this.hash160ToLegacy(hash160, network)
     return this.toCashAddress(legacyAddress, true, regtest)
   }
 
-  _decode(address: string): any {
+  _decode(address: string): Decoded {
     try {
       return this._decodeLegacyAddress(address)
     } catch (error) {}
@@ -194,16 +165,23 @@ export class Address implements Address {
       return this._decodeCashAddress(address)
     } catch (error) {}
 
+    throw new Error(`Unsupported address format : ${address}`)
+  }
+
+  _decodeHash160(address: string): DecodedHash160 {
     try {
-      return this._encodeAddressFromHash160(address)
+      return this._decodeAddressFromHash160(address)
     } catch (error) {}
 
     throw new Error(`Unsupported address format : ${address}`)
   }
 
-  _decodeLegacyAddress(address: any): any {
+  _decodeLegacyAddress(address: string): Decoded {
     const { version, hash } = Bitcoin.address.fromBase58Check(address)
-    const info = coininfo.bitcoincash
+    const info: {
+      main: any
+      test: any
+    } = coininfo.bitcoincash
 
     switch (version) {
       case info.main.versions.public:
@@ -239,9 +217,9 @@ export class Address implements Address {
     }
   }
 
-  _decodeCashAddress(address: string): any {
+  _decodeCashAddress(address: string): Decoded {
     if (address.indexOf(":") !== -1) {
-      const decoded = cashaddr.decode(address)
+      const decoded: Decoded = cashaddr.decode(address)
       decoded.format = "cashaddr"
       return decoded
     }
@@ -249,7 +227,7 @@ export class Address implements Address {
     const prefixes: string[] = ["bitcoincash", "bchtest", "bchreg"]
     for (let i: number = 0; i < prefixes.length; ++i) {
       try {
-        const decoded: any = cashaddr.decode(`${prefixes[i]}:${address}`)
+        const decoded: Decoded = cashaddr.decode(`${prefixes[i]}:${address}`)
         decoded.format = "cashaddr"
         return decoded
       } catch (error) {}
@@ -258,14 +236,20 @@ export class Address implements Address {
     throw new Error(`Invalid format : ${address}`)
   }
 
-  _encodeAddressFromHash160(address: string): any {
-    try {
+  _decodeAddressFromHash160(address: string): DecodedHash160 {
+    if (address.length === 40) {
       return {
         legacyAddress: this.hash160ToLegacy(address),
         cashAddress: this.hash160ToCash(address),
         format: "hash160"
       }
-    } catch (error) {}
+    } else if(this.isCashAddress(address) || this.isLegacyAddress(address)) {
+      return {
+        legacyAddress: this.toLegacyAddress(address),
+        cashAddress: this.toCashAddress(address),
+        format: "nonHash160"
+      }
+    }
 
     throw new Error(`Invalid format : ${address}`)
   }
@@ -280,7 +264,7 @@ export class Address implements Address {
   }
 
   isHash160(address: string): boolean {
-    return this.detectAddressFormat(address) === "hash160"
+    return this._detectHash160Format(address) === "hash160"
   }
 
   // Test for address network.
@@ -313,8 +297,13 @@ export class Address implements Address {
 
   // Detect address format.
   detectAddressFormat(address: string): string {
-    const decoded: any = this._decode(address)
+    const decoded: Decoded = this._decode(address)
+    return decoded.format
+  }
 
+  // Detect address format.
+  _detectHash160Format(address: string): string {
+    const decoded: DecodedHash160 = this._decodeHash160(address)
     return decoded.format
   }
 
@@ -323,7 +312,7 @@ export class Address implements Address {
     if (address[0] === "x") return "mainnet"
     else if (address[0] === "t") return "testnet"
 
-    const decoded = this._decode(address)
+    const decoded: Decoded = this._decode(address)
 
     switch (decoded.prefix) {
       case "bitcoincash":
@@ -339,37 +328,36 @@ export class Address implements Address {
 
   // Detect address type.
   detectAddressType(address: string): string {
-    const decoded: any = this._decode(address)
-
+    const decoded: Decoded = this._decode(address)
     return decoded.type.toLowerCase()
   }
 
   fromXPub(xpub: string, path: string = "0/0"): string {
-    let bitcoincash: any
+    let bitcoincash: BitcoinCash
     if (xpub[0] === "x") bitcoincash = coininfo.bitcoincash.main
-    else if (xpub[0] === "t") bitcoincash = coininfo.bitcoincash.test
+    else bitcoincash = coininfo.bitcoincash.test
 
-    const bitcoincashBitcoinJSLib = bitcoincash.toBitcoinJS()
-    const HDNode: any = Bitcoin.HDNode.fromBase58(xpub, bitcoincashBitcoinJSLib)
-    const address: any = HDNode.derivePath(path)
+    const bitcoincashBitcoinJSLib: any = bitcoincash.toBitcoinJS()
+    const HDNode: bcl.HDNode = Bitcoin.HDNode.fromBase58(xpub, bitcoincashBitcoinJSLib)
+    const address: bcl.HDNode = HDNode.derivePath(path)
     return this.toCashAddress(address.getAddress())
   }
 
   fromXPriv(xpriv: string, path: string = "0'/0"): string {
-    let bitcoincash: any
+    let bitcoincash: BitcoinCash
     if (xpriv[0] === "x") bitcoincash = coininfo.bitcoincash.main
-    else if (xpriv[0] === "t") bitcoincash = coininfo.bitcoincash.test
+    else bitcoincash = coininfo.bitcoincash.test
 
-    const bitcoincashBitcoinJSLib = bitcoincash.toBitcoinJS()
-    const HDNode: any = Bitcoin.HDNode.fromBase58(
+    const bitcoincashBitcoinJSLib: any = bitcoincash.toBitcoinJS()
+    const HDNode: bcl.HDNode = Bitcoin.HDNode.fromBase58(
       xpriv,
       bitcoincashBitcoinJSLib
     )
-    const address: any = HDNode.derivePath(path)
+    const address: bcl.HDNode = HDNode.derivePath(path)
     return this.toCashAddress(address.getAddress())
   }
 
-  fromOutputScript(scriptPubKey: any, network: string = "mainnet"): string {
+  fromOutputScript(scriptPubKey: Buffer, network: string = "mainnet"): string {
     let netParam: any
     if (network !== "bitcoincash" && network !== "mainnet")
       netParam = Bitcoin.networks.testnet

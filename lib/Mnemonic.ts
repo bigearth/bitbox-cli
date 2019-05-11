@@ -1,32 +1,20 @@
-const BIP39 = require("bip39")
-const randomBytes = require("randombytes")
+import * as BIP39 from "bip39"
+import * as randomBytes from "randombytes"
+// TODO: convert "bitcoincashjs-lib" require to import
 const Bitcoin = require("bitcoincashjs-lib")
+// import * as Bitcoin from "bitcoincashjs-lib"
 import { Buffer } from "buffer"
-const wif = require("wif")
+import * as wif from "wif"
+import { Address } from "./Address"
+import * as bcl from "bitcoincashjs-lib"
 
-export interface Mnemonic {
-  _address: any
-  generate(bits?: number, wordlist?: string[]): string
-  fromEntropy(bytes: Buffer, wordlist: string[]): string
-  toEntropy(mnemonic: string, wordlist: string[]): Buffer
-  validate(mnemonic: string, wordlist: string[]): string
-  toSeed(mnemonic: string, password: string): Buffer
-  wordLists(): any
-  toKeypairs(
-    mnemonic: string,
-    numberOfKeypairs?: number,
-    regtest?: boolean
-  ): { privateKeyWIF: string; address: string }[]
-  findNearestWord(word: string, wordlist: string[]): string
-}
-
-export class Mnemonic implements Mnemonic {
-  _address: any
-  constructor(address: any) {
+export class Mnemonic {
+  _address: Address
+  constructor(address: Address = new Address()) {
     this._address = address
   }
 
-  generate(bits: number = 128, wordlist: string[]): string {
+  generate(bits: number = 128, wordlist?: string[]): string {
     return BIP39.generateMnemonic(bits, randomBytes, wordlist)
   }
 
@@ -74,16 +62,16 @@ export class Mnemonic implements Mnemonic {
     numberOfKeypairs: number = 1,
     regtest: boolean = false
   ): any {
-    const rootSeedBuffer: any = this.toSeed(mnemonic, "")
-    const hdNode: any = Bitcoin.HDNode.fromSeedBuffer(rootSeedBuffer)
+    const rootSeedBuffer: Buffer = this.toSeed(mnemonic, "")
+    const hdNode: bcl.HDNode = Bitcoin.HDNode.fromSeedBuffer(rootSeedBuffer)
     const HDPath: string = `44'/145'/0'/0/`
 
     const accounts: any[] = []
 
     for (let i = 0; i < numberOfKeypairs; i++) {
-      const childHDNode = hdNode.derivePath(`${HDPath}${i}`)
+      const childHDNode: bcl.HDNode = hdNode.derivePath(`${HDPath}${i}`)
 
-      let prefix = 128
+      let prefix: number = 128
       if (regtest === true) prefix = 239
 
       accounts.push({
@@ -106,10 +94,10 @@ export class Mnemonic implements Mnemonic {
     let minDistance: number = 99
     let closestWord: string = wordlist[0]
     for (let i: number = 0; i < wordlist.length; i++) {
-      const comparedTo: any = wordlist[i]
+      const comparedTo: string = wordlist[i]
       if (comparedTo.indexOf(word) == 0) return comparedTo
 
-      const distance: any = Levenshtein.get(word, comparedTo)
+      const distance: number = Levenshtein.get(word, comparedTo)
       if (distance < minDistance) {
         closestWord = comparedTo
         minDistance = distance

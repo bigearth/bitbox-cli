@@ -1,6 +1,7 @@
 const fixtures = require("./fixtures/BitcoinCash.json")
 const assert = require("assert")
 const BITBOX = require("../../lib/BITBOX").BITBOX
+const BitcoinCash = require("../../lib/BitcoinCash").BitcoinCash
 const bitbox = new BITBOX()
 
 // TODO
@@ -20,6 +21,14 @@ const bitbox = new BITBOX()
 // 6. More error test cases.
 
 describe("#BitcoinCash", () => {
+
+  describe("#BitcoinCashConstructor", () => {
+    it("should create instance of BitcoinCash", () => {
+      const bitcoinCash = new BitcoinCash()
+      assert.equal(bitcoinCash instanceof BitcoinCash, true)
+    })
+  })
+
   describe("price conversion", () => {
     describe("#toBitcoinCash", () => {
       fixtures.conversion.toBCH.satoshis.forEach(satoshi => {

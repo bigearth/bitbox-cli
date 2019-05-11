@@ -2,8 +2,16 @@ const fixtures = require("./fixtures/Mnemonic.json")
 const assert = require("assert")
 const BITBOX = require("../../lib/BITBOX").BITBOX
 const bitbox = new BITBOX()
+const Mnemonic = require("../../lib/Mnemonic").Mnemonic
 
 describe("#Mnemonic", () => {
+  describe("#MnemonicConstructor", () => {
+    it("should create instance of Mnemonic", () => {
+      const mnemonic = new Mnemonic()
+      assert.equal(mnemonic instanceof Mnemonic, true)
+    })
+  })
+
   describe("#generate", () => {
     it("should generate a 12 word mnemonic", () => {
       const mnemonic = bitbox.Mnemonic.generate(128)

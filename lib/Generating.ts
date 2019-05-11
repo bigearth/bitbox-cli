@@ -1,17 +1,9 @@
 import axios from "axios"
+import { resturl } from "./BITBOX"
 
-export interface Generating {
+export class Generating {
   restURL: string
-  generateToAddress(
-    blocks: number,
-    address: string,
-    maxtries?: number
-  ): Promise<any[]>
-}
-
-export class Generating implements Generating {
-  restURL: string
-  constructor(restURL: string) {
+  constructor(restURL: string = resturl) {
     this.restURL = restURL
   }
 
@@ -19,7 +11,7 @@ export class Generating implements Generating {
     blocks: number,
     address: string,
     maxtries: number = 1000000
-  ): Promise<any[]> {
+  ): Promise<string[]> {
     try {
       const response: any = await axios.post(
         `${
