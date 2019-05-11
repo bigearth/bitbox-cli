@@ -9,34 +9,34 @@ import * as fs from "fs";
 import * as repl from "repl";
 import * as mkdirp from "mkdirp";
 import * as figlet from "figlet";
-let clear = require("clear")
 import * as touch from "touch";
 import * as emoji from "node-emoji";
+
+// TODO: port to `import` statement
+let clear = require("clear")
 let clone  = require("git-clone")
 
 import { BITBOX } from "./lib/BITBOX"
-// this.Address = new Address(this.restURL)
-// this.BitcoinCash = new BitcoinCash(this.Address)
-// this.Block = new Block(this.restURL)
-// this.Blockchain = new Blockchain(this.restURL)
-// this.Control = new Control(this.restURL)
-// this.Crypto = Crypto
-// this.ECPair = ECPair
-// this.ECPair.setAddress(this.Address)
-// this.Generating = new Generating(this.restURL)
-// this.HDNode = new HDNode(this.Address)
-// this.Mining = new Mining(this.restURL)
-// this.Mnemonic = new Mnemonic(this.Address)
-// this.Price = new Price()
-// this.RawTransactions = new RawTransactions(this.restURL)
-// this.Script = new Script()
-// this.Transaction = new Transaction(this.restURL)
-// this.TransactionBuilder = TransactionBuilder
-// this.TransactionBuilder.setAddress(this.Address)
-// this.Util = new Util(this.restURL)
-// this.Socket = Socket
-// this.Wallet = Wallet
-// this.Schnorr = new Schnorr()
+import { Address } from "./lib/Address"
+import { BitcoinCash } from "./lib/BitcoinCash"
+import { Block } from "./lib/Block"
+import { Blockchain } from "./lib/Blockchain"
+import { Control } from "./lib/Control"
+import { Crypto } from "./lib/Crypto"
+import { ECPair } from "./lib/ECPair"
+import { Generating } from "./lib/Generating"
+import { HDNode } from "./lib/HDNode"
+import { Mining } from "./lib/Mining"
+import { Mnemonic } from "./lib/Mnemonic"
+import { Price } from "./lib/Price"
+import { RawTransactions } from "./lib/RawTransactions"
+import { Script } from "./lib/Script"
+import { Transaction } from "./lib/Transaction"
+import { TransactionBuilder } from "./lib/TransactionBuilder"
+import { Util } from "./lib/Util"
+import { Socket } from "./lib/Socket"
+import { Wallet } from "./lib/Wallet"
+import { Schnorr } from "./lib/Schnorr"
 
 interface ConsoleOptions {
   environment: string
@@ -182,11 +182,9 @@ program
   )
   .description("Run a console with Bitcoin Cash RPC commands available")
   .action((options: ConsoleOptions): void => {
-    let config: {
-      environments: {
 
-      }
-    } = {
+    // TODO: create interface for `config`
+    let config: any  = {
       environments: {}
     }
 
@@ -207,7 +205,9 @@ program
     replServer.context.bitbox = new BITBOX(config.environments[environment])
   })
 
-function fetchOption(kv: string, config: any, options: ConsoleOptions | NewOptions): string {
+
+function fetchOption(kv: string, config: any, options: ConsoleOptions | NewOptions | any): string {
+  // TODO: remove `any` type from `options` argument
   const parts: string[] = kv.split("=")
   const key: string = parts[0]
   const defaultVal: string = parts[1]
@@ -223,5 +223,25 @@ program.parse(process.argv)
 if (!process.argv.slice(2).length) program.outputHelp()
 
 module.exports = {
-  BITBOX: BITBOX
+  Address: Address,
+  BITBOX: BITBOX,
+  BitcoinCash: BitcoinCash,
+  Block: Block,
+  Blockchain: Blockchain,
+  Control: Control,
+  Crypto: Crypto,
+  ECPair: ECPair,
+  Generating: Generating,
+  HDNode: HDNode,
+  Mining: Mining,
+  Mnemonic: Mnemonic,
+  Price: Price,
+  RawTransactions: RawTransactions,
+  Script: Script,
+  Transaction: Transaction,
+  TransactionBuilder: TransactionBuilder,
+  Util: Util,
+  Socket: Socket,
+  Wallet: Wallet,
+  Schnorr: Schnorr
 }
