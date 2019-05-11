@@ -47,7 +47,7 @@ interface NewOptions extends ConsoleOptions {
   restURL: string
 }
 
-program.version("7.0.19 ", "-v, --version")
+program.version("7.1.0 ", "-v, --version")
 
 program
   .command("new <name>")
@@ -222,26 +222,26 @@ program.parse(process.argv)
 // print help if no command given
 // if (!process.argv.slice(2).length) program.outputHelp()
 
-module.exports = {
-  Address: Address,
-  BITBOX: BITBOX,
-  BitcoinCash: BitcoinCash,
-  Block: Block,
-  Blockchain: Blockchain,
-  Control: Control,
-  Crypto: Crypto,
-  ECPair: ECPair,
-  Generating: Generating,
-  HDNode: HDNode,
-  Mining: Mining,
-  Mnemonic: Mnemonic,
-  Price: Price,
-  RawTransactions: RawTransactions,
-  Script: Script,
-  Transaction: Transaction,
-  TransactionBuilder: TransactionBuilder,
-  Util: Util,
-  Socket: Socket,
-  Wallet: Wallet,
-  Schnorr: Schnorr
+export {
+  Address,
+  BITBOX,
+  BitcoinCash,
+  Block,
+  Blockchain,
+  Control,
+  Crypto,
+  ECPair,
+  Generating,
+  HDNode,
+  Mining,
+  Mnemonic,
+  Price,
+  RawTransactions,
+  Script,
+  Transaction,
+  TransactionBuilder,
+  Util,
+  Socket,
+  Wallet,
+  Schnorr
 }
