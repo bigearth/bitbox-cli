@@ -1,5 +1,7 @@
+import * as assert from "assert";
+
+// TODO: port from require to import syntax
 const fixtures = require("./fixtures/Mnemonic.json")
-const assert = require("assert")
 const BITBOX = require("../../lib/BITBOX").BITBOX
 const bitbox = new BITBOX()
 const Mnemonic = require("../../lib/Mnemonic").Mnemonic
@@ -87,7 +89,7 @@ describe("#Mnemonic", () => {
       assert.equal(mnemonic.split(" ").length, 24)
     })
 
-    fixtures.fromEntropy.forEach(entropy => {
+    fixtures.fromEntropy.forEach((entropy: any) => {
       const mnemonic = bitbox.Mnemonic.fromEntropy(entropy.entropy)
       it(`should convert ${entropy.entropy} to ${entropy.mnemonic}`, () => {
         assert.equal(mnemonic, entropy.mnemonic)
@@ -138,7 +140,7 @@ describe("#Mnemonic", () => {
       assert.equal(entropy.length, 32)
     })
 
-    fixtures.fromEntropy.forEach(fixture => {
+    fixtures.fromEntropy.forEach((fixture: any) => {
       const entropy = bitbox.Mnemonic.toEntropy(fixture.mnemonic)
       it(`should convert ${fixture.mnemonic} to ${fixture.entropy}`, () => {
         assert.equal(entropy.toString("hex"), fixture.entropy)
@@ -299,9 +301,9 @@ describe("#Mnemonic", () => {
   })
 
   describe("#toKeypairs", () => {
-    fixtures.toKeypairs.forEach((fixture, i) => {
+    fixtures.toKeypairs.forEach((fixture: any, i: number) => {
       const keypairs = bitbox.Mnemonic.toKeypairs(fixture.mnemonic, 5)
-      keypairs.forEach((keypair, j) => {
+      keypairs.forEach((keypair: any, j: number) => {
         it(`Generate keypair from mnemonic`, () => {
           assert.equal(
             keypair.privateKeyWIF,
@@ -319,7 +321,7 @@ describe("#Mnemonic", () => {
         5,
         true
       )
-      regtestKeypairs.forEach((keypair, j) => {
+      regtestKeypairs.forEach((keypair: any, j: number) => {
         it(`Generate keypair from mnemonic`, () => {
           assert.equal(
             keypair.privateKeyWIF,
@@ -335,16 +337,16 @@ describe("#Mnemonic", () => {
   })
 
   describe("#findNearestWord", () => {
-    fixtures.findNearestWord.forEach((fixture, i) => {
+    fixtures.findNearestWord.forEach((fixture: any) => {
       const word = bitbox.Mnemonic.findNearestWord(
         fixture.word,
         bitbox.Mnemonic.wordLists()[fixture.language]
       )
       it(`find word ${fixture.foundWord} near ${fixture.word} in ${
         fixture.language
-      }`, () => {
-        assert.equal(word, fixture.foundWord)
-      })
+        }`, () => {
+          assert.equal(word, fixture.foundWord)
+        })
     })
   })
 })

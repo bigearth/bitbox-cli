@@ -18,18 +18,18 @@ export class Control {
     }
   }
 
-  async getMemoryInfo(): Promise<NodeMemoryInfo> {
-    // TODO add back to REST
-    try {
-      const response: any = await axios.get(
-        `${this.restURL}control/getMemoryInfo`
-      )
-      return response.data
-    } catch (error) {
-      if (error.response && error.response.data) throw error.response.data
-      else throw error
-    }
-  }
+  // async getMemoryInfo(): Promise<NodeMemoryInfo> {
+  //   // TODO add back to REST
+  //   try {
+  //     const response: any = await axios.get(
+  //       `${this.restURL}control/getMemoryInfo`
+  //     )
+  //     return response.data
+  //   } catch (error) {
+  //     if (error.response && error.response.data) throw error.response.data
+  //     else throw error
+  //   }
+  // }
   //
   // stop() {
   //   // Stop Bitcoin Cash server.

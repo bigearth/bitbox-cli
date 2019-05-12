@@ -35,7 +35,7 @@ import { Transaction } from "./lib/Transaction"
 import { TransactionBuilder } from "./lib/TransactionBuilder"
 import { Util } from "./lib/Util"
 import { Socket } from "./lib/Socket"
-import { Wallet } from "./lib/Wallet"
+// import { Wallet } from "./lib/Wallet"
 import { Schnorr } from "./lib/Schnorr"
 
 interface ConsoleOptions {
@@ -47,7 +47,7 @@ interface NewOptions extends ConsoleOptions {
   restURL: string
 }
 
-program.version("7.1.0 ", "-v, --version")
+program.version("7.2.0 ", "-v, --version")
 
 program
   .command("new <name>")
@@ -242,6 +242,6 @@ export {
   TransactionBuilder,
   Util,
   Socket,
-  Wallet,
+  // Wallet,
   Schnorr
 }

@@ -62,9 +62,8 @@ export class Address {
 
   // Translate address from any address format into a specific format.
   toLegacyAddress(address: string): string {
-    const { prefix, type, hash } = this._decode(address)
-
-    let bitcoincash: BitcoinCash
+    const { prefix, type, hash }: Decoded = this._decode(address)
+    let bitcoincash: BitcoinCash = coininfo.bitcoincash.main
     switch (prefix) {
       case "bitcoincash":
         bitcoincash = coininfo.bitcoincash.main
@@ -75,11 +74,9 @@ export class Address {
       case "bchreg":
         bitcoincash = coininfo.bitcoincash.regtest
         break
-      default:
-        throw `unsupported prefix : ${prefix}`
     }
 
-    let version: number
+    let version: number = bitcoincash.versions.public
     switch (type) {
       case "P2PKH":
         version = bitcoincash.versions.public
@@ -87,8 +84,6 @@ export class Address {
       case "P2SH":
         version = bitcoincash.versions.scripthash
         break
-      default:
-        throw `unsupported address type : ${type}`
     }
 
     const hashBuf: Buffer = Buffer.from(hash)
@@ -177,44 +172,53 @@ export class Address {
   }
 
   _decodeLegacyAddress(address: string): Decoded {
-    const { version, hash } = Bitcoin.address.fromBase58Check(address)
+    const { version, hash }: Bytes = Bitcoin.address.fromBase58Check(address)
     const info: {
       main: any
       test: any
     } = coininfo.bitcoincash
 
+    let decoded: Decoded = {
+      prefix: "",
+      type: "",
+      hash: hash,
+      format: ""
+    }
     switch (version) {
       case info.main.versions.public:
-        return {
+        decoded = {
           prefix: "bitcoincash",
           type: "P2PKH",
           hash: hash,
           format: "legacy"
         }
+        break
       case info.main.versions.scripthash:
-        return {
+        decoded = {
           prefix: "bitcoincash",
           type: "P2SH",
           hash: hash,
           format: "legacy"
         }
+        break
       case info.test.versions.public:
-        return {
+        decoded = {
           prefix: "bchtest",
           type: "P2PKH",
           hash: hash,
           format: "legacy"
         }
+        break
       case info.test.versions.scripthash:
-        return {
+        decoded = {
           prefix: "bchtest",
           type: "P2SH",
           hash: hash,
           format: "legacy"
         }
-      default:
-        throw new Error(`Invalid format : ${address}`)
+        break
     }
+    return decoded
   }
 
   _decodeCashAddress(address: string): Decoded {
@@ -237,24 +241,27 @@ export class Address {
   }
 
   _decodeAddressFromHash160(address: string): DecodedHash160 {
+    let decodedHash160: DecodedHash160 = {
+      legacyAddress: "",
+      cashAddress: "",
+      format: ""
+    }
     if (address.length === 40) {
-      return {
+      decodedHash160 = {
         legacyAddress: this.hash160ToLegacy(address),
         cashAddress: this.hash160ToCash(address),
         format: "hash160"
       }
     } else if (this.isCashAddress(address) || this.isLegacyAddress(address)) {
-      return {
+      decodedHash160 = {
         legacyAddress: this.toLegacyAddress(address),
         cashAddress: this.toCashAddress(address),
         format: "nonHash160"
       }
     }
-
-    throw new Error(`Invalid format : ${address}`)
+    return decodedHash160
   }
 
-  // Test for address format.
   isLegacyAddress(address: string): boolean {
     return this.detectAddressFormat(address) === "legacy"
   }
@@ -313,19 +320,22 @@ export class Address {
     else if (address[0] === "t") return "testnet"
 
     const decoded: Decoded = this._decode(address)
+    let prefix: string = ""
 
     switch (decoded.prefix) {
       case "bitcoincash":
-        return "mainnet"
+        prefix = "mainnet"
+        break
       case "bchtest":
-        return "testnet"
+        prefix = "testnet"
+        break
       case "bchreg":
-        return "regtest"
-      default:
-        throw new Error(`Invalid prefix : ${decoded.prefix}`)
+        prefix = "regtest"
+        break
     }
-  }
 
+    return prefix
+  }
   // Detect address type.
   detectAddressType(address: string): string {
     const decoded: Decoded = this._decode(address)

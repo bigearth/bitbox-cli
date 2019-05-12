@@ -1,9 +1,11 @@
-const assert = require("assert")
-const axios = require("axios")
+import * as assert from "assert";
+import axios from "axios";
+import * as sinon from "sinon";
+
+// TODO: port from require to import syntax
 const BITBOX = require("../../lib/BITBOX").BITBOX
 const bitbox = new BITBOX()
 const Mining = require("../../lib/Mining").Mining
-const sinon = require("sinon")
 const resturl = require("../../lib/BITBOX").resturl
 
 describe("#Mining", () => {
@@ -20,7 +22,7 @@ describe("#Mining", () => {
   })
 
   describe("#getBlockTemplate", () => {
-    let sandbox
+    let sandbox: any
     beforeEach(() => (sandbox = sinon.sandbox.create()))
     afterEach(() => sandbox.restore())
 
@@ -41,7 +43,7 @@ describe("#Mining", () => {
       sandbox.stub(axios, "get").returns(resolved)
 
       bitbox.Mining.getBlockTemplate("")
-        .then(result => {
+        .then((result: any) => {
           assert.deepEqual(data, result)
         })
         .then(done, done)
@@ -49,7 +51,7 @@ describe("#Mining", () => {
   })
 
   describe("#getMiningInfo", () => {
-    let sandbox
+    let sandbox: any
     beforeEach(() => (sandbox = sinon.sandbox.create()))
     afterEach(() => sandbox.restore())
 
@@ -70,7 +72,7 @@ describe("#Mining", () => {
       sandbox.stub(axios, "get").returns(resolved)
 
       bitbox.Mining.getMiningInfo()
-        .then(result => {
+        .then((result: any) => {
           assert.deepEqual(data, result)
         })
         .then(done, done)
@@ -78,7 +80,7 @@ describe("#Mining", () => {
   })
 
   describe("#getNetworkHashps", () => {
-    let sandbox
+    let sandbox: any
     beforeEach(() => (sandbox = sinon.sandbox.create()))
     afterEach(() => sandbox.restore())
 
@@ -89,7 +91,7 @@ describe("#Mining", () => {
       sandbox.stub(axios, "get").returns(resolved)
 
       bitbox.Mining.getNetworkHashps()
-        .then(result => {
+        .then((result: any) => {
           assert.equal(data, result)
         })
         .then(done, done)
@@ -98,7 +100,7 @@ describe("#Mining", () => {
 
   describe("#submitBlock", () => {
     // TODO finish
-    let sandbox
+    let sandbox: any
     beforeEach(() => (sandbox = sinon.sandbox.create()))
     afterEach(() => sandbox.restore())
 
@@ -109,7 +111,7 @@ describe("#Mining", () => {
       sandbox.stub(axios, "post").returns(resolved)
 
       bitbox.Mining.submitBlock()
-        .then(result => {
+        .then((result: any) => {
           assert.deepEqual(data, result)
         })
         .then(done, done)

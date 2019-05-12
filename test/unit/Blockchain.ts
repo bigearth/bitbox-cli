@@ -1,10 +1,21 @@
-const assert = require("assert")
-const axios = require("axios")
+const chai = require("chai")
+const assert = chai.assert
+import axios from "axios";
+import * as sinon from "sinon";
+
+// TODO: port from require to import syntax
 const BITBOX = require("../../lib/BITBOX").BITBOX
 const bitbox = new BITBOX()
 const Blockchain = require("../../lib/Blockchain").Blockchain
-const sinon = require("sinon")
 const resturl = require("../../lib/BITBOX").resturl
+
+// Inspect utility used for debugging.
+const util = require("util")
+util.inspect.defaultOptions = {
+  showHidden: true,
+  colors: true,
+  depth: 3
+}
 
 describe("#Blockchain", () => {
   describe("#BlockchainConstructor", () => {
@@ -20,7 +31,7 @@ describe("#Blockchain", () => {
   })
 
   describe("#getBestBlockHash", () => {
-    let sandbox
+    let sandbox: any
     beforeEach(() => (sandbox = sinon.sandbox.create()))
     afterEach(() => sandbox.restore())
 
@@ -34,7 +45,7 @@ describe("#Blockchain", () => {
       sandbox.stub(axios, "get").returns(resolved)
 
       bitbox.Blockchain.getBestBlockHash()
-        .then(result => {
+        .then((result: any) => {
           const hash =
             "0000000000000000005f1f550d3d8b142b684277016ebd00fa29c668606ae52d"
           assert.equal(hash, result)
@@ -44,7 +55,7 @@ describe("#Blockchain", () => {
   })
 
   describe("#getBlock", () => {
-    let sandbox
+    let sandbox: any
     beforeEach(() => (sandbox = sinon.sandbox.create()))
     afterEach(() => sandbox.restore())
     const data = {
@@ -77,7 +88,7 @@ describe("#Blockchain", () => {
       bitbox.Blockchain.getBlock(
         "00000000c937983704a73af28acdec37b049d214adbda81d7e2a3dd146f6ed09"
       )
-        .then(result => {
+        .then((result: any) => {
           assert.deepEqual(data, result)
         })
         .then(done, done)
@@ -85,7 +96,7 @@ describe("#Blockchain", () => {
   })
 
   describe("#getBlockchainInfo", () => {
-    let sandbox
+    let sandbox: any
     beforeEach(() => (sandbox = sinon.sandbox.create()))
     afterEach(() => sandbox.restore())
     const data = {
@@ -120,7 +131,7 @@ describe("#Blockchain", () => {
       sandbox.stub(axios, "get").returns(resolved)
 
       bitbox.Blockchain.getBlockchainInfo()
-        .then(result => {
+        .then((result: any) => {
           assert.deepEqual(data, result)
         })
         .then(done, done)
@@ -128,7 +139,7 @@ describe("#Blockchain", () => {
   })
 
   describe("#getBlockCount", () => {
-    let sandbox
+    let sandbox: any
     beforeEach(() => (sandbox = sinon.sandbox.create()))
     afterEach(() => sandbox.restore())
     const data = 527810
@@ -138,7 +149,7 @@ describe("#Blockchain", () => {
       sandbox.stub(axios, "get").returns(resolved)
 
       bitbox.Blockchain.getBlockCount()
-        .then(result => {
+        .then((result: any) => {
           assert.deepEqual(data, result)
         })
         .then(done, done)
@@ -146,7 +157,7 @@ describe("#Blockchain", () => {
   })
 
   describe("#getBlockHash", () => {
-    let sandbox
+    let sandbox: any
     beforeEach(() => (sandbox = sinon.sandbox.create()))
     afterEach(() => sandbox.restore())
     const data =
@@ -157,7 +168,7 @@ describe("#Blockchain", () => {
       sandbox.stub(axios, "get").returns(resolved)
 
       bitbox.Blockchain.getBlockHash(527810)
-        .then(result => {
+        .then((result: any) => {
           assert.deepEqual(data, result)
         })
         .then(done, done)
@@ -165,7 +176,7 @@ describe("#Blockchain", () => {
   })
 
   describe("#getBlockHeader", () => {
-    let sandbox
+    let sandbox: any
     beforeEach(() => (sandbox = sinon.sandbox.create()))
     afterEach(() => sandbox.restore())
     const data = {
@@ -195,7 +206,7 @@ describe("#Blockchain", () => {
         "000000000000000001d127592d091d4c45062504663c9acab27a1b16c028e3c0",
         true
       )
-        .then(result => {
+        .then((result: any) => {
           assert.deepEqual(data, result)
         })
         .then(done, done)
@@ -203,7 +214,7 @@ describe("#Blockchain", () => {
   })
 
   describe("#getDifficulty", () => {
-    let sandbox
+    let sandbox: any
     beforeEach(() => (sandbox = sinon.sandbox.create()))
     afterEach(() => sandbox.restore())
     const data = "577528469277.1339"
@@ -213,7 +224,7 @@ describe("#Blockchain", () => {
       sandbox.stub(axios, "get").returns(resolved)
 
       bitbox.Blockchain.getDifficulty()
-        .then(result => {
+        .then((result: any) => {
           assert.deepEqual(data, result)
         })
         .then(done, done)
@@ -221,7 +232,7 @@ describe("#Blockchain", () => {
   })
 
   describe("#getMempoolAncestors", () => {
-    let sandbox
+    let sandbox: any
     beforeEach(() => (sandbox = sinon.sandbox.create()))
     afterEach(() => sandbox.restore())
     const data = "Transaction not in mempool"
@@ -234,7 +245,7 @@ describe("#Blockchain", () => {
         "daf58932cb91619304dd4cbd03c7202e89ad7d6cbd6e2209e5f64ce3b6ed7c88",
         true
       )
-        .then(result => {
+        .then((result: any) => {
           assert.deepEqual(data, result)
         })
         .then(done, done)
@@ -242,7 +253,7 @@ describe("#Blockchain", () => {
   })
 
   describe("#getMempoolDescendants", () => {
-    let sandbox
+    let sandbox: any
     beforeEach(() => (sandbox = sinon.sandbox.create()))
     afterEach(() => sandbox.restore())
     const data = {
@@ -257,7 +268,7 @@ describe("#Blockchain", () => {
         "daf58932cb91619304dd4cbd03c7202e89ad7d6cbd6e2209e5f64ce3b6ed7c88",
         true
       )
-        .then(result => {
+        .then((result: any) => {
           assert.deepEqual(data, result)
         })
         .then(done, done)
@@ -265,7 +276,7 @@ describe("#Blockchain", () => {
   })
 
   describe("#getMempoolEntry", () => {
-    let sandbox
+    let sandbox: any
     beforeEach(() => (sandbox = sinon.sandbox.create()))
     afterEach(() => sandbox.restore())
     const data = {
@@ -279,7 +290,7 @@ describe("#Blockchain", () => {
       bitbox.Blockchain.getMempoolEntry(
         "daf58932cb91619304dd4cbd03c7202e89ad7d6cbd6e2209e5f64ce3b6ed7c88"
       )
-        .then(result => {
+        .then((result: any) => {
           assert.deepEqual(data, result)
         })
         .then(done, done)
@@ -287,7 +298,7 @@ describe("#Blockchain", () => {
   })
 
   describe("#getMempoolInfo", () => {
-    let sandbox
+    let sandbox: any
     beforeEach(() => (sandbox = sinon.sandbox.create()))
     afterEach(() => sandbox.restore())
     const data = {
@@ -305,7 +316,7 @@ describe("#Blockchain", () => {
       sandbox.stub(axios, "get").returns(resolved)
 
       bitbox.Blockchain.getMempoolInfo()
-        .then(result => {
+        .then((result: any) => {
           assert.deepEqual(data, result)
         })
         .then(done, done)
@@ -313,7 +324,7 @@ describe("#Blockchain", () => {
   })
 
   describe("#getRawMempool", () => {
-    let sandbox
+    let sandbox: any
     beforeEach(() => (sandbox = sinon.sandbox.create()))
     afterEach(() => sandbox.restore())
     const data = {
@@ -346,7 +357,7 @@ describe("#Blockchain", () => {
       sandbox.stub(axios, "get").returns(resolved)
 
       bitbox.Blockchain.getRawMempool()
-        .then(result => {
+        .then((result: any) => {
           assert.deepEqual(data, result)
         })
         .then(done, done)
@@ -355,7 +366,7 @@ describe("#Blockchain", () => {
 
   describe("#getTxOut", () => {
     // TODO finish this test
-    let sandbox
+    let sandbox: any
     beforeEach(() => (sandbox = sinon.sandbox.create()))
     afterEach(() => sandbox.restore())
     const data = {
@@ -371,7 +382,7 @@ describe("#Blockchain", () => {
         0,
         true
       )
-        .then(result => {
+        .then((result: any) => {
           assert.deepEqual(data, result)
         })
         .then(done, done)
@@ -380,7 +391,7 @@ describe("#Blockchain", () => {
 
   describe("#preciousBlock", () => {
     // TODO finish this test
-    let sandbox
+    let sandbox: any
     beforeEach(() => (sandbox = sinon.sandbox.create()))
     afterEach(() => sandbox.restore())
     const data = {
@@ -392,7 +403,7 @@ describe("#Blockchain", () => {
       sandbox.stub(axios, "get").returns(resolved)
 
       bitbox.Blockchain.preciousBlock()
-        .then(result => {
+        .then((result: any) => {
           assert.deepEqual(data, result)
         })
         .then(done, done)
@@ -400,7 +411,7 @@ describe("#Blockchain", () => {
   })
 
   describe("#pruneBlockchain", () => {
-    let sandbox
+    let sandbox: any
     beforeEach(() => (sandbox = sinon.sandbox.create()))
     afterEach(() => sandbox.restore())
     const data = "Cannot prune blocks because node is not in prune mode."
@@ -410,7 +421,7 @@ describe("#Blockchain", () => {
       sandbox.stub(axios, "post").returns(resolved)
 
       bitbox.Blockchain.pruneBlockchain(507)
-        .then(result => {
+        .then((result: any) => {
           assert.deepEqual(data, result)
         })
         .then(done, done)
@@ -418,7 +429,7 @@ describe("#Blockchain", () => {
   })
 
   describe("#verifyChain", () => {
-    let sandbox
+    let sandbox: any
     beforeEach(() => (sandbox = sinon.sandbox.create()))
     afterEach(() => sandbox.restore())
     const data = true
@@ -428,7 +439,7 @@ describe("#Blockchain", () => {
       sandbox.stub(axios, "get").returns(resolved)
 
       bitbox.Blockchain.verifyChain(3, 6)
-        .then(result => {
+        .then((result: any) => {
           assert.deepEqual(data, result)
         })
         .then(done, done)
@@ -436,7 +447,7 @@ describe("#Blockchain", () => {
   })
 
   describe("#verifyTxOutProof", () => {
-    let sandbox
+    let sandbox: any
     beforeEach(() => (sandbox = sinon.sandbox.create()))
     afterEach(() => sandbox.restore())
     const data = "proof must be hexadecimal string (not '')"
@@ -446,10 +457,286 @@ describe("#Blockchain", () => {
       sandbox.stub(axios, "get").returns(resolved)
 
       bitbox.Blockchain.verifyTxOutProof("3")
-        .then(result => {
+        .then((result: any) => {
           assert.deepEqual(data, result)
         })
         .then(done, done)
+    })
+  })
+
+  describe(`#getBestBlockHash`, () => {
+    it(`should GET best block hash`, async () => {
+      const result = await bitbox.Blockchain.getBestBlockHash()
+      //console.log(`result: ${util.inspect(result)}`)
+
+      assert.isString(result)
+      assert.equal(result.length, 64, "Specific hash length")
+    })
+  })
+
+  describe("#getBlockHeader", () => {
+    it(`should GET block header for a single hash`, async () => {
+      const hash =
+        "000000000000000005e14d3f9fdfb70745308706615cfa9edca4f4558332b201"
+
+      const result = await bitbox.Blockchain.getBlockHeader(hash)
+
+      assert.hasAllKeys(result, [
+        "hash",
+        "confirmations",
+        "height",
+        "version",
+        "versionHex",
+        "merkleroot",
+        "time",
+        "mediantime",
+        "nonce",
+        "bits",
+        "difficulty",
+        "chainwork",
+        "previousblockhash",
+        "nextblockhash"
+      ])
+    })
+
+    it(`should GET block headers for an array of hashes`, async () => {
+      const hash = [
+        "000000000000000005e14d3f9fdfb70745308706615cfa9edca4f4558332b201",
+        "00000000000000000568f0a96bf4348847bc84e455cbfec389f27311037a20f3"
+      ]
+
+      const result = await bitbox.Blockchain.getBlockHeader(hash)
+
+      assert.isArray(result)
+      assert.hasAllKeys(result[0], [
+        "hash",
+        "confirmations",
+        "height",
+        "version",
+        "versionHex",
+        "merkleroot",
+        "time",
+        "mediantime",
+        "nonce",
+        "bits",
+        "difficulty",
+        "chainwork",
+        "previousblockhash",
+        "nextblockhash"
+      ])
+    })
+
+    it(`should throw an error for improper input`, async () => {
+      try {
+        const hash = 12345
+
+        await bitbox.Blockchain.getBlockHeader(hash)
+        assert.equal(true, false, "Unexpected result!")
+      } catch (err) {
+        assert.include(
+          err.message,
+          `Input hash must be a string or array of strings`
+        )
+      }
+    })
+
+    it(`should throw error on array size rate limit`, async () => {
+      try {
+        const data = []
+        for (let i = 0; i < 25; i++) {
+          data.push(
+            "000000000000000005e14d3f9fdfb70745308706615cfa9edca4f4558332b201"
+          )
+        }
+
+        const result = await bitbox.Blockchain.getBlockHeader(data)
+
+        console.log(`result: ${util.inspect(result)}`)
+        assert.equal(true, false, "Unexpected result!")
+      } catch (err) {
+        assert.hasAnyKeys(err, ["error"])
+        assert.include(err.error, "Array too large")
+      }
+    })
+  })
+
+  describe("#getMempoolEntry", () => {
+    /*
+    // To run this test, the txid must be unconfirmed.
+    const txid =
+      "defea04c38ee00cf73ad402984714ed22dc0dd99b2ae5cb50d791d94343ba79b"
+
+    it(`should GET single mempool entry`, async () => {
+      const result = await bitbox.Blockchain.getMempoolEntry(txid)
+      //console.log(`result: ${JSON.stringify(result, null, 2)}`)
+
+      assert.hasAnyKeys(result, [
+        "size",
+        "fee",
+        "modifiedfee",
+        "time",
+        "height",
+        "startingpriority",
+        "currentpriority",
+        "descendantcount",
+        "descendantsize",
+        "descendantfees",
+        "ancestorcount",
+        "ancestorsize",
+        "ancestorfees",
+        "depends"
+      ])
+    })
+
+    it(`should get an array of mempool entries`, async () => {
+      const result = await bitbox.Blockchain.getMempoolEntry([txid, txid])
+      console.log(`result: ${JSON.stringify(result, null, 2)}`)
+
+      assert.isArray(result)
+      assert.hasAnyKeys(result[0], [
+        "size",
+        "fee",
+        "modifiedfee",
+        "time",
+        "height",
+        "startingpriority",
+        "currentpriority",
+        "descendantcount",
+        "descendantsize",
+        "descendantfees",
+        "ancestorcount",
+        "ancestorsize",
+        "ancestorfees",
+        "depends"
+      ])
+    })
+    */
+
+    it(`should throw an error if txid is not in mempool`, async () => {
+      try {
+        const txid =
+          "03f69502ca32e7927fd4f38c1d3f950bff650c1eea3d09a70e9df5a9d7f989f7"
+
+        await bitbox.Blockchain.getMempoolEntry(txid)
+
+        assert.equal(true, false, "Unexpected result!")
+      } catch (err) {
+        //console.log(`err: ${util.inspect(err)}`)
+        assert.hasAnyKeys(err, ["error"])
+        assert.include(err.error, `Transaction not in mempool`)
+      }
+    })
+
+    it(`should throw an error for improper single input`, async () => {
+      try {
+        const txid = 12345
+
+        await bitbox.Blockchain.getMempoolEntry(txid)
+        assert.equal(true, false, "Unexpected result!")
+      } catch (err) {
+        assert.include(
+          err.message,
+          `Input must be a string or array of strings`
+        )
+      }
+    })
+  })
+
+  describe(`#getTxOutProof`, () => {
+    it(`should get single tx out proof`, async () => {
+      const txid =
+        "03f69502ca32e7927fd4f38c1d3f950bff650c1eea3d09a70e9df5a9d7f989f7"
+
+      const result = await bitbox.Blockchain.getTxOutProof(txid)
+      //console.log(`result: ${JSON.stringify(result, null, 2)}`)
+
+      assert.isString(result)
+    })
+
+    it(`should get an array of tx out proofs`, async () => {
+      const txid = [
+        "03f69502ca32e7927fd4f38c1d3f950bff650c1eea3d09a70e9df5a9d7f989f7",
+        "fe28050b93faea61fa88c4c630f0e1f0a1c24d0082dd0e10d369e13212128f33"
+      ]
+
+      const result = await bitbox.Blockchain.getTxOutProof(txid)
+      //console.log(`result: ${JSON.stringify(result, null, 2)}`)
+
+      assert.isArray(result)
+      assert.isString(result[0])
+    })
+
+    it(`should throw an error for improper single input`, async () => {
+      try {
+        const txid = 12345
+
+        await bitbox.Blockchain.getTxOutProof(txid)
+        assert.equal(true, false, "Unexpected result!")
+      } catch (err) {
+        assert.include(
+          err.message,
+          `Input must be a string or array of strings`
+        )
+      }
+    })
+  })
+
+  describe(`#verifyTxOutProof`, () => {
+    const mockTxOutProof =
+      "0000002086a4a3161f9ba2174883ec0b93acceac3b2f37b36ed1f90000000000000000009cb02406d1094ecf3e0b4c0ca7c585125e721147c39daf6b48c90b512741e13a12333e5cb38705180f441d8c7100000008fee9b60f1edb57e5712839186277ed39e0a004a32be9096ee47472efde8eae62f789f9d7a9f59d0ea7093dea1e0c65ff0b953f1d8cf3d47f92e732ca0295f603c272d5f4a63509f7a887f2549d78af7444aa0ecbb4f66d9cbe13bc6a89f59e05a199df8325d490818ffefe6b6321d32d7496a68580459836c0183f89082fc1b491cc91b23ecdcaa4c347bf599a62904d61f1c15b400ebbd5c90149010c139d9c1e31b774b796977393a238080ab477e1d240d0c4f155d36f519668f49bae6bd8cd5b8e40522edf76faa09cca6188d83ff13af6967cc6a569d1a5e9aeb1fdb7f531ddd2d0cbb81879741d5f38166ac1932136264366a4065cc96a42e41f96294f02df01"
+
+    it(`should verify a single proof`, async () => {
+      const result = await bitbox.Blockchain.verifyTxOutProof(mockTxOutProof)
+      //console.log(`result: ${JSON.stringify(result, null, 2)}`)
+
+      assert.isArray(result)
+      assert.isString(result[0])
+      assert.equal(
+        result[0],
+        "03f69502ca32e7927fd4f38c1d3f950bff650c1eea3d09a70e9df5a9d7f989f7"
+      )
+    })
+
+    it(`should verify an array of proofs`, async () => {
+      const proofs = [mockTxOutProof, mockTxOutProof]
+      const result = await bitbox.Blockchain.verifyTxOutProof(proofs)
+      //console.log(`result: ${JSON.stringify(result, null, 2)}`)
+
+      assert.isArray(result)
+      assert.isString(result[0])
+      assert.equal(
+        result[0],
+        "03f69502ca32e7927fd4f38c1d3f950bff650c1eea3d09a70e9df5a9d7f989f7"
+      )
+    })
+
+    it(`should throw an error for improper single input`, async () => {
+      try {
+        const txid = 12345
+
+        await bitbox.Blockchain.verifyTxOutProof(txid)
+        assert.equal(true, false, "Unexpected result!")
+      } catch (err) {
+        assert.include(
+          err.message,
+          `Input must be a string or array of strings`
+        )
+      }
+    })
+
+    it(`should throw error on array size rate limit`, async () => {
+      try {
+        const data = []
+        for (let i = 0; i < 25; i++) data.push(mockTxOutProof)
+
+        const result = await bitbox.Blockchain.verifyTxOutProof(data)
+
+        console.log(`result: ${util.inspect(result)}`)
+        assert.equal(true, false, "Unexpected result!")
+      } catch (err) {
+        assert.hasAnyKeys(err, ["error"])
+        assert.include(err.error, "Array too large")
+      }
     })
   })
 })

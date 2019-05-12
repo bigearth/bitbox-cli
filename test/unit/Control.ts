@@ -1,9 +1,11 @@
-const assert = require("assert")
-const axios = require("axios")
+import * as assert from "assert";
+import axios from "axios";
+import * as sinon from "sinon";
+
+// TODO: port from require to import syntax
 const BITBOX = require("../../lib/BITBOX").BITBOX
 const bitbox = new BITBOX()
 const Control = require("../../lib/Control").Control
-const sinon = require("sinon")
 const resturl = require("../../lib/BITBOX").resturl
 
 describe("#Control", () => {
@@ -20,7 +22,7 @@ describe("#Control", () => {
   })
 
   describe("#getInfo", () => {
-    let sandbox
+    let sandbox: any
     beforeEach(() => (sandbox = sinon.sandbox.create()))
     afterEach(() => sandbox.restore())
 
@@ -42,37 +44,37 @@ describe("#Control", () => {
       sandbox.stub(axios, "get").returns(resolved)
 
       bitbox.Control.getInfo()
-        .then(result => {
+        .then((result: any) => {
           assert.deepEqual(data, result)
         })
         .then(done, done)
     })
   })
 
-  describe("#getMemoryInfo", () => {
-    let sandbox
-    beforeEach(() => (sandbox = sinon.sandbox.create()))
-    afterEach(() => sandbox.restore())
+  // describe("#getMemoryInfo", () => {
+  //   let sandbox: any
+  //   beforeEach(() => (sandbox = sinon.sandbox.create()))
+  //   afterEach(() => sandbox.restore())
 
-    it("should get memory info", done => {
-      const data = {
-        locked: {
-          used: 0,
-          free: 65536,
-          total: 65536,
-          locked: 65536,
-          chunks_used: 0,
-          chunks_free: 1
-        }
-      }
-      const resolved = new Promise(r => r({ data: data }))
-      sandbox.stub(axios, "get").returns(resolved)
+  //   it("should get memory info", done => {
+  //     const data = {
+  //       locked: {
+  //         used: 0,
+  //         free: 65536,
+  //         total: 65536,
+  //         locked: 65536,
+  //         chunks_used: 0,
+  //         chunks_free: 1
+  //       }
+  //     }
+  //     const resolved = new Promise(r => r({ data: data }))
+  //     sandbox.stub(axios, "get").returns(resolved)
 
-      bitbox.Control.getMemoryInfo()
-        .then(result => {
-          assert.deepEqual(data, result)
-        })
-        .then(done, done)
-    })
-  })
+  //     bitbox.Control.getMemoryInfo()
+  //       .then((result: any) => {
+  //         assert.deepEqual(data, result)
+  //       })
+  //       .then(done, done)
+  //   })
+  // })
 })
