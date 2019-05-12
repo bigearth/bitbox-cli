@@ -271,59 +271,59 @@ describe("#BitcoinCash", () => {
     })
   })
 
-  describe("#bip38", () => {
-    describe("#encryptBIP38", () => {
-      fixtures.bip38.encrypt.mainnet.forEach((fixture: any) => {
-        it(`BIP 38 encrypt wif ${fixture.wif} with password ${
-          fixture.password
-          } on mainnet`, () => {
-            const encryptedKey = bitbox.BitcoinCash.encryptBIP38(
-              fixture.wif,
-              fixture.password
-            )
-            assert.equal(encryptedKey, fixture.encryptedKey)
-          })
-      })
+  // describe("#bip38", () => {
+  //   describe("#encryptBIP38", () => {
+  //     fixtures.bip38.encrypt.mainnet.forEach((fixture: any) => {
+  //       it(`BIP 38 encrypt wif ${fixture.wif} with password ${
+  //         fixture.password
+  //         } on mainnet`, () => {
+  //           const encryptedKey = bitbox.BitcoinCash.encryptBIP38(
+  //             fixture.wif,
+  //             fixture.password
+  //           )
+  //           assert.equal(encryptedKey, fixture.encryptedKey)
+  //         })
+  //     })
 
-      fixtures.bip38.encrypt.testnet.forEach((fixture: any) => {
-        it(`BIP 38 encrypt wif ${fixture.wif} with password ${
-          fixture.password
-          } on testnet`, () => {
-            const encryptedKey = bitbox.BitcoinCash.encryptBIP38(
-              fixture.wif,
-              fixture.password
-            )
-            assert.equal(encryptedKey, fixture.encryptedKey)
-          })
-      })
-    })
+  //     fixtures.bip38.encrypt.testnet.forEach((fixture: any) => {
+  //       it(`BIP 38 encrypt wif ${fixture.wif} with password ${
+  //         fixture.password
+  //         } on testnet`, () => {
+  //           const encryptedKey = bitbox.BitcoinCash.encryptBIP38(
+  //             fixture.wif,
+  //             fixture.password
+  //           )
+  //           assert.equal(encryptedKey, fixture.encryptedKey)
+  //         })
+  //     })
+  //   })
 
-    describe("#decryptBIP38", () => {
-      fixtures.bip38.decrypt.mainnet.forEach((fixture: any) => {
-        it(`BIP 38 decrypt encrypted key ${
-          fixture.encryptedKey
-          } on mainnet`, () => {
-            const wif = bitbox.BitcoinCash.decryptBIP38(
-              fixture.encryptedKey,
-              fixture.password,
-              "mainnet"
-            )
-            assert.equal(wif, fixture.wif)
-          })
-      })
+  //   describe("#decryptBIP38", () => {
+  //     fixtures.bip38.decrypt.mainnet.forEach((fixture: any) => {
+  //       it(`BIP 38 decrypt encrypted key ${
+  //         fixture.encryptedKey
+  //         } on mainnet`, () => {
+  //           const wif = bitbox.BitcoinCash.decryptBIP38(
+  //             fixture.encryptedKey,
+  //             fixture.password,
+  //             "mainnet"
+  //           )
+  //           assert.equal(wif, fixture.wif)
+  //         })
+  //     })
 
-      fixtures.bip38.decrypt.testnet.forEach((fixture: any) => {
-        it(`BIP 38 decrypt encrypted key ${
-          fixture.encryptedKey
-          } on testnet`, () => {
-            const wif = bitbox.BitcoinCash.decryptBIP38(
-              fixture.encryptedKey,
-              fixture.password,
-              "testnet"
-            )
-            assert.equal(wif, fixture.wif)
-          })
-      })
-    })
-  })
+  //     fixtures.bip38.decrypt.testnet.forEach((fixture: any) => {
+  //       it(`BIP 38 decrypt encrypted key ${
+  //         fixture.encryptedKey
+  //         } on testnet`, () => {
+  //           const wif = bitbox.BitcoinCash.decryptBIP38(
+  //             fixture.encryptedKey,
+  //             fixture.password,
+  //             "testnet"
+  //           )
+  //           assert.equal(wif, fixture.wif)
+  //         })
+  //     })
+  //   })
+  // })
 })

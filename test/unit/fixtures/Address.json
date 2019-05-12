@@ -35,6 +35,18 @@
     "mrVbyCMyB3vhDya4rYSxdM8qivEGfn7JSP",
     "mnqGaf1SbPFh1tdXdeXd7pWhJUY2ite6SY"
   ],
+  "legacyTestnetP2SH": [
+    "2N7euSnwuJP93QmK5TD4AkWmaTfBbBLrxUs",
+    "2MuvMYTdyvuQVtTkZiETcMpYZTNKR91ZeHs",
+    "2NEk4XyMUvbfj8ZuwwnpWtjfCy6asbkNa5P",
+    "2MtEpQua9z1GKUFXPNb8ByyjvfUHBZ2LStE",
+    "2N5srSeydgwfaDK8Bpve8ztEe6aUbY98pyV",
+    "2NFkziu5KqJUYkgAa1AeJiKrgc7sETJGt1Q",
+    "2N9EHTPiA2TsUuucZrNpCDcPVPTaV99cy6B",
+    "2N8terd3UrDpDT94T8GsERU7NuXnXS8k2JF",
+    "2N8terd3UrDpDT94T8GsERU7NuXnXS8k2JF",
+    "2N21KeVfnAF93Q1ETQsaukKoZgnjVQjoDti"
+  ],
   "cashaddrMainnetP2PKH": [
     "bitcoincash:qptnmya5wkly7xf97wm5ak23yqdsz3l2cyj7k9vyyh",
     "bitcoincash:qrr2suh9yjsrkl2qp3p967uhfg6u0r6xxsn9h5vuvr",
@@ -70,6 +82,18 @@
     "bchtest:qpklfd26u70ta4j7p4twxv2k5apx95p0qqgm8cf2sd",
     "bchtest:qpuxsqzgq3j0a58tnmwpgcrwwyrkenalevaeknklfg",
     "bchtest:qpgrlg0yqmdf4y8q980e57tx6v7vrvds2ug89n8w8q"
+  ],
+  "cashaddrTestnetP2SH": [
+    "bchtest:pz0qcslrqn7hr44hsszwl4lw5r6udkg6zqh2hmtpyr",
+    "bchtest:pqw4d37dy7ctnn589q4wwd3r4rj5tuy8vsyf9d9uhw",
+    "bchtest:pr4ua5qk33wp24vktxmjjhldwkuk58tdwsglmfwhp2",
+    "bchtest:pq9wgu3tcyudczuuvuntay9y66e39n5jes3ph5qsan",
+    "bchtest:pz9ga635kme08cpkvgfraqhktjg75dc8wgm0kvuzy0",
+    "bchtest:prm0gtpad38nllydatnly0s5843rpg825cet8n9axd",
+    "bchtest:pzh4gldj5ts484zmamz2utlm9jzky4lfj5juylxakr",
+    "bchtest:pz4euzfcklwvagv4dlqyg4uakjsnjd2euqgg69slyv",
+    "bchtest:pz4euzfcklwvagv4dlqyg4uakjsnjd2euqgg69slyv",
+    "bchtest:ppspszzx57drysgystphkzj6nhcx3qzn9cvagkwq0a"
   ],
   "cashaddrRegTestP2PKH": [
     "bchreg:qq24rpar9qas3vc9r8d4p0prhwaf7jmx2usk9rgkku",
@@ -118,6 +142,18 @@
     "6df4b55ae79ebed65e0d56e33156a74262d02f00",
     "786800480464fed0eb9edc14606e71076ccfbfcb",
     "503fa1e406da9a90e029df9a7966d33cc1b1b057"
+  ],
+  "hash160TestnetP2SH": [
+    "9e0c43e304fd71d6b78404efd7eea0f5c6d91a10",
+    "1d56c7cd27b0b9ce87282ae73623a8e545f08764",
+    "ebced0168c5c15559659b7295fed75b96a1d6d74",
+    "0ae4722bc138dc0b9c6726be90a4d6b312ce92cc",
+    "8a8eea34b6f2f3e03662123e82f65c91ea370772",
+    "f6f42c3d6c4f3ffc8deae7f23e143d6230a0eaa6",
+    "af547db2a2e153d45beec4ae2ffb2c856257e995",
+    "ab9e0938b7dccea1956fc044579db4a1393559e0",
+    "ab9e0938b7dccea1956fc044579db4a1393559e0",
+    "60180846a79a32410482c37b0a5a9df06880532e"
   ],
   "mainnetXPub": [
     {
@@ -183,7 +219,12 @@
       ]
     }
   ],
-  "p2shMainnet": ["bitcoincash:pz0qcslrqn7hr44hsszwl4lw5r6udkg6zqncnufkrl"],
+  "p2shMainnet": [
+    "bitcoincash:pz0qcslrqn7hr44hsszwl4lw5r6udkg6zqncnufkrl"
+  ],
+  "p2shTestnet": [
+    "bchtest:pz0qcslrqn7hr44hsszwl4lw5r6udkg6zqh2hmtpyr"
+  ],
   "mainnetXPriv": [
     {
       "xpriv": "xprvA2WwD9mk1Qd3rMjQ4ZRHvCWCj47jbXjY9Nf7npNRBmGUJngpRAvJzNpNgt7h2dDQ5huG7yFwYfz4PFJDPzkqfvBNPHnaio4yAbbUuv3EBnL",

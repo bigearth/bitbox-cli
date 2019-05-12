@@ -1,6 +1,8 @@
-import * as assert from "assert";
+// import * as assert from "assert";
 import axios from "axios";
 import * as sinon from "sinon";
+const chai = require("chai")
+const assert = chai.assert
 
 // TODO: port from require to import syntax
 const fixtures = require("./fixtures/Address.json")
@@ -14,13 +16,14 @@ function flatten(arrays: any) {
   return [].concat.apply([], arrays)
 }
 
-const XPUBS: string[] = flatten([fixtures.mainnetXPub, fixtures.testnetXPub])
-const XPRIVS: string[] = flatten([fixtures.mainnetXPriv, fixtures.testnetXPriv])
+const XPUBS: any[] = flatten([fixtures.mainnetXPub, fixtures.testnetXPub])
+const XPRIVS: any[] = flatten([fixtures.mainnetXPriv, fixtures.testnetXPriv])
 
 const LEGACY_ADDRESSES: string[] = flatten([
   fixtures.legacyMainnetP2PKH,
   fixtures.legacyMainnetP2SH,
-  fixtures.legacyTestnetP2PKH
+  fixtures.legacyTestnetP2PKH,
+  fixtures.legacyTestnetP2SH
 ])
 
 const mainnet_xpubs: string[] = []
@@ -47,7 +50,8 @@ const TESTNET_ADDRESSES: string[] = flatten([
 const CASHADDR_ADDRESSES: string[] = flatten([
   fixtures.cashaddrMainnetP2PKH,
   fixtures.cashaddrMainnetP2SH,
-  fixtures.cashaddrTestnetP2PKH
+  fixtures.cashaddrTestnetP2PKH,
+  fixtures.cashaddrTestnetP2SH
 ])
 
 const CASHADDR_ADDRESSES_NO_PREFIX: string[] = CASHADDR_ADDRESSES.map((address: string) => {
@@ -65,7 +69,8 @@ const REGTEST_ADDRESSES_NO_PREFIX: string[] = REGTEST_ADDRESSES.map((address: st
 const HASH160_HASHES: string[] = flatten([
   fixtures.hash160MainnetP2PKH,
   fixtures.hash160MainnetP2SH,
-  fixtures.hash160TestnetP2PKH
+  fixtures.hash160TestnetP2PKH,
+  fixtures.hash160TestnetP2SH
 ])
 
 const P2PKH_ADDRESSES: string[] = flatten([
@@ -80,6 +85,12 @@ const P2SH_ADDRESSES: string[] = flatten([
   fixtures.legacyMainnetP2SH,
   fixtures.cashaddrMainnetP2SH
 ])
+const util = require("util")
+util.inspect.defaultOptions = {
+  showHidden: true,
+  colors: true,
+  depth: 3
+}
 
 describe("#Address", () => {
   describe("#AddressConstructor", () => {
@@ -122,6 +133,7 @@ describe("#Address", () => {
           fixtures.legacyTestnetP2PKH
         )
       })
+
 
       describe("errors", () => {
         it("should fail when called with an invalid address", () => {
@@ -934,23 +946,37 @@ describe("#Address", () => {
   describe("#fromXPub", () => {
     XPUBS.forEach((xpub: any) => {
       xpub.addresses.forEach((address: any, j: number) => {
-        it(`generate public external change address ${j} for ${
+        it(`should generate public external change address ${j} for ${
           xpub.xpub
           }`, () => {
             assert.equal(bitbox.Address.fromXPub(xpub.xpub, `0/${j}`), address)
           })
       })
     })
+
+    it(`should generate public external change address ${XPUBS[0].addresses[0]} for ${
+      XPUBS[0].xpub
+      }`, () => {
+        let address: string = XPUBS[0].addresses[0]
+        assert.equal(bitbox.Address.fromXPub(XPUBS[0].xpub), address)
+      })
   })
 
   describe("#fromXPriv", () => {
     XPRIVS.forEach((xpriv: any) => {
       xpriv.addresses.forEach((address: string, j: number) => {
-        it(`generate hardened address ${j} for ${xpriv.xpriv}`, () => {
+        it(`should generate hardened address ${j} for ${xpriv.xpriv}`, () => {
           assert.equal(bitbox.Address.fromXPriv(xpriv.xpriv, `0'/${j}`), address)
         })
       })
     })
+
+    it(`should generate hardened address ${XPRIVS[0].addresses[0]} for ${
+      XPRIVS[0].xpriv
+      }`, () => {
+        let address: string = XPRIVS[0].addresses[0]
+        assert.equal(bitbox.Address.fromXPriv(XPRIVS[0].xpriv), address)
+      })
   })
 
   describe("#fromOutputScript", () => {
@@ -966,126 +992,458 @@ describe("#Address", () => {
 
     // encode hash160 as P2SH output
     const scriptPubKey: any = bitbox.Script.scriptHash.output.encode(p2sh_hash160)
-    const p2shAddress: any = bitbox.Address.fromOutputScript(scriptPubKey)
     fixtures.p2shMainnet.forEach((address: string) => {
-      it(`generate address from output script`, () => {
+      const p2shAddress: any = bitbox.Address.fromOutputScript(scriptPubKey)
+      it(`generate mainnet address from output script`, () => {
+        assert.equal(p2shAddress, address)
+      })
+    })
+
+    fixtures.p2shTestnet.forEach((address: string) => {
+      const p2shAddress: any = bitbox.Address.fromOutputScript(scriptPubKey, "testnet")
+      it(`generate testnet address from output script`, () => {
         assert.equal(p2shAddress, address)
       })
     })
   })
 
-  describe("#details", () => {
-    let sandbox: any
-    beforeEach(() => (sandbox = sinon.sandbox.create()))
-    afterEach(() => sandbox.restore())
+  // describe("#details", () => {
+  //   let sandbox: any
+  //   beforeEach(() => (sandbox = sinon.sandbox.create()))
+  //   afterEach(() => sandbox.restore())
 
-    it("should get details", done => {
-      const data: any = {
-        legacyAddress: "3CnzuFFbtgVyHNiDH8BknGo3PQ3dpdThgJ",
-        cashAddress: "bitcoincash:ppuukp49np467kyzxl0fkla34rmgcddhvc33ce2d6l",
-        balance: 300.0828874,
-        balanceSat: 30008288740,
-        totalReceived: 12945.45174649,
-        totalReceivedSat: 1294545174649,
-        totalSent: 12645.36885909,
-        totalSentSat: 1264536885909,
-        unconfirmedBalance: 0,
-        unconfirmedBalanceSat: 0,
-        unconfirmedTxApperances: 0,
-        txApperances: 1042,
-        transactions: [
-          "b29425a876f62e114508e67e66b5eb1ab0d320d7c9a57fb0ece086a36e2b7309"
+  //   it("should get details", done => {
+  //     const data: any = {
+  //       legacyAddress: "3CnzuFFbtgVyHNiDH8BknGo3PQ3dpdThgJ",
+  //       cashAddress: "bitcoincash:ppuukp49np467kyzxl0fkla34rmgcddhvc33ce2d6l",
+  //       balance: 300.0828874,
+  //       balanceSat: 30008288740,
+  //       totalReceived: 12945.45174649,
+  //       totalReceivedSat: 1294545174649,
+  //       totalSent: 12645.36885909,
+  //       totalSentSat: 1264536885909,
+  //       unconfirmedBalance: 0,
+  //       unconfirmedBalanceSat: 0,
+  //       unconfirmedTxApperances: 0,
+  //       txApperances: 1042,
+  //       transactions: [
+  //         "b29425a876f62e114508e67e66b5eb1ab0d320d7c9a57fb0ece086a36e2b7309"
+  //       ]
+  //     }
+
+  //     const resolved: any = new Promise(r => r({ data: data }))
+  //     sandbox.stub(axios, "get").returns(resolved)
+
+  //     bitbox.Address.details(
+  //       "bitcoincash:qrdka2205f4hyukutc2g0s6lykperc8nsu5u2ddpqf"
+  //     )
+  //       .then((result: any) => {
+  //         assert.deepEqual(data, result)
+  //       })
+  //       .then(done, done)
+  //   })
+  // })
+
+  // describe("#utxo", () => {
+  //   let sandbox: any
+  //   beforeEach(() => (sandbox = sinon.sandbox.create()))
+  //   afterEach(() => sandbox.restore())
+
+  //   it("should get utxo", done => {
+  //     const data = [
+  //       {
+  //         legacyAddress: "3CnzuFFbtgVyHNiDH8BknGo3PQ3dpdThgJ",
+  //         cashAddress: "bitcoincash:ppuukp49np467kyzxl0fkla34rmgcddhvc33ce2d6l",
+  //         txid:
+  //           "6f56254424378d6914cebd097579c70664843e5876ca86f0bf412ba7f3928326",
+  //         vout: 0,
+  //         scriptPubKey: "a91479cb06a5986baf588237de9b7fb1a8f68c35b76687",
+  //         amount: 12.5002911,
+  //         satoshis: 1250029110,
+  //         height: 528745,
+  //         confirmations: 17
+  //       },
+  //       {
+  //         legacyAddress: "3CnzuFFbtgVyHNiDH8BknGo3PQ3dpdThgJ",
+  //         cashAddress: "bitcoincash:ppuukp49np467kyzxl0fkla34rmgcddhvc33ce2d6l",
+  //         txid:
+  //           "b29425a876f62e114508e67e66b5eb1ab0d320d7c9a57fb0ece086a36e2b7309",
+  //         vout: 0,
+  //         scriptPubKey: "a91479cb06a5986baf588237de9b7fb1a8f68c35b76687",
+  //         amount: 12.50069247,
+  //         satoshis: 1250069247,
+  //         height: 528744,
+  //         confirmations: 18
+  //       }
+  //     ]
+  //     const resolved: any = new Promise(r => r({ data: data }))
+  //     sandbox.stub(axios, "get").returns(resolved)
+
+  //     bitbox.Address.utxo(
+  //       "bitcoincash:ppuukp49np467kyzxl0fkla34rmgcddhvc33ce2d6l"
+  //     )
+  //       .then((result: any) => {
+  //         assert.deepEqual(data, result)
+  //       })
+  //       .then(done, done)
+  //   })
+  // })
+
+  // describe("#unconfirmed", () => {
+  //   let sandbox: any
+  //   beforeEach(() => (sandbox = sinon.sandbox.create()))
+  //   afterEach(() => sandbox.restore())
+
+  //   it("should get unconfirmed transactions", done => {
+  //     const data = [
+  //       {
+  //         txid:
+  //           "e0aadd861a06993e39af932bb0b9ad69e7b37ef5843a13c6724789e1c94f3513",
+  //         vout: 1,
+  //         scriptPubKey: "76a914a0f531f4ff810a415580c12e54a7072946bb927e88ac",
+  //         amount: 0.00008273,
+  //         satoshis: 8273,
+  //         confirmations: 0,
+  //         ts: 1526680569,
+  //         legacyAddress: "1Fg4r9iDrEkCcDmHTy2T79EusNfhyQpu7W",
+  //         cashAddress: "bitcoincash:qzs02v05l7qs5s24srqju498qu55dwuj0cx5ehjm2c"
+  //       }
+  //     ]
+  //     const resolved: any = new Promise(r => r({ data: data }))
+  //     sandbox.stub(axios, "get").returns(resolved)
+
+  //     bitbox.Address.unconfirmed(
+  //       "bitcoincash:qzs02v05l7qs5s24srqju498qu55dwuj0cx5ehjm2c"
+  //     )
+  //       .then((result: any) => {
+  //         assert.deepEqual(data, result)
+  //       })
+  //       .then(done, done)
+  //   })
+  // })
+
+  describe(`#utxo`, () => {
+    describe(`#details`, () => {
+      it(`should GET address details for a single address`, async () => {
+        const addr = "bitcoincash:qrdka2205f4hyukutc2g0s6lykperc8nsu5u2ddpqf"
+
+        const result = await bitbox.Address.details(addr)
+        //console.log(`result: ${util.inspect(result)}`)
+
+        assert.hasAllKeys(result, [
+          "balance",
+          "balanceSat",
+          "totalReceived",
+          "totalReceivedSat",
+          "totalSent",
+          "totalSentSat",
+          "unconfirmedBalance",
+          "unconfirmedBalanceSat",
+          "unconfirmedTxApperances",
+          "txApperances",
+          "transactions",
+          "legacyAddress",
+          "cashAddress",
+          "currentPage",
+          "pagesTotal"
+        ])
+        assert.isArray(result.transactions)
+      })
+
+      it(`should GET address details for an array of addresses`, async () => {
+        const addr = [
+          "bitcoincash:qrdka2205f4hyukutc2g0s6lykperc8nsu5u2ddpqf",
+          "bitcoincash:qpdh9s677ya8tnx7zdhfrn8qfyvy22wj4qa7nwqa5v"
         ]
-      }
 
-      const resolved: any = new Promise(r => r({ data: data }))
-      sandbox.stub(axios, "get").returns(resolved)
+        const result = await bitbox.Address.details(addr)
+        //console.log(`result: ${util.inspect(result)}`)
 
-      bitbox.Address.details(
-        "bitcoincash:qrdka2205f4hyukutc2g0s6lykperc8nsu5u2ddpqf"
-      )
-        .then((result: any) => {
-          assert.deepEqual(data, result)
-        })
-        .then(done, done)
-    })
-  })
+        assert.isArray(result)
+        assert.hasAllKeys(result[0], [
+          "balance",
+          "balanceSat",
+          "totalReceived",
+          "totalReceivedSat",
+          "totalSent",
+          "totalSentSat",
+          "unconfirmedBalance",
+          "unconfirmedBalanceSat",
+          "unconfirmedTxApperances",
+          "txApperances",
+          "transactions",
+          "legacyAddress",
+          "cashAddress",
+          "currentPage",
+          "pagesTotal"
+        ])
+        assert.isArray(result[0].transactions)
+      })
 
-  describe("#utxo", () => {
-    let sandbox: any
-    beforeEach(() => (sandbox = sinon.sandbox.create()))
-    afterEach(() => sandbox.restore())
+      it(`should throw an error for improper input`, async () => {
+        try {
+          const addr = 12345
 
-    it("should get utxo", done => {
-      const data = [
-        {
-          legacyAddress: "3CnzuFFbtgVyHNiDH8BknGo3PQ3dpdThgJ",
-          cashAddress: "bitcoincash:ppuukp49np467kyzxl0fkla34rmgcddhvc33ce2d6l",
-          txid:
-            "6f56254424378d6914cebd097579c70664843e5876ca86f0bf412ba7f3928326",
-          vout: 0,
-          scriptPubKey: "a91479cb06a5986baf588237de9b7fb1a8f68c35b76687",
-          amount: 12.5002911,
-          satoshis: 1250029110,
-          height: 528745,
-          confirmations: 17
-        },
-        {
-          legacyAddress: "3CnzuFFbtgVyHNiDH8BknGo3PQ3dpdThgJ",
-          cashAddress: "bitcoincash:ppuukp49np467kyzxl0fkla34rmgcddhvc33ce2d6l",
-          txid:
-            "b29425a876f62e114508e67e66b5eb1ab0d320d7c9a57fb0ece086a36e2b7309",
-          vout: 0,
-          scriptPubKey: "a91479cb06a5986baf588237de9b7fb1a8f68c35b76687",
-          amount: 12.50069247,
-          satoshis: 1250069247,
-          height: 528744,
-          confirmations: 18
+          await bitbox.Address.details(addr)
+          assert.equal(true, false, "Unexpected result!")
+        } catch (err) {
+          //console.log(`err: `, err)
+          assert.include(
+            err.message,
+            `Input address must be a string or array of strings`
+          )
         }
-      ]
-      const resolved: any = new Promise(r => r({ data: data }))
-      sandbox.stub(axios, "get").returns(resolved)
+      })
 
-      bitbox.Address.utxo(
-        "bitcoincash:ppuukp49np467kyzxl0fkla34rmgcddhvc33ce2d6l"
-      )
-        .then((result: any) => {
-          assert.deepEqual(data, result)
-        })
-        .then(done, done)
-    })
-  })
+      it(`should throw error on array size rate limit`, async () => {
+        try {
+          const addr = []
+          for (let i = 0; i < 25; i++)
+            addr.push("bitcoincash:qrdka2205f4hyukutc2g0s6lykperc8nsu5u2ddpqf")
 
-  describe("#unconfirmed", () => {
-    let sandbox: any
-    beforeEach(() => (sandbox = sinon.sandbox.create()))
-    afterEach(() => sandbox.restore())
+          const result = await bitbox.Address.details(addr)
 
-    it("should get unconfirmed transactions", done => {
-      const data = [
-        {
-          txid:
-            "e0aadd861a06993e39af932bb0b9ad69e7b37ef5843a13c6724789e1c94f3513",
-          vout: 1,
-          scriptPubKey: "76a914a0f531f4ff810a415580c12e54a7072946bb927e88ac",
-          amount: 0.00008273,
-          satoshis: 8273,
-          confirmations: 0,
-          ts: 1526680569,
-          legacyAddress: "1Fg4r9iDrEkCcDmHTy2T79EusNfhyQpu7W",
-          cashAddress: "bitcoincash:qzs02v05l7qs5s24srqju498qu55dwuj0cx5ehjm2c"
+          console.log(`result: ${util.inspect(result)}`)
+          assert.equal(true, false, "Unexpected result!")
+        } catch (err) {
+          assert.hasAnyKeys(err, ["error"])
+          assert.include(err.error, "Array too large")
         }
-      ]
-      const resolved: any = new Promise(r => r({ data: data }))
-      sandbox.stub(axios, "get").returns(resolved)
+      })
+      it(`should GET utxos for a single address`, async () => {
+        const addr = "bitcoincash:qrdka2205f4hyukutc2g0s6lykperc8nsu5u2ddpqf"
 
-      bitbox.Address.unconfirmed(
-        "bitcoincash:qzs02v05l7qs5s24srqju498qu55dwuj0cx5ehjm2c"
-      )
-        .then((result: any) => {
-          assert.deepEqual(data, result)
-        })
-        .then(done, done)
+        const result = await bitbox.Address.utxo(addr)
+        //console.log(`result: ${JSON.stringify(result, null, 2)}`)
+
+        assert.hasAllKeys(result, [
+          "utxos",
+          "legacyAddress",
+          "cashAddress",
+          "scriptPubKey"
+        ])
+        assert.isArray(result.utxos)
+        assert.hasAnyKeys(result.utxos[0], [
+          "txid",
+          "vout",
+          "amount",
+          "satoshis",
+          "height",
+          "confirmations"
+        ])
+      })
+
+      it(`should GET utxo details for an array of addresses`, async () => {
+        const addr = [
+          "bitcoincash:qrdka2205f4hyukutc2g0s6lykperc8nsu5u2ddpqf",
+          "bitcoincash:qpdh9s677ya8tnx7zdhfrn8qfyvy22wj4qa7nwqa5v"
+        ]
+
+        const result = await bitbox.Address.utxo(addr)
+        //console.log(`result: ${JSON.stringify(result, null, 2)}`)
+
+        assert.isArray(result)
+        assert.hasAllKeys(result[0], [
+          "utxos",
+          "legacyAddress",
+          "cashAddress",
+          "scriptPubKey"
+        ])
+        assert.isArray(result[0].utxos)
+        assert.hasAnyKeys(result[0].utxos[0], [
+          "txid",
+          "vout",
+          "amount",
+          "satoshis",
+          "height",
+          "confirmations"
+        ])
+      })
+
+      it(`should throw an error for improper input`, async () => {
+        try {
+          const addr = 12345
+
+          await bitbox.Address.utxo(addr)
+          assert.equal(true, false, "Unexpected result!")
+        } catch (err) {
+          //console.log(`err: `, err)
+          assert.include(
+            err.message,
+            `Input address must be a string or array of strings`
+          )
+        }
+      })
+
+      it(`should throw error on array size rate limit`, async () => {
+        try {
+          const addr = []
+          for (let i = 0; i < 25; i++)
+            addr.push("bitcoincash:qrdka2205f4hyukutc2g0s6lykperc8nsu5u2ddpqf")
+
+          const result = await bitbox.Address.utxo(addr)
+
+          console.log(`result: ${util.inspect(result)}`)
+          assert.equal(true, false, "Unexpected result!")
+        } catch (err) {
+          assert.hasAnyKeys(err, ["error"])
+          assert.include(err.error, "Array too large")
+        }
+      })
+    })
+
+    describe(`#unconfirmed`, () => {
+      it(`should GET unconfirmed details on a single address`, async () => {
+        const addr = "bitcoincash:qz7teqlcltdhqjn2an8nspu7g2x6g3d3rcq8nk4nzs"
+
+        const result = await bitbox.Address.unconfirmed(addr)
+        //console.log(`result: ${JSON.stringify(result, null, 2)}`)
+
+        assert.hasAllKeys(result, ["utxos", "legacyAddress", "cashAddress"])
+        assert.isArray(result.utxos)
+      })
+
+      it(`should GET unconfirmed details on multiple addresses`, async () => {
+        const addr = [
+          "bitcoincash:qz7teqlcltdhqjn2an8nspu7g2x6g3d3rcq8nk4nzs",
+          "bitcoincash:qqcp8fw06dmjd2gnfanpwytj7q93w408nv7usdqgsk"
+        ]
+
+        const result = await bitbox.Address.unconfirmed(addr)
+        //console.log(`result: ${JSON.stringify(result, null, 2)}`)
+
+        assert.isArray(result)
+        assert.hasAllKeys(result[0], ["utxos", "legacyAddress", "cashAddress"])
+        assert.isArray(result[0].utxos)
+      })
+
+      it(`should throw an error for improper input`, async () => {
+        try {
+          const addr = 12345
+
+          await bitbox.Address.unconfirmed(addr)
+          assert.equal(true, false, "Unexpected result!")
+        } catch (err) {
+          //console.log(`err: `, err)
+          assert.include(
+            err.message,
+            `Input address must be a string or array of strings`
+          )
+        }
+      })
+
+      it(`should throw error on array size rate limit`, async () => {
+        try {
+          const addr = []
+          for (let i = 0; i < 25; i++)
+            addr.push("bitcoincash:qrdka2205f4hyukutc2g0s6lykperc8nsu5u2ddpqf")
+
+          const result = await bitbox.Address.unconfirmed(addr)
+
+          console.log(`result: ${util.inspect(result)}`)
+          assert.equal(true, false, "Unexpected result!")
+        } catch (err) {
+          assert.hasAnyKeys(err, ["error"])
+          assert.include(err.error, "Array too large")
+        }
+      })
+    })
+
+    describe(`#transactions`, () => {
+      it(`should GET transactions for a single address`, async () => {
+        const addr = "bitcoincash:qz7teqlcltdhqjn2an8nspu7g2x6g3d3rcq8nk4nzs"
+
+        const result = await bitbox.Address.transactions(addr)
+        //console.log(`result: ${JSON.stringify(result, null, 2)}`)
+
+        assert.hasAllKeys(result, [
+          "txs",
+          "pagesTotal",
+          "cashAddress",
+          "currentPage",
+          "legacyAddress"
+        ])
+        assert.isArray(result.txs)
+        assert.hasAnyKeys(result.txs[0], [
+          "txid",
+          "version",
+          "locktime",
+          "vin",
+          "vout",
+          "confirmations",
+          "time",
+          "blocktime",
+          "valueOut",
+          "size",
+          "valueIn",
+          "fees"
+        ])
+      })
+
+      it(`should get transactions on multiple addresses`, async () => {
+        const addr = [
+          "bitcoincash:qz7teqlcltdhqjn2an8nspu7g2x6g3d3rcq8nk4nzs",
+          "bitcoincash:qqcp8fw06dmjd2gnfanpwytj7q93w408nv7usdqgsk"
+        ]
+
+        const result = await bitbox.Address.transactions(addr)
+        //console.log(`result: ${JSON.stringify(result, null, 2)}`)
+
+        assert.isArray(result)
+        assert.hasAllKeys(result[0], [
+          "txs",
+          "pagesTotal",
+          "cashAddress",
+          "currentPage",
+          "legacyAddress"
+        ])
+        assert.isArray(result[0].txs)
+        assert.hasAnyKeys(result[0].txs[0], [
+          "txid",
+          "version",
+          "locktime",
+          "vin",
+          "vout",
+          "confirmations",
+          "time",
+          "blocktime",
+          "valueOut",
+          "size",
+          "valueIn",
+          "fees"
+        ])
+      })
+
+      it(`should throw an error for improper input`, async () => {
+        try {
+          const addr = 12345
+
+          await bitbox.Address.transactions(addr)
+          assert.equal(true, false, "Unexpected result!")
+        } catch (err) {
+          //console.log(`err: `, err)
+          assert.include(
+            err.message,
+            `Input address must be a string or array of strings`
+          )
+        }
+      })
+
+      it(`should throw error on array size rate limit`, async () => {
+        try {
+          const addr = []
+          for (let i = 0; i < 25; i++)
+            addr.push("bitcoincash:qrdka2205f4hyukutc2g0s6lykperc8nsu5u2ddpqf")
+
+          const result = await bitbox.Address.transactions(addr)
+
+          console.log(`result: ${util.inspect(result)}`)
+          assert.equal(true, false, "Unexpected result!")
+        } catch (err) {
+          assert.hasAnyKeys(err, ["error"])
+          assert.include(err.error, "Array too large")
+        }
+      })
     })
   })
 })
