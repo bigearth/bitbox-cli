@@ -1,6 +1,5 @@
-import * as assert from "assert";
-import axios from "axios";
-import * as sinon from "sinon";
+import * as chai from "chai"
+const assert = chai.assert
 
 // TODO: port from require to import syntax
 const BITBOX = require("../../lib/BITBOX").BITBOX
@@ -21,48 +20,75 @@ describe("#Transaction", () => {
     })
   })
 
-  describe("#details", () => {
-    let sandbox: any
-    beforeEach(() => (sandbox = sinon.sandbox.create()))
-    afterEach(() => sandbox.restore())
+  describe(`#details`, () => {
+    it(`should GET details for a given txid`, async () => {
+      const txid =
+        "fe28050b93faea61fa88c4c630f0e1f0a1c24d0082dd0e10d369e13212128f33"
 
-    it("should get transaction details", done => {
-      const data = {
-        txid:
-          "a85fa3d831ab6b0305e7ff88d2d4941e25a810d4461635df51490653822071a8",
-        version: 1,
-        locktime: 0,
-        vin: [{ coinbase: "04ffff001d029804", sequence: 4294967295, n: 0 }],
-        vout: [
-          {
-            value: "50.00000000",
-            n: 0,
-            scriptPubKey: [Object],
-            spentTxId: null,
-            spentIndex: null,
-            spentHeight: null
-          }
-        ],
-        blockhash:
-          "000000001c6aeec19265e9cc3ded8ba5ef5e63fae7747f30bf9c02c7bc8883f0",
-        blockheight: 507,
-        confirmations: 528399,
-        time: 1231973656,
-        blocktime: 1231973656,
-        isCoinBase: true,
-        valueOut: 50,
-        size: 135
+      const result = await bitbox.Transaction.details(txid)
+      //console.log(`result: ${JSON.stringify(result, null, 2)}`)
+
+      assert.hasAllKeys(result, [
+        "txid",
+        "version",
+        "locktime",
+        "vin",
+        "vout",
+        "blockhash",
+        "blockheight",
+        "confirmations",
+        "time",
+        "blocktime",
+        "isCoinBase",
+        "valueOut",
+        "size"
+      ])
+    })
+
+    it(`should GET details for an array of txids`, async () => {
+      const txids = [
+        "fe28050b93faea61fa88c4c630f0e1f0a1c24d0082dd0e10d369e13212128f33",
+        "fe28050b93faea61fa88c4c630f0e1f0a1c24d0082dd0e10d369e13212128f33"
+      ]
+
+      const result = await bitbox.Transaction.details(txids)
+      //console.log(`result: ${JSON.stringify(result, null, 2)}`)
+
+      assert.isArray(result)
+    })
+
+    it(`should throw an error for improper single input`, async () => {
+      try {
+        const txid = 12345
+
+        await bitbox.Transaction.details(txid)
+        assert.equal(true, false, "Unexpected result!")
+      } catch (err) {
+        //console.log(`err: `, err)
+        assert.include(
+          err.message,
+          `Input txid must be a string or array of strings`
+        )
       }
-      const resolved = new Promise(r => r({ data: data }))
-      sandbox.stub(axios, "get").returns(resolved)
+    })
 
-      bitbox.Transaction.details(
-        "a85fa3d831ab6b0305e7ff88d2d4941e25a810d4461635df51490653822071a8"
-      )
-        .then((result: any) => {
-          assert.deepEqual(data, result)
-        })
-        .then(done, done)
+    it(`should throw error on array size rate limit`, async () => {
+      try {
+        const dataMock =
+          "fe28050b93faea61fa88c4c630f0e1f0a1c24d0082dd0e10d369e13212128f33"
+        const data = []
+        for (let i = 0; i < 25; i++) data.push(dataMock)
+
+        const result = await bitbox.Transaction.details(data)
+
+        // console.log(`result: ${util.inspect(result)}`)
+        assert.equal(false, false, "Unexpected result!")
+      } catch (err) {
+        // console.log(`err: ${util.inspect(err)}`)
+
+        assert.hasAnyKeys(err, ["error"])
+        assert.include(err.error, "Array too large")
+      }
     })
   })
 })

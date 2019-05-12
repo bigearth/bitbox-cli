@@ -1,12 +1,19 @@
-import * as assert from "assert";
-import axios from "axios";
-import * as sinon from "sinon";
+import * as chai from "chai"
+const assert = chai.assert
 
 // TODO: port from require to import syntax
 const BITBOX = require("../../lib/BITBOX").BITBOX
 const bitbox = new BITBOX()
 const Util = require("../../lib/Util").Util
 const resturl = require("../../lib/BITBOX").resturl
+
+// Inspect utility used for debugging.
+const util = require("util")
+util.inspect.defaultOptions = {
+  showHidden: true,
+  colors: true,
+  depth: 3
+}
 
 describe("#Util", () => {
   describe("#UtilConstructor", () => {
@@ -21,31 +28,93 @@ describe("#Util", () => {
     })
   })
 
-  describe("#validateAddress", () => {
-    let sandbox: any
-    beforeEach(() => (sandbox = sinon.sandbox.create()))
-    afterEach(() => sandbox.restore())
+  describe(`#validateAddress`, () => {
+    it(`should return false for testnet addr on mainnet`, async () => {
+      const address = `bchtest:qqqk4y6lsl5da64sg5qc3xezmplyu5kmpyz2ysaa5y`
 
-    it("should validate address", done => {
-      const data = {
-        isvalid: true,
-        address: "bitcoincash:qpz7qtkuyhrsz4qmnnrvf8gz9zd0u9v7eqsewyk4w5",
-        scriptPubKey: "76a91445e02edc25c701541b9cc6c49d02289afe159ec888ac",
-        ismine: false,
-        iswatchonly: false,
-        isscript: false
+      const result = await bitbox.Util.validateAddress(address)
+      //console.log(`result: ${JSON.stringify(result, null, 2)}`)
+
+      assert.hasAllKeys(result, ["isvalid"])
+      assert.equal(result.isvalid, false)
+    })
+
+    it(`should return false for bad address`, async () => {
+      const address = `bitcoincash:qp4k8fjtgunhdr7yq30ha4peu`
+
+      const result = await bitbox.Util.validateAddress(address)
+      //console.log(`result: ${JSON.stringify(result, null, 2)}`)
+
+      assert.hasAllKeys(result, ["isvalid"])
+      assert.equal(result.isvalid, false)
+    })
+
+    it(`should return validate valid address`, async () => {
+      const address = `bitcoincash:qp4k8fjtgunhdr7yq30ha4peuwupzan2vcnwrmpy0z`
+
+      const result = await bitbox.Util.validateAddress(address)
+      //console.log(`result: ${JSON.stringify(result, null, 2)}`)
+
+      assert.hasAllKeys(result, [
+        "isvalid",
+        "address",
+        "scriptPubKey",
+        "ismine",
+        "iswatchonly",
+        "isscript"
+      ])
+      assert.equal(result.isvalid, true)
+    })
+
+    it(`should validate an array of addresses`, async () => {
+      const address = [
+        `bitcoincash:qp4k8fjtgunhdr7yq30ha4peuwupzan2vcnwrmpy0z`,
+        `bitcoincash:qp4k8fjtgunhdr7yq30ha4peuwupzan2vcnwrmpy0z`
+      ]
+
+      const result = await bitbox.Util.validateAddress(address)
+      //console.log(`result: ${JSON.stringify(result, null, 2)}`)
+
+      assert.isArray(result)
+      assert.hasAllKeys(result[0], [
+        "isvalid",
+        "address",
+        "scriptPubKey",
+        "ismine",
+        "iswatchonly",
+        "isscript"
+      ])
+    })
+
+    it(`should throw an error for improper single input`, async () => {
+      try {
+        const address = 15432
+
+        await bitbox.Util.validateAddress(address)
+        assert.equal(true, false, "Unexpected result!")
+      } catch (err) {
+        //console.log(`err: `, err)
+        assert.include(
+          err.message,
+          `Input must be a string or array of strings.`
+        )
       }
+    })
 
-      const resolved = new Promise(r => r({ data: data }))
-      sandbox.stub(axios, "get").returns(resolved)
+    it(`should throw error on array size rate limit`, async () => {
+      try {
+        const dataMock = `bitcoincash:qp4k8fjtgunhdr7yq30ha4peuwupzan2vcnwrmpy0z`
+        const data = []
+        for (let i = 0; i < 25; i++) data.push(dataMock)
 
-      bitbox.Util.validateAddress(
-        "bitcoincash:qpz7qtkuyhrsz4qmnnrvf8gz9zd0u9v7eqsewyk4w5"
-      )
-        .then((result: any) => {
-          assert.deepEqual(data, result)
-        })
-        .then(done, done)
+        const result = await bitbox.Util.validateAddress(data)
+
+        console.log(`result: ${util.inspect(result)}`)
+        assert.equal(true, false, "Unexpected result!")
+      } catch (err) {
+        assert.hasAnyKeys(err, ["error"])
+        assert.include(err.error, "Array too large")
+      }
     })
   })
 })

@@ -22,7 +22,7 @@ import { ECPair } from "./ECPair"
 import { Script } from "./Script"
 import { Price } from "./Price"
 import { Socket } from "./Socket"
-import { Wallet } from "./Wallet"
+// import { Wallet } from "./Wallet"
 import { Schnorr } from "./Schnorr"
 
 export const resturl = "https://rest.bitcoin.com/v2/"
@@ -47,7 +47,7 @@ export class BITBOX {
   TransactionBuilder: any
   Util: Util
   Socket: any
-  Wallet: Wallet
+  // Wallet: Wallet
   Schnorr: Schnorr
   constructor(config: IConfig = {}) {
     if (config && config.restURL && config.restURL !== "")
@@ -74,7 +74,7 @@ export class BITBOX {
     this.TransactionBuilder.setAddress(this.Address)
     this.Util = new Util(this.restURL)
     this.Socket = Socket
-    this.Wallet = Wallet
+    // this.Wallet = Wallet
     this.Schnorr = new Schnorr()
   }
 }

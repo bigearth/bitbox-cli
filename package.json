@@ -32,6 +32,7 @@
   "dependencies": {
     "@types/bigi": "^1.4.2",
     "@types/bip39": "^2.4.2",
+    "@types/chai": "^4.1.7",
     "@types/figlet": "^1.2.0",
     "@types/mkdirp": "^0.5.2",
     "@types/mocha": "^5.2.6",

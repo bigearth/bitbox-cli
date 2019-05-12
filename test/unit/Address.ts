@@ -1,7 +1,5 @@
 // import * as assert from "assert";
-import axios from "axios";
-import * as sinon from "sinon";
-const chai = require("chai")
+import * as chai from "chai"
 const assert = chai.assert
 
 // TODO: port from require to import syntax
