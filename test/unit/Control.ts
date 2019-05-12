@@ -51,30 +51,30 @@ describe("#Control", () => {
     })
   })
 
-  describe("#getMemoryInfo", () => {
-    let sandbox: any
-    beforeEach(() => (sandbox = sinon.sandbox.create()))
-    afterEach(() => sandbox.restore())
+  // describe("#getMemoryInfo", () => {
+  //   let sandbox: any
+  //   beforeEach(() => (sandbox = sinon.sandbox.create()))
+  //   afterEach(() => sandbox.restore())
 
-    it("should get memory info", done => {
-      const data = {
-        locked: {
-          used: 0,
-          free: 65536,
-          total: 65536,
-          locked: 65536,
-          chunks_used: 0,
-          chunks_free: 1
-        }
-      }
-      const resolved = new Promise(r => r({ data: data }))
-      sandbox.stub(axios, "get").returns(resolved)
+  //   it("should get memory info", done => {
+  //     const data = {
+  //       locked: {
+  //         used: 0,
+  //         free: 65536,
+  //         total: 65536,
+  //         locked: 65536,
+  //         chunks_used: 0,
+  //         chunks_free: 1
+  //       }
+  //     }
+  //     const resolved = new Promise(r => r({ data: data }))
+  //     sandbox.stub(axios, "get").returns(resolved)
 
-      bitbox.Control.getMemoryInfo()
-        .then((result: any) => {
-          assert.deepEqual(data, result)
-        })
-        .then(done, done)
-    })
-  })
+  //     bitbox.Control.getMemoryInfo()
+  //       .then((result: any) => {
+  //         assert.deepEqual(data, result)
+  //       })
+  //       .then(done, done)
+  //   })
+  // })
 })
