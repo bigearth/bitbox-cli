@@ -1,5 +1,7 @@
+import * as assert from "assert";
+
+// TODO: port from require to import syntax
 const fixtures = require("./fixtures/TransactionBuilder.json")
-const assert = require("assert")
 const BITBOX = require("../../lib/BITBOX").BITBOX
 const bitbox = new BITBOX()
 const TransactionBuilder = require("../../lib/TransactionBuilder").TransactionBuilder
@@ -15,7 +17,7 @@ describe("#TransactionBuilder", () => {
 
   describe("#hashTypes", () => {
     const transactionBuilder = new bitbox.TransactionBuilder("mainnet")
-    fixtures.hashTypes.forEach(fixture => {
+    fixtures.hashTypes.forEach((fixture: any) => {
       it(`should match hash type`, () => {
         assert.equal(
           fixture[Object.keys(fixture)[0]],
@@ -28,7 +30,7 @@ describe("#TransactionBuilder", () => {
   describe("#P2PK", () => {
     describe("#toOne", () => {
       describe("#Mainnet", () => {
-        fixtures.scripts.p2pk.toOne.mainnet.forEach(fixture => {
+        fixtures.scripts.p2pk.toOne.mainnet.forEach((fixture: any) => {
           it(`should create 1-to-1 P2PK transaction on mainnet`, () => {
             const node = bitbox.HDNode.fromXPriv(fixture.xpriv)
             const transactionBuilder = new bitbox.TransactionBuilder()
@@ -65,7 +67,7 @@ describe("#TransactionBuilder", () => {
       })
 
       describe("#Testnet", () => {
-        fixtures.scripts.p2pk.toOne.testnet.forEach(fixture => {
+        fixtures.scripts.p2pk.toOne.testnet.forEach((fixture: any) => {
           it(`should create 1-to-1 P2PK transaction on testnet`, () => {
             const node = bitbox.HDNode.fromXPriv(fixture.xpriv)
             const transactionBuilder = new bitbox.TransactionBuilder("testnet")
@@ -104,7 +106,7 @@ describe("#TransactionBuilder", () => {
 
     describe("#toMany", () => {
       describe("#Mainnet", () => {
-        fixtures.scripts.p2pk.toMany.mainnet.forEach(fixture => {
+        fixtures.scripts.p2pk.toMany.mainnet.forEach((fixture: any) => {
           it(`should create 1-to-many P2PK transaction on mainnet`, () => {
             const node1 = bitbox.HDNode.fromXPriv(fixture.xprivs[0])
             const node2 = bitbox.HDNode.fromXPriv(fixture.xprivs[1])
@@ -148,7 +150,7 @@ describe("#TransactionBuilder", () => {
       })
 
       describe("#Testnet", () => {
-        fixtures.scripts.p2pk.toMany.testnet.forEach(fixture => {
+        fixtures.scripts.p2pk.toMany.testnet.forEach((fixture: any) => {
           it(`should create 1-to-many P2PK transaction on testnet`, () => {
             const node1 = bitbox.HDNode.fromXPriv(fixture.xprivs[0])
             const node2 = bitbox.HDNode.fromXPriv(fixture.xprivs[1])
@@ -194,7 +196,7 @@ describe("#TransactionBuilder", () => {
 
     describe("#manyToMany", () => {
       describe("#Mainnet", () => {
-        fixtures.scripts.p2pk.manyToMany.mainnet.forEach(fixture => {
+        fixtures.scripts.p2pk.manyToMany.mainnet.forEach((fixture: any) => {
           it(`should create many-to-many P2PK transaction on mainnet`, () => {
             const node1 = bitbox.HDNode.fromXPriv(fixture.xprivs[0])
             const node2 = bitbox.HDNode.fromXPriv(fixture.xprivs[1])
@@ -255,7 +257,7 @@ describe("#TransactionBuilder", () => {
       })
 
       describe("#Testnet", () => {
-        fixtures.scripts.p2pk.manyToMany.testnet.forEach(fixture => {
+        fixtures.scripts.p2pk.manyToMany.testnet.forEach((fixture: any) => {
           it(`should create many-to-many P2PK transaction on testnet`, () => {
             const node1 = bitbox.HDNode.fromXPriv(fixture.xprivs[0])
             const node2 = bitbox.HDNode.fromXPriv(fixture.xprivs[1])
@@ -318,7 +320,7 @@ describe("#TransactionBuilder", () => {
 
     describe("#fromMany", () => {
       describe("#Mainnet", () => {
-        fixtures.scripts.p2pk.fromMany.mainnet.forEach(fixture => {
+        fixtures.scripts.p2pk.fromMany.mainnet.forEach((fixture: any) => {
           it(`should create many-to-1 P2PK transaction on mainnet`, () => {
             const node1 = bitbox.HDNode.fromXPriv(fixture.xprivs[0])
             const node2 = bitbox.HDNode.fromXPriv(fixture.xprivs[1])
@@ -375,7 +377,7 @@ describe("#TransactionBuilder", () => {
       })
 
       describe("#Testnet", () => {
-        fixtures.scripts.p2pk.fromMany.testnet.forEach(fixture => {
+        fixtures.scripts.p2pk.fromMany.testnet.forEach((fixture: any) => {
           it(`should create many-to-1 P2PK transaction on testnet`, () => {
             const node1 = bitbox.HDNode.fromXPriv(fixture.xprivs[0])
             const node2 = bitbox.HDNode.fromXPriv(fixture.xprivs[1])
@@ -436,7 +438,7 @@ describe("#TransactionBuilder", () => {
   describe("#P2PKH", () => {
     describe("#toOne", () => {
       describe("#Mainnet", () => {
-        fixtures.scripts.p2pkh.toOne.mainnet.forEach(fixture => {
+        fixtures.scripts.p2pkh.toOne.mainnet.forEach((fixture: any) => {
           it(`should create 1-to-1 P2PKH transaction on mainnet`, () => {
             const hdnode = bitbox.HDNode.fromXPriv(fixture.xpriv)
             const transactionBuilder = new bitbox.TransactionBuilder()
@@ -473,7 +475,7 @@ describe("#TransactionBuilder", () => {
       })
 
       describe("#Testnet", () => {
-        fixtures.scripts.p2pkh.toOne.testnet.forEach(fixture => {
+        fixtures.scripts.p2pkh.toOne.testnet.forEach((fixture: any) => {
           it(`should create 1-to-1 P2PKH transaction on testnet`, () => {
             const hdnode = bitbox.HDNode.fromXPriv(fixture.xpriv, "testnet")
             const transactionBuilder = new bitbox.TransactionBuilder("testnet")
@@ -510,7 +512,7 @@ describe("#TransactionBuilder", () => {
       })
 
       describe("#RegTest", () => {
-        fixtures.scripts.p2pkh.toOne.regtest.forEach(fixture => {
+        fixtures.scripts.p2pkh.toOne.regtest.forEach((fixture: any) => {
           it(`should create 1-to-1 P2PKH transaction on regtest`, () => {
             const hdnode = bitbox.HDNode.fromXPriv(fixture.xpriv)
             const transactionBuilder = new bitbox.TransactionBuilder("regtest")
@@ -549,7 +551,7 @@ describe("#TransactionBuilder", () => {
 
     describe("#toMany", () => {
       describe("#Mainnet", () => {
-        fixtures.scripts.p2pkh.toMany.mainnet.forEach(fixture => {
+        fixtures.scripts.p2pkh.toMany.mainnet.forEach((fixture: any) => {
           it(`should create 1-to-2 P2PKH transaction on mainnet`, () => {
             const hdnode = bitbox.HDNode.fromXPriv(fixture.xpriv)
             const transactionBuilder = new bitbox.TransactionBuilder()
@@ -592,7 +594,7 @@ describe("#TransactionBuilder", () => {
       })
 
       describe("#Testnet", () => {
-        fixtures.scripts.p2pkh.toMany.testnet.forEach(fixture => {
+        fixtures.scripts.p2pkh.toMany.testnet.forEach((fixture: any) => {
           // TODO pass in tesnet network config
           it(`should create 1-to-2 P2PKH transaction on testnet`, () => {
             const hdnode = bitbox.HDNode.fromXPriv(fixture.xpriv)
@@ -636,7 +638,7 @@ describe("#TransactionBuilder", () => {
       })
 
       describe("#RegTest", () => {
-        fixtures.scripts.p2pkh.toMany.regtest.forEach(fixture => {
+        fixtures.scripts.p2pkh.toMany.regtest.forEach((fixture: any) => {
           // TODO pass in tesnet network config
           it(`should create 1-to-2 P2PKH transaction on regtest`, () => {
             const hdnode = bitbox.HDNode.fromXPriv(fixture.xpriv)
@@ -682,7 +684,7 @@ describe("#TransactionBuilder", () => {
 
     describe("#manyToMany", () => {
       describe("#Mainnet", () => {
-        fixtures.scripts.p2pkh.manyToMany.mainnet.forEach(fixture => {
+        fixtures.scripts.p2pkh.manyToMany.mainnet.forEach((fixture: any) => {
           it(`should create 2-to-2 P2PKH transaction on mainnet`, () => {
             const node1 = bitbox.HDNode.fromXPriv(fixture.xprivs[0])
             const node2 = bitbox.HDNode.fromXPriv(fixture.xprivs[1])
@@ -729,7 +731,7 @@ describe("#TransactionBuilder", () => {
       })
 
       describe("#Testnet", () => {
-        fixtures.scripts.p2pkh.manyToMany.testnet.forEach(fixture => {
+        fixtures.scripts.p2pkh.manyToMany.testnet.forEach((fixture: any) => {
           it(`should create 2-to-2 P2PKH transaction on testnet`, () => {
             const node1 = bitbox.HDNode.fromXPriv(fixture.xprivs[0])
             const node2 = bitbox.HDNode.fromXPriv(fixture.xprivs[1])
@@ -776,7 +778,7 @@ describe("#TransactionBuilder", () => {
       })
 
       describe("#RegTest", () => {
-        fixtures.scripts.p2pkh.manyToMany.regtest.forEach(fixture => {
+        fixtures.scripts.p2pkh.manyToMany.regtest.forEach((fixture: any) => {
           it(`should create 2-to-2 P2PKH transaction on regtest`, () => {
             const node1 = bitbox.HDNode.fromXPriv(fixture.xprivs[0])
             const node2 = bitbox.HDNode.fromXPriv(fixture.xprivs[1])
@@ -825,7 +827,7 @@ describe("#TransactionBuilder", () => {
 
     describe("#fromMany", () => {
       describe("#Mainnet", () => {
-        fixtures.scripts.p2pkh.fromMany.mainnet.forEach(fixture => {
+        fixtures.scripts.p2pkh.fromMany.mainnet.forEach((fixture: any) => {
           it(`should create 2-to-1 P2PKH transaction on mainnet`, () => {
             const node1 = bitbox.HDNode.fromXPriv(fixture.xprivs[0])
             const node2 = bitbox.HDNode.fromXPriv(fixture.xprivs[1])
@@ -865,7 +867,7 @@ describe("#TransactionBuilder", () => {
       })
 
       describe("#Testnet", () => {
-        fixtures.scripts.p2pkh.fromMany.testnet.forEach(fixture => {
+        fixtures.scripts.p2pkh.fromMany.testnet.forEach((fixture: any) => {
           it(`should create 2-to-1 P2PKH transaction on testnet`, () => {
             const node1 = bitbox.HDNode.fromXPriv(fixture.xprivs[0])
             const node2 = bitbox.HDNode.fromXPriv(fixture.xprivs[1])
@@ -905,7 +907,7 @@ describe("#TransactionBuilder", () => {
       })
 
       describe("#RegTest", () => {
-        fixtures.scripts.p2pkh.fromMany.regtest.forEach(fixture => {
+        fixtures.scripts.p2pkh.fromMany.regtest.forEach((fixture: any) => {
           it(`should create 2-to-1 P2PKH transaction on regtest`, () => {
             const node1 = bitbox.HDNode.fromXPriv(fixture.xprivs[0])
             const node2 = bitbox.HDNode.fromXPriv(fixture.xprivs[1])
@@ -948,7 +950,7 @@ describe("#TransactionBuilder", () => {
 
   describe("#op_return", () => {
     describe("#Mainnet", () => {
-      fixtures.nulldata.mainnet.forEach(fixture => {
+      fixtures.nulldata.mainnet.forEach((fixture: any) => {
         it(`should create transaction w/ OP_RETURN output on mainnet`, () => {
           const node = bitbox.HDNode.fromXPriv(fixture.xpriv)
           const transactionBuilder = new bitbox.TransactionBuilder()
@@ -983,7 +985,7 @@ describe("#TransactionBuilder", () => {
     })
 
     describe("#Testnet", () => {
-      fixtures.nulldata.testnet.forEach(fixture => {
+      fixtures.nulldata.testnet.forEach((fixture: any) => {
         it(`should create transaction w/ OP_RETURN output on testnet`, () => {
           const node = bitbox.HDNode.fromXPriv(fixture.xpriv)
           const transactionBuilder = new bitbox.TransactionBuilder("testnet")
@@ -1018,7 +1020,7 @@ describe("#TransactionBuilder", () => {
     })
 
     describe("#RegTest", () => {
-      fixtures.nulldata.regtest.forEach(fixture => {
+      fixtures.nulldata.regtest.forEach((fixture: any) => {
         it(`should create transaction w/ OP_RETURN output on regtest`, () => {
           const node = bitbox.HDNode.fromXPriv(fixture.xpriv)
           const transactionBuilder = new bitbox.TransactionBuilder("regtest")
@@ -1056,7 +1058,7 @@ describe("#TransactionBuilder", () => {
   describe("#P2MS", () => {
     describe("#toOne", () => {
       describe("#Mainnet", () => {
-        fixtures.scripts.p2ms.toOne.mainnet.forEach(fixture => {
+        fixtures.scripts.p2ms.toOne.mainnet.forEach((fixture: any) => {
           it(`should create 1-to-1 1-of-2 P2MS transaction on mainnet`, () => {
             const node1 = bitbox.HDNode.fromXPriv(fixture.xprivs[0])
             const node2 = bitbox.HDNode.fromXPriv(fixture.xprivs[1])
@@ -1136,7 +1138,7 @@ describe("#TransactionBuilder", () => {
 
     describe("#toMany", () => {
       describe("#Mainnet", () => {
-        fixtures.scripts.p2ms.toMany.mainnet.forEach(fixture => {
+        fixtures.scripts.p2ms.toMany.mainnet.forEach((fixture: any) => {
           it(`should create 1-to-2 P2MS transaction on mainnet`, () => {
             const node1 = bitbox.HDNode.fromXPriv(fixture.xprivs[0])
             const node2 = bitbox.HDNode.fromXPriv(fixture.xprivs[1])
@@ -1226,7 +1228,7 @@ describe("#TransactionBuilder", () => {
 
     describe("#manyToMany", () => {
       describe("#Mainnet", () => {
-        fixtures.scripts.p2ms.manyToMany.mainnet.forEach(fixture => {
+        fixtures.scripts.p2ms.manyToMany.mainnet.forEach((fixture: any) => {
           it(`should create 2-to-2 P2MS transaction on mainnet`, () => {
             const node1 = bitbox.HDNode.fromXPriv(fixture.xprivs[0])
             const node2 = bitbox.HDNode.fromXPriv(fixture.xprivs[1])
@@ -1335,7 +1337,7 @@ describe("#TransactionBuilder", () => {
 
     describe("#fromMany", () => {
       describe("#Mainnet", () => {
-        fixtures.scripts.p2ms.fromMany.mainnet.forEach(fixture => {
+        fixtures.scripts.p2ms.fromMany.mainnet.forEach((fixture: any) => {
           it(`should create 2-to-1 P2MS transaction on mainnet`, () => {
             const node1 = bitbox.HDNode.fromXPriv(fixture.xprivs[0])
             const node2 = bitbox.HDNode.fromXPriv(fixture.xprivs[1])
@@ -1436,7 +1438,7 @@ describe("#TransactionBuilder", () => {
   describe("#P2SH", () => {
     describe("#toOne", () => {
       describe("#Mainnet", () => {
-        fixtures.scripts.p2sh.toOne.mainnet.forEach(fixture => {
+        fixtures.scripts.p2sh.toOne.mainnet.forEach((fixture: any) => {
           it(`should create 1-to-1 P2SH transaction on mainnet`, () => {
             const node1 = bitbox.HDNode.fromXPriv(fixture.xprivs[0])
             const node2 = bitbox.HDNode.fromXPriv(fixture.xprivs[1])
@@ -1522,7 +1524,7 @@ describe("#TransactionBuilder", () => {
 
     describe("#toMany", () => {
       describe("#Mainnet", () => {
-        fixtures.scripts.p2sh.toMany.mainnet.forEach(fixture => {
+        fixtures.scripts.p2sh.toMany.mainnet.forEach((fixture: any) => {
           it(`should create 1-to-2 P2SH transaction on mainnet`, () => {
             const node1 = bitbox.HDNode.fromXPriv(fixture.xprivs[0])
             const node2 = bitbox.HDNode.fromXPriv(fixture.xprivs[1])
@@ -1620,7 +1622,7 @@ describe("#TransactionBuilder", () => {
 
     describe("#manyToMany", () => {
       describe("#Mainnet", () => {
-        fixtures.scripts.p2sh.manyToMany.mainnet.forEach(fixture => {
+        fixtures.scripts.p2sh.manyToMany.mainnet.forEach((fixture: any) => {
           it(`should create 2-to-2 P2SH transaction on mainnet`, () => {
             const node1 = bitbox.HDNode.fromXPriv(fixture.xprivs[0])
             const node2 = bitbox.HDNode.fromXPriv(fixture.xprivs[1])
@@ -1740,7 +1742,7 @@ describe("#TransactionBuilder", () => {
 
     describe("#fromMany", () => {
       describe("#Mainnet", () => {
-        fixtures.scripts.p2sh.fromMany.mainnet.forEach(fixture => {
+        fixtures.scripts.p2sh.fromMany.mainnet.forEach((fixture: any) => {
           it(`should create 2-to-1 P2SH transaction on mainnet`, () => {
             const node1 = bitbox.HDNode.fromXPriv(fixture.xprivs[0])
             const node2 = bitbox.HDNode.fromXPriv(fixture.xprivs[1])
@@ -1848,7 +1850,7 @@ describe("#TransactionBuilder", () => {
 
   describe("#op_return", () => {
     describe("#Mainnet", () => {
-      fixtures.nulldata.mainnet.forEach(fixture => {
+      fixtures.nulldata.mainnet.forEach((fixture: any) => {
         it(`should create transaction w/ OP_RETURN output on mainnet`, () => {
           const node = bitbox.HDNode.fromXPriv(fixture.xpriv)
           const transactionBuilder = new bitbox.TransactionBuilder()
@@ -1883,7 +1885,7 @@ describe("#TransactionBuilder", () => {
     })
 
     describe("#Testnet", () => {
-      fixtures.nulldata.testnet.forEach(fixture => {
+      fixtures.nulldata.testnet.forEach((fixture: any) => {
         it(`should create transaction w/ OP_RETURN output on testnet`, () => {
           const node = bitbox.HDNode.fromXPriv(fixture.xpriv)
           const transactionBuilder = new bitbox.TransactionBuilder("testnet")
@@ -1918,7 +1920,7 @@ describe("#TransactionBuilder", () => {
     })
 
     describe("#RegTest", () => {
-      fixtures.nulldata.regtest.forEach(fixture => {
+      fixtures.nulldata.regtest.forEach((fixture: any) => {
         it(`should create transaction w/ OP_RETURN output on regtest`, () => {
           const node = bitbox.HDNode.fromXPriv(fixture.xpriv)
           const transactionBuilder = new bitbox.TransactionBuilder("regtest")
@@ -1954,7 +1956,7 @@ describe("#TransactionBuilder", () => {
   })
 
   describe("#bip66", () => {
-    fixtures.bip66.forEach(fixture => {
+    fixtures.bip66.forEach((fixture: any) => {
       it(`should bip66 encode as ${fixture.DER}`, () => {
         const transactionBuilder = new bitbox.TransactionBuilder()
         const r = Buffer.from(fixture.r, "hex")
@@ -1964,7 +1966,7 @@ describe("#TransactionBuilder", () => {
       })
     })
 
-    fixtures.bip66.forEach(fixture => {
+    fixtures.bip66.forEach((fixture: any) => {
       it(`should bip66 decode ${fixture.DER}`, () => {
         const transactionBuilder = new bitbox.TransactionBuilder()
         const buffer = Buffer.from(fixture.DER, "hex")
@@ -1974,7 +1976,7 @@ describe("#TransactionBuilder", () => {
       })
     })
 
-    fixtures.bip66.forEach(fixture => {
+    fixtures.bip66.forEach((fixture: any) => {
       it(`should bip66 check ${fixture.DER}`, () => {
         const transactionBuilder = new bitbox.TransactionBuilder()
         const buffer = Buffer.from(fixture.DER, "hex")
@@ -1984,17 +1986,17 @@ describe("#TransactionBuilder", () => {
   })
 
   describe("#bip68", () => {
-    fixtures.bip68.encode.forEach(fixture => {
+    fixtures.bip68.encode.forEach((fixture: any) => {
       it(`should bip68 encode as ${fixture.result}`, () => {
         const transactionBuilder = new bitbox.TransactionBuilder()
-        const obj = {}
+        const obj: any = {}
         obj[fixture.type] = fixture.value
         const encode = transactionBuilder.bip68.encode(obj)
         assert.equal(encode, fixture.result)
       })
     })
 
-    fixtures.bip68.decode.forEach(fixture => {
+    fixtures.bip68.decode.forEach((fixture: any) => {
       it(`should bip68 decode ${fixture.result}`, () => {
         const transactionBuilder = new bitbox.TransactionBuilder()
         const obj = {}
@@ -2007,7 +2009,7 @@ describe("#TransactionBuilder", () => {
 
   describe("#LockTime", () => {
     describe("#Mainnet", () => {
-      fixtures.locktime.mainnet.forEach(fixture => {
+      fixtures.locktime.mainnet.forEach((fixture: any) => {
         it(`should create transaction with nLockTime on mainnet`, () => {
           const node = bitbox.HDNode.fromXPriv(fixture.xpriv)
           const transactionBuilder = new bitbox.TransactionBuilder()

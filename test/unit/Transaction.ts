@@ -1,9 +1,11 @@
-const assert = require("assert")
+import * as assert from "assert";
+import axios from "axios";
+import * as sinon from "sinon";
+
+// TODO: port from require to import syntax
 const BITBOX = require("../../lib/BITBOX").BITBOX
 const bitbox = new BITBOX()
 const Transaction = require("../../lib/Transaction").Transaction
-const axios = require("axios")
-const sinon = require("sinon")
 const resturl = require("../../lib/BITBOX").resturl
 
 describe("#Transaction", () => {
@@ -20,7 +22,7 @@ describe("#Transaction", () => {
   })
 
   describe("#details", () => {
-    let sandbox
+    let sandbox: any
     beforeEach(() => (sandbox = sinon.sandbox.create()))
     afterEach(() => sandbox.restore())
 
@@ -57,7 +59,7 @@ describe("#Transaction", () => {
       bitbox.Transaction.details(
         "a85fa3d831ab6b0305e7ff88d2d4941e25a810d4461635df51490653822071a8"
       )
-        .then(result => {
+        .then((result: any) => {
           assert.deepEqual(data, result)
         })
         .then(done, done)

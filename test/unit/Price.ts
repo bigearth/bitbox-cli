@@ -1,10 +1,11 @@
-const chai = require("chai")
-const assert = require("assert")
+import * as assert from "assert";
+import axios from "axios";
+import * as sinon from "sinon";
+
+// TODO: port from require to import syntax
 const BITBOX = require("../../lib/BITBOX").BITBOX
 const bitbox = new BITBOX()
 const Price = require("../../lib/Price").Price
-const axios = require("axios")
-const sinon = require("sinon")
 
 describe("#Price", () => {
   describe("#PriceConstructor", () => {
@@ -16,17 +17,17 @@ describe("#Price", () => {
 
   describe("#current", () => {
     describe("#single currency", () => {
-      let sandbox
+      let sandbox: any
       beforeEach(() => (sandbox = sinon.sandbox.create()))
       afterEach(() => sandbox.restore())
 
       it("should get current price for single currency", done => {
-        const data = 46347
+        const data: any = []
         const resolved = new Promise(r => r({ data: data }))
         sandbox.stub(axios, "get").returns(resolved)
 
         bitbox.Price.current("usd")
-          .then(result => {
+          .then((result: any) => {
             assert.deepEqual(data.price, result)
           })
           .then(done, done)

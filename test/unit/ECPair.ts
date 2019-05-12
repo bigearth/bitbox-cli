@@ -1,5 +1,7 @@
+import * as assert from "assert";
+
+// TODO: port from require to import syntax
 const fixtures = require("./fixtures/ECPair.json")
-const assert = require("assert")
 const BITBOX = require("../../lib/BITBOX").BITBOX
 const bitbox = new BITBOX()
 const ECPair = require("../../lib/ECPair").ECPair
@@ -14,7 +16,7 @@ describe("#ECPair", () => {
   })
 
   describe("#fromWIF", () => {
-    fixtures.fromWIF.forEach(fixture => {
+    fixtures.fromWIF.forEach((fixture: any) => {
       it(`should create ECPair from WIF ${fixture.privateKeyWIF}`, () => {
         const ecpair = bitbox.ECPair.fromWIF(fixture.privateKeyWIF)
         assert.equal(typeof ecpair, "object")
@@ -41,7 +43,7 @@ describe("#ECPair", () => {
   })
 
   describe("#toWIF", () => {
-    fixtures.toWIF.forEach(fixture => {
+    fixtures.toWIF.forEach((fixture: any) => {
       it(`should get WIF ${fixture.privateKeyWIF} from ECPair`, () => {
         const ecpair = bitbox.ECPair.fromWIF(fixture.privateKeyWIF)
         const wif = bitbox.ECPair.toWIF(ecpair)
@@ -51,7 +53,7 @@ describe("#ECPair", () => {
   })
 
   describe("#fromPublicKey", () => {
-    fixtures.fromPublicKey.forEach(fixture => {
+    fixtures.fromPublicKey.forEach((fixture: any) => {
       it(`should create ECPair from public key buffer`, () => {
         const ecpair = bitbox.ECPair.fromPublicKey(
           Buffer.from(fixture.pubkeyHex, "hex")
@@ -86,7 +88,7 @@ describe("#ECPair", () => {
   })
 
   describe("#toPublicKey", () => {
-    fixtures.toPublicKey.forEach(fixture => {
+    fixtures.toPublicKey.forEach((fixture: any) => {
       it(`should create a public key buffer from an ECPair`, () => {
         const ecpair = bitbox.ECPair.fromPublicKey(
           Buffer.from(fixture.pubkeyHex, "hex")
@@ -98,41 +100,41 @@ describe("#ECPair", () => {
   })
 
   describe("#toLegacyAddress", () => {
-    fixtures.toLegacyAddress.forEach(fixture => {
+    fixtures.toLegacyAddress.forEach((fixture: any) => {
       it(`should create legacy address ${
         fixture.legacy
-      } from an ECPair`, () => {
-        const ecpair = bitbox.ECPair.fromWIF(fixture.privateKeyWIF)
-        const legacyAddress = bitbox.ECPair.toLegacyAddress(ecpair)
-        assert.equal(legacyAddress, fixture.legacy)
-      })
+        } from an ECPair`, () => {
+          const ecpair = bitbox.ECPair.fromWIF(fixture.privateKeyWIF)
+          const legacyAddress = bitbox.ECPair.toLegacyAddress(ecpair)
+          assert.equal(legacyAddress, fixture.legacy)
+        })
     })
   })
 
   describe("#toCashAddress", () => {
-    fixtures.toCashAddress.forEach(fixture => {
+    fixtures.toCashAddress.forEach((fixture: any) => {
       it(`should create cash address ${
         fixture.cashAddr
-      } from an ECPair`, () => {
-        const ecpair = bitbox.ECPair.fromWIF(fixture.privateKeyWIF)
-        const cashAddr = bitbox.ECPair.toCashAddress(ecpair)
-        assert.equal(cashAddr, fixture.cashAddr)
-      })
+        } from an ECPair`, () => {
+          const ecpair = bitbox.ECPair.fromWIF(fixture.privateKeyWIF)
+          const cashAddr = bitbox.ECPair.toCashAddress(ecpair)
+          assert.equal(cashAddr, fixture.cashAddr)
+        })
     })
 
-    fixtures.toCashAddress.forEach(fixture => {
+    fixtures.toCashAddress.forEach((fixture: any) => {
       it(`should create regtest cash address ${
         fixture.regtestAddr
-      } from an ECPair`, () => {
-        const ecpair = bitbox.ECPair.fromWIF(fixture.privateKeyWIF)
-        const regtestAddr = bitbox.ECPair.toCashAddress(ecpair, true)
-        assert.equal(regtestAddr, fixture.regtestAddr)
-      })
+        } from an ECPair`, () => {
+          const ecpair = bitbox.ECPair.fromWIF(fixture.privateKeyWIF)
+          const regtestAddr = bitbox.ECPair.toCashAddress(ecpair, true)
+          assert.equal(regtestAddr, fixture.regtestAddr)
+        })
     })
   })
 
   describe("#sign", () => {
-    fixtures.sign.forEach(fixture => {
+    fixtures.sign.forEach((fixture: any) => {
       it(`should sign 32 byte hash buffer`, () => {
         const ecpair = bitbox.ECPair.fromWIF(fixture.privateKeyWIF)
         const buf = Buffer.from(bitbox.Crypto.sha256(fixture.data), "hex")
@@ -143,7 +145,7 @@ describe("#ECPair", () => {
   })
 
   describe("#verify", () => {
-    fixtures.verify.forEach(fixture => {
+    fixtures.verify.forEach((fixture: any) => {
       it(`should verify signed 32 byte hash buffer`, () => {
         const ecpair1 = bitbox.ECPair.fromWIF(fixture.privateKeyWIF1)
         const buf = Buffer.from(bitbox.Crypto.sha256(fixture.data), "hex")

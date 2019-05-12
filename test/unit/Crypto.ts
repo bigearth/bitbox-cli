@@ -1,5 +1,7 @@
+import * as assert from "assert";
+
+// TODO: port from require to import syntax
 const fixtures = require("./fixtures/Crypto.json")
-const assert = require("assert")
 const BITBOX = require("../../lib/BITBOX").BITBOX
 const bitbox = new BITBOX()
 const Crypto = require("../../lib/Crypto").Control
@@ -7,14 +9,14 @@ const Buffer = require("safe-buffer").Buffer
 
 describe("#Crypto", () => {
   describe("#sha1", () => {
-    fixtures.sha1.forEach(fixture => {
+    fixtures.sha1.forEach((fixture: any) => {
       it(`should create SHA1 Hash hex encoded ${fixture.hash} from ${
         fixture.hex
-      }`, () => {
-        const data = Buffer.from(fixture.hex, "hex")
-        const sha1Hash = bitbox.Crypto.sha1(data).toString("hex")
-        assert.equal(sha1Hash, fixture.hash)
-      })
+        }`, () => {
+          const data = Buffer.from(fixture.hex, "hex")
+          const sha1Hash = bitbox.Crypto.sha1(data).toString("hex")
+          assert.equal(sha1Hash, fixture.hash)
+        })
 
       it(`should create 40 character SHA1 Hash hex encoded`, () => {
         const data = Buffer.from(fixture.hex, "hex")
@@ -25,14 +27,14 @@ describe("#Crypto", () => {
   })
 
   describe("#sha256", () => {
-    fixtures.sha256.forEach(fixture => {
+    fixtures.sha256.forEach((fixture: any) => {
       it(`should create SHA256 Hash hex encoded ${fixture.hash} from ${
         fixture.hex
-      }`, () => {
-        const data = Buffer.from(fixture.hex, "hex")
-        const sha256Hash = bitbox.Crypto.sha256(data).toString("hex")
-        assert.equal(sha256Hash, fixture.hash)
-      })
+        }`, () => {
+          const data = Buffer.from(fixture.hex, "hex")
+          const sha256Hash = bitbox.Crypto.sha256(data).toString("hex")
+          assert.equal(sha256Hash, fixture.hash)
+        })
 
       it(`should create 64 character SHA256Hash hex encoded`, () => {
         const data = Buffer.from(fixture.hex, "hex")
@@ -43,14 +45,14 @@ describe("#Crypto", () => {
   })
 
   describe("#ripemd160", () => {
-    fixtures.ripemd160.forEach(fixture => {
+    fixtures.ripemd160.forEach((fixture: any) => {
       it(`should create RIPEMD160 Hash hex encoded ${fixture.hash} from ${
         fixture.hex
-      }`, () => {
-        const data = Buffer.from(fixture.hex, "hex")
-        const ripemd160 = bitbox.Crypto.ripemd160(data).toString("hex")
-        assert.equal(ripemd160, fixture.hash)
-      })
+        }`, () => {
+          const data = Buffer.from(fixture.hex, "hex")
+          const ripemd160 = bitbox.Crypto.ripemd160(data).toString("hex")
+          assert.equal(ripemd160, fixture.hash)
+        })
 
       it(`should create 64 character RIPEMD160Hash hex encoded`, () => {
         const data = Buffer.from(fixture.hex, "hex")
@@ -61,14 +63,14 @@ describe("#Crypto", () => {
   })
 
   describe("#hash256", () => {
-    fixtures.hash256.forEach(fixture => {
+    fixtures.hash256.forEach((fixture: any) => {
       it(`should create double SHA256 Hash hex encoded ${fixture.hash} from ${
         fixture.hex
-      }`, () => {
-        const data = Buffer.from(fixture.hex, "hex")
-        const hash256 = bitbox.Crypto.hash256(data).toString("hex")
-        assert.equal(hash256, fixture.hash)
-      })
+        }`, () => {
+          const data = Buffer.from(fixture.hex, "hex")
+          const hash256 = bitbox.Crypto.hash256(data).toString("hex")
+          assert.equal(hash256, fixture.hash)
+        })
 
       it(`should create 64 character SHA256 Hash hex encoded`, () => {
         const data = Buffer.from(fixture.hex, "hex")
@@ -79,14 +81,14 @@ describe("#Crypto", () => {
   })
 
   describe("#hash160", () => {
-    fixtures.hash160.forEach(fixture => {
+    fixtures.hash160.forEach((fixture: any) => {
       it(`should create RIPEMD160(SHA256()) hex encoded ${fixture.hash} from ${
         fixture.hex
-      }`, () => {
-        const data = Buffer.from(fixture.hex, "hex")
-        const hash160 = bitbox.Crypto.hash160(data).toString("hex")
-        assert.equal(hash160, fixture.hash)
-      })
+        }`, () => {
+          const data = Buffer.from(fixture.hex, "hex")
+          const hash160 = bitbox.Crypto.hash160(data).toString("hex")
+          assert.equal(hash160, fixture.hash)
+        })
 
       it(`should create 64 character SHA256Hash hex encoded`, () => {
         const data = Buffer.from(fixture.hex, "hex")

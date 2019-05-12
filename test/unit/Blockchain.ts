@@ -1,9 +1,11 @@
-const assert = require("assert")
-const axios = require("axios")
+import * as assert from "assert";
+import axios from "axios";
+import * as sinon from "sinon";
+
+// TODO: port from require to import syntax
 const BITBOX = require("../../lib/BITBOX").BITBOX
 const bitbox = new BITBOX()
 const Blockchain = require("../../lib/Blockchain").Blockchain
-const sinon = require("sinon")
 const resturl = require("../../lib/BITBOX").resturl
 
 describe("#Blockchain", () => {
@@ -20,7 +22,7 @@ describe("#Blockchain", () => {
   })
 
   describe("#getBestBlockHash", () => {
-    let sandbox
+    let sandbox: any
     beforeEach(() => (sandbox = sinon.sandbox.create()))
     afterEach(() => sandbox.restore())
 
@@ -34,7 +36,7 @@ describe("#Blockchain", () => {
       sandbox.stub(axios, "get").returns(resolved)
 
       bitbox.Blockchain.getBestBlockHash()
-        .then(result => {
+        .then((result: any) => {
           const hash =
             "0000000000000000005f1f550d3d8b142b684277016ebd00fa29c668606ae52d"
           assert.equal(hash, result)
@@ -44,7 +46,7 @@ describe("#Blockchain", () => {
   })
 
   describe("#getBlock", () => {
-    let sandbox
+    let sandbox: any
     beforeEach(() => (sandbox = sinon.sandbox.create()))
     afterEach(() => sandbox.restore())
     const data = {
@@ -77,7 +79,7 @@ describe("#Blockchain", () => {
       bitbox.Blockchain.getBlock(
         "00000000c937983704a73af28acdec37b049d214adbda81d7e2a3dd146f6ed09"
       )
-        .then(result => {
+        .then((result: any) => {
           assert.deepEqual(data, result)
         })
         .then(done, done)
@@ -85,7 +87,7 @@ describe("#Blockchain", () => {
   })
 
   describe("#getBlockchainInfo", () => {
-    let sandbox
+    let sandbox: any
     beforeEach(() => (sandbox = sinon.sandbox.create()))
     afterEach(() => sandbox.restore())
     const data = {
@@ -120,7 +122,7 @@ describe("#Blockchain", () => {
       sandbox.stub(axios, "get").returns(resolved)
 
       bitbox.Blockchain.getBlockchainInfo()
-        .then(result => {
+        .then((result: any) => {
           assert.deepEqual(data, result)
         })
         .then(done, done)
@@ -128,7 +130,7 @@ describe("#Blockchain", () => {
   })
 
   describe("#getBlockCount", () => {
-    let sandbox
+    let sandbox: any
     beforeEach(() => (sandbox = sinon.sandbox.create()))
     afterEach(() => sandbox.restore())
     const data = 527810
@@ -138,7 +140,7 @@ describe("#Blockchain", () => {
       sandbox.stub(axios, "get").returns(resolved)
 
       bitbox.Blockchain.getBlockCount()
-        .then(result => {
+        .then((result: any) => {
           assert.deepEqual(data, result)
         })
         .then(done, done)
@@ -146,7 +148,7 @@ describe("#Blockchain", () => {
   })
 
   describe("#getBlockHash", () => {
-    let sandbox
+    let sandbox: any
     beforeEach(() => (sandbox = sinon.sandbox.create()))
     afterEach(() => sandbox.restore())
     const data =
@@ -157,7 +159,7 @@ describe("#Blockchain", () => {
       sandbox.stub(axios, "get").returns(resolved)
 
       bitbox.Blockchain.getBlockHash(527810)
-        .then(result => {
+        .then((result: any) => {
           assert.deepEqual(data, result)
         })
         .then(done, done)
@@ -165,7 +167,7 @@ describe("#Blockchain", () => {
   })
 
   describe("#getBlockHeader", () => {
-    let sandbox
+    let sandbox: any
     beforeEach(() => (sandbox = sinon.sandbox.create()))
     afterEach(() => sandbox.restore())
     const data = {
@@ -195,7 +197,7 @@ describe("#Blockchain", () => {
         "000000000000000001d127592d091d4c45062504663c9acab27a1b16c028e3c0",
         true
       )
-        .then(result => {
+        .then((result: any) => {
           assert.deepEqual(data, result)
         })
         .then(done, done)
@@ -203,7 +205,7 @@ describe("#Blockchain", () => {
   })
 
   describe("#getDifficulty", () => {
-    let sandbox
+    let sandbox: any
     beforeEach(() => (sandbox = sinon.sandbox.create()))
     afterEach(() => sandbox.restore())
     const data = "577528469277.1339"
@@ -213,7 +215,7 @@ describe("#Blockchain", () => {
       sandbox.stub(axios, "get").returns(resolved)
 
       bitbox.Blockchain.getDifficulty()
-        .then(result => {
+        .then((result: any) => {
           assert.deepEqual(data, result)
         })
         .then(done, done)
@@ -221,7 +223,7 @@ describe("#Blockchain", () => {
   })
 
   describe("#getMempoolAncestors", () => {
-    let sandbox
+    let sandbox: any
     beforeEach(() => (sandbox = sinon.sandbox.create()))
     afterEach(() => sandbox.restore())
     const data = "Transaction not in mempool"
@@ -234,7 +236,7 @@ describe("#Blockchain", () => {
         "daf58932cb91619304dd4cbd03c7202e89ad7d6cbd6e2209e5f64ce3b6ed7c88",
         true
       )
-        .then(result => {
+        .then((result: any) => {
           assert.deepEqual(data, result)
         })
         .then(done, done)
@@ -242,7 +244,7 @@ describe("#Blockchain", () => {
   })
 
   describe("#getMempoolDescendants", () => {
-    let sandbox
+    let sandbox: any
     beforeEach(() => (sandbox = sinon.sandbox.create()))
     afterEach(() => sandbox.restore())
     const data = {
@@ -257,7 +259,7 @@ describe("#Blockchain", () => {
         "daf58932cb91619304dd4cbd03c7202e89ad7d6cbd6e2209e5f64ce3b6ed7c88",
         true
       )
-        .then(result => {
+        .then((result: any) => {
           assert.deepEqual(data, result)
         })
         .then(done, done)
@@ -265,7 +267,7 @@ describe("#Blockchain", () => {
   })
 
   describe("#getMempoolEntry", () => {
-    let sandbox
+    let sandbox: any
     beforeEach(() => (sandbox = sinon.sandbox.create()))
     afterEach(() => sandbox.restore())
     const data = {
@@ -279,7 +281,7 @@ describe("#Blockchain", () => {
       bitbox.Blockchain.getMempoolEntry(
         "daf58932cb91619304dd4cbd03c7202e89ad7d6cbd6e2209e5f64ce3b6ed7c88"
       )
-        .then(result => {
+        .then((result: any) => {
           assert.deepEqual(data, result)
         })
         .then(done, done)
@@ -287,7 +289,7 @@ describe("#Blockchain", () => {
   })
 
   describe("#getMempoolInfo", () => {
-    let sandbox
+    let sandbox: any
     beforeEach(() => (sandbox = sinon.sandbox.create()))
     afterEach(() => sandbox.restore())
     const data = {
@@ -305,7 +307,7 @@ describe("#Blockchain", () => {
       sandbox.stub(axios, "get").returns(resolved)
 
       bitbox.Blockchain.getMempoolInfo()
-        .then(result => {
+        .then((result: any) => {
           assert.deepEqual(data, result)
         })
         .then(done, done)
@@ -313,7 +315,7 @@ describe("#Blockchain", () => {
   })
 
   describe("#getRawMempool", () => {
-    let sandbox
+    let sandbox: any
     beforeEach(() => (sandbox = sinon.sandbox.create()))
     afterEach(() => sandbox.restore())
     const data = {
@@ -346,7 +348,7 @@ describe("#Blockchain", () => {
       sandbox.stub(axios, "get").returns(resolved)
 
       bitbox.Blockchain.getRawMempool()
-        .then(result => {
+        .then((result: any) => {
           assert.deepEqual(data, result)
         })
         .then(done, done)
@@ -355,7 +357,7 @@ describe("#Blockchain", () => {
 
   describe("#getTxOut", () => {
     // TODO finish this test
-    let sandbox
+    let sandbox: any
     beforeEach(() => (sandbox = sinon.sandbox.create()))
     afterEach(() => sandbox.restore())
     const data = {
@@ -371,7 +373,7 @@ describe("#Blockchain", () => {
         0,
         true
       )
-        .then(result => {
+        .then((result: any) => {
           assert.deepEqual(data, result)
         })
         .then(done, done)
@@ -380,7 +382,7 @@ describe("#Blockchain", () => {
 
   describe("#preciousBlock", () => {
     // TODO finish this test
-    let sandbox
+    let sandbox: any
     beforeEach(() => (sandbox = sinon.sandbox.create()))
     afterEach(() => sandbox.restore())
     const data = {
@@ -392,7 +394,7 @@ describe("#Blockchain", () => {
       sandbox.stub(axios, "get").returns(resolved)
 
       bitbox.Blockchain.preciousBlock()
-        .then(result => {
+        .then((result: any) => {
           assert.deepEqual(data, result)
         })
         .then(done, done)
@@ -400,7 +402,7 @@ describe("#Blockchain", () => {
   })
 
   describe("#pruneBlockchain", () => {
-    let sandbox
+    let sandbox: any
     beforeEach(() => (sandbox = sinon.sandbox.create()))
     afterEach(() => sandbox.restore())
     const data = "Cannot prune blocks because node is not in prune mode."
@@ -410,7 +412,7 @@ describe("#Blockchain", () => {
       sandbox.stub(axios, "post").returns(resolved)
 
       bitbox.Blockchain.pruneBlockchain(507)
-        .then(result => {
+        .then((result: any) => {
           assert.deepEqual(data, result)
         })
         .then(done, done)
@@ -418,7 +420,7 @@ describe("#Blockchain", () => {
   })
 
   describe("#verifyChain", () => {
-    let sandbox
+    let sandbox: any
     beforeEach(() => (sandbox = sinon.sandbox.create()))
     afterEach(() => sandbox.restore())
     const data = true
@@ -428,7 +430,7 @@ describe("#Blockchain", () => {
       sandbox.stub(axios, "get").returns(resolved)
 
       bitbox.Blockchain.verifyChain(3, 6)
-        .then(result => {
+        .then((result: any) => {
           assert.deepEqual(data, result)
         })
         .then(done, done)
@@ -436,7 +438,7 @@ describe("#Blockchain", () => {
   })
 
   describe("#verifyTxOutProof", () => {
-    let sandbox
+    let sandbox: any
     beforeEach(() => (sandbox = sinon.sandbox.create()))
     afterEach(() => sandbox.restore())
     const data = "proof must be hexadecimal string (not '')"
@@ -446,7 +448,7 @@ describe("#Blockchain", () => {
       sandbox.stub(axios, "get").returns(resolved)
 
       bitbox.Blockchain.verifyTxOutProof("3")
-        .then(result => {
+        .then((result: any) => {
           assert.deepEqual(data, result)
         })
         .then(done, done)

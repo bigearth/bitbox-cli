@@ -1,5 +1,7 @@
+import * as assert from "assert";
+
+// TODO: port from require to import syntax
 const fixtures = require("./fixtures/Script.json")
-const assert = require("assert")
 const BITBOX = require("../../lib/BITBOX").BITBOX
 const bitbox = new BITBOX()
 const Script = require("../../lib/Script").Script
@@ -15,7 +17,7 @@ describe("#Script", () => {
 
   describe("#decode", () => {
     describe("P2PKH scriptSig", () => {
-      fixtures.decodeScriptSig.forEach(fixture => {
+      fixtures.decodeScriptSig.forEach((fixture: any) => {
         it(`should decode scriptSig buffer`, () => {
           const decodedScriptSig = bitbox.Script.decode(
             Buffer.from(fixture.scriptSigHex, "hex")
@@ -25,32 +27,32 @@ describe("#Script", () => {
 
         it(`should decode scriptSig buffer to cash address ${
           fixture.cashAddress
-        }`, () => {
-          const decodedScriptSig = bitbox.Script.decode(
-            Buffer.from(fixture.scriptSigHex, "hex")
-          )
-          const address = bitbox.HDNode.toCashAddress(
-            bitbox.ECPair.fromPublicKey(decodedScriptSig[1])
-          )
-          assert.equal(address, fixture.cashAddress)
-        })
+          }`, () => {
+            const decodedScriptSig = bitbox.Script.decode(
+              Buffer.from(fixture.scriptSigHex, "hex")
+            )
+            const address = bitbox.HDNode.toCashAddress(
+              bitbox.ECPair.fromPublicKey(decodedScriptSig[1])
+            )
+            assert.equal(address, fixture.cashAddress)
+          })
 
         it(`should decode scriptSig buffer to legacy address ${
           fixture.legacyAddress
-        }`, () => {
-          const decodedScriptSig = bitbox.Script.decode(
-            Buffer.from(fixture.scriptSigHex, "hex")
-          )
-          const address = bitbox.HDNode.toLegacyAddress(
-            bitbox.ECPair.fromPublicKey(decodedScriptSig[1])
-          )
-          assert.equal(address, fixture.legacyAddress)
-        })
+          }`, () => {
+            const decodedScriptSig = bitbox.Script.decode(
+              Buffer.from(fixture.scriptSigHex, "hex")
+            )
+            const address = bitbox.HDNode.toLegacyAddress(
+              bitbox.ECPair.fromPublicKey(decodedScriptSig[1])
+            )
+            assert.equal(address, fixture.legacyAddress)
+          })
       })
     })
 
     describe("P2PKH scriptPubKey", () => {
-      fixtures.decodeScriptPubKey.forEach(fixture => {
+      fixtures.decodeScriptPubKey.forEach((fixture: any) => {
         it(`should decode scriptSig buffer`, () => {
           const decodedScriptPubKey = bitbox.Script.decode(
             Buffer.from(fixture.scriptPubKeyHex, "hex")
@@ -72,7 +74,7 @@ describe("#Script", () => {
 
   describe("#encode", () => {
     describe("P2PKH scriptSig", () => {
-      fixtures.encodeScriptSig.forEach(fixture => {
+      fixtures.encodeScriptSig.forEach((fixture: any) => {
         it(`should encode scriptSig chunks to buffer`, () => {
           const arr = [
             Buffer.from(fixture.scriptSigChunks[0], "hex"),
@@ -85,7 +87,7 @@ describe("#Script", () => {
     })
 
     describe("P2PKH scriptPubKey", () => {
-      fixtures.encodeScriptPubKey.forEach(fixture => {
+      fixtures.encodeScriptPubKey.forEach((fixture: any) => {
         it(`should encode scriptPubKey buffer`, () => {
           const decodedScriptPubKey = bitbox.Script.decode(
             Buffer.from(fixture.scriptPubKeyHex, "hex")
@@ -102,7 +104,7 @@ describe("#Script", () => {
 
   describe("#toASM", () => {
     describe("P2PKH scriptSig", () => {
-      fixtures.scriptSigToASM.forEach(fixture => {
+      fixtures.scriptSigToASM.forEach((fixture: any) => {
         it(`should encode scriptSig buffer to ${fixture.asm}`, () => {
           const arr = [
             Buffer.from(fixture.scriptSigChunks[0], "hex"),
@@ -116,7 +118,7 @@ describe("#Script", () => {
     })
 
     describe("P2PKH scriptPubKey", () => {
-      fixtures.scriptPubKeyToASM.forEach(fixture => {
+      fixtures.scriptPubKeyToASM.forEach((fixture: any) => {
         it(`should compile scriptPubKey buffer to ${fixture.asm}`, () => {
           const asm = bitbox.Script.toASM(
             Buffer.from(fixture.scriptPubKeyHex, "hex")
@@ -129,7 +131,7 @@ describe("#Script", () => {
 
   describe("#fromASM", () => {
     describe("P2PKH scriptSig", () => {
-      fixtures.scriptSigFromASM.forEach(fixture => {
+      fixtures.scriptSigFromASM.forEach((fixture: any) => {
         it(`should decode scriptSig asm to buffer`, () => {
           const buf = bitbox.Script.fromASM(fixture.asm)
           assert.equal(typeof buf, "object")
@@ -138,7 +140,7 @@ describe("#Script", () => {
     })
 
     describe("P2PKH scriptPubKey", () => {
-      fixtures.scriptPubKeyFromASM.forEach(fixture => {
+      fixtures.scriptPubKeyFromASM.forEach((fixture: any) => {
         it(`should decode scriptPubKey asm to buffer`, () => {
           const buf = bitbox.Script.fromASM(fixture.asm)
           assert.equal(typeof buf, "object")
@@ -156,7 +158,7 @@ describe("#Script", () => {
   })
 
   describe("#classifyInput", () => {
-    fixtures.classifyInput.forEach(fixture => {
+    fixtures.classifyInput.forEach((fixture: any) => {
       it(`should classify input type ${fixture.type}`, () => {
         const type = bitbox.Script.classifyInput(
           bitbox.Script.fromASM(fixture.script)
@@ -167,7 +169,7 @@ describe("#Script", () => {
   })
 
   describe("#classifyOutput", () => {
-    fixtures.classifyOutput.forEach(fixture => {
+    fixtures.classifyOutput.forEach((fixture: any) => {
       it(`should classify ouput type ${fixture.type}`, () => {
         const type = bitbox.Script.classifyOutput(
           bitbox.Script.fromASM(fixture.script)
@@ -178,7 +180,7 @@ describe("#Script", () => {
   })
 
   describe("#nullDataTemplate", () => {
-    fixtures.nullDataTemplate.forEach(fixture => {
+    fixtures.nullDataTemplate.forEach((fixture: any) => {
       it(`should encode nulldata output`, () => {
         const buf = bitbox.Script.nullData.output.encode(
           Buffer.from(`${fixture.data}`, "ascii")
@@ -205,7 +207,7 @@ describe("#Script", () => {
 
   describe("#pubKeyTemplate", () => {
     describe("#pubKeyInputTemplate", () => {
-      fixtures.pubKeyInputTemplate.forEach(fixture => {
+      fixtures.pubKeyInputTemplate.forEach((fixture: any) => {
         it(`should encode pubKey input`, () => {
           const buf = bitbox.Script.pubKey.input.encode(
             Buffer.from(fixture.signature, "hex")
@@ -231,7 +233,7 @@ describe("#Script", () => {
     })
 
     describe("#pubKeyOutputTemplate", () => {
-      fixtures.pubKeyOutputTemplate.forEach(fixture => {
+      fixtures.pubKeyOutputTemplate.forEach((fixture: any) => {
         it(`should encode pubKey output`, () => {
           const buf = bitbox.Script.pubKey.output.encode(
             Buffer.from(fixture.pubKey, "hex")
@@ -259,7 +261,7 @@ describe("#Script", () => {
 
   describe("#pubKeyHashTemplate", () => {
     describe("#pubKeyHashInputTemplate", () => {
-      fixtures.pubKeyHashInputTemplate.forEach(fixture => {
+      fixtures.pubKeyHashInputTemplate.forEach((fixture: any) => {
         it(`should encode pubKeyHash input`, () => {
           const buf = bitbox.Script.pubKeyHash.input.encode(
             Buffer.from(fixture.signature, "hex"),
@@ -294,7 +296,7 @@ describe("#Script", () => {
     })
 
     describe("#pubKeyHashOutputTemplate", () => {
-      fixtures.pubKeyHashOutputTemplate.forEach(fixture => {
+      fixtures.pubKeyHashOutputTemplate.forEach((fixture: any) => {
         const node = bitbox.HDNode.fromXPriv(fixture.xpriv)
         const identifier = bitbox.HDNode.toIdentifier(node)
         it(`should encode pubKeyHash output`, () => {
@@ -320,9 +322,9 @@ describe("#Script", () => {
 
   describe("#multisigTemplate", () => {
     describe("#multisigInputTemplate", () => {
-      fixtures.multisigInputTemplate.forEach(fixture => {
+      fixtures.multisigInputTemplate.forEach((fixture: any) => {
         it(`should encode multisig input`, () => {
-          const signatures = fixture.signatures.map(signature =>
+          const signatures = fixture.signatures.map((signature: any) =>
             signature
               ? Buffer.from(signature, "hex")
               : bitbox.Script.opcodes.OP_0
@@ -340,7 +342,7 @@ describe("#Script", () => {
         })
 
         it(`should confirm correctly formatted multisig input`, () => {
-          const signatures = fixture.signatures.map(signature =>
+          const signatures = fixture.signatures.map((signature: any) =>
             signature
               ? Buffer.from(signature, "hex")
               : bitbox.Script.opcodes.OP_0
@@ -354,9 +356,9 @@ describe("#Script", () => {
     })
 
     describe("#multisigOutputTemplate", () => {
-      fixtures.multisigOutputTemplate.forEach(fixture => {
+      fixtures.multisigOutputTemplate.forEach((fixture: any) => {
         it(`should encode multisig output`, () => {
-          const pubKeys = fixture.pubKeys.map(p => Buffer.from(p, "hex"))
+          const pubKeys = fixture.pubKeys.map((p: any) => Buffer.from(p, "hex"))
           const m = pubKeys.length
           const buf = bitbox.Script.multisig.output.encode(m, pubKeys)
 
@@ -371,7 +373,7 @@ describe("#Script", () => {
         })
 
         it(`should confirm correctly formatted multisig output`, () => {
-          const pubKeys = fixture.pubKeys.map(p => Buffer.from(p, "hex"))
+          const pubKeys = fixture.pubKeys.map((p: any) => Buffer.from(p, "hex"))
           const m = pubKeys.length
           const buf = bitbox.Script.multisig.output.encode(m, pubKeys)
           const valid = bitbox.Script.multisig.output.check(buf)
@@ -383,7 +385,7 @@ describe("#Script", () => {
 
   describe("#scriptHashTemplate", () => {
     describe("#scriptHashInputTemplate", () => {
-      fixtures.scriptHashInputTemplate.forEach(fixture => {
+      fixtures.scriptHashInputTemplate.forEach((fixture: any) => {
         it(`should encode scriptHash input`, () => {
           const buf = bitbox.Script.scriptHash.input.encode(
             bitbox.Script.fromASM(fixture.redeemScriptSig),
@@ -418,7 +420,7 @@ describe("#Script", () => {
     })
 
     describe("#scriptHashOutputTemplate", () => {
-      fixtures.scriptHashOutputTemplate.forEach(fixture => {
+      fixtures.scriptHashOutputTemplate.forEach((fixture: any) => {
         it(`should encode scriptHash output`, () => {
           const redeemScript = bitbox.Script.fromASM(fixture.output)
           const scriptHash = bitbox.Crypto.hash160(redeemScript)

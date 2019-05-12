@@ -1,9 +1,11 @@
-const assert = require("assert")
+import * as assert from "assert";
+import axios from "axios";
+import * as sinon from "sinon";
+
+// TODO: port from require to import syntax
 const BITBOX = require("../../lib/BITBOX").BITBOX
 const bitbox = new BITBOX()
 const Block = require("../../lib/Block").Block
-const axios = require("axios")
-const sinon = require("sinon")
 const resturl = require("../../lib/BITBOX").resturl
 
 describe("#Block", () => {
@@ -20,7 +22,7 @@ describe("#Block", () => {
   })
 
   describe("#detailsByHash", () => {
-    let sandbox
+    let sandbox: any
     beforeEach(() => (sandbox = sinon.sandbox.create()))
     afterEach(() => sandbox.restore())
 
@@ -63,7 +65,7 @@ describe("#Block", () => {
   })
 
   describe("#detailsByHeight", () => {
-    let sandbox
+    let sandbox: any
     beforeEach(() => (sandbox = sinon.sandbox.create()))
     afterEach(() => sandbox.restore())
 
