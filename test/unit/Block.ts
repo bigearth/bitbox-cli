@@ -6,6 +6,7 @@ import { BITBOX } from "../../lib/BITBOX"
 import { Block } from "../../lib/Block"
 import { resturl } from "../../lib/BITBOX"
 import * as util from "util"
+import { BlockDetails, AddressUtxoResult, AddressUnconfirmedResult } from "bitcoin-com-rest";
 
 // consts
 const bitbox: BITBOX = new BITBOX()
@@ -35,8 +36,8 @@ describe("#Block", (): void => {
     beforeEach(() => (sandbox = sinon.sandbox.create()))
     afterEach(() => sandbox.restore())
 
-    it("should get block details", async () => {
-      const data = {
+    it("should get block details", async (): Promise<any> => {
+      const data: any = {
         hash:
           "000000001c6aeec19265e9cc3ded8ba5ef5e63fae7747f30bf9c02c7bc8883f0",
         size: 216,
@@ -62,10 +63,10 @@ describe("#Block", (): void => {
         isMainChain: true,
         poolInfo: {}
       }
-      const resolved = new Promise(r => r({ data: data }))
+      const resolved: Promise<any> = new Promise(r => r({ data: data }))
       sandbox.stub(axios, "get").returns(resolved)
 
-      const result = await bitbox.Block.detailsByHash(
+      const result: BlockDetails | BlockDetails[] = await bitbox.Block.detailsByHash(
         "000000001c6aeec19265e9cc3ded8ba5ef5e63fae7747f30bf9c02c7bc8883f0"
       )
 
@@ -78,8 +79,8 @@ describe("#Block", (): void => {
     beforeEach(() => (sandbox = sinon.sandbox.create()))
     afterEach(() => sandbox.restore())
 
-    it("should get block details", async () => {
-      const data = {
+    it("should get block details", async (): Promise<any> => {
+      const data: any = {
         hash:
           "000000001c6aeec19265e9cc3ded8ba5ef5e63fae7747f30bf9c02c7bc8883f0",
         size: 216,
@@ -105,21 +106,20 @@ describe("#Block", (): void => {
         isMainChain: true,
         poolInfo: {}
       }
-      const resolved = new Promise(r => r({ data: data }))
+      const resolved: Promise<any> = new Promise(r => r({ data: data }))
       sandbox.stub(axios, "get").returns(resolved)
 
-      const result = await bitbox.Block.detailsByHeight(500007)
+      const result: BlockDetails | BlockDetails[] = await bitbox.Block.detailsByHeight(500007)
 
       assert.deepEqual(result, data)
     })
   })
 
   describe(`#detailsByHeight`, (): void => {
-    it(`should GET block details for a given Height`, async () => {
+    it(`should GET block details for a given Height`, async (): Promise<any> => {
       const block: number = 500000
 
-      const result = await bitbox.Block.detailsByHeight(block)
-      //console.log(`result: ${JSON.stringify(result, null, 2)}`)
+      const result: BlockDetails | BlockDetails[] = await bitbox.Block.detailsByHeight(block)
 
       assert.hasAllKeys(result, [
         "hash",
@@ -142,11 +142,9 @@ describe("#Block", (): void => {
       ])
     })
 
-    it(`should GET block details for an array of blocks`, async (): void => {
+    it(`should GET block details for an array of blocks`, async (): Promise<any> => {
       const blocks: number[] = [500000, 500001]
-
-      const result = await bitbox.Block.detailsByHeight(blocks)
-      //console.log(`result: ${JSON.stringify(result, null, 2)}`)
+      const result: BlockDetails | BlockDetails[] = await bitbox.Block.detailsByHeight(blocks)
 
       assert.isArray(result)
       assert.hasAllKeys(result[0], [
@@ -170,14 +168,13 @@ describe("#Block", (): void => {
       ])
     })
 
-    it(`should throw an error for improper single input`, async () => {
+    it(`should throw an error for improper single input`, async (): Promise<any> => {
       try {
         const blocks: any = "asdf"
 
         await bitbox.Block.detailsByHeight(blocks)
         assert.equal(true, false, "Unexpected result!")
       } catch (err) {
-        //console.log(`err: `, err)
         assert.include(
           err.message,
           `Input must be a number or array of numbers.`
@@ -185,12 +182,11 @@ describe("#Block", (): void => {
       }
     })
 
-    it(`should throw error on array size rate limit`, async () => {
+    it(`should throw error on array size rate limit`, async (): Promise<any> => {
       try {
         const blocks: number[] = []
         for (let i: number = 0; i < 25; i++) blocks.push(500000)
-
-        const result = await bitbox.Block.detailsByHeight(blocks)
+        const result: BlockDetails | BlockDetails[] = await bitbox.Block.detailsByHeight(blocks)
 
         console.log(`result: ${util.inspect(result)}`)
         assert.equal(true, false, "Unexpected result!")
@@ -202,12 +198,10 @@ describe("#Block", (): void => {
   })
 
   describe("#detailsByHash", (): void => {
-    it(`should GET block details for a given hash`, async () => {
+    it(`should GET block details for a given hash`, async (): Promise<any> => {
       const hash: string =
         "000000000000000005e14d3f9fdfb70745308706615cfa9edca4f4558332b201"
-
-      const result = await bitbox.Block.detailsByHash(hash)
-      //console.log(`result: ${util.inspect(result)}`)
+      const result: BlockDetails | BlockDetails[] = await bitbox.Block.detailsByHash(hash)
 
       assert.hasAllKeys(result, [
         "hash",
@@ -230,14 +224,13 @@ describe("#Block", (): void => {
       ])
     })
 
-    it(`should GET block details for an array of hashes`, async () => {
+    it(`should GET block details for an array of hashes`, async (): Promise<any> => {
       const hash: string[] = [
         "000000000000000005e14d3f9fdfb70745308706615cfa9edca4f4558332b201",
         "000000000000000005e14d3f9fdfb70745308706615cfa9edca4f4558332b201"
       ]
 
-      const result = await bitbox.Block.detailsByHash(hash)
-      //console.log(`result: ${util.inspect(result)}`)
+      const result: BlockDetails | BlockDetails[] = await bitbox.Block.detailsByHash(hash)
 
       assert.isArray(result)
       assert.hasAllKeys(result[0], [
@@ -261,7 +254,7 @@ describe("#Block", (): void => {
       ])
     })
 
-    it(`should throw an error for improper single input`, async () => {
+    it(`should throw an error for improper single input`, async (): Promise<any> => {
       try {
         const hash: any = 12345
 
@@ -276,7 +269,7 @@ describe("#Block", (): void => {
       }
     })
 
-    it(`should throw error on array size rate limit`, async () => {
+    it(`should throw error on array size rate limit`, async (): Promise<any> => {
       try {
         const data: string[] = []
         for (let i: number = 0; i < 25; i++) {
@@ -285,7 +278,7 @@ describe("#Block", (): void => {
           )
         }
 
-        const result = await bitbox.Block.detailsByHash(data)
+        const result: BlockDetails | BlockDetails[] = await bitbox.Block.detailsByHash(data)
 
         console.log(`result: ${util.inspect(result)}`)
         assert.equal(true, false, "Unexpected result!")

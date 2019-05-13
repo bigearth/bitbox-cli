@@ -2,7 +2,6 @@
 import * as assert from "assert";
 import { BITBOX } from "../../lib/BITBOX"
 import { TransactionBuilder } from "../../lib/TransactionBuilder"
-import { Buffer } from "Buffer"
 import * as bcl from "bitcoincashjs-lib"
 
 // consts
@@ -1657,7 +1656,7 @@ describe("#TransactionBuilder", (): void => {
             )
             const sendAmount: number = originalAmount - byteCount
             const identifier2: string = bitbox.HDNode.toIdentifier(node2)
-            const buf2: string = bitbox.Script.encode([
+            const buf2: Buffer = bitbox.Script.encode([
               bitbox.Script.opcodes.OP_DUP,
               bitbox.Script.opcodes.OP_HASH160,
               identifier2,
@@ -1673,7 +1672,7 @@ describe("#TransactionBuilder", (): void => {
               data2
             )
             const identifier3 = bitbox.HDNode.toIdentifier(node3)
-            const buf3: string = bitbox.Script.encode([
+            const buf3: Buffer = bitbox.Script.encode([
               bitbox.Script.opcodes.OP_DUP,
               bitbox.Script.opcodes.OP_HASH160,
               identifier3,
@@ -1684,7 +1683,7 @@ describe("#TransactionBuilder", (): void => {
             const data3: string = bitbox.Script.scriptHash.output.encode(scriptHash3)
             transactionBuilder.addOutput(data3, Math.floor(sendAmount / 2))
             const identifier4: string = bitbox.HDNode.toIdentifier(node4)
-            const buf4: string = bitbox.Script.encode([
+            const buf4: Buffer = bitbox.Script.encode([
               bitbox.Script.opcodes.OP_DUP,
               bitbox.Script.opcodes.OP_HASH160,
               identifier4,

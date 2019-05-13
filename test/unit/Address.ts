@@ -3,6 +3,7 @@ import * as chai from "chai"
 import { BITBOX } from "../../lib/BITBOX"
 import { Address } from "../../lib/Address"
 import { resturl } from "../../lib/BITBOX"
+import { AddressDetailsResult, AddressUtxoResult, AddressUnconfirmedResult } from "bitcoin-com-rest";
 
 // consts
 const bitbox: BITBOX = new BITBOX()
@@ -1142,10 +1143,9 @@ describe("#Address", (): void => {
   describe(`#utxo`, (): void => {
     describe(`#details`, (): void => {
       it(`should GET address details for a single address`, async (): void => {
-        const addr = "bitcoincash:qrdka2205f4hyukutc2g0s6lykperc8nsu5u2ddpqf"
+        const addr: string = "bitcoincash:qrdka2205f4hyukutc2g0s6lykperc8nsu5u2ddpqf"
 
-        const result = await bitbox.Address.details(addr)
-        //console.log(`result: ${util.inspect(result)}`)
+        const result: AddressDetailsResult | AddressDetailsResult[] = await bitbox.Address.details(addr)
 
         assert.hasAllKeys(result, [
           "balance",
@@ -1173,7 +1173,7 @@ describe("#Address", (): void => {
           "bitcoincash:qpdh9s677ya8tnx7zdhfrn8qfyvy22wj4qa7nwqa5v"
         ]
 
-        const result = await bitbox.Address.details(addr)
+        const result: AddressDetailsResult | AddressDetailsResult[] = await bitbox.Address.details(addr)
         //console.log(`result: ${util.inspect(result)}`)
 
         assert.isArray(result)
@@ -1228,10 +1228,9 @@ describe("#Address", (): void => {
         }
       })
       it(`should GET utxos for a single address`, async () => {
-        const addr = "bitcoincash:qrdka2205f4hyukutc2g0s6lykperc8nsu5u2ddpqf"
+        const addr: string = "bitcoincash:qrdka2205f4hyukutc2g0s6lykperc8nsu5u2ddpqf"
 
-        const result = await bitbox.Address.utxo(addr)
-        //console.log(`result: ${JSON.stringify(result, null, 2)}`)
+        const result: AddressUtxoResult | AddressUtxoResult[] = await bitbox.Address.utxo(addr)
 
         assert.hasAllKeys(result, [
           "utxos",
@@ -1251,13 +1250,12 @@ describe("#Address", (): void => {
       })
 
       it(`should GET utxo details for an array of addresses`, async () => {
-        const addr = [
+        const addr: string[] = [
           "bitcoincash:qrdka2205f4hyukutc2g0s6lykperc8nsu5u2ddpqf",
           "bitcoincash:qpdh9s677ya8tnx7zdhfrn8qfyvy22wj4qa7nwqa5v"
         ]
 
-        const result = await bitbox.Address.utxo(addr)
-        //console.log(`result: ${JSON.stringify(result, null, 2)}`)
+        const result: AddressUtxoResult | AddressUtxoResult[] = await bitbox.Address.utxo(addr)
 
         assert.isArray(result)
         assert.hasAllKeys(result[0], [
@@ -1292,13 +1290,13 @@ describe("#Address", (): void => {
         }
       })
 
-      it(`should throw error on array size rate limit`, async () => {
+      it(`should throw error on array size rate limit`, async (): Promise<any> => {
         try {
           const addr: string[] = []
           for (let i: number = 0; i < 25; i++)
             addr.push("bitcoincash:qrdka2205f4hyukutc2g0s6lykperc8nsu5u2ddpqf")
 
-          const result = await bitbox.Address.utxo(addr)
+          const result: AddressUtxoResult | AddressUtxoResult[] = await bitbox.Address.utxo(addr)
 
           console.log(`result: ${util.inspect(result)}`)
           assert.equal(true, false, "Unexpected result!")
@@ -1310,24 +1308,22 @@ describe("#Address", (): void => {
     })
 
     describe(`#unconfirmed`, (): void => {
-      it(`should GET unconfirmed details on a single address`, async () => {
+      it(`should GET unconfirmed details on a single address`, async (): Promise<any> => {
         const addr: string = "bitcoincash:qz7teqlcltdhqjn2an8nspu7g2x6g3d3rcq8nk4nzs"
 
-        const result = await bitbox.Address.unconfirmed(addr)
-        //console.log(`result: ${JSON.stringify(result, null, 2)}`)
+        const result: AddressUnconfirmedResult | AddressUnconfirmedResult[] = await bitbox.Address.unconfirmed(addr)
 
         assert.hasAllKeys(result, ["utxos", "legacyAddress", "cashAddress"])
         assert.isArray(result.utxos)
       })
 
-      it(`should GET unconfirmed details on multiple addresses`, async () => {
+      it(`should GET unconfirmed details on multiple addresses`, async (): Promise<any> => {
         const addr = [
           "bitcoincash:qz7teqlcltdhqjn2an8nspu7g2x6g3d3rcq8nk4nzs",
           "bitcoincash:qqcp8fw06dmjd2gnfanpwytj7q93w408nv7usdqgsk"
         ]
 
-        const result = await bitbox.Address.unconfirmed(addr)
-        //console.log(`result: ${JSON.stringify(result, null, 2)}`)
+        const result: AddressUnconfirmedResult | AddressUnconfirmedResult[] = await bitbox.Address.unconfirmed(addr)
 
         assert.isArray(result)
         assert.hasAllKeys(result[0], ["utxos", "legacyAddress", "cashAddress"])
@@ -1336,7 +1332,7 @@ describe("#Address", (): void => {
 
       it(`should throw an error for improper input`, async () => {
         try {
-          const addr = 12345
+          const addr: any = 12345
 
           await bitbox.Address.unconfirmed(addr)
           assert.equal(true, false, "Unexpected result!")
@@ -1349,13 +1345,13 @@ describe("#Address", (): void => {
         }
       })
 
-      it(`should throw error on array size rate limit`, async () => {
+      it(`should throw error on array size rate limit`, async (): Promise<any> => {
         try {
           const addr: string[] = []
           for (let i: number = 0; i < 25; i++)
             addr.push("bitcoincash:qrdka2205f4hyukutc2g0s6lykperc8nsu5u2ddpqf")
 
-          const result = await bitbox.Address.unconfirmed(addr)
+          const result: AddressUnconfirmedResult | AddressUnconfirmedResult[] = await bitbox.Address.unconfirmed(addr)
 
           console.log(`result: ${util.inspect(result)}`)
           assert.equal(true, false, "Unexpected result!")
@@ -1367,11 +1363,9 @@ describe("#Address", (): void => {
     })
 
     describe(`#transactions`, (): void => {
-      it(`should GET transactions for a single address`, async () => {
+      it(`should GET transactions for a single address`, async (): Promise<any> => {
         const addr: string = "bitcoincash:qz7teqlcltdhqjn2an8nspu7g2x6g3d3rcq8nk4nzs"
-
-        const result = await bitbox.Address.transactions(addr)
-        //console.log(`result: ${JSON.stringify(result, null, 2)}`)
+        const result: any = await bitbox.Address.transactions(addr)
 
         assert.hasAllKeys(result, [
           "txs",
@@ -1397,14 +1391,12 @@ describe("#Address", (): void => {
         ])
       })
 
-      it(`should get transactions on multiple addresses`, async () => {
+      it(`should get transactions on multiple addresses`, async (): Promise<any> => {
         const addr: string[] = [
           "bitcoincash:qz7teqlcltdhqjn2an8nspu7g2x6g3d3rcq8nk4nzs",
           "bitcoincash:qqcp8fw06dmjd2gnfanpwytj7q93w408nv7usdqgsk"
         ]
-
-        const result = await bitbox.Address.transactions(addr)
-        //console.log(`result: ${JSON.stringify(result, null, 2)}`)
+        const result: any = await bitbox.Address.transactions(addr)
 
         assert.isArray(result)
         assert.hasAllKeys(result[0], [
@@ -1431,7 +1423,7 @@ describe("#Address", (): void => {
         ])
       })
 
-      it(`should throw an error for improper input`, async () => {
+      it(`should throw an error for improper input`, async (): Promise<any> => {
         try {
           const addr: any = 12345
 
@@ -1446,13 +1438,13 @@ describe("#Address", (): void => {
         }
       })
 
-      it(`should throw error on array size rate limit`, async () => {
+      it(`should throw error on array size rate limit`, async (): Promise<any> => {
         try {
           const addr: string[] = []
           for (let i: number = 0; i < 25; i++)
             addr.push("bitcoincash:qrdka2205f4hyukutc2g0s6lykperc8nsu5u2ddpqf")
 
-          const result = await bitbox.Address.transactions(addr)
+          const result: any = await bitbox.Address.transactions(addr)
 
           console.log(`result: ${util.inspect(result)}`)
           assert.equal(true, false, "Unexpected result!")

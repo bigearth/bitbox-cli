@@ -2,7 +2,6 @@
 import * as assert from "assert";
 import { BITBOX } from "../../lib/BITBOX"
 import { HDNode } from "../../lib/HDNode"
-import { Buffer } from "Buffer"
 import * as bcl from "bitcoincashjs-lib"
 
 // consts
@@ -294,7 +293,7 @@ describe("#HDNode", (): void => {
     fixtures.sign.forEach((fixture: any): void => {
       it(`should sign 32 byte hash buffer`, (): void => {
         const hdnode: bcl.HDNode = bitbox.HDNode.fromXPriv(fixture.privateKeyWIF)
-        const buf: Buffer = Buffer.from(bitbox.Crypto.sha256(fixture.data), "hex")
+        const buf: Buffer = Buffer.from(bitbox.Crypto.sha256(Buffer.from(fixture.data, "hex")))
         const signatureBuf: any = bitbox.HDNode.sign(hdnode, buf)
         assert.equal(typeof signatureBuf, "object")
       })
@@ -305,7 +304,7 @@ describe("#HDNode", (): void => {
     fixtures.verify.forEach((fixture: any): void => {
       it(`should verify signed 32 byte hash buffer`, (): void => {
         const hdnode1: bcl.HDNode = bitbox.HDNode.fromXPriv(fixture.privateKeyWIF1)
-        const buf: Buffer = Buffer.from(bitbox.Crypto.sha256(fixture.data), "hex")
+        const buf: Buffer = Buffer.from(bitbox.Crypto.sha256(Buffer.from(fixture.data, "hex")))
         const signature: Buffer = bitbox.HDNode.sign(hdnode1, buf)
         const verify: boolean = bitbox.HDNode.verify(hdnode1, buf, signature)
         assert.equal(verify, true)

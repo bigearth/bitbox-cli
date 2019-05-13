@@ -2,7 +2,6 @@
 import * as assert from "assert";
 import { BITBOX } from "../../lib/BITBOX"
 import { Script } from "../../lib/Script"
-import { Buffer } from "Buffer"
 import * as bcl from "bitcoincashjs-lib"
 
 // consts
@@ -69,8 +68,8 @@ describe("#Script", (): void => {
             Buffer.from(fixture.scriptPubKeyHex, "hex")
           )
           const data: Buffer = Buffer.from(fixture.pubKeyHex, "hex")
-          const hash160: Buffer = bitbox.Crypto.hash160(data).toString("hex")
-          assert.equal(decodedScriptPubKey[2].toString("hex"), hash160)
+          const hash160: Buffer = bitbox.Crypto.hash160(data)
+          assert.equal(decodedScriptPubKey[2].toString("hex"), hash160.toString("hex"))
         })
       })
     })

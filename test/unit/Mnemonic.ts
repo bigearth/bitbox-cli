@@ -55,38 +55,38 @@ describe("#Mnemonic", (): void => {
   describe("#fromEntropy", (): void => {
     it("should generate a 12 word mnemonic from 16 bytes of entropy", (): void => {
       const rand: Buffer = bitbox.Crypto.randomBytes(16)
-      const mnemonic: string = bitbox.Mnemonic.fromEntropy(rand.toString("hex"))
+      const mnemonic: string = bitbox.Mnemonic.fromEntropy(rand)
       assert.equal(mnemonic.split(" ").length, 12)
     })
 
     it("should generate a 15 word mnemonic from 20 bytes of entropy", (): void => {
       const rand: Buffer = bitbox.Crypto.randomBytes(20)
-      const mnemonic: string = bitbox.Mnemonic.fromEntropy(rand.toString("hex"))
+      const mnemonic: string = bitbox.Mnemonic.fromEntropy(rand)
       assert.equal(mnemonic.split(" ").length, 15)
     })
 
     it("should generate an 18 word mnemonic from 24 bytes of entropy", (): void => {
       const rand: Buffer = bitbox.Crypto.randomBytes(24)
-      const mnemonic: string = bitbox.Mnemonic.fromEntropy(rand.toString("hex"))
+      const mnemonic: string = bitbox.Mnemonic.fromEntropy(rand)
       assert.equal(mnemonic.split(" ").length, 18)
     })
 
     it("should generate an 21 word mnemonic from 28 bytes of entropy", (): void => {
       const rand: Buffer = bitbox.Crypto.randomBytes(28)
-      const mnemonic: string = bitbox.Mnemonic.fromEntropy(rand.toString("hex"))
+      const mnemonic: string = bitbox.Mnemonic.fromEntropy(rand)
       assert.equal(mnemonic.split(" ").length, 21)
     })
 
     it("should generate an 24 word mnemonic from 32 bytes of entropy", (): void => {
       const rand: Buffer = bitbox.Crypto.randomBytes(32)
-      const mnemonic: string = bitbox.Mnemonic.fromEntropy(rand.toString("hex"))
+      const mnemonic: string = bitbox.Mnemonic.fromEntropy(rand)
       assert.equal(mnemonic.split(" ").length, 24)
     })
 
     it("should generate an 24 french word mnemonic 32 bytes of entropy", (): void => {
       const rand: Buffer = bitbox.Crypto.randomBytes(32)
       const mnemonic: string = bitbox.Mnemonic.fromEntropy(
-        rand.toString("hex"),
+        rand,
         bitbox.Mnemonic.wordLists().french
       )
       assert.equal(mnemonic.split(" ").length, 24)

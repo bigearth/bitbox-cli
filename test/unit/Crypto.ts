@@ -103,7 +103,7 @@ describe("#Crypto", (): void => {
 
   describe("#randomBytes", (): void => {
     for (let i: number = 0; i < 6; i++) {
-      it("should return 16 bytes of entropy hex encoded via default value", (): string => {
+      it("should return 16 bytes of entropy hex encoded via default value", (): void => {
         const entropy: Buffer = bitbox.Crypto.randomBytes()
         assert.equal(Buffer.byteLength(entropy), 16)
       })

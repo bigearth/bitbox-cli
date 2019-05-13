@@ -14,19 +14,19 @@ export class Mnemonic {
     this._address = address
   }
 
-  public generate(bits: number = 128, wordlist?: string[]): string {
+  public generate(bits: number = 128, wordlist: string[] = this.wordLists().english): string {
     return BIP39.generateMnemonic(bits, randomBytes, wordlist)
   }
 
-  public fromEntropy(bytes: Buffer, wordlist: string[]): string {
+  public fromEntropy(bytes: Buffer, wordlist: string[] = this.wordLists().english): string {
     return BIP39.entropyToMnemonic(bytes, wordlist)
   }
 
-  public toEntropy(mnemonic: string, wordlist: string[]): Buffer {
+  public toEntropy(mnemonic: string, wordlist: string[] = this.wordLists().english): Buffer {
     return Buffer.from(BIP39.mnemonicToEntropy(mnemonic, wordlist), "hex")
   }
 
-  public validate(mnemonic: string, wordlist: string[]): string {
+  public validate(mnemonic: string, wordlist: string[] = this.wordLists().english): string {
     // Preprocess the words
     const words = mnemonic.split(" ")
     // Detect blank phrase
@@ -42,7 +42,6 @@ export class Mnemonic {
       }
     }
     // Check the words are valid
-    const properPhrase = words.join()
     const isValid = BIP39.validateMnemonic(mnemonic, wordlist)
     if (!isValid) return "Invalid mnemonic"
 
