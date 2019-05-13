@@ -5,8 +5,8 @@
 
 // Instantiate bitbox.
 const bitboxLib = "../../../lib/BITBOX"
-const BITBOXSDK = require(bitboxLib)
-const BITBOX = new BITBOXSDK({ restURL: "https://trest.bitcoin.com/v2/" })
+const BITBOX = require(bitboxLib).BITBOX
+const bitbox = new BITBOX({ restURL: "https://trest.bitcoin.com/v2/" })
 
 const ADDR = `bchtest:qr45kxqda7yw8atztvkc4ckqnrlhmp0kvsep4p345q`
 

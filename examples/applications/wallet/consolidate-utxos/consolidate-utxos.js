@@ -6,14 +6,14 @@
 const NETWORK = `testnet`
 
 // Instantiate bitbox.
-const bitboxLib = "../../../../lib/BITBOX"
-const BITBOXSDK = require(bitboxLib)
+const bitboxLib = "../../../lib/BITBOX"
+const BITBOX = require(bitboxLib).BITBOX
 
 // Instantiate SLP based on the network.
-let BITBOX
+let bitbox
 if (NETWORK === `mainnet`)
-  BITBOX = new BITBOXSDK({ restURL: `https://rest.bitcoin.com/v2/` })
-else BITBOX = new BITBOXSDK({ restURL: `https://trest.bitcoin.com/v2/` })
+  bitbox = new BITBOX({ restURL: `https://rest.bitcoin.com/v2/` })
+else bitbox = new BITBOX({ restURL: `https://trest.bitcoin.com/v2/` })
 
 // Open the wallet generated with create-wallet.
 try {
