@@ -1449,7 +1449,7 @@ describe("#TransactionBuilder", (): void => {
             const transactionBuilder: TransactionBuilder = new bitbox.TransactionBuilder()
             const txid: string = fixture.txHash
             const originalAmount: number = fixture.amount
-            const identifier1: string = bitbox.HDNode.toIdentifier(node1)
+            const identifier1: Buffer = bitbox.HDNode.toIdentifier(node1)
             const buf1: any = bitbox.Script.encode([
               bitbox.Script.opcodes.OP_DUP,
               bitbox.Script.opcodes.OP_HASH160,
@@ -1536,7 +1536,7 @@ describe("#TransactionBuilder", (): void => {
             const transactionBuilder: TransactionBuilder = new bitbox.TransactionBuilder()
             const txid: string = fixture.txHash
             const originalAmount: number = fixture.amount
-            const identifier1: string = bitbox.HDNode.toIdentifier(node1)
+            const identifier1: Buffer = bitbox.HDNode.toIdentifier(node1)
             const buf1: any = bitbox.Script.encode([
               bitbox.Script.opcodes.OP_DUP,
               bitbox.Script.opcodes.OP_HASH160,
@@ -1635,7 +1635,7 @@ describe("#TransactionBuilder", (): void => {
             const transactionBuilder: TransactionBuilder = new bitbox.TransactionBuilder()
             const txid: string = fixture.txHash
             const originalAmount: number = fixture.amount
-            const identifier1: string = bitbox.HDNode.toIdentifier(node1)
+            const identifier1: Buffer = bitbox.HDNode.toIdentifier(node1)
             const buf1: any = bitbox.Script.encode([
               bitbox.Script.opcodes.OP_DUP,
               bitbox.Script.opcodes.OP_HASH160,
@@ -1656,7 +1656,7 @@ describe("#TransactionBuilder", (): void => {
               { P2PKH: 5 }
             )
             const sendAmount: number = originalAmount - byteCount
-            const identifier2: string = bitbox.HDNode.toIdentifier(node2)
+            const identifier2: Buffer = bitbox.HDNode.toIdentifier(node2)
             const buf2: Buffer = bitbox.Script.encode([
               bitbox.Script.opcodes.OP_DUP,
               bitbox.Script.opcodes.OP_HASH160,
@@ -1683,7 +1683,7 @@ describe("#TransactionBuilder", (): void => {
             const scriptHash3: Buffer = bitbox.Crypto.hash160(buf3)
             const data3: string = bitbox.Script.scriptHash.output.encode(scriptHash3)
             transactionBuilder.addOutput(data3, Math.floor(sendAmount / 2))
-            const identifier4: string = bitbox.HDNode.toIdentifier(node4)
+            const identifier4: Buffer = bitbox.HDNode.toIdentifier(node4)
             const buf4: Buffer = bitbox.Script.encode([
               bitbox.Script.opcodes.OP_DUP,
               bitbox.Script.opcodes.OP_HASH160,
@@ -1754,7 +1754,7 @@ describe("#TransactionBuilder", (): void => {
             const transactionBuilder: TransactionBuilder = new bitbox.TransactionBuilder()
             const txid: string = fixture.txHash
             const originalAmount: number = fixture.amount
-            const identifier1: string = bitbox.HDNode.toIdentifier(node1)
+            const identifier1: Buffer = bitbox.HDNode.toIdentifier(node1)
             const buf1: any = bitbox.Script.encode([
               bitbox.Script.opcodes.OP_DUP,
               bitbox.Script.opcodes.OP_HASH160,

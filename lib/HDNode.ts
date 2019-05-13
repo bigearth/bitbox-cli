@@ -76,12 +76,12 @@ export class HDNode {
     return hdnode.derivePath(path)
   }
 
-  public derive(hdnode: bcl.HDNode, num: number): bcl.HDNode {
-    return hdnode.derive(num)
+  public derive(hdnode: bcl.HDNode, path: number): bcl.HDNode {
+    return hdnode.derive(path)
   }
 
-  public deriveHardened(hdnode: bcl.HDNode, num: number): bcl.HDNode {
-    return hdnode.deriveHardened(num)
+  public deriveHardened(hdnode: bcl.HDNode, path: number): bcl.HDNode {
+    return hdnode.deriveHardened(path)
   }
 
   public sign(hdnode: bcl.HDNode, buffer: Buffer): bcl.ECSignature {
@@ -100,7 +100,7 @@ export class HDNode {
     return !hdnode.isNeutered()
   }
 
-  public toIdentifier(hdnode: bcl.HDNode): string {
+  public toIdentifier(hdnode: bcl.HDNode): Buffer {
     return hdnode.getIdentifier()
   }
 

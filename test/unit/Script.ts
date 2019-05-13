@@ -275,17 +275,24 @@ describe("#Script", (): void => {
         })
 
         it(`should decode pubKeyHash input signature`, (): void => {
-          const buf: Buffer = bitbox.Script.pubKeyHash.input.decode(
+          const buf: {
+            signature: Buffer
+            pubKey: Buffer
+          } = bitbox.Script.pubKeyHash.input.decode(
             Buffer.from(fixture.hex, "hex")
           )
-          assert.equal(buf.toString("hex"), fixture.signature)
+          assert.equal(buf.signature.toString("hex"), fixture.signature)
         })
 
         it(`should decode pubKeyHash input pubkey`, (): void => {
-          const buf: Buffer = bitbox.Script.pubKeyHash.input.decode(
+          const buf: {
+            signature: Buffer
+            pubKey: Buffer
+          } = bitbox.Script.pubKeyHash.input.decode(
             Buffer.from(fixture.hex, "hex")
           )
-          assert.equal(buf.toString("hex"), fixture.pubKey)
+          console.log(buf)
+          assert.equal(buf.pubKey.toString("hex"), fixture.pubKey)
         })
 
         it(`should confirm correctly formatted pubKeyHash input`, (): void => {
@@ -302,7 +309,7 @@ describe("#Script", (): void => {
     describe("#pubKeyHashOutputTemplate", (): void => {
       fixtures.pubKeyHashOutputTemplate.forEach((fixture: any): void => {
         const node: bcl.HDNode = bitbox.HDNode.fromXPriv(fixture.xpriv)
-        const identifier: string = bitbox.HDNode.toIdentifier(node)
+        const identifier: Buffer = bitbox.HDNode.toIdentifier(node)
         it(`should encode pubKeyHash output`, (): void => {
           const buf: Buffer = bitbox.Script.pubKeyHash.output.encode(identifier)
           assert.equal(buf.toString("hex"), fixture.hex)
@@ -312,7 +319,7 @@ describe("#Script", (): void => {
           const buf: Buffer = bitbox.Script.pubKeyHash.output.decode(
             Buffer.from(`${fixture.hex}`, "hex")
           )
-          assert.equal(buf.toString("hex"), identifier)
+          assert.equal(buf.toString("hex"), identifier.toString("hex"))
         })
 
         it(`should confirm correctly formatted pubKeyHash output`, (): void => {
