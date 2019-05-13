@@ -291,7 +291,6 @@ describe("#Script", (): void => {
           } = bitbox.Script.pubKeyHash.input.decode(
             Buffer.from(fixture.hex, "hex")
           )
-          console.log(buf)
           assert.equal(buf.pubKey.toString("hex"), fixture.pubKey)
         })
 
