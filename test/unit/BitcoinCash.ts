@@ -262,12 +262,14 @@ describe("#BitcoinCash", (): void => {
         fixtures.bip21.valid.forEach((bip21: any): void => {
           it(`decodes ${bip21.url}`, (): void => {
             const decoded: BIP21Object = bitbox.BitcoinCash.decodeBIP21(bip21.url)
-            assert.equal(decoded.options.amount, bip21.options.amount)
-            assert.equal(decoded.options.label, bip21.options.label)
             assert.equal(
               bitbox.Address.toCashAddress(decoded.address),
               bitbox.Address.toCashAddress(bip21.address)
             )
+            if (decoded.options) {
+              assert.equal(decoded.options.amount, bip21.options.amount)
+              assert.equal(decoded.options.label, bip21.options.label)
+            }
           })
         })
         // fixtures.bip21.valid_regtest.forEach((bip21, i) => {

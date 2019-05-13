@@ -155,6 +155,7 @@ describe("#Script", (): void => {
   describe("#OPCodes", (): void => {
     for (const opcode in fixtures.opcodes) {
       it(`should have OP Code ${opcode}`, (): void => {
+        // @ts-ignore
         assert.equal(bitbox.Script.opcodes[opcode], fixtures.opcodes[opcode])
       })
     }
@@ -277,14 +278,14 @@ describe("#Script", (): void => {
           const buf: Buffer = bitbox.Script.pubKeyHash.input.decode(
             Buffer.from(fixture.hex, "hex")
           )
-          assert.equal(buf.signature.toString("hex"), fixture.signature)
+          assert.equal(buf.toString("hex"), fixture.signature)
         })
 
         it(`should decode pubKeyHash input pubkey`, (): void => {
           const buf: Buffer = bitbox.Script.pubKeyHash.input.decode(
             Buffer.from(fixture.hex, "hex")
           )
-          assert.equal(buf.pubKey.toString("hex"), fixture.pubKey)
+          assert.equal(buf.toString("hex"), fixture.pubKey)
         })
 
         it(`should confirm correctly formatted pubKeyHash input`, (): void => {
@@ -311,7 +312,7 @@ describe("#Script", (): void => {
           const buf: Buffer = bitbox.Script.pubKeyHash.output.decode(
             Buffer.from(`${fixture.hex}`, "hex")
           )
-          assert.equal(buf.toString("hex"), identifier.toString("hex"))
+          assert.equal(buf.toString("hex"), identifier)
         })
 
         it(`should confirm correctly formatted pubKeyHash output`, (): void => {
@@ -338,7 +339,7 @@ describe("#Script", (): void => {
         })
 
         it(`should decode multisig input`, (): void => {
-          const buf: Buffer = bitbox.Script.multisig.input.decode(
+          const buf: Buffer[] = bitbox.Script.multisig.input.decode(
             Buffer.from(fixture.hex, "hex")
           )
           assert.equal(buf[0].toString("hex"), fixture.signatures[0])

@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from "axios"
-import { TxnDetails } from "bitcoin-com-rest";
+import { TxnDetailsResult } from "bitcoin-com-rest";
 import { resturl } from "./BITBOX"
 
 export class Transaction {
@@ -8,7 +8,7 @@ export class Transaction {
     this.restURL = restURL
   }
 
-  public async details(txid: string | string[]): Promise<TxnDetails | TxnDetails[]> {
+  public async details(txid: string | string[]): Promise<TxnDetailsResult | TxnDetailsResult[]> {
     try {
       // Handle single address.
       if (typeof txid === "string") {

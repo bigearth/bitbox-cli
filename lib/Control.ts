@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from "axios"
-import { NodeInfo } from "bitcoin-com-rest";
+import { NodeInfoResult } from "bitcoin-com-rest";
 import { resturl } from "./BITBOX"
 
 export class Control {
@@ -8,7 +8,7 @@ export class Control {
     this.restURL = restURL
   }
 
-  public async getInfo(): Promise<NodeInfo> {
+  public async getInfo(): Promise<NodeInfoResult> {
     try {
       const response: AxiosResponse = await axios.get(`${this.restURL}control/getInfo`)
       return response.data

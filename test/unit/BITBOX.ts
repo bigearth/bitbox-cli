@@ -96,10 +96,10 @@ describe("#BITBOX", (): void => {
       assert.equal(bitbox.Transaction instanceof Transaction, true)
     })
 
-    it("should have a TransactionBuilder property", (): void => {
-      const bitbox: BITBOX = new BITBOX({ restURL: resturl })
-      assert.equal(bitbox.TransactionBuilder instanceof TransactionBuilder, true)
-    })
+    // it("should have a TransactionBuilder property", (): void => {
+    //   const bitbox: BITBOX = new BITBOX({ restURL: resturl })
+    //   assert.equal(bitbox.TransactionBuilder instanceof TransactionBuilder, true)
+    // })
 
     it("should have a Util property", (): void => {
       const bitbox: BITBOX = new BITBOX({ restURL: resturl })

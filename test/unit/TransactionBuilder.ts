@@ -24,6 +24,7 @@ describe("#TransactionBuilder", (): void => {
       it(`should match hash type`, (): void => {
         assert.equal(
           fixture[Object.keys(fixture)[0]],
+          // @ts-ignore
           transactionBuilder.hashTypes[Object.keys(fixture)[0]]
         )
       })

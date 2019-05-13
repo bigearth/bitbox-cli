@@ -141,7 +141,7 @@ describe("#ECPair", (): void => {
     fixtures.sign.forEach((fixture: any): void => {
       it(`should sign 32 byte hash buffer`, (): void => {
         const ecpair: ECPair = bitbox.ECPair.fromWIF(fixture.privateKeyWIF)
-        const buf: Buffer = Buffer.from(bitbox.Crypto.sha256(fixture.data), "hex")
+        const buf: Buffer = Buffer.from(bitbox.Crypto.sha256(fixture.data))
         const signatureBuf: Buffer = bitbox.ECPair.sign(ecpair, buf)
         assert.equal(typeof signatureBuf, "object")
       })
@@ -152,7 +152,7 @@ describe("#ECPair", (): void => {
     fixtures.verify.forEach((fixture: any): void => {
       it(`should verify signed 32 byte hash buffer`, (): void => {
         const ecpair: ECPair = bitbox.ECPair.fromWIF(fixture.privateKeyWIF1)
-        const buf: Buffer = Buffer.from(bitbox.Crypto.sha256(fixture.data), "hex")
+        const buf: Buffer = Buffer.from(bitbox.Crypto.sha256(fixture.data))
         const signature: Buffer = bitbox.ECPair.sign(ecpair, buf)
         const verify: boolean = bitbox.ECPair.verify(ecpair, buf, signature)
         assert.equal(verify, true)

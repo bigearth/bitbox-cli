@@ -4,7 +4,7 @@ import { BITBOX } from "../../lib/BITBOX"
 import { Util } from "../../lib/Util"
 import { resturl } from "../../lib/BITBOX"
 import * as util from "util"
-import { AddressDetailsResult, AddressUtxoResult, AddressUnconfirmedResult } from "bitcoin-com-rest";
+import { AddressValidateResult } from "bitcoin-com-rest";
 
 // conts
 const bitbox: BITBOX = new BITBOX()
@@ -33,28 +33,27 @@ describe("#Util", (): void => {
     it(`should return false for testnet addr on mainnet`, async () => {
       const address: string = `bchtest:qqqk4y6lsl5da64sg5qc3xezmplyu5kmpyz2ysaa5y`
 
-      const result = await bitbox.Util.validateAddress(address)
-      //console.log(`result: ${JSON.stringify(result, null, 2)}`)
+      const result: AddressValidateResult | AddressValidateResult[] = await bitbox.Util.validateAddress(address)
 
       assert.hasAllKeys(result, ["isvalid"])
-      assert.equal(result.isvalid, false)
+      if (!Array.isArray(result)) {
+        assert.equal(result.isvalid, false)
+      }
     })
 
     it(`should return false for bad address`, async () => {
       const address: string = `bitcoincash:qp4k8fjtgunhdr7yq30ha4peu`
-
-      const result = await bitbox.Util.validateAddress(address)
-      //console.log(`result: ${JSON.stringify(result, null, 2)}`)
+      const result: AddressValidateResult | AddressValidateResult[] = await bitbox.Util.validateAddress(address)
 
       assert.hasAllKeys(result, ["isvalid"])
-      assert.equal(result.isvalid, false)
+      if (!Array.isArray(result)) {
+        assert.equal(result.isvalid, false)
+      }
     })
 
-    it(`should return validate valid address`, async () => {
+    it(`should validate valid address`, async () => {
       const address: string = `bitcoincash:qp4k8fjtgunhdr7yq30ha4peuwupzan2vcnwrmpy0z`
-
-      const result = await bitbox.Util.validateAddress(address)
-      //console.log(`result: ${JSON.stringify(result, null, 2)}`)
+      const result: AddressValidateResult | AddressValidateResult[] = await bitbox.Util.validateAddress(address)
 
       assert.hasAllKeys(result, [
         "isvalid",
@@ -64,7 +63,9 @@ describe("#Util", (): void => {
         "iswatchonly",
         "isscript"
       ])
-      assert.equal(result.isvalid, true)
+      if (!Array.isArray(result)) {
+        assert.equal(result.isvalid, true)
+      }
     })
 
     it(`should validate an array of addresses`, async () => {
@@ -73,18 +74,19 @@ describe("#Util", (): void => {
         `bitcoincash:qp4k8fjtgunhdr7yq30ha4peuwupzan2vcnwrmpy0z`
       ]
 
-      const result = await bitbox.Util.validateAddress(address)
-      //console.log(`result: ${JSON.stringify(result, null, 2)}`)
+      const result: AddressValidateResult | AddressValidateResult[] = await bitbox.Util.validateAddress(address)
 
       assert.isArray(result)
-      assert.hasAllKeys(result[0], [
-        "isvalid",
-        "address",
-        "scriptPubKey",
-        "ismine",
-        "iswatchonly",
-        "isscript"
-      ])
+      if (Array.isArray(result)) {
+        assert.hasAllKeys(result[0], [
+          "isvalid",
+          "address",
+          "scriptPubKey",
+          "ismine",
+          "iswatchonly",
+          "isscript"
+        ])
+      }
     })
 
     it(`should throw an error for improper single input`, async () => {
@@ -94,7 +96,6 @@ describe("#Util", (): void => {
         await bitbox.Util.validateAddress(address)
         assert.equal(true, false, "Unexpected result!")
       } catch (err) {
-        //console.log(`err: `, err)
         assert.include(
           err.message,
           `Input must be a string or array of strings.`
@@ -108,9 +109,7 @@ describe("#Util", (): void => {
         const data: string[] = []
         for (let i: number = 0; i < 25; i++) data.push(dataMock)
 
-        const result = await bitbox.Util.validateAddress(data)
-
-        console.log(`result: ${util.inspect(result)}`)
+        const result: AddressValidateResult | AddressValidateResult[] = await bitbox.Util.validateAddress(data)
         assert.equal(true, false, "Unexpected result!")
       } catch (err) {
         assert.hasAnyKeys(err, ["error"])

@@ -4,7 +4,7 @@
 */
 
 import axios, { AxiosResponse } from "axios"
-import { BlockDetails, BlockchainInfo, BlockHeader, ChainTip, MempoolInfo, TxOut, MempoolEntryResult } from "bitcoin-com-rest";
+import { BlockDetailsResult, BlockchainInfoResult, BlockHeaderResult, ChainTipResult, MempoolInfoResult, TxOutResult, MempoolEntryResult } from "bitcoin-com-rest";
 import { resturl } from "./BITBOX"
 
 export class Blockchain {
@@ -28,7 +28,7 @@ export class Blockchain {
   public async getBlock(
     blockhash: string,
     verbose: boolean = true
-  ): Promise<BlockDetails> {
+  ): Promise<BlockDetailsResult> {
     try {
       const response: AxiosResponse = await axios.get(
         `${this.restURL}blockchain/getBlock/${blockhash}?verbose=${verbose}`
@@ -40,7 +40,7 @@ export class Blockchain {
     }
   }
 
-  public async getBlockchainInfo(): Promise<BlockchainInfo> {
+  public async getBlockchainInfo(): Promise<BlockchainInfoResult> {
     try {
       const response: AxiosResponse = await axios.get(
         `${this.restURL}blockchain/getBlockchainInfo`
@@ -81,7 +81,7 @@ export class Blockchain {
   public async getBlockHeader(
     hash: string | string[],
     verbose: boolean = true
-  ): Promise<BlockHeader> {
+  ): Promise<BlockHeaderResult | BlockHeaderResult[]> {
     try {
       // Handle single hash.
       if (typeof hash === "string") {
@@ -113,7 +113,7 @@ export class Blockchain {
     }
   }
 
-  public async getChainTips(): Promise<ChainTip[]> {
+  public async getChainTips(): Promise<ChainTipResult[]> {
     try {
       const response: AxiosResponse = await axios.get(
         `${this.restURL}blockchain/getChainTips`
@@ -207,7 +207,7 @@ export class Blockchain {
     }
   }
 
-  public async getMempoolInfo(): Promise<MempoolInfo> {
+  public async getMempoolInfo(): Promise<MempoolInfoResult> {
     try {
       const response: AxiosResponse = await axios.get(
         `${this.restURL}blockchain/getMempoolInfo`
@@ -236,7 +236,7 @@ export class Blockchain {
     txid: string,
     n: any,
     include_mempool: boolean = true
-  ): Promise<TxOut | null> {
+  ): Promise<TxOutResult | null> {
     // TODO confirm this works
     try {
       const response: AxiosResponse = await axios.get(

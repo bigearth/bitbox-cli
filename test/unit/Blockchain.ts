@@ -6,6 +6,7 @@ import { BITBOX } from "../../lib/BITBOX"
 import { Blockchain } from "../../lib/Blockchain"
 import { resturl } from "../../lib/BITBOX"
 import * as util from "util"
+import { BlockHeaderResult } from "bitcoin-com-rest";
 
 // consts
 const bitbox: BITBOX = new BITBOX()
@@ -443,8 +444,7 @@ describe("#Blockchain", (): void => {
 
   describe(`#getBestBlockHash`, (): void => {
     it(`should GET best block hash`, async () => {
-      const result = await bitbox.Blockchain.getBestBlockHash()
-      //console.log(`result: ${util.inspect(result)}`)
+      const result: string = await bitbox.Blockchain.getBestBlockHash()
 
       assert.isString(result)
       assert.equal(result.length, 64, "Specific hash length")
@@ -456,7 +456,7 @@ describe("#Blockchain", (): void => {
       const hash: string =
         "000000000000000005e14d3f9fdfb70745308706615cfa9edca4f4558332b201"
 
-      const result = await bitbox.Blockchain.getBlockHeader(hash)
+      const result: BlockHeaderResult | BlockHeaderResult[] = await bitbox.Blockchain.getBlockHeader(hash)
 
       assert.hasAllKeys(result, [
         "hash",
@@ -482,25 +482,28 @@ describe("#Blockchain", (): void => {
         "00000000000000000568f0a96bf4348847bc84e455cbfec389f27311037a20f3"
       ]
 
-      const result = await bitbox.Blockchain.getBlockHeader(hash)
+      const result: BlockHeaderResult | BlockHeaderResult[] = await bitbox.Blockchain.getBlockHeader(hash)
 
       assert.isArray(result)
-      assert.hasAllKeys(result[0], [
-        "hash",
-        "confirmations",
-        "height",
-        "version",
-        "versionHex",
-        "merkleroot",
-        "time",
-        "mediantime",
-        "nonce",
-        "bits",
-        "difficulty",
-        "chainwork",
-        "previousblockhash",
-        "nextblockhash"
-      ])
+      if (Array.isArray(result)) {
+        assert.hasAllKeys(result[0], [
+          "hash",
+          "confirmations",
+          "height",
+          "version",
+          "versionHex",
+          "merkleroot",
+          "time",
+          "mediantime",
+          "nonce",
+          "bits",
+          "difficulty",
+          "chainwork",
+          "previousblockhash",
+          "nextblockhash"
+        ])
+
+      }
     })
 
     it(`should throw an error for improper input`, async () => {
@@ -526,9 +529,7 @@ describe("#Blockchain", (): void => {
           )
         }
 
-        const result = await bitbox.Blockchain.getBlockHeader(data)
-
-        console.log(`result: ${util.inspect(result)}`)
+        const result: BlockHeaderResult | BlockHeaderResult[] = await bitbox.Blockchain.getBlockHeader(data)
         assert.equal(true, false, "Unexpected result!")
       } catch (err) {
         assert.hasAnyKeys(err, ["error"])
@@ -589,7 +590,7 @@ describe("#Blockchain", (): void => {
     })
     */
 
-    it(`should throw an error if txid is not in mempool`, async () => {
+    it(`should throw an error if txid is not in mempool`, async (): Promise<any> => {
       try {
         const txid: string =
           "03f69502ca32e7927fd4f38c1d3f950bff650c1eea3d09a70e9df5a9d7f989f7"
@@ -604,7 +605,7 @@ describe("#Blockchain", (): void => {
       }
     })
 
-    it(`should throw an error for improper single input`, async () => {
+    it(`should throw an error for improper single input`, async (): Promise<any> => {
       try {
         const txid: any = 12345
 
@@ -620,30 +621,28 @@ describe("#Blockchain", (): void => {
   })
 
   describe(`#getTxOutProof`, (): void => {
-    it(`should get single tx out proof`, async () => {
+    it(`should get single tx out proof`, async (): Promise<any> => {
       const txid: string =
         "03f69502ca32e7927fd4f38c1d3f950bff650c1eea3d09a70e9df5a9d7f989f7"
 
       const result = await bitbox.Blockchain.getTxOutProof(txid)
-      //console.log(`result: ${JSON.stringify(result, null, 2)}`)
 
       assert.isString(result)
     })
 
-    it(`should get an array of tx out proofs`, async () => {
+    it(`should get an array of tx out proofs`, async (): Promise<any> => {
       const txid: string[] = [
         "03f69502ca32e7927fd4f38c1d3f950bff650c1eea3d09a70e9df5a9d7f989f7",
         "fe28050b93faea61fa88c4c630f0e1f0a1c24d0082dd0e10d369e13212128f33"
       ]
 
       const result = await bitbox.Blockchain.getTxOutProof(txid)
-      //console.log(`result: ${JSON.stringify(result, null, 2)}`)
 
       assert.isArray(result)
       assert.isString(result[0])
     })
 
-    it(`should throw an error for improper single input`, async () => {
+    it(`should throw an error for improper single input`, async (): Promise<any> => {
       try {
         const txid: any = 12345
 
@@ -658,13 +657,12 @@ describe("#Blockchain", (): void => {
     })
   })
 
-  describe(`#verifyTxOutProof`, () => {
+  describe(`#verifyTxOutProof`, (): void => {
     const mockTxOutProof: string =
       "0000002086a4a3161f9ba2174883ec0b93acceac3b2f37b36ed1f90000000000000000009cb02406d1094ecf3e0b4c0ca7c585125e721147c39daf6b48c90b512741e13a12333e5cb38705180f441d8c7100000008fee9b60f1edb57e5712839186277ed39e0a004a32be9096ee47472efde8eae62f789f9d7a9f59d0ea7093dea1e0c65ff0b953f1d8cf3d47f92e732ca0295f603c272d5f4a63509f7a887f2549d78af7444aa0ecbb4f66d9cbe13bc6a89f59e05a199df8325d490818ffefe6b6321d32d7496a68580459836c0183f89082fc1b491cc91b23ecdcaa4c347bf599a62904d61f1c15b400ebbd5c90149010c139d9c1e31b774b796977393a238080ab477e1d240d0c4f155d36f519668f49bae6bd8cd5b8e40522edf76faa09cca6188d83ff13af6967cc6a569d1a5e9aeb1fdb7f531ddd2d0cbb81879741d5f38166ac1932136264366a4065cc96a42e41f96294f02df01"
 
-    it(`should verify a single proof`, async () => {
+    it(`should verify a single proof`, async (): Promise<any> => {
       const result = await bitbox.Blockchain.verifyTxOutProof(mockTxOutProof)
-      //console.log(`result: ${JSON.stringify(result, null, 2)}`)
 
       assert.isArray(result)
       assert.isString(result[0])
@@ -674,10 +672,9 @@ describe("#Blockchain", (): void => {
       )
     })
 
-    it(`should verify an array of proofs`, async () => {
+    it(`should verify an array of proofs`, async (): Promise<any> => {
       const proofs: string[] = [mockTxOutProof, mockTxOutProof]
       const result = await bitbox.Blockchain.verifyTxOutProof(proofs)
-      //console.log(`result: ${JSON.stringify(result, null, 2)}`)
 
       assert.isArray(result)
       assert.isString(result[0])
@@ -687,7 +684,7 @@ describe("#Blockchain", (): void => {
       )
     })
 
-    it(`should throw an error for improper single input`, async () => {
+    it(`should throw an error for improper single input`, async (): Promise<any> => {
       try {
         const txid: any = 12345
 
@@ -701,7 +698,7 @@ describe("#Blockchain", (): void => {
       }
     })
 
-    it(`should throw error on array size rate limit`, async () => {
+    it(`should throw error on array size rate limit`, async (): Promise<any> => {
       try {
         const data: string[] = []
         for (let i: number = 0; i < 25; i++) data.push(mockTxOutProof)

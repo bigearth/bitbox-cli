@@ -3,7 +3,7 @@ import * as chai from "chai"
 import { BITBOX } from "../../lib/BITBOX"
 import { Transaction } from "../../lib/Transaction"
 import { resturl } from "../../lib/BITBOX"
-import { TxnDetails } from "bitcoin-com-rest";
+import { TxnDetailsResult } from "bitcoin-com-rest";
 
 // consts
 const bitbox: BITBOX = new BITBOX()
@@ -26,7 +26,7 @@ describe("#Transaction", (): void => {
     it(`should GET details for a given txid`, async () => {
       const txid: string =
         "fe28050b93faea61fa88c4c630f0e1f0a1c24d0082dd0e10d369e13212128f33"
-      const result: TxnDetails | TxnDetails[] = await bitbox.Transaction.details(txid)
+      const result: TxnDetailsResult | TxnDetailsResult[] = await bitbox.Transaction.details(txid)
       assert.hasAllKeys(result, [
         "txid",
         "version",
@@ -49,7 +49,7 @@ describe("#Transaction", (): void => {
         "fe28050b93faea61fa88c4c630f0e1f0a1c24d0082dd0e10d369e13212128f33",
         "fe28050b93faea61fa88c4c630f0e1f0a1c24d0082dd0e10d369e13212128f33"
       ]
-      const result: TxnDetails | TxnDetails[] = await bitbox.Transaction.details(txids)
+      const result: TxnDetailsResult | TxnDetailsResult[] = await bitbox.Transaction.details(txids)
       assert.isArray(result)
     })
 

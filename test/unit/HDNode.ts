@@ -33,7 +33,7 @@ describe("#HDNode", (): void => {
       it(`should derive non hardened child HDNode`, (): void => {
         const rootSeedBuffer: any = bitbox.Mnemonic.toSeed(derive.mnemonic)
         const hdNode: bcl.HDNode = bitbox.HDNode.fromSeed(rootSeedBuffer)
-        const childHDNode: bcl.HDNode = bitbox.HDNode.derive(hdNode, "0")
+        const childHDNode: bcl.HDNode = bitbox.HDNode.derive(hdNode, 0)
         assert.equal(bitbox.HDNode.toXPub(childHDNode), derive.xpub)
         assert.equal(bitbox.HDNode.toXPriv(childHDNode), derive.xpriv)
       })
@@ -45,7 +45,7 @@ describe("#HDNode", (): void => {
       it(`should derive hardened child HDNode`, (): void => {
         const rootSeedBuffer: any = bitbox.Mnemonic.toSeed(derive.mnemonic)
         const hdNode: bcl.HDNode = bitbox.HDNode.fromSeed(rootSeedBuffer)
-        const childHDNode: bcl.HDNode = bitbox.HDNode.deriveHardened(hdNode, "0")
+        const childHDNode: bcl.HDNode = bitbox.HDNode.deriveHardened(hdNode, 0)
         assert.equal(bitbox.HDNode.toXPub(childHDNode), derive.xpub)
         assert.equal(bitbox.HDNode.toXPriv(childHDNode), derive.xpriv)
       })
@@ -56,9 +56,9 @@ describe("#HDNode", (): void => {
         it(`should derive BIP44 $BCH account`, (): void => {
           const rootSeedBuffer: any = bitbox.Mnemonic.toSeed(derive.mnemonic)
           const hdNode: bcl.HDNode = bitbox.HDNode.fromSeed(rootSeedBuffer)
-          const purpose: bcl.HDNode = bitbox.HDNode.deriveHardened(hdNode, "44")
-          const coin: bcl.HDNode = bitbox.HDNode.deriveHardened(purpose, "145")
-          const childHDNode: bcl.HDNode = bitbox.HDNode.deriveHardened(coin, "0")
+          const purpose: bcl.HDNode = bitbox.HDNode.deriveHardened(hdNode, 44)
+          const coin: bcl.HDNode = bitbox.HDNode.deriveHardened(purpose, 145)
+          const childHDNode: bcl.HDNode = bitbox.HDNode.deriveHardened(coin, 0)
           assert.equal(bitbox.HDNode.toXPub(childHDNode), derive.xpub)
           assert.equal(bitbox.HDNode.toXPriv(childHDNode), derive.xpriv)
         })

@@ -51,7 +51,7 @@ export class BITBOX {
   constructor(config: IConfig = {}) {
     if (config && config.restURL && config.restURL !== "")
       this.restURL = config.restURL
-    else this.restURL = "https://rest.bitcoin.com/v2/"
+    else this.restURL = resturl
 
     this.Address = new Address(this.restURL)
     this.BitcoinCash = new BitcoinCash(this.Address)
@@ -68,7 +68,7 @@ export class BITBOX {
     this.RawTransactions = new RawTransactions(this.restURL)
     this.Script = new Script()
     this.Transaction = new Transaction(this.restURL)
-    this.TransactionBuilder = new TransactionBuilder()
+    this.TransactionBuilder = TransactionBuilder
     this.Util = new Util(this.restURL)
     this.Socket = new Socket()
     this.Schnorr = new Schnorr()

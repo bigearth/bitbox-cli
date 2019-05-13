@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from "axios"
-import { VerboseRawTransaction } from "bitcoin-com-rest";
+import { VerboseRawTransactionResult } from "bitcoin-com-rest";
 import { resturl } from "./BITBOX"
 
 export class RawTransactions {
@@ -72,7 +72,7 @@ export class RawTransactions {
   public async getRawTransaction(
     txid: string | string[],
     verbose: boolean = false
-  ): Promise<string | string[] | VerboseRawTransaction | VerboseRawTransaction[]> {
+  ): Promise<VerboseRawTransactionResult | VerboseRawTransactionResult[]> {
     try {
       if (typeof txid === "string") {
         const response: AxiosResponse = await axios.get(

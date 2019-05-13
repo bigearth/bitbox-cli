@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from "axios"
-import { BlockDetails } from "bitcoin-com-rest";
+import { BlockDetailsResult } from "bitcoin-com-rest";
 import { resturl } from "./BITBOX"
 
 export class Block {
@@ -10,7 +10,7 @@ export class Block {
 
   public async detailsByHeight(
     id: number | number[]
-  ): Promise<BlockDetails | BlockDetails[]> {
+  ): Promise<BlockDetailsResult | BlockDetailsResult[]> {
     try {
       // Single block
       if (typeof id === "number") {
@@ -42,7 +42,7 @@ export class Block {
 
   public async detailsByHash(
     hash: string | string[]
-  ): Promise<BlockDetails | BlockDetails[]> {
+  ): Promise<BlockDetailsResult | BlockDetailsResult[]> {
     try {
       // Single block
       if (typeof hash === "string") {
