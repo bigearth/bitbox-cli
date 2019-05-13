@@ -1,4 +1,4 @@
-import axios from "axios"
+import axios, { AxiosResponse } from "axios"
 import { AddressDetailsResult, AddressUtxoResult, AddressUnconfirmedResult } from "bitcoin-com-rest";
 import * as bcl from "bitcoincashjs-lib"
 import { resturl } from "./BITBOX"
@@ -21,7 +21,7 @@ interface Decoded extends Hash {
   format: string
 }
 
-interface BitcoinCash {
+export interface BitcoinCash {
   hashGenesisBlock: string
   port: number
   portRpc: number
@@ -55,13 +55,13 @@ interface DecodedHash160 {
 }
 
 export class Address {
-  restURL: string
+  public restURL: string
   constructor(restURL: string = resturl) {
     this.restURL = restURL
   }
 
   // Translate address from any address format into a specific format.
-  toLegacyAddress(address: string): string {
+  public toLegacyAddress(address: string): string {
     const { prefix, type, hash }: Decoded = this._decode(address)
     let bitcoincash: BitcoinCash = coininfo.bitcoincash.main
     switch (prefix) {
@@ -91,7 +91,7 @@ export class Address {
     return Bitcoin.address.toBase58Check(hashBuf, version)
   }
 
-  toCashAddress(
+  public toCashAddress(
     address: string,
     prefix: boolean = true,
     regtest: boolean = false
@@ -113,13 +113,13 @@ export class Address {
   }
 
   // Converts legacy address format to hash160
-  legacyToHash160(address: string): string {
+  public legacyToHash160(address: string): string {
     const bytes: Bytes = Bitcoin.address.fromBase58Check(address)
     return bytes.hash.toString("hex")
   }
 
   // Converts cash address format to hash160
-  cashToHash160(address: string): string {
+  public cashToHash160(address: string): string {
     const legacyAddress: string = this.toLegacyAddress(address)
     const bytes: Bytes = Bitcoin.address.fromBase58Check(legacyAddress)
     return bytes.hash.toString("hex")
@@ -133,7 +133,7 @@ export class Address {
   // }
 
   // Converts hash160 to Legacy Address
-  hash160ToLegacy(
+  public hash160ToLegacy(
     hash160: string,
     network: number = Bitcoin.networks.bitcoin.pubKeyHash
   ): string {
@@ -142,7 +142,7 @@ export class Address {
   }
 
   // Converts hash160 to Cash Address
-  hash160ToCash(
+  public hash160ToCash(
     hash160: string,
     network: number = Bitcoin.networks.bitcoin.pubKeyHash,
     regtest: boolean = false
@@ -151,7 +151,248 @@ export class Address {
     return this.toCashAddress(legacyAddress, true, regtest)
   }
 
-  _decode(address: string): Decoded {
+  public isLegacyAddress(address: string): boolean {
+    return this.detectAddressFormat(address) === "legacy"
+  }
+
+  public isCashAddress(address: string): boolean {
+    return this.detectAddressFormat(address) === "cashaddr"
+  }
+
+  public isHash160(address: string): boolean {
+    return this._detectHash160Format(address) === "hash160"
+  }
+
+  // Test for address network.
+  public isMainnetAddress(address: string): boolean {
+    if (address[0] === "x") return true
+    else if (address[0] === "t") return false
+
+    return this.detectAddressNetwork(address) === "mainnet"
+  }
+
+  public isTestnetAddress(address: string): boolean {
+    if (address[0] === "x") return false
+    else if (address[0] === "t") return true
+
+    return this.detectAddressNetwork(address) === "testnet"
+  }
+
+  public isRegTestAddress(address: string): boolean {
+    return this.detectAddressNetwork(address) === "regtest"
+  }
+
+  // Test for address type.
+  public isP2PKHAddress(address: string): boolean {
+    return this.detectAddressType(address) === "p2pkh"
+  }
+
+  public isP2SHAddress(address: string): boolean {
+    return this.detectAddressType(address) === "p2sh"
+  }
+
+  public detectAddressFormat(address: string): string {
+    const decoded: Decoded = this._decode(address)
+    return decoded.format
+  }
+
+  public detectAddressNetwork(address: string): string {
+    if (address[0] === "x") return "mainnet"
+    else if (address[0] === "t") return "testnet"
+
+    const decoded: Decoded = this._decode(address)
+    let prefix: string = ""
+
+    switch (decoded.prefix) {
+      case "bitcoincash":
+        prefix = "mainnet"
+        break
+      case "bchtest":
+        prefix = "testnet"
+        break
+      case "bchreg":
+        prefix = "regtest"
+        break
+    }
+
+    return prefix
+  }
+
+  public detectAddressType(address: string): string {
+    const decoded: Decoded = this._decode(address)
+    return decoded.type.toLowerCase()
+  }
+
+  public fromXPub(xpub: string, path: string = "0/0"): string {
+    let bitcoincash: BitcoinCash
+    if (xpub[0] === "x") bitcoincash = coininfo.bitcoincash.main
+    else bitcoincash = coininfo.bitcoincash.test
+
+    const bitcoincashBitcoinJSLib: any = bitcoincash.toBitcoinJS()
+    const HDNode: bcl.HDNode = Bitcoin.HDNode.fromBase58(xpub, bitcoincashBitcoinJSLib)
+    const address: bcl.HDNode = HDNode.derivePath(path)
+    return this.toCashAddress(address.getAddress())
+  }
+
+  public fromXPriv(xpriv: string, path: string = "0'/0"): string {
+    let bitcoincash: BitcoinCash
+    if (xpriv[0] === "x") bitcoincash = coininfo.bitcoincash.main
+    else bitcoincash = coininfo.bitcoincash.test
+
+    const bitcoincashBitcoinJSLib: any = bitcoincash.toBitcoinJS()
+    const HDNode: bcl.HDNode = Bitcoin.HDNode.fromBase58(
+      xpriv,
+      bitcoincashBitcoinJSLib
+    )
+    const address: bcl.HDNode = HDNode.derivePath(path)
+    return this.toCashAddress(address.getAddress())
+  }
+
+  public fromOutputScript(scriptPubKey: Buffer, network: string = "mainnet"): string {
+    let netParam: any
+    if (network !== "bitcoincash" && network !== "mainnet")
+      netParam = Bitcoin.networks.testnet
+
+    const regtest: boolean = network === "bchreg"
+
+    return this.toCashAddress(
+      Bitcoin.address.fromOutputScript(scriptPubKey, netParam),
+      true,
+      regtest
+    )
+  }
+
+  public async details(
+    address: string | string[]
+  ): Promise<AddressDetailsResult | AddressDetailsResult[]> {
+    try {
+      // Handle single address.
+      if (typeof address === "string") {
+        const response: AxiosResponse = await axios.get(
+          `${this.restURL}address/details/${address}`
+        )
+
+        return <AddressDetailsResult>response.data
+
+        // Handle array of addresses.
+      } else if (Array.isArray(address)) {
+        const options: any = {
+          method: "POST",
+          url: `${this.restURL}address/details`,
+          data: {
+            addresses: address
+          }
+        }
+        const response: AxiosResponse = await axios(options)
+
+        return <AddressDetailsResult>response.data
+      }
+
+      throw new Error(`Input address must be a string or array of strings.`)
+    } catch (error) {
+      if (error.response && error.response.data) throw error.response.data
+      else throw error
+    }
+  }
+
+  public async utxo(
+    address: string | string[]
+  ): Promise<AddressUtxoResult | AddressUtxoResult[]> {
+    try {
+      // Handle single address.
+      if (typeof address === "string") {
+        const response: AxiosResponse = await axios.get(
+          `${this.restURL}address/utxo/${address}`
+        )
+        return response.data
+      } else if (Array.isArray(address)) {
+        const options: any = {
+          method: "POST",
+          url: `${this.restURL}address/utxo`,
+          data: {
+            addresses: address
+          }
+        }
+        const response: AxiosResponse = await axios(options)
+
+        return response.data
+      }
+
+      throw new Error(`Input address must be a string or array of strings.`)
+    } catch (error) {
+      if (error.response && error.response.data) throw error.response.data
+      else throw error
+    }
+  }
+
+  public async unconfirmed(
+    address: string | string[]
+  ): Promise<AddressUnconfirmedResult | AddressUnconfirmedResult[]> {
+    try {
+      // Handle single address.
+      if (typeof address === "string") {
+        const response: AxiosResponse = await axios.get(
+          `${this.restURL}address/unconfirmed/${address}`
+        )
+        return response.data
+
+        // Handle an array of addresses
+      } else if (Array.isArray(address)) {
+        const options: any = {
+          method: "POST",
+          url: `${this.restURL}address/unconfirmed`,
+          data: {
+            addresses: address
+          }
+        }
+        const response: AxiosResponse = await axios(options)
+
+        return response.data
+      }
+
+      throw new Error(`Input address must be a string or array of strings.`)
+    } catch (error) {
+      if (error.response && error.response.data) throw error.response.data
+      else throw error
+    }
+  }
+
+  public async transactions(address: string | string[]): Promise<any> {
+    try {
+      // Handle single address.
+      if (typeof address === "string") {
+        const response: AxiosResponse = await axios.get(
+          `${this.restURL}address/transactions/${address}`
+        )
+        return response.data
+
+        // Handle an array of addresses
+      } else if (Array.isArray(address)) {
+        const options: any = {
+          method: "POST",
+          url: `${this.restURL}address/transactions`,
+          data: {
+            addresses: address
+          }
+        }
+        const response: AxiosResponse = await axios(options)
+
+        return response.data
+      }
+
+      throw new Error(`Input address must be a string or array of strings.`)
+    } catch (error) {
+      if (error.response && error.response.data) throw error.response.data
+      else throw error
+    }
+  }
+
+  private _detectHash160Format(address: string): string {
+    const decoded: DecodedHash160 = this._decodeHash160(address)
+    return decoded.format
+  }
+
+  private _decode(address: string): Decoded {
     try {
       return this._decodeLegacyAddress(address)
     } catch (error) { }
@@ -163,7 +404,7 @@ export class Address {
     throw new Error(`Unsupported address format : ${address}`)
   }
 
-  _decodeHash160(address: string): DecodedHash160 {
+  private _decodeHash160(address: string): DecodedHash160 {
     try {
       return this._decodeAddressFromHash160(address)
     } catch (error) { }
@@ -171,7 +412,7 @@ export class Address {
     throw new Error(`Unsupported address format : ${address}`)
   }
 
-  _decodeLegacyAddress(address: string): Decoded {
+  private _decodeLegacyAddress(address: string): Decoded {
     const { version, hash }: Bytes = Bitcoin.address.fromBase58Check(address)
     const info: {
       main: any
@@ -221,7 +462,7 @@ export class Address {
     return decoded
   }
 
-  _decodeCashAddress(address: string): Decoded {
+  private _decodeCashAddress(address: string): Decoded {
     if (address.indexOf(":") !== -1) {
       const decoded: Decoded = cashaddr.decode(address)
       decoded.format = "cashaddr"
@@ -240,7 +481,7 @@ export class Address {
     throw new Error(`Invalid format : ${address}`)
   }
 
-  _decodeAddressFromHash160(address: string): DecodedHash160 {
+  private _decodeAddressFromHash160(address: string): DecodedHash160 {
     let decodedHash160: DecodedHash160 = {
       legacyAddress: "",
       cashAddress: "",
@@ -260,249 +501,5 @@ export class Address {
       }
     }
     return decodedHash160
-  }
-
-  isLegacyAddress(address: string): boolean {
-    return this.detectAddressFormat(address) === "legacy"
-  }
-
-  isCashAddress(address: string): boolean {
-    return this.detectAddressFormat(address) === "cashaddr"
-  }
-
-  isHash160(address: string): boolean {
-    return this._detectHash160Format(address) === "hash160"
-  }
-
-  // Test for address network.
-  isMainnetAddress(address: string): boolean {
-    if (address[0] === "x") return true
-    else if (address[0] === "t") return false
-
-    return this.detectAddressNetwork(address) === "mainnet"
-  }
-
-  isTestnetAddress(address: string): boolean {
-    if (address[0] === "x") return false
-    else if (address[0] === "t") return true
-
-    return this.detectAddressNetwork(address) === "testnet"
-  }
-
-  isRegTestAddress(address: string): boolean {
-    return this.detectAddressNetwork(address) === "regtest"
-  }
-
-  // Test for address type.
-  isP2PKHAddress(address: string): boolean {
-    return this.detectAddressType(address) === "p2pkh"
-  }
-
-  isP2SHAddress(address: string): boolean {
-    return this.detectAddressType(address) === "p2sh"
-  }
-
-  // Detect address format.
-  detectAddressFormat(address: string): string {
-    const decoded: Decoded = this._decode(address)
-    return decoded.format
-  }
-
-  // Detect address format.
-  _detectHash160Format(address: string): string {
-    const decoded: DecodedHash160 = this._decodeHash160(address)
-    return decoded.format
-  }
-
-  // Detect address network.
-  detectAddressNetwork(address: string): string {
-    if (address[0] === "x") return "mainnet"
-    else if (address[0] === "t") return "testnet"
-
-    const decoded: Decoded = this._decode(address)
-    let prefix: string = ""
-
-    switch (decoded.prefix) {
-      case "bitcoincash":
-        prefix = "mainnet"
-        break
-      case "bchtest":
-        prefix = "testnet"
-        break
-      case "bchreg":
-        prefix = "regtest"
-        break
-    }
-
-    return prefix
-  }
-  // Detect address type.
-  detectAddressType(address: string): string {
-    const decoded: Decoded = this._decode(address)
-    return decoded.type.toLowerCase()
-  }
-
-  fromXPub(xpub: string, path: string = "0/0"): string {
-    let bitcoincash: BitcoinCash
-    if (xpub[0] === "x") bitcoincash = coininfo.bitcoincash.main
-    else bitcoincash = coininfo.bitcoincash.test
-
-    const bitcoincashBitcoinJSLib: any = bitcoincash.toBitcoinJS()
-    const HDNode: bcl.HDNode = Bitcoin.HDNode.fromBase58(xpub, bitcoincashBitcoinJSLib)
-    const address: bcl.HDNode = HDNode.derivePath(path)
-    return this.toCashAddress(address.getAddress())
-  }
-
-  fromXPriv(xpriv: string, path: string = "0'/0"): string {
-    let bitcoincash: BitcoinCash
-    if (xpriv[0] === "x") bitcoincash = coininfo.bitcoincash.main
-    else bitcoincash = coininfo.bitcoincash.test
-
-    const bitcoincashBitcoinJSLib: any = bitcoincash.toBitcoinJS()
-    const HDNode: bcl.HDNode = Bitcoin.HDNode.fromBase58(
-      xpriv,
-      bitcoincashBitcoinJSLib
-    )
-    const address: bcl.HDNode = HDNode.derivePath(path)
-    return this.toCashAddress(address.getAddress())
-  }
-
-  fromOutputScript(scriptPubKey: Buffer, network: string = "mainnet"): string {
-    let netParam: any
-    if (network !== "bitcoincash" && network !== "mainnet")
-      netParam = Bitcoin.networks.testnet
-
-    const regtest: boolean = network === "bchreg"
-
-    return this.toCashAddress(
-      Bitcoin.address.fromOutputScript(scriptPubKey, netParam),
-      true,
-      regtest
-    )
-  }
-
-  async details(
-    address: string | string[]
-  ): Promise<AddressDetailsResult | AddressDetailsResult[]> {
-    try {
-      // Handle single address.
-      if (typeof address === "string") {
-        const response: any = await axios.get(
-          `${this.restURL}address/details/${address}`
-        )
-
-        return <AddressDetailsResult>response.data
-
-        // Handle array of addresses.
-      } else if (Array.isArray(address)) {
-        const options: any = {
-          method: "POST",
-          url: `${this.restURL}address/details`,
-          data: {
-            addresses: address
-          }
-        }
-        const response: any = await axios(options)
-
-        return <AddressDetailsResult>response.data
-      }
-
-      throw new Error(`Input address must be a string or array of strings.`)
-    } catch (error) {
-      if (error.response && error.response.data) throw error.response.data
-      else throw error
-    }
-  }
-
-  async utxo(
-    address: string | string[]
-  ): Promise<AddressUtxoResult | AddressUtxoResult[]> {
-    try {
-      // Handle single address.
-      if (typeof address === "string") {
-        const response: any = await axios.get(
-          `${this.restURL}address/utxo/${address}`
-        )
-        return response.data
-      } else if (Array.isArray(address)) {
-        const options: any = {
-          method: "POST",
-          url: `${this.restURL}address/utxo`,
-          data: {
-            addresses: address
-          }
-        }
-        const response: any = await axios(options)
-
-        return response.data
-      }
-
-      throw new Error(`Input address must be a string or array of strings.`)
-    } catch (error) {
-      if (error.response && error.response.data) throw error.response.data
-      else throw error
-    }
-  }
-
-  async unconfirmed(
-    address: string | string[]
-  ): Promise<AddressUnconfirmedResult | AddressUnconfirmedResult[]> {
-    try {
-      // Handle single address.
-      if (typeof address === "string") {
-        const response: any = await axios.get(
-          `${this.restURL}address/unconfirmed/${address}`
-        )
-        return response.data
-
-        // Handle an array of addresses
-      } else if (Array.isArray(address)) {
-        const options: any = {
-          method: "POST",
-          url: `${this.restURL}address/unconfirmed`,
-          data: {
-            addresses: address
-          }
-        }
-        const response: any = await axios(options)
-
-        return response.data
-      }
-
-      throw new Error(`Input address must be a string or array of strings.`)
-    } catch (error) {
-      if (error.response && error.response.data) throw error.response.data
-      else throw error
-    }
-  }
-
-  async transactions(address: string | string[]): Promise<any> {
-    try {
-      // Handle single address.
-      if (typeof address === "string") {
-        const response: any = await axios.get(
-          `${this.restURL}address/transactions/${address}`
-        )
-        return response.data
-
-        // Handle an array of addresses
-      } else if (Array.isArray(address)) {
-        const options: any = {
-          method: "POST",
-          url: `${this.restURL}address/transactions`,
-          data: {
-            addresses: address
-          }
-        }
-        const response: any = await axios(options)
-
-        return response.data
-      }
-
-      throw new Error(`Input address must be a string or array of strings.`)
-    } catch (error) {
-      if (error.response && error.response.data) throw error.response.data
-      else throw error
-    }
   }
 }

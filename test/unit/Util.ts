@@ -1,59 +1,59 @@
+// imports
 import * as chai from "chai"
-const assert = chai.assert
+import { BITBOX } from "../../lib/BITBOX"
+import { Util } from "../../lib/Util"
+import { resturl } from "../../lib/BITBOX"
+import * as util from "util"
+import { AddressValidateResult } from "bitcoin-com-rest";
 
-// TODO: port from require to import syntax
-const BITBOX = require("../../lib/BITBOX").BITBOX
-const bitbox = new BITBOX()
-const Util = require("../../lib/Util").Util
-const resturl = require("../../lib/BITBOX").resturl
+// conts
+const bitbox: BITBOX = new BITBOX()
+const assert: Chai.AssertStatic = chai.assert
 
-// Inspect utility used for debugging.
-const util = require("util")
 util.inspect.defaultOptions = {
   showHidden: true,
   colors: true,
   depth: 3
 }
 
-describe("#Util", () => {
-  describe("#UtilConstructor", () => {
-    it("should create instance of Util", () => {
-      const util = new Util()
+describe("#Util", (): void => {
+  describe("#UtilConstructor", (): void => {
+    it("should create instance of Util", (): void => {
+      const util: Util = new Util()
       assert.equal(util instanceof Util, true)
     })
 
-    it("should have a restURL property", () => {
-      const util = new Util()
+    it("should have a restURL property", (): void => {
+      const util: Util = new Util()
       assert.equal(util.restURL, resturl)
     })
   })
 
-  describe(`#validateAddress`, () => {
+  describe(`#validateAddress`, (): void => {
     it(`should return false for testnet addr on mainnet`, async () => {
-      const address = `bchtest:qqqk4y6lsl5da64sg5qc3xezmplyu5kmpyz2ysaa5y`
+      const address: string = `bchtest:qqqk4y6lsl5da64sg5qc3xezmplyu5kmpyz2ysaa5y`
 
-      const result = await bitbox.Util.validateAddress(address)
-      //console.log(`result: ${JSON.stringify(result, null, 2)}`)
+      const result: AddressValidateResult | AddressValidateResult[] = await bitbox.Util.validateAddress(address)
 
       assert.hasAllKeys(result, ["isvalid"])
-      assert.equal(result.isvalid, false)
+      if (!Array.isArray(result)) {
+        assert.equal(result.isvalid, false)
+      }
     })
 
     it(`should return false for bad address`, async () => {
-      const address = `bitcoincash:qp4k8fjtgunhdr7yq30ha4peu`
-
-      const result = await bitbox.Util.validateAddress(address)
-      //console.log(`result: ${JSON.stringify(result, null, 2)}`)
+      const address: string = `bitcoincash:qp4k8fjtgunhdr7yq30ha4peu`
+      const result: AddressValidateResult | AddressValidateResult[] = await bitbox.Util.validateAddress(address)
 
       assert.hasAllKeys(result, ["isvalid"])
-      assert.equal(result.isvalid, false)
+      if (!Array.isArray(result)) {
+        assert.equal(result.isvalid, false)
+      }
     })
 
-    it(`should return validate valid address`, async () => {
-      const address = `bitcoincash:qp4k8fjtgunhdr7yq30ha4peuwupzan2vcnwrmpy0z`
-
-      const result = await bitbox.Util.validateAddress(address)
-      //console.log(`result: ${JSON.stringify(result, null, 2)}`)
+    it(`should validate valid address`, async () => {
+      const address: string = `bitcoincash:qp4k8fjtgunhdr7yq30ha4peuwupzan2vcnwrmpy0z`
+      const result: AddressValidateResult | AddressValidateResult[] = await bitbox.Util.validateAddress(address)
 
       assert.hasAllKeys(result, [
         "isvalid",
@@ -63,37 +63,39 @@ describe("#Util", () => {
         "iswatchonly",
         "isscript"
       ])
-      assert.equal(result.isvalid, true)
+      if (!Array.isArray(result)) {
+        assert.equal(result.isvalid, true)
+      }
     })
 
     it(`should validate an array of addresses`, async () => {
-      const address = [
+      const address: string[] = [
         `bitcoincash:qp4k8fjtgunhdr7yq30ha4peuwupzan2vcnwrmpy0z`,
         `bitcoincash:qp4k8fjtgunhdr7yq30ha4peuwupzan2vcnwrmpy0z`
       ]
 
-      const result = await bitbox.Util.validateAddress(address)
-      //console.log(`result: ${JSON.stringify(result, null, 2)}`)
+      const result: AddressValidateResult | AddressValidateResult[] = await bitbox.Util.validateAddress(address)
 
       assert.isArray(result)
-      assert.hasAllKeys(result[0], [
-        "isvalid",
-        "address",
-        "scriptPubKey",
-        "ismine",
-        "iswatchonly",
-        "isscript"
-      ])
+      if (Array.isArray(result)) {
+        assert.hasAllKeys(result[0], [
+          "isvalid",
+          "address",
+          "scriptPubKey",
+          "ismine",
+          "iswatchonly",
+          "isscript"
+        ])
+      }
     })
 
     it(`should throw an error for improper single input`, async () => {
       try {
-        const address = 15432
+        const address: any = 15432
 
         await bitbox.Util.validateAddress(address)
         assert.equal(true, false, "Unexpected result!")
       } catch (err) {
-        //console.log(`err: `, err)
         assert.include(
           err.message,
           `Input must be a string or array of strings.`
@@ -103,13 +105,11 @@ describe("#Util", () => {
 
     it(`should throw error on array size rate limit`, async () => {
       try {
-        const dataMock = `bitcoincash:qp4k8fjtgunhdr7yq30ha4peuwupzan2vcnwrmpy0z`
-        const data = []
-        for (let i = 0; i < 25; i++) data.push(dataMock)
+        const dataMock: string = `bitcoincash:qp4k8fjtgunhdr7yq30ha4peuwupzan2vcnwrmpy0z`
+        const data: string[] = []
+        for (let i: number = 0; i < 25; i++) data.push(dataMock)
 
-        const result = await bitbox.Util.validateAddress(data)
-
-        console.log(`result: ${util.inspect(result)}`)
+        const result: AddressValidateResult | AddressValidateResult[] = await bitbox.Util.validateAddress(data)
         assert.equal(true, false, "Unexpected result!")
       } catch (err) {
         assert.hasAnyKeys(err, ["error"])

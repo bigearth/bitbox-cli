@@ -27,7 +27,7 @@ declare module "bitcoincashjs-lib" {
 }
 
 declare module "bitcoin-com-rest" {
-    export interface BlockDetails {
+    export interface BlockDetailsResult {
         hash: string
         size: number
         height: number
@@ -48,15 +48,15 @@ declare module "bitcoin-com-rest" {
         poolInfo: object
     }
 
-    export interface MempoolInfo {
+    export interface MempoolInfoResult {
         size: number
         bytes: number
         usage: number
         maxmempool: number
         mempoolminfee: number
-      }
-      
-    export interface BlockchainInfo {
+    }
+
+    export interface BlockchainInfoResult {
         chain: string
         blocks: number
         headers: number
@@ -69,8 +69,8 @@ declare module "bitcoin-com-rest" {
         softforks: object[]
         bip9_softforks: object
     }
-    
-    export interface BlockHeader {
+
+    export interface BlockHeaderResult {
         hash: string
         confirmations: number
         height: number
@@ -86,15 +86,15 @@ declare module "bitcoin-com-rest" {
         previousblockhash: string
         nextblockhash: string
     }
-    
-    export interface ChainTip {
+
+    export interface ChainTipResult {
         height: number
         hash: string
         branchlen: number
         status: string
     }
-    
-    export interface TxOut {
+
+    export interface TxOutResult {
         bestblock: string
         confirmations: number
         value: number
@@ -109,25 +109,25 @@ declare module "bitcoin-com-rest" {
         coinbase: boolean
     }
 
-    export interface MempoolEntryResult {                          
-        size : number,          
-        fee : number, 
-        modifiedfee : number,
-        time : number,         
-        height : number,          
-        startingpriority : number,
-        currentpriority : number,
-        descendantcount : number,
-        descendantsize : number,
-        descendantfees : number, 
-        ancestorcount : number, 
-        ancestorsize : number,
-        ancestorfees : number,
-        depends : string[],
-        spentby : string[]
+    export interface MempoolEntryResult {
+        size: number,
+        fee: number,
+        modifiedfee: number,
+        time: number,
+        height: number,
+        startingpriority: number,
+        currentpriority: number,
+        descendantcount: number,
+        descendantsize: number,
+        descendantfees: number,
+        ancestorcount: number,
+        ancestorsize: number,
+        ancestorfees: number,
+        depends: string[],
+        spentby: string[]
     }
 
-    export interface NodeInfo {
+    export interface NodeInfoResult {
         version: number
         protocolversion: number
         blocks: number
@@ -140,8 +140,8 @@ declare module "bitcoin-com-rest" {
         relayfee: number
         errors: string
     }
-    
-    export interface NodeMemoryInfo {
+
+    export interface NodeMemoryInfoResult {
         locked: {
             used: number
             free: number
@@ -152,7 +152,45 @@ declare module "bitcoin-com-rest" {
         }
     }
 
-    export interface VerboseRawTransaction {
+    export interface DecodeRawTransactionResult {
+        txid: string
+        hash: string
+        size: number
+        version: number
+        locktime: number
+        vin: [
+            {
+                txid: string
+                vout: number
+                scriptSig: {
+                    asm: string
+                    hex: string
+                },
+                sequence: number
+            }
+        ],
+        vout: [
+            {
+                value: number
+                n: number
+                scriptPubKey: {
+                    asm: string
+                    hex: string
+                    reqSigs: number
+                    type: string
+                    addresses: string[]
+                }
+            }
+        ]
+    }
+
+    export interface DecodeScriptResult {
+        asm: string
+        type: string
+        p2sh: string
+    }
+
+    export interface VerboseRawTransactionResult {
         hex: string
         txid: string
         size: number
@@ -160,17 +198,17 @@ declare module "bitcoin-com-rest" {
         locktime: number
         vin: [{ coinbase: string; sequence: number }]
         vout: [
-          {
-            value: number
-            n: number
-            scriptPubKey: {
-              asm: string
-              hex: string
-              reqSigs: number
-              type: string
-              addresses: string[]
+            {
+                value: number
+                n: number
+                scriptPubKey: {
+                    asm: string
+                    hex: string
+                    reqSigs: number
+                    type: string
+                    addresses: string[]
+                }
             }
-          }
         ]
         blockhash: string
         confirmations: number
@@ -178,7 +216,7 @@ declare module "bitcoin-com-rest" {
         blocktime: number
     }
 
-    export interface TxnDetails {
+    export interface TxnDetailsResult {
         txid: string
         version: number
         locktime: number
@@ -193,7 +231,7 @@ declare module "bitcoin-com-rest" {
         valueOut: number
         size: number
     }
-  
+
     export interface AddressDetailsResult {
         balance: number
         balanceSat: number
@@ -208,36 +246,54 @@ declare module "bitcoin-com-rest" {
         transactions: string[]
         legacyAddress: string
         cashAddress: string
-      }
-      
+    }
+
     export interface AddressUtxoResult {
         legacyAddress: string
         cashAddress: string
         scriptPubKey: string
         utxos: [
             {
-            txid: string
-            vout: number
-            amount: number
-            satoshis: number
-            height: number
-            confirmations: number
+                txid: string
+                vout: number
+                amount: number
+                satoshis: number
+                height: number
+                confirmations: number
             }
         ]
     }
-    
+
     export interface AddressUnconfirmedResult {
-        txid: string
-        vout: number
-        scriptPubKey: string
-        amount: number
-        satoshis: number
-        confirmations: number
-        ts: number
         legacyAddress: string
         cashAddress: string
+        scriptPubKey: string
+        utxos: [
+            {
+                txid: string
+                vout: number
+                scriptPubKey: string
+                amount: number
+                satoshis: number
+                confirmations: number
+                ts: number
+                legacyAddress: string
+                cashAddress: string
+            }
+        ]
     }
 
+    export interface AddressValidateResult {
+        isvalid: boolean
+        address: string
+        scriptPubKey: string
+        ismine: boolean
+        iswatchonly: boolean
+        isscript: boolean
+        pubkey: string
+        iscompressed: boolean
+        account: string
+    }
 }
 
 // declare module "clear" {

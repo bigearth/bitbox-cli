@@ -47,7 +47,7 @@ interface NewOptions extends ConsoleOptions {
   restURL: string
 }
 
-program.version("7.2.0 ", "-v, --version")
+program.version("7.2.1 ", "-v, --version")
 
 program
   .command("new <name>")

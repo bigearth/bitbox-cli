@@ -1,13 +1,13 @@
 {
   "name": "bitbox-sdk",
-  "version": "7.2.0",
+  "version": "7.2.1",
   "description": "BITBOX SDK for Bitcoin Cash",
   "author": "Gabriel Cardona <gabriel@bitcoin.com>",
   "contributors": [
     "Chris Troutner <chris.troutner@gmail.com>"
   ],
   "scripts": {
-    "test": "tsc && nyc mocha test/unit --timeout 30000",
+    "test": "tsc && nyc mocha test/unit --timeout 60000 --exit",
     "test:integration": "TEST=integration nyc --reporter=text mocha --require babel-core/register --timeout 30000 test/integration",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "build": "tsc"

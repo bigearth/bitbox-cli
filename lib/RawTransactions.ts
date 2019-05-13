@@ -1,18 +1,18 @@
-import axios from "axios"
-import { VerboseRawTransaction } from "bitcoin-com-rest";
+import axios, { AxiosResponse } from "axios"
+import { VerboseRawTransactionResult } from "bitcoin-com-rest";
 import { resturl } from "./BITBOX"
 
 export class RawTransactions {
-  restURL: string
+  public restURL: string
   constructor(restURL: string = resturl) {
     this.restURL = restURL
   }
 
-  async decodeRawTransaction(hex: string | string[]): Promise<any | any[]> {
+  public async decodeRawTransaction(hex: string | string[]): Promise<any | any[]> {
     try {
       // Single hex
       if (typeof hex === "string") {
-        const response: any = await axios.get(
+        const response: AxiosResponse = await axios.get(
           `${this.restURL}rawtransactions/decodeRawTransaction/${hex}`
         )
 
@@ -27,7 +27,7 @@ export class RawTransactions {
             hexes: hex
           }
         }
-        const response = await axios(options)
+        const response: AxiosResponse = await axios(options)
 
         return response.data
       }
@@ -39,12 +39,12 @@ export class RawTransactions {
     }
   }
 
-  async decodeScript(script: string | string[]): Promise<any | any[]> {
+  public async decodeScript(script: string | string[]): Promise<any | any[]> {
     //if (typeof script !== "string") script = JSON.stringify(script)
 
     try {
       if (typeof script === "string") {
-        const response: any = await axios.get(
+        const response: AxiosResponse = await axios.get(
           `${this.restURL}rawtransactions/decodeScript/${script}`
         )
 
@@ -57,7 +57,7 @@ export class RawTransactions {
             hexes: script
           }
         }
-        const response = await axios(options)
+        const response: AxiosResponse = await axios(options)
 
         return response.data
       }
@@ -69,15 +69,15 @@ export class RawTransactions {
     }
   }
 
-  async getRawTransaction(
+  public async getRawTransaction(
     txid: string | string[],
     verbose: boolean = false
-  ): Promise<string | string[] | VerboseRawTransaction | VerboseRawTransaction[]> {
+  ): Promise<VerboseRawTransactionResult | VerboseRawTransactionResult[]> {
     try {
       if (typeof txid === "string") {
-        const response: any = await axios.get(
+        const response: AxiosResponse = await axios.get(
           `${
-            this.restURL
+          this.restURL
           }rawtransactions/getRawTransaction/${txid}?verbose=${verbose}`
         )
 
@@ -91,7 +91,7 @@ export class RawTransactions {
             verbose: verbose
           }
         }
-        const response = await axios(options)
+        const response: AxiosResponse = await axios(options)
 
         return response.data
       }
@@ -103,14 +103,14 @@ export class RawTransactions {
     }
   }
 
-  async sendRawTransaction(
+  public async sendRawTransaction(
     hex: string | string[],
     allowhighfees: boolean = false
   ): Promise<any | any[]> {
     try {
       // Single tx hex.
       if (typeof hex === "string") {
-        const response: any = await axios.get(
+        const response: AxiosResponse = await axios.get(
           `${this.restURL}rawtransactions/sendRawTransaction/${hex}`
         )
 
@@ -133,7 +133,7 @@ export class RawTransactions {
             hexes: hex
           }
         }
-        const response = await axios(options)
+        const response: AxiosResponse = await axios(options)
 
         return response.data
       }

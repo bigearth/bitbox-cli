@@ -1,27 +1,28 @@
+// imports
 import * as assert from "assert";
 import axios from "axios";
 import * as sinon from "sinon";
+import { BITBOX } from "../../lib/BITBOX"
+import { Generating } from "../../lib/Generating"
+import { resturl } from "../../lib/BITBOX"
 
-// TODO: port from require to import syntax
-const BITBOX = require("../../lib/BITBOX").BITBOX
-const bitbox = new BITBOX()
-const Generating = require("../../lib/Generating").Generating
-const resturl = require("../../lib/BITBOX").resturl
+// consts
+const bitbox: BITBOX = new BITBOX()
 
-describe("#Generating", () => {
-  describe("#GeneratingConstructor", () => {
-    it("should create instance of Generating", () => {
-      const generating = new Generating()
+describe("#Generating", (): void => {
+  describe("#GeneratingConstructor", (): void => {
+    it("should create instance of Generating", (): void => {
+      const generating: Generating = new Generating()
       assert.equal(generating instanceof Generating, true)
     })
 
-    it("should have a restURL property", () => {
-      const generating = new Generating()
+    it("should have a restURL property", (): void => {
+      const generating: Generating = new Generating()
       assert.equal(generating.restURL, resturl)
     })
   })
 
-  describe("#generateToAddress", () => {
+  describe("#generateToAddress", (): void => {
     let sandbox: any
     beforeEach(() => (sandbox = sinon.sandbox.create()))
     afterEach(() => sandbox.restore())

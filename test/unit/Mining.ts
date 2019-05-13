@@ -1,27 +1,28 @@
+// imports
 import * as assert from "assert";
 import axios from "axios";
 import * as sinon from "sinon";
+import { BITBOX } from "../../lib/BITBOX"
+import { Mining } from "../../lib/Mining"
+import { resturl } from "../../lib/BITBOX"
 
-// TODO: port from require to import syntax
-const BITBOX = require("../../lib/BITBOX").BITBOX
-const bitbox = new BITBOX()
-const Mining = require("../../lib/Mining").Mining
-const resturl = require("../../lib/BITBOX").resturl
+// consts
+const bitbox: BITBOX = new BITBOX()
 
-describe("#Mining", () => {
-  describe("#MiningConstructor", () => {
-    it("should create instance of Mining", () => {
-      const mining = new Mining()
+describe("#Mining", (): void => {
+  describe("#MiningConstructor", (): void => {
+    it("should create instance of Mining", (): void => {
+      const mining: Mining = new Mining()
       assert.equal(mining instanceof Mining, true)
     })
 
-    it("should have a restURL property", () => {
-      const mining = new Mining()
+    it("should have a restURL property", (): void => {
+      const mining: Mining = new Mining()
       assert.equal(mining.restURL, resturl)
     })
   })
 
-  describe("#getBlockTemplate", () => {
+  describe("#getBlockTemplate", (): void => {
     let sandbox: any
     beforeEach(() => (sandbox = sinon.sandbox.create()))
     afterEach(() => sandbox.restore())
@@ -50,7 +51,7 @@ describe("#Mining", () => {
     })
   })
 
-  describe("#getMiningInfo", () => {
+  describe("#getMiningInfo", (): void => {
     let sandbox: any
     beforeEach(() => (sandbox = sinon.sandbox.create()))
     afterEach(() => sandbox.restore())
@@ -79,13 +80,13 @@ describe("#Mining", () => {
     })
   })
 
-  describe("#getNetworkHashps", () => {
+  describe("#getNetworkHashps", (): void => {
     let sandbox: any
     beforeEach(() => (sandbox = sinon.sandbox.create()))
     afterEach(() => sandbox.restore())
 
     it("should get network hashps", done => {
-      const data = 3586365937646890000
+      const data: number = 3586365937646890000
 
       const resolved = new Promise(r => r({ data: data }))
       sandbox.stub(axios, "get").returns(resolved)
@@ -98,18 +99,19 @@ describe("#Mining", () => {
     })
   })
 
-  describe("#submitBlock", () => {
+  describe("#submitBlock", (): void => {
     // TODO finish
     let sandbox: any
     beforeEach(() => (sandbox = sinon.sandbox.create()))
     afterEach(() => sandbox.restore())
 
     it("should TODO", done => {
-      const data = {}
+      const data: any = {}
 
       const resolved = new Promise(r => r({ data: data }))
       sandbox.stub(axios, "post").returns(resolved)
 
+      // @ts-ignore
       bitbox.Mining.submitBlock()
         .then((result: any) => {
           assert.deepEqual(data, result)

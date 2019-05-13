@@ -1,5 +1,8 @@
-const schnorr = require("bip-schnorr")
+// imports
 import * as BigInteger from "bigi"
+
+// consts
+const schnorr = require("bip-schnorr")
 
 export interface Session {
   sessionId: Buffer;
@@ -10,15 +13,15 @@ export interface Session {
 }
 
 export class Schnorr {
-  sign(privateKey: BigInteger, message: Buffer): Buffer {
+  public sign(privateKey: BigInteger, message: Buffer): Buffer {
     return schnorr.sign(privateKey, message)
   }
 
-  verify(publicKey: Buffer, message: Buffer, signatureToVerify: Buffer): void {
+  public verify(publicKey: Buffer, message: Buffer, signatureToVerify: Buffer): void {
     return schnorr.verify(publicKey, message, signatureToVerify)
   }
 
-  batchVerify(
+  public batchVerify(
     publicKeys: Buffer[],
     messages: Buffer[],
     signaturesToVerify: Buffer[]
@@ -26,19 +29,19 @@ export class Schnorr {
     return schnorr.batchVerify(publicKeys, messages, signaturesToVerify)
   }
 
-  nonInteractive(privateKeys: BigInteger, message: Buffer): Buffer {
+  public nonInteractive(privateKeys: BigInteger, message: Buffer): Buffer {
     return schnorr.muSig.nonInteractive(privateKeys, message)
   }
 
-  computeEll(publicKeys: BigInteger): Buffer {
+  public computeEll(publicKeys: BigInteger): Buffer {
     return schnorr.muSig.computeEll(publicKeys)
   }
 
-  publicKeyCombine(publicKeys: Buffer[], publicKeyHash: Buffer): Buffer {
+  public publicKeyCombine(publicKeys: Buffer[], publicKeyHash: Buffer): Buffer {
     return schnorr.muSig.pubKeyCombine(publicKeys, publicKeyHash)
   }
 
-  sessionInitialize(
+  public sessionInitialize(
     sessionId: Buffer,
     privateKey: BigInteger,
     message: Buffer,
@@ -56,11 +59,11 @@ export class Schnorr {
     )
   }
 
-  sessionNonceCombine(session: Session, nonces: Buffer[]): Buffer {
+  public sessionNonceCombine(session: Session, nonces: Buffer[]): Buffer {
     return schnorr.muSig.sessionNonceCombine(session, nonces)
   }
 
-  partialSign(
+  public partialSign(
     session: Session,
     message: Buffer,
     nonceCombined: Buffer,
@@ -74,7 +77,7 @@ export class Schnorr {
     )
   }
 
-  partialSignatureVerify(
+  public partialSignatureVerify(
     session: Session,
     partialSignature: Buffer,
     nonceCombined: Buffer,
@@ -92,30 +95,30 @@ export class Schnorr {
     )
   }
 
-  partialSignaturesCombine(
+  public partialSignaturesCombine(
     nonceCombined: Buffer,
     partialSignatures: Buffer
   ): Buffer {
     return schnorr.muSig.partialSigCombine(nonceCombined, partialSignatures)
   }
 
-  bufferToInt(buffer: Buffer): BigInteger {
+  public bufferToInt(buffer: Buffer): BigInteger {
     return schnorr.convert.bufferToInt(buffer)
   }
 
-  intToBuffer(bigInteger: BigInteger): Buffer {
+  public intToBuffer(bigInteger: BigInteger): Buffer {
     return schnorr.convert.intToBuffer(bigInteger)
   }
 
-  hash(buffer: Buffer): Buffer {
+  public hash(buffer: Buffer): Buffer {
     return schnorr.convert.hash(buffer)
   }
 
-  pointToBuffer(point: any): any {
+  public pointToBuffer(point: any): any {
     return schnorr.convert.pointToBuffer(point)
   }
 
-  pubKeyToPoint(publicKey: any): any {
+  public pubKeyToPoint(publicKey: any): any {
     return schnorr.convert.pubKeyToPoint(publicKey)
   }
 }

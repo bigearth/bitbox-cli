@@ -1,21 +1,21 @@
-import axios from "axios"
+import axios, { AxiosResponse } from "axios"
 import { resturl } from "./BITBOX"
 
 export class Generating {
-  restURL: string
+  public restURL: string
   constructor(restURL: string = resturl) {
     this.restURL = restURL
   }
 
-  async generateToAddress(
+  public async generateToAddress(
     blocks: number,
     address: string,
     maxtries: number = 1000000
   ): Promise<string[]> {
     try {
-      const response: any = await axios.post(
+      const response: AxiosResponse = await axios.post(
         `${
-          this.restURL
+        this.restURL
         }generating/generateToAddress/${blocks}/${address}?maxtries=${maxtries}`
       )
       return response.data

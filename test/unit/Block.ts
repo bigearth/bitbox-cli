@@ -1,42 +1,43 @@
-const chai = require("chai")
-const assert = chai.assert
+// imports
+import * as chai from "chai"
 import axios from "axios";
 import * as sinon from "sinon";
+import { BITBOX } from "../../lib/BITBOX"
+import { Block } from "../../lib/Block"
+import { resturl } from "../../lib/BITBOX"
+import * as util from "util"
+import { BlockDetailsResult } from "bitcoin-com-rest";
 
-// TODO: port from require to import syntax
-const BITBOX = require("../../lib/BITBOX").BITBOX
-const bitbox = new BITBOX()
-const Block = require("../../lib/Block").Block
-const resturl = require("../../lib/BITBOX").resturl
+// consts
+const bitbox: BITBOX = new BITBOX()
+const assert: Chai.AssertStatic = chai.assert
 
-// Inspect utility used for debugging.
-const util = require("util")
 util.inspect.defaultOptions = {
   showHidden: true,
   colors: true,
   depth: 3
 }
 
-describe("#Block", () => {
-  describe("#BlockConstructor", () => {
-    it("should create instance of Block", () => {
-      const block = new Block()
+describe("#Block", (): void => {
+  describe("#BlockConstructor", (): void => {
+    it("should create instance of Block", (): void => {
+      const block: Block = new Block()
       assert.equal(block instanceof Block, true)
     })
   })
 
-  it("should have a restURL property", () => {
-    const block = new Block()
+  it("should have a restURL property", (): void => {
+    const block: Block = new Block()
     assert.equal(block.restURL, resturl)
   })
 
-  describe("#detailsByHash", () => {
+  describe("#detailsByHash", (): void => {
     let sandbox: any
     beforeEach(() => (sandbox = sinon.sandbox.create()))
     afterEach(() => sandbox.restore())
 
-    it("should get block details", async () => {
-      const data = {
+    it("should get block details", async (): Promise<any> => {
+      const data: any = {
         hash:
           "000000001c6aeec19265e9cc3ded8ba5ef5e63fae7747f30bf9c02c7bc8883f0",
         size: 216,
@@ -62,10 +63,10 @@ describe("#Block", () => {
         isMainChain: true,
         poolInfo: {}
       }
-      const resolved = new Promise(r => r({ data: data }))
+      const resolved: Promise<any> = new Promise(r => r({ data: data }))
       sandbox.stub(axios, "get").returns(resolved)
 
-      const result = await bitbox.Block.detailsByHash(
+      const result: BlockDetailsResult | BlockDetailsResult[] = await bitbox.Block.detailsByHash(
         "000000001c6aeec19265e9cc3ded8ba5ef5e63fae7747f30bf9c02c7bc8883f0"
       )
 
@@ -73,13 +74,13 @@ describe("#Block", () => {
     })
   })
 
-  describe("#detailsByHeight", () => {
+  describe("#detailsByHeight", (): void => {
     let sandbox: any
     beforeEach(() => (sandbox = sinon.sandbox.create()))
     afterEach(() => sandbox.restore())
 
-    it("should get block details", async () => {
-      const data = {
+    it("should get block details", async (): Promise<any> => {
+      const data: any = {
         hash:
           "000000001c6aeec19265e9cc3ded8ba5ef5e63fae7747f30bf9c02c7bc8883f0",
         size: 216,
@@ -105,21 +106,20 @@ describe("#Block", () => {
         isMainChain: true,
         poolInfo: {}
       }
-      const resolved = new Promise(r => r({ data: data }))
+      const resolved: Promise<any> = new Promise(r => r({ data: data }))
       sandbox.stub(axios, "get").returns(resolved)
 
-      const result = await bitbox.Block.detailsByHeight(500007)
+      const result: BlockDetailsResult | BlockDetailsResult[] = await bitbox.Block.detailsByHeight(500007)
 
       assert.deepEqual(result, data)
     })
   })
 
-  describe(`#detailsByHeight`, () => {
-    it(`should GET block details for a given Height`, async () => {
-      const block = 500000
+  describe(`#detailsByHeight`, (): void => {
+    it(`should GET block details for a given Height`, async (): Promise<any> => {
+      const block: number = 500000
 
-      const result = await bitbox.Block.detailsByHeight(block)
-      //console.log(`result: ${JSON.stringify(result, null, 2)}`)
+      const result: BlockDetailsResult | BlockDetailsResult[] = await bitbox.Block.detailsByHeight(block)
 
       assert.hasAllKeys(result, [
         "hash",
@@ -142,42 +142,42 @@ describe("#Block", () => {
       ])
     })
 
-    it(`should GET block details for an array of blocks`, async () => {
-      const blocks = [500000, 500001]
-
-      const result = await bitbox.Block.detailsByHeight(blocks)
-      //console.log(`result: ${JSON.stringify(result, null, 2)}`)
+    it(`should GET block details for an array of blocks`, async (): Promise<any> => {
+      const blocks: number[] = [500000, 500001]
+      const result: BlockDetailsResult | BlockDetailsResult[] = await bitbox.Block.detailsByHeight(blocks)
 
       assert.isArray(result)
-      assert.hasAllKeys(result[0], [
-        "hash",
-        "size",
-        "height",
-        "version",
-        "merkleroot",
-        "tx",
-        "time",
-        "nonce",
-        "bits",
-        "difficulty",
-        "chainwork",
-        "confirmations",
-        "previousblockhash",
-        "nextblockhash",
-        "reward",
-        "isMainChain",
-        "poolInfo"
-      ])
+      if (Array.isArray(result)) {
+        assert.hasAllKeys(result[0], [
+          "hash",
+          "size",
+          "height",
+          "version",
+          "merkleroot",
+          "tx",
+          "time",
+          "nonce",
+          "bits",
+          "difficulty",
+          "chainwork",
+          "confirmations",
+          "previousblockhash",
+          "nextblockhash",
+          "reward",
+          "isMainChain",
+          "poolInfo"
+        ])
+
+      }
     })
 
-    it(`should throw an error for improper single input`, async () => {
+    it(`should throw an error for improper single input`, async (): Promise<any> => {
       try {
-        const blocks = "asdf"
+        const blocks: any = "asdf"
 
         await bitbox.Block.detailsByHeight(blocks)
         assert.equal(true, false, "Unexpected result!")
       } catch (err) {
-        //console.log(`err: `, err)
         assert.include(
           err.message,
           `Input must be a number or array of numbers.`
@@ -185,12 +185,11 @@ describe("#Block", () => {
       }
     })
 
-    it(`should throw error on array size rate limit`, async () => {
+    it(`should throw error on array size rate limit`, async (): Promise<any> => {
       try {
-        const blocks = []
-        for (let i = 0; i < 25; i++) blocks.push(500000)
-
-        const result = await bitbox.Block.detailsByHeight(blocks)
+        const blocks: number[] = []
+        for (let i: number = 0; i < 25; i++) blocks.push(500000)
+        const result: BlockDetailsResult | BlockDetailsResult[] = await bitbox.Block.detailsByHeight(blocks)
 
         console.log(`result: ${util.inspect(result)}`)
         assert.equal(true, false, "Unexpected result!")
@@ -201,13 +200,11 @@ describe("#Block", () => {
     })
   })
 
-  describe("#detailsByHash", () => {
-    it(`should GET block details for a given hash`, async () => {
-      const hash =
+  describe("#detailsByHash", (): void => {
+    it(`should GET block details for a given hash`, async (): Promise<any> => {
+      const hash: string =
         "000000000000000005e14d3f9fdfb70745308706615cfa9edca4f4558332b201"
-
-      const result = await bitbox.Block.detailsByHash(hash)
-      //console.log(`result: ${util.inspect(result)}`)
+      const result: BlockDetailsResult | BlockDetailsResult[] = await bitbox.Block.detailsByHash(hash)
 
       assert.hasAllKeys(result, [
         "hash",
@@ -230,40 +227,42 @@ describe("#Block", () => {
       ])
     })
 
-    it(`should GET block details for an array of hashes`, async () => {
-      const hash = [
+    it(`should GET block details for an array of hashes`, async (): Promise<any> => {
+      const hash: string[] = [
         "000000000000000005e14d3f9fdfb70745308706615cfa9edca4f4558332b201",
         "000000000000000005e14d3f9fdfb70745308706615cfa9edca4f4558332b201"
       ]
 
-      const result = await bitbox.Block.detailsByHash(hash)
-      //console.log(`result: ${util.inspect(result)}`)
+      const result: BlockDetailsResult | BlockDetailsResult[] = await bitbox.Block.detailsByHash(hash)
 
       assert.isArray(result)
-      assert.hasAllKeys(result[0], [
-        "hash",
-        "size",
-        "height",
-        "version",
-        "merkleroot",
-        "tx",
-        "time",
-        "nonce",
-        "bits",
-        "difficulty",
-        "chainwork",
-        "confirmations",
-        "previousblockhash",
-        "nextblockhash",
-        "reward",
-        "isMainChain",
-        "poolInfo"
-      ])
+      if (Array.isArray(result)) {
+        assert.hasAllKeys(result[0], [
+          "hash",
+          "size",
+          "height",
+          "version",
+          "merkleroot",
+          "tx",
+          "time",
+          "nonce",
+          "bits",
+          "difficulty",
+          "chainwork",
+          "confirmations",
+          "previousblockhash",
+          "nextblockhash",
+          "reward",
+          "isMainChain",
+          "poolInfo"
+        ])
+
+      }
     })
 
-    it(`should throw an error for improper single input`, async () => {
+    it(`should throw an error for improper single input`, async (): Promise<any> => {
       try {
-        const hash = 12345
+        const hash: any = 12345
 
         await bitbox.Block.detailsByHash(hash)
         assert.equal(true, false, "Unexpected result!")
@@ -276,16 +275,16 @@ describe("#Block", () => {
       }
     })
 
-    it(`should throw error on array size rate limit`, async () => {
+    it(`should throw error on array size rate limit`, async (): Promise<any> => {
       try {
-        const data = []
-        for (let i = 0; i < 25; i++) {
+        const data: string[] = []
+        for (let i: number = 0; i < 25; i++) {
           data.push(
             "000000000000000005e14d3f9fdfb70745308706615cfa9edca4f4558332b201"
           )
         }
 
-        const result = await bitbox.Block.detailsByHash(data)
+        const result: BlockDetailsResult | BlockDetailsResult[] = await bitbox.Block.detailsByHash(data)
 
         console.log(`result: ${util.inspect(result)}`)
         assert.equal(true, false, "Unexpected result!")
