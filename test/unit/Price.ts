@@ -14,12 +14,12 @@ describe("#Price", (): void => {
     })
   })
 
-  // describe("#current", (): void => {
-  //   describe("#single currency", (): void => {
-  //     it("should get current price for single currency", async () => {
-  //       const result = await bitbox.Price.current("usd")
-  //       assert.notEqual(0, result)
-  //     })
-  //   })
-  // })
+  describe("#current", (): void => {
+    describe("#single currency", (): void => {
+      it("should get current price for single currency", async () => {
+        const result = await bitbox.Price.current("usd")
+        assert.notEqual(0, result)
+      })
+    })
+  })
 })
