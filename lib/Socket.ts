@@ -18,7 +18,7 @@ export class Socket {
     }
   }
 
-  listen(endpoint: string, cb: any): void {
+  public listen(endpoint: string, cb: any): void {
     this.socket.emit(endpoint)
 
     if (endpoint === "blocks") this.socket.on("blocks", (msg: any) => cb(msg))

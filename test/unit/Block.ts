@@ -1,36 +1,36 @@
-const chai = require("chai")
-const assert = chai.assert
+// imports
+import * as chai from "chai"
 import axios from "axios";
 import * as sinon from "sinon";
+import { BITBOX } from "../../lib/BITBOX"
+import { Block } from "../../lib/Block"
+import { resturl } from "../../lib/BITBOX"
+import * as util from "util"
 
-// TODO: port from require to import syntax
-const BITBOX = require("../../lib/BITBOX").BITBOX
-const bitbox = new BITBOX()
-const Block = require("../../lib/Block").Block
-const resturl = require("../../lib/BITBOX").resturl
+// consts
+const bitbox: BITBOX = new BITBOX()
+const assert: Chai.AssertStatic = chai.assert
 
-// Inspect utility used for debugging.
-const util = require("util")
 util.inspect.defaultOptions = {
   showHidden: true,
   colors: true,
   depth: 3
 }
 
-describe("#Block", () => {
-  describe("#BlockConstructor", () => {
-    it("should create instance of Block", () => {
-      const block = new Block()
+describe("#Block", (): void => {
+  describe("#BlockConstructor", (): void => {
+    it("should create instance of Block", (): void => {
+      const block: Block = new Block()
       assert.equal(block instanceof Block, true)
     })
   })
 
-  it("should have a restURL property", () => {
-    const block = new Block()
+  it("should have a restURL property", (): void => {
+    const block: Block = new Block()
     assert.equal(block.restURL, resturl)
   })
 
-  describe("#detailsByHash", () => {
+  describe("#detailsByHash", (): void => {
     let sandbox: any
     beforeEach(() => (sandbox = sinon.sandbox.create()))
     afterEach(() => sandbox.restore())
@@ -73,7 +73,7 @@ describe("#Block", () => {
     })
   })
 
-  describe("#detailsByHeight", () => {
+  describe("#detailsByHeight", (): void => {
     let sandbox: any
     beforeEach(() => (sandbox = sinon.sandbox.create()))
     afterEach(() => sandbox.restore())
@@ -114,9 +114,9 @@ describe("#Block", () => {
     })
   })
 
-  describe(`#detailsByHeight`, () => {
+  describe(`#detailsByHeight`, (): void => {
     it(`should GET block details for a given Height`, async () => {
-      const block = 500000
+      const block: number = 500000
 
       const result = await bitbox.Block.detailsByHeight(block)
       //console.log(`result: ${JSON.stringify(result, null, 2)}`)
@@ -142,8 +142,8 @@ describe("#Block", () => {
       ])
     })
 
-    it(`should GET block details for an array of blocks`, async () => {
-      const blocks = [500000, 500001]
+    it(`should GET block details for an array of blocks`, async (): void => {
+      const blocks: number[] = [500000, 500001]
 
       const result = await bitbox.Block.detailsByHeight(blocks)
       //console.log(`result: ${JSON.stringify(result, null, 2)}`)
@@ -172,7 +172,7 @@ describe("#Block", () => {
 
     it(`should throw an error for improper single input`, async () => {
       try {
-        const blocks = "asdf"
+        const blocks: any = "asdf"
 
         await bitbox.Block.detailsByHeight(blocks)
         assert.equal(true, false, "Unexpected result!")
@@ -187,8 +187,8 @@ describe("#Block", () => {
 
     it(`should throw error on array size rate limit`, async () => {
       try {
-        const blocks = []
-        for (let i = 0; i < 25; i++) blocks.push(500000)
+        const blocks: number[] = []
+        for (let i: number = 0; i < 25; i++) blocks.push(500000)
 
         const result = await bitbox.Block.detailsByHeight(blocks)
 
@@ -201,9 +201,9 @@ describe("#Block", () => {
     })
   })
 
-  describe("#detailsByHash", () => {
+  describe("#detailsByHash", (): void => {
     it(`should GET block details for a given hash`, async () => {
-      const hash =
+      const hash: string =
         "000000000000000005e14d3f9fdfb70745308706615cfa9edca4f4558332b201"
 
       const result = await bitbox.Block.detailsByHash(hash)
@@ -231,7 +231,7 @@ describe("#Block", () => {
     })
 
     it(`should GET block details for an array of hashes`, async () => {
-      const hash = [
+      const hash: string[] = [
         "000000000000000005e14d3f9fdfb70745308706615cfa9edca4f4558332b201",
         "000000000000000005e14d3f9fdfb70745308706615cfa9edca4f4558332b201"
       ]
@@ -263,7 +263,7 @@ describe("#Block", () => {
 
     it(`should throw an error for improper single input`, async () => {
       try {
-        const hash = 12345
+        const hash: any = 12345
 
         await bitbox.Block.detailsByHash(hash)
         assert.equal(true, false, "Unexpected result!")
@@ -278,8 +278,8 @@ describe("#Block", () => {
 
     it(`should throw error on array size rate limit`, async () => {
       try {
-        const data = []
-        for (let i = 0; i < 25; i++) {
+        const data: string[] = []
+        for (let i: number = 0; i < 25; i++) {
           data.push(
             "000000000000000005e14d3f9fdfb70745308706615cfa9edca4f4558332b201"
           )

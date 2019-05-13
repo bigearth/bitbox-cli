@@ -1,11 +1,14 @@
+// imports
 import * as chai from "chai"
-const assert = chai.assert
+import { BITBOX } from "../../lib/BITBOX"
+import { BitcoinCash, BIP21Object } from "../../lib/BitcoinCash"
+
+// consts
+const bitbox: BITBOX = new BITBOX()
+const assert: Chai.AssertStatic = chai.assert
 
 // TODO: port from require to import syntax
 const fixtures = require("./fixtures/BitcoinCash.json")
-const BITBOX = require("../../lib/BITBOX").BITBOX
-const BitcoinCash = require("../../lib/BitcoinCash").BitcoinCash
-const bitbox = new BITBOX()
 
 // TODO
 // 1. generate testnet p2sh
@@ -23,92 +26,92 @@ const bitbox = new BITBOX()
 //   * confirm xpriv generates WIF
 // 6. More error test cases.
 
-describe("#BitcoinCash", () => {
+describe("#BitcoinCash", (): void => {
 
-  describe("#BitcoinCashConstructor", () => {
-    it("should create instance of BitcoinCash", () => {
-      const bitcoinCash = new BitcoinCash()
+  describe("#BitcoinCashConstructor", (): void => {
+    it("should create instance of BitcoinCash", (): void => {
+      const bitcoinCash: BitcoinCash = new BitcoinCash()
       assert.equal(bitcoinCash instanceof BitcoinCash, true)
     })
   })
 
-  describe("price conversion", () => {
-    describe("#toBitcoinCash", () => {
-      fixtures.conversion.toBCH.satoshis.forEach((satoshi: any) => {
+  describe("price conversion", (): void => {
+    describe("#toBitcoinCash", (): void => {
+      fixtures.conversion.toBCH.satoshis.forEach((satoshi: any): void => {
         it(`should convert ${satoshi[0]} Satoshis to ${
           satoshi[1]
-          } $BCH`, () => {
+          } $BCH`, (): void => {
             assert.equal(bitbox.BitcoinCash.toBitcoinCash(satoshi[0]), satoshi[1])
           })
       })
 
-      fixtures.conversion.toBCH.strings.forEach((satoshi: any) => {
+      fixtures.conversion.toBCH.strings.forEach((satoshi: any): void => {
         it(`should convert "${satoshi[0]}" Satoshis as a string to ${
           satoshi[1]
-          } $BCH`, () => {
+          } $BCH`, (): void => {
             assert.equal(bitbox.BitcoinCash.toBitcoinCash(satoshi[0]), satoshi[1])
           })
       })
 
-      fixtures.conversion.toBCH.not.forEach((bch: any) => {
+      fixtures.conversion.toBCH.not.forEach((bch: any): void => {
         it(`converts ${bch[0]} to Bitcoin Cash, not to ${
           bch[1]
-          } Satoshi`, () => {
+          } Satoshi`, (): void => {
             assert.notEqual(bitbox.BitcoinCash.toBitcoinCash(bch[0]), bch[1])
           })
       })
 
-      fixtures.conversion.toBCH.rounding.forEach((satoshi: any) => {
-        it(`rounding ${satoshi[0]} to ${satoshi[1]} $BCH`, () => {
+      fixtures.conversion.toBCH.rounding.forEach((satoshi: any): void => {
+        it(`rounding ${satoshi[0]} to ${satoshi[1]} $BCH`, (): void => {
           assert.equal(bitbox.BitcoinCash.toBitcoinCash(satoshi[0]), satoshi[1])
         })
       })
     })
 
-    describe("#toSatoshi", () => {
-      fixtures.conversion.toSatoshi.bch.forEach((bch: any) => {
-        it(`should convert ${bch[0]} $BCH to ${bch[1]} Satoshis`, () => {
+    describe("#toSatoshi", (): void => {
+      fixtures.conversion.toSatoshi.bch.forEach((bch: any): void => {
+        it(`should convert ${bch[0]} $BCH to ${bch[1]} Satoshis`, (): void => {
           assert.equal(bitbox.BitcoinCash.toSatoshi(bch[0]), bch[1])
         })
       })
 
-      fixtures.conversion.toSatoshi.strings.forEach((bch: any) => {
+      fixtures.conversion.toSatoshi.strings.forEach((bch: any): void => {
         it(`should convert "${bch[0]}" $BCH as a string to ${
           bch[1]
-          } Satoshis`, () => {
+          } Satoshis`, (): void => {
             assert.equal(bitbox.BitcoinCash.toSatoshi(bch[0]), bch[1])
           })
       })
 
-      fixtures.conversion.toSatoshi.not.forEach((satoshi: any) => {
+      fixtures.conversion.toSatoshi.not.forEach((satoshi: any): void => {
         it(`converts ${satoshi[0]} to Satoshi, not to ${
           satoshi[1]
-          } Bitcoin Cash`, () => {
+          } Bitcoin Cash`, (): void => {
             assert.notEqual(bitbox.BitcoinCash.toSatoshi(satoshi[0]), satoshi[1])
           })
       })
 
-      fixtures.conversion.toSatoshi.rounding.forEach((bch: any) => {
-        it(`rounding ${bch[0]} to ${bch[1]} Satoshi`, () => {
+      fixtures.conversion.toSatoshi.rounding.forEach((bch: any): void => {
+        it(`rounding ${bch[0]} to ${bch[1]} Satoshi`, (): void => {
           assert.equal(bitbox.BitcoinCash.toSatoshi(bch[0]), bch[1])
         })
       })
     })
   })
 
-  describe("#toBits", () => {
-    fixtures.conversion.satsToBits.bch.forEach((bch: any) => {
-      it(`should convert ${bch[0]} BCH to ${bch[1]} bits`, () => {
+  describe("#toBits", (): void => {
+    fixtures.conversion.satsToBits.bch.forEach((bch: any): void => {
+      it(`should convert ${bch[0]} BCH to ${bch[1]} bits`, (): void => {
         assert.equal(
           bitbox.BitcoinCash.toBits(bitbox.BitcoinCash.toSatoshi(bch[0])),
           bch[1]
         )
       })
 
-      fixtures.conversion.satsToBits.strings.forEach((bch: any) => {
+      fixtures.conversion.satsToBits.strings.forEach((bch: any): void => {
         it(`should convert "${bch[0]}" BCH as a string to ${
           bch[1]
-          } bits`, () => {
+          } bits`, (): void => {
             assert.equal(
               bitbox.BitcoinCash.toBits(bitbox.BitcoinCash.toSatoshi(bch[0])),
               bch[1]
@@ -117,9 +120,9 @@ describe("#BitcoinCash", () => {
       })
     })
 
-    describe("#satsToBits", () => {
-      fixtures.conversion.satsToBits.bch.forEach((bch: any) => {
-        it(`should convert ${bch[0]} BCH to ${bch[1]} bits`, () => {
+    describe("#satsToBits", (): void => {
+      fixtures.conversion.satsToBits.bch.forEach((bch: any): void => {
+        it(`should convert ${bch[0]} BCH to ${bch[1]} bits`, (): void => {
           assert.equal(
             bitbox.BitcoinCash.satsToBits(bitbox.BitcoinCash.toSatoshi(bch[0])),
             bch[1]
@@ -127,10 +130,10 @@ describe("#BitcoinCash", () => {
         })
       })
 
-      fixtures.conversion.satsToBits.strings.forEach((bch: any) => {
+      fixtures.conversion.satsToBits.strings.forEach((bch: any): void => {
         it(`should convert "${bch[0]}" BCH as a string to ${
           bch[1]
-          } bits`, () => {
+          } bits`, (): void => {
             assert.equal(
               bitbox.BitcoinCash.satsToBits(bitbox.BitcoinCash.toSatoshi(bch[0])),
               bch[1]
@@ -139,15 +142,15 @@ describe("#BitcoinCash", () => {
       })
     })
 
-    describe("sign and verify messages", () => {
-      describe("#signMessageWithPrivKey", () => {
-        fixtures.signatures.sign.forEach((sign: any) => {
+    describe("sign and verify messages", (): void => {
+      describe("#signMessageWithPrivKey", (): void => {
+        fixtures.signatures.sign.forEach((sign: any): void => {
           it(`should sign a message w/ ${sign.network} ${
             sign.privateKeyWIF
             }`, () => {
-              const privateKeyWIF = sign.privateKeyWIF
-              const message = sign.message
-              const signature = bitbox.BitcoinCash.signMessageWithPrivKey(
+              const privateKeyWIF: string = sign.privateKeyWIF
+              const message: string = sign.message
+              const signature: string = bitbox.BitcoinCash.signMessageWithPrivKey(
                 privateKeyWIF,
                 message
               )
@@ -156,11 +159,11 @@ describe("#BitcoinCash", () => {
         })
       })
 
-      describe("#verifyMessage", () => {
-        fixtures.signatures.verify.forEach((sign: any) => {
+      describe("#verifyMessage", (): void => {
+        fixtures.signatures.verify.forEach((sign: any): void => {
           it(`should verify a valid signed message from ${
             sign.network
-            } cashaddr address ${sign.address}`, () => {
+            } cashaddr address ${sign.address}`, (): void => {
               assert.equal(
                 bitbox.BitcoinCash.verifyMessage(
                   sign.address,
@@ -172,11 +175,11 @@ describe("#BitcoinCash", () => {
             })
         })
 
-        fixtures.signatures.verify.forEach((sign: any) => {
+        fixtures.signatures.verify.forEach((sign: any): void => {
           const legacyAddress = bitbox.Address.toLegacyAddress(sign.address)
           it(`should verify a valid signed message from ${
             sign.network
-            } legacy address ${legacyAddress}`, () => {
+            } legacy address ${legacyAddress}`, (): void => {
               assert.equal(
                 bitbox.BitcoinCash.verifyMessage(
                   legacyAddress,
@@ -188,11 +191,11 @@ describe("#BitcoinCash", () => {
             })
         })
 
-        fixtures.signatures.verify.forEach((sign: any) => {
+        fixtures.signatures.verify.forEach((sign: any): void => {
           const legacyAddress = bitbox.Address.toLegacyAddress(sign.address)
           it(`should not verify an invalid signed message from ${
             sign.network
-            } cashaddr address ${sign.address}`, () => {
+            } cashaddr address ${sign.address}`, (): void => {
               assert.equal(
                 bitbox.BitcoinCash.verifyMessage(
                   sign.address,
@@ -206,12 +209,12 @@ describe("#BitcoinCash", () => {
       })
     })
 
-    describe("encode and decode to base58Check", () => {
-      describe("#encodeBase58Check", () => {
-        fixtures.encodeBase58Check.forEach((base58Check: any) => {
+    describe("encode and decode to base58Check", (): void => {
+      describe("#encodeBase58Check", (): void => {
+        fixtures.encodeBase58Check.forEach((base58Check: any): void => {
           it(`encode ${base58Check.hex} as base58Check ${
             base58Check.base58Check
-            }`, () => {
+            }`, (): void => {
               assert.equal(
                 bitbox.BitcoinCash.encodeBase58Check(base58Check.hex),
                 base58Check.base58Check
@@ -220,9 +223,9 @@ describe("#BitcoinCash", () => {
         })
       })
 
-      describe("#decodeBase58Check", () => {
-        fixtures.encodeBase58Check.forEach((base58Check: any) => {
-          it(`decode ${base58Check.base58Check} as ${base58Check.hex}`, () => {
+      describe("#decodeBase58Check", (): void => {
+        fixtures.encodeBase58Check.forEach((base58Check: any): void => {
+          it(`decode ${base58Check.base58Check} as ${base58Check.hex}`, (): void => {
             assert.equal(
               bitbox.BitcoinCash.decodeBase58Check(base58Check.base58Check),
               base58Check.hex
@@ -232,20 +235,20 @@ describe("#BitcoinCash", () => {
       })
     })
 
-    describe("encode and decode BIP21 urls", () => {
-      describe("#encodeBIP21", () => {
-        fixtures.bip21.valid.forEach((bip21: any) => {
-          it(`encode ${bip21.address} as url`, () => {
-            const url = bitbox.BitcoinCash.encodeBIP21(
+    describe("encode and decode BIP21 urls", (): void => {
+      describe("#encodeBIP21", (): void => {
+        fixtures.bip21.valid.forEach((bip21: any): void => {
+          it(`encode ${bip21.address} as url`, (): void => {
+            const url: string = bitbox.BitcoinCash.encodeBIP21(
               bip21.address,
               bip21.options
             )
             assert.equal(url, bip21.url)
           })
         })
-        fixtures.bip21.valid_regtest.forEach((bip21: any) => {
-          it(`encode ${bip21.address} as url`, () => {
-            const url = bitbox.BitcoinCash.encodeBIP21(
+        fixtures.bip21.valid_regtest.forEach((bip21: any): void => {
+          it(`encode ${bip21.address} as url`, (): void => {
+            const url: string = bitbox.BitcoinCash.encodeBIP21(
               bip21.address,
               bip21.options,
               true
@@ -255,10 +258,10 @@ describe("#BitcoinCash", () => {
         })
       })
 
-      describe("#decodeBIP21", () => {
-        fixtures.bip21.valid.forEach((bip21: any) => {
-          it(`decodes ${bip21.url}`, () => {
-            const decoded = bitbox.BitcoinCash.decodeBIP21(bip21.url)
+      describe("#decodeBIP21", (): void => {
+        fixtures.bip21.valid.forEach((bip21: any): void => {
+          it(`decodes ${bip21.url}`, (): void => {
+            const decoded: BIP21Object = bitbox.BitcoinCash.decodeBIP21(bip21.url)
             assert.equal(decoded.options.amount, bip21.options.amount)
             assert.equal(decoded.options.label, bip21.options.label)
             assert.equal(
@@ -281,10 +284,10 @@ describe("#BitcoinCash", () => {
       })
     })
 
-    describe("#getByteCount", () => {
-      fixtures.getByteCount.forEach((fixture: any) => {
-        it(`get byte count`, () => {
-          const byteCount = bitbox.BitcoinCash.getByteCount(
+    describe("#getByteCount", (): void => {
+      fixtures.getByteCount.forEach((fixture: any): void => {
+        it(`get byte count`, (): void => {
+          const byteCount: number = bitbox.BitcoinCash.getByteCount(
             fixture.inputs,
             fixture.outputs
           )
@@ -293,13 +296,13 @@ describe("#BitcoinCash", () => {
       })
     })
 
-    describe("#bip38", () => {
-      describe("#encryptBIP38", () => {
-        fixtures.bip38.encrypt.mainnet.forEach((fixture: any) => {
+    describe("#bip38", (): void => {
+      describe("#encryptBIP38", (): void => {
+        fixtures.bip38.encrypt.mainnet.forEach((fixture: any): void => {
           it(`BIP 38 encrypt wif ${fixture.wif} with password ${
             fixture.password
-            } on mainnet`, () => {
-              const encryptedKey = bitbox.BitcoinCash.encryptBIP38(
+            } on mainnet`, (): void => {
+              const encryptedKey: string = bitbox.BitcoinCash.encryptBIP38(
                 fixture.wif,
                 fixture.password
               )
@@ -307,11 +310,11 @@ describe("#BitcoinCash", () => {
             })
         })
 
-        fixtures.bip38.encrypt.testnet.forEach((fixture: any) => {
+        fixtures.bip38.encrypt.testnet.forEach((fixture: any): void => {
           it(`BIP 38 encrypt wif ${fixture.wif} with password ${
             fixture.password
-            } on testnet`, () => {
-              const encryptedKey = bitbox.BitcoinCash.encryptBIP38(
+            } on testnet`, (): void => {
+              const encryptedKey: string = bitbox.BitcoinCash.encryptBIP38(
                 fixture.wif,
                 fixture.password
               )
@@ -320,12 +323,12 @@ describe("#BitcoinCash", () => {
         })
       })
 
-      describe("#decryptBIP38", () => {
-        fixtures.bip38.decrypt.mainnet.forEach((fixture: any) => {
+      describe("#decryptBIP38", (): void => {
+        fixtures.bip38.decrypt.mainnet.forEach((fixture: any): void => {
           it(`BIP 38 decrypt encrypted key ${
             fixture.encryptedKey
-            } on mainnet`, () => {
-              const wif = bitbox.BitcoinCash.decryptBIP38(
+            } on mainnet`, (): void => {
+              const wif: string = bitbox.BitcoinCash.decryptBIP38(
                 fixture.encryptedKey,
                 fixture.password,
                 "mainnet"
@@ -334,11 +337,11 @@ describe("#BitcoinCash", () => {
             })
         })
 
-        fixtures.bip38.decrypt.testnet.forEach((fixture: any) => {
+        fixtures.bip38.decrypt.testnet.forEach((fixture: any): void => {
           it(`BIP 38 decrypt encrypted key ${
             fixture.encryptedKey
-            } on testnet`, () => {
-              const wif = bitbox.BitcoinCash.decryptBIP38(
+            } on testnet`, (): void => {
+              const wif: string = bitbox.BitcoinCash.decryptBIP38(
                 fixture.encryptedKey,
                 fixture.password,
                 "testnet"

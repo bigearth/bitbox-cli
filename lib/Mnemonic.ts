@@ -9,24 +9,24 @@ import { Address } from "./Address"
 import * as bcl from "bitcoincashjs-lib"
 
 export class Mnemonic {
-  _address: Address
+  private _address: Address
   constructor(address: Address = new Address()) {
     this._address = address
   }
 
-  generate(bits: number = 128, wordlist?: string[]): string {
+  public generate(bits: number = 128, wordlist?: string[]): string {
     return BIP39.generateMnemonic(bits, randomBytes, wordlist)
   }
 
-  fromEntropy(bytes: Buffer, wordlist: string[]): string {
+  public fromEntropy(bytes: Buffer, wordlist: string[]): string {
     return BIP39.entropyToMnemonic(bytes, wordlist)
   }
 
-  toEntropy(mnemonic: string, wordlist: string[]): Buffer {
+  public toEntropy(mnemonic: string, wordlist: string[]): Buffer {
     return Buffer.from(BIP39.mnemonicToEntropy(mnemonic, wordlist), "hex")
   }
 
-  validate(mnemonic: string, wordlist: string[]): string {
+  public validate(mnemonic: string, wordlist: string[]): string {
     // Preprocess the words
     const words = mnemonic.split(" ")
     // Detect blank phrase
@@ -49,15 +49,15 @@ export class Mnemonic {
     return "Valid mnemonic"
   }
 
-  toSeed(mnemonic: string, password: string = ""): Buffer {
+  public toSeed(mnemonic: string, password: string = ""): Buffer {
     return BIP39.mnemonicToSeed(mnemonic, password)
   }
 
-  wordLists(): any {
+  public wordLists(): any {
     return BIP39.wordlists
   }
 
-  toKeypairs(
+  public toKeypairs(
     mnemonic: string,
     numberOfKeypairs: number = 1,
     regtest: boolean = false
@@ -90,7 +90,7 @@ export class Mnemonic {
     return accounts
   }
 
-  findNearestWord(word: string, wordlist: string[]): string {
+  public findNearestWord(word: string, wordlist: string[]): string {
     let minDistance: number = 99
     let closestWord: string = wordlist[0]
     for (let i: number = 0; i < wordlist.length; i++) {
@@ -119,7 +119,7 @@ export class Mnemonic {
  * @return Object the final object.
  */
 
-const _extend: any = function(dst: any): any {
+const _extend: any = function (dst: any): any {
   const sources: any = Array.prototype.slice.call(arguments, 1)
   for (let i: number = 0; i < sources.length; ++i) {
     const src = sources[i]
@@ -132,7 +132,7 @@ const _extend: any = function(dst: any): any {
  * Defer execution of given function.
  * @param  {Function} func
  */
-const _defer: any = function(func: any): any {
+const _defer: any = function (func: any): any {
   if (typeof setImmediate === "function") return setImmediate(func)
 
   return setTimeout(func, 0)
@@ -149,7 +149,7 @@ var Levenshtein: any = {
    * @param str2 String the second string.
    * @return Integer the levenshtein distance (0 and above).
    */
-  get: function(str1: any, str2: any) {
+  get: function (str1: any, str2: any) {
     // base cases
     if (str1 === str2) return 0
     if (str1.length === 0) return str2.length
@@ -203,7 +203,7 @@ var Levenshtein: any = {
    * @param [options] Object additional options.
    * @param [options.progress] Function progress callback with signature: function(percentComplete)
    */
-  getAsync: function(str1: any, str2: any, cb: any, options: any) {
+  getAsync: function (str1: any, str2: any, cb: any, options: any) {
     options = _extend(
       {},
       {
@@ -234,7 +234,7 @@ var Levenshtein: any = {
     i = 0
     j = -1
 
-    var __calculate = function() {
+    var __calculate = function () {
       // reset timer
       startTime = new Date().valueOf()
       currentTime = startTime

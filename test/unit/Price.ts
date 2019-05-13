@@ -1,22 +1,21 @@
+// imports
 import * as assert from "assert";
-import axios from "axios";
-import * as sinon from "sinon";
+import { BITBOX } from "../../lib/BITBOX"
+import { Price } from "../../lib/Price"
 
-// TODO: port from require to import syntax
-const BITBOX = require("../../lib/BITBOX").BITBOX
-const bitbox = new BITBOX()
-const Price = require("../../lib/Price").Price
+// consts
+const bitbox: BITBOX = new BITBOX()
 
-describe("#Price", () => {
-  describe("#PriceConstructor", () => {
-    it("should create instance of Price", () => {
-      const price = new Price()
+describe("#Price", (): void => {
+  describe("#PriceConstructor", (): void => {
+    it("should create instance of Price", (): void => {
+      const price: Price = new Price()
       assert.equal(price instanceof Price, true)
     })
   })
 
-  describe("#current", () => {
-    describe("#single currency", () => {
+  describe("#current", (): void => {
+    describe("#single currency", (): void => {
       it("should get current price for single currency", async () => {
         const result = await bitbox.Price.current("usd")
         assert.notEqual(0, result)

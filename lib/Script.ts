@@ -1,3 +1,4 @@
+// consts
 const Bitcoin = require("bitcoincashjs-lib")
 const opcodes = require("bitcoincash-ops")
 
@@ -178,19 +179,19 @@ export class Script {
     this.scriptHash = Bitcoin.script.scriptHash
   }
 
-  classifyInput(script: Buffer): string {
+  public classifyInput(script: Buffer): string {
     return Bitcoin.script.classifyInput(script)
   }
 
-  classifyOutput(script: Buffer): string {
+  public classifyOutput(script: Buffer): string {
     return Bitcoin.script.classifyOutput(script)
   }
 
-  decode(scriptBuffer: any): any[] {
+  public decode(scriptBuffer: any): any[] {
     return Bitcoin.script.decompile(scriptBuffer)
   }
 
-  encode(scriptChunks: any): any {
+  public encode(scriptChunks: any): any {
     const arr: any[] = []
     scriptChunks.forEach((chunk: any) => {
       arr.push(chunk)
@@ -198,11 +199,11 @@ export class Script {
     return Bitcoin.script.compile(arr)
   }
 
-  toASM(buffer: Buffer): string {
+  public toASM(buffer: Buffer): string {
     return Bitcoin.script.toASM(buffer)
   }
 
-  fromASM(asm: string): any {
+  public fromASM(asm: string): any {
     return Bitcoin.script.fromASM(asm)
   }
 }

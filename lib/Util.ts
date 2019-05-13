@@ -1,4 +1,4 @@
-import axios from "axios"
+import axios, { AxiosResponse } from "axios"
 import { resturl } from "./BITBOX"
 
 export interface AddressDetails {
@@ -14,18 +14,18 @@ export interface AddressDetails {
 }
 
 export class Util {
-  restURL: string
+  public restURL: string
   constructor(restURL: string = resturl) {
     this.restURL = restURL
   }
 
-  async validateAddress(
-    address: string
+  public async validateAddress(
+    address: string | string[]
   ): Promise<AddressDetails | AddressDetails[]> {
     try {
       // Single block
       if (typeof address === "string") {
-        const response: any = await axios.get(
+        const response: AxiosResponse = await axios.get(
           `${this.restURL}util/validateAddress/${address}`
         )
         return response.data
@@ -39,7 +39,7 @@ export class Util {
             addresses: address
           }
         }
-        const response = await axios(options)
+        const response: AxiosResponse = await axios(options)
 
         return response.data
       }

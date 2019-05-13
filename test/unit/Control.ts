@@ -1,27 +1,28 @@
+// imports
 import * as assert from "assert";
 import axios from "axios";
 import * as sinon from "sinon";
+import { BITBOX } from "../../lib/BITBOX"
+import { Control } from "../../lib/Control"
+import { resturl } from "../../lib/BITBOX"
 
-// TODO: port from require to import syntax
-const BITBOX = require("../../lib/BITBOX").BITBOX
-const bitbox = new BITBOX()
-const Control = require("../../lib/Control").Control
-const resturl = require("../../lib/BITBOX").resturl
+// consts
+const bitbox: BITBOX = new BITBOX()
 
-describe("#Control", () => {
-  describe("#ControlConstructor", () => {
-    it("should create instance of Control", () => {
-      const control = new Control()
+describe("#Control", (): void => {
+  describe("#ControlConstructor", (): void => {
+    it("should create instance of Control", (): void => {
+      const control: Control = new Control()
       assert.equal(control instanceof Control, true)
     })
 
-    it("should have a restURL property", () => {
-      const control = new Control()
+    it("should have a restURL property", (): void => {
+      const control: Control = new Control()
       assert.equal(control.restURL, resturl)
     })
   })
 
-  describe("#getInfo", () => {
+  describe("#getInfo", (): void => {
     let sandbox: any
     beforeEach(() => (sandbox = sinon.sandbox.create()))
     afterEach(() => sandbox.restore())

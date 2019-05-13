@@ -1,20 +1,20 @@
-import axios from "axios"
+import axios, { AxiosResponse } from "axios"
 import { BlockDetails } from "bitcoin-com-rest";
 import { resturl } from "./BITBOX"
 
 export class Block {
-  restURL: string
+  public restURL: string
   constructor(restURL: string = resturl) {
     this.restURL = restURL
   }
 
-  async detailsByHeight(
+  public async detailsByHeight(
     id: number | number[]
   ): Promise<BlockDetails | BlockDetails[]> {
     try {
       // Single block
       if (typeof id === "number") {
-        const response: any = await axios.get(
+        const response: AxiosResponse = await axios.get(
           `${this.restURL}block/detailsByHeight/${id}`
         )
         return response.data
@@ -28,7 +28,7 @@ export class Block {
             heights: id
           }
         }
-        const response = await axios(options)
+        const response: AxiosResponse = await axios(options)
 
         return response.data
       }
@@ -40,13 +40,13 @@ export class Block {
     }
   }
 
-  async detailsByHash(
+  public async detailsByHash(
     hash: string | string[]
   ): Promise<BlockDetails | BlockDetails[]> {
     try {
       // Single block
       if (typeof hash === "string") {
-        const response: any = await axios.get(
+        const response: AxiosResponse = await axios.get(
           `${this.restURL}block/detailsByHash/${hash}`
         )
         return response.data
@@ -60,7 +60,7 @@ export class Block {
             hashes: hash
           }
         }
-        const response = await axios(options)
+        const response: AxiosResponse = await axios(options)
 
         return response.data
       }

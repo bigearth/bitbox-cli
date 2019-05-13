@@ -1,19 +1,18 @@
-const Bitcoin = require("bitcoincashjs-lib")
-import axios from "axios"
+import axios, { AxiosResponse } from "axios"
 import { TxnDetails } from "bitcoin-com-rest";
 import { resturl } from "./BITBOX"
 
 export class Transaction {
-  restURL: string
+  public restURL: string
   constructor(restURL: string = resturl) {
     this.restURL = restURL
   }
 
-  async details(txid: string | string[]): Promise<TxnDetails | TxnDetails[]> {
+  public async details(txid: string | string[]): Promise<TxnDetails | TxnDetails[]> {
     try {
       // Handle single address.
       if (typeof txid === "string") {
-        const response: any = await axios.get(
+        const response: AxiosResponse = await axios.get(
           `${this.restURL}transaction/details/${txid}`
         )
         return response.data
@@ -27,7 +26,7 @@ export class Transaction {
             txids: txid
           }
         }
-        const response = await axios(options)
+        const response: AxiosResponse = await axios(options)
 
         return response.data
       }

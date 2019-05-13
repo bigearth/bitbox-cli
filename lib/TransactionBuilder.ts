@@ -1,15 +1,12 @@
+// imports
 import { ECPair } from "bitcoincashjs-lib";
+import { Address, BitcoinCash } from "./Address"
 
+// consts
 const Bitcoin = require("bitcoincashjs-lib")
 const coininfo = require("coininfo")
 const bip66 = require("bip66")
 const bip68 = require("bc-bip68")
-
-import { Buffer } from "buffer"
-
-import { Transaction } from "./Transaction"
-
-declare type ECSignature = any
 
 declare interface SignatureAlgorithms {
   ECDSA: number
@@ -35,19 +32,16 @@ export class TransactionBuilder {
   bip68: any
   p2shInput: any
   tx: any
-  static _address: any
+  private _address: Address
 
-  static setAddress(address: string): void {
-    TransactionBuilder._address = address
-  }
-
-  constructor(network: string = "mainnet") {
-    let bitcoincash: any
+  constructor(network: string = "mainnet", address: Address = new Address()) {
+    let bitcoincash: BitcoinCash
+    this._address = address
     if (network === "bitcoincash" || network === "mainnet")
       bitcoincash = coininfo.bitcoincash.main
     else bitcoincash = coininfo.bitcoincash.test
 
-    const bitcoincashBitcoinJSLib = bitcoincash.toBitcoinJS()
+    const bitcoincashBitcoinJSLib: any = bitcoincash.toBitcoinJS()
     this.transaction = new Bitcoin.TransactionBuilder(bitcoincashBitcoinJSLib)
     this.DEFAULT_SEQUENCE = 0xffffffff
     this.hashTypes = {
@@ -69,22 +63,22 @@ export class TransactionBuilder {
     this.tx
   }
 
-  addInput(
+  public addInput(
     txHash: string,
     vout: number,
     sequence: number = this.DEFAULT_SEQUENCE,
-    prevOutScript: string
+    prevOutScript: string | null = null
   ): void {
     this.transaction.addInput(txHash, vout, sequence, prevOutScript)
   }
 
-  addInputScript(vout: number, script: any): void {
+  public addInputScript(vout: number, script: any): void {
     this.tx = this.transaction.buildIncomplete()
     this.tx.setInputScript(vout, script)
     this.p2shInput = true
   }
 
-  addInputScripts(scripts: any): void {
+  public addInputScripts(scripts: any): void {
     this.tx = this.transaction.buildIncomplete()
     scripts.forEach((script: any) => {
       this.tx.setInputScript(script.vout, script.script)
@@ -92,10 +86,10 @@ export class TransactionBuilder {
     this.p2shInput = true
   }
 
-  addOutput(scriptPubKey: string, amount: number): void {
+  public addOutput(scriptPubKey: string, amount: number): void {
     try {
       this.transaction.addOutput(
-        TransactionBuilder._address.toLegacyAddress(scriptPubKey),
+        this._address.toLegacyAddress(scriptPubKey),
         amount
       )
     } catch (error) {
@@ -103,17 +97,17 @@ export class TransactionBuilder {
     }
   }
 
-  setLockTime(locktime: number): void {
+  public setLockTime(locktime: number): void {
     this.transaction.setLockTime(locktime)
   }
 
-  sign(
+  public sign(
     vin: number,
     keyPair: ECPair,
-    redeemScript: Buffer,
+    redeemScript: Buffer | undefined,
     hashType: number = this.hashTypes.SIGHASH_ALL,
     value: number,
-    signatureAlgorithm: number
+    signatureAlgorithm: number = 0
   ): void {
     let witnessScript
 
@@ -128,7 +122,7 @@ export class TransactionBuilder {
     )
   }
 
-  build() {
+  public build(): any {
     if (this.p2shInput === true) return this.tx
 
     return this.transaction.build()

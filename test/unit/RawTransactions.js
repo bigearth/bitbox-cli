@@ -36,32 +36,26 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
-/*
-  TODO:
-  -Replace old unit tests mocking axios with the more generalized nock library.
-   See the sendRawTransaction test for an example.
-  -Create a mocking library of data to compare unit and integration tests.
-*/
+// imports
 var chai = require("chai");
-var assert = chai.assert;
-// TODO: port from require to import syntax
-var BITBOX = require("../../lib/BITBOX").BITBOX;
-var bitbox = new BITBOX();
-var RawTransactions = require("../../lib/RawTransactions").RawTransactions;
-var resturl = require("../../lib/BITBOX").resturl;
-var nock = require("nock"); // HTTP mocking
-// Used for debugging
+var BITBOX_1 = require("../../lib/BITBOX");
+var RawTransactions_1 = require("../../lib/RawTransactions");
+var BITBOX_2 = require("../../lib/BITBOX");
 var util = require("util");
+// consts
+var bitbox = new BITBOX_1.BITBOX();
+var assert = chai.assert;
+// Used for debugging
 util.inspect.defaultOptions = { depth: 1 };
 describe("#RawTransactions", function () {
     describe("#RawTransactionsConstructor", function () {
         it("should create instance of RawTransactions", function () {
-            var rawtransactions = new RawTransactions();
-            assert.equal(rawtransactions instanceof RawTransactions, true);
+            var rawtransactions = new RawTransactions_1.RawTransactions();
+            assert.equal(rawtransactions instanceof RawTransactions_1.RawTransactions, true);
         });
         it("should have a restURL property", function () {
-            var rawtransactions = new RawTransactions();
-            assert.equal(rawtransactions.restURL, resturl);
+            var rawtransactions = new RawTransactions_1.RawTransactions();
+            assert.equal(rawtransactions.restURL, BITBOX_2.resturl);
         });
     });
     describe("#decodeRawTransaction", function () {

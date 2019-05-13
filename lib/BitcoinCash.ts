@@ -1,3 +1,7 @@
+// imports
+import { Address } from "./Address"
+
+// consts
 const Bitcoin = require("bitcoincashjs-lib")
 const sb = require("satoshi-bitcoin")
 const bitcoinMessage = require("bitcoinjs-message")
@@ -6,7 +10,6 @@ const bip21 = require("bip21")
 const coininfo = require("coininfo")
 const bip38 = require("bip38")
 const wif = require("wif")
-import { Address } from "./Address"
 
 const Buffer = require("safe-buffer").Buffer
 
@@ -31,32 +34,28 @@ export interface ByteCountOutput {
 }
 
 export class BitcoinCash {
-  _address: Address
+  private _address: Address
   constructor(address: Address = new Address()) {
     this._address = address
   }
 
-  // Translate coins to satoshi value
-  toSatoshi(coins: number): number {
+  public toSatoshi(coins: number): number {
     return sb.toSatoshi(coins)
   }
 
-  // Translate satoshi to coin value
-  toBitcoinCash(satoshis: number): number {
+  public toBitcoinCash(satoshis: number): number {
     return sb.toBitcoin(satoshis)
   }
 
-  toBits(satoshis: number): number {
+  public toBits(satoshis: number): number {
     return satoshis / 100
   }
 
-  // Translate satoshi to bits denomination
-  satsToBits(satoshis: number): number {
+  public satsToBits(satoshis: number): number {
     return satoshis / 100
   }
 
-  // sign message
-  signMessageWithPrivKey(privateKeyWIF: string, message: string): string {
+  public signMessageWithPrivKey(privateKeyWIF: string, message: string): string {
     const network: string =
       privateKeyWIF.charAt(0) === "c" ? "testnet" : "mainnet"
     let bitcoincash: any
@@ -74,8 +73,7 @@ export class BitcoinCash {
       .toString("base64")
   }
 
-  // verify message
-  verifyMessage(address: string, signature: string, message: string): boolean {
+  public verifyMessage(address: string, signature: string, message: string): boolean {
     return bitcoinMessage.verify(
       message,
       this._address.toLegacyAddress(address),
@@ -83,18 +81,15 @@ export class BitcoinCash {
     )
   }
 
-  // encode base58Check
-  encodeBase58Check(hex: string): string {
+  public encodeBase58Check(hex: string): string {
     return bs58.encode(Buffer.from(hex, "hex"))
   }
 
-  // decode base58Check
-  decodeBase58Check(address: string): string {
+  public decodeBase58Check(address: string): string {
     return bs58.decode(address).toString("hex")
   }
 
-  // encode bip21 url
-  encodeBIP21(
+  public encodeBIP21(
     address: string,
     options: EncodeBIP21Options,
     regtest: boolean = false
@@ -105,12 +100,11 @@ export class BitcoinCash {
     )
   }
 
-  // decode bip21 url
-  decodeBIP21(url: string): BIP21Object {
+  public decodeBIP21(url: string): BIP21Object {
     return bip21.decode(url)
   }
 
-  getByteCount(inputs: any, outputs: any): number {
+  public getByteCount(inputs: any, outputs: any): number {
     // from https://github.com/bitcoinjs/bitcoinjs-lib/issues/921#issuecomment-354394004
     let totalWeight: number = 0
     let hasWitness: boolean = false
@@ -162,13 +156,13 @@ export class BitcoinCash {
     return Math.ceil(totalWeight / 4)
   }
 
-  encryptBIP38(privKeyWIF: string, passphrase: string): string {
+  public encryptBIP38(privKeyWIF: string, passphrase: string): string {
     const decoded: any = wif.decode(privKeyWIF)
 
     return bip38.encrypt(decoded.privateKey, decoded.compressed, passphrase)
   }
 
-  decryptBIP38(
+  public decryptBIP38(
     encryptedKey: string,
     passphrase: string,
     network: string = "mainnet"
