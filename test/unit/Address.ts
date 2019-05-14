@@ -998,7 +998,7 @@ describe("#Address", (): void => {
   })
 
   describe("#fromOutputScript", (): void => {
-    const script: any = bitbox.Script.encode([
+    const script: Buffer = bitbox.Script.encode([
       Buffer.from("BOX", "ascii"),
       bitbox.Script.opcodes.OP_CAT,
       Buffer.from("BITBOX", "ascii"),
@@ -1006,12 +1006,12 @@ describe("#Address", (): void => {
     ])
 
     // hash160 script buffer
-    const p2sh_hash160: any = bitbox.Crypto.hash160(script)
+    const p2sh_hash160: Buffer = bitbox.Crypto.hash160(script)
 
     // encode hash160 as P2SH output
-    const scriptPubKey: any = bitbox.Script.scriptHash.output.encode(p2sh_hash160)
+    const scriptPubKey: Buffer = bitbox.Script.encodeP2SHOutput(p2sh_hash160)
     fixtures.p2shMainnet.forEach((address: string) => {
-      const p2shAddress: any = bitbox.Address.fromOutputScript(scriptPubKey)
+      const p2shAddress: string = bitbox.Address.fromOutputScript(scriptPubKey)
       it(`generate mainnet address from output script`, (): void => {
         assert.equal(p2shAddress, address)
       })

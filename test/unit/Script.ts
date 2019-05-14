@@ -1,7 +1,7 @@
 // imports
 import * as assert from "assert";
 import { BITBOX } from "../../lib/BITBOX"
-import { Script } from "../../lib/Script"
+import { Script, DecodedP2PKHInput, DecodedP2MSOutput } from "../../lib/Script"
 import * as bcl from "bitcoincashjs-lib"
 
 // consts
@@ -186,24 +186,21 @@ describe("#Script", (): void => {
     describe("#nullDataTemplate", (): void => {
         fixtures.nullDataTemplate.forEach((fixture: any): void => {
             it(`should encode nulldata output`, (): void => {
-                const buf: Buffer = bitbox.Script.nullData.output.encode(
-                    Buffer.from(`${fixture.data}`, "ascii")
-                )
-                assert.equal(buf.toString("hex"), fixture.hex)
+                let buf: Buffer = Buffer.from(fixture.data, "ascii")
+                const encoded: Buffer = bitbox.Script.encodeNullDataOutput(buf)
+                assert.equal(encoded.toString("hex"), fixture.hex)
             })
 
             it(`should decode nulldata output`, (): void => {
-                const buf: Buffer = bitbox.Script.nullData.output.decode(
-                    Buffer.from(`${fixture.hex}`, "hex")
-                )
-                assert.equal(buf.toString("ascii"), fixture.data)
+                let buf: Buffer = Buffer.from(fixture.hex, "hex")
+                const decoded: Buffer = bitbox.Script.decodeNullDataOutput(buf)
+                assert.equal(decoded.toString("ascii"), fixture.data)
             })
 
             it(`should confirm correctly formatted nulldata output`, (): void => {
-                const buf: Buffer = bitbox.Script.nullData.output.encode(
-                    Buffer.from(`${fixture.data}`, "ascii")
-                )
-                const valid: boolean = bitbox.Script.nullData.output.check(buf)
+                let buf: Buffer = Buffer.from(fixture.data, "ascii")
+                const encoded: Buffer = bitbox.Script.encodeNullDataOutput(buf)
+                const valid: boolean = bitbox.Script.checkNullDataOutput(encoded)
                 assert.equal(valid, true)
             })
         })
@@ -213,7 +210,7 @@ describe("#Script", (): void => {
         describe("#pubKeyInputTemplate", (): void => {
             fixtures.pubKeyInputTemplate.forEach((fixture: any): void => {
                 it(`should encode pubKey input`, (): void => {
-                    const buf: Buffer = bitbox.Script.pubKey.input.encode(
+                    const buf: Buffer = bitbox.Script.encodeP2PKInput(
                         Buffer.from(fixture.signature, "hex")
                     )
                     assert.equal(buf.toString("hex"), fixture.hex)
@@ -227,7 +224,7 @@ describe("#Script", (): void => {
                 })
 
                 it(`should confirm correctly formatted pubKeyHash input`, (): void => {
-                    const buf: Buffer = bitbox.Script.pubKey.input.encode(
+                    const buf: Buffer = bitbox.Script.encodeP2PKInput(
                         Buffer.from(fixture.signature, "hex")
                     )
                     const valid: boolean = bitbox.Script.pubKey.input.check(buf)
@@ -239,24 +236,21 @@ describe("#Script", (): void => {
         describe("#pubKeyOutputTemplate", (): void => {
             fixtures.pubKeyOutputTemplate.forEach((fixture: any): void => {
                 it(`should encode pubKey output`, (): void => {
-                    const buf: Buffer = bitbox.Script.pubKey.output.encode(
-                        Buffer.from(fixture.pubKey, "hex")
-                    )
-                    assert.equal(buf.toString("hex"), fixture.hex)
+                    const buf: Buffer = Buffer.from(fixture.pubKey, "hex")
+                    const encoded: Buffer = bitbox.Script.encodeP2PKOutput(buf)
+                    assert.equal(encoded.toString("hex"), fixture.hex)
                 })
 
                 it(`should decode pubKey output`, (): void => {
-                    const buf: Buffer = bitbox.Script.pubKey.output.decode(
-                        Buffer.from(`${fixture.hex}`, "hex")
-                    )
-                    assert.equal(buf.toString("hex"), fixture.pubKey)
+                    const buf: Buffer = Buffer.from(fixture.hex, "hex")
+                    const decoded: Buffer = bitbox.Script.decodeP2PKOutput(buf)
+                    assert.equal(decoded.toString("hex"), fixture.pubKey)
                 })
 
                 it(`should confirm correctly formatted pubKey output`, (): void => {
-                    const buf: Buffer = bitbox.Script.pubKey.output.encode(
-                        Buffer.from(fixture.pubKey, "hex")
-                    )
-                    const valid: boolean = bitbox.Script.pubKey.output.check(buf)
+                    const buf: Buffer = Buffer.from(fixture.pubKey, "hex")
+                    const encoded: Buffer = bitbox.Script.encodeP2PKOutput(buf)
+                    const valid: boolean = bitbox.Script.checkP2PKOutput(encoded)
                     assert.equal(valid, true)
                 })
             })
@@ -267,39 +261,29 @@ describe("#Script", (): void => {
         describe("#pubKeyHashInputTemplate", (): void => {
             fixtures.pubKeyHashInputTemplate.forEach((fixture: any): void => {
                 it(`should encode pubKeyHash input`, (): void => {
-                    const buf: Buffer = bitbox.Script.pubKeyHash.input.encode(
-                        Buffer.from(fixture.signature, "hex"),
-                        Buffer.from(fixture.pubKey, "hex")
-                    )
-                    assert.equal(buf.toString("hex"), fixture.hex)
+                    const sigBuf = Buffer.from(fixture.signature, 'hex')
+                    const pubKeyBuf = Buffer.from(fixture.pubKey, 'hex')
+                    const encoded: Buffer = bitbox.Script.encodeP2PKHInput(sigBuf, pubKeyBuf)
+                    assert.equal(encoded.toString("hex"), fixture.hex)
                 })
 
                 it(`should decode pubKeyHash input signature`, (): void => {
-                    const buf: {
-                        signature: Buffer
-                        pubKey: Buffer
-                    } = bitbox.Script.pubKeyHash.input.decode(
-                        Buffer.from(fixture.hex, "hex")
-                    )
+                    const input: Buffer = Buffer.from(fixture.hex, "hex")
+                    const buf: DecodedP2PKHInput = bitbox.Script.decodeP2PKHInput(input)
                     assert.equal(buf.signature.toString("hex"), fixture.signature)
                 })
 
                 it(`should decode pubKeyHash input pubkey`, (): void => {
-                    const buf: {
-                        signature: Buffer
-                        pubKey: Buffer
-                    } = bitbox.Script.pubKeyHash.input.decode(
-                        Buffer.from(fixture.hex, "hex")
-                    )
+                    const input: Buffer = Buffer.from(fixture.hex, "hex")
+                    const buf: DecodedP2PKHInput = bitbox.Script.decodeP2PKHInput(input)
                     assert.equal(buf.pubKey.toString("hex"), fixture.pubKey)
                 })
 
                 it(`should confirm correctly formatted pubKeyHash input`, (): void => {
-                    const buf: Buffer = bitbox.Script.pubKeyHash.input.encode(
-                        Buffer.from(fixture.signature, "hex"),
-                        Buffer.from(fixture.pubKey, "hex")
-                    )
-                    const valid: boolean = bitbox.Script.pubKeyHash.input.check(buf)
+                    const sigBuf = Buffer.from(fixture.signature, 'hex')
+                    const pubKeyBuf = Buffer.from(fixture.pubKey, 'hex')
+                    const encoded: Buffer = bitbox.Script.encodeP2PKHInput(sigBuf, pubKeyBuf)
+                    const valid: boolean = bitbox.Script.checkP2PKHInput(encoded)
                     assert.equal(valid, true)
                 })
             })
@@ -310,15 +294,14 @@ describe("#Script", (): void => {
                 const node: bcl.HDNode = bitbox.HDNode.fromXPriv(fixture.xpriv)
                 const identifier: Buffer = bitbox.HDNode.toIdentifier(node)
                 it(`should encode pubKeyHash output`, (): void => {
-                    const buf: Buffer = bitbox.Script.pubKeyHash.output.encode(identifier)
-                    assert.equal(buf.toString("hex"), fixture.hex)
+                    const output: Buffer = bitbox.Script.encodeP2PKHOutput(identifier)
+                    assert.equal(output.toString("hex"), fixture.hex)
                 })
 
                 it(`should decode pubKeyHash output`, (): void => {
-                    const buf: Buffer = bitbox.Script.pubKeyHash.output.decode(
-                        Buffer.from(`${fixture.hex}`, "hex")
-                    )
-                    assert.equal(buf.toString("hex"), identifier.toString("hex"))
+                    let output: Buffer = Buffer.from(`${fixture.hex}`, "hex")
+                    const decoded: Buffer = bitbox.Script.pubKeyHash.output.decode(output)
+                    assert.equal(decoded.toString("hex"), identifier.toString("hex"))
                 })
 
                 it(`should confirm correctly formatted pubKeyHash output`, (): void => {
@@ -334,32 +317,25 @@ describe("#Script", (): void => {
         describe("#multisigInputTemplate", (): void => {
             fixtures.multisigInputTemplate.forEach((fixture: any): void => {
                 it(`should encode multisig input`, (): void => {
-                    const signatures: any[] = fixture.signatures.map((signature: any) =>
-                        signature
-                            ? Buffer.from(signature, "hex")
-                            : bitbox.Script.opcodes.OP_0
+                    const signatures: Buffer[] = fixture.signatures.map((signature: any) =>
+                        Buffer.from(signature, "hex")
                     )
-
-                    const buf: Buffer = bitbox.Script.multisig.input.encode(signatures)
-                    assert.equal(buf.toString("hex"), fixture.hex)
+                    const input: Buffer = bitbox.Script.encodeP2MSInput(signatures)
+                    assert.equal(input.toString("hex"), fixture.hex)
                 })
 
                 it(`should decode multisig input`, (): void => {
-                    const buf: Buffer[] = bitbox.Script.multisig.input.decode(
-                        Buffer.from(fixture.hex, "hex")
-                    )
-                    assert.equal(buf[0].toString("hex"), fixture.signatures[0])
+                    const output: Buffer = Buffer.from(fixture.hex, "hex")
+                    const decoded: Buffer[] = bitbox.Script.decodeP2MSInput(output)
+                    assert.equal(decoded[0].toString("hex"), fixture.signatures[0])
                 })
 
                 it(`should confirm correctly formatted multisig input`, (): void => {
-                    const signatures: any[] = fixture.signatures.map((signature: any) =>
-                        signature
-                            ? Buffer.from(signature, "hex")
-                            : bitbox.Script.opcodes.OP_0
+                    const signatures: Buffer[] = fixture.signatures.map((signature: any) =>
+                        Buffer.from(signature, "hex")
                     )
-
-                    const buf: Buffer = bitbox.Script.multisig.input.encode(signatures)
-                    const valid: boolean = bitbox.Script.multisig.input.check(buf)
+                    const input: Buffer = bitbox.Script.encodeP2MSInput(signatures)
+                    const valid: boolean = bitbox.Script.checkP2MSInput(input)
                     assert.equal(valid, true)
                 })
             })
@@ -370,23 +346,22 @@ describe("#Script", (): void => {
                 it(`should encode multisig output`, (): void => {
                     const pubKeys: Buffer[] = fixture.pubKeys.map((p: string) => Buffer.from(p, "hex"))
                     const m: number = pubKeys.length
-                    const buf: Buffer = bitbox.Script.multisig.output.encode(m, pubKeys)
+                    const output: Buffer = bitbox.Script.encodeP2MSOutput(m, pubKeys)
 
-                    assert.equal(buf.toString("hex"), fixture.hex)
+                    assert.equal(output.toString("hex"), fixture.hex)
                 })
 
                 it(`should decode multisig output`, (): void => {
-                    const output: any = bitbox.Script.multisig.output.decode(
-                        Buffer.from(`${fixture.hex}`, "hex")
-                    )
-                    assert.equal(output.m, fixture.pubKeys.length)
+                    const output: Buffer = Buffer.from(`${fixture.hex}`, "hex")
+                    const decoded: DecodedP2MSOutput = bitbox.Script.decodeP2MSOutput(output)
+                    assert.equal(decoded.m, fixture.pubKeys.length)
                 })
 
                 it(`should confirm correctly formatted multisig output`, (): void => {
                     const pubKeys: Buffer[] = fixture.pubKeys.map((p: any) => Buffer.from(p, "hex"))
                     const m: number = pubKeys.length
-                    const buf: Buffer = bitbox.Script.multisig.output.encode(m, pubKeys)
-                    const valid: boolean = bitbox.Script.multisig.output.check(buf)
+                    const output: Buffer = bitbox.Script.encodeP2MSOutput(m, pubKeys)
+                    const valid: boolean = bitbox.Script.checkP2MSOutput(output)
                     assert.equal(valid, true)
                 })
             })
@@ -397,20 +372,18 @@ describe("#Script", (): void => {
         describe("#scriptHashInputTemplate", (): void => {
             fixtures.scriptHashInputTemplate.forEach((fixture: any): void => {
                 it(`should encode scriptHash input`, (): void => {
-                    const buf: Buffer = bitbox.Script.scriptHash.input.encode(
-                        bitbox.Script.fromASM(fixture.redeemScriptSig),
-                        bitbox.Script.fromASM(fixture.redeemScript)
-                    )
-                    assert.equal(buf.toString("hex"), fixture.hex)
+                    const redeemScriptSig: Buffer = bitbox.Script.fromASM(fixture.redeemScriptSig)
+                    const redeemScript: Buffer = bitbox.Script.fromASM(fixture.redeemScript)
+                    const input: Buffer = bitbox.Script.encodeP2SHInput(redeemScriptSig, redeemScript)
+                    assert.equal(input.toString("hex"), fixture.hex)
                 })
 
                 it(`should decode scriptHash input`, (): void => {
-                    const redeemScriptSig: any = bitbox.Script.fromASM(fixture.redeemScriptSig)
-                    const redeemScript: any = bitbox.Script.fromASM(fixture.redeemScript)
+                    const redeemScriptSig: Buffer = bitbox.Script.fromASM(fixture.redeemScriptSig)
+                    const redeemScript: Buffer = bitbox.Script.fromASM(fixture.redeemScript)
+                    const input: Buffer = bitbox.Script.encodeP2SHInput(redeemScriptSig, redeemScript)
                     assert.deepEqual(
-                        bitbox.Script.scriptHash.input.decode(
-                            Buffer.from(fixture.hex, "hex")
-                        ),
+                        bitbox.Script.decodeP2SHInput(input),
                         {
                             redeemScriptSig: redeemScriptSig,
                             redeemScript: redeemScript
@@ -419,11 +392,10 @@ describe("#Script", (): void => {
                 })
 
                 it(`should confirm correctly formatted scriptHash input`, (): void => {
-                    const buf: Buffer = bitbox.Script.scriptHash.input.encode(
-                        bitbox.Script.fromASM(fixture.redeemScriptSig),
-                        bitbox.Script.fromASM(fixture.redeemScript)
-                    )
-                    const valid: boolean = bitbox.Script.scriptHash.input.check(buf)
+                    const redeemScriptSig: Buffer = bitbox.Script.fromASM(fixture.redeemScriptSig)
+                    const redeemScript: Buffer = bitbox.Script.fromASM(fixture.redeemScript)
+                    const input: Buffer = bitbox.Script.encodeP2SHInput(redeemScriptSig, redeemScript)
+                    const valid: boolean = bitbox.Script.scriptHash.input.check(input)
                     assert.equal(valid, true)
                 })
             })
@@ -432,26 +404,25 @@ describe("#Script", (): void => {
         describe("#scriptHashOutputTemplate", (): void => {
             fixtures.scriptHashOutputTemplate.forEach((fixture: any): void => {
                 it(`should encode scriptHash output`, (): void => {
-                    const redeemScript: any = bitbox.Script.fromASM(fixture.output)
+                    const redeemScript: Buffer = bitbox.Script.fromASM(fixture.output)
                     const scriptHash: Buffer = bitbox.Crypto.hash160(redeemScript)
-                    const buf: Buffer = bitbox.Script.scriptHash.output.encode(scriptHash)
+                    const output: Buffer = bitbox.Script.encodeP2SHOutput(scriptHash)
 
-                    assert.equal(buf.toString("hex"), fixture.hex)
+                    assert.equal(output.toString("hex"), fixture.hex)
                 })
 
                 it(`should decode scriptHash output`, (): void => {
                     const redeemScript: any = bitbox.Script.fromASM(fixture.output)
                     const scriptHash: Buffer = bitbox.Crypto.hash160(redeemScript)
-                    const buf: Buffer = bitbox.Script.scriptHash.output.decode(
-                        Buffer.from(`${fixture.hex}`, "hex")
-                    )
-                    assert.deepEqual(buf, scriptHash)
+                    const output: Buffer = bitbox.Script.encodeP2SHOutput(scriptHash)
+                    let decoded: Buffer = bitbox.Script.decodeP2SHOutput(output)
+                    assert.deepEqual(decoded, scriptHash)
                 })
 
                 it(`should confirm correctly formatted scriptHash output`, (): void => {
                     const redeemScript: any = bitbox.Script.fromASM(fixture.output)
                     const scriptHash: Buffer = bitbox.Crypto.hash160(redeemScript)
-                    const buf: Buffer = bitbox.Script.scriptHash.output.encode(scriptHash)
+                    const buf: Buffer = bitbox.Script.encodeP2SHOutput(scriptHash)
                     const valid: boolean = bitbox.Script.scriptHash.output.check(buf)
                     assert.equal(valid, true)
                 })
