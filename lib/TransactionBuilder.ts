@@ -67,7 +67,7 @@ export class TransactionBuilder {
     txHash: string,
     vout: number,
     sequence: number = this.DEFAULT_SEQUENCE,
-    prevOutScript: string | null = null
+    prevOutScript: string | Buffer | null = null
   ): void {
     this.transaction.addInput(txHash, vout, sequence, prevOutScript)
   }
@@ -86,9 +86,10 @@ export class TransactionBuilder {
     this.p2shInput = true
   }
 
-  public addOutput(scriptPubKey: string, amount: number): void {
+  public addOutput(scriptPubKey: string | Buffer, amount: number): void {
     try {
       this.transaction.addOutput(
+        // @ts-ignore
         this._address.toLegacyAddress(scriptPubKey),
         amount
       )
