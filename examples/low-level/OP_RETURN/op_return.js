@@ -4,8 +4,8 @@
 
 // Instantiate bitbox.
 const bitboxLib = "../../../lib/BITBOX"
-const BITBOXSDK = require(bitboxLib).BITBOX
-const bitbox = new BITBOXSDK()
+const BITBOX = require(bitboxLib).BITBOX
+const bitbox = new BITBOX()
 
 // Choose a transaction to parse for OP_Return
 
@@ -57,8 +57,6 @@ function parseOP_RETURN(txid) {
 
             fromAsm = bitbox.Script.fromASM(message)
             decoded = bitbox.Script.decode(fromAsm)
-            console.log(`Decoded:`)
-            console.log(decoded)
             message = decoded[1].toString('ascii')
 
             // Add this decoded OP_Return message to an array, in case multiple outputs have OP_Return messages
