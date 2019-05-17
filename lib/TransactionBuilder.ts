@@ -1,6 +1,7 @@
 // imports
 import { ECPair } from "bitcoincashjs-lib";
-import { Address, BitcoinCash } from "./Address"
+import { Address } from "./Address"
+import { BchInfo } from "..";
 
 // consts
 const Bitcoin = require("bitcoincashjs-lib")
@@ -35,7 +36,7 @@ export class TransactionBuilder {
   private _address: Address
 
   constructor(network: string = "mainnet", address: Address = new Address()) {
-    let bitcoincash: BitcoinCash
+    let bitcoincash: BchInfo
     this._address = address
     if (network === "bitcoincash" || network === "mainnet")
       bitcoincash = coininfo.bitcoincash.main

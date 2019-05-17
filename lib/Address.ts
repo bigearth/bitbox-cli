@@ -2,6 +2,7 @@ import axios, { AxiosResponse } from "axios"
 import { AddressDetailsResult, AddressUtxoResult, AddressUnconfirmedResult } from "bitcoin-com-rest";
 import * as bcl from "bitcoincashjs-lib"
 import { resturl } from "./BITBOX"
+import { BchInfo } from "..";
 // TODO: port require statements to impprt
 const Bitcoin = require("bitcoincashjs-lib")
 const cashaddr = require("cashaddrjs")
@@ -21,33 +22,6 @@ interface Decoded extends Hash {
   format: string
 }
 
-export interface BitcoinCash {
-  hashGenesisBlock: string
-  port: number
-  portRpc: number
-  protocol: {
-    magic: number
-  }
-  seedsDns: string[]
-  versions: {
-    bip32: {
-      private: number
-      public: number
-    }
-    bip44: number
-    private: number
-    public: number
-    scripthash: number
-    messagePrefix: string
-  }
-  name: string
-  per1: number
-  unit: string
-  testnet: boolean
-  toBitcoinJS: any
-  toBitcore: any
-}
-
 interface DecodedHash160 {
   legacyAddress: string
   cashAddress: string
@@ -63,7 +37,7 @@ export class Address {
   // Translate address from any address format into a specific format.
   public toLegacyAddress(address: string): string {
     const { prefix, type, hash }: Decoded = this._decode(address)
-    let bitcoincash: BitcoinCash = coininfo.bitcoincash.main
+    let bitcoincash: BchInfo = coininfo.bitcoincash.main
     switch (prefix) {
       case "bitcoincash":
         bitcoincash = coininfo.bitcoincash.main
@@ -224,7 +198,7 @@ export class Address {
   }
 
   public fromXPub(xpub: string, path: string = "0/0"): string {
-    let bitcoincash: BitcoinCash
+    let bitcoincash: BchInfo
     if (xpub[0] === "x") bitcoincash = coininfo.bitcoincash.main
     else bitcoincash = coininfo.bitcoincash.test
 
@@ -235,7 +209,7 @@ export class Address {
   }
 
   public fromXPriv(xpriv: string, path: string = "0'/0"): string {
-    let bitcoincash: BitcoinCash
+    let bitcoincash: BchInfo
     if (xpriv[0] === "x") bitcoincash = coininfo.bitcoincash.main
     else bitcoincash = coininfo.bitcoincash.test
 
