@@ -72,7 +72,7 @@ export class RawTransactions {
   public async getRawTransaction(
     txid: string | string[],
     verbose: boolean = false
-  ): Promise<VerboseRawTransactionResult | VerboseRawTransactionResult[]> {
+  ): Promise<VerboseRawTransactionResult | VerboseRawTransactionResult[] | string | string[]> {
     try {
       if (typeof txid === "string") {
         const response: AxiosResponse = await axios.get(
