@@ -24,28 +24,14 @@ Open Source / Creative Commons Listings
 - [buffer](https://www.npmjs.com/package/buffer) - MIT
 - [cashaddrjs](https://github.com/bitcoincashjs/cashaddrjs/blob/master/LICENSE) - MIT
 - [chai](https://www.npmjs.com/package/chai) - MIT
-- [chalk](https://www.npmjs.com/package/chalk) - MIT
-- [clear](https://www.npmjs.com/package/clear) - none
-- [commander](https://www.npmjs.com/package/commander) - MIT
-- [cp-file](https://www.npmjs.com/package/cp-file) - MIT
-- [ecurve](https://www.npmjs.com/package/ecurve) - MIT
-- [figlet](https://www.npmjs.com/package/figlet) - MIT
-- [git-clone](https://www.npmjs.com/package/git-clone) - ICS
-- [ini](https://www.npmjs.com/package/ini) - ICS
-- [mkdirp](https://www.npmjs.com/package/mkdirp) - MIT
 - [mocha](https://www.npmjs.com/package/mocha) - MIT
-- [node-cmd](https://www.npmjs.com/package/node-cmd) - DBAD
-- [node-emoji](https://www.npmjs.com/package/node-emoji) - MIT
 - [nyc](https://www.npmjs.com/package/nyc) - ICS
 - [qrcode](https://www.npmjs.com/package/qrcode) - MIT
 - [randombytes](https://www.npmjs.com/package/randombytes) - MIT
 - [safe-buffer](https://www.npmjs.com/package/safe-buffer) - MIT
 - [satoshi-bitcoin](https://www.npmjs.com/package/satoshi-bitcoin) - MIT
 - [sinon](https://www.npmjs.com/package/sinon) - BSD-3-Clause
-- [touch](https://www.npmjs.com/package/touch) - ISC
 
 ## Font awesome
 
 [Cube icon](https://fontawesome.com/icons/cube?style=solid) available under [CC v4.0](https://creativecommons.org/licenses/by/4.0/)
-
-[More info](https://developer.bitcoin.com/bitbox.html)
