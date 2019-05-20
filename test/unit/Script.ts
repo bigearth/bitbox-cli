@@ -429,4 +429,18 @@ describe("#Script", (): void => {
             })
         })
     })
+
+    describe("#scriptNumber", (): void => {
+        fixtures.scriptNumber.forEach((fixture: any): void => {
+            it(`should encode number ${fixture.decoded} as bytes ${fixture.encoded}`, (): void => {
+                const encoded = bitbox.Script.number.encode(fixture.decoded)
+                assert.equal(encoded.toString("hex"), fixture.encoded)
+            })
+
+            it(`should decode bytes ${fixture.encoded} as number ${fixture.decoded}`, (): void => {
+                const decoded = bitbox.Script.number.decode(Buffer.from(fixture.encoded, 'hex'))
+                assert.equal(decoded, fixture.decoded)
+            })
+        })
+    })
 })

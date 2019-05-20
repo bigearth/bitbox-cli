@@ -214,6 +214,11 @@ export interface scriptHash {
   }
 }
 
+export interface scriptNumber {
+  encode(number: number): Buffer
+  decode(buffer: Buffer, maxLength?: number, minimal?: boolean): number
+}
+
 export class Script {
   public opcodes: opcodes
   public nullData: nullData
@@ -221,6 +226,7 @@ export class Script {
   public pubKeyHash: pubKeyHash
   public multisig: multisig
   public scriptHash: scriptHash
+  public number: scriptNumber
 
   constructor() {
     this.opcodes = opcodes
@@ -252,6 +258,7 @@ export class Script {
     this.pubKey = Bitcoin.script.pubKey
     this.pubKeyHash = Bitcoin.script.pubKeyHash
     this.scriptHash = Bitcoin.script.scriptHash
+    this.number = Bitcoin.script.number
   }
 
   public encode(scriptChunks: Array<number | Buffer>): Buffer {
