@@ -396,4 +396,12 @@ export class Script {
   public checkP2SHOutput(output: Buffer): boolean {
     return this.scriptHash.output.check(output)
   }
+
+  public encodeNumber(number: number): Buffer {
+    return this.number.encode(number);
+  }
+
+  public decodeNumber(buffer: Buffer, maxLength?: number, minimal?: boolean): number {
+    return this.number.decode(buffer, maxLength, minimal);
+  }
 }
