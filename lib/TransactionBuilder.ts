@@ -1,7 +1,7 @@
 // imports
-import { ECPair } from "bitcoincashjs-lib";
+import { ECPair } from "bitcoincashjs-lib"
+import { BchInfo } from ".."
 import { Address } from "./Address"
-import { BchInfo } from "..";
 
 // consts
 const Bitcoin = require("bitcoincashjs-lib")

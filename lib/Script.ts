@@ -150,14 +150,13 @@ export interface nullData {
 }
 
 export interface pubKey {
-  input:
-  {
+  input: {
     encode(signature: Buffer): Buffer
     decode(input: Buffer): Buffer
     check(input: Buffer): boolean
     decodeStack(data: Buffer): Buffer
     encodeStack(data: Buffer): Buffer
-  },
+  }
   output: {
     encode(pubKey: Buffer): Buffer
     decode(output: Buffer): Buffer
@@ -166,16 +165,14 @@ export interface pubKey {
 }
 
 export interface pubKeyHash {
-  input:
-  {
+  input: {
     encode(signature: Buffer, pubKey: Buffer): Buffer
     decode(data: Buffer): DecodedP2PKHInput
     check(data: Buffer): boolean
     decodeStack(data: Buffer): Buffer
     encodeStack(data: Buffer): Buffer
-  },
-  output:
-  {
+  }
+  output: {
     encode(identifier: Buffer): Buffer
     decode(output: Buffer): Buffer
     check(output: Buffer): boolean
@@ -183,14 +180,12 @@ export interface pubKeyHash {
 }
 
 export interface multisig {
-  input:
-  {
+  input: {
     encode(signatures: Buffer[]): Buffer
     decode(input: Buffer): Buffer[]
     check(input: Buffer): boolean
-  },
-  output:
-  {
+  }
+  output: {
     encode(m: number, pubKeys: Buffer[]): Buffer
     decode(output: Buffer): DecodedP2MSOutput
     check(output: Buffer): boolean
@@ -198,16 +193,14 @@ export interface multisig {
 }
 
 export interface scriptHash {
-  input:
-  {
+  input: {
     encode(redeemScriptSig: Buffer, redeemScript: Buffer): Buffer
     decode(input: Buffer): DecodedP2SHInput
     check(data: Buffer): boolean
     decodeStack(data: Buffer): Buffer
     encodeStack(data: Buffer): Buffer
-  },
-  output:
-  {
+  }
+  output: {
     encode(scriptHash: Buffer): Buffer
     decode(output: Buffer): Buffer
     check(output: Buffer): boolean
@@ -322,7 +315,7 @@ export class Script {
   }
 
   public checkP2PKOutput(output: Buffer): boolean {
-    return this.pubKey.output.check(output);
+    return this.pubKey.output.check(output)
   }
 
   public encodeP2PKHInput(signature: Buffer, pubKey: Buffer): Buffer {
@@ -346,7 +339,7 @@ export class Script {
   }
 
   public checkP2PKHOutput(output: Buffer): boolean {
-    return this.pubKeyHash.output.check(output);
+    return this.pubKeyHash.output.check(output)
   }
 
   public encodeP2MSInput(signatures: Buffer[]): Buffer {
@@ -354,7 +347,7 @@ export class Script {
   }
 
   public decodeP2MSInput(input: Buffer): Buffer[] {
-    return this.multisig.input.decode(input);
+    return this.multisig.input.decode(input)
   }
 
   public checkP2MSInput(input: Buffer): boolean {
@@ -370,10 +363,13 @@ export class Script {
   }
 
   public checkP2MSOutput(output: Buffer): boolean {
-    return this.multisig.output.check(output);
+    return this.multisig.output.check(output)
   }
 
-  public encodeP2SHInput(redeemScriptSig: Buffer, redeemScript: Buffer): Buffer {
+  public encodeP2SHInput(
+    redeemScriptSig: Buffer,
+    redeemScript: Buffer
+  ): Buffer {
     return this.scriptHash.input.encode(redeemScriptSig, redeemScript)
   }
 
@@ -382,7 +378,7 @@ export class Script {
   }
 
   public checkP2SHInput(input: Buffer): boolean {
-    return this.scriptHash.input.check(input);
+    return this.scriptHash.input.check(input)
   }
 
   public encodeP2SHOutput(scriptHash: Buffer): Buffer {
@@ -390,7 +386,7 @@ export class Script {
   }
 
   public decodeP2SHOutput(output: Buffer): Buffer {
-    return this.scriptHash.output.decode(output);
+    return this.scriptHash.output.decode(output)
   }
 
   public checkP2SHOutput(output: Buffer): boolean {
@@ -398,10 +394,14 @@ export class Script {
   }
 
   public encodeNumber(number: number): Buffer {
-    return this.number.encode(number);
+    return this.number.encode(number)
   }
 
-  public decodeNumber(buffer: Buffer, maxLength?: number, minimal?: boolean): number {
-    return this.number.decode(buffer, maxLength, minimal);
+  public decodeNumber(
+    buffer: Buffer,
+    maxLength?: number,
+    minimal?: boolean
+  ): number {
+    return this.number.decode(buffer, maxLength, minimal)
   }
 }

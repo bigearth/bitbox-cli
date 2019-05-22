@@ -1,12 +1,12 @@
 import * as BIP39 from "bip39"
-import * as randomBytes from "randombytes"
-// TODO: convert "bitcoincashjs-lib" require to import
-const Bitcoin = require("bitcoincashjs-lib")
+import * as bcl from "bitcoincashjs-lib"
 // import * as Bitcoin from "bitcoincashjs-lib"
 import { Buffer } from "buffer"
+import * as randomBytes from "randombytes"
 import * as wif from "wif"
 import { Address } from "./Address"
-import * as bcl from "bitcoincashjs-lib"
+// TODO: convert "bitcoincashjs-lib" require to import
+const Bitcoin = require("bitcoincashjs-lib")
 
 export class Mnemonic {
   private _address: Address
@@ -14,19 +14,31 @@ export class Mnemonic {
     this._address = address
   }
 
-  public generate(bits: number = 128, wordlist: string[] = this.wordLists().english): string {
+  public generate(
+    bits: number = 128,
+    wordlist: string[] = this.wordLists().english
+  ): string {
     return BIP39.generateMnemonic(bits, randomBytes, wordlist)
   }
 
-  public fromEntropy(bytes: Buffer, wordlist: string[] = this.wordLists().english): string {
+  public fromEntropy(
+    bytes: Buffer,
+    wordlist: string[] = this.wordLists().english
+  ): string {
     return BIP39.entropyToMnemonic(bytes, wordlist)
   }
 
-  public toEntropy(mnemonic: string, wordlist: string[] = this.wordLists().english): Buffer {
+  public toEntropy(
+    mnemonic: string,
+    wordlist: string[] = this.wordLists().english
+  ): Buffer {
     return Buffer.from(BIP39.mnemonicToEntropy(mnemonic, wordlist), "hex")
   }
 
-  public validate(mnemonic: string, wordlist: string[] = this.wordLists().english): string {
+  public validate(
+    mnemonic: string,
+    wordlist: string[] = this.wordLists().english
+  ): string {
     // Preprocess the words
     const words = mnemonic.split(" ")
     // Detect blank phrase
@@ -118,7 +130,7 @@ export class Mnemonic {
  * @return Object the final object.
  */
 
-const _extend: any = function (dst: any): any {
+const _extend: any = function(dst: any): any {
   const sources: any = Array.prototype.slice.call(arguments, 1)
   for (let i: number = 0; i < sources.length; ++i) {
     const src = sources[i]
@@ -131,7 +143,7 @@ const _extend: any = function (dst: any): any {
  * Defer execution of given function.
  * @param  {Function} func
  */
-const _defer: any = function (func: any): any {
+const _defer: any = function(func: any): any {
   if (typeof setImmediate === "function") return setImmediate(func)
 
   return setTimeout(func, 0)
@@ -148,7 +160,7 @@ var Levenshtein: any = {
    * @param str2 String the second string.
    * @return Integer the levenshtein distance (0 and above).
    */
-  get: function (str1: any, str2: any) {
+  get: function(str1: any, str2: any) {
     // base cases
     if (str1 === str2) return 0
     if (str1.length === 0) return str2.length
@@ -202,7 +214,7 @@ var Levenshtein: any = {
    * @param [options] Object additional options.
    * @param [options.progress] Function progress callback with signature: function(percentComplete)
    */
-  getAsync: function (str1: any, str2: any, cb: any, options: any) {
+  getAsync: function(str1: any, str2: any, cb: any, options: any) {
     options = _extend(
       {},
       {
@@ -233,7 +245,7 @@ var Levenshtein: any = {
     i = 0
     j = -1
 
-    var __calculate = function () {
+    var __calculate = function() {
       // reset timer
       startTime = new Date().valueOf()
       currentTime = startTime

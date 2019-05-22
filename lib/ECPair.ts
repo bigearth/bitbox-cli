@@ -1,4 +1,4 @@
-import * as bcl from "bitcoincashjs-lib";
+import * as bcl from "bitcoincashjs-lib"
 import { Address } from "./Address"
 
 const Bitcoin = require("bitcoincashjs-lib")
@@ -33,7 +33,11 @@ export class ECPair {
     return ecpair.sign(buffer)
   }
 
-  public verify(ecpair: bcl.ECPair, buffer: Buffer, signature: bcl.ECSignature): boolean {
+  public verify(
+    ecpair: bcl.ECPair,
+    buffer: Buffer,
+    signature: bcl.ECSignature
+  ): boolean {
     return ecpair.verify(buffer, signature)
   }
 

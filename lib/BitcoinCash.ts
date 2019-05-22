@@ -55,7 +55,10 @@ export class BitcoinCash {
     return satoshis / 100
   }
 
-  public signMessageWithPrivKey(privateKeyWIF: string, message: string): string {
+  public signMessageWithPrivKey(
+    privateKeyWIF: string,
+    message: string
+  ): string {
     const network: string =
       privateKeyWIF.charAt(0) === "c" ? "testnet" : "mainnet"
     let bitcoincash: any
@@ -73,7 +76,11 @@ export class BitcoinCash {
       .toString("base64")
   }
 
-  public verifyMessage(address: string, signature: string, message: string): boolean {
+  public verifyMessage(
+    address: string,
+    signature: string,
+    message: string
+  ): boolean {
     return bitcoinMessage.verify(
       message,
       this._address.toLegacyAddress(address),
@@ -126,13 +133,13 @@ export class BitcoinCash {
       }
     }
 
-    Object.keys(inputs).forEach(function (key) {
+    Object.keys(inputs).forEach(function(key) {
       if (key.slice(0, 8) === "MULTISIG") {
         // ex. "MULTISIG-P2SH:2-3" would mean 2 of 3 P2SH MULTISIG
         const keyParts = key.split(":")
         if (keyParts.length !== 2) throw new Error(`invalid input: ${key}`)
         const newKey = keyParts[0]
-        const mAndN = keyParts[1].split("-").map(function (item) {
+        const mAndN = keyParts[1].split("-").map(function(item) {
           return parseInt(item)
         })
 
@@ -145,7 +152,7 @@ export class BitcoinCash {
       if (key.indexOf("W") >= 0) hasWitness = true
     })
 
-    Object.keys(outputs).forEach(function (key) {
+    Object.keys(outputs).forEach(function(key) {
       totalWeight += types.outputs[key] * outputs[key]
     })
 

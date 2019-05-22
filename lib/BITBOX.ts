@@ -1,31 +1,31 @@
 /// <reference path="./interfaces/vendors.d.ts"/>
 
-// import interfaces
-import { IConfig } from "./interfaces/BITBOXInterfaces"
-
-// local deps
+// imports
+import { Address } from "./Address"
 import { BitcoinCash } from "./BitcoinCash"
-import { Crypto } from "./Crypto"
-import { Util } from "./Util"
 import { Block } from "./Block"
 import { Blockchain } from "./Blockchain"
 import { Control } from "./Control"
+import { Crypto } from "./Crypto"
+import { ECPair } from "./ECPair"
 import { Generating } from "./Generating"
-import { Mining } from "./Mining"
-import { RawTransactions } from "./RawTransactions"
-import { Mnemonic } from "./Mnemonic"
-import { Address } from "./Address"
 import { HDNode } from "./HDNode"
+import { IConfig } from "./interfaces/BITBOXInterfaces"
+import { Mining } from "./Mining"
+import { Mnemonic } from "./Mnemonic"
+import { Price } from "./Price"
+import { RawTransactions } from "./RawTransactions"
+import { Schnorr } from "./Schnorr"
+import { Script } from "./Script"
+import { Socket } from "./Socket"
 import { Transaction } from "./Transaction"
 import { TransactionBuilder } from "./TransactionBuilder"
-import { ECPair } from "./ECPair"
-import { Script } from "./Script"
-import { Price } from "./Price"
-import { Socket } from "./Socket"
-import { Schnorr } from "./Schnorr"
+import { Util } from "./Util"
 // import { Wallet } from "./Wallet"
 
+// consts
 export const resturl = "https://rest.bitcoin.com/v2/"
+
 export class BITBOX {
   public restURL: string
   public Address: Address

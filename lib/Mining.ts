@@ -38,7 +38,7 @@ export class Mining {
     try {
       const response: AxiosResponse = await axios.get(
         `${
-        this.restURL
+          this.restURL
         }mining/getNetworkHashps?nblocks=${nblocks}&height=${height}`
       )
       return response.data

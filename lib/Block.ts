@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from "axios"
-import { BlockDetailsResult } from "bitcoin-com-rest";
+import { BlockDetailsResult } from "bitcoin-com-rest"
 import { resturl } from "./BITBOX"
 
 export class Block {

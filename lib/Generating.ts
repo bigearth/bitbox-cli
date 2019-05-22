@@ -15,7 +15,7 @@ export class Generating {
     try {
       const response: AxiosResponse = await axios.post(
         `${
-        this.restURL
+          this.restURL
         }generating/generateToAddress/${blocks}/${address}?maxtries=${maxtries}`
       )
       return response.data

@@ -1,8 +1,15 @@
+// imports
 import axios, { AxiosResponse } from "axios"
-import { AddressDetailsResult, AddressUtxoResult, AddressUnconfirmedResult } from "bitcoin-com-rest";
+import {
+  AddressDetailsResult,
+  AddressUnconfirmedResult,
+  AddressUtxoResult
+} from "bitcoin-com-rest"
 import * as bcl from "bitcoincashjs-lib"
+import { BchInfo } from ".."
 import { resturl } from "./BITBOX"
-import { BchInfo } from "..";
+
+// consts
 // TODO: port require statements to impprt
 const Bitcoin = require("bitcoincashjs-lib")
 const cashaddr = require("cashaddrjs")
@@ -203,7 +210,10 @@ export class Address {
     else bitcoincash = coininfo.bitcoincash.test
 
     const bitcoincashBitcoinJSLib: any = bitcoincash.toBitcoinJS()
-    const HDNode: bcl.HDNode = Bitcoin.HDNode.fromBase58(xpub, bitcoincashBitcoinJSLib)
+    const HDNode: bcl.HDNode = Bitcoin.HDNode.fromBase58(
+      xpub,
+      bitcoincashBitcoinJSLib
+    )
     const address: bcl.HDNode = HDNode.derivePath(path)
     return this.toCashAddress(address.getAddress())
   }
@@ -222,7 +232,10 @@ export class Address {
     return this.toCashAddress(address.getAddress())
   }
 
-  public fromOutputScript(scriptPubKey: Buffer, network: string = "mainnet"): string {
+  public fromOutputScript(
+    scriptPubKey: Buffer,
+    network: string = "mainnet"
+  ): string {
     let netParam: any
     if (network !== "bitcoincash" && network !== "mainnet")
       netParam = Bitcoin.networks.testnet
@@ -369,11 +382,11 @@ export class Address {
   private _decode(address: string): Decoded {
     try {
       return this._decodeLegacyAddress(address)
-    } catch (error) { }
+    } catch (error) {}
 
     try {
       return this._decodeCashAddress(address)
-    } catch (error) { }
+    } catch (error) {}
 
     throw new Error(`Unsupported address format : ${address}`)
   }
@@ -381,7 +394,7 @@ export class Address {
   private _decodeHash160(address: string): DecodedHash160 {
     try {
       return this._decodeAddressFromHash160(address)
-    } catch (error) { }
+    } catch (error) {}
 
     throw new Error(`Unsupported address format : ${address}`)
   }
@@ -449,7 +462,7 @@ export class Address {
         const decoded: Decoded = cashaddr.decode(`${prefixes[i]}:${address}`)
         decoded.format = "cashaddr"
         return decoded
-      } catch (error) { }
+      } catch (error) {}
     }
 
     throw new Error(`Invalid format : ${address}`)

@@ -1,9 +1,12 @@
 // imports
+import {
+  AddressDetailsResult,
+  AddressUnconfirmedResult,
+  AddressUtxoResult
+} from "bitcoin-com-rest"
 import * as chai from "chai"
-import { BITBOX } from "../../lib/BITBOX"
 import { Address } from "../../lib/Address"
-import { resturl } from "../../lib/BITBOX"
-import { AddressDetailsResult, AddressUtxoResult, AddressUnconfirmedResult } from "bitcoin-com-rest";
+import { BITBOX, resturl } from "../../lib/BITBOX"
 
 // consts
 const bitbox: BITBOX = new BITBOX()
@@ -55,17 +58,21 @@ const CASHADDR_ADDRESSES: string[] = flatten([
   fixtures.cashaddrTestnetP2SH
 ])
 
-const CASHADDR_ADDRESSES_NO_PREFIX: string[] = CASHADDR_ADDRESSES.map((address: string) => {
-  const parts: string[] = address.split(":")
-  return parts[1]
-})
+const CASHADDR_ADDRESSES_NO_PREFIX: string[] = CASHADDR_ADDRESSES.map(
+  (address: string) => {
+    const parts: string[] = address.split(":")
+    return parts[1]
+  }
+)
 
 const REGTEST_ADDRESSES: string[] = fixtures.cashaddrRegTestP2PKH
 
-const REGTEST_ADDRESSES_NO_PREFIX: string[] = REGTEST_ADDRESSES.map((address: string) => {
-  const parts: string[] = address.split(":")
-  return parts[1]
-})
+const REGTEST_ADDRESSES_NO_PREFIX: string[] = REGTEST_ADDRESSES.map(
+  (address: string) => {
+    const parts: string[] = address.split(":")
+    return parts[1]
+  }
+)
 
 const HASH160_HASHES: string[] = flatten([
   fixtures.hash160MainnetP2PKH,
@@ -135,16 +142,15 @@ describe("#Address", (): void => {
         )
       })
 
-
       describe("errors", (): void => {
         it("should fail when called with an invalid address", (): void => {
           assert.throws(() => {
             // @ts-ignore
             bitbox.Address.toLegacyAddress()
-          }, '')
+          }, "")
           assert.throws(() => {
             bitbox.Address.toLegacyAddress("some invalid address")
-          }, '')
+          }, "")
         })
       })
     })
@@ -223,10 +229,10 @@ describe("#Address", (): void => {
           assert.throws(() => {
             // @ts-ignore
             bitbox.Address.toCashAddress()
-          }, '')
+          }, "")
           assert.throws(() => {
             bitbox.Address.toCashAddress("some invalid address")
-          }, '')
+          }, "")
         })
       })
     })
@@ -245,10 +251,10 @@ describe("#Address", (): void => {
           assert.throws(() => {
             // @ts-ignore
             bitbox.Address.legacyToHash160()
-          }, '')
+          }, "")
           assert.throws(() => {
             bitbox.Address.legacyToHash160("some invalid address")
-          }, '')
+          }, "")
         })
       })
     })
@@ -267,10 +273,10 @@ describe("#Address", (): void => {
           assert.throws(() => {
             // @ts-ignore
             bitbox.Address.cashToHash160()
-          }, '')
+          }, "")
           assert.throws(() => {
             bitbox.Address.cashToHash160("some invalid address")
-          }, '')
+          }, "")
         })
       })
     })
@@ -380,17 +386,17 @@ describe("#Address", (): void => {
           assert.throws(() => {
             // @ts-ignore
             bitbox.Address.hash160ToLegacy()
-          }, '')
+          }, "")
           assert.throws(() => {
             bitbox.Address.hash160ToLegacy("some invalid address")
-          }, '')
+          }, "")
           assert.throws(() => {
             // @ts-ignore
             bitbox.Address.hash160ToCash()
-          }, '')
+          }, "")
           assert.throws(() => {
             bitbox.Address.hash160ToCash("some invalid address")
-          }, '')
+          }, "")
         })
       })
     })
@@ -427,10 +433,10 @@ describe("#Address", (): void => {
           assert.throws(() => {
             // @ts-ignore
             bitbox.Address.isLegacyAddress()
-          }, '')
+          }, "")
           assert.throws(() => {
             bitbox.Address.isLegacyAddress("some invalid address")
-          }, '')
+          }, "")
         })
       })
     })
@@ -466,10 +472,10 @@ describe("#Address", (): void => {
           assert.throws(() => {
             // @ts-ignore
             bitbox.Address.isCashAddress()
-          }, '')
+          }, "")
           assert.throws(() => {
             bitbox.Address.isCashAddress("some invalid address")
-          }, '')
+          }, "")
         })
       })
     })
@@ -510,10 +516,10 @@ describe("#Address", (): void => {
           assert.throws(() => {
             // @ts-ignore
             bitbox.Address.isHash160()
-          }, '')
+          }, "")
           assert.throws(() => {
             bitbox.Address.isHash160("some invalid address")
-          }, '')
+          }, "")
         })
       })
     })
@@ -551,10 +557,10 @@ describe("#Address", (): void => {
           assert.throws(() => {
             // @ts-ignore
             bitbox.Address.isMainnetAddress()
-          }, '')
+          }, "")
           assert.throws(() => {
             bitbox.Address.isMainnetAddress("some invalid address")
-          }, '')
+          }, "")
         })
       })
     })
@@ -590,10 +596,10 @@ describe("#Address", (): void => {
           assert.throws(() => {
             // @ts-ignore
             bitbox.Address.isTestnetAddress()
-          }, '')
+          }, "")
           assert.throws(() => {
             bitbox.Address.isTestnetAddress("some invalid address")
-          }, '')
+          }, "")
         })
       })
     })
@@ -629,10 +635,10 @@ describe("#Address", (): void => {
           assert.throws(() => {
             // @ts-ignore
             bitbox.Address.isRegTestAddress()
-          }, '')
+          }, "")
           assert.throws(() => {
             bitbox.Address.isRegTestAddress("some invalid address")
-          }, '')
+          }, "")
         })
       })
     })
@@ -663,10 +669,10 @@ describe("#Address", (): void => {
           assert.throws(() => {
             // @ts-ignore
             bitbox.Address.isP2PKHAddress()
-          }, '')
+          }, "")
           assert.throws(() => {
             bitbox.Address.isP2PKHAddress("some invalid address")
-          }, '')
+          }, "")
         })
       })
     })
@@ -695,10 +701,10 @@ describe("#Address", (): void => {
           assert.throws(() => {
             // @ts-ignore
             bitbox.Address.isP2SHAddress()
-          }, '')
+          }, "")
           assert.throws(() => {
             bitbox.Address.isP2SHAddress("some invalid address")
-          }, '')
+          }, "")
         })
       })
     })
@@ -764,13 +770,17 @@ describe("#Address", (): void => {
         CASHADDR_ADDRESSES_NO_PREFIX.map((address: string) =>
           bitbox.Address.toLegacyAddress(address)
         ),
-        CASHADDR_ADDRESSES.map((address: string) => bitbox.Address.toLegacyAddress(address))
+        CASHADDR_ADDRESSES.map((address: string) =>
+          bitbox.Address.toLegacyAddress(address)
+        )
       )
       assert.deepEqual(
         REGTEST_ADDRESSES_NO_PREFIX.map((address: string) =>
           bitbox.Address.toLegacyAddress(address)
         ),
-        REGTEST_ADDRESSES.map((address: string) => bitbox.Address.toLegacyAddress(address))
+        REGTEST_ADDRESSES.map((address: string) =>
+          bitbox.Address.toLegacyAddress(address)
+        )
       )
     })
     it("should return the same result for isLegacyAddress", (): void => {
@@ -778,13 +788,17 @@ describe("#Address", (): void => {
         CASHADDR_ADDRESSES_NO_PREFIX.map((address: string) =>
           bitbox.Address.isLegacyAddress(address)
         ),
-        CASHADDR_ADDRESSES.map((address: string) => bitbox.Address.isLegacyAddress(address))
+        CASHADDR_ADDRESSES.map((address: string) =>
+          bitbox.Address.isLegacyAddress(address)
+        )
       )
       assert.deepEqual(
         REGTEST_ADDRESSES_NO_PREFIX.map((address: string) =>
           bitbox.Address.isLegacyAddress(address)
         ),
-        REGTEST_ADDRESSES.map((address: string) => bitbox.Address.isLegacyAddress(address))
+        REGTEST_ADDRESSES.map((address: string) =>
+          bitbox.Address.isLegacyAddress(address)
+        )
       )
     })
     it("should return the same result for isCashAddress", (): void => {
@@ -792,13 +806,17 @@ describe("#Address", (): void => {
         CASHADDR_ADDRESSES_NO_PREFIX.map((address: string) =>
           bitbox.Address.isCashAddress(address)
         ),
-        CASHADDR_ADDRESSES.map((address: string) => bitbox.Address.isCashAddress(address))
+        CASHADDR_ADDRESSES.map((address: string) =>
+          bitbox.Address.isCashAddress(address)
+        )
       )
       assert.deepEqual(
         REGTEST_ADDRESSES_NO_PREFIX.map((address: string) =>
           bitbox.Address.isCashAddress(address)
         ),
-        REGTEST_ADDRESSES.map((address: string) => bitbox.Address.isCashAddress(address))
+        REGTEST_ADDRESSES.map((address: string) =>
+          bitbox.Address.isCashAddress(address)
+        )
       )
     })
     it("should return the same result for isMainnetAddress", (): void => {
@@ -814,7 +832,9 @@ describe("#Address", (): void => {
         REGTEST_ADDRESSES_NO_PREFIX.map((address: string) =>
           bitbox.Address.isMainnetAddress(address)
         ),
-        REGTEST_ADDRESSES.map((address: string) => bitbox.Address.isMainnetAddress(address))
+        REGTEST_ADDRESSES.map((address: string) =>
+          bitbox.Address.isMainnetAddress(address)
+        )
       )
     })
     it("should return the same result for isTestnetAddress", (): void => {
@@ -830,7 +850,9 @@ describe("#Address", (): void => {
         REGTEST_ADDRESSES_NO_PREFIX.map((address: string) =>
           bitbox.Address.isTestnetAddress(address)
         ),
-        REGTEST_ADDRESSES.map((address: string) => bitbox.Address.isTestnetAddress(address))
+        REGTEST_ADDRESSES.map((address: string) =>
+          bitbox.Address.isTestnetAddress(address)
+        )
       )
     })
     it("should return the same result for isP2PKHAddress", (): void => {
@@ -838,13 +860,17 @@ describe("#Address", (): void => {
         CASHADDR_ADDRESSES_NO_PREFIX.map((address: string) =>
           bitbox.Address.isP2PKHAddress(address)
         ),
-        CASHADDR_ADDRESSES.map((address: string) => bitbox.Address.isP2PKHAddress(address))
+        CASHADDR_ADDRESSES.map((address: string) =>
+          bitbox.Address.isP2PKHAddress(address)
+        )
       )
       assert.deepEqual(
         REGTEST_ADDRESSES_NO_PREFIX.map((address: string) =>
           bitbox.Address.isP2PKHAddress(address)
         ),
-        REGTEST_ADDRESSES.map((address: string) => bitbox.Address.isP2PKHAddress(address))
+        REGTEST_ADDRESSES.map((address: string) =>
+          bitbox.Address.isP2PKHAddress(address)
+        )
       )
     })
     it("should return the same result for isP2SHAddress", (): void => {
@@ -852,13 +878,17 @@ describe("#Address", (): void => {
         CASHADDR_ADDRESSES_NO_PREFIX.map((address: string) =>
           bitbox.Address.isP2SHAddress(address)
         ),
-        CASHADDR_ADDRESSES.map((address: string) => bitbox.Address.isP2SHAddress(address))
+        CASHADDR_ADDRESSES.map((address: string) =>
+          bitbox.Address.isP2SHAddress(address)
+        )
       )
       assert.deepEqual(
         REGTEST_ADDRESSES_NO_PREFIX.map((address: string) =>
           bitbox.Address.isP2SHAddress(address)
         ),
-        REGTEST_ADDRESSES.map((address: string) => bitbox.Address.isP2SHAddress(address))
+        REGTEST_ADDRESSES.map((address: string) =>
+          bitbox.Address.isP2SHAddress(address)
+        )
       )
     })
   })
@@ -890,10 +920,10 @@ describe("#Address", (): void => {
         assert.throws(() => {
           // @ts-ignore
           bitbox.Address.detectAddressFormat()
-        }, '')
+        }, "")
         assert.throws(() => {
           bitbox.Address.detectAddressFormat("some invalid address")
-        }, '')
+        }, "")
       })
     })
   })
@@ -925,10 +955,10 @@ describe("#Address", (): void => {
         assert.throws(() => {
           // @ts-ignore
           bitbox.Address.detectAddressNetwork()
-        }, '')
+        }, "")
         assert.throws(() => {
           bitbox.Address.detectAddressNetwork("some invalid address")
-        }, '')
+        }, "")
       })
     })
   })
@@ -953,48 +983,64 @@ describe("#Address", (): void => {
         assert.throws(() => {
           // @ts-ignore
           bitbox.Address.detectAddressType()
-        }, '')
+        }, "")
         assert.throws(() => {
           bitbox.Address.detectAddressType("some invalid address")
-        }, '')
+        }, "")
       })
     })
   })
 
   describe("#fromXPub", (): void => {
-    XPUBS.forEach((xpub: any) => {
-      xpub.addresses.forEach((address: any, j: number) => {
-        it(`should generate public external change address ${j} for ${
-          xpub.xpub
-          }`, (): void => {
-            assert.equal(bitbox.Address.fromXPub(xpub.xpub, `0/${j}`), address)
-          })
-      })
-    })
+    XPUBS.forEach(
+      (xpub: any): void => {
+        xpub.addresses.forEach(
+          (address: any, j: number): void => {
+            it(`should generate public external change address ${j} for ${
+              xpub.xpub
+            }`, (): void => {
+              assert.equal(
+                bitbox.Address.fromXPub(xpub.xpub, `0/${j}`),
+                address
+              )
+            })
+          }
+        )
+      }
+    )
 
-    it(`should generate public external change address ${XPUBS[0].addresses[0]} for ${
-      XPUBS[0].xpub
-      }`, (): void => {
-        let address: string = XPUBS[0].addresses[0]
-        assert.equal(bitbox.Address.fromXPub(XPUBS[0].xpub), address)
-      })
+    it(`should generate public external change address ${
+      XPUBS[0].addresses[0]
+    } for ${XPUBS[0].xpub}`, (): void => {
+      let address: string = XPUBS[0].addresses[0]
+      assert.equal(bitbox.Address.fromXPub(XPUBS[0].xpub), address)
+    })
   })
 
   describe("#fromXPriv", (): void => {
-    XPRIVS.forEach((xpriv: any) => {
-      xpriv.addresses.forEach((address: string, j: number) => {
-        it(`should generate hardened address ${j} for ${xpriv.xpriv}`, (): void => {
-          assert.equal(bitbox.Address.fromXPriv(xpriv.xpriv, `0'/${j}`), address)
-        })
-      })
-    })
+    XPRIVS.forEach(
+      (xpriv: any): void => {
+        xpriv.addresses.forEach(
+          (address: string, j: number): void => {
+            it(`should generate hardened address ${j} for ${
+              xpriv.xpriv
+            }`, (): void => {
+              assert.equal(
+                bitbox.Address.fromXPriv(xpriv.xpriv, `0'/${j}`),
+                address
+              )
+            })
+          }
+        )
+      }
+    )
 
     it(`should generate hardened address ${XPRIVS[0].addresses[0]} for ${
       XPRIVS[0].xpriv
-      }`, (): void => {
-        let address: string = XPRIVS[0].addresses[0]
-        assert.equal(bitbox.Address.fromXPriv(XPRIVS[0].xpriv), address)
-      })
+    }`, (): void => {
+      let address: string = XPRIVS[0].addresses[0]
+      assert.equal(bitbox.Address.fromXPriv(XPRIVS[0].xpriv), address)
+    })
   })
 
   describe("#fromOutputScript", (): void => {
@@ -1010,19 +1056,28 @@ describe("#Address", (): void => {
 
     // encode hash160 as P2SH output
     const scriptPubKey: Buffer = bitbox.Script.encodeP2SHOutput(p2sh_hash160)
-    fixtures.p2shMainnet.forEach((address: string) => {
-      const p2shAddress: string = bitbox.Address.fromOutputScript(scriptPubKey)
-      it(`generate mainnet address from output script`, (): void => {
-        assert.equal(p2shAddress, address)
-      })
-    })
+    fixtures.p2shMainnet.forEach(
+      (address: string): void => {
+        const p2shAddress: string = bitbox.Address.fromOutputScript(
+          scriptPubKey
+        )
+        it(`generate mainnet address from output script`, (): void => {
+          assert.equal(p2shAddress, address)
+        })
+      }
+    )
 
-    fixtures.p2shTestnet.forEach((address: string) => {
-      const p2shAddress: any = bitbox.Address.fromOutputScript(scriptPubKey, "testnet")
-      it(`generate testnet address from output script`, (): void => {
-        assert.equal(p2shAddress, address)
-      })
-    })
+    fixtures.p2shTestnet.forEach(
+      (address: string): void => {
+        const p2shAddress: any = bitbox.Address.fromOutputScript(
+          scriptPubKey,
+          "testnet"
+        )
+        it(`generate testnet address from output script`, (): void => {
+          assert.equal(p2shAddress, address)
+        })
+      }
+    )
   })
 
   // describe("#details", () => {
@@ -1142,10 +1197,15 @@ describe("#Address", (): void => {
 
   describe(`#utxo`, (): void => {
     describe(`#details`, (): void => {
-      it(`should GET address details for a single address`, async (): Promise<any> => {
-        const addr: string = "bitcoincash:qrdka2205f4hyukutc2g0s6lykperc8nsu5u2ddpqf"
+      it(`should GET address details for a single address`, async (): Promise<
+        any
+      > => {
+        const addr: string =
+          "bitcoincash:qrdka2205f4hyukutc2g0s6lykperc8nsu5u2ddpqf"
 
-        const result: AddressDetailsResult | AddressDetailsResult[] = await bitbox.Address.details(addr)
+        const result:
+          | AddressDetailsResult
+          | AddressDetailsResult[] = await bitbox.Address.details(addr)
 
         assert.hasAllKeys(result, [
           "balance",
@@ -1161,6 +1221,7 @@ describe("#Address", (): void => {
           "transactions",
           "legacyAddress",
           "cashAddress",
+          "slpAddress",
           "currentPage",
           "pagesTotal"
         ])
@@ -1169,13 +1230,17 @@ describe("#Address", (): void => {
         }
       })
 
-      it(`should GET address details for an array of addresses`, async () => {
+      it(`should GET address details for an array of addresses`, async (): Promise<
+        any
+      > => {
         const addr: string[] = [
           "bitcoincash:qrdka2205f4hyukutc2g0s6lykperc8nsu5u2ddpqf",
           "bitcoincash:qpdh9s677ya8tnx7zdhfrn8qfyvy22wj4qa7nwqa5v"
         ]
 
-        const result: AddressDetailsResult | AddressDetailsResult[] = await bitbox.Address.details(addr)
+        const result:
+          | AddressDetailsResult
+          | AddressDetailsResult[] = await bitbox.Address.details(addr)
 
         assert.isArray(result)
         if (Array.isArray(result)) {
@@ -1193,6 +1258,7 @@ describe("#Address", (): void => {
             "transactions",
             "legacyAddress",
             "cashAddress",
+            "slpAddress",
             "currentPage",
             "pagesTotal"
           ])
@@ -1231,14 +1297,18 @@ describe("#Address", (): void => {
         }
       })
       it(`should GET utxos for a single address`, async () => {
-        const addr: string = "bitcoincash:qrdka2205f4hyukutc2g0s6lykperc8nsu5u2ddpqf"
+        const addr: string =
+          "bitcoincash:qrdka2205f4hyukutc2g0s6lykperc8nsu5u2ddpqf"
 
-        const result: AddressUtxoResult | AddressUtxoResult[] = await bitbox.Address.utxo(addr)
+        const result:
+          | AddressUtxoResult
+          | AddressUtxoResult[] = await bitbox.Address.utxo(addr)
 
         assert.hasAllKeys(result, [
           "utxos",
           "legacyAddress",
           "cashAddress",
+          "slpAddress",
           "scriptPubKey"
         ])
         if (!Array.isArray(result)) {
@@ -1260,7 +1330,9 @@ describe("#Address", (): void => {
           "bitcoincash:qpdh9s677ya8tnx7zdhfrn8qfyvy22wj4qa7nwqa5v"
         ]
 
-        const result: AddressUtxoResult | AddressUtxoResult[] = await bitbox.Address.utxo(addr)
+        const result:
+          | AddressUtxoResult
+          | AddressUtxoResult[] = await bitbox.Address.utxo(addr)
 
         assert.isArray(result)
         if (Array.isArray(result)) {
@@ -1268,6 +1340,7 @@ describe("#Address", (): void => {
             "utxos",
             "legacyAddress",
             "cashAddress",
+            "slpAddress",
             "scriptPubKey"
           ])
           assert.isArray(result[0].utxos)
@@ -1297,13 +1370,17 @@ describe("#Address", (): void => {
         }
       })
 
-      it(`should throw error on array size rate limit`, async (): Promise<any> => {
+      it(`should throw error on array size rate limit`, async (): Promise<
+        any
+      > => {
         try {
           const addr: string[] = []
           for (let i: number = 0; i < 25; i++)
             addr.push("bitcoincash:qrdka2205f4hyukutc2g0s6lykperc8nsu5u2ddpqf")
 
-          const result: AddressUtxoResult | AddressUtxoResult[] = await bitbox.Address.utxo(addr)
+          const result:
+            | AddressUtxoResult
+            | AddressUtxoResult[] = await bitbox.Address.utxo(addr)
 
           console.log(`result: ${util.inspect(result)}`)
           assert.equal(true, false, "Unexpected result!")
@@ -1315,28 +1392,49 @@ describe("#Address", (): void => {
     })
 
     describe(`#unconfirmed`, (): void => {
-      it(`should GET unconfirmed details on a single address`, async (): Promise<any> => {
-        const addr: string = "bitcoincash:qz7teqlcltdhqjn2an8nspu7g2x6g3d3rcq8nk4nzs"
+      it(`should GET unconfirmed details on a single address`, async (): Promise<
+        any
+      > => {
+        const addr: string =
+          "bitcoincash:qz7teqlcltdhqjn2an8nspu7g2x6g3d3rcq8nk4nzs"
 
-        const result: AddressUnconfirmedResult | AddressUnconfirmedResult[] = await bitbox.Address.unconfirmed(addr)
+        const result:
+          | AddressUnconfirmedResult
+          | AddressUnconfirmedResult[] = await bitbox.Address.unconfirmed(addr)
 
-        assert.hasAllKeys(result, ["utxos", "legacyAddress", "cashAddress"])
+        assert.hasAllKeys(result, [
+          "utxos",
+          "legacyAddress",
+          "cashAddress",
+          "slpAddress",
+          "scriptPubKey"
+        ])
         if (!Array.isArray(result)) {
           assert.isArray(result.utxos)
         }
       })
 
-      it(`should GET unconfirmed details on multiple addresses`, async (): Promise<any> => {
+      it(`should GET unconfirmed details on multiple addresses`, async (): Promise<
+        any
+      > => {
         const addr = [
           "bitcoincash:qz7teqlcltdhqjn2an8nspu7g2x6g3d3rcq8nk4nzs",
           "bitcoincash:qqcp8fw06dmjd2gnfanpwytj7q93w408nv7usdqgsk"
         ]
 
-        const result: AddressUnconfirmedResult | AddressUnconfirmedResult[] = await bitbox.Address.unconfirmed(addr)
+        const result:
+          | AddressUnconfirmedResult
+          | AddressUnconfirmedResult[] = await bitbox.Address.unconfirmed(addr)
 
         assert.isArray(result)
         if (Array.isArray(result)) {
-          assert.hasAllKeys(result[0], ["utxos", "legacyAddress", "cashAddress"])
+          assert.hasAllKeys(result[0], [
+            "utxos",
+            "legacyAddress",
+            "cashAddress",
+            "slpAddress",
+            "scriptPubKey"
+          ])
           assert.isArray(result[0].utxos)
         }
       })
@@ -1356,13 +1454,19 @@ describe("#Address", (): void => {
         }
       })
 
-      it(`should throw error on array size rate limit`, async (): Promise<any> => {
+      it(`should throw error on array size rate limit`, async (): Promise<
+        any
+      > => {
         try {
           const addr: string[] = []
           for (let i: number = 0; i < 25; i++)
             addr.push("bitcoincash:qrdka2205f4hyukutc2g0s6lykperc8nsu5u2ddpqf")
 
-          const result: AddressUnconfirmedResult | AddressUnconfirmedResult[] = await bitbox.Address.unconfirmed(addr)
+          const result:
+            | AddressUnconfirmedResult
+            | AddressUnconfirmedResult[] = await bitbox.Address.unconfirmed(
+            addr
+          )
 
           console.log(`result: ${util.inspect(result)}`)
           assert.equal(true, false, "Unexpected result!")
@@ -1374,8 +1478,11 @@ describe("#Address", (): void => {
     })
 
     describe(`#transactions`, (): void => {
-      it(`should GET transactions for a single address`, async (): Promise<any> => {
-        const addr: string = "bitcoincash:qz7teqlcltdhqjn2an8nspu7g2x6g3d3rcq8nk4nzs"
+      it(`should GET transactions for a single address`, async (): Promise<
+        any
+      > => {
+        const addr: string =
+          "bitcoincash:qz7teqlcltdhqjn2an8nspu7g2x6g3d3rcq8nk4nzs"
         const result: any = await bitbox.Address.transactions(addr)
 
         assert.hasAllKeys(result, [
@@ -1402,7 +1509,9 @@ describe("#Address", (): void => {
         ])
       })
 
-      it(`should get transactions on multiple addresses`, async (): Promise<any> => {
+      it(`should get transactions on multiple addresses`, async (): Promise<
+        any
+      > => {
         const addr: string[] = [
           "bitcoincash:qz7teqlcltdhqjn2an8nspu7g2x6g3d3rcq8nk4nzs",
           "bitcoincash:qqcp8fw06dmjd2gnfanpwytj7q93w408nv7usdqgsk"
@@ -1449,7 +1558,9 @@ describe("#Address", (): void => {
         }
       })
 
-      it(`should throw error on array size rate limit`, async (): Promise<any> => {
+      it(`should throw error on array size rate limit`, async (): Promise<
+        any
+      > => {
         try {
           const addr: string[] = []
           for (let i: number = 0; i < 25; i++)

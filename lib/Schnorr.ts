@@ -5,11 +5,11 @@ import * as BigInteger from "bigi"
 const schnorr = require("bip-schnorr")
 
 export interface Session {
-  sessionId: Buffer;
-  message: Buffer;
-  pubKeyCombined: Buffer;
-  ell: Buffer;
-  idx: number;
+  sessionId: Buffer
+  message: Buffer
+  pubKeyCombined: Buffer
+  ell: Buffer
+  idx: number
 }
 
 export class Schnorr {
@@ -17,7 +17,11 @@ export class Schnorr {
     return schnorr.sign(privateKey, message)
   }
 
-  public verify(publicKey: Buffer, message: Buffer, signatureToVerify: Buffer): void {
+  public verify(
+    publicKey: Buffer,
+    message: Buffer,
+    signatureToVerify: Buffer
+  ): void {
     return schnorr.verify(publicKey, message, signatureToVerify)
   }
 

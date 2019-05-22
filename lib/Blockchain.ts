@@ -4,7 +4,15 @@
 */
 
 import axios, { AxiosResponse } from "axios"
-import { BlockDetailsResult, BlockchainInfoResult, BlockHeaderResult, ChainTipResult, MempoolInfoResult, TxOutResult, MempoolEntryResult } from "bitcoin-com-rest";
+import {
+  BlockchainInfoResult,
+  BlockDetailsResult,
+  BlockHeaderResult,
+  ChainTipResult,
+  MempoolEntryResult,
+  MempoolInfoResult,
+  TxOutResult
+} from "bitcoin-com-rest"
 import { resturl } from "./BITBOX"
 
 export class Blockchain {
@@ -147,7 +155,7 @@ export class Blockchain {
     try {
       const response: AxiosResponse = await axios.get(
         `${
-        this.restURL
+          this.restURL
         }blockchain/getMempoolAncestors/${txid}?verbose=${verbose}`
       )
       return response.data
@@ -167,7 +175,7 @@ export class Blockchain {
     try {
       const response: AxiosResponse = await axios.get(
         `${
-        this.restURL
+          this.restURL
         }blockchain/getMempoolDescendants/${txid}?verbose=${verbose}`
       )
       return response.data
@@ -177,7 +185,9 @@ export class Blockchain {
     }
   }
 
-  public async getMempoolEntry(txid: string | string[]): Promise<MempoolEntryResult> {
+  public async getMempoolEntry(
+    txid: string | string[]
+  ): Promise<MempoolEntryResult> {
     //if (typeof txid !== "string") txid = JSON.stringify(txid)
 
     try {
@@ -241,7 +251,7 @@ export class Blockchain {
     try {
       const response: AxiosResponse = await axios.get(
         `${
-        this.restURL
+          this.restURL
         }blockchain/getTxOut/${txid}/n?include_mempool=${include_mempool}`
       )
       return response.data
@@ -251,7 +261,9 @@ export class Blockchain {
     }
   }
 
-  public async getTxOutProof(txids: string | string[]): Promise<string | string[]> {
+  public async getTxOutProof(
+    txids: string | string[]
+  ): Promise<string | string[]> {
     try {
       // Single txid.
       if (typeof txids === "string") {
@@ -315,7 +327,7 @@ export class Blockchain {
     try {
       const response: AxiosResponse = await axios.get(
         `${
-        this.restURL
+          this.restURL
         }blockchain/verifyChain?checklevel=${checklevel}&nblocks=${nblocks}`
       )
       return response.data

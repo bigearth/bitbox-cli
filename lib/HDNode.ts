@@ -13,7 +13,10 @@ export class HDNode {
     this._address = address
   }
 
-  public fromSeed(rootSeedBuffer: any, network: string = "mainnet"): bcl.HDNode {
+  public fromSeed(
+    rootSeedBuffer: any,
+    network: string = "mainnet"
+  ): bcl.HDNode {
     let bitcoincash: any
     if (network === "bitcoincash" || network === "mainnet")
       bitcoincash = coininfo.bitcoincash.main
@@ -88,7 +91,11 @@ export class HDNode {
     return hdnode.sign(buffer)
   }
 
-  public verify(hdnode: bcl.HDNode, buffer: Buffer, signature: bcl.ECSignature): boolean {
+  public verify(
+    hdnode: bcl.HDNode,
+    buffer: Buffer,
+    signature: bcl.ECSignature
+  ): boolean {
     return hdnode.verify(buffer, signature)
   }
 
