@@ -25,6 +25,7 @@ import { Util } from "./Util"
 
 // consts
 export const resturl = "https://rest.bitcoin.com/v2/"
+export const tresturl = "https://trest.bitcoin.com/v2/"
 
 export class BITBOX {
   public restURL: string
