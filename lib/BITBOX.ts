@@ -59,7 +59,7 @@ export class BITBOX {
     this.Blockchain = new Blockchain(this.restURL)
     this.Control = new Control(this.restURL)
     this.Crypto = new Crypto()
-    this.ECPair = new ECPair()
+    this.ECPair = new ECPair(this.Address)
     this.Generating = new Generating(this.restURL)
     this.HDNode = new HDNode(this.Address)
     this.Mining = new Mining(this.restURL)
