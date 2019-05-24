@@ -18,6 +18,8 @@ import { TransactionBuilder } from "../../lib/TransactionBuilder"
 import { Util } from "../../lib/Util"
 import { Schnorr } from "../../lib/Schnorr"
 import { resturl } from "../../lib/BITBOX"
+import { Socket } from "../../lib/Socket"
+
 
 describe("#BITBOX", (): void => {
   describe("#BITBOXConstructor", (): void => {
@@ -109,6 +111,11 @@ describe("#BITBOX", (): void => {
     it("should have a Schnorr property", (): void => {
       const bitbox: BITBOX = new BITBOX({ restURL: resturl })
       assert.equal(bitbox.Schnorr instanceof Schnorr, true)
+    })
+
+    it("should have a Socket property", (): void => {
+      const bitbox: BITBOX = new BITBOX({ restURL: resturl })
+      assert.strictEqual(bitbox.Socket, Socket)
     })
   })
 })

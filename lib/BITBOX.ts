@@ -70,7 +70,7 @@ export class BITBOX {
     this.Transaction = new Transaction(this.restURL)
     this.TransactionBuilder = TransactionBuilder
     this.Util = new Util(this.restURL)
-    this.Socket = new Socket()
+    this.Socket = Socket
     this.Schnorr = new Schnorr()
     // this.Wallet = Wallet
   }
