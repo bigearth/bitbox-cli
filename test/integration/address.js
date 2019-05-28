@@ -44,7 +44,8 @@ describe(`#address`, () => {
         "legacyAddress",
         "cashAddress",
         "currentPage",
-        "pagesTotal"
+        "pagesTotal",
+        "slpAddress"
       ])
       assert.isArray(result.transactions)
     })
@@ -74,7 +75,8 @@ describe(`#address`, () => {
         "legacyAddress",
         "cashAddress",
         "currentPage",
-        "pagesTotal"
+        "pagesTotal",
+        "slpAddress"
       ])
       assert.isArray(result[0].transactions)
     })
@@ -122,7 +124,8 @@ describe(`#address`, () => {
         "utxos",
         "legacyAddress",
         "cashAddress",
-        "scriptPubKey"
+        "scriptPubKey",
+        "slpAddress"
       ])
       assert.isArray(result.utxos)
       assert.hasAnyKeys(result.utxos[0], [
@@ -149,7 +152,8 @@ describe(`#address`, () => {
         "utxos",
         "legacyAddress",
         "cashAddress",
-        "scriptPubKey"
+        "scriptPubKey",
+        "slpAddress"
       ])
       assert.isArray(result[0].utxos)
       assert.hasAnyKeys(result[0].utxos[0], [
@@ -201,7 +205,13 @@ describe(`#address`, () => {
       const result = await BITBOX.Address.unconfirmed(addr)
       //console.log(`result: ${JSON.stringify(result, null, 2)}`)
 
-      assert.hasAllKeys(result, ["utxos", "legacyAddress", "cashAddress"])
+      assert.hasAllKeys(result, [
+        "utxos",
+        "legacyAddress",
+        "cashAddress",
+        "scriptPubKey",
+        "slpAddress"
+      ])
       assert.isArray(result.utxos)
     })
 
@@ -215,7 +225,13 @@ describe(`#address`, () => {
       //console.log(`result: ${JSON.stringify(result, null, 2)}`)
 
       assert.isArray(result)
-      assert.hasAllKeys(result[0], ["utxos", "legacyAddress", "cashAddress"])
+      assert.hasAllKeys(result[0], [
+        "utxos",
+        "legacyAddress",
+        "cashAddress",
+        "scriptPubKey",
+        "slpAddress"
+      ])
       assert.isArray(result[0].utxos)
     })
 
