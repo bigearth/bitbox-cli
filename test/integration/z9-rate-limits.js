@@ -6,6 +6,7 @@
 
 const chai = require("chai")
 const assert = chai.assert
+
 const BITBOX = require("../../lib/BITBOX").BITBOX
 const bitbox = new BITBOX()
 
