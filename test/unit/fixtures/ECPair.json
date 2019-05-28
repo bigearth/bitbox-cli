@@ -149,23 +149,33 @@
   "sign": [
     {
       "privateKeyWIF": "L5PKiCuwwgmVN1GQNg8CdR6Rmg7tg1Npw7GyL5ULRPZ5EVPhtSrz",
-      "data": "EARTH"
+      "data": "EARTH",
+      "sig": "30440220446688759b77ffe7edbc5474e9c5ef4e5ff30a0e94ff00683805251a87ac5354022010f9ad79febed064f8ee08ba8828823791cc78f6015042bb32acb5e698b54e58",
+      "schnorrSig": "3046022100e2b185c3365cae52f994edb3b95545f7b4d755426ca19045646ae1d0d8d1e732022100c1aedcfd101ad87f8e356b252b3e145e52a17997c20a0bbcdb197be7520daeff"
     },
     {
       "privateKeyWIF": "L1SD3NYLMcoqpUzn2hwJ7c1Vb4pPiqMToSMyGMTcbcvRBDh9U9SP",
-      "data": "foobar"
+      "data": "foobar",
+      "sig": "304402200ef2cc2855b22d66a11b3b5a79d9c0cf343758643083f34c5d93c714552775ec022079fa60786fd721ab0de032341f6affe1c40706a4baf4f15d4fd5355dd6c348a5",
+      "schnorrSig": "3046022100b09f82b9654831f8c00664bd1da1579543b38e822b42064f9dfa7738dd13ead8022100b4caa9ad5391544025b15d7b3a3008c73d0c0bf6b672d7163fdfb14748b85db0"
     },
     {
       "privateKeyWIF": "L57L3Xtu3j1Z2B2RuQzc59JLQXJQ86TH8To1hM348URbC2iCZqLe",
-      "data": "12334567890"
+      "data": "12334567890",
+      "sig": "3045022100aacab383dde3afb59eb5b0b983037b1b3a85c542ec111f6d3c45b86606eb747202200454ec2396aec5b3ed88aa562c469f8716b043f7be38c0b6a50ef8d0ae9a558c",
+      "schnorrSig": "3046022100b01d6208e16a7da7f1b29e48991068b9ac7788ce1e07ebea037a179f2fbf3945022100bf92e9b00e68314347e6ce6f04a93caab9edfd41bbb4348ea8fd8870b028996b"
     },
     {
       "privateKeyWIF": "KzTm29RBrSgUbMyeJL9sCNUnc7LQEuDeT6Upq1iUwx78qWRdRzyW",
-      "data": "Be excellent to each other"
+      "data": "Be excellent to each other",
+      "sig": "3045022100ead14e40a8ea1ce6eac0e2a0e9f582fb40b4ba4d90066f50d5058307cdf6e8c7022071dc89d5b34dab7078fef8c52beb4ed1d1a14a68c5525441f5a64304f81706b7",
+      "schnorrSig": "3046022100bda5c456700edbe8d6d9876267d94b119f7f877329e3b3f8fea71506a4334c42022100ad292f22aa4aa209b20f5c758dea325d4b920ef94919a0fd5c2fa77df3eec8c9"
     },
     {
       "privateKeyWIF": "L4BwXDmjzEyzKHbAfGruhieUDPs8KTx7DMgqPk4aF9GefzgqPENV",
-      "data": "satoshi"
+      "data": "satoshi",
+      "sig": "30450221008abcfc3dcb6418455d1a9a891d07f010d7884f8051b5be8992e2074035918051022069f4013f97febc79fc63cf125d7b2a1f37453c781bc09cf7410ff934e3502108",
+      "schnorrSig": "304602210085d4bfceb26cad676e7dcdb09cb7ef8e0132baba105fc276ff13b79ab54c103a0221009f2648abf52c04bbaf42c17c58df85e0025961c7542de20907f7526404e41806"
     }
   ],
   "verify": [
