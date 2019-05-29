@@ -29,8 +29,8 @@ export class ECPair {
     return ecpair.toWIF()
   }
 
-  public sign(ecpair: bcl.ECPair, buffer: Buffer): bcl.ECSignature {
-    return ecpair.sign(buffer)
+  public sign(ecpair: bcl.ECPair, buffer: Buffer, signatureAlgorithm?: number): bcl.ECSignature {
+    return ecpair.sign(buffer, signatureAlgorithm)
   }
 
   public verify(
