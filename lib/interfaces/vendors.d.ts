@@ -294,4 +294,17 @@ declare module "bitcoin-com-rest" {
     iscompressed: boolean
     account: string
   }
+
+  export interface CashAccountLookupResult {
+    identifier: string
+    information: {
+      emoji: string
+      name: string
+      number: number
+      collision: {
+        hash: string
+      }
+      payment: string[]
+    }
+  }
 }

@@ -5,6 +5,7 @@ import { Address } from "./Address"
 import { BitcoinCash } from "./BitcoinCash"
 import { Block } from "./Block"
 import { Blockchain } from "./Blockchain"
+import { CashAccounts } from "./CashAccounts"
 import { Control } from "./Control"
 import { Crypto } from "./Crypto"
 import { ECPair } from "./ECPair"
@@ -33,6 +34,7 @@ export class BITBOX {
   public BitcoinCash: BitcoinCash
   public Block: Block
   public Blockchain: Blockchain
+  public CashAccounts: CashAccounts
   public Control: Control
   public Crypto: Crypto
   public ECPair: any
@@ -58,6 +60,7 @@ export class BITBOX {
     this.BitcoinCash = new BitcoinCash(this.Address)
     this.Block = new Block(this.restURL)
     this.Blockchain = new Blockchain(this.restURL)
+    this.CashAccounts = new CashAccounts(this.restURL)
     this.Control = new Control(this.restURL)
     this.Crypto = new Crypto()
     this.ECPair = new ECPair(this.Address)
