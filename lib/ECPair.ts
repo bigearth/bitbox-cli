@@ -29,7 +29,11 @@ export class ECPair {
     return ecpair.toWIF()
   }
 
-  public sign(ecpair: bcl.ECPair, buffer: Buffer, signatureAlgorithm?: number): bcl.ECSignature {
+  public sign(
+    ecpair: bcl.ECPair,
+    buffer: Buffer,
+    signatureAlgorithm?: number
+  ): bcl.ECSignature {
     return ecpair.sign(buffer, signatureAlgorithm)
   }
 

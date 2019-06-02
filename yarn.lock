@@ -794,9 +794,9 @@ bitcoincash-ops@Bitcoin-com/bitcoincash-ops#2.0.0:
   version "2.0.0"
   resolved "https://codeload.github.com/Bitcoin-com/bitcoincash-ops/tar.gz/6ab82cc7326c67236f3b2d9d0457258ac2ef48e3"
 
-bitcoincashjs-lib@Bitcoin-com/bitcoincashjs-lib#v4.0.0:
-  version "4.0.0"
-  resolved "https://codeload.github.com/Bitcoin-com/bitcoincashjs-lib/tar.gz/3d360c780ec7df4a74aea93664c2b5ff8b08949a"
+bitcoincashjs-lib@Bitcoin-com/bitcoincashjs-lib#v4.0.1:
+  version "4.0.1"
+  resolved "https://codeload.github.com/Bitcoin-com/bitcoincashjs-lib/tar.gz/28447b40a4ccd23913f7ade6589dc7214c99e60a"
   dependencies:
     bech32 "^1.1.2"
     bigi "^1.4.0"

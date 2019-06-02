@@ -55,7 +55,7 @@
       "cashAddr": "bitcoincash:qqzdnxncgm3v247u5v0gqnglr2vpdhe0hu4wl0rmwt",
       "regtestAddr": "bchreg:qqzdnxncgm3v247u5v0gqnglr2vpdhe0hutqdfzl23"
     },
-      {
+    {
       "pubkeyHex": "02d305772e0873fba6c1c7ff353ce374233316eb5820acd7ff3d7d9b82d514126b",
       "legacy": "1GpugKfjEycPRhk8A8ALPh1zAJmTQGdJPp",
       "cashAddr": "bitcoincash:qzkej6g2zr9c9k83chyqh5pllzv6pkw62ckf2m82ks",
@@ -84,7 +84,7 @@
     {
       "pubkeyHex": "02fb721b92025e775b1b84774e65d568d24645cb633275f5c26f5c3101b214a8fb"
     },
-      {
+    {
       "pubkeyHex": "02d305772e0873fba6c1c7ff353ce374233316eb5820acd7ff3d7d9b82d514126b"
     },
     {
@@ -151,31 +151,31 @@
       "privateKeyWIF": "L5PKiCuwwgmVN1GQNg8CdR6Rmg7tg1Npw7GyL5ULRPZ5EVPhtSrz",
       "data": "EARTH",
       "sig": "30440220446688759b77ffe7edbc5474e9c5ef4e5ff30a0e94ff00683805251a87ac5354022010f9ad79febed064f8ee08ba8828823791cc78f6015042bb32acb5e698b54e58",
-      "schnorrSig": "3046022100e2b185c3365cae52f994edb3b95545f7b4d755426ca19045646ae1d0d8d1e732022100c1aedcfd101ad87f8e356b252b3e145e52a17997c20a0bbcdb197be7520daeff"
+      "schnorrSig": "30450220184a9eea7d537fcb05dab738f2849cfee07cbc62ebc47d37456802aaa2c11ed8022100a51f6761a5faa59a5b3b758f5f4203a1f2fb3e1bd470620019feb894ac3db517"
     },
     {
       "privateKeyWIF": "L1SD3NYLMcoqpUzn2hwJ7c1Vb4pPiqMToSMyGMTcbcvRBDh9U9SP",
       "data": "foobar",
       "sig": "304402200ef2cc2855b22d66a11b3b5a79d9c0cf343758643083f34c5d93c714552775ec022079fa60786fd721ab0de032341f6affe1c40706a4baf4f15d4fd5355dd6c348a5",
-      "schnorrSig": "3046022100b09f82b9654831f8c00664bd1da1579543b38e822b42064f9dfa7738dd13ead8022100b4caa9ad5391544025b15d7b3a3008c73d0c0bf6b672d7163fdfb14748b85db0"
+      "schnorrSig": "3045022014aa729fd5763ca0469ed580bcc7f36d85cb55b57d9fe10c2046f162a216b76f022100c25062e7fb18c45e43911fb66d17d51450813adf04d9e00be2903bf2de829fd8"
     },
     {
       "privateKeyWIF": "L57L3Xtu3j1Z2B2RuQzc59JLQXJQ86TH8To1hM348URbC2iCZqLe",
       "data": "12334567890",
       "sig": "3045022100aacab383dde3afb59eb5b0b983037b1b3a85c542ec111f6d3c45b86606eb747202200454ec2396aec5b3ed88aa562c469f8716b043f7be38c0b6a50ef8d0ae9a558c",
-      "schnorrSig": "3046022100b01d6208e16a7da7f1b29e48991068b9ac7788ce1e07ebea037a179f2fbf3945022100bf92e9b00e68314347e6ce6f04a93caab9edfd41bbb4348ea8fd8870b028996b"
+      "schnorrSig": "3045022100ed4937f067e7861fb6b2e2ec23474836b8dea041d3da4ee85751356836def65d0220744c07eca5b26f0530b331da67a6a6e3533b3f4327851336f62253da84dd1031"
     },
     {
       "privateKeyWIF": "KzTm29RBrSgUbMyeJL9sCNUnc7LQEuDeT6Upq1iUwx78qWRdRzyW",
       "data": "Be excellent to each other",
       "sig": "3045022100ead14e40a8ea1ce6eac0e2a0e9f582fb40b4ba4d90066f50d5058307cdf6e8c7022071dc89d5b34dab7078fef8c52beb4ed1d1a14a68c5525441f5a64304f81706b7",
-      "schnorrSig": "3046022100bda5c456700edbe8d6d9876267d94b119f7f877329e3b3f8fea71506a4334c42022100ad292f22aa4aa209b20f5c758dea325d4b920ef94919a0fd5c2fa77df3eec8c9"
+      "schnorrSig": "3045022100ee0e8fc04f5cf581d35f6ee4049a695b2553bd6a884b1ef26322cf71169e7c0302203fffdc6cde5ec951896a9d4bd2b2a01f29ec13ec1f3be47464593ce6dbdf7aea"
     },
     {
       "privateKeyWIF": "L4BwXDmjzEyzKHbAfGruhieUDPs8KTx7DMgqPk4aF9GefzgqPENV",
       "data": "satoshi",
       "sig": "30450221008abcfc3dcb6418455d1a9a891d07f010d7884f8051b5be8992e2074035918051022069f4013f97febc79fc63cf125d7b2a1f37453c781bc09cf7410ff934e3502108",
-      "schnorrSig": "304602210085d4bfceb26cad676e7dcdb09cb7ef8e0132baba105fc276ff13b79ab54c103a0221009f2648abf52c04bbaf42c17c58df85e0025961c7542de20907f7526404e41806"
+      "schnorrSig": "3046022100a48001d46928e336b0d4f04747d21f717fd097fddb2e5bfd012a03cea9bc5eb20221009a1314e41785b58706241797bf64c6510367bafaeb1afb7460a28c8dccb617b2"
     }
   ],
   "verify": [
