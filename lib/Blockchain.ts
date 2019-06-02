@@ -3,7 +3,7 @@
   - Add blockhash functionality back into getTxOutProof
 */
 
-import axios, { AxiosResponse } from "axios"
+import axios, { AxiosRequestConfig, AxiosResponse } from "axios"
 import {
   BlockchainInfoResult,
   BlockDetailsResult,
@@ -101,7 +101,7 @@ export class Blockchain {
 
         // Handle array of hashes.
       } else if (Array.isArray(hash)) {
-        const options = {
+        const options: AxiosRequestConfig = {
           method: "POST",
           url: `${this.restURL}blockchain/getBlockHeader`,
           data: {
@@ -198,7 +198,7 @@ export class Blockchain {
 
         return response.data
       } else if (Array.isArray(txid)) {
-        const options = {
+        const options: AxiosRequestConfig = {
           method: "POST",
           url: `${this.restURL}blockchain/getMempoolEntry`,
           data: {
@@ -275,7 +275,7 @@ export class Blockchain {
 
         // Array of txids.
       } else if (Array.isArray(txids)) {
-        const options = {
+        const options: AxiosRequestConfig = {
           method: "POST",
           url: `${this.restURL}blockchain/getTxOutProof`,
           data: {
@@ -348,7 +348,7 @@ export class Blockchain {
 
         // Array of hashes.
       } else if (Array.isArray(proof)) {
-        const options = {
+        const options: AxiosRequestConfig = {
           method: "POST",
           url: `${this.restURL}blockchain/verifyTxOutProof`,
           data: {

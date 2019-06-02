@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from "axios"
+import axios, { AxiosRequestConfig, AxiosResponse } from "axios"
 import { TxnDetailsResult } from "bitcoin-com-rest"
 import { resturl } from "./BITBOX"
 
@@ -21,7 +21,7 @@ export class Transaction {
 
         // Array of addresses
       } else if (Array.isArray(txid)) {
-        const options = {
+        const options: AxiosRequestConfig = {
           method: "POST",
           url: `${this.restURL}transaction/details`,
           data: {

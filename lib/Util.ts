@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from "axios"
+import axios, { AxiosRequestConfig, AxiosResponse } from "axios"
 import { resturl } from "./BITBOX"
 
 export interface AddressDetails {
@@ -32,7 +32,7 @@ export class Util {
 
         // Array of blocks.
       } else if (Array.isArray(address)) {
-        const options = {
+        const options: AxiosRequestConfig = {
           method: "POST",
           url: `${this.restURL}util/validateAddress`,
           data: {

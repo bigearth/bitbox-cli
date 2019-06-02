@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from "axios"
+import axios, { AxiosRequestConfig, AxiosResponse } from "axios"
 import { BlockDetailsResult } from "bitcoin-com-rest"
 import { resturl } from "./BITBOX"
 
@@ -21,7 +21,7 @@ export class Block {
 
         // Array of blocks.
       } else if (Array.isArray(id)) {
-        const options = {
+        const options: AxiosRequestConfig = {
           method: "POST",
           url: `${this.restURL}block/detailsByHeight`,
           data: {
@@ -53,7 +53,7 @@ export class Block {
 
         // Array of hashes.
       } else if (Array.isArray(hash)) {
-        const options = {
+        const options: AxiosRequestConfig = {
           method: "POST",
           url: `${this.restURL}block/detailsByHash`,
           data: {

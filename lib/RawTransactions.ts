@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from "axios"
+import axios, { AxiosRequestConfig, AxiosResponse } from "axios"
 import { VerboseRawTransactionResult } from "bitcoin-com-rest"
 import { resturl } from "./BITBOX"
 
@@ -22,7 +22,7 @@ export class RawTransactions {
 
         // Array of hexes
       } else if (Array.isArray(hex)) {
-        const options = {
+        const options: AxiosRequestConfig = {
           method: "POST",
           url: `${this.restURL}rawtransactions/decodeRawTransaction`,
           data: {
@@ -52,7 +52,7 @@ export class RawTransactions {
 
         return response.data
       } else if (Array.isArray(script)) {
-        const options = {
+        const options: AxiosRequestConfig = {
           method: "POST",
           url: `${this.restURL}rawtransactions/decodeScript`,
           data: {
@@ -90,7 +90,7 @@ export class RawTransactions {
 
         return response.data
       } else if (Array.isArray(txid)) {
-        const options = {
+        const options: AxiosRequestConfig = {
           method: "POST",
           url: `${this.restURL}rawtransactions/getRawTransaction`,
           data: {
@@ -133,7 +133,7 @@ export class RawTransactions {
 
         // Array input
       } else if (Array.isArray(hex)) {
-        const options = {
+        const options: AxiosRequestConfig = {
           method: "POST",
           url: `${this.restURL}rawtransactions/sendRawTransaction`,
           data: {
