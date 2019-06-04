@@ -355,14 +355,14 @@ export class Address {
 
         // Handle an array of addresses
       } else if (Array.isArray(address)) {
-        const options: any = {
-          method: "POST",
-          url: `${this.restURL}address/transactions`,
-          data: {
+
+        // Dev note: must use axios.post for unit test stubbing.
+        const response: AxiosResponse = await axios.post(
+          `${this.restURL}address/transactions`,
+          {
             addresses: address
           }
-        }
-        const response: AxiosResponse = await axios(options)
+        )
 
         return response.data
       }
