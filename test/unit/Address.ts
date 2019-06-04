@@ -105,7 +105,6 @@ util.inspect.defaultOptions = {
 }
 
 describe("#Address", (): void => {
-  /*
   describe("#AddressConstructor", (): void => {
     it("should create instance of Address", (): void => {
       const address: Address = new Address()
@@ -1084,7 +1083,7 @@ describe("#Address", (): void => {
       }
     )
   })
-*/
+
   describe("#details", () => {
     let sandbox: any
     beforeEach(() => (sandbox = sinon.sandbox.create()))
