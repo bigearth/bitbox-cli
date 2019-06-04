@@ -53,14 +53,14 @@ export class Block {
 
         // Array of hashes.
       } else if (Array.isArray(hash)) {
-        const options: AxiosRequestConfig = {
-          method: "POST",
-          url: `${this.restURL}block/detailsByHash`,
-          data: {
+
+        // Dev note: must use axios.post for unit test stubbing.
+        const response: AxiosResponse = await axios.post(
+          `${this.restURL}address/detailsByHash`,
+          {
             hashes: hash
           }
-        }
-        const response: AxiosResponse = await axios(options)
+        )
 
         return response.data
       }
