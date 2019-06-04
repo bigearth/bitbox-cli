@@ -1198,43 +1198,72 @@ describe("#Address", (): void => {
     beforeEach(() => (sandbox = sinon.sandbox.create()))
     afterEach(() => sandbox.restore())
 
-    it("should get utxo", done => {
-      const data = [
-        {
-          legacyAddress: "3CnzuFFbtgVyHNiDH8BknGo3PQ3dpdThgJ",
-          cashAddress: "bitcoincash:ppuukp49np467kyzxl0fkla34rmgcddhvc33ce2d6l",
-          txid:
-            "6f56254424378d6914cebd097579c70664843e5876ca86f0bf412ba7f3928326",
-          vout: 0,
-          scriptPubKey: "a91479cb06a5986baf588237de9b7fb1a8f68c35b76687",
-          amount: 12.5002911,
-          satoshis: 1250029110,
-          height: 528745,
-          confirmations: 17
-        },
-        {
-          legacyAddress: "3CnzuFFbtgVyHNiDH8BknGo3PQ3dpdThgJ",
-          cashAddress: "bitcoincash:ppuukp49np467kyzxl0fkla34rmgcddhvc33ce2d6l",
-          txid:
-            "b29425a876f62e114508e67e66b5eb1ab0d320d7c9a57fb0ece086a36e2b7309",
-          vout: 0,
-          scriptPubKey: "a91479cb06a5986baf588237de9b7fb1a8f68c35b76687",
-          amount: 12.50069247,
-          satoshis: 1250069247,
-          height: 528744,
-          confirmations: 18
-        }
-      ]
+    it(`should GET utxo details for a single address`, async (): Promise<
+      any
+    > => {
+      // Mock out data for unit test, to prevent live network call.
+      const data: any = addressMock.utxos1
       const resolved: any = new Promise(r => r({ data: data }))
       sandbox.stub(axios, "get").returns(resolved)
 
-      bitbox.Address.utxo(
-        "bitcoincash:ppuukp49np467kyzxl0fkla34rmgcddhvc33ce2d6l"
-      )
-        .then((result: any) => {
-          assert.deepEqual(data, result)
-        })
-        .then(done, done)
+      const addr: string =
+        "bitcoincash:qrdka2205f4hyukutc2g0s6lykperc8nsu5u2ddpqf"
+
+      const result: any = await bitbox.Address.utxo(addr)
+      //console.log(`result: ${JSON.stringify(result,null,2)}`)
+
+      assert.deepEqual(addressMock.utxos1, result)
+    })
+
+    it(`should POST address details for an array of addresses`, async (): Promise<
+      any
+    > => {
+      const addr: string[] = [
+        "bitcoincash:qrdka2205f4hyukutc2g0s6lykperc8nsu5u2ddpqf",
+        "bitcoincash:qpdh9s677ya8tnx7zdhfrn8qfyvy22wj4qa7nwqa5v"
+      ]
+
+      // Mock out data for unit test, to prevent live network call.
+      const data: any = [addressMock.utxos1, addressMock.utxos2]
+      const resolved: any = new Promise(r => r({ data: data }))
+      sandbox.stub(axios, "post").returns(resolved)
+
+      const result: any = await bitbox.Address.utxo(addr)
+      //console.log(`result: ${JSON.stringify(result, null, 2)}`)
+
+      assert.isArray(result)
+      assert.hasAllKeys(result[0], [
+        "utxos",
+        "legacyAddress",
+        "cashAddress",
+        "slpAddress",
+        "scriptPubKey"
+      ])
+      assert.isArray(result[0].utxos)
+    })
+
+    it(`should pass error from server to user`, async () => {
+      try {
+
+        // Mock out data for unit test, to prevent live network call.
+        sandbox
+          .stub(axios, "get")
+          .throws(
+            "error",
+            "Input address must be a string or array of strings."
+          )
+
+        const addr: any = 12345
+
+        await bitbox.Address.utxo(addr)
+        assert.equal(true, false, "Unexpected result!")
+      } catch (err) {
+        //console.log(`err: `, err)
+        assert.include(
+          err.message,
+          `Input address must be a string or array of strings`
+        )
+      }
     })
   })
 

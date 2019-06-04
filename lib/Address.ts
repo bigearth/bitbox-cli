@@ -263,14 +263,14 @@ export class Address {
 
         // Handle array of addresses.
       } else if (Array.isArray(address)) {
-        const options: any = {
-          method: "POST",
-          url: `${this.restURL}address/details`,
-          data: {
+
+        // Dev note: must use axios.post for unit test stubbing.
+        const response: AxiosResponse = await axios.post(
+          `${this.restURL}address/details`,
+          {
             addresses: address
           }
-        }
-        const response: AxiosResponse = await axios(options)
+        )
 
         return <AddressDetailsResult>response.data
       }
@@ -293,14 +293,14 @@ export class Address {
         )
         return response.data
       } else if (Array.isArray(address)) {
-        const options: any = {
-          method: "POST",
-          url: `${this.restURL}address/utxo`,
-          data: {
+
+        // Dev note: must use axios.post for unit test stubbing.
+        const response: AxiosResponse = await axios.post(
+          `${this.restURL}address/utxo`,
+          {
             addresses: address
           }
-        }
-        const response: AxiosResponse = await axios(options)
+        )
 
         return response.data
       }
