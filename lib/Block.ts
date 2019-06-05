@@ -21,14 +21,14 @@ export class Block {
 
         // Array of blocks.
       } else if (Array.isArray(id)) {
-        const options: AxiosRequestConfig = {
-          method: "POST",
-          url: `${this.restURL}block/detailsByHeight`,
-          data: {
+
+        // Dev note: must use axios.post for unit test stubbing.
+        const response: AxiosResponse = await axios.post(
+          `${this.restURL}block/detailsByHeight`,
+          {
             heights: id
           }
-        }
-        const response: AxiosResponse = await axios(options)
+        )
 
         return response.data
       }
@@ -56,7 +56,7 @@ export class Block {
 
         // Dev note: must use axios.post for unit test stubbing.
         const response: AxiosResponse = await axios.post(
-          `${this.restURL}address/detailsByHash`,
+          `${this.restURL}block/detailsByHash`,
           {
             hashes: hash
           }

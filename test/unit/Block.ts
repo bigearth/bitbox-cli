@@ -11,7 +11,7 @@ import { BlockDetailsResult } from "bitcoin-com-rest"
 // consts
 const bitbox: BITBOX = new BITBOX()
 const assert: Chai.AssertStatic = chai.assert
-const blockMock: any = require('./fixtures/block-mock')
+const blockMock: any = require("./fixtures/block-mock")
 
 util.inspect.defaultOptions = {
   showHidden: true,
@@ -37,7 +37,7 @@ describe("#Block", (): void => {
     beforeEach(() => (sandbox = sinon.sandbox.create()))
     afterEach(() => sandbox.restore())
 
-    it(`should GET for for a single hash`, async (): Promise<any> => {
+    it(`should GET a single hash`, async (): Promise<any> => {
       // Mock out data for unit test, to prevent live network call.
       const data: any = blockMock.details
       const resolved: any = new Promise(r => r({ data: data }))
@@ -54,256 +54,30 @@ describe("#Block", (): void => {
       assert.deepEqual(blockMock.details, result)
     })
 
-    it("should get block details", async (): Promise<any> => {
-      const data: any = {
-        hash:
-          "000000001c6aeec19265e9cc3ded8ba5ef5e63fae7747f30bf9c02c7bc8883f0",
-        size: 216,
-        height: 507,
-        version: 1,
-        merkleroot:
-          "a85fa3d831ab6b0305e7ff88d2d4941e25a810d4461635df51490653822071a8",
-        tx: [
-          "a85fa3d831ab6b0305e7ff88d2d4941e25a810d4461635df51490653822071a8"
-        ],
-        time: 1231973656,
-        nonce: 330467862,
-        bits: "1d00ffff",
-        difficulty: 1,
-        chainwork:
-          "000000000000000000000000000000000000000000000000000001fc01fc01fc",
-        confirmations: 528402,
-        previousblockhash:
-          "00000000a99525c043fd7e323414b60add43c254c44860094048f9c01e9a5fdd",
-        nextblockhash:
-          "000000000d550f4161f2702165fdd782ec72ff9c541f864ebb8256b662b7e51a",
-        reward: 50,
-        isMainChain: true,
-        poolInfo: {}
-      }
-      const resolved: Promise<any> = new Promise(r => r({ data: data }))
-      sandbox.stub(axios, "get").returns(resolved)
-
-      const result:
-        | BlockDetailsResult
-        | BlockDetailsResult[] = await bitbox.Block.detailsByHash(
-        "000000001c6aeec19265e9cc3ded8ba5ef5e63fae7747f30bf9c02c7bc8883f0"
-      )
-
-      assert.deepEqual(result, data)
-    })
-  })
-
-  describe("#detailsByHeight", (): void => {
-    let sandbox: any
-    beforeEach(() => (sandbox = sinon.sandbox.create()))
-    afterEach(() => sandbox.restore())
-
-    it("should get block details", async (): Promise<any> => {
-      const data: any = {
-        hash:
-          "000000001c6aeec19265e9cc3ded8ba5ef5e63fae7747f30bf9c02c7bc8883f0",
-        size: 216,
-        height: 507,
-        version: 1,
-        merkleroot:
-          "a85fa3d831ab6b0305e7ff88d2d4941e25a810d4461635df51490653822071a8",
-        tx: [
-          "a85fa3d831ab6b0305e7ff88d2d4941e25a810d4461635df51490653822071a8"
-        ],
-        time: 1231973656,
-        nonce: 330467862,
-        bits: "1d00ffff",
-        difficulty: 1,
-        chainwork:
-          "000000000000000000000000000000000000000000000000000001fc01fc01fc",
-        confirmations: 528402,
-        previousblockhash:
-          "00000000a99525c043fd7e323414b60add43c254c44860094048f9c01e9a5fdd",
-        nextblockhash:
-          "000000000d550f4161f2702165fdd782ec72ff9c541f864ebb8256b662b7e51a",
-        reward: 50,
-        isMainChain: true,
-        poolInfo: {}
-      }
-      const resolved: Promise<any> = new Promise(r => r({ data: data }))
-      sandbox.stub(axios, "get").returns(resolved)
-
-      const result:
-        | BlockDetailsResult
-        | BlockDetailsResult[] = await bitbox.Block.detailsByHeight(500007)
-
-      assert.deepEqual(result, data)
-    })
-  })
-
-  describe(`#detailsByHeight`, (): void => {
-    it(`should GET block details for a given Height`, async (): Promise<
-      any
-    > => {
-      const block: number = 500000
-
-      const result:
-        | BlockDetailsResult
-        | BlockDetailsResult[] = await bitbox.Block.detailsByHeight(block)
-
-      assert.hasAllKeys(result, [
-        "hash",
-        "size",
-        "height",
-        "version",
-        "merkleroot",
-        "tx",
-        "time",
-        "nonce",
-        "bits",
-        "difficulty",
-        "chainwork",
-        "confirmations",
-        "previousblockhash",
-        "nextblockhash",
-        "reward",
-        "isMainChain",
-        "poolInfo"
-      ])
-    })
-
-    it(`should GET block details for an array of blocks`, async (): Promise<
-      any
-    > => {
-      const blocks: number[] = [500000, 500001]
-      const result:
-        | BlockDetailsResult
-        | BlockDetailsResult[] = await bitbox.Block.detailsByHeight(blocks)
-
-      assert.isArray(result)
-      if (Array.isArray(result)) {
-        assert.hasAllKeys(result[0], [
-          "hash",
-          "size",
-          "height",
-          "version",
-          "merkleroot",
-          "tx",
-          "time",
-          "nonce",
-          "bits",
-          "difficulty",
-          "chainwork",
-          "confirmations",
-          "previousblockhash",
-          "nextblockhash",
-          "reward",
-          "isMainChain",
-          "poolInfo"
-        ])
-      }
-    })
-
-    it(`should throw an error for improper single input`, async (): Promise<
-      any
-    > => {
-      try {
-        const blocks: any = "asdf"
-
-        await bitbox.Block.detailsByHeight(blocks)
-        assert.equal(true, false, "Unexpected result!")
-      } catch (err) {
-        assert.include(
-          err.message,
-          `Input must be a number or array of numbers.`
-        )
-      }
-    })
-
-    it(`should throw error on array size rate limit`, async (): Promise<
-      any
-    > => {
-      try {
-        const blocks: number[] = []
-        for (let i: number = 0; i < 25; i++) blocks.push(500000)
-        const result:
-          | BlockDetailsResult
-          | BlockDetailsResult[] = await bitbox.Block.detailsByHeight(blocks)
-
-        console.log(`result: ${util.inspect(result)}`)
-        assert.equal(true, false, "Unexpected result!")
-      } catch (err) {
-        assert.hasAnyKeys(err, ["error"])
-        assert.include(err.error, "Array too large")
-      }
-    })
-  })
-
-  describe("#detailsByHash", (): void => {
-    it(`should GET block details for a given hash`, async (): Promise<any> => {
-      const hash: string =
-        "000000000000000005e14d3f9fdfb70745308706615cfa9edca4f4558332b201"
-      const result:
-        | BlockDetailsResult
-        | BlockDetailsResult[] = await bitbox.Block.detailsByHash(hash)
-
-      assert.hasAllKeys(result, [
-        "hash",
-        "size",
-        "height",
-        "version",
-        "merkleroot",
-        "tx",
-        "time",
-        "nonce",
-        "bits",
-        "difficulty",
-        "chainwork",
-        "confirmations",
-        "previousblockhash",
-        "nextblockhash",
-        "reward",
-        "isMainChain",
-        "poolInfo"
-      ])
-    })
-
-    it(`should GET block details for an array of hashes`, async (): Promise<
-      any
-    > => {
-      const hash: string[] = [
-        "000000000000000005e14d3f9fdfb70745308706615cfa9edca4f4558332b201",
-        "000000000000000005e14d3f9fdfb70745308706615cfa9edca4f4558332b201"
+    it(`should POST an array of hashes`, async (): Promise<any> => {
+      const hashes: string[] = [
+        "000000001c6aeec19265e9cc3ded8ba5ef5e63fae7747f30bf9c02c7bc8883f0",
+        "000000000000000002160687d7f39b6232b5acbb2e2b44cd68e3c6b2debe9ea3"
       ]
 
-      const result:
-        | BlockDetailsResult
-        | BlockDetailsResult[] = await bitbox.Block.detailsByHash(hash)
+      // Mock out data for unit test, to prevent live network call.
+      const data: any = [blockMock.details, blockMock.details]
+      const resolved: any = new Promise(r => r({ data: data }))
+      sandbox.stub(axios, "post").returns(resolved)
 
-      assert.isArray(result)
-      if (Array.isArray(result)) {
-        assert.hasAllKeys(result[0], [
-          "hash",
-          "size",
-          "height",
-          "version",
-          "merkleroot",
-          "tx",
-          "time",
-          "nonce",
-          "bits",
-          "difficulty",
-          "chainwork",
-          "confirmations",
-          "previousblockhash",
-          "nextblockhash",
-          "reward",
-          "isMainChain",
-          "poolInfo"
-        ])
-      }
+      const result: any = await bitbox.Block.detailsByHash(hashes)
+      //console.log(`result: ${JSON.stringify(result, null, 2)}`)
+
+      assert.deepEqual(data, result)
     })
 
-    it(`should throw an error for improper single input`, async (): Promise<
-      any
-    > => {
+    it(`should pass error from server to user`, async () => {
       try {
+        // Mock out data for unit test, to prevent live network call.
+        sandbox
+          .stub(axios, "get")
+          .throws("error", "Input must be a string or array of strings.")
+
         const hash: any = 12345
 
         await bitbox.Block.detailsByHash(hash)
@@ -312,31 +86,63 @@ describe("#Block", (): void => {
         //console.log(`err: `, err)
         assert.include(
           err.message,
-          `Input must be a string or array of strings`
+          `Input must be a string or array of strings.`
         )
       }
     })
+  })
 
-    it(`should throw error on array size rate limit`, async (): Promise<
-      any
-    > => {
+  describe("#detailsByHeight", (): void => {
+    let sandbox: any
+    beforeEach(() => (sandbox = sinon.sandbox.create()))
+    afterEach(() => sandbox.restore())
+
+    it(`should GET a single height`, async (): Promise<any> => {
+      // Mock out data for unit test, to prevent live network call.
+      const data: any = blockMock.details
+      const resolved: any = new Promise(r => r({ data: data }))
+      sandbox.stub(axios, "get").returns(resolved)
+
+      const height: number = 500007
+
+      const result: any = await bitbox.Block.detailsByHeight(height)
+      //console.log(`result: ${JSON.stringify(result, null, 2)}`)
+
+      assert.deepEqual(blockMock.details, result)
+    })
+
+    it(`should POST an array of heights`, async (): Promise<any> => {
+      const heights: number[] = [500007, 500008]
+
+      // Mock out data for unit test, to prevent live network call.
+      const data: any = [blockMock.details, blockMock.details]
+      const resolved: any = new Promise(r => r({ data: data }))
+      sandbox.stub(axios, "post").returns(resolved)
+
+      const result: any = await bitbox.Block.detailsByHeight(heights)
+      //console.log(`result: ${JSON.stringify(result, null, 2)}`)
+
+      assert.deepEqual(data, result)
+    })
+
+    it(`should pass error from server to user`, async () => {
       try {
-        const data: string[] = []
-        for (let i: number = 0; i < 25; i++) {
-          data.push(
-            "000000000000000005e14d3f9fdfb70745308706615cfa9edca4f4558332b201"
-          )
-        }
+        // Mock out data for unit test, to prevent live network call.
+        sandbox
+          .stub(axios, "get")
+          .throws("error", "Input must be a number or array of numbers.")
 
-        const result:
-          | BlockDetailsResult
-          | BlockDetailsResult[] = await bitbox.Block.detailsByHash(data)
+        const height: any = "abc123"
 
-        console.log(`result: ${util.inspect(result)}`)
+        await bitbox.Block.detailsByHeight(height)
         assert.equal(true, false, "Unexpected result!")
       } catch (err) {
-        assert.hasAnyKeys(err, ["error"])
-        assert.include(err.error, "Array too large")
+        //console.log(`err: `, err)
+
+        assert.include(
+          err.message,
+          `Input must be a number or array of numbers.`
+        )
       }
     })
   })
