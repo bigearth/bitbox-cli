@@ -43,9 +43,6 @@ describe("#Block", (): void => {
       const resolved: any = new Promise(r => r({ data: data }))
       sandbox.stub(axios, "get").returns(resolved)
 
-      const addr: string =
-        "bitcoincash:qrvk436u4r0ew2wj0rd9pnxhx4w90p2yfc29ta0d2n"
-
       const result: any = await bitbox.Block.detailsByHash(
         "000000001c6aeec19265e9cc3ded8ba5ef5e63fae7747f30bf9c02c7bc8883f0"
       )
