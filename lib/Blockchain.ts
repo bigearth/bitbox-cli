@@ -101,15 +101,15 @@ export class Blockchain {
 
         // Handle array of hashes.
       } else if (Array.isArray(hash)) {
-        const options: AxiosRequestConfig = {
-          method: "POST",
-          url: `${this.restURL}blockchain/getBlockHeader`,
-          data: {
+
+        // Dev note: must use axios.post for unit test stubbing.
+        const response: AxiosResponse = await axios.post(
+          `${this.restURL}blockchain/getBlockHeader`,
+          {
             hashes: hash,
             verbose: verbose
           }
-        }
-        const response: AxiosResponse = await axios(options)
+        )
 
         return response.data
       }
@@ -275,14 +275,14 @@ export class Blockchain {
 
         // Array of txids.
       } else if (Array.isArray(txids)) {
-        const options: AxiosRequestConfig = {
-          method: "POST",
-          url: `${this.restURL}blockchain/getTxOutProof`,
-          data: {
+
+        // Dev note: must use axios.post for unit test stubbing.
+        const response: AxiosResponse = await axios.post(
+          `${this.restURL}blockchain/getTxOutProof`,
+          {
             txids: txids
           }
-        }
-        const response: AxiosResponse = await axios(options)
+        )
 
         return response.data
       }
@@ -348,14 +348,14 @@ export class Blockchain {
 
         // Array of hashes.
       } else if (Array.isArray(proof)) {
-        const options: AxiosRequestConfig = {
-          method: "POST",
-          url: `${this.restURL}blockchain/verifyTxOutProof`,
-          data: {
+
+        // Dev note: must use axios.post for unit test stubbing.
+        const response: AxiosResponse = await axios.post(
+          `${this.restURL}blockchain/verifyTxOutProof`,
+          {
             proofs: proof
           }
-        }
-        const response: AxiosResponse = await axios(options)
+        )
 
         return response.data
       }
