@@ -307,4 +307,24 @@ declare module "bitcoin-com-rest" {
       payment: string[]
     }
   }
+
+  export interface CashAccountCheckResult {
+    identifier: string
+    block: number
+    results: string[]
+  }
+
+  export interface CashAccountReverseLookupResult {
+    results: SingleCashAccountReverseLookupResult[]
+  }
+
+  export interface SingleCashAccountReverseLookupResult {
+    accountEmoji: any
+    nameText: string
+    accountNumber: number
+    accountHash: string
+    accountCollisionLength: number
+    payloadType: number
+    payloadAddress: string
+  }
 }

@@ -1,5 +1,9 @@
 import axios, { AxiosResponse } from "axios"
-import { CashAccountLookupResult } from "bitcoin-com-rest"
+import {
+  CashAccountCheckResult,
+  CashAccountLookupResult,
+  CashAccountReverseLookupResult
+} from "bitcoin-com-rest"
 import { resturl } from "./BITBOX"
 
 export class CashAccounts {
@@ -20,6 +24,35 @@ export class CashAccounts {
       }
       const response: AxiosResponse = await axios.get(
         `${this.restURL}cashAccounts/lookup/${account}/${number}/${col}`
+      )
+      return response.data
+    } catch (error) {
+      if (error.response && error.response.data) throw error.response.data
+      else throw error
+    }
+  }
+
+  public async check(
+    account: string,
+    number: number
+  ): Promise<CashAccountCheckResult> {
+    try {
+      const response: AxiosResponse = await axios.get(
+        `${this.restURL}cashAccounts/check/${account}/${number}`
+      )
+      return response.data
+    } catch (error) {
+      if (error.response && error.response.data) throw error.response.data
+      else throw error
+    }
+  }
+
+  public async reverseLookup(
+    cashAddress: string
+  ): Promise<CashAccountReverseLookupResult> {
+    try {
+      const response: AxiosResponse = await axios.get(
+        `${this.restURL}cashAccounts/reverseLookup/${cashAddress}`
       )
       return response.data
     } catch (error) {
