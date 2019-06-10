@@ -1,6 +1,9 @@
 const assert = require("assert")
 const BITBOX = require("../../lib/BITBOX").BITBOX
-const bitbox = new BITBOX()
+let bitbox = new BITBOX()
+
+if (process.env.SERVER === "local")
+  bitbox = new BITBOX({ restURL: "http://localhost:3000/v2/" })
 
 describe("#price", () => {
   describe("#current", () => {
