@@ -11,8 +11,10 @@ const chai = require("chai")
 const assert = chai.assert
 
 const BITBOX = require("../../lib/BITBOX").BITBOX
-const bitbox = new BITBOX()
-//const axios = require("axios")
+let bitbox = new BITBOX()
+
+if (process.env.SERVER === "local")
+  bitbox = new BITBOX({ restURL: "http://localhost:3000/v2/" })
 
 // Inspect utility used for debugging.
 const util = require("util")
