@@ -11,7 +11,7 @@ import { BlockDetailsResult } from "bitcoin-com-rest"
 // consts
 const bitbox: BITBOX = new BITBOX()
 const assert: Chai.AssertStatic = chai.assert
-const blockMock: any = require("./fixtures/block-mock")
+const blockMock: any = require("./mocks/block-mock")
 
 util.inspect.defaultOptions = {
   showHidden: true,

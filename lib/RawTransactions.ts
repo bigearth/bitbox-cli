@@ -22,14 +22,13 @@ export class RawTransactions {
 
         // Array of hexes
       } else if (Array.isArray(hex)) {
-        const options: AxiosRequestConfig = {
-          method: "POST",
-          url: `${this.restURL}rawtransactions/decodeRawTransaction`,
-          data: {
+        // Dev note: must use axios.post for unit test stubbing.
+        const response: AxiosResponse = await axios.post(
+          `${this.restURL}rawtransactions/decodeRawTransaction`,
+          {
             hexes: hex
           }
-        }
-        const response: AxiosResponse = await axios(options)
+        )
 
         return response.data
       }
@@ -52,14 +51,13 @@ export class RawTransactions {
 
         return response.data
       } else if (Array.isArray(script)) {
-        const options: AxiosRequestConfig = {
-          method: "POST",
-          url: `${this.restURL}rawtransactions/decodeScript`,
-          data: {
+        // Dev note: must use axios.post for unit test stubbing.
+        const response: AxiosResponse = await axios.post(
+          `${this.restURL}rawtransactions/decodeScript`,
+          {
             hexes: script
           }
-        }
-        const response: AxiosResponse = await axios(options)
+        )
 
         return response.data
       }
@@ -90,15 +88,14 @@ export class RawTransactions {
 
         return response.data
       } else if (Array.isArray(txid)) {
-        const options: AxiosRequestConfig = {
-          method: "POST",
-          url: `${this.restURL}rawtransactions/getRawTransaction`,
-          data: {
+        // Dev note: must use axios.post for unit test stubbing.
+        const response: AxiosResponse = await axios.post(
+          `${this.restURL}rawtransactions/getRawTransaction`,
+          {
             txids: txid,
             verbose: verbose
           }
-        }
-        const response: AxiosResponse = await axios(options)
+        )
 
         return response.data
       }
@@ -133,14 +130,14 @@ export class RawTransactions {
 
         // Array input
       } else if (Array.isArray(hex)) {
-        const options: AxiosRequestConfig = {
-          method: "POST",
-          url: `${this.restURL}rawtransactions/sendRawTransaction`,
-          data: {
+        
+        // Dev note: must use axios.post for unit test stubbing.
+        const response: AxiosResponse = await axios.post(
+          `${this.restURL}rawtransactions/sendRawTransaction`,
+          {
             hexes: hex
           }
-        }
-        const response: AxiosResponse = await axios(options)
+        )
 
         return response.data
       }
