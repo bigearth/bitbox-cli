@@ -16,7 +16,7 @@ const assert: Chai.AssertStatic = chai.assert
 
 // TODO: port from require to import syntax
 const sinon = require("sinon")
-const cashAccountsMock = require("./fixtures/cashaccounts-mock.js")
+const cashAccountsMock = require("./mocks/cashaccounts-mock.js")
 
 util.inspect.defaultOptions = {
   showHidden: true,

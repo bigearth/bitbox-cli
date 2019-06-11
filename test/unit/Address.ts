@@ -18,7 +18,7 @@ const assert: Chai.AssertStatic = chai.assert
 const fixtures = require("./fixtures/Address.json")
 const Bitcoin = require("bitcoincashjs-lib")
 const sinon = require("sinon")
-const addressMock = require("./fixtures/address-mock.js")
+const addressMock = require("./mocks/address-mock.js")
 
 function flatten(arrays: any) {
   return [].concat.apply([], arrays)

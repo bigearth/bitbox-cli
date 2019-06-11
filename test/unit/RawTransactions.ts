@@ -13,7 +13,7 @@ import * as sinon from "sinon"
 // consts
 const bitbox: BITBOX = new BITBOX()
 const assert: Chai.AssertStatic = chai.assert
-const rtMock = require("./fixtures/rawtransactions-mock")
+const rtMock = require("./mocks/rawtransactions-mock")
 
 // Used for debugging
 util.inspect.defaultOptions = { depth: 1 }
@@ -277,74 +277,64 @@ describe("#RawTransactions", (): void => {
         )
       }
     })
-
-    it(`should throw error on array size rate limit`, async (): Promise<
-      any
-    > => {
-      try {
-        const dataMock: string =
-          "23213453b4642a73b4fc30d3112d72549ca153a8707255b14373b59e43558de1"
-        const data: string[] = []
-        for (let i: number = 0; i < 25; i++) data.push(dataMock)
-
-        const result:
-          | VerboseRawTransactionResult
-          | VerboseRawTransactionResult[]
-          | string
-          | string[] = await bitbox.RawTransactions.getRawTransaction(data)
-
-        console.log(`result: ${util.inspect(result)}`)
-        assert.equal(true, false, "Unexpected result!")
-      } catch (err) {
-        assert.hasAnyKeys(err, ["error"])
-        assert.include(err.error, "Array too large")
-      }
-    })
   })
 
   describe("#decodeScript", () => {
     it("should decode script for a single hex", async (): Promise<any> => {
+      // Mock the call to rest to prevent live network calls.
+      const resolved = new Promise(r => r({ data: rtMock.decodedScript }))
+      sandbox.stub(axios, "get").returns(resolved)
+
       const hex: string =
         "4830450221009a51e00ec3524a7389592bc27bea4af5104a59510f5f0cfafa64bbd5c164ca2e02206c2a8bbb47eabdeed52f17d7df668d521600286406930426e3a9415fe10ed592012102e6e1423f7abde8b70bca3e78a7d030e5efabd3eb35c19302542b5fe7879c1a16"
 
       const result = await bitbox.RawTransactions.decodeScript(hex)
+      //console.log(`result: ${JSON.stringify(result,null,2)}`)
 
       assert.hasAllKeys(result, ["asm", "type", "p2sh"])
     })
 
-    // CT 2/20/19 - Waiting for this PR to be merged complete the test:
-    // https://github.com/Bitcoin-com/rest.bitcoin.com/pull/312
-    /*
     it("should decode an array of tx hexes", async () => {
+      // Mock the call to rest to prevent live network calls.
+      const testData = [rtMock.decodedScript, rtMock.decodedScript]
+      const resolved = new Promise(r => r({ data: testData }))
+      sandbox.stub(axios, "post").returns(resolved)
+
       const hexes = [
         "4830450221009a51e00ec3524a7389592bc27bea4af5104a59510f5f0cfafa64bbd5c164ca2e02206c2a8bbb47eabdeed52f17d7df668d521600286406930426e3a9415fe10ed592012102e6e1423f7abde8b70bca3e78a7d030e5efabd3eb35c19302542b5fe7879c1a16",
         "4830450221009a51e00ec3524a7389592bc27bea4af5104a59510f5f0cfafa64bbd5c164ca2e02206c2a8bbb47eabdeed52f17d7df668d521600286406930426e3a9415fe10ed592012102e6e1423f7abde8b70bca3e78a7d030e5efabd3eb35c19302542b5fe7879c1a16"
       ]
 
       const result = await bitbox.RawTransactions.decodeScript(hexes)
-      console.log(`result ${JSON.stringify(result, null, 2)}`)
-    })
-*/
-    /*
-    it(`should throw an error for improper single input`, async () => {
-      try {
-        const addr = 12345
+      //console.log(`result ${JSON.stringify(result, null, 2)}`)
 
-        await bitbox.RawTransactions.decodeRawTransaction(addr)
+      assert.isArray(result)
+      assert.hasAnyKeys(result[0], ["asm", "type", "p2sh"])
+    })
+
+    it(`should pass error from server to user`, async (): Promise<any> => {
+      try {
+        // Mock out data for unit test, to prevent live network call.
+        sandbox
+          .stub(axios, "get")
+          .throws("error", "Input must be a string or array of strings")
+
+        const hexes: any = 12345
+
+        await bitbox.RawTransactions.decodeScript(hexes)
         assert.equal(true, false, "Unexpected result!")
       } catch (err) {
-        //console.log(`err: `, err)
+        //console.log(`err: ${util.inspect(err)}`)
         assert.include(
           err.message,
-          `Input must be a string or array of strings.`
+          `Input must be a string or array of strings`
         )
       }
     })
-*/
   })
 
   /*
-    Testing sentRawTransaction isn't really possible with an integration test,
+    Testing sendRawTransaction isn't really possible with an integration test,
     as the endpoint really needs an e2e test to be properly tested. The tests
     below expect error messages returned from the server, but at least test
     that the server is responding on those endpoints, and responds consistently.
@@ -352,6 +342,9 @@ describe("#RawTransactions", (): void => {
   describe("sendRawTransaction", () => {
     it("should send a single transaction hex", async (): Promise<any> => {
       try {
+        // Mock out data for unit test, to prevent live network call.
+        sandbox.stub(axios, "get").throws({ error: "Missing inputs" })
+
         const hex: string =
           "01000000013ba3edfd7a7b12b27ac72c3e67768f617fc81bc3888a51323a9fb8aa4b1e5e4a000000006a4730440220540986d1c58d6e76f8f05501c520c38ce55393d0ed7ed3c3a82c69af04221232022058ea43ed6c05fec0eccce749a63332ed4525460105346f11108b9c26df93cd72012103083dfc5a0254613941ddc91af39ff90cd711cdcde03a87b144b883b524660c39ffffffff01807c814a000000001976a914d7e7c4e0b70eaa67ceff9d2823d1bbb9f6df9a5188ac00000000"
 
@@ -359,6 +352,7 @@ describe("#RawTransactions", (): void => {
 
         assert.equal(true, false, "Unexpected result!")
       } catch (err) {
+        //console.log(`err: ${util.inspect(err)}`)
         assert.hasAllKeys(err, ["error"])
         assert.include(err.error, "Missing inputs")
       }
@@ -366,6 +360,9 @@ describe("#RawTransactions", (): void => {
 
     it("should send an array of tx hexes", async (): Promise<any> => {
       try {
+        // Mock out data for unit test, to prevent live network call.
+        sandbox.stub(axios, "post").throws({ error: "Missing inputs" })
+
         const hexes: string[] = [
           "01000000013ba3edfd7a7b12b27ac72c3e67768f617fc81bc3888a51323a9fb8aa4b1e5e4a000000006a4730440220540986d1c58d6e76f8f05501c520c38ce55393d0ed7ed3c3a82c69af04221232022058ea43ed6c05fec0eccce749a63332ed4525460105346f11108b9c26df93cd72012103083dfc5a0254613941ddc91af39ff90cd711cdcde03a87b144b883b524660c39ffffffff01807c814a000000001976a914d7e7c4e0b70eaa67ceff9d2823d1bbb9f6df9a5188ac00000000",
           "01000000013ba3edfd7a7b12b27ac72c3e67768f617fc81bc3888a51323a9fb8aa4b1e5e4a000000006a4730440220540986d1c58d6e76f8f05501c520c38ce55393d0ed7ed3c3a82c69af04221232022058ea43ed6c05fec0eccce749a63332ed4525460105346f11108b9c26df93cd72012103083dfc5a0254613941ddc91af39ff90cd711cdcde03a87b144b883b524660c39ffffffff01807c814a000000001976a914d7e7c4e0b70eaa67ceff9d2823d1bbb9f6df9a5188ac00000000"
@@ -373,41 +370,9 @@ describe("#RawTransactions", (): void => {
 
         const result = await bitbox.RawTransactions.sendRawTransaction(hexes)
       } catch (err) {
+        // console.log(`err: ${util.inspect(err)}`)
         assert.hasAllKeys(err, ["error"])
         assert.include(err.error, "Missing inputs")
-      }
-    })
-
-    it(`should throw an error for improper single input`, async (): Promise<
-      any
-    > => {
-      try {
-        const addr: any = 12345
-
-        await bitbox.RawTransactions.sendRawTransaction(addr)
-        assert.equal(true, false, "Unexpected result!")
-      } catch (err) {
-        assert.include(
-          err.message,
-          `Input hex must be a string or array of strings`
-        )
-      }
-    })
-
-    it(`should throw error on array size rate limit`, async (): Promise<
-      any
-    > => {
-      try {
-        const dataMock: string =
-          "01000000013ba3edfd7a7b12b27ac72c3e67768f617fc81bc3888a51323a9fb8aa4b1e5e4a000000006a4730440220540986d1c58d6e76f8f05501c520c38ce55393d0ed7ed3c3a82c69af04221232022058ea43ed6c05fec0eccce749a63332ed4525460105346f11108b9c26df93cd72012103083dfc5a0254613941ddc91af39ff90cd711cdcde03a87b144b883b524660c39ffffffff01807c814a000000001976a914d7e7c4e0b70eaa67ceff9d2823d1bbb9f6df9a5188ac00000000"
-        const data: string[] = []
-        for (let i: number = 0; i < 25; i++) data.push(dataMock)
-
-        await bitbox.RawTransactions.sendRawTransaction(data)
-        assert.equal(true, false, "Unexpected result!")
-      } catch (err) {
-        assert.hasAnyKeys(err, ["error"])
-        assert.include(err.error, "Array too large")
       }
     })
   })
