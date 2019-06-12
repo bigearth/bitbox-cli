@@ -32,14 +32,13 @@ export class Util {
 
         // Array of blocks.
       } else if (Array.isArray(address)) {
-        const options: AxiosRequestConfig = {
-          method: "POST",
-          url: `${this.restURL}util/validateAddress`,
-          data: {
+        // Dev note: must use axios.post for unit test stubbing.
+        const response: AxiosResponse = await axios.post(
+          `${this.restURL}util/validateAddress`,
+          {
             addresses: address
           }
-        }
-        const response: AxiosResponse = await axios(options)
+        )
 
         return response.data
       }
