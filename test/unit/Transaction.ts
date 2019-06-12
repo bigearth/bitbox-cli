@@ -3,13 +3,20 @@ import * as chai from "chai"
 import { BITBOX } from "../../lib/BITBOX"
 import { Transaction } from "../../lib/Transaction"
 import { resturl } from "../../lib/BITBOX"
-import { TxnDetailsResult } from "bitcoin-com-rest";
+import { TxnDetailsResult } from "bitcoin-com-rest"
+import axios from "axios"
+import * as sinon from "sinon"
 
 // consts
 const bitbox: BITBOX = new BITBOX()
 const assert: Chai.AssertStatic = chai.assert
+const mockData = require("./mocks/transactions-mock")
 
 describe("#Transaction", (): void => {
+  let sandbox: any
+  beforeEach(() => (sandbox = sinon.sandbox.create()))
+  afterEach(() => sandbox.restore())
+
   describe("#TransactionConstructor", (): void => {
     it("should create instance of Transaction", (): void => {
       const transaction: Transaction = new Transaction()
@@ -23,10 +30,19 @@ describe("#Transaction", (): void => {
   })
 
   describe(`#details`, (): void => {
-    it(`should GET details for a given txid`, async () => {
+    it(`should GET details for a given txid`, async (): Promise<any> => {
+      // Mock the call to rest to prevent live network calls.
+      const resolved = new Promise(r => r({ data: mockData.details }))
+      sandbox.stub(axios, "get").returns(resolved)
+
       const txid: string =
         "fe28050b93faea61fa88c4c630f0e1f0a1c24d0082dd0e10d369e13212128f33"
-      const result: TxnDetailsResult | TxnDetailsResult[] = await bitbox.Transaction.details(txid)
+
+      const result:
+        | TxnDetailsResult
+        | TxnDetailsResult[] = await bitbox.Transaction.details(txid)
+      // console.log(`result: ${JSON.stringify(result, null, 2)}`)
+
       assert.hasAllKeys(result, [
         "txid",
         "version",
@@ -45,38 +61,38 @@ describe("#Transaction", (): void => {
     })
 
     it(`should GET details for an array of txids`, async () => {
+      // Mock the call to rest to prevent live network calls.
+      const testData = [mockData.details, mockData.details]
+      const resolved = new Promise(r => r({ data: testData }))
+      sandbox.stub(axios, "post").returns(resolved)
+
       const txids: string[] = [
         "fe28050b93faea61fa88c4c630f0e1f0a1c24d0082dd0e10d369e13212128f33",
         "fe28050b93faea61fa88c4c630f0e1f0a1c24d0082dd0e10d369e13212128f33"
       ]
-      const result: TxnDetailsResult | TxnDetailsResult[] = await bitbox.Transaction.details(txids)
+      const result:
+        | TxnDetailsResult
+        | TxnDetailsResult[] = await bitbox.Transaction.details(txids)
       assert.isArray(result)
     })
 
-    it(`should throw an error for improper single input`, async () => {
+    it(`should pass error from server to user`, async (): Promise<any> => {
       try {
+        // Mock out data for unit test, to prevent live network call.
+        sandbox
+          .stub(axios, "get")
+          .throws("error", "Input txid must be a string or array of strings.")
+
         const txid: any = 12345
+
         await bitbox.Transaction.details(txid)
         assert.equal(true, false, "Unexpected result!")
       } catch (err) {
+        //console.log(`err: ${util.inspect(err)}`)
         assert.include(
           err.message,
-          `Input txid must be a string or array of strings`
+          `Input txid must be a string or array of strings.`
         )
-      }
-    })
-
-    it(`should throw error on array size rate limit`, async () => {
-      try {
-        const dataMock: string =
-          "fe28050b93faea61fa88c4c630f0e1f0a1c24d0082dd0e10d369e13212128f33"
-        const data: string[] = []
-        for (let i: number = 0; i < 25; i++) data.push(dataMock)
-        await bitbox.Transaction.details(data)
-        assert.equal(false, false, "Unexpected result!")
-      } catch (err) {
-        assert.hasAnyKeys(err, ["error"])
-        assert.include(err.error, "Array too large")
       }
     })
   })

@@ -21,14 +21,13 @@ export class Transaction {
 
         // Array of addresses
       } else if (Array.isArray(txid)) {
-        const options: AxiosRequestConfig = {
-          method: "POST",
-          url: `${this.restURL}transaction/details`,
-          data: {
+        // Dev note: must use axios.post for unit test stubbing.
+        const response: AxiosResponse = await axios.post(
+          `${this.restURL}transaction/details`,
+          {
             txids: txid
           }
-        }
-        const response: AxiosResponse = await axios(options)
+        )
 
         return response.data
       }
