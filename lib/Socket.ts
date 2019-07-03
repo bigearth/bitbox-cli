@@ -7,12 +7,8 @@ export class Socket {
       // TODO remove this check in v2.0
       this.socket = io(`${config}`)
     } else {
-      if (config.restURL) {
-        this.socket = io(`${config.restURL}`)
-      } else {
-        const restURL = "https://rest.bitcoin.com"
-        this.socket = io(`${restURL}`)
-      }
+      const restURL = config.restURL ? config.restURL : 'wss://rest.bitcoin.com'
+      this.socket = io(restURL, { transports: ['websocket'] });
 
       if (config.callback) config.callback()
     }
