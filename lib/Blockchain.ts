@@ -101,7 +101,6 @@ export class Blockchain {
 
         // Handle array of hashes.
       } else if (Array.isArray(hash)) {
-
         // Dev note: must use axios.post for unit test stubbing.
         const response: AxiosResponse = await axios.post(
           `${this.restURL}blockchain/getBlockHeader`,
@@ -188,8 +187,6 @@ export class Blockchain {
   public async getMempoolEntry(
     txid: string | string[]
   ): Promise<MempoolEntryResult> {
-    //if (typeof txid !== "string") txid = JSON.stringify(txid)
-
     try {
       if (typeof txid === "string") {
         const response: AxiosResponse = await axios.get(
@@ -275,7 +272,6 @@ export class Blockchain {
 
         // Array of txids.
       } else if (Array.isArray(txids)) {
-
         // Dev note: must use axios.post for unit test stubbing.
         const response: AxiosResponse = await axios.post(
           `${this.restURL}blockchain/getTxOutProof`,
@@ -348,7 +344,6 @@ export class Blockchain {
 
         // Array of hashes.
       } else if (Array.isArray(proof)) {
-
         // Dev note: must use axios.post for unit test stubbing.
         const response: AxiosResponse = await axios.post(
           `${this.restURL}blockchain/verifyTxOutProof`,

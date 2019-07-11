@@ -20,6 +20,18 @@ export class Control {
     }
   }
 
+  public async getNetworkInfo(): Promise<any> {
+    try {
+      const response: AxiosResponse = await axios.get(
+        `${this.restURL}control/getNetworkInfo`
+      )
+      return response.data
+    } catch (error) {
+      if (error.response && error.response.data) throw error.response.data
+      else throw error
+    }
+  }
+
   // async getMemoryInfo(): Promise<NodeMemoryInfo> {
   //   // TODO add back to REST
   //   try {
