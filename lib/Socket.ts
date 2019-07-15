@@ -22,7 +22,7 @@ export class Socket {
       this.socket.on("transactions", (msg: any) => cb(msg))
   }
 
-  public close(cb: any): void {
+  public close(cb?: Function): void {
     this.socket.close()
     if(cb) {
       cb();
