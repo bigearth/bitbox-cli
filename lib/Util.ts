@@ -1,5 +1,5 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios"
-import { resturl } from "./BITBOX"
+import { REST_URL } from "./BITBOX"
 
 export interface AddressDetails {
   isvalid: boolean
@@ -15,7 +15,7 @@ export interface AddressDetails {
 
 export class Util {
   public restURL: string
-  constructor(restURL: string = resturl) {
+  constructor(restURL: string = REST_URL) {
     this.restURL = restURL
   }
 

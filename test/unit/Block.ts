@@ -4,7 +4,7 @@ import axios from "axios"
 import * as sinon from "sinon"
 import { BITBOX } from "../../lib/BITBOX"
 import { Block } from "../../lib/Block"
-import { resturl } from "../../lib/BITBOX"
+import { REST_URL } from "../../lib/BITBOX"
 import * as util from "util"
 import { BlockDetailsResult } from "bitcoin-com-rest"
 
@@ -29,7 +29,7 @@ describe("#Block", (): void => {
 
   it("should have a restURL property", (): void => {
     const block: Block = new Block()
-    assert.equal(block.restURL, resturl)
+    assert.equal(block.restURL, REST_URL)
   })
 
   describe("#detailsByHash", (): void => {

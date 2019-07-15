@@ -2,7 +2,7 @@
 import * as chai from "chai"
 import { BITBOX } from "../../lib/BITBOX"
 import { Util } from "../../lib/Util"
-import { resturl } from "../../lib/BITBOX"
+import { REST_URL } from "../../lib/BITBOX"
 import * as util from "util"
 import { AddressValidateResult } from "bitcoin-com-rest"
 import axios from "axios"
@@ -32,7 +32,7 @@ describe("#Util", (): void => {
 
     it("should have a restURL property", (): void => {
       const util: Util = new Util()
-      assert.equal(util.restURL, resturl)
+      assert.equal(util.restURL, REST_URL)
     })
   })
 
