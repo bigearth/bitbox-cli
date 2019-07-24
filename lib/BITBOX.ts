@@ -25,10 +25,8 @@ import { Util } from "./Util"
 // import { Wallet } from "./Wallet"
 
 // Defaults
-export const WS_URL = "wss://rest.bitcoin.com"
-export const TWS_URL = "wss://trest.bitcoin.com"
-// export const WS_URL = 'wss://ws.bitcoin.com'
-// export const TWS_URL = 'wss://tws.bitcoin.com'
+export const WS_URL = "wss://ws.bitcoin.com"
+export const TWS_URL = "wss://tws.bitcoin.com"
 export const REST_URL = "https://rest.bitcoin.com/v2/"
 export const TREST_URL = "https://trest.bitcoin.com/v2/"
 
