@@ -5,7 +5,7 @@ import {
 } from "bitcoin-com-rest"
 import * as chai from "chai"
 import * as util from "util"
-import { BITBOX, resturl } from "../../lib/BITBOX"
+import { BITBOX, REST_URL } from "../../lib/BITBOX"
 import { RawTransactions } from "../../lib/RawTransactions"
 import axios from "axios"
 import * as sinon from "sinon"
@@ -31,7 +31,7 @@ describe("#RawTransactions", (): void => {
 
     it("should have a restURL property", (): void => {
       const rawtransactions: RawTransactions = new RawTransactions()
-      assert.equal(rawtransactions.restURL, resturl)
+      assert.equal(rawtransactions.restURL, REST_URL)
     })
   })
 

@@ -1,5 +1,6 @@
-const io = require("socket.io-client")
+import { WS_URL } from './BITBOX';
 
+const io = require('socket.io-client')
 export class Socket {
   socket: any
   constructor(config: any = {}) {
@@ -7,22 +8,25 @@ export class Socket {
       // TODO remove this check in v2.0
       this.socket = io(`${config}`)
     } else {
-      if (config.restURL) {
-        this.socket = io(`${config.restURL}`)
-      } else {
-        const restURL = "https://rest.bitcoin.com"
-        this.socket = io(`${restURL}`)
-      }
+      const wsURL = config.wsURL ? config.wsURL : WS_URL
+      this.socket = io(wsURL, { transports: ['websocket'] });
 
       if (config.callback) config.callback()
     }
   }
 
-  public listen(endpoint: string, cb: any): void {
+  public listen(endpoint: string, cb: Function): void {
     this.socket.emit(endpoint)
 
     if (endpoint === "blocks") this.socket.on("blocks", (msg: any) => cb(msg))
     else if (endpoint === "transactions")
       this.socket.on("transactions", (msg: any) => cb(msg))
+  }
+
+  public close(cb?: Function): void {
+    this.socket.close()
+    if(cb) {
+      cb();
+    }
   }
 }

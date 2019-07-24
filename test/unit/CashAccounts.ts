@@ -7,7 +7,7 @@ import {
 } from "bitcoin-com-rest"
 import * as chai from "chai"
 import * as util from "util"
-import { BITBOX, resturl } from "../../lib/BITBOX"
+import { BITBOX, REST_URL } from "../../lib/BITBOX"
 import { CashAccounts } from "../../lib/CashAccounts"
 
 // consts
@@ -33,7 +33,7 @@ describe("#CashAccounts", (): void => {
 
     it("should have a restURL property", (): void => {
       const cashAccounts: CashAccounts = new CashAccounts()
-      assert.equal(cashAccounts.restURL, resturl)
+      assert.equal(cashAccounts.restURL, REST_URL)
     })
   })
 

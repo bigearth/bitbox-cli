@@ -1,3 +1,4 @@
 export interface IConfig {
-  restURL?: string
+  restURL?: string,
+  wsURL?: string
 }

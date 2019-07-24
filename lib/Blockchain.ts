@@ -13,11 +13,11 @@ import {
   MempoolInfoResult,
   TxOutResult
 } from "bitcoin-com-rest"
-import { resturl } from "./BITBOX"
+import { REST_URL } from "./BITBOX"
 
 export class Blockchain {
   public restURL: string
-  constructor(restURL: string = resturl) {
+  constructor(restURL: string = REST_URL) {
     this.restURL = restURL
   }
 

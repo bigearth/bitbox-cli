@@ -24,12 +24,14 @@ import { TransactionBuilder } from "./TransactionBuilder"
 import { Util } from "./Util"
 // import { Wallet } from "./Wallet"
 
-// consts
-export const resturl = "https://rest.bitcoin.com/v2/"
-export const tresturl = "https://trest.bitcoin.com/v2/"
+// Defaults
+export const WS_URL = 'wss://rest.bitcoin.com'
+export const REST_URL = "https://rest.bitcoin.com/v2/"
+export const TREST_URL = "https://trest.bitcoin.com/v2/"
 
 export class BITBOX {
   public restURL: string
+  public wsURL: string
   public Address: Address
   public BitcoinCash: BitcoinCash
   public Block: Block
@@ -54,7 +56,11 @@ export class BITBOX {
   constructor(config: IConfig = {}) {
     if (config && config.restURL && config.restURL !== "")
       this.restURL = config.restURL
-    else this.restURL = resturl
+    else this.restURL = REST_URL
+
+    if (config && config.wsURL && config.wsURL !== "")
+      this.wsURL = config.wsURL
+    else this.wsURL = WS_URL
 
     this.Address = new Address(this.restURL)
     this.BitcoinCash = new BitcoinCash(this.Address)

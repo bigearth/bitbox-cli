@@ -4,7 +4,7 @@ import axios from "axios";
 import * as sinon from "sinon";
 import { BITBOX } from "../../lib/BITBOX"
 import { Control } from "../../lib/Control"
-import { resturl } from "../../lib/BITBOX"
+import { REST_URL } from "../../lib/BITBOX"
 
 // consts
 const bitbox: BITBOX = new BITBOX()
@@ -18,7 +18,7 @@ describe("#Control", (): void => {
 
     it("should have a restURL property", (): void => {
       const control: Control = new Control()
-      assert.equal(control.restURL, resturl)
+      assert.equal(control.restURL, REST_URL)
     })
   })
 
