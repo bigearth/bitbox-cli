@@ -1,11 +1,11 @@
 // imports
 import * as chai from "chai"
-import { BITBOX } from "../../lib/BITBOX"
-import { Transaction } from "../../lib/Transaction"
-import { resturl } from "../../lib/BITBOX"
 import { TxnDetailsResult } from "bitcoin-com-rest"
 import axios from "axios"
 import * as sinon from "sinon"
+
+import { BITBOX, REST_URL } from "../../lib/BITBOX"
+import { Transaction } from "../../lib/Transaction"
 
 // consts
 const bitbox: BITBOX = new BITBOX()
@@ -25,7 +25,7 @@ describe("#Transaction", (): void => {
 
     it("should have a restURL property", (): void => {
       const transaction: Transaction = new Transaction()
-      assert.equal(transaction.restURL, resturl)
+      assert.equal(transaction.restURL, REST_URL)
     })
   })
 

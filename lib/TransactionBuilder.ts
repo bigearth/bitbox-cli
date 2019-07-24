@@ -2,7 +2,7 @@
 import { ECPair } from "bitcoincashjs-lib"
 import { BchInfo } from ".."
 import { Address } from "./Address"
-import { tresturl } from "./BITBOX"
+import { TREST_URL } from "./BITBOX"
 
 // consts
 const Bitcoin = require("bitcoincashjs-lib")
@@ -41,7 +41,7 @@ export class TransactionBuilder {
     if (network === "mainnet") {
       this._address = new Address()
     } else {
-      this._address = new Address(tresturl)
+      this._address = new Address(TREST_URL)
     }
     if (network === "bitcoincash" || network === "mainnet")
       bitcoincash = coininfo.bitcoincash.main

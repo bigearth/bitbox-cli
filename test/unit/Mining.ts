@@ -2,9 +2,8 @@
 import * as assert from "assert";
 import axios from "axios";
 import * as sinon from "sinon";
-import { BITBOX } from "../../lib/BITBOX"
+import { BITBOX, REST_URL } from "../../lib/BITBOX"
 import { Mining } from "../../lib/Mining"
-import { resturl } from "../../lib/BITBOX"
 
 // consts
 const bitbox: BITBOX = new BITBOX()
@@ -18,7 +17,7 @@ describe("#Mining", (): void => {
 
     it("should have a restURL property", (): void => {
       const mining: Mining = new Mining()
-      assert.equal(mining.restURL, resturl)
+      assert.equal(mining.restURL, REST_URL)
     })
   })
 

@@ -7,7 +7,7 @@ import {
 } from "bitcoin-com-rest"
 import * as bcl from "bitcoincashjs-lib"
 import { BchInfo } from ".."
-import { resturl } from "./BITBOX"
+import { REST_URL } from "./BITBOX"
 
 // consts
 // TODO: port require statements to impprt
@@ -37,7 +37,7 @@ interface DecodedHash160 {
 
 export class Address {
   public restURL: string
-  constructor(restURL: string = resturl) {
+  constructor(restURL: string = REST_URL) {
     this.restURL = restURL
   }
 

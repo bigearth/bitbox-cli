@@ -1,9 +1,9 @@
 import axios, { AxiosResponse } from "axios"
-import { resturl } from "./BITBOX"
+import { REST_URL } from "./BITBOX"
 
 export class Mining {
   public restURL: string
-  constructor(restURL: string = resturl) {
+  constructor(restURL: string = REST_URL) {
     this.restURL = restURL
   }
 

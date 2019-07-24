@@ -1,28 +1,38 @@
-const io = require("socket.io-client")
+import { WS_URL } from "./BITBOX"
+import { SocketConfig } from "./interfaces/BITBOXInterfaces"
 
+const io: any = require("socket.io-client")
 export class Socket {
   socket: any
-  constructor(config: any = {}) {
-    if (typeof config === "string") {
-      // TODO remove this check in v2.0
-      this.socket = io(`${config}`)
+  constructor(config: SocketConfig = {}) {
+    let websocketURL: string = ""
+    if (config.wsURL) {
+      // default to passed in wsURL
+      websocketURL = config.wsURL
+    } else if (config.restURL) {
+      // 2nd option deprecated restURL
+      websocketURL = config.restURL
     } else {
-      if (config.restURL) {
-        this.socket = io(`${config.restURL}`)
-      } else {
-        const restURL = "https://rest.bitcoin.com"
-        this.socket = io(`${restURL}`)
-      }
-
-      if (config.callback) config.callback()
+      // fallback to WS_URL
+      websocketURL = WS_URL
     }
+    this.socket = io(websocketURL, { transports: ["websocket"] })
+
+    if (config.callback) config.callback()
   }
 
-  public listen(endpoint: string, cb: any): void {
+  public listen(endpoint: string, cb: Function): void {
     this.socket.emit(endpoint)
 
     if (endpoint === "blocks") this.socket.on("blocks", (msg: any) => cb(msg))
     else if (endpoint === "transactions")
       this.socket.on("transactions", (msg: any) => cb(msg))
+  }
+
+  public close(cb?: Function): void {
+    this.socket.close()
+    if (cb) {
+      cb()
+    }
   }
 }

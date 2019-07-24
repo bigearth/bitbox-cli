@@ -1,10 +1,10 @@
 import axios, { AxiosResponse } from "axios"
 import { NodeInfoResult } from "bitcoin-com-rest"
-import { resturl } from "./BITBOX"
+import { REST_URL } from "./BITBOX"
 
 export class Control {
   public restURL: string
-  constructor(restURL: string = resturl) {
+  constructor(restURL: string = REST_URL) {
     this.restURL = restURL
   }
 
@@ -12,6 +12,18 @@ export class Control {
     try {
       const response: AxiosResponse = await axios.get(
         `${this.restURL}control/getInfo`
+      )
+      return response.data
+    } catch (error) {
+      if (error.response && error.response.data) throw error.response.data
+      else throw error
+    }
+  }
+
+  public async getNetworkInfo(): Promise<any> {
+    try {
+      const response: AxiosResponse = await axios.get(
+        `${this.restURL}control/getNetworkInfo`
       )
       return response.data
     } catch (error) {

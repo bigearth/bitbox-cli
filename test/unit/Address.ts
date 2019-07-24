@@ -6,7 +6,7 @@ import {
 } from "bitcoin-com-rest"
 import * as chai from "chai"
 import { Address } from "../../lib/Address"
-import { BITBOX, resturl } from "../../lib/BITBOX"
+import { BITBOX, REST_URL } from "../../lib/BITBOX"
 
 import axios from "axios"
 
@@ -113,7 +113,7 @@ describe("#Address", (): void => {
 
     it("should have a restURL property", (): void => {
       const address: Address = new Address()
-      assert.equal(address.restURL, resturl)
+      assert.equal(address.restURL, REST_URL)
     })
   })
 
