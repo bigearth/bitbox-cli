@@ -25,7 +25,10 @@ import { Util } from "./Util"
 // import { Wallet } from "./Wallet"
 
 // Defaults
-export const WS_URL = 'wss://rest.bitcoin.com'
+export const WS_URL = "wss://rest.bitcoin.com"
+export const TWS_URL = "wss://trest.bitcoin.com"
+// export const WS_URL = 'wss://ws.bitcoin.com'
+// export const TWS_URL = 'wss://tws.bitcoin.com'
 export const REST_URL = "https://rest.bitcoin.com/v2/"
 export const TREST_URL = "https://trest.bitcoin.com/v2/"
 
@@ -58,8 +61,7 @@ export class BITBOX {
       this.restURL = config.restURL
     else this.restURL = REST_URL
 
-    if (config && config.wsURL && config.wsURL !== "")
-      this.wsURL = config.wsURL
+    if (config && config.wsURL && config.wsURL !== "") this.wsURL = config.wsURL
     else this.wsURL = WS_URL
 
     this.Address = new Address(this.restURL)

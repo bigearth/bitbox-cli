@@ -1,18 +1,24 @@
-import { WS_URL } from './BITBOX';
+import { WS_URL } from "./BITBOX"
+import { SocketConfig } from "./interfaces/BITBOXInterfaces"
 
-const io = require('socket.io-client')
+const io: any = require("socket.io-client")
 export class Socket {
   socket: any
-  constructor(config: any = {}) {
-    if (typeof config === "string") {
-      // TODO remove this check in v2.0
-      this.socket = io(`${config}`)
+  constructor(config: SocketConfig = {}) {
+    let websocketURL: string = ""
+    if (config.wsURL) {
+      // default to passed in wsURL
+      websocketURL = config.wsURL
+    } else if (config.restURL) {
+      // 2nd option deprecated restURL
+      websocketURL = config.restURL
     } else {
-      const wsURL = config.wsURL ? config.wsURL : WS_URL
-      this.socket = io(wsURL, { transports: ['websocket'] });
-
-      if (config.callback) config.callback()
+      // fallback to WS_URL
+      websocketURL = WS_URL
     }
+    this.socket = io(websocketURL, { transports: ["websocket"] })
+
+    if (config.callback) config.callback()
   }
 
   public listen(endpoint: string, cb: Function): void {
@@ -25,8 +31,8 @@ export class Socket {
 
   public close(cb?: Function): void {
     this.socket.close()
-    if(cb) {
-      cb();
+    if (cb) {
+      cb()
     }
   }
 }
