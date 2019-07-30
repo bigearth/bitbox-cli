@@ -3,6 +3,7 @@
 // imports
 import { Address } from "./Address"
 import { BitcoinCash } from "./BitcoinCash"
+import { BitDB } from "./BitDB"
 import { Block } from "./Block"
 import { Blockchain } from "./Blockchain"
 import { CashAccounts } from "./CashAccounts"
@@ -29,12 +30,16 @@ export const WS_URL = "wss://ws.bitcoin.com"
 export const TWS_URL = "wss://tws.bitcoin.com"
 export const REST_URL = "https://rest.bitcoin.com/v2/"
 export const TREST_URL = "https://trest.bitcoin.com/v2/"
+export const BITDB_URL = "https://bitdb.bitcoin.com/"
+export const TBITDB_URL = "https://tbitdb.bitcoin.com/"
 
 export class BITBOX {
   public restURL: string
+  public bitdbURL: string
   public wsURL: string
   public Address: Address
   public BitcoinCash: BitcoinCash
+  public BitDB: BitDB
   public Block: Block
   public Blockchain: Blockchain
   public CashAccounts: CashAccounts
@@ -62,8 +67,13 @@ export class BITBOX {
     if (config && config.wsURL && config.wsURL !== "") this.wsURL = config.wsURL
     else this.wsURL = WS_URL
 
+    if (config && config.bitdbURL && config.bitdbURL !== "")
+      this.bitdbURL = config.bitdbURL
+    else this.bitdbURL = BITDB_URL
+
     this.Address = new Address(this.restURL)
     this.BitcoinCash = new BitcoinCash(this.Address)
+    this.BitDB = new BitDB(this.bitdbURL)
     this.Block = new Block(this.restURL)
     this.Blockchain = new Blockchain(this.restURL)
     this.CashAccounts = new CashAccounts(this.restURL)
