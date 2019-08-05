@@ -4,20 +4,19 @@ import { SocketConfig } from "./interfaces/BITBOXInterfaces"
 const io: any = require("socket.io-client")
 export class Socket {
   socket: any
+  websocketURL: string
   bitsocketURL: string
   constructor(config: SocketConfig = {}) {
-    let websocketURL: string = ""
     if (config.wsURL) {
       // default to passed in wsURL
-      websocketURL = config.wsURL
+      this.websocketURL = config.wsURL
     } else if (config.restURL) {
       // 2nd option deprecated restURL
-      websocketURL = config.restURL
+      this.websocketURL = config.restURL
     } else {
       // fallback to WS_URL
-      websocketURL = WS_URL
+      this.websocketURL = WS_URL
     }
-    this.socket = io(websocketURL, { transports: ["websocket"] })
 
     if (config.bitsocketURL) {
       this.bitsocketURL = config.bitsocketURL
@@ -30,6 +29,7 @@ export class Socket {
 
   public listen(query: string, cb: Function): void {
     if (query === "blocks" || query === "transactions") {
+      this.socket = io(this.websocketURL, { transports: ["websocket"] })
       this.socket.emit(query)
 
       if (query === "blocks") this.socket.on("blocks", (msg: any) => cb(msg))
@@ -38,9 +38,8 @@ export class Socket {
     } else {
       let EventSource = require("eventsource")
       let b64 = Buffer.from(JSON.stringify(query)).toString("base64")
-      let socket = new EventSource(`${this.bitsocketURL}/s/${b64}`)
-
-      socket.onmessage = (msg: any) => {
+      this.socket = new EventSource(`${this.bitsocketURL}/s/${b64}`)
+      this.socket.onmessage = (msg: any) => {
         cb(msg.data)
       }
     }
