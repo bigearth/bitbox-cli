@@ -28,6 +28,8 @@ import { Util } from "./Util"
 // Defaults
 export const WS_URL = "wss://ws.bitcoin.com"
 export const TWS_URL = "wss://tws.bitcoin.com"
+export const BITSOCKET_URL = "https://bitsocket.bch.sx"
+export const TBITSOCKET_URL = "https://tbitsocket.bitcoin.com"
 export const REST_URL = "https://rest.bitcoin.com/v2/"
 export const TREST_URL = "https://trest.bitcoin.com/v2/"
 export const BITDB_URL = "https://bitdb.bitcoin.com/"

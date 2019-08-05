@@ -7,6 +7,7 @@ export interface IConfig {
 export interface SocketConfig {
   restURL?: string
   wsURL?: string
+  bitsocketURL?: string
   callback?: Function
 }
 
