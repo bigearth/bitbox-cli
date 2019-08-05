@@ -38,7 +38,7 @@ export class Socket {
     } else {
       let EventSource = require("eventsource")
       let b64 = Buffer.from(JSON.stringify(query)).toString("base64")
-      let socket = new EventSource(`${this.bitsocketURL}/s/` + b64)
+      let socket = new EventSource(`${this.bitsocketURL}/s/${b64}`)
 
       socket.onmessage = (msg: any) => {
         cb(msg.data)
