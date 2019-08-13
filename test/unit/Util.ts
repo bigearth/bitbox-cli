@@ -123,4 +123,11 @@ describe("#Util", (): void => {
       }
     })
   })
+
+  describe('#sweep', () => {
+    it('should do something', async () => {
+      const result = await bitbox.Util.sweep('abc123', 'abc123', true)
+      console.log(`result: ${result}`)
+    })
+  })
 })

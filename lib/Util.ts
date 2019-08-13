@@ -49,4 +49,19 @@ export class Util {
       else throw error
     }
   }
+
+  // Sweep a private key in compressed WIF format and send funds to another address.
+  // Returns the amount of BCH swept from address. Or 0 if no funds were found.
+  // Passing in optional balanceOnly flag will return just the balance without
+  // actually moving the funds.
+  async sweep(wif: string, toAddr: string, balaneOnly: boolean) {
+    try {
+      console.log(`wif: ${wif}`)
+
+      return true
+    } catch (error) {
+      if (error.response && error.response.data) throw error.response.data
+      else throw error
+    }
+  }
 }
