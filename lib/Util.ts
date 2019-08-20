@@ -1,5 +1,7 @@
 // imports
 import axios, { AxiosResponse } from "axios"
+import { AddressDetailsResult } from "bitcoin-com-rest"
+import * as bcl from "bitcoincashjs-lib"
 import { Address } from "./Address"
 import { REST_URL } from "./BITBOX"
 import { BitcoinCash } from "./BitcoinCash"
@@ -25,9 +27,9 @@ export class Util {
   public bitcoinCash: BitcoinCash
   constructor(restURL: string = REST_URL) {
     this.restURL = restURL
-    this.address = new Address()
-    this.ecPair = new ECPair()
-    this.bitcoinCash = new BitcoinCash()
+    this.address = new Address(restURL)
+    this.ecPair = new ECPair(this.address)
+    this.bitcoinCash = new BitcoinCash(this.address)
   }
   public async validateAddress(
     address: string | string[]
@@ -80,14 +82,14 @@ export class Util {
         }
       }
       // Generate a keypair from the WIF.
-      const keyPair = this.ecPair.fromWIF(wif)
+      const keyPair: bcl.ECPair = this.ecPair.fromWIF(wif)
       // Generate the public address associated with the private key.
-      const fromAddr = this.ecPair.toCashAddress(keyPair)
+      const fromAddr: string = this.ecPair.toCashAddress(keyPair)
       // Check the BCH balance of that public address.
-      const details: any = await axios.get(
-        `${this.restURL}address/details/${fromAddr}`
-      )
-      const balance = details.data.balance
+      const details = (await this.address.details(
+        fromAddr
+      )) as AddressDetailsResult
+      const balance: number = details.balance
       // If balance is zero, exit.
       if (balance === 0) return balance
       // If balanceOnly flag is passed in, exit.
