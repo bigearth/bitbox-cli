@@ -253,7 +253,6 @@ export class Address {
     address: string | string[]
   ): Promise<AddressDetailsResult | AddressDetailsResult[]> {
     try {
-      console.log(`calling ${this.restURL}`)
 
       // Handle single address.
       if (typeof address === "string") {
