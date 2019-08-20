@@ -1,14 +1,10 @@
-import axios, { AxiosRequestConfig, AxiosResponse } from "axios"
-import { REST_URL } from "./BITBOX"
-
-// Pull in additional libraries required to support the sweep function.
+// imports
+import axios, { AxiosResponse } from "axios"
 import { Address } from "./Address"
-const addressLib = new Address(REST_URL)
-import { ECPair } from "./ECPair"
-const ecPair = new ECPair(addressLib)
-import { TransactionBuilder } from "./TransactionBuilder"
+import { REST_URL } from "./BITBOX"
 import { BitcoinCash } from "./BitcoinCash"
-const bitcoinCash = new BitcoinCash(addressLib)
+import { ECPair } from "./ECPair"
+import { TransactionBuilder } from "./TransactionBuilder"
 
 export interface AddressDetails {
   isvalid: boolean
@@ -24,10 +20,15 @@ export interface AddressDetails {
 
 export class Util {
   public restURL: string
+  public address: Address
+  public ecPair: ECPair
+  public bitcoinCash: BitcoinCash
   constructor(restURL: string = REST_URL) {
     this.restURL = restURL
+    this.address = new Address()
+    this.ecPair = new ECPair()
+    this.bitcoinCash = new BitcoinCash()
   }
-
   public async validateAddress(
     address: string | string[]
   ): Promise<AddressDetails | AddressDetails[]> {
@@ -38,7 +39,6 @@ export class Util {
           `${this.restURL}util/validateAddress/${address}`
         )
         return response.data
-
         // Array of blocks.
       } else if (Array.isArray(address)) {
         // Dev note: must use axios.post for unit test stubbing.
@@ -48,17 +48,14 @@ export class Util {
             addresses: address
           }
         )
-
         return response.data
       }
-
       throw new Error(`Input must be a string or array of strings.`)
     } catch (error) {
       if (error.response && error.response.data) throw error.response.data
       else throw error
     }
   }
-
   // Sweep a private key in compressed WIF format and sends funds to another
   // address.
   // Passing in optional balanceOnly flag will return just the balance without
@@ -74,7 +71,6 @@ export class Util {
           `wif private key must be included in Compressed WIF format.`
         )
       }
-
       // Input validation
       if (!balanceOnly) {
         if (!toAddr || toAddr === "") {
@@ -83,68 +79,50 @@ export class Util {
           )
         }
       }
-
       // Generate a keypair from the WIF.
-      const keyPair = ecPair.fromWIF(wif)
-
+      const keyPair = this.ecPair.fromWIF(wif)
       // Generate the public address associated with the private key.
-      const fromAddr = ecPair.toCashAddress(keyPair)
-
+      const fromAddr = this.ecPair.toCashAddress(keyPair)
       // Check the BCH balance of that public address.
       const details: any = await axios.get(
         `${this.restURL}address/details/${fromAddr}`
       )
       const balance = details.data.balance
-
       // If balance is zero, exit.
-      if(balance === 0) return balance
-
+      if (balance === 0) return balance
       // If balanceOnly flag is passed in, exit.
-      if(balanceOnly) return balance
-
+      if (balanceOnly) return balance
       // Get UTXOs associated with public address.
-      const u: any = await axios.get(
-        `${this.restURL}address/utxo/${fromAddr}`
-      )
+      const u: any = await axios.get(`${this.restURL}address/utxo/${fromAddr}`)
       const utxos = u.data.utxos
-
       // Prepare to generate a transaction to sweep funds.
       const transactionBuilder = new TransactionBuilder()
       let originalAmount = 0
-
       // Add all UTXOs to the transaction inputs.
       for (let i = 0; i < utxos.length; i++) {
         const utxo = utxos[i]
-
         originalAmount = originalAmount + utxo.satoshis
-
         transactionBuilder.addInput(utxo.txid, utxo.vout)
       }
-
       if (originalAmount < 1)
         throw new Error(`Original amount is zero. No BCH to send.`)
-
       // get byte count to calculate fee. paying 1.1 sat/byte
-      const byteCount = bitcoinCash.getByteCount(
+      const byteCount = this.bitcoinCash.getByteCount(
         { P2PKH: utxos.length },
         { P2PKH: 1 }
       )
       const fee = Math.ceil(1.1 * byteCount)
-
       // amount to send to receiver. It's the original amount - 1 sat/byte for tx size
       const sendAmount = originalAmount - fee
-
       // add output w/ address and amount to send
       transactionBuilder.addOutput(
-        addressLib.toLegacyAddress(toAddr),
+        this.address.toLegacyAddress(toAddr),
         sendAmount
       )
-
       // Loop through each input and sign it with the private key.
       let redeemScript
       for (var i = 0; i < utxos.length; i++) {
         const utxo = utxos[i]
-
         transactionBuilder.sign(
           i,
           keyPair,
@@ -153,18 +131,14 @@ export class Util {
           utxo.satoshis
         )
       }
-
       // build tx
       const tx = transactionBuilder.build()
-
       // output rawhex
       const hex = tx.toHex()
-
       // Broadcast the transaction to the BCH network.
       const response: any = await axios.get(
         `${REST_URL}rawtransactions/sendRawTransaction/${hex}`
       )
-
       return response.data
     } catch (error) {
       if (error.response && error.response.data) throw error.response.data
