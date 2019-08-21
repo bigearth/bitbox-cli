@@ -156,7 +156,7 @@ export class Util {
       const hex: string = tx.toHex()
 
       // Broadcast the transaction to the BCH network.
-      let txid = await this.rawTransactions.sendRawTransaction(hex)
+      let txid: string = await this.rawTransactions.sendRawTransaction(hex)
       return txid
     } catch (error) {
       if (error.response && error.response.data) throw error.response.data
