@@ -1,11 +1,12 @@
 // imports
 import axios, { AxiosResponse } from "axios"
-import { AddressDetailsResult } from "bitcoin-com-rest"
+import { AddressDetailsResult, AddressUtxoResult, utxo } from "bitcoin-com-rest"
 import * as bcl from "bitcoincashjs-lib"
 import { Address } from "./Address"
 import { REST_URL } from "./BITBOX"
 import { BitcoinCash } from "./BitcoinCash"
 import { ECPair } from "./ECPair"
+import { RawTransactions } from "./RawTransactions"
 import { TransactionBuilder } from "./TransactionBuilder"
 
 export interface AddressDetails {
@@ -25,11 +26,13 @@ export class Util {
   public address: Address
   public ecPair: ECPair
   public bitcoinCash: BitcoinCash
+  public rawTransactions: RawTransactions
   constructor(restURL: string = REST_URL) {
     this.restURL = restURL
     this.address = new Address(restURL)
     this.ecPair = new ECPair(this.address)
     this.bitcoinCash = new BitcoinCash(this.address)
+    this.rawTransactions = new RawTransactions(restURL)
   }
   public async validateAddress(
     address: string | string[]
@@ -83,47 +86,59 @@ export class Util {
       }
       // Generate a keypair from the WIF.
       const keyPair: bcl.ECPair = this.ecPair.fromWIF(wif)
+
       // Generate the public address associated with the private key.
       const fromAddr: string = this.ecPair.toCashAddress(keyPair)
+
       // Check the BCH balance of that public address.
       const details = (await this.address.details(
         fromAddr
       )) as AddressDetailsResult
-      const balance: number = details.balance
-      // If balance is zero, exit.
-      if (balance === 0) return balance
-      // If balanceOnly flag is passed in, exit.
-      if (balanceOnly) return balance
+      const balance: number = details.unconfirmedBalance
+
+      // If balance is zero or balanceOnly flag is passed in, exit.
+      if (balance === 0 || balanceOnly) return balance
+
       // Get UTXOs associated with public address.
-      const u: any = await axios.get(`${this.restURL}address/utxo/${fromAddr}`)
-      const utxos = u.data.utxos
+      const u = (await this.address.utxo(fromAddr)) as AddressUtxoResult
+      const utxos: utxo[] = u.utxos
+
       // Prepare to generate a transaction to sweep funds.
-      const transactionBuilder = new TransactionBuilder()
-      let originalAmount = 0
+
+      const transactionBuilder: TransactionBuilder = new TransactionBuilder(
+        this.address.detectAddressNetwork(fromAddr)
+      )
+      let originalAmount: number = 0
+
       // Add all UTXOs to the transaction inputs.
-      for (let i = 0; i < utxos.length; i++) {
-        const utxo = utxos[i]
+      for (let i: number = 0; i < utxos.length; i++) {
+        const utxo: utxo = utxos[i]
         originalAmount = originalAmount + utxo.satoshis
         transactionBuilder.addInput(utxo.txid, utxo.vout)
       }
+
       if (originalAmount < 1)
         throw new Error(`Original amount is zero. No BCH to send.`)
+
       // get byte count to calculate fee. paying 1.1 sat/byte
-      const byteCount = this.bitcoinCash.getByteCount(
+      const byteCount: number = this.bitcoinCash.getByteCount(
         { P2PKH: utxos.length },
         { P2PKH: 1 }
       )
-      const fee = Math.ceil(1.1 * byteCount)
+      const fee: number = Math.ceil(1.1 * byteCount)
+
       // amount to send to receiver. It's the original amount - 1 sat/byte for tx size
-      const sendAmount = originalAmount - fee
+      const sendAmount: number = originalAmount - fee
+
       // add output w/ address and amount to send
       transactionBuilder.addOutput(
         this.address.toLegacyAddress(toAddr),
         sendAmount
       )
+
       // Loop through each input and sign it with the private key.
-      let redeemScript
-      for (var i = 0; i < utxos.length; i++) {
+      let redeemScript: undefined
+      for (let i: number = 0; i < utxos.length; i++) {
         const utxo = utxos[i]
         transactionBuilder.sign(
           i,
@@ -133,15 +148,16 @@ export class Util {
           utxo.satoshis
         )
       }
+
       // build tx
-      const tx = transactionBuilder.build()
+      const tx: any = transactionBuilder.build()
+
       // output rawhex
-      const hex = tx.toHex()
+      const hex: string = tx.toHex()
+
       // Broadcast the transaction to the BCH network.
-      const response: any = await axios.get(
-        `${REST_URL}rawtransactions/sendRawTransaction/${hex}`
-      )
-      return response.data
+      let txid = await this.rawTransactions.sendRawTransaction(hex)
+      return txid
     } catch (error) {
       if (error.response && error.response.data) throw error.response.data
       else throw error

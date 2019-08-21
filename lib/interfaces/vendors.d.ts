@@ -248,20 +248,20 @@ declare module "bitcoin-com-rest" {
     cashAddress: string
   }
 
+  export interface utxo {
+    txid: string
+    vout: number
+    amount: number
+    satoshis: number
+    height: number
+    confirmations: number
+  }
+
   export interface AddressUtxoResult {
     legacyAddress: string
     cashAddress: string
     scriptPubKey: string
-    utxos: [
-      {
-        txid: string
-        vout: number
-        amount: number
-        satoshis: number
-        height: number
-        confirmations: number
-      }
-    ]
+    utxos: utxo[]
   }
 
   export interface AddressUnconfirmedResult {
