@@ -94,7 +94,7 @@ export class Util {
       const details = (await this.address.details(
         fromAddr
       )) as AddressDetailsResult
-      const balance: number = details.unconfirmedBalance
+      const balance: number = details.balance
 
       // If balance is zero or balanceOnly flag is passed in, exit.
       if (balance === 0 || balanceOnly) return balance
