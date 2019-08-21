@@ -68,7 +68,7 @@ export class Util {
   // Or 0 if no funds are found, otherwise:
   // Returns an object containing the amount of BCH swept from address,
   // and the txid of the generated transaction that swept the funds.
-  async sweep(wif: string, toAddr: string, balanceOnly: boolean) {
+  async sweep(wif: string, toAddr: string, balanceOnly: boolean = false) {
     try {
       // Input validation
       if (!wif || wif === "") {
