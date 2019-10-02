@@ -23,7 +23,6 @@ import { Socket } from "./Socket"
 import { Transaction } from "./Transaction"
 import { TransactionBuilder } from "./TransactionBuilder"
 import { Util } from "./Util"
-// import { Wallet } from "./Wallet"
 
 // Defaults
 export const WS_URL = "wss://ws.bitcoin.com"
@@ -60,7 +59,6 @@ export class BITBOX {
   public Util: Util
   public Socket: any
   public Schnorr: Schnorr
-  // Wallet: Wallet
   constructor(config: IConfig = {}) {
     if (config && config.restURL && config.restURL !== "")
       this.restURL = config.restURL
@@ -94,6 +92,5 @@ export class BITBOX {
     this.Util = new Util(this.restURL)
     this.Socket = Socket
     this.Schnorr = new Schnorr()
-    // this.Wallet = Wallet
   }
 }

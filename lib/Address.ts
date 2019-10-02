@@ -253,6 +253,7 @@ export class Address {
     address: string | string[]
   ): Promise<AddressDetailsResult | AddressDetailsResult[]> {
     try {
+
       // Handle single address.
       if (typeof address === "string") {
         const response: AxiosResponse = await axios.get(
