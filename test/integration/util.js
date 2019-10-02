@@ -126,5 +126,5 @@ describe(`#util`, () => {
   //     const result = await bitbox.Util.sweep(wif, toAddr)
   //     console.log(`result: ${result}`)
   //   })
-  })
+  // })
 })

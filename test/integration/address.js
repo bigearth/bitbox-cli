@@ -120,7 +120,7 @@ describe(`#address`, () => {
 
   describe(`#utxo`, () => {
     it(`should GET utxos for a single address`, async () => {
-      const addr = "bitcoincash:qrdka2205f4hyukutc2g0s6lykperc8nsu5u2ddpqf"
+      const addr = "bitcoincash:qqm8uru433pjygm7q8przw9qw9pacvmvx5cngmqmue"
 
       const result = await bitbox.Address.utxo(addr)
       //console.log(`result: ${JSON.stringify(result, null, 2)}`)
@@ -145,12 +145,12 @@ describe(`#address`, () => {
 
     it(`should GET utxo details for an array of addresses`, async () => {
       const addr = [
-        "bitcoincash:qrdka2205f4hyukutc2g0s6lykperc8nsu5u2ddpqf",
+        "bitcoincash:qqm8uru433pjygm7q8przw9qw9pacvmvx5cngmqmue",
         "bitcoincash:qpdh9s677ya8tnx7zdhfrn8qfyvy22wj4qa7nwqa5v"
       ]
 
       const result = await bitbox.Address.utxo(addr)
-      //console.log(`result: ${JSON.stringify(result, null, 2)}`)
+      // console.log(`result: ${JSON.stringify(result, null, 2)}`)
 
       assert.isArray(result)
       assert.hasAllKeys(result[0], [
