@@ -113,18 +113,18 @@ describe(`#util`, () => {
     })
   })
 
-  describe("#sweep", () => {
-    it("should return balance only", async () => {
-      const wif = "L287yGQj4DB4fbUKSV7DMHsyGQs1qh2E3EYJ21P88mXNKaFvmNWk"
-      const result = await bitbox.Util.sweep(wif, "abc123", true)
-      console.log(`result: ${result}`)
-    })
+  // describe("#sweep", () => {
+  //   it("should return balance only", async () => {
+  //     const wif = "L287yGQj4DB4fbUKSV7DMHsyGQs1qh2E3EYJ21P88mXNKaFvmNWk"
+  //     const result = await bitbox.Util.sweep(wif, "abc123", true)
+  //     console.log(`result: ${result}`)
+  //   })
 
-    it("should sweep funds", async () => {
-      const wif = "L287yGQj4DB4fbUKSV7DMHsyGQs1qh2E3EYJ21P88mXNKaFvmNWk"
-      const toAddr = "bitcoincash:qqjes5sxwneywmnzqndvs6p3l9rp55a2ug0e6e6s0a"
-      const result = await bitbox.Util.sweep(wif, toAddr)
-      console.log(`result: ${result}`)
-    })
+  //   it("should sweep funds", async () => {
+  //     const wif = "L287yGQj4DB4fbUKSV7DMHsyGQs1qh2E3EYJ21P88mXNKaFvmNWk"
+  //     const toAddr = "bitcoincash:qqjes5sxwneywmnzqndvs6p3l9rp55a2ug0e6e6s0a"
+  //     const result = await bitbox.Util.sweep(wif, toAddr)
+  //     console.log(`result: ${result}`)
+  //   })
   })
 })
