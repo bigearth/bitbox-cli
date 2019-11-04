@@ -3,20 +3,17 @@
   will be used in future examples.
 */
 
+const fs = require("fs")
+const BITBOX = require("../../../../lib/BITBOX").BITBOX
+
 // Set NETWORK to either testnet or mainnet
 const NETWORK = `testnet`
 
-// Instantiate bitbox.
-const bitboxLib = "../../../lib/BITBOX"
-const BITBOX = require(bitboxLib).BITBOX
-
-// Instantiate SLP based on the network.
-let bitbox
-if (NETWORK === `mainnet`)
-  bitbox = new BITBOX({ restURL: `https://rest.bitcoin.com/v2/` })
-else bitbox = new BITBOX({ restURL: `https://trest.bitcoin.com/v2/` })
-
-const fs = require("fs")
+// Instantiate BITBOX based on the network.
+const bitbox =
+  NETWORK === `mainnet`
+    ? new BITBOX({ restURL: `https://rest.bitcoin.com/v2/` })
+    : new BITBOX({ restURL: `https://trest.bitcoin.com/v2/` })
 
 const lang = "english" // Set the language of the wallet.
 
@@ -29,6 +26,7 @@ const mnemonic = bitbox.Mnemonic.generate(
   128,
   bitbox.Mnemonic.wordLists()[lang]
 )
+
 console.log("BIP44 $BCH Wallet")
 outStr += "BIP44 $BCH Wallet\n"
 console.log(`128 bit ${lang} BIP39 Mnemonic: `, mnemonic)
@@ -39,9 +37,7 @@ outObj.mnemonic = mnemonic
 const rootSeed = bitbox.Mnemonic.toSeed(mnemonic)
 
 // master HDNode
-let masterHDNode
-if (NETWORK === `mainnet`) masterHDNode = bitbox.HDNode.fromSeed(rootSeed)
-else masterHDNode = bitbox.HDNode.fromSeed(rootSeed, "testnet") // Testnet
+const masterHDNode = bitbox.HDNode.fromSeed(rootSeed, NETWORK)
 
 // HDNode of BIP44 account
 console.log(`BIP44 Account: "m/44'/145'/0'"`)
