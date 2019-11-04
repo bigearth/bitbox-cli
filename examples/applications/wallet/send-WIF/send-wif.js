@@ -4,31 +4,31 @@
   Send 1000 satoshis to RECV_ADDR.
 */
 
+const BITBOX = require("../../../../lib/BITBOX").BITBOX
+
 // Set NETWORK to either testnet or mainnet
 const NETWORK = `testnet`
-// Replace the address below with the address you want to send the BCH to.
-let RECV_ADDR = ``
-const SATOSHIS_TO_SEND = 1000
 
-// Instantiate bitbox.
-const bitboxLib = "../../../lib/BITBOX"
-const BITBOX = require(bitboxLib).BITBOX
-
-// Instantiate SLP based on the network.
-let bitbox
-if (NETWORK === `mainnet`)
-  bitbox = new BITBOX({ restURL: `https://rest.bitcoin.com/v2/` })
-else bitbox = new BITBOX({ restURL: `https://trest.bitcoin.com/v2/` })
+// Instantiate BITBOX based on the network.
+const bitbox =
+  NETWORK === `mainnet`
+    ? new BITBOX({ restURL: `https://rest.bitcoin.com/v2/` })
+    : new BITBOX({ restURL: `https://trest.bitcoin.com/v2/` })
 
 // Open the wallet generated with create-wallet.
+let walletInfo
 try {
-  var walletInfo = require(`../create-wallet/wallet.json`)
+  walletInfo = require(`../create-wallet/wallet.json`)
 } catch (err) {
   console.log(
     `Could not open wallet.json. Generate a wallet with create-wallet first.`
   )
-  process.exit(0)
+  process.exit(1)
 }
+
+// Replace the address below with the address you want to send the BCH to.
+let RECV_ADDR = ``
+const SATOSHIS_TO_SEND = 1000
 
 const SEND_ADDR = walletInfo.cashAddress
 const SEND_WIF = walletInfo.WIF
@@ -58,14 +58,10 @@ async function sendBch() {
     console.log(`Balance of recieving address ${RECV_ADDR} is ${balance2} BCH.`)
 
     const u = await bitbox.Address.utxo(SEND_ADDR)
-    //console.log(`u: ${JSON.stringify(u, null, 2)}`)
     const utxo = findBiggestUtxo(u.utxos)
     console.log(`utxo: ${JSON.stringify(utxo, null, 2)}`)
 
-    // instance of transaction builder
-    if (NETWORK === `mainnet`)
-      var transactionBuilder = new bitbox.TransactionBuilder()
-    else var transactionBuilder = new bitbox.TransactionBuilder("testnet")
+    const transactionBuilder = new bitbox.TransactionBuilder(NETWORK)
 
     const satoshisToSend = SATOSHIS_TO_SEND
     const originalAmount = utxo.satoshis
@@ -110,7 +106,7 @@ async function sendBch() {
     // output rawhex
     const hex = tx.toHex()
     console.log(`TX hex: ${hex}`)
-    console.log(` `)
+    console.log()
 
     // Broadcast transation to the network
     const txidStr = await bitbox.RawTransactions.sendRawTransaction([hex])
@@ -126,11 +122,9 @@ sendBch()
 // Get the balance in BCH of a BCH address.
 async function getBCHBalance(addr, verbose) {
   try {
-    const result = await bitbox.Address.details(addr)
+    const bchBalance = await bitbox.Address.details(addr)
 
-    if (verbose) console.log(result)
-
-    const bchBalance = result
+    if (verbose) console.log(bchBalance)
 
     return bchBalance.balance
   } catch (err) {
@@ -145,7 +139,7 @@ function findBiggestUtxo(utxos) {
   let largestAmount = 0
   let largestIndex = 0
 
-  for (var i = 0; i < utxos.length; i++) {
+  for (let i = 0; i < utxos.length; i++) {
     const thisUtxo = utxos[i]
 
     if (thisUtxo.satoshis > largestAmount) {
