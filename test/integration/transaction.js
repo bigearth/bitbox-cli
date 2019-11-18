@@ -87,7 +87,7 @@ describe(`#Transaction`, () => {
         // console.log(`result: ${util.inspect(result)}`)
         assert.equal(false, false, "Unexpected result!")
       } catch (err) {
-        console.log(`err: ${util.inspect(err)}`)
+        // console.log(`err: ${util.inspect(err)}`)
 
         assert.hasAnyKeys(err, ["error"])
         assert.include(err.error, "Array too large")

@@ -44,7 +44,7 @@ describe(`#util`, () => {
       assert.equal(result.isvalid, false)
     })
 
-    it(`should return validate valid address`, async () => {
+    it(`should return a valid address`, async () => {
       const address = `bitcoincash:qp4k8fjtgunhdr7yq30ha4peuwupzan2vcnwrmpy0z`
 
       const result = await bitbox.Util.validateAddress(address)
@@ -54,8 +54,6 @@ describe(`#util`, () => {
         "isvalid",
         "address",
         "scriptPubKey",
-        "ismine",
-        "iswatchonly",
         "isscript"
       ])
       assert.equal(result.isvalid, true)
@@ -75,8 +73,6 @@ describe(`#util`, () => {
         "isvalid",
         "address",
         "scriptPubKey",
-        "ismine",
-        "iswatchonly",
         "isscript"
       ])
     })
