@@ -3,7 +3,7 @@
   - Add blockhash functionality back into getTxOutProof
 */
 
-import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
+import axios, { AxiosRequestConfig, AxiosResponse } from "axios"
 import {
   BlockchainInfoResult,
   BlockDetailsResult,
@@ -12,24 +12,24 @@ import {
   MempoolEntryResult,
   MempoolInfoResult,
   TxOutResult
-} from "bitcoin-com-rest";
-import { REST_URL } from "./BITBOX";
+} from "bitcoin-com-rest"
+import { REST_URL } from "./BITBOX"
 
 export class Blockchain {
-  public restURL: string;
+  public restURL: string
   constructor(restURL: string = REST_URL) {
-    this.restURL = restURL;
+    this.restURL = restURL
   }
 
   public async getBestBlockHash(): Promise<string> {
     try {
       const response: AxiosResponse = await axios.get(
         `${this.restURL}blockchain/getBestBlockHash`
-      );
-      return response.data;
+      )
+      return response.data
     } catch (error) {
-      if (error.response && error.response.data) throw error.response.data;
-      else throw error;
+      if (error.response && error.response.data) throw error.response.data
+      else throw error
     }
   }
 
@@ -40,11 +40,11 @@ export class Blockchain {
     try {
       const response: AxiosResponse = await axios.get(
         `${this.restURL}blockchain/getBlock/${blockhash}?verbose=${verbose}`
-      );
-      return response.data;
+      )
+      return response.data
     } catch (error) {
-      if (error.response && error.response.data) throw error.response.data;
-      else throw error;
+      if (error.response && error.response.data) throw error.response.data
+      else throw error
     }
   }
 
@@ -52,11 +52,11 @@ export class Blockchain {
     try {
       const response: AxiosResponse = await axios.get(
         `${this.restURL}blockchain/getBlockchainInfo`
-      );
-      return response.data;
+      )
+      return response.data
     } catch (error) {
-      if (error.response && error.response.data) throw error.response.data;
-      else throw error;
+      if (error.response && error.response.data) throw error.response.data
+      else throw error
     }
   }
 
@@ -64,11 +64,11 @@ export class Blockchain {
     try {
       const response: AxiosResponse = await axios.get(
         `${this.restURL}blockchain/getBlockCount`
-      );
-      return response.data;
+      )
+      return response.data
     } catch (error) {
-      if (error.response && error.response.data) throw error.response.data;
-      else throw error;
+      if (error.response && error.response.data) throw error.response.data
+      else throw error
     }
   }
 
@@ -78,11 +78,11 @@ export class Blockchain {
     try {
       const response: AxiosResponse = await axios.get(
         `${this.restURL}blockchain/getBlockHash/${height}`
-      );
-      return response.data;
+      )
+      return response.data
     } catch (error) {
-      if (error.response && error.response.data) throw error.response.data;
-      else throw error;
+      if (error.response && error.response.data) throw error.response.data
+      else throw error
     }
   }
 
@@ -95,9 +95,9 @@ export class Blockchain {
       if (typeof hash === "string") {
         const response: AxiosResponse = await axios.get(
           `${this.restURL}blockchain/getBlockHeader/${hash}?verbose=${verbose}`
-        );
+        )
 
-        return response.data;
+        return response.data
 
         // Handle array of hashes.
       } else if (Array.isArray(hash)) {
@@ -108,15 +108,15 @@ export class Blockchain {
             hashes: hash,
             verbose: verbose
           }
-        );
+        )
 
-        return response.data;
+        return response.data
       }
 
-      throw new Error(`Input hash must be a string or array of strings.`);
+      throw new Error(`Input hash must be a string or array of strings.`)
     } catch (error) {
-      if (error.response && error.response.data) throw error.response.data;
-      else throw error;
+      if (error.response && error.response.data) throw error.response.data
+      else throw error
     }
   }
 
@@ -124,11 +124,11 @@ export class Blockchain {
     try {
       const response: AxiosResponse = await axios.get(
         `${this.restURL}blockchain/getChainTips`
-      );
-      return response.data;
+      )
+      return response.data
     } catch (error) {
-      if (error.response && error.response.data) throw error.response.data;
-      else throw error;
+      if (error.response && error.response.data) throw error.response.data
+      else throw error
     }
   }
 
@@ -136,11 +136,11 @@ export class Blockchain {
     try {
       const response: AxiosResponse = await axios.get(
         `${this.restURL}blockchain/getDifficulty`
-      );
-      return response.data;
+      )
+      return response.data
     } catch (error) {
-      if (error.response && error.response.data) throw error.response.data;
-      else throw error;
+      if (error.response && error.response.data) throw error.response.data
+      else throw error
     }
   }
 
@@ -149,16 +149,16 @@ export class Blockchain {
     txid: string,
     verbose: boolean = false
   ): Promise<string[] | MempoolEntryResult[]> {
-    if (typeof txid !== "string") txid = JSON.stringify(txid);
+    if (typeof txid !== "string") txid = JSON.stringify(txid)
 
     try {
       const response: AxiosResponse = await axios.get(
         `${this.restURL}blockchain/getMempoolAncestors/${txid}?verbose=${verbose}`
-      );
-      return response.data;
+      )
+      return response.data
     } catch (error) {
-      if (error.response && error.response.data) throw error.response.data;
-      else throw error;
+      if (error.response && error.response.data) throw error.response.data
+      else throw error
     }
   }
 
@@ -167,16 +167,16 @@ export class Blockchain {
     txid: string,
     verbose: boolean = false
   ): Promise<string[] | MempoolEntryResult[]> {
-    if (typeof txid !== "string") txid = JSON.stringify(txid);
+    if (typeof txid !== "string") txid = JSON.stringify(txid)
 
     try {
       const response: AxiosResponse = await axios.get(
         `${this.restURL}blockchain/getMempoolDescendants/${txid}?verbose=${verbose}`
-      );
-      return response.data;
+      )
+      return response.data
     } catch (error) {
-      if (error.response && error.response.data) throw error.response.data;
-      else throw error;
+      if (error.response && error.response.data) throw error.response.data
+      else throw error
     }
   }
 
@@ -187,9 +187,9 @@ export class Blockchain {
       if (typeof txid === "string") {
         const response: AxiosResponse = await axios.get(
           `${this.restURL}blockchain/getMempoolEntry/${txid}`
-        );
+        )
 
-        return response.data;
+        return response.data
       } else if (Array.isArray(txid)) {
         const options: AxiosRequestConfig = {
           method: "POST",
@@ -197,16 +197,16 @@ export class Blockchain {
           data: {
             txids: txid
           }
-        };
-        const response: AxiosResponse = await axios(options);
+        }
+        const response: AxiosResponse = await axios(options)
 
-        return response.data;
+        return response.data
       }
 
-      throw new Error(`Input must be a string or array of strings.`);
+      throw new Error(`Input must be a string or array of strings.`)
     } catch (error) {
-      if (error.response && error.response.data) throw error.response.data;
-      else throw error;
+      if (error.response && error.response.data) throw error.response.data
+      else throw error
     }
   }
 
@@ -214,11 +214,11 @@ export class Blockchain {
     try {
       const response: AxiosResponse = await axios.get(
         `${this.restURL}blockchain/getMempoolInfo`
-      );
-      return response.data;
+      )
+      return response.data
     } catch (error) {
-      if (error.response && error.response.data) throw error.response.data;
-      else throw error;
+      if (error.response && error.response.data) throw error.response.data
+      else throw error
     }
   }
 
@@ -227,11 +227,11 @@ export class Blockchain {
     try {
       const response: AxiosResponse = await axios.get(
         `${this.restURL}blockchain/getRawMempool?vebose=${verbose}`
-      );
-      return response.data;
+      )
+      return response.data
     } catch (error) {
-      if (error.response && error.response.data) throw error.response.data;
-      else throw error;
+      if (error.response && error.response.data) throw error.response.data
+      else throw error
     }
   }
 
@@ -243,23 +243,23 @@ export class Blockchain {
   ): Promise<TxOutResult | null> {
     // Input validation
     if (typeof txid !== "string" || txid.length !== 64)
-      throw new Error(`txid needs to be a proper transaction ID`);
+      throw new Error(`txid needs to be a proper transaction ID`)
 
-    if (isNaN(n)) throw new Error(`n must be an integer`);
+    if (isNaN(n)) throw new Error(`n must be an integer`)
 
     if (typeof include_mempool !== "boolean")
-      throw new Error(`include_mempool input must be of type boolean`);
+      throw new Error(`include_mempool input must be of type boolean`)
 
     try {
-      const path: string = `${this.restURL}blockchain/getTxOut/${txid}/${n}?include_mempool=${include_mempool}`;
+      const path: string = `${this.restURL}blockchain/getTxOut/${txid}/${n}?include_mempool=${include_mempool}`
       // console.log(`path: ${path}`)
 
-      const response: AxiosResponse = await axios.get(path);
+      const response: AxiosResponse = await axios.get(path)
 
-      return response.data;
+      return response.data
     } catch (error) {
-      if (error.response && error.response.data) throw error.response.data;
-      else throw error;
+      if (error.response && error.response.data) throw error.response.data
+      else throw error
     }
   }
 
@@ -269,11 +269,11 @@ export class Blockchain {
     try {
       // Single txid.
       if (typeof txids === "string") {
-        const path = `${this.restURL}blockchain/getTxOutProof/${txids}`;
+        const path = `${this.restURL}blockchain/getTxOutProof/${txids}`
         //if (blockhash) path = `${path}?blockhash=${blockhash}`
 
-        const response: AxiosResponse = await axios.get(path);
-        return response.data;
+        const response: AxiosResponse = await axios.get(path)
+        return response.data
 
         // Array of txids.
       } else if (Array.isArray(txids)) {
@@ -283,15 +283,15 @@ export class Blockchain {
           {
             txids: txids
           }
-        );
+        )
 
-        return response.data;
+        return response.data
       }
 
-      throw new Error(`Input must be a string or array of strings.`);
+      throw new Error(`Input must be a string or array of strings.`)
     } catch (error) {
-      if (error.response && error.response.data) throw error.response.data;
-      else throw error;
+      if (error.response && error.response.data) throw error.response.data
+      else throw error
     }
   }
 
@@ -300,11 +300,11 @@ export class Blockchain {
     try {
       const response: AxiosResponse = await axios.get(
         `${this.restURL}blockchain/preciousBlock/${blockhash}`
-      );
-      return response.data;
+      )
+      return response.data
     } catch (error) {
-      if (error.response && error.response.data) throw error.response.data;
-      else throw error;
+      if (error.response && error.response.data) throw error.response.data
+      else throw error
     }
   }
 
@@ -313,11 +313,11 @@ export class Blockchain {
     try {
       const response: AxiosResponse = await axios.post(
         `${this.restURL}blockchain/pruneBlockchain/${height}`
-      );
-      return response.data;
+      )
+      return response.data
     } catch (error) {
-      if (error.response && error.response.data) throw error.response.data;
-      else throw error;
+      if (error.response && error.response.data) throw error.response.data
+      else throw error
     }
   }
 
@@ -328,11 +328,11 @@ export class Blockchain {
     try {
       const response: AxiosResponse = await axios.get(
         `${this.restURL}blockchain/verifyChain?checklevel=${checklevel}&nblocks=${nblocks}`
-      );
-      return response.data;
+      )
+      return response.data
     } catch (error) {
-      if (error.response && error.response.data) throw error.response.data;
-      else throw error;
+      if (error.response && error.response.data) throw error.response.data
+      else throw error
     }
   }
 
@@ -342,8 +342,8 @@ export class Blockchain {
       if (typeof proof === "string") {
         const response: AxiosResponse = await axios.get(
           `${this.restURL}blockchain/verifyTxOutProof/${proof}`
-        );
-        return response.data;
+        )
+        return response.data
 
         // Array of hashes.
       } else if (Array.isArray(proof)) {
@@ -353,15 +353,15 @@ export class Blockchain {
           {
             proofs: proof
           }
-        );
+        )
 
-        return response.data;
+        return response.data
       }
 
-      throw new Error(`Input must be a string or array of strings.`);
+      throw new Error(`Input must be a string or array of strings.`)
     } catch (error) {
-      if (error.response && error.response.data) throw error.response.data;
-      else throw error;
+      if (error.response && error.response.data) throw error.response.data
+      else throw error
     }
   }
 }
