@@ -355,22 +355,7 @@ describe("#Blockchain", (): void => {
     const data = {
       result: {}
     }
-/*
-    it("should get TODO", done => {
-      const resolved = new Promise(r => r({ data: data }))
-      sandbox.stub(axios, "get").returns(resolved)
 
-      bitbox.Blockchain.getTxOut(
-        "daf58932cb91619304dd4cbd03c7202e89ad7d6cbd6e2209e5f64ce3b6ed7c88",
-        0,
-        true
-      )
-        .then((result: any) => {
-          assert.deepEqual(data, result)
-        })
-        .then(done, done)
-    })
-*/
     it("should throw an error for improper txid.", async () => {
       try {
         await bitbox.Blockchain.getTxOut("badtxid", 0)

@@ -205,13 +205,46 @@ describe(`#blockchain`, () => {
     })
   })
 
+  describe(`#getTxOut`, () => {
+    it(`should get information on valid utxo`, async () => {
+      const txid = `91874bf385a36d54f06c2154b34bce887a03b99540bfddaa17ac78ebc65202d0`
+
+      const result = await bitbox.Blockchain.getTxOut(txid, 0, true)
+      // console.log(`result: ${JSON.stringify(result, null, 2)}`)
+
+      assert.hasAllKeys(result, [
+        "bestblock",
+        "confirmations",
+        "value",
+        "scriptPubKey",
+        "coinbase"
+      ])
+      assert.hasAllKeys(result.scriptPubKey, [
+        "asm",
+        "hex",
+        "reqSigs",
+        "type",
+        "addresses"
+      ])
+    })
+
+    it(`should return null for a spent utxo`, async () => {
+      const txid = `8db6dd4f8a5bb1308541d4a6d4ecdae6c65426679e79f783638ce32b2fb0725b`
+
+      const result = await bitbox.Blockchain.getTxOut(txid, 0, true)
+      // console.log(`result: ${JSON.stringify(result, null, 2)}`)
+
+      assert.equal(result, null)
+    })
+  })
+
   describe(`#getTxOutProof`, () => {
     it(`should get single tx out proof`, async () => {
       const txid =
         "03f69502ca32e7927fd4f38c1d3f950bff650c1eea3d09a70e9df5a9d7f989f7"
 
       const result = await bitbox.Blockchain.getTxOutProof(txid)
-      //console.log(`result: ${JSON.stringify(result, null, 2)}`)
+      // console.log(`result: ${JSON.stringify(result, null, 2)}`)
 
       assert.isString(result)
     })
@@ -223,7 +256,7 @@ describe(`#blockchain`, () => {
       ]
 
       const result = await bitbox.Blockchain.getTxOutProof(txid)
-      //console.log(`result: ${JSON.stringify(result, null, 2)}`)
+      // console.log(`result: ${JSON.stringify(result, null, 2)}`)
 
       assert.isArray(result)
       assert.isString(result[0])
