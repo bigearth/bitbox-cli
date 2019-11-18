@@ -153,9 +153,7 @@ export class Blockchain {
 
     try {
       const response: AxiosResponse = await axios.get(
-        `${
-          this.restURL
-        }blockchain/getMempoolAncestors/${txid}?verbose=${verbose}`
+        `${this.restURL}blockchain/getMempoolAncestors/${txid}?verbose=${verbose}`
       )
       return response.data
     } catch (error) {
@@ -173,9 +171,7 @@ export class Blockchain {
 
     try {
       const response: AxiosResponse = await axios.get(
-        `${
-          this.restURL
-        }blockchain/getMempoolDescendants/${txid}?verbose=${verbose}`
+        `${this.restURL}blockchain/getMempoolDescendants/${txid}?verbose=${verbose}`
       )
       return response.data
     } catch (error) {
@@ -239,18 +235,27 @@ export class Blockchain {
     }
   }
 
+  // Returns details about an unspent transaction output.
   public async getTxOut(
     txid: string,
     n: any,
     include_mempool: boolean = true
   ): Promise<TxOutResult | null> {
-    // TODO confirm this works
+    // Input validation
+    if (typeof txid !== "string" || txid.length !== 64)
+      throw new Error(`txid needs to be a proper transaction ID`)
+
+    if (isNaN(n)) throw new Error(`n must be an integer`)
+
+    if (typeof include_mempool !== "boolean")
+      throw new Error(`include_mempool input must be of type boolean`)
+
     try {
-      const response: AxiosResponse = await axios.get(
-        `${
-          this.restURL
-        }blockchain/getTxOut/${txid}/n?include_mempool=${include_mempool}`
-      )
+      const path: string = `${this.restURL}blockchain/getTxOut/${txid}/${n}?include_mempool=${include_mempool}`
+      // console.log(`path: ${path}`)
+
+      const response: AxiosResponse = await axios.get(path)
+
       return response.data
     } catch (error) {
       if (error.response && error.response.data) throw error.response.data
@@ -322,9 +327,7 @@ export class Blockchain {
   ): Promise<boolean> {
     try {
       const response: AxiosResponse = await axios.get(
-        `${
-          this.restURL
-        }blockchain/verifyChain?checklevel=${checklevel}&nblocks=${nblocks}`
+        `${this.restURL}blockchain/verifyChain?checklevel=${checklevel}&nblocks=${nblocks}`
       )
       return response.data
     } catch (error) {
