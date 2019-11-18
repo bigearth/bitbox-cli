@@ -130,7 +130,8 @@ describe(`#address`, () => {
         "legacyAddress",
         "cashAddress",
         "scriptPubKey",
-        "slpAddress"
+        "slpAddress",
+        "asm"
       ])
       assert.isArray(result.utxos)
       assert.hasAnyKeys(result.utxos[0], [
@@ -158,7 +159,8 @@ describe(`#address`, () => {
         "legacyAddress",
         "cashAddress",
         "scriptPubKey",
-        "slpAddress"
+        "slpAddress",
+        "asm"
       ])
       assert.isArray(result[0].utxos)
       assert.hasAnyKeys(result[0].utxos[0], [
@@ -215,7 +217,8 @@ describe(`#address`, () => {
         "legacyAddress",
         "cashAddress",
         "scriptPubKey",
-        "slpAddress"
+        "slpAddress",
+        "asm"
       ])
       assert.isArray(result.utxos)
     })
@@ -235,7 +238,8 @@ describe(`#address`, () => {
         "legacyAddress",
         "cashAddress",
         "scriptPubKey",
-        "slpAddress"
+        "slpAddress",
+        "asm"
       ])
       assert.isArray(result[0].utxos)
     })

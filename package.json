@@ -78,7 +78,7 @@
     "node-mocks-http": "^1.7.0",
     "nyc": "^14.1.1",
     "prettier": "^1.14.2",
-    "semantic-release": "^15.13.3",
+    "semantic-release": "^15.13.31",
     "sinon": "^4.5.0",
     "source-map-support": "^0.5.12",
     "ts-node": "^8.1.0",
