@@ -239,17 +239,28 @@ export class Blockchain {
     }
   }
 
+  // Returns details about an unspent transaction output.
   public async getTxOut(
     txid: string,
     n: any,
     include_mempool: boolean = true
   ): Promise<TxOutResult | null> {
+
+    // Input validation
+    if (typeof txid !== "string" || txid.length !== 64)
+      throw new Error(`txid needs to be a proper transaction ID`)
+
+    if (isNaN(n)) throw new Error(`n must be an integer`)
+
+    if (typeof include_mempool !== "boolean")
+      throw new Error(`include_mempool input must be of type boolean`)
+
     // TODO confirm this works
     try {
       const response: AxiosResponse = await axios.get(
         `${
           this.restURL
-        }blockchain/getTxOut/${txid}/n?include_mempool=${include_mempool}`
+        }blockchain/getTxOut/${txid}/${n}?include_mempool=${include_mempool}`
       )
       return response.data
     } catch (error) {

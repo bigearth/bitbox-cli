@@ -8,6 +8,8 @@ import { REST_URL } from "../../lib/BITBOX"
 import * as util from "util"
 import { BlockHeaderResult } from "bitcoin-com-rest"
 
+const mockData = require("./mocks/blockchain-mock")
+
 // consts
 const bitbox: BITBOX = new BITBOX()
 const assert: Chai.AssertStatic = chai.assert
@@ -347,14 +349,13 @@ describe("#Blockchain", (): void => {
   })
 
   describe("#getTxOut", (): void => {
-    // TODO finish this test
     let sandbox: any
     beforeEach(() => (sandbox = sinon.sandbox.create()))
     afterEach(() => sandbox.restore())
     const data = {
       result: {}
     }
-
+/*
     it("should get TODO", done => {
       const resolved = new Promise(r => r({ data: data }))
       sandbox.stub(axios, "get").returns(resolved)
@@ -369,6 +370,56 @@ describe("#Blockchain", (): void => {
         })
         .then(done, done)
     })
+*/
+    it("should throw an error for improper txid.", async () => {
+      try {
+        await bitbox.Blockchain.getTxOut("badtxid", 0)
+      } catch (err) {
+        assert.include(err.message, "txid needs to be a proper transaction ID")
+      }
+    })
+
+    it("should throw an error if vout is not an integer.", async () => {
+      try {
+        await bitbox.Blockchain.getTxOut(
+          "daf58932cb91619304dd4cbd03c7202e89ad7d6cbd6e2209e5f64ce3b6ed7c88", 'a'
+        )
+      } catch (err) {
+        assert.include(err.message, "n must be an integer")
+      }
+    })
+
+    it("should get information on an unspent tx", async () => {
+      sandbox.stub(axios, "get").resolves({ data: mockData.txOutUnspent })
+
+      const result = await bitbox.Blockchain.getTxOut(
+        "62a3ea958a463a372bc0caf2c374a7f60be9c624be63a0db8db78f05809df6d8",
+        0,
+        true
+      )
+      // console.log(`result: ${JSON.stringify(result, null, 2)}`)
+
+      assert.hasAllKeys(result, [
+        "bestblock",
+        "confirmations",
+        "value",
+        "scriptPubKey",
+        "coinbase"
+      ])
+    })
+
+    // it("should get information on a spent tx", async () => {
+    //   sandbox.stub(axios, "get").resolves({ data: null })
+
+    //   const result = await bitbox.Blockchain.getTxOut(
+    //     "87380e52d151856b23173d6d8a3db01b984c6b50f77ea045a5a1cf4f54497871",
+    //     0,
+    //     true
+    //   )
+    //   // console.log(`result: ${JSON.stringify(result, null, 2)}`)
+
+    //   assert2.equal(result, null)
+    // })
   })
 
   describe("#preciousBlock", (): void => {

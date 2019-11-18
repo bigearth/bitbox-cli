@@ -9,7 +9,7 @@
   "scripts": {
     "test": "npm run test:unit",
     "test:no-build": "nyc mocha test/unit --timeout 60000 --exit",
-    "test:unit": "tsc && nyc mocha test/unit --timeout 60000 --exit",
+    "test:unit": "tsc && nyc mocha test/unit/Blockchain.js --timeout 60000 --exit",
     "test:integration": "TEST=integration nyc --reporter=text mocha --timeout 30000 test/integration --exit",
     "test:integration:local": "TEST=integration SERVER=local nyc --reporter=text mocha --timeout 30000 test/integration --exit",
     "test:integration:stage": "TEST=integration SERVER=stage nyc --reporter=text mocha --timeout 30000 test/integration --exit",
