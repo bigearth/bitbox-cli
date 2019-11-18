@@ -393,18 +393,18 @@ describe("#Blockchain", (): void => {
       ])
     })
 
-    // it("should get information on a spent tx", async () => {
-    //   sandbox.stub(axios, "get").resolves({ data: null })
+    it("should get information on a spent tx", async () => {
+      sandbox.stub(axios, "get").resolves({ data: null })
 
-    //   const result = await bitbox.Blockchain.getTxOut(
-    //     "87380e52d151856b23173d6d8a3db01b984c6b50f77ea045a5a1cf4f54497871",
-    //     0,
-    //     true
-    //   )
-    //   // console.log(`result: ${JSON.stringify(result, null, 2)}`)
+      const result = await bitbox.Blockchain.getTxOut(
+        "87380e52d151856b23173d6d8a3db01b984c6b50f77ea045a5a1cf4f54497871",
+        0,
+        true
+      )
+      // console.log(`result: ${JSON.stringify(result, null, 2)}`)
 
-    //   assert2.equal(result, null)
-    // })
+      assert.equal(result, null)
+    })
   })
 
   describe("#preciousBlock", (): void => {
