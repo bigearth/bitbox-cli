@@ -1,5 +1,5 @@
 // consts
-const Bitcoin = require("bitcoincashjs-lib")
+const Bitcoin = require("@bitcoin-dot-com/bitcoincashjs2-lib")
 const opcodes = require("bitcoincash-ops")
 
 export interface opcodes {
