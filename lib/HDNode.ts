@@ -3,7 +3,7 @@ import * as bcl from "bitcoincashjs-lib"
 import { Address } from "./Address"
 
 // consts
-const Bitcoin = require("bitcoincashjs-lib")
+const Bitcoin = require("@bitcoin-dot-com/bitcoincashjs2-lib")
 const coininfo = require("coininfo")
 const bip32utils = require("bip32-utils")
 

@@ -11,7 +11,7 @@ import { REST_URL } from "./BITBOX"
 
 // consts
 // TODO: port require statements to impprt
-const Bitcoin = require("bitcoincashjs-lib")
+const Bitcoin = require("@bitcoin-dot-com/bitcoincashjs2-lib")
 const cashaddr = require("cashaddrjs")
 const coininfo = require("coininfo")
 

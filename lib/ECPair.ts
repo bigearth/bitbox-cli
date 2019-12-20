@@ -1,7 +1,7 @@
 import * as bcl from "bitcoincashjs-lib"
 import { Address } from "./Address"
 
-const Bitcoin = require("bitcoincashjs-lib")
+const Bitcoin = require("@bitcoin-dot-com/bitcoincashjs2-lib")
 const coininfo = require("coininfo")
 
 export class ECPair {

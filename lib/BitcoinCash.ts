@@ -2,7 +2,7 @@
 import { Address } from "./Address"
 
 // consts
-const Bitcoin = require("bitcoincashjs-lib")
+const Bitcoin = require("@bitcoin-dot-com/bitcoincashjs2-lib")
 const sb = require("satoshi-bitcoin")
 const bitcoinMessage = require("bitcoinjs-message")
 const bs58 = require("bs58")

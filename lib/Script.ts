@@ -1,5 +1,5 @@
 // consts
-const Bitcoin = require("bitcoincashjs-lib")
+const Bitcoin = require("@bitcoin-dot-com/bitcoincashjs2-lib")
 const opcodes = require("bitcoincash-ops")
 
 export interface opcodes {
@@ -260,6 +260,14 @@ export class Script {
       arr.push(chunk)
     })
     return Bitcoin.script.compile(arr)
+  }
+
+  public encode2(scriptChunks: Array<number | Buffer>): Buffer {
+    const arr: Array<number | Buffer> = []
+    scriptChunks.forEach((chunk: number | Buffer) => {
+      arr.push(chunk)
+    })
+    return Bitcoin.script.compile2(arr)
   }
 
   public decode(scriptBuffer: Buffer): Array<number | Buffer> {

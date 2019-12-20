@@ -6,7 +6,7 @@ import randomBytes from "randombytes"
 import * as wif from "wif"
 import { Address } from "./Address"
 // TODO: convert "bitcoincashjs-lib" require to import
-const Bitcoin = require("bitcoincashjs-lib")
+const Bitcoin = require("@bitcoin-dot-com/bitcoincashjs2-lib")
 
 export class Mnemonic {
   private _address: Address

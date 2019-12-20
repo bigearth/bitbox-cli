@@ -16,7 +16,7 @@ const assert: Chai.AssertStatic = chai.assert
 
 // TODO: port from require to import syntax
 const fixtures = require("./fixtures/Address.json")
-const Bitcoin = require("bitcoincashjs-lib")
+const Bitcoin = require("@bitcoin-dot-com/bitcoincashjs2-lib")
 const sinon = require("sinon")
 const addressMock = require("./mocks/address-mock.js")
 

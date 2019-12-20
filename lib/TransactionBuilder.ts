@@ -5,7 +5,7 @@ import { Address } from "./Address"
 import { TREST_URL } from "./BITBOX"
 
 // consts
-const Bitcoin = require("bitcoincashjs-lib")
+const Bitcoin = require("@bitcoin-dot-com/bitcoincashjs2-lib")
 const coininfo = require("coininfo")
 const bip66 = require("bip66")
 const bip68 = require("bc-bip68")
