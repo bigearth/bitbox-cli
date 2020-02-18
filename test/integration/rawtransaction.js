@@ -15,6 +15,8 @@ if (process.env.SERVER === "local")
   bitbox = new BITBOX({ restURL: "http://localhost:3000/v2/" })
 if (process.env.SERVER === "stage")
   bitbox = new BITBOX({ restURL: "https://rest.btctest.net/v2/" })
+if (process.env.SERVER === "custom")
+  bitbox = new BITBOX({ restURL: process.env.SERVERIP })
 
 // Inspect utility used for debugging.
 const util = require("util")
