@@ -2,12 +2,33 @@
 
 `bitbox-sdk` is a utility for creating great [Bitcoin Cash](https://www.bitcoincash.org) applications. It can be used from the command line or from within client/server apps.
 
-Extensive documentation available at:
+Extensive documentation available [in the docs directory](/docs):
 
-- [General docs](https://developer.bitcoin.com)
-- [BITBOX Introduction](https://developer.bitcoin.com/bitbox)
-- [BITBOX API Reference](https://developer.bitcoin.com/bitbox/docs/getting-started)
-- [BITBOX Examples](./examples)
+- [Getting Started](/docs/getting-started.md)
+- [New](/docs/new.md)
+- [BITBOX Examples](/examples)
+- [Console](/docs/console.md)
+- [Address](/docs/address.md)
+- [BitcoinCash](/docs/bitcoincash.md)
+- [BitDB](/docs/bitdb.md)
+- [Block](/docs/block.md)
+- [Blockchain](/docs/blockchain.md)
+- [CashAccounts](/docs/cashAccounts.md)
+- [Control](/docs/control.md)
+- [Crypto](/docs/crypto.md)
+- [ECPair](/docs/ecpair.md)
+- [HDNode](/docs/hdnode.md)
+- [Mining](/docs/mining.md)
+- [Mnemonic](/docs/mnemonic.md)
+- [OpCodes](/docs/OpCodes.md)
+- [Price](/docs/price.md)
+- [RawTransactions](/docs/rawtransactions.md)
+- [Schnorr](/docs/schnorr.md)
+- [Script](/docs/script.md)
+- [Socket](/docs/socket.md)
+- [Transaction](/docs/transaction.md)
+- [TransactionBuilder](/docs/transactionBuilder.md)
+- [Util](/docs/util.md)
 
 Open Source / Creative Commons Listings
 
