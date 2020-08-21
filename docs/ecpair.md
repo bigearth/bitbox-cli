@@ -2,11 +2,11 @@
 
 ### `fromWIF`
 
-Generates an ECPair from a private key in wallet import format ([WIF](https://developer.bitcoin.com/mastering-bitcoin-cash/3-keys-addresses-wallets/#private-key-formats)). Follow these [steps to go from a private key to a WIF](https://en.bitcoin.it/wiki/Wallet_import_format). This method only works with a [compressed private key](https://developer.bitcoin.com/mastering-bitcoin-cash/3-keys-addresses-wallets/#compressed-private-keys).
+Generates an ECPair from a private key in wallet import format ([WIF](https://github.com/Bitcoin-com/mastering-bitcoin-cash/blob/master/3-keys-addresses-wallets.md#private-key-formats)). Follow these [steps to go from a private key to a WIF](https://en.bitcoin.it/wiki/Wallet_import_format). This method only works with a [compressed private key](https://github.com/Bitcoin-com/mastering-bitcoin-cash/blob/master/3-keys-addresses-wallets.md#compressed-public-keys).
 
 #### Arguments
 
-1.  wif `string`: private key in wallet import format ([WIF](https://developer.bitcoin.com/mastering-bitcoin-cash/3-keys-addresses-wallets/#private-key-formats))
+1.  wif `string`: private key in wallet import format ([WIF](https://github.com/Bitcoin-com/mastering-bitcoin-cash/blob/master/3-keys-addresses-wallets.md#compressed-public-keys))
 
 #### Result
 

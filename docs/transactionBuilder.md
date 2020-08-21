@@ -86,7 +86,7 @@ Add output to transaction
 
 ### `setLockTime`
 
-Set [locktime](https://developer.bitcoin.com/mastering-bitcoin-cash/4-transactions/#transaction-locktime)
+Set [locktime](https://github.com/Bitcoin-com/mastering-bitcoin-cash/blob/master/4-transactions.md#transaction-locktime)
 
 #### Arguments
 

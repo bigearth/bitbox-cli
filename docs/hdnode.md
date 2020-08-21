@@ -1,6 +1,6 @@
 # HDNode
 
-HDNode stands for Hierarchically Deterministic node which can be used to create a [HD wallet](https://developer.bitcoin.com/mastering-bitcoin-cash/3-keys-addresses-wallets/#hierarchical-deterministic-wallets-bip0032bip0044).
+HDNode stands for Hierarchically Deterministic node which can be used to create a [HD wallet](https://github.com/Bitcoin-com/mastering-bitcoin-cash/blob/master/3-keys-addresses-wallets.md#hierarchical-deterministic-wallets-bip0032bip0044).
 
 ### `fromSeed`
 
@@ -35,7 +35,7 @@ HDNode `HDNode`
 
 ### `derive`
 
-Derive [non hardened](https://developer.bitcoin.com/mastering-bitcoin-cash/3-keys-addresses-wallets/#hardened-child-key-derivation) child HDNode
+Derive [non hardened](https://github.com/Bitcoin-com/mastering-bitcoin-cash/blob/master/3-keys-addresses-wallets.md#hardened-child-key-derivation) child HDNode
 
 #### Arguments
 
@@ -59,7 +59,7 @@ HDNode `HDNode`
 
 ### `deriveHardened`
 
-Derive [hardened](https://developer.bitcoin.com/mastering-bitcoin-cash/3-keys-addresses-wallets/#hardened-child-key-derivation) child HDNode
+Derive [hardened](https://github.com/Bitcoin-com/mastering-bitcoin-cash/blob/master/3-keys-addresses-wallets.md#hardened-child-key-derivation) child HDNode
 
 #### Arguments
 
@@ -216,7 +216,7 @@ privateKeyWIF `string`: private key in wallet import format (WIF) of HDNode
 
 ### `toXPub`
 
-Get [extended](https://developer.bitcoin.com/mastering-bitcoin-cash/3-keys-addresses-wallets/#extended-keys) [public key](https://developer.bitcoin.com/mastering-bitcoin-cash/3-keys-addresses-wallets/#public-key-cryptography-and-cryptocurrency) of HDNode
+Get [extended](https://github.com/Bitcoin-com/mastering-bitcoin-cash/blob/master/3-keys-addresses-wallets.md#extended-keys) [public key](https://github.com/Bitcoin-com/mastering-bitcoin-cash/blob/master/3-keys-addresses-wallets.md#public-key-cryptography-and-cryptocurrency) of HDNode
 
 #### Arguments
 
@@ -252,7 +252,7 @@ xpub `string`: extended public key of HDNode
 
 ### `toXPriv`
 
-Get [extended](https://developer.bitcoin.com/mastering-bitcoin-cash/3-keys-addresses-wallets/#extended-keys) [private key](https://developer.bitcoin.com/mastering-bitcoin-cash/3-keys-addresses-wallets/#private-keys) of HDNode
+Get [extended](https://github.com/Bitcoin-com/mastering-bitcoin-cash/blob/master/3-keys-addresses-wallets.md#extended-keys) [private key](https://github.com/Bitcoin-com/mastering-bitcoin-cash/blob/master/3-keys-addresses-wallets.md#private-keys) of HDNode
 
 #### Arguments
 
