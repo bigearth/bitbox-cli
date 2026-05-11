@@ -29,7 +29,7 @@ program
 
 program
   .command('new <name>')
-  .option('-s, --scaffold <scaffold>', 'The framework to use. Options include react, angular, vuejs, nextjs and node.')
+  .option('-s, --scaffold <scaffold>', 'The framework to use. Options include react, angular, vuejs, nextjs, node and android.')
   .option('-r, --restURL <restURL>', 'The rest URL to use. default: https://rest.bitbox.earth/v1/')
   .option('-e, --environment <environment>', 'environment of running BITBOX instance. Ex: production, staging. (Default: development)')
   .description(`create a new BITBOX application`)
@@ -70,6 +70,8 @@ program
           repo = 'https://github.com/Bitcoin-com/bitbox-scaffold-react.git';
         } else if(scaffold === 'vue') {
           repo = 'https://github.com/Bitcoin-com/bitbox-scaffold-vue.git';
+        } else if(scaffold === 'android') {
+          repo = 'https://github.com/NoeFabris/bitbox-scaffold-android.git';
         } else {
           console.log(chalk.red(`Scaffold ${scaffold} not supported`));
           process.exit(1)
